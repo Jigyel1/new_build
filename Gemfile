@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.0'
+ruby '3.0.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3.1'
@@ -25,12 +25,18 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+gem 'multi_json'
+gem 'rswag'
+gem 'rswag-api'
+gem 'rswag-ui'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'solargraph'
   gem 'niceql' # Don't use in production!
   gem 'rspec-rails', '~> 5.0.0'
+  gem 'rswag-specs'
 end
 
 group :development do
@@ -46,3 +52,4 @@ gem 'telco-uam', '~> 0.1.0', source: 'https://gems.selise.tech'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #, path: '/Users/yogesh/Documents/projects/new-build/telco-uam/'
 gem 'dotenv-rails'
+
