@@ -22,9 +22,6 @@ gem 'puma', '~> 5.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
-
 gem 'multi_json'
 gem 'rswag'
 gem 'rswag-api'
@@ -52,4 +49,5 @@ gem 'telco-uam', '~> 0.1.0', source: 'https://gems.selise.tech'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #, path: '/Users/yogesh/Documents/projects/new-build/telco-uam/'
 gem 'dotenv-rails'
-
+gem 'foreman'
+gem 'rack-cors'
