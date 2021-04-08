@@ -1,0 +1,181 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/users/invitation":
+    post:
+      summary: Sends invitation
+      tags:
+      - Invitation
+      security:
+      - Bearer: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer Token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user invited
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                  required:
+                  - email
+    put:
+      summary: Accept invitation
+      tags:
+      - Invitation
+      parameters: []
+      responses:
+        '200':
+          description: invitation accepted
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    password:
+                      type: string
+                      required: true
+                    password_confirmation:
+                      type: string
+                    invitation_token:
+                      type: string
+                      required: true
+                  required:
+                  - password
+                  - invitation_token
+  "/api/v1/users/password":
+    post:
+      summary: Sends password reset link
+      tags:
+      - Password
+      parameters: []
+      responses:
+        '201':
+          description: link sent
+        '422':
+          description: not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                  required:
+                  - email
+    put:
+      summary: Update password
+      tags:
+      - Password
+      parameters: []
+      responses:
+        '200':
+          description: updates password
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    password:
+                      type: string
+                      required: true
+                    password_confirmation:
+                      type: string
+                    reset_password_token:
+                      type: string
+                      required: true
+                  required:
+                  - password
+                  - invitation_token
+  "/api/v1/users":
+    post:
+      summary: Creates a new user
+      tags:
+      - Registration
+      parameters: []
+      responses:
+        '200':
+          description: user registered
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+                  required:
+                  - email
+                  - password
+  "/api/v1/users/sign_in":
+    post:
+      summary: Creates a user session
+      tags:
+      - Login
+      parameters: []
+      responses:
+        '200':
+          description: success
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+                  required:
+                  - email
+                  - password
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com

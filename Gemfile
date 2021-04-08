@@ -9,6 +9,8 @@ gem 'rails', '~> 6.1.3.1'
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
+gem "sd_notify"
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -34,6 +36,10 @@ group :development, :test do
   gem 'niceql' # Don't use in production!
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rswag-specs'
+  gem 'pry'
+  gem 'test-prof'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -43,11 +49,12 @@ group :development do
   gem 'letter_opener'
 end
 
-gem 'telco-uam', '~> 0.1.0', source: 'https://gems.selise.tech'
-
+# gem 'telco-uam', '~> 0.1.0', source: 'https://gems.selise.tech'
+gem 'telco-uam',  path: '/Users/yogesh/Documents/projects/telco-iam/telco-uam'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #, path: '/Users/yogesh/Documents/projects/new-build/telco-uam/'
 gem 'dotenv-rails'
 gem 'foreman'
 gem 'rack-cors'
+gem 'recursive-open-struct'
