@@ -1,28 +1,17 @@
-# Aliasing Class Telco::Uam::User to User so that you can use
-#   => User.create!, User.new
-#      or any other class method
-# without the need to explicitly add the namespace everytime.
-#
-# User = Telco::Uam::User
-#
-# Telco::Uam::User.class_eval do
-#   def self.current_table_name
-#     byebug
-#   end
-#
-#   def active_for_authentication?
-#     false
-#   end
-# end
-#
-# module Telco::Uam::User
-#   module ClassMethods
-#     def active_for_authentication?
-#       false
-#     end
-#   end
-#
-#   def active_for_authentication?
-#     falses
-#   end
-# end
+# frozen_string_literal: true
+
+User = Telco::Uam::User
+
+User.class_eval do
+  self.strict_loading_by_default = false
+
+  belongs_to :role, inverse_of: :users
+  has_one :profile, inverse_of: :user, strict_loading: false, dependent: :destroy
+  has_one :address, as: :addressable, inverse_of: :addressable, dependent: :destroy
+
+  validates :profile, presence: true
+
+  accepts_nested_attributes_for :profile, :address, allow_destroy: true
+
+  delegate :salutation, :lastname, :firstname, to: :profile
+end

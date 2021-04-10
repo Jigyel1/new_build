@@ -34,8 +34,56 @@ paths:
                   properties:
                     email:
                       type: string
+                      default: ym@selise.ch
+                    role_id:
+                      type: integer
+                      default: 1
+                    profile_attributes:
+                      type: object
+                      properties:
+                        salutation:
+                          type: string
+                          default: Mr
+                        firstname:
+                          type: string
+                          default: Yogesh
+                        lastname:
+                          type: string
+                          default: Mongar
+                        phone:
+                          type: string
+                          default: "+97517858728"
+                        department:
+                          type: string
+                          default: Sales
+                      required:
+                      - salutation
+                      - firstname
+                      - lastname
+                      - phone
+                    address_attributes:
+                      type: object
+                      properties:
+                        street:
+                          type: string
+                          default: Haldenstrasse
+                        street_no:
+                          type: string
+                          default: '23'
+                        zip:
+                          type: string
+                          default: '8006'
+                        city:
+                          type: string
+                          default: Zurich
+                      required:
+                      - street
+                      - street_no
+                      - zip
+                      - city
                   required:
                   - email
+                  - role_id
     put:
       summary: Accept invitation
       tags:
@@ -57,123 +105,16 @@ paths:
                   properties:
                     password:
                       type: string
-                      required: true
+                      default: MySecurePass21!
                     password_confirmation:
                       type: string
+                      default: MySecurePass21!
                     invitation_token:
                       type: string
-                      required: true
+                      default: JdtMBzQz9kYQEiszxzb3
                   required:
                   - password
                   - invitation_token
-  "/api/v1/users/password":
-    post:
-      summary: Sends password reset link
-      tags:
-      - Password
-      parameters: []
-      responses:
-        '201':
-          description: link sent
-        '422':
-          description: not found
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                  required:
-                  - email
-    put:
-      summary: Update password
-      tags:
-      - Password
-      parameters: []
-      responses:
-        '200':
-          description: updates password
-        '422':
-          description: unprocessable entity
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    password:
-                      type: string
-                      required: true
-                    password_confirmation:
-                      type: string
-                    reset_password_token:
-                      type: string
-                      required: true
-                  required:
-                  - password
-                  - invitation_token
-  "/api/v1/users":
-    post:
-      summary: Creates a new user
-      tags:
-      - Registration
-      parameters: []
-      responses:
-        '200':
-          description: user registered
-        '422':
-          description: unprocessable entity
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                    password:
-                      type: string
-                  required:
-                  - email
-                  - password
-  "/api/v1/users/sign_in":
-    post:
-      summary: Creates a user session
-      tags:
-      - Login
-      parameters: []
-      responses:
-        '200':
-          description: success
-        '401':
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                    password:
-                      type: string
-                  required:
-                  - email
-                  - password
 servers:
 - url: https://{defaultHost}
   variables:

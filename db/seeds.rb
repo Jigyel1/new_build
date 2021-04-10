@@ -1,7 +1,31 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# frozen_string_literal: true
+
+exception = <<~MESSAGE
+  The Rails environment is running in production mode!#{' '}
+  Seeds available only for development or test
+MESSAGE
+
+abort(exception) if Rails.env.production?
+
+Role.names.each_key do |role|
+  Role.create!(name: role)
+end
+
+User.create!(
+  email: 'ym@selise.ch',
+  password: 'Selise21',
+  role: Role.find_by(name: :team_expert),
+  address_attributes: {
+    street: 'Haldenstrasse',
+    street_no: 23,
+    zip: '8006',
+    city: 'Zurich'
+  },
+  profile_attributes: {
+    firstname: 'Yogesh',
+    lastname: 'Mongar',
+    salutation: 'Mr',
+    phone: '97517587828',
+    department: 'Sales'
+  }
+)

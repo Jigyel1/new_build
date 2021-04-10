@@ -1,0 +1,34 @@
+require:
+  - ./lib/rubocop/cop/metrics/selise_method_length.rb
+  - rubocop-performance
+  - rubocop-rspec
+  - rubocop-rails
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7
+  Exclude:
+    - 'local/*'
+    - 'bin/bundle'
+    - 'lib/rubocop/cop/metrics/selise_method_length.rb'
+Metrics/BlockLength:
+  IgnoredMethods: ['describe']
+  Max: 300
+Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false # Use SeliseMethodLength instead
+
+Metrics/SeliseMethodLength:
+  CountComments: false
+  Max: 10
+
+# With swagger, it blocks aren't necessary
+RSpec/EmptyExampleGroup:
+  Enabled: false
+
+# This is for a special case
+#  #=> let(:Authorization) { token(user) }
+# where you need to send variable name as 'Authorization'
+RSpec/VariableName:
+  Enabled: false

@@ -3,6 +3,9 @@
 require 'swagger_helper'
 
 describe 'Invitations API', type: :request do
+  let_it_be(:role) { create(:role) }
+  let_it_be(:user) { create(:user, role: role) }
+
   path '/api/v1/users/invitation' do
     post 'Sends invitation' do
       tags 'Invitation'
@@ -10,17 +13,37 @@ describe 'Invitations API', type: :request do
       produces 'application/json'
       security [Bearer: []]
 
-      let!(:user) { create(:user) }
-
       parameter name: :params, in: :body, schema: {
         type: :object,
         properties: {
           user: {
             type: :object,
             properties: {
-              email: { type: :string }
+              email: { type: :string, default: 'ym@selise.ch' },
+              role_id: { type: :integer, default: 1 },
+              profile_attributes: {
+                type: :object,
+                properties: {
+                  salutation: { type: :string, default: 'Mr' },
+                  firstname: { type: :string, default: 'Yogesh' },
+                  lastname: { type: :string, default: 'Mongar' },
+                  phone: { type: :string, default: '+97517858728' },
+                  department: { type: :string, default: 'Sales' }
+                },
+                required: %w[salutation firstname lastname phone]
+              },
+              address_attributes: {
+                type: :object,
+                properties: {
+                  street: { type: :string, default: 'Haldenstrasse' },
+                  street_no: { type: :string, default: '23' },
+                  zip: { type: :string, default: '8006' },
+                  city: { type: :string, default: 'Zurich' }
+                },
+                required: %w[street street_no zip city]
+              }
             },
-            required: %w[email]
+            required: %w[email role_id]
           }
         }
       }
@@ -28,18 +51,80 @@ describe 'Invitations API', type: :request do
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer Token'
 
       response '200', 'user invited' do
-        let(:params) { { user: { email: 'ym@selise.ch' } } }
-        let(:Authorization) { token(user) }
+        context 'without address' do
+          let(:params) do
+            {
+              user: {
+                email: 'ym@selise.ch',
+                role_id: role.id,
+                profile_attributes: {
+                  salutation: 'Mr',
+                  firstname: 'yogesh',
+                  lastname: 'mongar',
+                  phone: '+98717857882'
+                }
+              }
+            }
+          end
+          let(:Authorization) { token(user) }
 
-        run_test! do
-          expect(json).to have_attributes(email: 'ym@selise.ch')
-          expect do
-            Telco::Uam::User.find_by!(email: 'ym@selise.ch')
-          end.not_to raise_error
+          run_test! do
+            expect(json).to have_attributes(email: 'ym@selise.ch')
+            expect do
+              User.find_by!(email: 'ym@selise.ch')
+            end.not_to raise_error
 
-          expect(ActionMailer::Base.deliveries.count).to eq(1)
-          mail = ActionMailer::Base.deliveries.first
-          expect(mail.subject).to eq(t('devise.mailer.invitation_instructions.subject'))
+            expect(ActionMailer::Base.deliveries.count).to eq(1)
+            mail = ActionMailer::Base.deliveries.first
+            expect(mail.subject).to eq(t('devise.mailer.invitation_instructions.subject'))
+
+            user = User.includes(:profile).find_by!(email: 'ym@selise.ch')
+            expect(user.role_id).to eq(role.id)
+            expect(user.profile).to(
+              have_attributes(
+                firstname: 'yogesh',
+                lastname: 'mongar',
+                salutation: 'mr',
+                phone: '+98717857882'
+              )
+            )
+          end
+        end
+
+        context 'with address' do
+          let(:params) do
+            {
+              user: {
+                email: 'ym@selise.ch',
+                role_id: role.id,
+                profile_attributes: {
+                  salutation: 'Mr',
+                  firstname: 'yogesh',
+                  lastname: 'mongar',
+                  phone: '+98717857882'
+                },
+                address_attributes: {
+                  street: 'haldenstrasse',
+                  street_no: '23',
+                  city: 'zurich',
+                  zip: '8006'
+                }
+              }
+            }
+          end
+          let(:Authorization) { token(user) }
+
+          run_test! do
+            user = User.includes(:profile).find_by!(email: 'ym@selise.ch')
+            expect(user.address).to(
+              have_attributes(
+                street: 'haldenstrasse',
+                street_no: '23',
+                city: 'zurich',
+                zip: '8006'
+              )
+            )
+          end
         end
       end
 
@@ -52,7 +137,13 @@ describe 'Invitations API', type: :request do
             Telco::Uam::User.find_by!(email: 'invalid-email.ch')
           end.to raise_error(ActiveRecord::RecordNotFound)
 
-          expect(json.errors).to eq(["Email #{t('errors.messages.invalid')}"])
+          expect(json.errors).to(
+            eq([
+                 "Email #{t('errors.messages.invalid')}",
+                 "Role #{t('errors.messages.required')}",
+                 "Profile #{t('errors.messages.blank')}"
+               ])
+          )
         end
       end
     end
@@ -62,7 +153,6 @@ describe 'Invitations API', type: :request do
       consumes 'application/json'
       produces 'application/json'
 
-      let!(:user) { create(:user) }
       before { user.invite! }
 
       parameter name: :params, in: :body, schema: {
@@ -71,9 +161,9 @@ describe 'Invitations API', type: :request do
           user: {
             type: :object,
             properties: {
-              password: { type: :string, required: true },
-              password_confirmation: { type: :string },
-              invitation_token: { type: :string, required: true }
+              password: { type: :string, default: 'MySecurePass21!' },
+              password_confirmation: { type: :string, default: 'MySecurePass21!' },
+              invitation_token: { type: :string, default: 'JdtMBzQz9kYQEiszxzb3' }
             },
             required: %w[password invitation_token]
           }
@@ -94,7 +184,7 @@ describe 'Invitations API', type: :request do
       end
 
       response '422', 'unprocessable entity' do
-        context 'token is invalid' do
+        context 'when the token is invalid' do
           let(:params) do
             {
               user: {
@@ -109,7 +199,7 @@ describe 'Invitations API', type: :request do
           end
         end
 
-        context 'password mismatch' do
+        context 'with password mismatch' do
           let(:params) do
             {
               user: {
@@ -127,7 +217,7 @@ describe 'Invitations API', type: :request do
           end
         end
 
-        context 'blank password' do
+        context 'with a blank password' do
           let(:params) do
             {
               user: {
@@ -142,7 +232,7 @@ describe 'Invitations API', type: :request do
           end
         end
 
-        context 'weak password' do
+        context 'with a weak password' do
           let(:params) do
             {
               user: {

@@ -1,5 +1,5 @@
-PATH
-  remote: /Users/yogesh/Documents/projects/telco-iam/telco-uam
+GEM
+  remote: https://gems.selise.tech/
   specs:
     telco-uam (0.1.1)
       devise (~> 4.7.3)
@@ -252,6 +252,16 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.4.1)
       parser (>= 2.7.1.5)
+    rubocop-performance (1.10.2)
+      rubocop (>= 0.90.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
+    rubocop-rails (2.9.1)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 0.90.0, < 2.0)
+    rubocop-rspec (2.2.0)
+      rubocop (~> 1.0)
+      rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.11.0)
     sd_notify (0.1.1)
     solargraph (0.40.4)
@@ -320,10 +330,13 @@ DEPENDENCIES
   rswag-api
   rswag-specs
   rswag-ui
+  rubocop-performance
+  rubocop-rails
+  rubocop-rspec
   sd_notify
   solargraph
   spring
-  telco-uam!
+  telco-uam (= 0.1.1)!
   test-prof
   tzinfo-data
 

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 # This migration comes from telco_uam (originally 20210316115307)
 
 class DeviseInvitableAddToTelcoUamUsers < ActiveRecord::Migration[6.1]
-  def up # rubocop:disable Metrics/MethodLength
-    change_table :telco_uam_users do |t|
+  def up # rubocop:disable Metrics/SeliseMethodLength
+    change_table :telco_uam_users, bulk: true do |t|
       t.string     :invitation_token
       t.datetime   :invitation_created_at
       t.datetime   :invitation_sent_at

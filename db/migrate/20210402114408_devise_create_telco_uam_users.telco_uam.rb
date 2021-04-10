@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from telco_uam (originally 20210316060112)
 
 class DeviseCreateTelcoUamUsers < ActiveRecord::Migration[6.1]
