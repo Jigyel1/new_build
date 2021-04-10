@@ -85,7 +85,7 @@ describe 'Invitations API', type: :request do
                 firstname: 'yogesh',
                 lastname: 'mongar',
                 salutation: 'mr',
-                phone: '+98717857882'
+                phone: '8717857882'
               )
             )
           end
