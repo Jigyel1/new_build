@@ -14,4 +14,10 @@ User.class_eval do
   accepts_nested_attributes_for :profile, :address, allow_destroy: true
 
   delegate :salutation, :lastname, :firstname, to: :profile
+
+  def invite!(invited_by = nil, options = {})
+    DomainValidator.new(email).run
+
+    super
+  end
 end

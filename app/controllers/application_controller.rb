@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include ApiErrors::ErrorHandler
+
   before_action :configure_permitted_params, if: :devise_controller?
 
   private

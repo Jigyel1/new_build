@@ -16,7 +16,7 @@ module RuboCop
           /\w+_params$/,
           /\w+_attributes$/,
           /\w+_hash$/
-        ]
+        ].freeze
 
         def on_def(node)
           method_name = String(node.method_name)

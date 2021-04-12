@@ -14,7 +14,7 @@ end
 
 User.create!(
   email: 'ym@selise.ch',
-  password: 'Selise21',
+  password: ENV['TEST_USER_PASSWORD'],
   role: Role.find_by(name: :team_expert),
   address_attributes: {
     street: 'Haldenstrasse',
