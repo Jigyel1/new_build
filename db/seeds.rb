@@ -2,10 +2,11 @@
 
 exception = <<~MESSAGE
   The Rails environment is running in production mode!#{' '}
-  Seeds available only for development or test
+  Seeds available only for development or test.
+  If you are seeding in test/staging servers, pass a TEST=true flag as an argument.
 MESSAGE
 
-abort(exception) if Rails.env.production?
+abort(exception) if Rails.env.production? && !ActiveModel::Type::Boolean.new.cast(ENV['TEST'])
 
 Role.names.each_key do |role|
   Role.create!(name: role)
