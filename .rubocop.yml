@@ -3,6 +3,7 @@ require:
   - rubocop-performance
   - rubocop-rspec
   - rubocop-rails
+  - rubocop-rake
 AllCops:
   NewCops: enable
   TargetRubyVersion: 2.7
@@ -32,3 +33,6 @@ RSpec/EmptyExampleGroup:
 # where you need to send variable name as 'Authorization'
 RSpec/VariableName:
   Enabled: false
+
+RSpec/NestedGroups:
+  Max: 6

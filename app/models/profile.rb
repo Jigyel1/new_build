@@ -11,7 +11,7 @@ class Profile < ApplicationRecord
   def phone=(value)
     value && super(
       value.gsub(/\D/, '')
-           .split('')
+           .split('') # rubocop:disable Style/StringChars
            .last(EXPECTED_DIGITS_IN_PHONE)
            .join
     )

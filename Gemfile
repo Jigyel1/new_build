@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rswag-specs'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
+  gem 'rubocop-rake'
   gem 'rubocop-rspec'
   gem 'shoulda-matchers'
   gem 'solargraph'
