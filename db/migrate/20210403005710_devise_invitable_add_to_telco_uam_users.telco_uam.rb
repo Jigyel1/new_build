@@ -5,15 +5,15 @@
 class DeviseInvitableAddToTelcoUamUsers < ActiveRecord::Migration[6.1]
   def up # rubocop:disable Metrics/SeliseMethodLength
     change_table :telco_uam_users, bulk: true do |t|
-      t.string     :invitation_token
-      t.datetime   :invitation_created_at
-      t.datetime   :invitation_sent_at
-      t.datetime   :invitation_accepted_at
-      t.integer    :invitation_limit
+      t.string :invitation_token
+      t.datetime :invitation_created_at
+      t.datetime :invitation_sent_at
+      t.datetime :invitation_accepted_at
+      t.integer :invitation_limit
       t.references :invited_by, polymorphic: true
-      t.integer    :invitations_count, default: 0
-      t.index      :invitation_token, unique: true # for invitable
-      t.index      :invited_by_id
+      t.integer :invitations_count, default: 0
+      t.index :invitation_token, unique: true # for invitable
+      t.index :invited_by_id
     end
   end
 

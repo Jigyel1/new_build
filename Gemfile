@@ -52,8 +52,10 @@ end
 group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'graphiql-rails'
   gem 'letter_opener'
   gem 'spring'
+  gem 'sprockets', '~> 3'
 end
 
 gem 'telco-uam', '0.1.1', source: 'https://gems.selise.tech'
@@ -62,5 +64,10 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # , path: '/Users/yogesh/Documents/projects/new-build/telco-uam/'
 gem 'dotenv-rails'
 gem 'foreman'
+gem 'graphql'
+gem 'graphql-query-resolver'
 gem 'rack-cors'
 gem 'recursive-open-struct'
+
+gem 'search_object'
+gem 'search_object_graphql'

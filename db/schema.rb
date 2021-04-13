@@ -14,22 +14,23 @@
 
 ActiveRecord::Schema.define(version: 20_210_409_151_253) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
 
-  create_table 'addresses', force: :cascade do |t|
+  create_table 'addresses', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
     t.string 'street', default: ''
     t.string 'street_no', default: ''
     t.string 'city', default: ''
     t.string 'zip', default: ''
     t.string 'addressable_type'
-    t.bigint 'addressable_id'
+    t.uuid 'addressable_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[addressable_type addressable_id], name: 'index_addresses_on_addressable'
   end
 
-  create_table 'profiles', force: :cascade do |t|
-    t.bigint 'user_id', null: false
+  create_table 'profiles', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
+    t.uuid 'user_id', null: false
     t.string 'salutation', null: false
     t.string 'firstname', default: '', null: false
     t.string 'lastname', default: '', null: false
@@ -48,7 +49,7 @@ ActiveRecord::Schema.define(version: 20_210_409_151_253) do
     t.index ['name'], name: 'index_roles_on_name'
   end
 
-  create_table 'telco_uam_users', force: :cascade do |t|
+  create_table 'telco_uam_users', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
     t.string 'email', default: '', null: false
     t.string 'encrypted_password', default: '', null: false
     t.string 'reset_password_token'

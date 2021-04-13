@@ -15,6 +15,8 @@ module RuboCop
         ALLOWED_METHODS = [
           /\w+_params$/,
           /\w+_attributes$/,
+          /\w+_variables$/,
+          /\w+_search$/,
           /\w+_hash$/
         ].freeze
 

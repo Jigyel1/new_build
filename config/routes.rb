@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       devise_for :users, controllers: { invitations: :invitations }
+
+      post '/graphql', to: 'graphql#execute'
     end
   end
+
+  mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: 'api/v1/graphql' if Rails.env.development?
 end

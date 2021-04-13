@@ -11,6 +11,8 @@ User.class_eval do
 
   validates :profile, presence: true
 
+  default_scope { includes(:profile).order('profiles.firstname, profiles.lastname') }
+
   accepts_nested_attributes_for :profile, :address, allow_destroy: true
 
   delegate :salutation, :lastname, :firstname, to: :profile

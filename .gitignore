@@ -35,6 +35,9 @@ public
 storage
 tmp
 local
+/swagger/api
+/swagger/api
+schema.*
 
 # These are some examples of commonly ignored file patterns.
 # You should customize this list as applicable to your project.
