@@ -45,6 +45,8 @@ group :development, :test do
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
   gem 'shoulda-matchers'
+  gem 'rubycritic', require: false
+  gem 'simplecov', require: false
   gem 'solargraph'
   gem 'test-prof'
 end
