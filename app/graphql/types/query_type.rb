@@ -7,6 +7,8 @@ module Types
     include GraphQL::Types::Relay::HasNodesField
 
     field :users, resolver: Resolvers::Users, connection: true
+    field :user, resolver: Resolvers::User
+
     field :departments, resolver: Resolvers::Departments, description: <<~DESC
       Get a list of available/valid departments. List available at `config/departments.yml`
     DESC

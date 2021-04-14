@@ -13,14 +13,24 @@ def token(user)
   response.header['Authorization']
 end
 
-def execute(query)
+def execute(query, current_user: nil)
   HashWithIndifferentAccess.new(
-    NewBuildSchema.execute(query).as_json
+    NewBuildSchema.execute(query, context: { current_user: current_user }).as_json
   )
 end
 
-def collection(node, query_string)
+def as_struct(query, current_user: nil)
+  RecursiveOpenStruct.new(execute(query, current_user: current_user))
+end
+
+def as_collection(node, query_string)
   execute(query_string).dig(:data, node, :edges).pluck(:node)
+end
+
+def as_record(node, query_string, current_user: nil)
+  RecursiveOpenStruct.new(
+    execute(query_string, current_user: current_user).dig(:data, node)
+  )
 end
 
 def role_ids(roles)

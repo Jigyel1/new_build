@@ -22,4 +22,8 @@ User.class_eval do
 
     super
   end
+
+  def name
+    [firstname, lastname].join(' ')
+  end
 end

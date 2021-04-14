@@ -36,3 +36,9 @@ RSpec/VariableName:
 
 RSpec/NestedGroups:
   Max: 6
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/ExampleLength:
+  Max: 30

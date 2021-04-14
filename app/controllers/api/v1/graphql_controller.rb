@@ -9,14 +9,12 @@ module Api
       # protect_from_forgery with: :null_session
 
       def execute
-        variables = prepare_variables(params[:variables])
-        query = params[:query]
-        operation_name = params[:operationName]
-        context = {
-          # Query context goes here, for example:
-          # current_user: current_user,
-        }
-        result = NewBuildSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+        result = NewBuildSchema.execute(
+          params[:query],
+          variables: prepare_variables(params[:variables]),
+          context: { current_user: current_user },
+          operation_name: params[:operationName]
+        )
         render json: result
       rescue StandardError => error # rubocop:disable Naming/RescuedExceptionsVariableName
         raise error unless Rails.env.development?

@@ -6,8 +6,7 @@ module Types
     field :email, String, null: true
     field :name, String, null: true
 
-    def name
-      [object.firstname, object.lastname].join(' ')
-    end
+    field :profile, Types::ProfileType, null: true
+    field :address, Types::AddressType, null: true
   end
 end

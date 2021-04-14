@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Resolvers
-  class Users < BaseResolver
+  class Users < SearchObjectBase
     scope { ::User.all }
     # type Types::UserType.connection_type, null: false
 

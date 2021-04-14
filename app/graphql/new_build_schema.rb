@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class NewBuildSchema < GraphQL::Schema
+  GENERIC_ERRORS = [
+    JWT::VerificationError,
+    ArgumentError,
+    StandardError
+  ].freeze
+
   mutation(Types::MutationType)
   query(Types::QueryType)
 
@@ -29,5 +35,9 @@ class NewBuildSchema < GraphQL::Schema
     # Then, based on `type_name` and `id`
     # find an object in your application
     # ...
+  end
+
+  rescue_from(*GENERIC_ERRORS) do |err|
+    raise GraphQL::ExecutionError, err
   end
 end
