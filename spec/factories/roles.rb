@@ -2,6 +2,10 @@
 
 FactoryBot.define do
   factory :role do
-    name { 'Super User' }
+    name { :team_expert }
+
+    trait :kam do
+      name { :kam }
+    end
   end
 end

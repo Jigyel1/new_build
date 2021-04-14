@@ -17,6 +17,7 @@ module RuboCop
           /\w+_attributes$/,
           /\w+_variables$/,
           /\w+_search$/,
+          /^query$/,
           /\w+_hash$/
         ].freeze
 

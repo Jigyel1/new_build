@@ -2,11 +2,12 @@
 
 module Types
   class MutationType < Types::BaseObject
-    # TODO: remove me
-    field :test_field, String, null: false,
-                               description: 'An example field added by the generator'
-    def test_field
-      'Hello World'
-    end
+    # field :update_profile, mutation: Mutations::Users::UpdateProfile, description: <<~DESC
+    #   Use this endpoint to update user's own profile
+    # DESC
+
+    field :update_user, mutation: Mutations::UpdateUser, description: <<~DESC
+      Use this endpoint to update someone else's profile
+    DESC
   end
 end

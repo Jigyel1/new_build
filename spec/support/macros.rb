@@ -19,20 +19,29 @@ def execute(query, current_user: nil)
   )
 end
 
-def as_struct(query, current_user: nil)
-  RecursiveOpenStruct.new(execute(query, current_user: current_user))
+def formatted_response(query, current_user: nil, key: nil)
+  response = execute(query, current_user: current_user)
+  data = response[:data]
+  [
+    RecursiveOpenStruct.new(key ? data[key] : data),
+    response[:errors]
+  ]
+rescue StandardError
+  puts response.dig(:errors, 0, :message) # for easier debugging during failures
 end
 
 def as_collection(node, query_string)
   execute(query_string).dig(:data, node, :edges).pluck(:node)
 end
 
-def as_record(node, query_string, current_user: nil)
-  RecursiveOpenStruct.new(
-    execute(query_string, current_user: current_user).dig(:data, node)
-  )
-end
-
 def role_ids(roles)
   Role.where(name: roles).pluck(:id)
+end
+
+def role_id(role)
+  role_ids([role]).first || create(:role, role).id
+end
+
+def role_name(role_id)
+  Role.find(role_id).name
 end
