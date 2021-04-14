@@ -27,6 +27,6 @@ User.create!(
     lastname: 'Mongar',
     salutation: 'Mr',
     phone: '97517587828',
-    department: 'Sales'
+    department: Profile::VALID_DEPARTMENTS.sample
   }
 )

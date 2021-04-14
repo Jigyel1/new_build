@@ -9,3 +9,10 @@ For telco-uam  use rspec api documentation.
 
 
 https://github.com/gjtorikian/graphql-docs
+
+
+# Seed
+
+`rails db:seed` to populate current_user
+
+`USERS=100000 rails fakefy:load` to generate fake data

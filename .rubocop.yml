@@ -24,6 +24,12 @@ Metrics/SeliseMethodLength:
   CountComments: false
   Max: 10
 
+# Devs are expected to be aware of methods that don't trigger
+# validations/callbacks. `insert_all`, `upsert_all`, `update_columns` etc
+# are used for an improved performance.
+Rails/SkipsModelValidations:
+  Enabled: false
+
 # With swagger, it blocks aren't necessary
 RSpec/EmptyExampleGroup:
   Enabled: false
