@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+
+plugin 'diffend'
+gem 'diffend-monitor', require: 'diffend/monitor'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.1'
