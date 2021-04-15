@@ -36,6 +36,7 @@ gem 'rswag-ui'
 
 group :development, :test do
   gem 'awesome_print'
+  gem 'bullet'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
@@ -56,6 +57,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'brakeman'
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'graphiql-rails'
