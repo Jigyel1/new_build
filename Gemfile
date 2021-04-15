@@ -45,8 +45,8 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
-  gem 'shoulda-matchers'
   gem 'rubycritic', require: false
+  gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'solargraph'
   gem 'test-prof'
@@ -61,7 +61,7 @@ group :development do
   gem 'sprockets', '~> 3'
 end
 
-gem 'telco-uam', '0.1.1', source: 'https://gems.selise.tech'
+gem 'telco-uam', '0.1.2', source: 'https://gems.selise.tech'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # , path: '/Users/yogesh/Documents/projects/new-build/telco-uam/'

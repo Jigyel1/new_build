@@ -74,6 +74,7 @@ describe 'Invitations API', type: :request do
               User.find_by!(email: 'ym@selise.ch')
             end.not_to raise_error
 
+            perform_enqueued_jobs
             expect(ActionMailer::Base.deliveries.count).to eq(1)
             mail = ActionMailer::Base.deliveries.first
             expect(mail.subject).to eq(t('devise.mailer.invitation_instructions.subject'))
@@ -236,14 +237,14 @@ describe 'Invitations API', type: :request do
           let(:params) do
             {
               user: {
-                password: 'weak-pass',
+                password: 'weak',
                 invitation_token: user.raw_invitation_token
               }
             }
           end
 
           run_test! do
-            expect(json.errors).to eq(["Password #{t('devise.passwords.weak_password')}"])
+            expect(json.errors).to eq(["Password #{t('errors.messages.too_short.other', count: 6)}"])
           end
         end
       end

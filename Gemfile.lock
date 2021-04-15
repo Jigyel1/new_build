@@ -1,8 +1,9 @@
 GEM
   remote: https://gems.selise.tech/
   specs:
-    telco-uam (0.1.1)
+    telco-uam (0.1.2)
       devise (~> 4.7.3)
+      devise-async (~> 1.0.0)
       devise-jwt (~> 0.8.1)
       devise_invitable (~> 2.0.3)
       pg (~> 1.2.3)
@@ -98,10 +99,13 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-async (1.0.0)
+      activejob (>= 5.0)
+      devise (>= 4.0)
     devise-jwt (0.8.1)
       devise (~> 4.0)
       warden-jwt_auth (~> 0.5)
-    devise_invitable (2.0.3)
+    devise_invitable (2.0.4)
       actionmailer (>= 5.0)
       devise (>= 4.6)
     diff-lcs (1.4.4)
@@ -418,7 +422,7 @@ DEPENDENCIES
   solargraph
   spring
   sprockets (~> 3)
-  telco-uam (= 0.1.1)!
+  telco-uam (= 0.1.2)!
   test-prof
   tzinfo-data
 
