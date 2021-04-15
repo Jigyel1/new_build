@@ -3,7 +3,7 @@
 User = Telco::Uam::User
 
 User.class_eval do
-  self.strict_loading_by_default = false
+  self.strict_loading_by_default = false # TODO: remove this!
 
   belongs_to :role, inverse_of: :users
   has_one :profile, inverse_of: :user, strict_loading: false, dependent: :destroy
