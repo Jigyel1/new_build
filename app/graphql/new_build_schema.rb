@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NewBuildSchema < GraphQL::Schema
-  default_max_page_size ENV['MAX_PAGE_SIZE']
+  default_max_page_size ENV['MAX_PAGE_SIZE'].to_i
 
   GENERIC_ERRORS = [
     JWT::VerificationError,

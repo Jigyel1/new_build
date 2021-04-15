@@ -26,6 +26,8 @@ RSpec.describe Mutations::UpdateUser do
 
       it 'updates the user' do
         response, errors = formatted_response(query(params), current_user: team_expert, key: :updateUser)
+        expect(errors).to be_nil
+
         user = response.user
         expect(user).to have_attributes(
           roleId: new_role_id.to_s
@@ -34,8 +36,6 @@ RSpec.describe Mutations::UpdateUser do
           id: new_role_id.to_s,
           name: role_name(new_role_id)
         )
-
-        expect(errors).to be_nil
       end
     end
 

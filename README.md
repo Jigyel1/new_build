@@ -16,3 +16,14 @@ https://github.com/gjtorikian/graphql-docs
 `rails db:seed` to populate current_user
 
 `USERS=100000 rails fakefy:load` to generate fake data
+
+
+# Tests
+
+for specs, make sure you test for both data(success) or errors(failure).
+
+Success Mocks
+put the mocks for errors first for faster tracking during errors.
+
+Failure Mocks
+do the reverse for failure mocks.

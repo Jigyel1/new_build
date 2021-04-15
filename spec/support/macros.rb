@@ -27,7 +27,7 @@ def formatted_response(query, current_user: nil, key: nil)
     response[:errors]
   ]
 rescue StandardError
-  puts response.dig(:errors, 0, :message) # for easier debugging during failures
+  ap response.dig(:errors, 0, :message) # for easier debugging during failures
 end
 
 def as_collection(node, query_string)
