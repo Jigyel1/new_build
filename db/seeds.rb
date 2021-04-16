@@ -12,21 +12,25 @@ Role.names.each_key do |role|
   Role.create!(name: role)
 end
 
-User.create!(
-  email: 'ym@selise.ch',
-  password: ENV['TEST_USER_PASSWORD'],
-  role: Role.find_by(name: :team_expert),
-  address_attributes: {
-    street: 'Haldenstrasse',
-    street_no: 23,
-    zip: '8006',
-    city: 'Zurich'
-  },
-  profile_attributes: {
-    firstname: 'Yogesh',
-    lastname: 'Mongar',
-    salutation: 'Mr',
-    phone: '97517587828',
-    department: Profile::VALID_DEPARTMENTS.sample
-  }
-)
+%w[ym sk cw lw].each do |email_prefix|
+  User.create!(
+    email: "#{email_prefix}@selise.ch",
+    password: ENV['TEST_USER_PASSWORD'],
+    role: Role.find_by(name: Role.names.keys.sample),
+    address_attributes: {
+      street: Faker::Address.street_name,
+      street_no: Faker::Address.building_number,
+      zip: Faker::Address.zip,
+      city: Faker::Address.city
+    },
+    profile_attributes: {
+      firstname: email_prefix,
+      lastname: email_prefix.reverse,
+      salutation: Profile.salutations.keys.sample,
+      phone: Faker::PhoneNumber.phone_number,
+      department: Profile::VALID_DEPARTMENTS.sample
+    }
+  )
+rescue ActiveRecord::RecordInvalid => e
+  puts "#{e} for user with email(#{email_prefix}@selise.ch)" # rubocop:disable Rails/Output
+end
