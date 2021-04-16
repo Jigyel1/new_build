@@ -64,7 +64,6 @@ group :development do
   gem 'letter_opener'
   gem 'spring'
   gem 'sprockets', '~> 3'
-  gem 'strong_migrations'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -81,6 +80,7 @@ gem 'recursive-open-struct'
 
 gem 'search_object'
 gem 'search_object_graphql'
+gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
   gem 'telco-uam', '0.1.2'
