@@ -3,7 +3,6 @@
 module Resolvers
   class Users < SearchObjectBase
     scope { ::User.all }
-    # type Types::UserType.connection_type, null: false
 
     type Types::UserConnectionWithTotalCountType, null: false
 
@@ -65,7 +64,7 @@ module Resolvers
             profiles.phone,
             roles.name)
             iLIKE ?",
-          "%#{value}%"
+          "%#{value.strip}%"
         )
     end
   end

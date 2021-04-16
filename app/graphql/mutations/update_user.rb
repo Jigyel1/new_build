@@ -3,7 +3,6 @@
 module Mutations
   class UpdateUser < BaseMutation
     argument :id, ID, required: true
-    argument :role_id, ID, required: false
     argument :profile, GraphQL::Types::JSON, as: :profile_attributes, required: false
     argument :address, GraphQL::Types::JSON, as: :address_attributes, required: false
 

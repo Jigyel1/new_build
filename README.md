@@ -10,6 +10,10 @@ For telco-uam  use rspec api documentation.
 
 https://github.com/gjtorikian/graphql-docs
 
+# .env
+
+Make sure you update the following keys
+SESSION_TIMEOUT = `30` # in minutes
 
 # Seed
 

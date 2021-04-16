@@ -18,6 +18,7 @@ module Types
       description: 'Activate or deactivate user'
     )
 
+    field :update_user_role, mutation: Mutations::UpdateUserRole
     field :delete_user, mutation: Mutations::DeleteUser
   end
 end

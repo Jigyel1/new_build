@@ -8,13 +8,10 @@ RSpec.describe Mutations::UpdateUser do
   let_it_be(:address) { create(:address, addressable: team_standard) }
 
   describe '.resolve' do
-    let!(:new_role_id) { role_id(:kam) }
-
     context 'with valid params' do
       let!(:params) do
         {
           id: team_standard.id,
-          role_id: new_role_id,
           profile_id: team_standard.profile.id,
           salutation: 'mr',
           firstname: 'jitender',
@@ -29,12 +26,14 @@ RSpec.describe Mutations::UpdateUser do
         expect(errors).to be_nil
 
         user = response.user
-        expect(user).to have_attributes(
-          roleId: new_role_id.to_s
+        expect(user.profile).to have_attributes(
+          salutation: 'mr',
+          firstname: 'jitender',
+          lastname: 'rathore'
         )
-        expect(user.role).to have_attributes(
-          id: new_role_id.to_s,
-          name: role_name(new_role_id)
+
+        expect(user.address).to have_attributes(
+          streetNo: '33'
         )
       end
     end
@@ -43,7 +42,6 @@ RSpec.describe Mutations::UpdateUser do
       let!(:params) do
         {
           id: team_standard.id,
-          role_id: nil,
           profile_id: team_standard.profile.id,
           salutation: '',
           firstname: '',
@@ -56,11 +54,12 @@ RSpec.describe Mutations::UpdateUser do
         expect(response.user).to be_nil
 
         expect(errors).to match_array(
-          [[
-            "Role #{t('errors.messages.required')}",
-            "Profile salutation #{t('errors.messages.blank')}",
-            "Profile firstname #{t('errors.messages.blank')}"
-          ].to_sentence]
+          [
+            [
+              "Profile salutation #{t('errors.messages.blank')}",
+              "Profile firstname #{t('errors.messages.blank')}"
+            ].to_sentence
+          ]
         )
       end
     end
@@ -88,12 +87,11 @@ RSpec.describe Mutations::UpdateUser do
         updateUser(
           input: {
             id: "#{args[:id]}"
-            roleId: "#{args[:role_id]}"
             #{profile if args[:profile_id]}
             #{address if args[:address_id]}
           }
         )
-        { user { id roleId email role { id name } } }
+        { user { id email profile { salutation firstname lastname } address { streetNo } } }
       }
     GQL
   end

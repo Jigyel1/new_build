@@ -4,9 +4,14 @@ class AddFieldsToUsers < ActiveRecord::Migration[6.1]
   disable_ddl_transaction!
 
   def change
-    add_reference :telco_uam_users, :role, null: false, default: :kam, index: {algorithm: :concurrently}
+    add_reference :telco_uam_users, :role, null: false, default: :kam, index: { algorithm: :concurrently }
 
-    add_column :telco_uam_users, :active, :boolean, null: false
-    change_column_default :telco_uam_users, :active, true
+    safety_assured do
+      change_table :telco_uam_users, bulk: true do |t|
+        t.boolean :active, null: false
+      end
+    end
+
+    change_column_default :telco_uam_users, :active, from: nil, to: true
   end
 end
