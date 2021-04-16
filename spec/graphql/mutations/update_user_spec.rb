@@ -93,7 +93,8 @@ RSpec.describe Mutations::UpdateUser do
             #{address if args[:address_id]}
           }
         )
-        { user { id roleId email role { id name } } } }
+        { user { id roleId email role { id name } } }#{' '}
+      }
     GQL
   end
 end

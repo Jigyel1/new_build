@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_409_151_253) do
+ActiveRecord::Schema.define(version: 20_210_416_052_020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 20_210_409_151_253) do
     t.string 'jti', null: false
     t.boolean 'active', default: true
     t.bigint 'role_id', null: false
+    t.datetime 'discarded_at'
+    t.index ['discarded_at'], name: 'index_telco_uam_users_on_discarded_at'
     t.index ['email'], name: 'index_telco_uam_users_on_email', unique: true
     t.index ['invitation_token'], name: 'index_telco_uam_users_on_invitation_token', unique: true
     t.index ['invited_by_id'], name: 'index_telco_uam_users_on_invited_by_id'

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module Users
-  class UserUpdater < BaseService
+  class UserDeleter < BaseService
     include UserFinder
 
     def call
-      user.update!(attributes)
+      user.discard!
     end
   end
 end

@@ -3,6 +3,8 @@
 User = Telco::Uam::User
 
 User.class_eval do
+  include Discard::Model
+
   self.strict_loading_by_default = false # TODO: remove this!
 
   belongs_to :role, inverse_of: :users
@@ -11,7 +13,7 @@ User.class_eval do
 
   validates :profile, presence: true
 
-  default_scope { includes(:profile).order('profiles.firstname, profiles.lastname') }
+  default_scope { kept.includes(:profile).order('profiles.firstname, profiles.lastname') }
 
   accepts_nested_attributes_for :profile, :address, allow_destroy: true
 

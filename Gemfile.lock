@@ -114,6 +114,8 @@ GEM
       devise (>= 4.6)
     diff-lcs (1.4.4)
     diffend-monitor (0.2.44)
+    discard (1.2.0)
+      activerecord (>= 4.2, < 7)
     docile (1.3.5)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
@@ -359,6 +361,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    strong_migrations (0.7.6)
+      activerecord (>= 5)
     test-prof (1.0.2)
     thor (1.1.0)
     thread_safe (0.3.6)
@@ -396,6 +400,7 @@ DEPENDENCIES
   bullet
   byebug
   diffend-monitor
+  discard (~> 1.2)
   dotenv-rails
   factory_bot_rails
   faker
@@ -431,6 +436,7 @@ DEPENDENCIES
   solargraph
   spring
   sprockets (~> 3)
+  strong_migrations
   telco-uam (= 0.1.2)!
   test-prof
   tzinfo-data

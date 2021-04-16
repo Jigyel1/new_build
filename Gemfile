@@ -64,12 +64,14 @@ group :development do
   gem 'letter_opener'
   gem 'spring'
   gem 'sprockets', '~> 3'
+  gem 'strong_migrations'
 end
 
-gem 'telco-uam', '0.1.2', source: 'https://gems.selise.tech'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # , path: '/Users/yogesh/Documents/projects/new-build/telco-uam/'
+gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
 gem 'foreman'
 gem 'graphql'
@@ -79,3 +81,7 @@ gem 'recursive-open-struct'
 
 gem 'search_object'
 gem 'search_object_graphql'
+
+source 'https://gems.selise.tech' do
+  gem 'telco-uam', '0.1.2'
+end

@@ -9,5 +9,7 @@ module Types
     field :update_user, mutation: Mutations::UpdateUser, description: <<~DESC
       Use this endpoint to update someone else's profile
     DESC
+
+    field :delete_user, mutation: Mutations::DeleteUser
   end
 end

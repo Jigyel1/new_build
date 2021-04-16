@@ -13,5 +13,6 @@ gem 'telco-uam', '0.1.1', source: 'https://gems.selise.tech'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # , path: '/Users/yogesh/Documents/projects/new-build/telco-uam/'
 gem 'dotenv-rails'
+gem 'discard', '~> 1.2'
 gem 'graphql'
 gem 'recursive-open-struct'

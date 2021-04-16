@@ -59,7 +59,7 @@ RSpec.describe Resolvers::User, '#show' do
         )
 
         expect(response.user).to be_nil
-        expect(errors).to eq(["Couldn't find Telco::Uam::User with 'id'=16c85b18-473d-4f5d-9ab4-666c7faceb6c\""])
+        expect(errors[0]).to include("Couldn't find Telco::Uam::User with 'id'=16c85b18-473d-4f5d-9ab4-666c7faceb6c\"")
       end
     end
   end
