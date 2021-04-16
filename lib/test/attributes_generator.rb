@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'faker'
+
 module Test
   class AttributesGenerator
     def initialize(count = ENV['USERS'])

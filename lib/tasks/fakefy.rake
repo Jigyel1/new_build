@@ -7,7 +7,9 @@ namespace :fakefy do
   desc 'seeding random users for test/development purposes'
   task load: :environment do
     puts "seeding #{ENV['USERS']} users..."
-    abort('You are running this task in production which is not allowed!') if Rails.env.production?
+
+    production_server = Rails.env.production? && !ActiveModel::Type::Boolean.new.cast(ENV['TEST'])
+    abort('You are running this task in production which is not allowed!') if production_server
 
     count = ENV['USERS'].to_i
 

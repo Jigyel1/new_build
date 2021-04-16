@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'faker'
+
 exception = <<~MESSAGE
   The Rails environment is running in production mode!#{' '}
   Seeds available only for development or test.
