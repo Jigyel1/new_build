@@ -6,7 +6,7 @@ require:
   - rubocop-rake
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3
   Exclude:
     - 'local/*'
     - 'bin/bundle'
@@ -29,6 +29,13 @@ Metrics/SeliseMethodLength:
 # are used for an improved performance.
 Rails/SkipsModelValidations:
   Enabled: false
+
+RSpec/ContextWording:
+  Prefixes:
+    - for
+    - when
+    - with
+    - without
 
 # With swagger, it blocks aren't necessary
 RSpec/EmptyExampleGroup:
