@@ -7,8 +7,10 @@ class AddJtiToUsers < ActiveRecord::Migration[6.1]
     add_column :telco_uam_users, :jti, :string
 
     Telco::Uam::User.all.each { |user| user.update_column(:jti, SecureRandom.uuid) }
-  end
 
-  change_column_null :telco_uam_users, :jti, false
-  add_index :telco_uam_users, :jti, unique: true
+    safety_assured do
+      change_column_null :telco_uam_users, :jti, false
+      add_index :telco_uam_users, :jti, unique: true
+    end
+  end
 end
