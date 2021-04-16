@@ -17,6 +17,9 @@ RSpec.describe Resolvers::Users, '#index' do
   let_it_be(:kam) { create(:user, :kam, :inactive, profile_attributes: profile3) }
   let_it_be(:presales) { create(:user, :presales, :inactive, profile_attributes: profile4) }
 
+  # this user won't be listed
+  let_it_be(:management) { create(:user, :management, :discarded, profile_attributes: profile4) }
+
   describe '.resolve' do
     context 'without filters' do
       it 'returns all users sorted by name' do

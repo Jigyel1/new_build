@@ -12,6 +12,10 @@ FactoryBot.define do
       active { false }
     end
 
+    trait :discarded do
+      discarded_at { Time.current }
+    end
+
     after(:build) do |user|
       !user.profile && user.profile = build(:profile)
     end
