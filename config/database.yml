@@ -82,5 +82,3 @@ test:
 production:
   <<: *default
   database: new_build_production
-  username: new_build
-  password: <%= ENV['NEW_BUILD_DATABASE_PASSWORD'] %>

@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 2021_04_16_052020) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "jti", null: false
-    t.boolean "active", default: true, null: false
     t.bigint "role_id", null: false
+    t.boolean "active", default: true, null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_telco_uam_users_on_discarded_at"
     t.index ["email"], name: "index_telco_uam_users_on_email", unique: true
