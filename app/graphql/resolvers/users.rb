@@ -16,18 +16,6 @@ module Resolvers
     option :first, type: Int, with: :apply_first
     option :skip, type: Int, with: :apply_skip
 
-    # pagination
-    # https://www.howtographql.com/graphql-ruby/8-pagination/
-    # https://www.youtube.com/watch?v=lNtQbn7qN-8
-    #
-    # https://graphqlme.com/2017/09/24/graphql-connections-rails/ - CHECK THIS FIRST ON PAGINATION!
-    #
-    # sorting
-    # https://github.com/howtographql/graphql-ruby/blob/master/app/graphql/resolvers/links_search.rb
-    # lets give sorting for name, email and phone
-
-    # for projects pagination - refer to this https://graphql-ruby.org/relay/connections.html
-
     def apply_role_filter(scope, value)
       return scope if empty?(value)
 

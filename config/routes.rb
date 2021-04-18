@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       # comment this out(`devise_for ...`) in case you face issues like
       #    #=>`PG::UndefinedTable: ERROR:  relation "profiles" does not exist`
-      #
       # in development/test servers when running migration from scratch.
+      #
       devise_for :users, controllers: { invitations: :invitations }
 
       post '/graphql', to: 'graphql#execute'
