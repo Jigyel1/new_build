@@ -31,3 +31,7 @@ put the mocks for errors first for faster tracking during errors.
 
 Failure Mocks
 do the reverse for failure mocks.
+
+# Logs
+
+sidekiq - `journalctl -u sidekiq_new_build -f`

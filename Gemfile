@@ -76,6 +76,7 @@ gem 'dotenv-rails'
 gem 'foreman'
 gem 'graphql'
 gem 'graphql-query-resolver'
+gem 'lograge'
 gem 'rack-cors'
 gem 'recursive-open-struct'
 
