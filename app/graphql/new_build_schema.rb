@@ -9,7 +9,7 @@ class NewBuildSchema < GraphQL::Schema
     StandardError
   ].freeze
 
-  # use GraphQL::Batch
+  use GraphQL::Batch
 
   mutation(Types::MutationType)
   query(Types::QueryType)
