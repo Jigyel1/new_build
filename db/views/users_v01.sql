@@ -15,7 +15,7 @@
 
 SELECT
     telco_uam_users.id AS id,
-    profiles.firstname AS profiles.firstname,
+    profiles.firstname AS firstname,
     profiles.lastname AS lastname,
     profiles.salutation AS salutation,
     profiles.department AS department,
