@@ -16,7 +16,6 @@ module Test
           email: Faker::Internet.email,
           created_at: Time.current,
           updated_at: Time.current,
-          name: Faker::Name.name,
           jti: SecureRandom.hex
         }
       end

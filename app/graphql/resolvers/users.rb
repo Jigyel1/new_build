@@ -6,8 +6,7 @@ module Resolvers
 
     type Types::UserConnectionWithTotalCountType, null: false
 
-    option :role_ids, type: [ID], with: :apply_role_filter
-    option :departments, type: [String], with: :apply_department_filter
+    option :roles, type: [String], with: :apply_role_filter
     option :active, type: Boolean, with: :apply_status_filter
     option :query, type: String, with: :apply_search, description: <<~DESC
       Supports searches on user's email, firstname, lastname, phone and role
@@ -17,15 +16,7 @@ module Resolvers
     option :skip, type: Int, with: :apply_skip
 
     def apply_role_filter(scope, value)
-      return scope if empty?(value)
-
-      scope.includes(:role).where(roles: { id: value })
-    end
-
-    def apply_department_filter(scope, value)
-      return scope if empty?(value)
-
-      scope.includes(:profile).where(profiles: { department: value })
+      scope.where(role: value)
     end
 
     def apply_status_filter(scope, value)
@@ -41,18 +32,16 @@ module Resolvers
     end
 
     def apply_search(scope, value)
-      scope
-        .joins(:profile, :role)
-        .where(
-          "CONCAT_WS(
+      scope.where(
+        "CONCAT_WS(
             ' ',
-            telco_uam_users.email,
-            telco_uam_users.name,
-            profiles.phone,
-            roles.name)
+            email,
+            name,
+            phone,
+            role)
             iLIKE ?",
-          "%#{value.strip}%"
-        )
+        "%#{value.strip}%"
+      )
     end
   end
 end

@@ -13,7 +13,7 @@ User.class_eval do
 
   validates :profile, presence: true
 
-  default_scope { kept.order(:name) }
+  default_scope { kept }
 
   accepts_nested_attributes_for :profile, :address, allow_destroy: true
 

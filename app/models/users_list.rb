@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class UsersList < ApplicationRecord
-  has_one :profile
+  include Discard::Model
+  has_one :profile # rubocop:disable Rails/HasManyOrHasOneDependent
 
   self.primary_key = :id
-
 
   # this isn't strictly necessary, but it will prevent
   # rails from calling save, which would fail anyway.
@@ -11,6 +13,6 @@ class UsersList < ApplicationRecord
   end
 
   def self.refresh
-    Scenic.database.refresh_materialized_view(:users, concurrently: false, cascade: false)
+    Scenic.database.refresh_materialized_view(:users_list, concurrently: false, cascade: false)
   end
 end

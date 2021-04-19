@@ -8,7 +8,7 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3
   Exclude:
-    - 'local/*'
+    - 'local/**/*'
     - 'bin/bundle'
     - 'lib/rubocop/cop/metrics/selise_method_length.rb'
 Metrics/BlockLength:

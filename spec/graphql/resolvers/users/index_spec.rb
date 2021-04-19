@@ -30,15 +30,8 @@ RSpec.describe Resolvers::Users, '#index' do
 
     context 'with role filters' do
       it 'returns users matching the given roles' do
-        users = as_collection(:users, query(role_ids: role_ids(%i[team_expert team_standard])))
+        users = as_collection(:users, query(roles: role_names(%w[team_expert team_standard])))
         expect(users.pluck(:id)).to match_array([team_expert.id, team_standard.id])
-      end
-    end
-
-    context 'with department filters' do
-      it 'returns users matching the given departments' do
-        users = as_collection(:users, query(departments: %w[presales]))
-        expect(users.pluck(:id)).to eq([presales.id])
       end
     end
 
@@ -91,7 +84,7 @@ RSpec.describe Resolvers::Users, '#index' do
         users#{query_string(args)} {
           totalCount
           edges {
-            node { id email name profile { firstname } address { street } }
+            node { id email name phone role }
           }
           pageInfo {
             endCursor
@@ -105,7 +98,7 @@ RSpec.describe Resolvers::Users, '#index' do
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
-    params = args[:role_ids] ? ["roleIds: #{args[:role_ids]}"] : []
+    params = args[:roles] ? ["roles: #{args[:roles]}"] : []
     params << "departments: #{args[:departments]}" if args[:departments].present?
     params << "active: #{args[:active]}" unless args[:active].nil?
     params << "query: \"#{args[:query]}\"" if args[:query]

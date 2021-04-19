@@ -31,11 +31,27 @@ rescue StandardError
 end
 
 def as_collection(node, query_string)
-  execute(query_string).dig(:data, node, :edges).pluck(:node)
+  response = execute(query_string)
+  response.dig(:data, node, :edges).pluck(:node)
+rescue StandardError
+  error = response.dig(:errors, 0)
+
+  ap case error.class
+     when Hash then error[:message]
+     else error
+     end
 end
 
 def role_ids(roles)
   Role.where(name: roles).pluck(:id)
+end
+
+def username(user)
+  [user.profile.firstname, user.profile.lastname].join(',')
+end
+
+def role_names(roles)
+  Role.names.values_at(*roles)
 end
 
 def role_id(role)

@@ -12,5 +12,9 @@ module Types
     field :role, Types::RoleType, null: true
     field :profile, Types::ProfileType, null: true
     field :address, Types::AddressType, null: true
+
+    def name
+      [object.profile.firstname, object.profile.lastname].join(',')
+    end
   end
 end
