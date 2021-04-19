@@ -69,6 +69,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
+gem 'batch-loader'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # , path: '/Users/yogesh/Documents/projects/new-build/telco-uam/'
 gem 'discard', '~> 1.2'
@@ -80,6 +81,7 @@ gem 'lograge'
 gem 'rack-cors'
 gem 'recursive-open-struct'
 
+gem 'scenic'
 gem 'search_object'
 gem 'search_object_graphql'
 gem 'sidekiq'

@@ -23,4 +23,10 @@ class Profile < ApplicationRecord
            .join
     )
   end
+
+  before_validation :set_user_name
+
+  def set_user_name
+    self.user.name = [firstname, lastname].join(' ')
+  end
 end

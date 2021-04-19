@@ -2,7 +2,7 @@
 
 module Resolvers
   class Users < SearchObjectBase
-    scope { ::User.all }
+    scope { ::Users.all }
 
     type Types::UserConnectionWithTotalCountType, null: false
 
@@ -47,8 +47,7 @@ module Resolvers
           "CONCAT_WS(
             ' ',
             telco_uam_users.email,
-            profiles.firstname,
-            profiles.lastname,
+            telco_uam_users.name,
             profiles.phone,
             roles.name)
             iLIKE ?",

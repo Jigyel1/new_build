@@ -13,7 +13,7 @@ User.class_eval do
 
   validates :profile, presence: true
 
-  default_scope { kept.includes(:profile).order('profiles.firstname, profiles.lastname') }
+  default_scope { kept.order(:name) }
 
   accepts_nested_attributes_for :profile, :address, allow_destroy: true
 
@@ -23,9 +23,5 @@ User.class_eval do
     DomainValidator.new(email).run
 
     super
-  end
-
-  def name
-    [firstname, lastname].join(' ')
   end
 end

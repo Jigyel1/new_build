@@ -13,5 +13,8 @@ class AddFieldsToUsers < ActiveRecord::Migration[6.1]
     end
 
     change_column_default :telco_uam_users, :active, from: nil, to: true
+
+    add_column :telco_uam_users, :name, :string, null: false
+    add_index :telco_uam_users, :name, algorithm: :concurrently
   end
 end
