@@ -2,7 +2,7 @@
 
 module Resolvers
   class Users < SearchObjectBase
-    scope { ::Users.all }
+    scope { ::UsersList.all }
 
     type Types::UserConnectionWithTotalCountType, null: false
 

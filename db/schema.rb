@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_095631) do
+ActiveRecord::Schema.define(version: 2021_04_19_104850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_095631) do
 
   add_foreign_key "profiles", "telco_uam_users", column: "user_id"
 
-  create_view "users", sql_definition: <<-SQL
+  create_view "users_lists", sql_definition: <<-SQL
       SELECT telco_uam_users.id,
       profiles.firstname,
       profiles.lastname,
