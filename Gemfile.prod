@@ -9,11 +9,11 @@ gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'telco-uam', '0.1.1', source: 'https://gems.selise.tech'
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # , path: '/Users/yogesh/Documents/projects/new-build/telco-uam/'
 gem 'dotenv-rails'
 gem 'discard', '~> 1.2'
 gem 'graphql'
 gem 'recursive-open-struct'
+gem 'sidekiq'
 gem 'strong_migrations'

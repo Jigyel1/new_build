@@ -81,6 +81,7 @@ gem 'recursive-open-struct'
 
 gem 'search_object'
 gem 'search_object_graphql'
+gem 'sidekiq'
 gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
