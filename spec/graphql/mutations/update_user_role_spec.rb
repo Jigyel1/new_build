@@ -12,7 +12,7 @@ RSpec.describe Mutations::UpdateUserRole do
     it 'updates the user role' do
       response, errors = formatted_response(query(params), current_user: team_expert, key: :updateUserRole)
       expect(errors).to be_nil
-      expect(response.user.roleId.to_i).to eq(team_expert.role_id)
+      expect(response.user.roleId).to eq(team_expert.role_id)
     end
   end
 
@@ -22,7 +22,7 @@ RSpec.describe Mutations::UpdateUserRole do
         updateUserRole(
           input: {
             id: "#{args[:id]}"
-            roleId: #{args[:role_id]}
+            roleId: "#{args[:role_id]}"
           }
         )
         { user { id roleId } }

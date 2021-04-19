@@ -12,5 +12,7 @@ module Types
     field :departments, resolver: Resolvers::Departments, description: <<~DESC
       Get a list of available/valid departments. List available at `config/departments.yml`
     DESC
+
+    field :roles, resolver: Resolvers::Roles, connection: true
   end
 end
