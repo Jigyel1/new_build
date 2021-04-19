@@ -4,6 +4,6 @@ module Resolvers
   class Roles < SearchObjectBase
     scope { ::Role.all }
 
-    type Types::UserConnectionWithTotalCountType, null: false
+    type Types::RoleConnectionWithTotalCountType, null: false
   end
 end

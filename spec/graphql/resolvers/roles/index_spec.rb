@@ -21,7 +21,7 @@ RSpec.describe Resolvers::Roles, '#index' do
         roles {
           totalCount
           edges {
-            node { id name }
+            node { id name users { id } }
           }
           pageInfo {
             endCursor
