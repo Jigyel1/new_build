@@ -78,6 +78,7 @@ gem 'foreman'
 gem 'graphql'
 gem 'graphql-batch'
 gem 'graphql-query-resolver'
+gem "logidze", "~> 1.1"
 gem 'lograge'
 gem 'rack-cors'
 gem 'recursive-open-struct'

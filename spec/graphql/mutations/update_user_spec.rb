@@ -78,7 +78,7 @@ RSpec.describe Mutations::UpdateUser do
     address = <<~ADDRESS
       address: {
         id: "#{args[:address_id]}"
-        street_no: "#{args[:street_no]}"
+        streetNo: "#{args[:street_no]}"
       }
     ADDRESS
 
@@ -86,9 +86,11 @@ RSpec.describe Mutations::UpdateUser do
       mutation {
         updateUser(
           input: {
+            attributes: {
             id: "#{args[:id]}"
             #{profile if args[:profile_id]}
             #{address if args[:address_id]}
+}
           }
         )
         { user { id email profile { salutation firstname lastname } address { streetNo } } }

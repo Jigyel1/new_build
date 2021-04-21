@@ -46,10 +46,6 @@ def role_ids(roles)
   Role.where(name: roles).pluck(:id)
 end
 
-def username(user)
-  [user.profile.firstname, user.profile.lastname].join(',')
-end
-
 def role_names(roles)
   Role.names.values_at(*roles)
 end

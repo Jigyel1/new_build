@@ -5,6 +5,7 @@ class Role < ApplicationRecord
 
   validates :name, presence: true
 
+  # admin & super_user are the general admins of the portal.
   enum name: {
     team_expert: 'NBO Team Expert',
     team_standard: 'NBO Team Standard',

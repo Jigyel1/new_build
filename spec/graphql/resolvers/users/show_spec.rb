@@ -13,7 +13,7 @@ RSpec.describe Resolvers::User, '#show' do
         expect(user).to have_attributes(
           email: team_expert.email,
           id: team_expert.id,
-          name: username(team_expert)
+          name: team_expert.name
         )
 
         profile = user.profile
@@ -45,7 +45,7 @@ RSpec.describe Resolvers::User, '#show' do
         expect(user).to have_attributes(
           email: another_user.email,
           id: another_user.id,
-          name: username(another_user)
+          name: another_user.name
         )
 
         expect(errors).to be_nil

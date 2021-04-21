@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Profile < ApplicationRecord
+  has_logidze
+
   EXPECTED_DIGITS_IN_PHONE = 10
   VALID_DEPARTMENTS = YAML.safe_load(
     File.read(
@@ -22,5 +24,9 @@ class Profile < ApplicationRecord
            .last(EXPECTED_DIGITS_IN_PHONE)
            .join
     )
+  end
+
+  def name
+    [firstname, lastname].join(' ')
   end
 end

@@ -17,7 +17,9 @@ User.class_eval do
 
   accepts_nested_attributes_for :profile, :address, allow_destroy: true
 
-  delegate :salutation, :lastname, :firstname, to: :profile
+  delegate :salutation, :name, :lastname, :firstname, to: :profile
+
+  has_logidze
 
   def invite!(invited_by = nil, options = {})
     DomainValidator.new(email).run

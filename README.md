@@ -35,3 +35,7 @@ do the reverse for failure mocks.
 # Logs
 
 sidekiq - `journalctl -u sidekiq_new_build -f`
+
+# Activity Log
+
+Activity Stream 2.0
