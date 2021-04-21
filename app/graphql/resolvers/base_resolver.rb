@@ -3,6 +3,9 @@
 module Resolvers
   class BaseResolver < GraphQL::Schema::Resolver
     include GraphqlHelper
+    extend Forwardable
+
+    def_delegator ActiveSupport::Notifications, :instrument
 
     def empty?(collection)
       collection.reject(&:empty?).empty?

@@ -2,7 +2,6 @@
 
 class ApplicationController < ActionController::API
   include ApiErrors::ErrorHandler
-
   before_action :authenticate_user!
   before_action :configure_permitted_params, if: :devise_controller?
 

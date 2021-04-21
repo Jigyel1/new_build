@@ -92,3 +92,5 @@ gem 'strong_migrations'
 source 'https://gems.selise.tech' do
   gem 'telco-uam', '0.1.2'
 end
+
+gem "influxdb-rails", "~> 1.0"

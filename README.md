@@ -1,3 +1,5 @@
+What gets measured gets managed.
+
 # Documentation use Swagger - open API specs
 
 For telco-uam  use rspec api documentation. 
@@ -39,3 +41,8 @@ sidekiq - `journalctl -u sidekiq_new_build -f`
 # Activity Log
 
 Activity Stream 2.0
+
+# TODOS:
+
+1. erd/class diagram
+2. rollbar

@@ -2,7 +2,11 @@
 
 module Resolvers
   class Users < SearchObjectBase
-    scope { ::UsersList.all }
+    scope do
+      instrument('user_listing', context[:current_arguments]) do
+        ::UsersList.all
+      end
+    end
 
     type Types::UserConnectionWithTotalCountType, null: false
 
@@ -34,12 +38,12 @@ module Resolvers
     def apply_search(scope, value)
       scope.where(
         "CONCAT_WS(
-            ' ',
-            email,
-            name,
-            phone,
-            role)
-            iLIKE ?",
+          ' ',
+          email,
+          name,
+          phone,
+          role)
+          iLIKE ?",
         "%#{value.strip}%"
       )
     end
