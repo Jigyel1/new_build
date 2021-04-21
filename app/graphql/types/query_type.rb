@@ -14,5 +14,6 @@ module Types
     DESC
 
     field :roles, resolver: Resolvers::Roles, connection: true
+    field :role, resolver: Resolvers::Role
   end
 end
