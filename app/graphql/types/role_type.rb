@@ -5,10 +5,13 @@ module Types
     field :id, ID, null: false
     field :name, String, null: true
 
-    field :users, [Types::UserType], null: true
+    field :permissions, [Types::PermissionType], null: true
 
-    def users
-      BatchLoaders::AssociationLoader.for(object.class, :users).load(object)
-    end
+    # This may be removed, as per FE but not deleting it yet.
+    # field :users, [Types::UserType], null: true
+    #
+    # def users
+    #   BatchLoaders::AssociationLoader.for(object.class, :users).load(object)
+    # end
   end
 end

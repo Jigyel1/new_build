@@ -5,6 +5,7 @@
 #   :=> `rails db:dev_setup`
 
 require 'faker'
+require_relative '../permissions/bulk_updater'
 
 exception = <<~MESSAGE
   The Rails environment is running in production mode!
@@ -14,7 +15,12 @@ MESSAGE
 
 abort(exception) if Rails.env.production? && !ActiveModel::Type::Boolean.new.cast(ENV['TEST'])
 
-Role.names.each_key { |role| Role.find_or_create_by!(name: role)}
+Role.names.each_key do |name|
+  role = Role.find_or_create_by!(name: name)
+  Permissions::BulkUpdater.new(role: role).call
+rescue NoMethodError
+  puts "No policy configuration for #{role.name}"
+end
 
 %w[ym sk cw lw].each do |email_prefix|
   User.create!(
