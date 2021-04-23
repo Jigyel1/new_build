@@ -1,0 +1,17 @@
+super_user: # role
+  user: # module
+    - read
+    - invite
+    - update
+    - update_role
+    - update_status
+    - delete
+
+admin:
+  user:
+    - read
+    - invite
+    - update
+    - update_role
+    - update_status
+    - delete

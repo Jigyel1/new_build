@@ -11,6 +11,7 @@ AllCops:
     - 'local/**/*'
     - 'bin/bundle'
     - 'lib/rubocop/cop/metrics/selise_method_length.rb'
+    - 'lib/log_formatter.rb'
 Metrics/BlockLength:
   IgnoredMethods: ['describe']
   Max: 300

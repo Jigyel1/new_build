@@ -1,9 +1,20 @@
 # frozen_string_literal: true
 
 class Role < ApplicationRecord
-  has_many :users, inverse_of: :role, class_name: 'Telco::Uam::User', dependent: :restrict_with_error
+  PERMISSIONS = HashWithIndifferentAccess.new(
+    YAML.safe_load(
+      File.read(
+        File.join(Rails.root, 'config', 'permissions.yml')
+      )
+    )
+  ).freeze
 
-  validates :name, presence: true
+  has_many :users, inverse_of: :role, class_name: 'Telco::Uam::User', dependent: :restrict_with_error
+  has_many :permissions, as: :accessor, dependent: :destroy
+
+  accepts_nested_attributes_for :permissions
+
+  validates :name, presence: true, uniqueness: true
 
   # admin & super_user are the general admins of the portal.
   enum name: {

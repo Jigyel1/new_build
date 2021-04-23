@@ -18,10 +18,7 @@ Make sure you update the following keys
 SESSION_TIMEOUT = `30` # in minutes
 
 # Seed
-
-`rails db:seed` to populate current_user
-
-`USERS=100000 rails fakefy:load` to generate fake data
+`rails db:setup`
 
 
 # Tests

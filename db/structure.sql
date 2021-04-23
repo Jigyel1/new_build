@@ -373,6 +373,21 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: permissions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.permissions (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    resource character varying NOT NULL,
+    actions jsonb DEFAULT '{}'::jsonb NOT NULL,
+    accessor_type character varying,
+    accessor_id uuid,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: profiles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -475,6 +490,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: permissions permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.permissions
+    ADD CONSTRAINT permissions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: profiles profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -511,6 +534,20 @@ ALTER TABLE ONLY public.telco_uam_users
 --
 
 CREATE INDEX index_addresses_on_addressable ON public.addresses USING btree (addressable_type, addressable_id);
+
+
+--
+-- Name: index_permissions_on_accessor; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_permissions_on_accessor ON public.permissions USING btree (accessor_type, accessor_id);
+
+
+--
+-- Name: index_permissions_on_actions; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_permissions_on_actions ON public.permissions USING btree (actions);
 
 
 --
@@ -632,6 +669,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210420050142'),
 ('20210420050143'),
 ('20210420050727'),
-('20210420050751');
+('20210420050751'),
+('20210422050925');
 
 

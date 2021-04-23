@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 
+# To run the seed file either invoke it through
+#   :=> `rails db:seed` or
+#   :=> `rails db:dev_setup`
+
 require 'faker'
 
 exception = <<~MESSAGE
-  The Rails environment is running in production mode!#{' '}
+  The Rails environment is running in production mode!
   Seeds available only for development or test.
   If you are seeding in test/staging servers, pass a TEST=true flag as an argument.
 MESSAGE
 
 abort(exception) if Rails.env.production? && !ActiveModel::Type::Boolean.new.cast(ENV['TEST'])
 
-Role.names.each_key do |role|
-  Role.create!(name: role)
-end
+Role.names.each_key { |role| Role.find_or_create_by!(name: role)}
 
 %w[ym sk cw lw].each do |email_prefix|
   User.create!(

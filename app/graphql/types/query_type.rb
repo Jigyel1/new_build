@@ -10,10 +10,14 @@ module Types
     field :user, resolver: Resolvers::User
 
     field :departments, resolver: Resolvers::Departments, description: <<~DESC
-      Get a list of available/valid departments. List available at `config/departments.yml`
+      A list of available/valid departments. List available at `config/departments.yml`
     DESC
 
     field :roles, resolver: Resolvers::Roles, connection: true
     field :role, resolver: Resolvers::Role
+
+    field :permissions, resolver: Resolvers::Permissions, description: <<~DESC
+      A list of valid permissions for different resources with respect for individual roles`
+    DESC
   end
 end

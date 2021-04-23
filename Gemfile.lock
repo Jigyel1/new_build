@@ -171,10 +171,6 @@ GEM
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    influxdb (0.8.1)
-    influxdb-rails (1.0.2)
-      influxdb (~> 0.6, >= 0.6.4)
-      railties (>= 5.0)
     jaro_winkler (1.5.4)
     json (2.5.1)
     json-schema (2.8.1)
@@ -452,7 +448,6 @@ DEPENDENCIES
   graphql
   graphql-batch
   graphql-query-resolver
-  influxdb-rails (~> 1.0)
   letter_opener
   listen (~> 3.3)
   logidze (~> 1.1)
