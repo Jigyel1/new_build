@@ -67,11 +67,11 @@ group :development do
   gem 'sprockets', '~> 3'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'action_policy-graphql'
 
 gem 'batch-loader'
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-# , path: '/Users/yogesh/Documents/projects/new-build/telco-uam/'
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
 gem 'foreman'

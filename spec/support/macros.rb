@@ -30,9 +30,12 @@ rescue StandardError
   ap response.dig(:errors, 0, :message) # for easier debugging during failures
 end
 
-def as_collection(node, query_string)
-  response = execute(query_string)
-  response.dig(:data, node, :edges).pluck(:node)
+def as_collection(node, query_string, current_user: nil)
+  response = execute(query_string, current_user: current_user)
+  [
+    response.dig(:data, node, :edges)&.pluck(:node),
+    response[:errors]
+  ]
 rescue StandardError
   error = response.dig(:errors, 0)
 
@@ -46,9 +49,9 @@ def role_ids(roles)
   Role.where(name: roles).pluck(:id)
 end
 
-def role_names(roles)
-  Role.names.values_at(*roles)
-end
+# def role_names(roles)
+#   Role.names.values_at(*roles)
+# end
 
 def role_id(role)
   role_ids([role]).first || create(:role, role).id

@@ -12,7 +12,11 @@ RSpec.describe Resolvers::Users, '#index' do
     }
   end
 
-  let_it_be(:team_expert) { create(:user, :team_expert, profile_attributes: profile1) }
+  let_it_be(:super_user) { create(:user, :super_user, profile_attributes: profile1) }
+  before_all do
+    create(:permission, accessor: Role.find_by(id: super_user.role_id), resource: :user, actions: { read: true })
+  end
+
   let_it_be(:team_standard) { create(:user, :team_standard, profile_attributes: profile2) }
   let_it_be(:kam) { create(:user, :kam, :inactive, profile_attributes: profile3) }
   let_it_be(:presales) { create(:user, :presales, :inactive, profile_attributes: profile4) }
@@ -23,55 +27,71 @@ RSpec.describe Resolvers::Users, '#index' do
   describe '.resolve' do
     context 'without filters' do
       it 'returns all users sorted by name' do
-        users = as_collection(:users, query)
-        expect(users.pluck(:id)).to eq([team_standard.id, kam.id, presales.id, team_expert.id])
+        users, errors = as_collection(:users, query, current_user: super_user)
+        expect(errors).to be_nil
+        expect(users.pluck(:id)).to eq([team_standard.id, kam.id, presales.id, super_user.id])
       end
     end
 
     context 'with role filters' do
       it 'returns users matching the given roles' do
-        users = as_collection(:users, query(roles: role_names(%w[team_expert team_standard])))
-        expect(users.pluck(:id)).to match_array([team_expert.id, team_standard.id])
+        users, errors = as_collection(:users, query(roleIds: role_ids(%w[super_user team_standard])), current_user: super_user)
+        expect(errors).to be_nil
+        expect(users.pluck(:id)).to match_array([super_user.id, team_standard.id])
       end
     end
 
     context 'with status filter' do
       it 'returns users matching the given status' do
-        users = as_collection(:users, query(active: false, name: true))
+        users, errors = as_collection(:users, query(active: false, name: true), current_user: super_user)
+        expect(errors).to be_nil
         expect(users.pluck(:id)).to match_array([kam.id, presales.id])
+      end
+    end
+
+    context 'with department filters' do
+      it 'returns users matching the given departments' do
+        users, errors = as_collection(:users, query(departments: %w[presales]), current_user: super_user)
+        expect(errors).to be_nil
+        expect(users.pluck(:id)).to eq([presales.id])
       end
     end
 
     context 'with search resolvers' do
       it 'returns users matching query' do
-        users = as_collection(:users, query(query: 'jimmy'))
+        users, errors = as_collection(:users, query(query: 'jimmy'), current_user: super_user)
+        expect(errors).to be_nil
         expect(users.pluck(:id)).to match_array([team_standard.id, kam.id])
       end
 
       it 'returns users matching query and filter' do
-        users = as_collection(:users, query(active: true, query: 'selise.ch'))
-        expect(users.pluck(:id)).to match_array([team_expert.id, team_standard.id])
+        users, errors = as_collection(:users, query(active: true, query: 'selise.ch'), current_user: super_user)
+        expect(errors).to be_nil
+        expect(users.pluck(:id)).to match_array([super_user.id, team_standard.id])
       end
     end
 
     describe 'pagination' do
       context 'with first N filter' do
         it 'returns the first N users' do
-          users = as_collection(:users, query(first: 3))
+          users, errors = as_collection(:users, query(first: 3), current_user: super_user)
+          expect(errors).to be_nil
           expect(users.pluck(:id)).to eq([team_standard.id, kam.id, presales.id])
         end
       end
 
       context 'with skip N filter' do
         it 'returns users after skipping N records' do
-          users = as_collection(:users, query(skip: 2))
-          expect(users.pluck(:id)).to eq([presales.id, team_expert.id])
+          users, errors = as_collection(:users, query(skip: 2), current_user: super_user)
+          expect(errors).to be_nil
+          expect(users.pluck(:id)).to eq([presales.id, super_user.id])
         end
       end
 
       context 'with first N & skip M filter' do
         it 'returns first N users after skipping M records' do
-          users = as_collection(:users, query(first: 1, skip: 2))
+          users, errors = as_collection(:users, query(first: 1, skip: 2), current_user: super_user)
+          expect(errors).to be_nil
           expect(users.pluck(:id)).to eq([presales.id])
         end
       end
@@ -98,7 +118,7 @@ RSpec.describe Resolvers::Users, '#index' do
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
-    params = args[:roles] ? ["roles: #{args[:roles]}"] : []
+    params = args[:roleIds] ? ["roleIds: #{args[:roleIds]}"] : []
     params << "departments: #{args[:departments]}" if args[:departments].present?
     params << "active: #{args[:active]}" unless args[:active].nil?
     params << "query: \"#{args[:query]}\"" if args[:query]

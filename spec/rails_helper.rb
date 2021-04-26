@@ -10,6 +10,8 @@ require 'rspec/rails'
 require 'support/macros'
 require 'test_prof/recipes/rspec/let_it_be'
 require_relative '../permissions/bulk_updater'
+require "action_policy/rspec"
+
 require 'simplecov'
 SimpleCov.start
 # Add additional requires below this line. Rails is not loaded until this point!

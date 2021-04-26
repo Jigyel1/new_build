@@ -2,12 +2,19 @@
 
 module Types
   class QueryType < Types::BaseObject
+    include ActionPolicy::GraphQL::Behaviour
+
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    field :users, resolver: Resolvers::Users, connection: true
-    field :user, resolver: Resolvers::User
+    field(
+      :users,
+      resolver: Resolvers::Users,
+      connection: true
+    )
+
+    field :user, resolver: Resolvers::User#, authorized_scope: true#{with: UserPolicy}
 
     field :departments, resolver: Resolvers::Departments, description: <<~DESC
       A list of available/valid departments. List available at `config/departments.yml`

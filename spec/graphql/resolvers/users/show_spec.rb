@@ -10,6 +10,8 @@ RSpec.describe Resolvers::User, '#show' do
     context 'without id' do
       it 'returns current user details' do
         user, errors = formatted_response(query, current_user: team_expert, key: :user)
+        expect(errors).to be_nil
+
         expect(user).to have_attributes(
           email: team_expert.email,
           id: team_expert.id,
@@ -32,8 +34,6 @@ RSpec.describe Resolvers::User, '#show' do
           zip: address.zip,
           city: address.city
         )
-
-        expect(errors).to be_nil
       end
     end
 
@@ -42,13 +42,12 @@ RSpec.describe Resolvers::User, '#show' do
 
       it 'returns details of the given user' do
         user, errors = formatted_response(query(id: another_user.id), current_user: team_expert, key: :user)
+        expect(errors).to be_nil
         expect(user).to have_attributes(
           email: another_user.email,
           id: another_user.id,
           name: another_user.name
         )
-
-        expect(errors).to be_nil
       end
     end
 

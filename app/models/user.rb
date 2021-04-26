@@ -18,6 +18,7 @@ User.class_eval do
   accepts_nested_attributes_for :profile, :address, allow_destroy: true
 
   delegate :salutation, :name, :lastname, :firstname, to: :profile
+  delegate :permissions, to: :role
 
   has_logidze
 

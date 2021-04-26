@@ -9,13 +9,11 @@ RSpec.describe Resolvers::Role, '#show' do
   describe '.resolve' do
       it 'returns current user details' do
         role, errors = formatted_response(query(id: user_role.id), current_user: team_expert, key: :role)
+        expect(errors).to be_nil
         expect(role).to have_attributes(
           id: role.id,
           name: role.name
         )
-        expect(role.users.pluck(:id)).to match_array([team_expert.id])
-
-        expect(errors).to be_nil
     end
 
     context "when record doesn't exist" do
@@ -36,7 +34,6 @@ RSpec.describe Resolvers::Role, '#show' do
         role#{query_string(args)} {
           id
           name
-          users { id email }
         }
       }
     GQL

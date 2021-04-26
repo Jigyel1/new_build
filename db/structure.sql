@@ -465,6 +465,8 @@ CREATE VIEW public.users_lists AS
     telco_uam_users.email,
     concat(profiles.firstname, ' ', profiles.lastname) AS name,
     profiles.phone,
+    profiles.department,
+    roles.id AS role_id,
     roles.name AS role
    FROM ((public.telco_uam_users
      JOIN public.profiles ON ((profiles.user_id = telco_uam_users.id)))
@@ -670,6 +672,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210420050143'),
 ('20210420050727'),
 ('20210420050751'),
-('20210422050925');
+('20210422050925'),
+('20210426065837');
 
 
