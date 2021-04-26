@@ -8,5 +8,6 @@ module Types
     field :active, Boolean, null: true
     field :role, String, null: true
     field :phone, String, null: true
+    field :department, String, null: true
   end
 end

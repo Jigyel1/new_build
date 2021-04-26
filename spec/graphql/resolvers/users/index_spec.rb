@@ -104,7 +104,7 @@ RSpec.describe Resolvers::Users, '#index' do
         users#{query_string(args)} {
           totalCount
           edges {
-            node { id email name phone role }
+            node { id email name phone role department }
           }
           pageInfo {
             endCursor
