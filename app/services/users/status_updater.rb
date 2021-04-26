@@ -10,6 +10,8 @@ module Users
     def call
       # Logidze.with_responsible(responsible_id: current_user.id)
       Logidze.with_meta(meta_tags, transactional: false) do
+        authorize! current_user, to: :update_status?, with: UserPolicy
+
         user.update!(active: attributes[:active])
       end
     end

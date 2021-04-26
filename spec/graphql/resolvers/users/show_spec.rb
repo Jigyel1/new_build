@@ -3,37 +3,37 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::User, '#show' do
-  let_it_be(:team_expert) { create(:user, :team_expert) }
-  let_it_be(:address) { create(:address, addressable: team_expert) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: %i[read invite]}) }
+  let_it_be(:address) { create(:address, addressable: super_user) }
 
   describe '.resolve' do
     context 'without id' do
       it 'returns current user details' do
-        user, errors = formatted_response(query, current_user: team_expert, key: :user)
+        user, errors = formatted_response(query, current_user: super_user, key: :user)
         expect(errors).to be_nil
 
         expect(user).to have_attributes(
-          email: team_expert.email,
-          id: team_expert.id,
-          name: team_expert.name
-        )
+                          email: super_user.email,
+                          id: super_user.id,
+                          name: super_user.name
+                        )
 
         profile = user.profile
         expect(profile).to have_attributes(
-          firstname: profile.firstname,
-          lastname: profile.lastname,
-          salutation: profile.salutation,
-          phone: profile.phone,
-          department: profile.department
-        )
+                             firstname: profile.firstname,
+                             lastname: profile.lastname,
+                             salutation: profile.salutation,
+                             phone: profile.phone,
+                             department: profile.department
+                           )
 
         address = user.address
         expect(address).to have_attributes(
-          streetNo: address.streetNo,
-          street: address.street,
-          zip: address.zip,
-          city: address.city
-        )
+                             streetNo: address.streetNo,
+                             street: address.street,
+                             zip: address.zip,
+                             city: address.city
+                           )
       end
     end
 
@@ -41,20 +41,20 @@ RSpec.describe Resolvers::User, '#show' do
       let!(:another_user) { create(:user, :team_standard) }
 
       it 'returns details of the given user' do
-        user, errors = formatted_response(query(id: another_user.id), current_user: team_expert, key: :user)
+        user, errors = formatted_response(query(id: another_user.id), current_user: super_user, key: :user)
         expect(errors).to be_nil
         expect(user).to have_attributes(
-          email: another_user.email,
-          id: another_user.id,
-          name: another_user.name
-        )
+                          email: another_user.email,
+                          id: another_user.id,
+                          name: another_user.name
+                        )
       end
     end
 
     context "when record doesn't exist" do
       it 'responds with error' do
         response, errors = formatted_response(
-          query(id: '16c85b18-473d-4f5d-9ab4-666c7faceb6c\"'), current_user: team_expert
+          query(id: '16c85b18-473d-4f5d-9ab4-666c7faceb6c\"'), current_user: super_user
         )
 
         expect(response.user).to be_nil

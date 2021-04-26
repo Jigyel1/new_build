@@ -5,6 +5,8 @@ module Users
     include UserFinder
 
     def call
+      authorize! current_user, to: :update?, with: UserPolicy
+
       user.update!(attributes)
     end
   end

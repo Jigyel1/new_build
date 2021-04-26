@@ -3,10 +3,7 @@
 module Resolvers
   class Users < SearchObjectBase
     scope do
-      instrument('user_listing', context[:current_arguments]) do
-        authorize! ::User, to: :index?, with: UserPolicy # authorize! 'users' (this can come as a string)
-        ::UsersList.all
-      end
+      instrument('user_listing', context[:current_arguments]) { ::UsersList.all }
     end
 
     type Types::UserConnectionWithTotalCountType, null: false

@@ -16,6 +16,21 @@ FactoryBot.define do
       discarded_at { Time.current }
     end
 
+    transient do
+      with_permissions { {} }
+    end
+
+    after(:create) do |user, evaluator|
+      evaluator.with_permissions.each_pair do |resource, actions|
+        create(
+          :permission,
+          accessor: user.role,
+          resource: resource,
+          actions: actions.each_with_object({}) { |key, hash| hash[key] = true }
+        )
+      end
+    end
+
     after(:build) do |user|
       !user.profile && user.profile = build(:profile)
     end

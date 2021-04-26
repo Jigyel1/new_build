@@ -11,10 +11,11 @@ module Types
     field(
       :users,
       resolver: Resolvers::Users,
-      connection: true
+      connection: true,
+      preauthorize: { record: ::User, with: ::UserPolicy, to: :index? }
     )
 
-    field :user, resolver: Resolvers::User#, authorized_scope: true#{with: UserPolicy}
+    field :user, resolver: Resolvers::User, authorize: { with: UserPolicy }
 
     field :departments, resolver: Resolvers::Departments, description: <<~DESC
       A list of available/valid departments. List available at `config/departments.yml`

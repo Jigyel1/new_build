@@ -8,9 +8,10 @@ class ApplicationPolicy < ActionPolicy::Base
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
   alias_method :current_user, :user
 
+  # match any one or more of a character suffixed with ?
   def method_missing(method_sym, *_args)
-    if /^(.*)$/.match?(method_sym.to_s)
-      permission(method_sym.to_s)
+    if /^[a-z]+\D[a-z]+[?]$/.match?(method_sym.to_s)
+      permission(method_sym.to_s.delete_suffix!('?'))
     else
       super
     end

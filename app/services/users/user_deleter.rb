@@ -11,6 +11,8 @@ module Users
     # also prepending current time to maintain uniqueness of deleted records with same email.
     #
     def call
+      authorize! current_user, to: :delete?, with: UserPolicy
+
       user.discard!.tap do
         user.update_column(
           :email, user.email.prepend(Time.current.strftime("#{TIME_FORMAT}_"))

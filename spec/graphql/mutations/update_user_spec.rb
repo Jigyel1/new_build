@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::UpdateUser do
-  let_it_be(:team_expert) { create(:user, :team_expert) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: [:update] }) }
   let_it_be(:team_standard) { create(:user, :team_standard) }
   let_it_be(:address) { create(:address, addressable: team_standard) }
 
@@ -22,7 +22,7 @@ RSpec.describe Mutations::UpdateUser do
       end
 
       it 'updates the user' do
-        response, errors = formatted_response(query(params), current_user: team_expert, key: :updateUser)
+        response, errors = formatted_response(query(params), current_user: super_user, key: :updateUser)
         expect(errors).to be_nil
 
         user = response.user
@@ -50,7 +50,7 @@ RSpec.describe Mutations::UpdateUser do
       end
 
       it 'responds with error' do
-        response, errors = formatted_response(query(params), current_user: team_expert, key: :updateUser)
+        response, errors = formatted_response(query(params), current_user: super_user, key: :updateUser)
         expect(response.user).to be_nil
 
         expect(errors).to match_array(
