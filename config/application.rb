@@ -64,5 +64,21 @@ module NewBuild
 
     # Logidze uses DB functions and triggers, hence you need to use SQL format for a schema dump
     config.active_record.schema_format = :sql
+
+    if ActiveModel::Type::Boolean.new.cast(ENV['COOKIES_ENABLED'])
+      config.middleware.use ActionDispatch::Cookies
+
+      if Rails.env.production?
+        config.middleware.use(
+          ActionDispatch::Session::CacheStore,
+          key: '_new_build_session',
+          expire_after: 30.days,
+          domain: :all,
+          secure: true
+        )
+      else
+        config.middleware.use ActionDispatch::Session::CookieStore, key: '_new_build_session'
+      end
+    end
   end
 end
