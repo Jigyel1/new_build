@@ -9,7 +9,7 @@ class Role < ApplicationRecord
     )
   ).freeze
 
-  has_many :users, inverse_of: :role, class_name: 'Telco::Uam::User', dependent: :restrict_with_error
+  has_many :users, class_name: 'Telco::Uam::User', dependent: :restrict_with_error
   has_many :permissions, as: :accessor, dependent: :destroy
 
   accepts_nested_attributes_for :permissions
