@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddLogidzeToUsers < ActiveRecord::Migration[6.1]
   def change
     add_column :telco_uam_users, :log_data, :jsonb
@@ -5,7 +7,7 @@ class AddLogidzeToUsers < ActiveRecord::Migration[6.1]
     safety_assured do
       reversible do |dir|
         dir.up do
-          execute <<~SQL
+          execute <<~SQL.squish
             CREATE TRIGGER logidze_on_telco_uam_users
             BEFORE UPDATE OR INSERT ON telco_uam_users FOR EACH ROW
             WHEN (coalesce(current_setting('logidze.disabled', true), '') <> 'on')
@@ -16,7 +18,7 @@ class AddLogidzeToUsers < ActiveRecord::Migration[6.1]
         end
 
         dir.down do
-          execute "DROP TRIGGER IF EXISTS logidze_on_telco_uam_users on telco_uam_users;"
+          execute 'DROP TRIGGER IF EXISTS logidze_on_telco_uam_users on telco_uam_users;'
         end
       end
     end

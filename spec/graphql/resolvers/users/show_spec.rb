@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::User, '#show' do
-  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: %i[read invite]}) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: %i[read invite] }) }
   let_it_be(:address) { create(:address, addressable: super_user) }
 
   describe '.resolve' do
@@ -13,27 +13,27 @@ RSpec.describe Resolvers::User, '#show' do
         expect(errors).to be_nil
 
         expect(user).to have_attributes(
-                          email: super_user.email,
-                          id: super_user.id,
-                          name: super_user.name
-                        )
+          email: super_user.email,
+          id: super_user.id,
+          name: super_user.name
+        )
 
         profile = user.profile
         expect(profile).to have_attributes(
-                             firstname: profile.firstname,
-                             lastname: profile.lastname,
-                             salutation: profile.salutation,
-                             phone: profile.phone,
-                             department: profile.department
-                           )
+          firstname: profile.firstname,
+          lastname: profile.lastname,
+          salutation: profile.salutation,
+          phone: profile.phone,
+          department: profile.department
+        )
 
         address = user.address
         expect(address).to have_attributes(
-                             streetNo: address.streetNo,
-                             street: address.street,
-                             zip: address.zip,
-                             city: address.city
-                           )
+          streetNo: address.streetNo,
+          street: address.street,
+          zip: address.zip,
+          city: address.city
+        )
       end
     end
 
@@ -44,10 +44,10 @@ RSpec.describe Resolvers::User, '#show' do
         user, errors = formatted_response(query(id: another_user.id), current_user: super_user, key: :user)
         expect(errors).to be_nil
         expect(user).to have_attributes(
-                          email: another_user.email,
-                          id: another_user.id,
-                          name: another_user.name
-                        )
+          email: another_user.email,
+          id: another_user.id,
+          name: another_user.name
+        )
       end
     end
 

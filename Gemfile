@@ -71,17 +71,17 @@ gem 'action_policy-graphql'
 
 gem 'batch-loader'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
 gem 'foreman'
 gem 'graphql'
 gem 'graphql-batch'
 gem 'graphql-query-resolver'
-gem "logidze", "~> 1.1"
+gem 'logidze', '~> 1.1'
 gem 'lograge'
 gem 'rack-cors'
 gem 'recursive-open-struct'
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'scenic'
 gem 'search_object'

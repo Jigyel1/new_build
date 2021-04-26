@@ -1,26 +1,14 @@
-class UserPolicy < ApplicationPolicy
-  def index?
-    super
-  end
+# frozen_string_literal: true
 
+class UserPolicy < ApplicationPolicy
   def show?
     own_profile? || super
   end
 
-  def update?
-    super
-  end
-
-  def delete?
-    super
-  end
-
-  def update_role?
-    super
-  end
-
-  def update_status?
-    super
+  %i[update delete update_role update_status].each do |method|
+    define_method "#{method}?" do
+      super(method)
+    end
   end
 
   private

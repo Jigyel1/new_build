@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Base class for application policies
 class ApplicationPolicy < ActionPolicy::Base
   # Configure additional authorization contexts here
@@ -6,7 +8,7 @@ class ApplicationPolicy < ActionPolicy::Base
   #   authorize :account, optional: true
   #
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
-  alias_method :current_user, :user
+  alias current_user user
 
   # match any one or more of a character suffixed with ?
   def method_missing(method_sym, *_args)
@@ -20,7 +22,7 @@ class ApplicationPolicy < ActionPolicy::Base
   def index?
     permission('read')
   end
-  alias_method :show?, :index?
+  alias show? index?
 
   def permission(key)
     role = user.role

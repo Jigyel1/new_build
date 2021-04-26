@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CommonArguments
   module Profile
     extend ActiveSupport::Concern

@@ -7,13 +7,13 @@ RSpec.describe Resolvers::Role, '#show' do
   let_it_be(:user_role) { team_expert.role }
 
   describe '.resolve' do
-      it 'returns current user details' do
-        role, errors = formatted_response(query(id: user_role.id), current_user: team_expert, key: :role)
-        expect(errors).to be_nil
-        expect(role).to have_attributes(
-          id: role.id,
-          name: role.name
-        )
+    it 'returns current user details' do
+      role, errors = formatted_response(query(id: user_role.id), current_user: team_expert, key: :role)
+      expect(errors).to be_nil
+      expect(role).to have_attributes(
+        id: role.id,
+        name: role.name
+      )
     end
 
     context "when record doesn't exist" do

@@ -8,9 +8,9 @@ module BatchLoaders
     end
 
     def initialize(model, association_name) # rubocop:disable Lint/MissingSuper
-    @model = model
-    @association_name = association_name
-    validate
+      @model = model
+      @association_name = association_name
+      validate
     end
 
     def load(record)

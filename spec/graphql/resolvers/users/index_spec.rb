@@ -35,7 +35,8 @@ RSpec.describe Resolvers::Users, '#index' do
 
     context 'with role filters' do
       it 'returns users matching the given roles' do
-        users, errors = as_collection(:users, query(roleIds: role_ids(%w[super_user team_standard])), current_user: super_user)
+        users, errors = as_collection(:users, query(roleIds: role_ids(%w[super_user team_standard])),
+                                      current_user: super_user)
         expect(errors).to be_nil
         expect(users.pluck(:id)).to match_array([super_user.id, team_standard.id])
       end

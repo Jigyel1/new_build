@@ -10,6 +10,7 @@ AllCops:
   Exclude:
     - 'local/**/*'
     - 'bin/bundle'
+    - 'db/schema.rb'
     - 'lib/rubocop/cop/metrics/selise_method_length.rb'
     - 'lib/log_formatter.rb'
 Metrics/BlockLength:

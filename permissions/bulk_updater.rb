@@ -27,14 +27,14 @@ module Permissions
     def create(resource, actions)
       Permission.create!(
         resource: resource,
-        actions: actions.each_with_object({}) { |item, hash| hash[item] = true },
+        actions: actions.index_with { |_item| true },
         accessor: role
       )
     end
 
     def update(actions, policy)
       missing_keys = actions - policy.actions.keys
-      policy.actions.merge!(missing_keys.each_with_object({}) { |item, hash| hash[item] = true })
+      policy.actions.merge!(missing_keys.index_with { |_item| true })
       policy.save!
     end
   end

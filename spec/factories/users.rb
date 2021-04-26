@@ -26,7 +26,7 @@ FactoryBot.define do
           :permission,
           accessor: user.role,
           resource: resource,
-          actions: actions.each_with_object({}) { |key, hash| hash[key] = true }
+          actions: actions.index_with { |_key| true }
         )
       end
     end
