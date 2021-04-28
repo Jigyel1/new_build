@@ -10,6 +10,7 @@ class Role < ApplicationRecord
   ).freeze
 
   has_many :users, class_name: 'Telco::Uam::User', dependent: :restrict_with_error
+  has_many :profiles, through: :users
   has_many :permissions, as: :accessor, dependent: :destroy
 
   accepts_nested_attributes_for :permissions

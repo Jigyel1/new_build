@@ -402,7 +402,7 @@ CREATE TABLE public.profiles (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     log_data jsonb,
-    avatar_url character varying DEFAULT ''::character varying NOT NULL
+    avatar_url character varying
 );
 
 
@@ -414,7 +414,8 @@ CREATE TABLE public.roles (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    users_count integer DEFAULT 0 NOT NULL
 );
 
 
@@ -468,7 +469,8 @@ CREATE VIEW public.users_lists AS
     profiles.phone,
     profiles.department,
     roles.id AS role_id,
-    roles.name AS role
+    roles.name AS role,
+    profiles.avatar_url
    FROM ((public.telco_uam_users
      JOIN public.profiles ON ((profiles.user_id = telco_uam_users.id)))
      JOIN public.roles ON ((roles.id = telco_uam_users.role_id)))
@@ -669,12 +671,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210409151253'),
 ('20210416052020'),
 ('20210419104850'),
-('20210420050142'),
-('20210420050143'),
+('20210420015215'),
+('20210420015216'),
 ('20210420050727'),
 ('20210420050751'),
 ('20210422050925'),
+('20210425904822'),
 ('20210426065837'),
-('20210427104822');
+('20210428110340');
 
 

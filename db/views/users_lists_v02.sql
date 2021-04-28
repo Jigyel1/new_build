@@ -5,7 +5,8 @@ SELECT telco_uam_users.id  AS id,
        profiles.phone      AS phone,
        profiles.department AS department,
        roles.id AS role_id,
-       roles.name AS role
+       roles.name AS role,
+       profiles.avatar_url as avatar_url
 
 FROM telco_uam_users
          JOIN profiles ON profiles.user_id = telco_uam_users.id

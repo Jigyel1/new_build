@@ -17,5 +17,8 @@ namespace :fakefy do
     User.insert_all(generator.users_hash)
     Profile.insert_all(generator.profiles_hash)
     Address.insert_all(generator.addresses_hash)
+
+    # Manually update counter cache users_count for roles
+    Role.find_each { |role| Role.reset_counters(role.id, :users) }
   end
 end

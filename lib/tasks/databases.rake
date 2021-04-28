@@ -2,12 +2,11 @@
 
 namespace :db do
   task setup_prod: :environment do
-    # sh 'rails db:prod_seeds'
-    load Dir[Rails.root.join('db', 'prod_seeds.rb')].first
+    load Rails.root.join('db', 'prod_seeds.rb')
   end
 
   task setup_dev: :environment do
-    sh 'rails db:seed'
+    sh 'rails db:setup_prod db:seed'
     sh 'USERS=1000 rails fakefy:load'
   end
 
@@ -23,10 +22,12 @@ namespace :db do
       File.open(routes, 'w') { |f| f.write(lines.join) }
 
       yield if block_given?
-
+    rescue StandardError => e
+      puts e
+    ensure
       # uncomment `devise_for` after the migration.
       lines[index] = lines[index][to_prepend.size..]
-      File.open(routes, '') { |f| f.write(lines.join) }
+      File.open(routes, 'w') { |f| f.write(lines.join) }
     end
 
     update_file do

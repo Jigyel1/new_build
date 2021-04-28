@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
 class LogidzeInstall < ActiveRecord::Migration[6.1]
   def up
     safety_assured do
-      execute <<~SQL.squish
+      execute <<~SQL
         CREATE OR REPLACE FUNCTION logidze_compact_history(log_data jsonb, cutoff integer DEFAULT 1) RETURNS jsonb AS $body$
           -- version: 1
           DECLARE
@@ -281,7 +279,7 @@ class LogidzeInstall < ActiveRecord::Migration[6.1]
   end
 
   def down
-    execute <<~SQL.squish
+    execute <<~SQL
       DROP FUNCTION IF EXISTS logidze_compact_history(jsonb, integer) CASCADE;
       DROP FUNCTION IF EXISTS logidze_filter_keys(jsonb, text[], boolean) CASCADE;
       DROP FUNCTION IF EXISTS logidze_logger() CASCADE;

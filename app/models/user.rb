@@ -11,7 +11,7 @@ User.class_eval do
   # which I feel is not worth the slight benefit achieved.
   self.strict_loading_by_default = false
 
-  belongs_to :role
+  belongs_to :role, counter_cache: true
   has_one :profile, inverse_of: :user, dependent: :destroy
   has_one :address, as: :addressable, inverse_of: :addressable, dependent: :destroy
 

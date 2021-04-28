@@ -18,5 +18,17 @@ module Types
     def log_data
       # LogFormatter.new(object.log_data).call
     end
+
+    def role
+      BatchLoaders::AssociationLoader.for(object.class, :role).load(object)
+    end
+
+    def profile
+      BatchLoaders::AssociationLoader.for(object.class, :profile).load(object)
+    end
+
+    def address
+      BatchLoaders::AssociationLoader.for(object.class, :address).load(object)
+    end
   end
 end
