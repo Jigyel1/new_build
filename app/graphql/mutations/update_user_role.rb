@@ -2,12 +2,16 @@
 
 module Mutations
   class UpdateUserRole < BaseMutation
-    argument :id, ID, required: true
-    argument :roleId, ID, required: true
+    class UpdateRoleAttributes < Types::BaseInputObject
+      argument :id, ID, required: true
+      argument :roleId, ID, required: true
+    end
+
+    argument :attributes, UpdateRoleAttributes, required: true
 
     field :user, Types::UserType, null: true
 
-    def resolve(**attributes)
+    def resolve(attributes:)
       resolver = ::Users::RoleUpdater.new(current_user: current_user, attributes: attributes)
       resolver.call
 

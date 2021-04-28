@@ -28,8 +28,10 @@ RSpec.describe Mutations::UpdateUserStatus do
       mutation {
         updateUserStatus(
           input: {
-            id: "#{args[:id]}"
-            active: #{args[:active]}
+            attributes: {
+              id: "#{args[:id]}"
+              active: #{args[:active]}
+            }
           }
         )
         { user { id active } }

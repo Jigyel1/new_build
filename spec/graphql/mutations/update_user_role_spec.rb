@@ -21,8 +21,10 @@ RSpec.describe Mutations::UpdateUserRole do
       mutation {
         updateUserRole(
           input: {
-            id: "#{args[:id]}"
-            roleId: "#{args[:role_id]}"
+            attributes: {
+              id: "#{args[:id]}"
+              roleId: "#{args[:role_id]}"
+            }
           }
         )
         { user { id roleId } }

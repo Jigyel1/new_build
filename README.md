@@ -31,6 +31,14 @@ put the mocks for errors first for faster tracking during errors.
 Failure Mocks
 do the reverse for failure mocks.
 
+# Portal conventions
+
+### Mutations
+
+1. For mutations that accept single argument, use a single keyword argument in the resolve method. eg. `upload_avatar`, `delete_user`
+
+2. And those that accept multiple arguments, nest it under the attributes params. eg. `update_user`, `update_user_status` etc.
+
 # Logs
 
 sidekiq - `journalctl -u sidekiq_new_build -f`

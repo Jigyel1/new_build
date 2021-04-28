@@ -14,13 +14,13 @@ module Mutations
       argument :id, ID, required: true
     end
 
-    class UpdateAttributes < Types::BaseInputObject
+    class UpdateArguments < Types::BaseInputObject
       argument :id, ID, required: true
       argument :profile, ProfileArguments, as: :profile_attributes, required: false
       argument :address, AddressArguments, as: :address_attributes, required: false
     end
 
-    argument :attributes, UpdateAttributes, required: true
+    argument :attributes, UpdateArguments, required: true
     field :user, Types::UserType, null: true
 
     def resolve(attributes:)
