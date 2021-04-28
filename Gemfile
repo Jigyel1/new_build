@@ -55,6 +55,7 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'solargraph'
   gem 'test-prof'
+  gem 'webrick'
 end
 
 group :development do
@@ -68,7 +69,7 @@ group :development do
 end
 
 gem 'action_policy-graphql'
-
+gem 'apollo_upload_server', '2.0.5'
 gem 'batch-loader'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'discard', '~> 1.2'
@@ -90,6 +91,7 @@ gem 'sidekiq'
 gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
+  gem 'cnc-storage'
   gem 'telco-uam', '0.1.2'
 end
 

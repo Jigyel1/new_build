@@ -20,5 +20,6 @@ module Types
 
     field :update_user_role, mutation: Mutations::UpdateUserRole
     field :delete_user, mutation: Mutations::DeleteUser
+    field :upload_avatar, mutation: Mutations::UploadAvatar
   end
 end

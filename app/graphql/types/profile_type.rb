@@ -8,5 +8,6 @@ module Types
     field :salutation, String, null: true
     field :phone, String, null: true
     field :department, String, null: true
+    field :avatar_url, String, null: true
   end
 end

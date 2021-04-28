@@ -401,7 +401,8 @@ CREATE TABLE public.profiles (
     department character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    log_data jsonb
+    log_data jsonb,
+    avatar_url character varying DEFAULT ''::character varying NOT NULL
 );
 
 
@@ -673,6 +674,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210420050727'),
 ('20210420050751'),
 ('20210422050925'),
-('20210426065837');
+('20210426065837'),
+('20210427104822');
 
 
