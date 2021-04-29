@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Resolvers::Role, '#show' do
+RSpec.describe Resolvers::RoleResolver do
   let_it_be(:team_expert) { create(:user, :team_expert) }
   let_it_be(:user_role) { team_expert.role }
 

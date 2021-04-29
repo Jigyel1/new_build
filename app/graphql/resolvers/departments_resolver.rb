@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Resolvers
-  class Departments < SearchObjectBase
+  class DepartmentsResolver < SearchObjectBase
     scope { Profile::VALID_DEPARTMENTS }
 
     type [String], null: false

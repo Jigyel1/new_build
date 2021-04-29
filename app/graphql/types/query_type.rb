@@ -10,21 +10,21 @@ module Types
 
     field(
       :users,
-      resolver: Resolvers::Users,
+      resolver: Resolvers::UsersResolver,
       connection: true,
       preauthorize: { record: ::User, with: ::UserPolicy, to: :index? }
     )
 
-    field :user, resolver: Resolvers::User, authorize: { with: UserPolicy }
+    field :user, resolver: Resolvers::UserResolver, authorize: { with: UserPolicy }
 
-    field :departments, resolver: Resolvers::Departments, description: <<~DESC
+    field :departments, resolver: Resolvers::DepartmentsResolver, description: <<~DESC
       A list of available/valid departments. List available at `config/departments.yml`
     DESC
 
-    field :roles, resolver: Resolvers::Roles, connection: true
-    field :role, resolver: Resolvers::Role
+    field :roles, resolver: Resolvers::RolesResolver, connection: true
+    field :role, resolver: Resolvers::RoleResolver
 
-    field :permissions, resolver: Resolvers::Permissions, description: <<~DESC
+    field :permissions, resolver: Resolvers::PermissionsResolver, description: <<~DESC
       A list of valid permissions for different resources with respect for individual roles`
     DESC
   end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Resolvers::Roles, '#index' do
+RSpec.describe Resolvers::RolesResolver do
   let_it_be(:team_expert) { create(:role, :team_expert) }
   let_it_be(:team_standard) { create(:role, :team_standard) }
   let_it_be(:management) { create(:role, :management) }

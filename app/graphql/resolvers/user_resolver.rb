@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Resolvers
-  class User < BaseResolver
+  class UserResolver < BaseResolver
     argument :id, ID, required: false
     type Types::UserType, null: true
 

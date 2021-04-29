@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Resolvers
-  class Users < SearchObjectBase
+  class UsersResolver < SearchObjectBase
     scope do
       instrument('user_listing', context[:current_arguments]) { ::UsersList.all }
     end

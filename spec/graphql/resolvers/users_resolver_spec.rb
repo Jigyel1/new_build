@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Resolvers::Users, '#index' do
+RSpec.describe Resolvers::UsersResolver do
   let_it_be(:profile1) { { salutation: :mr, firstname: 'tevor', lastname: 'noah', phone: '0978887272' } }
   let_it_be(:profile2) { { salutation: :mr, firstname: 'jimmy', lastname: 'fallon', phone: '0978887273' } }
   let_it_be(:profile3) { { salutation: :mr, firstname: 'jimmy', lastname: 'kimmel', phone: '0979887272' } }

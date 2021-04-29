@@ -2,8 +2,11 @@
 
 class AddUsersCountToRoles < ActiveRecord::Migration[6.1]
   def up
-    add_column :roles, :users_count, :integer
-    change_column_default :roles, :users_count, 0
+    safety_assured do
+      change_table :roles, bulk: true do |t|
+        t.integer :users_count, null: false, default: 0
+      end
+    end
 
     # If the counter cache column is added after records(users/roles) are already available.
     Role.find_each do |role|

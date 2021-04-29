@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Resolvers::User, '#show' do
+RSpec.describe Resolvers::UserResolver do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: %i[read invite] }) }
   let_it_be(:address) { create(:address, addressable: super_user) }
 
