@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_PASSWORD'])
     )
   end
-  mount Sidekiq::Web, at: '/sidekiq-ui'
+  mount Sidekiq::Web, at: '/sidekiq'
 
   root 'home#index'
 

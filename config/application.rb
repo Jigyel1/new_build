@@ -65,6 +65,7 @@ module NewBuild
     # Logidze uses DB functions and triggers, hence you need to use SQL format for a schema dump
     config.active_record.schema_format = :sql
 
+    # Cookies need to be enabled for Sidekiq UI to work!
     if ActiveModel::Type::Boolean.new.cast(ENV['COOKIES_ENABLED'])
       config.middleware.use ActionDispatch::Cookies
 
