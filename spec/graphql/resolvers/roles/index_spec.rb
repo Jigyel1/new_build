@@ -20,7 +20,7 @@ RSpec.describe Resolvers::Roles, '#index' do
     it 'returns users for by roles' do
       roles, errors = as_collection(:roles, query)
       expect(errors).to be_nil
-      managers = roles.detect { |roles| roles[:id] == management.id }
+      managers = roles.detect { |role| role[:id] == management.id }
       expect(managers[:users].pluck(:name)).to include(manager.name)
     end
   end

@@ -12,17 +12,13 @@ module Permissions
     def call
       raise StandardError, I18n.t('permission.role_only') unless role.is_a?(Role)
 
-      permissions.each_pair do |resource, actions|
+      Role::PERMISSIONS[role.name].each_pair do |resource, actions|
         permission = role.permissions.find_by(resource: resource)
         permission ? update(actions, permission) : create(resource, actions)
       end
     end
 
     private
-
-    def permissions
-      Role::PERMISSIONS[role.name]
-    end
 
     def create(resource, actions)
       Permission.create!(

@@ -22,9 +22,7 @@ describe Permissions::BulkUpdater do
   context 'for an existing permission' do
     subject(:updater) { described_class.new(role: role) }
 
-    let!(:permission_a) do
-      create(:permission, actions: { read: true, invite: false, update_status: false }, accessor: role)
-    end
+    before { create(:permission, actions: { read: true, invite: false, update_status: false }, accessor: role) }
 
     it 'updates the permission' do
       updater.call

@@ -573,7 +573,7 @@ CREATE INDEX index_profiles_on_user_id ON public.profiles USING btree (user_id);
 -- Name: index_roles_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_roles_on_name ON public.roles USING btree (name);
+CREATE UNIQUE INDEX index_roles_on_name ON public.roles USING btree (name);
 
 
 --

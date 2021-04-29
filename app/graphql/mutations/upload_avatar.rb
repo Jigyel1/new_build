@@ -7,7 +7,7 @@ module Mutations
     field :user, Types::UserType, null: true
 
     def resolve(avatar:)
-      resolver = ::Users::AvatarUploader.new(current_user: current_user, attributes: { avatar: avatar})
+      resolver = ::Users::AvatarUploader.new(current_user: current_user, attributes: { avatar: avatar })
       resolver.call
 
       { user: current_user }

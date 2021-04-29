@@ -4,7 +4,7 @@ class Role < ApplicationRecord
   PERMISSIONS = HashWithIndifferentAccess.new(
     YAML.safe_load(
       File.read(
-        File.join(Rails.root, 'config', 'permissions.yml')
+        Rails.root.join('config/permissions.yml')
       )
     )
   ).freeze

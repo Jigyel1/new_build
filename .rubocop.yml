@@ -13,6 +13,7 @@ AllCops:
     - 'db/schema.rb'
     - 'lib/rubocop/cop/metrics/selise_method_length.rb'
     - 'lib/log_formatter.rb'
+    - 'db/migrate/*_logidze*.rb'
 Metrics/BlockLength:
   IgnoredMethods: ['describe']
   Max: 300
@@ -25,6 +26,7 @@ Metrics/MethodLength:
 Metrics/SeliseMethodLength:
   CountComments: false
   Max: 10
+  CountAsOne: ['array', 'heredoc']
 
 # Devs are expected to be aware of methods that don't trigger
 # validations/callbacks. `insert_all`, `upsert_all`, `update_columns` etc

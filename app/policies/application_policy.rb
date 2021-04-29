@@ -2,6 +2,7 @@
 
 # Base class for application policies
 class ApplicationPolicy < ActionPolicy::Base
+  POLICY_ACTION_REGEX = /^[a-z]+\D[a-z]+[?]$/
   # Configure additional authorization contexts here
   # (`user` is added by default).
   #
@@ -12,11 +13,15 @@ class ApplicationPolicy < ActionPolicy::Base
 
   # match any one or more of a character suffixed with ?
   def method_missing(method_sym, *_args)
-    if /^[a-z]+\D[a-z]+[?]$/.match?(method_sym.to_s)
+    if POLICY_ACTION_REGEX.match?(method_sym.to_s)
       permission(method_sym.to_s.delete_suffix!('?'))
     else
       super
     end
+  end
+
+  def respond_to_missing?(method_name, include_private = false)
+    method_name =~ POLICY_ACTION_REGEX || super
   end
 
   def index?

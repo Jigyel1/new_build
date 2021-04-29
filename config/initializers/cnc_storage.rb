@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Cnc::Storage.configure do |config|
   config.bucket = 'stg-assets'
   config.endpoint = 'https://fra1.digitaloceanspaces.com'

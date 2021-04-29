@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BatchLoaders
   class WindowKeyLoader < GraphQL::Batch::Loader
     attr_reader :model, :foreign_key, :limit, :order_col, :order_dir
@@ -11,12 +13,12 @@ module BatchLoaders
       @order_dir = order_dir
     end
 
-    def perform(foreign_ids)
+    def perform(foreign_ids) # rubocop:disable Metrics/AbcSize, Metrics/SeliseMethodLength
       # build the sub-query, limiting results by foreign key at this point
       # we don't want to execute this query but get its SQL to be used later
       ranked_from =
         model.select(
-          "*",
+          '*',
           "row_number() OVER (
           PARTITION BY #{foreign_key} ORDER BY #{order_col} #{order_dir}
         ) as rank"
