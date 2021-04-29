@@ -2,8 +2,6 @@
 
 module Types
   class RoleType < BaseObject
-    USERS_PER_ROLE = ENV['USERS_PER_ROLE'] ? ENV['USERS_PER_ROLE'].to_i : 10
-
     field :id, ID, null: false
     field :name, String, null: true
     field :users_count, Integer, null: true
@@ -19,7 +17,7 @@ module Types
         .for(
           UsersList,
           :role_id,
-          limit: USERS_PER_ROLE,
+          limit: ENV.fetch('USERS_PER_ROLE', 10).to_i,
           order_col: :avatar_url,
           order_dir: :asc
         )
