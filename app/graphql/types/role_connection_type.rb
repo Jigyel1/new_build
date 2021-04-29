@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Types
-  class RoleConnectionWithTotalCountType < GraphQL::Types::Relay::BaseConnection
+  class RoleConnectionType < GraphQL::Types::Relay::BaseConnection
     edge_type(Types::RoleEdgeType)
 
     field :total_count, Integer, null: false
 
+    # - `object` is the Connection
+    # - `object.items` is the original collection of Roles
     def total_count
-      # - `object` is the Connection
-      # - `object.items` is the original collection of Posts
       object.items.size
     end
   end

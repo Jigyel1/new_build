@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       #    #=>`PG::UndefinedTable: ERROR:  relation "profiles" does not exist`
       # in development/test servers when running migration from scratch.
       #
+      # Note: This is already taken care of when you run `rails db:reset_dev`
       devise_for :users, controllers: { invitations: :invitations }
 
       post '/graphql', to: 'graphql#execute'

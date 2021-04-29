@@ -11,6 +11,10 @@ module Permissions
 
     # If a custom permission is set for a given user, use that
     # else return the user's role permission.
+    #
+    # NewBuild initially will only support role based permissions. At a later time,
+    # when user based permissions need to be included, this shall be extracted to a
+    # gem.
     def call
       user_permission.presence || role_permission
     end

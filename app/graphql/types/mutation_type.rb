@@ -2,14 +2,10 @@
 
 module Types
   class MutationType < Types::BaseObject
-    # field :update_profile, mutation: Mutations::Users::UpdateProfile, description: <<~DESC
-    #   Use this endpoint to update user's own profile
-    # DESC
-
     field(
       :update_user,
       mutation: Mutations::UpdateUser,
-      description: "Use this endpoint to update someone else's profile"
+      description: 'Update basic user attributes like firstname, lastname etc.'
     )
 
     field(

@@ -5,8 +5,7 @@ module Users
     include UserFinder
 
     # TODO: Once the projects module is ready, need to reassign projects as per
-    # https://app.clickup.com/t/7nu94j
-    #
+    # `https://app.clickup.com/t/7nu94j`
     def call
       authorize! current_user, to: :update_role?, with: UserPolicy
 

@@ -6,7 +6,7 @@ module Resolvers
       instrument('user_listing', context[:current_arguments]) { ::UsersList.all }
     end
 
-    type Types::UserConnectionWithTotalCountType, null: false
+    type Types::UserConnectionType, null: false
 
     option :role_ids, type: [String], with: :apply_role_filter
     option :departments, type: [String], with: :apply_department_filter
