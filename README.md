@@ -1,35 +1,55 @@
-What gets measured gets managed.
+## Documentation
+For REST specific docs, check out [project-url/api-docs](https://new-build.selise.dev/api-docs/index.html). The documentation is password protected. 
 
-# Documentation use Swagger - open API specs
+---
 
-For telco-uam  use rspec api documentation. 
+## Test Server 
 
-# Generators 
- how are generators created in rails
-- for eg. rails g devise:views
-  https://guides.rubyonrails.org/generators.html
+url: `new-build.selise.dev`
+project_root: `/home/dragondevel/Documents/new-build/be/new-build`
+
+nginx_config: `/etc/nginx/conf.d/new-build.conf`
+
+sidekiq-ui: `new-build.selise.dev/sidekiq`
+
+api-docs: `new-build.selise.dev/api-docs`
+
+Credentials available in the `.env` file.
+
+puma_config: `/usr/lib/systemd/system/puma_new_build.service`
+
+sidekiq_config: `/usr/lib/systemd/system/sidekiq_new_build.service`
+
+sidekiq logs: `journalctl -u sidekiq_new_build -f`
 
 
-https://github.com/gjtorikian/graphql-docs
+### After update
 
-# .env
+run `bundle; rails db:migrate; sudo service puma_new_build restart, sudo service sidekiq_new_build restart`
 
-Make sure you update the following keys
-SESSION_TIMEOUT = `30` # in minutes
+---
 
-# Seed
-`rails db:setup`
+## Project setup locally(or in test servers)
 
+`rails db:setup_dev` to seed fake data.
 
-# Tests
+`rails db:reset_dev` custom version of `rails db:reset` with fake data seeded.
 
-for specs, make sure you test for both data(success) or errors(failure).
+---
 
-Success Mocks
-put the mocks for errors first for faster tracking during errors.
+## Test guidelines
 
-Failure Mocks
-do the reverse for failure mocks.
+Graphql will always return a 200 status irrespective of whether the execution succeeded or failed. So make sure you test both the `response/data` and `errors`.
+
+<u>Success Mocks</u>
+ 
+Mock `errors` first then the `data/response`. Speeds up the debugging process.
+
+<u>Failure Mocks</u>
+
+Do the opposite of success mocks(i.e. Test `data/response` first)
+
+---
 
 # Portal conventions
 
@@ -39,9 +59,8 @@ do the reverse for failure mocks.
 
 2. And those that accept multiple arguments, nest it under the attributes params. eg. `update_user`, `update_user_status` etc.
 
-# Logs
+---
 
-sidekiq - `journalctl -u sidekiq_new_build -f`
 
 # Avatar upload
 
@@ -49,16 +68,15 @@ sidekiq - `journalctl -u sidekiq_new_build -f`
 curl localhost:3000/api/v1/graphql -H "Accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3OTA2ZmM0ZS04YTA5LTQ2YmEtOTE3YS05M2M4ZDY5ZjZiYmEiLCJzdWIiOiI1YTVmYmI0NS0zYmE2LTQzMDgtODlkYy01NTYzNjc1Nzc5ZWEiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE2MTk2Mjk2MjksImV4cCI6MTYxOTYzMzIyOX0.k-OYoMA31JsMf-8L2FflBzXFv2poCYxV_N5J_Hkf6W0``" -F operations='{ "query": "mutation (\$avatar: Upload!) { uploadAvatar(input: { avatar: \$avatar }) { user { profile {avatarUrl} } } }", "variables": { "avatar": null} }' -F map='{ "0": ["variables.avatar"] }' -F 0=@spec/files/matrix.jpeg
 ```
 
+---
 
-# Activity Log
+## Activity Log
 
-Activity Stream 2.0
+TODO: Activity Stream 2.0
 
-# DB migrate
+--- 
+## Migration guidelines
 
 `rollback` on mat views don't seem to work with the default configuration. comment out the `update_view ....`, `rollback` and `uncomment & migrate`
 
-# TODOS:
-
-1. erd/class diagram
-2. rollbar
+---

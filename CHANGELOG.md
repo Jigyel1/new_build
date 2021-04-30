@@ -10,3 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Feature
 - User invitation, profile management, role management, user address
 - Role based permissions
+
+### Tasks
+
+- `rails db:setup_prod`
+    - populates roles & their respective permissions
