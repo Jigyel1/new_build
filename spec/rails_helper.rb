@@ -11,6 +11,7 @@ require 'support/macros'
 require 'test_prof/recipes/rspec/let_it_be'
 require_relative '../permissions/bulk_updater'
 require 'action_policy/rspec'
+require 'database_cleaner/active_record'
 
 require 'simplecov'
 SimpleCov.start
@@ -76,6 +77,19 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before do
+    DatabaseCleaner.start
+  end
+
+  config.append_after do
+    DatabaseCleaner.clean
+  end
 end
 
 Shoulda::Matchers.configure do |config|

@@ -53,12 +53,22 @@ RSpec.describe Resolvers::UserResolver do
 
     context "when record doesn't exist" do
       it 'responds with error' do
-        response, errors = formatted_response(
+        data, errors = formatted_response(
           query(id: '16c85b18-473d-4f5d-9ab4-666c7faceb6c\"'), current_user: super_user
         )
 
-        expect(response.user).to be_nil
+        expect(data.user).to be_nil
         expect(errors[0]).to include("Couldn't find Telco::Uam::User with 'id'=16c85b18-473d-4f5d-9ab4-666c7faceb6c\"")
+      end
+    end
+
+    context 'without read permission' do
+      let(:team_expert) { create(:user, :team_expert) }
+
+      it 'forbids action' do
+        data, errors = formatted_response(query(id: super_user.id), current_user: team_expert)
+        expect(data.role).to be_nil
+        expect(errors).to eq(['Not Authorized'])
       end
     end
   end

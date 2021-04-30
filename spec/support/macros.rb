@@ -19,6 +19,16 @@ def execute(query, current_user: nil)
   )
 end
 
+# For Queries
+# When you pass a key, your expectation should read as
+#   :=> user, errors = formatted_response.... where key: user
+# Without the key it should read as
+#   :=> data, errors = formatted_response...
+#
+# For Mutations
+# You will mostly be passing the key, so your expectation can look like
+#   :=> response, errors = formatted_response...
+# where response will either be a boolean flag or an object based on what is returned
 def formatted_response(query, current_user: nil, key: nil)
   response = execute(query, current_user: current_user)
   data = response[:data]
@@ -30,7 +40,7 @@ rescue StandardError
   ap response.dig(:errors, 0, :message) # for easier debugging during failures
 end
 
-def as_collection(node, query_string, current_user: nil)
+def paginated_collection(node, query_string, current_user: nil)
   response = execute(query_string, current_user: current_user)
   [
     response.dig(:data, node, :edges)&.pluck(:node),
@@ -49,14 +59,6 @@ def role_ids(roles)
   Role.where(name: roles).pluck(:id)
 end
 
-# def role_names(roles)
-#   Role.names.values_at(*roles)
-# end
-
 def role_id(role)
   role_ids([role]).first || create(:role, role).id
-end
-
-def role_name(role_id)
-  Role.find(role_id).name
 end

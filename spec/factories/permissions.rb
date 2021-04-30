@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :permission do
     resource { :user }
-    actions { {} }
+    actions { { read: true } }
   end
 end

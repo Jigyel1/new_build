@@ -15,7 +15,7 @@ class Role < ApplicationRecord
 
   accepts_nested_attributes_for :permissions
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   # admin & super_user are the general admins of the portal.
   enum name: {

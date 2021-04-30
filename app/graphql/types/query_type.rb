@@ -21,8 +21,13 @@ module Types
       A list of available/valid departments. List available at `config/departments.yml`
     DESC
 
-    field :roles, resolver: Resolvers::RolesResolver, connection: true
-    field :role, resolver: Resolvers::RoleResolver
+    field(
+      :roles,
+      resolver: Resolvers::RolesResolver,
+      connection: true,
+      preauthorize: { record: ::Role, with: ::RolePolicy, to: :index? }
+    )
+    field :role, resolver: Resolvers::RoleResolver, authorize: { with: RolePolicy }
 
     field :permissions, resolver: Resolvers::PermissionsResolver, description: <<~DESC
       A list of valid permissions for different resources with respect for individual roles`

@@ -6,8 +6,10 @@ super_user: # role
     - update_role
     - update_status
     - delete
+  role:
+    - read
 
-admin:
+administrator:
   user:
     - read
     - invite
@@ -15,3 +17,5 @@ admin:
     - update_role
     - update_status
     - delete
+  role:
+    - read

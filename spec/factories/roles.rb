@@ -2,10 +2,12 @@
 
 FactoryBot.define do
   factory :role do
-    name { :team_expert }
+    name { :super_user }
 
-    trait :kam do
-      name { :kam }
+    Role.names.each_key do |name|
+      trait name do
+        name { name }
+      end
     end
   end
 end
