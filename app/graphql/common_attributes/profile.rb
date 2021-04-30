@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module CommonArguments
+module CommonAttributes
   module Profile
     extend ActiveSupport::Concern
 
     included do
-      graphql_name 'CommonArgumentsProfile'
+      graphql_name 'CommonAttributesProfile'
 
       argument :id, GraphQL::Types::ID, required: false
       argument :salutation, String, required: false

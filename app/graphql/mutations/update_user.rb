@@ -3,13 +3,13 @@
 module Mutations
   class UpdateUser < BaseMutation
     class ProfileAttributes < Types::BaseInputObject
-      include CommonArguments::Profile
+      include CommonAttributes::Profile
 
       argument :id, ID, required: true
     end
 
     class AddressAttributes < Types::BaseInputObject
-      include CommonArguments::Address
+      include CommonAttributes::Address
 
       argument :id, ID, required: true
     end

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module CommonArguments
+module CommonAttributes
   module Address
     extend ActiveSupport::Concern
 
     included do
-      graphql_name 'CommonArgumentsAddress'
+      graphql_name 'CommonAttributesAddress'
 
       argument :id, GraphQL::Types::ID, required: false
       argument :street, String, required: false

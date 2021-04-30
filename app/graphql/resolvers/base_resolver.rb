@@ -7,9 +7,5 @@ module Resolvers
     extend Forwardable
 
     def_delegator ActiveSupport::Notifications, :instrument
-
-    def empty?(collection)
-      collection.reject(&:empty?).empty?
-    end
   end
 end
