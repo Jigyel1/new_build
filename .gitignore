@@ -36,7 +36,6 @@ storage
 tmp
 local
 /swagger/api
-/swagger/api
 schema.*
 coverage
 danger

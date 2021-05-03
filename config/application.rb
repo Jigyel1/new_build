@@ -31,8 +31,8 @@ module NewBuild
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    # CORS_ENABLED should be set to false or not set at all in production server!
-    if ActiveModel::Type::Boolean.new.cast(ENV['CORS_ENABLED'])
+    # `PRODUCTION_SERVER` should be set to true in production server to disable cors!
+    unless ActiveModel::Type::Boolean.new.cast(ENV['PRODUCTION_SERVER'])
       config.middleware.insert_before 0, Rack::Cors, debug: true, logger: (-> { Rails.logger }) do
         allow do
           origins '*'
@@ -65,21 +65,17 @@ module NewBuild
     # Logidze uses DB functions and triggers, hence you need to use SQL format for a schema dump
     config.active_record.schema_format = :sql
 
-    # Cookies need to be enabled for Sidekiq UI to work!
-    if ActiveModel::Type::Boolean.new.cast(ENV['COOKIES_ENABLED'])
-      config.middleware.use ActionDispatch::Cookies
-
-      if Rails.env.production?
-        config.middleware.use(
-          ActionDispatch::Session::CacheStore,
-          key: '_new_build_session',
-          expire_after: 30.days,
-          domain: :all,
-          secure: true
-        )
-      else
-        config.middleware.use ActionDispatch::Session::CookieStore, key: '_new_build_session'
-      end
+    config.middleware.use ActionDispatch::Cookies
+    if Rails.env.production?
+      config.middleware.use(
+        ActionDispatch::Session::CacheStore,
+        key: '_new_build_session',
+        expire_after: 30.days,
+        domain: :all,
+        secure: true
+      )
+    else
+      config.middleware.use ActionDispatch::Session::CookieStore, key: '_new_build_session'
     end
   end
 end

@@ -80,3 +80,33 @@ TODO: Activity Stream 2.0
 `rollback` on mat views don't seem to work with the default configuration. comment out the `update_view ....`, `rollback` and `uncomment & migrate`
 
 ---
+
+## .env
+
+PRODUCTION_SERVER
+> When `PRODUCTION_SERVER` is false, cors will be enabled.
+  Set this to true in the actual production server!
+
+ALLOWED_DOMAINS
+> Only users with the given domain can be invited & use the portal. For specs to work in bitbucket pipelines, make sure you atleast add selise.ch in ALLOWED_DOMAINS
+
+MAIL_SENDER
+> Application email sender - from
+
+SWAGGER_USER, SWAGGER_PASS
+> For API docs access protection. /api-docs
+
+MAX_PAGE_SIZE
+> Number of items returned per page. Defaults to 100. Defaults to 100
+
+SESSION_TIMEOUT
+> Devise session timeout. Defaults to 30 minutes of inactivity.
+
+REDIS_HOST, REDIS_SECRET
+> Redis credentials
+
+SIDEKIQ_USERNAME, SIDEKIQ_PASSWORD
+> For sidekiq UI - /sidekiq
+
+USERS_PER_ROLE
+> Users you want to show for each role. Only in the listing page. Details will call a different endpoint.
