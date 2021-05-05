@@ -25,13 +25,23 @@ User.class_eval do
   accepts_nested_attributes_for :profile, :address, allow_destroy: true
 
   delegate :salutation, :name, :lastname, :firstname, to: :profile
+  delegate :id, to: :profile, prefix: true
+  delegate :id, to: :address, prefix: true, allow_nil: true
   delegate :permissions, to: :role
+  delegate :name, to: :role, prefix: true
 
   has_logidze
 
   def invite!(invited_by = nil, options = {})
     DomainValidator.new(email).run
 
-    super
+    super.tap do
+      ActivityPopulator.new(
+        owner: self.invited_by,
+        recipient: self,
+        verb: :invited,
+        trackable_type: 'User'
+      ).log_involvement
+    end
   end
 end

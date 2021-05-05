@@ -41,6 +41,7 @@ class NewBuildSchema < GraphQL::Schema
     # ...
   end
 
+  # TODO: Rollbar for graphql errors
   rescue_from(*GENERIC_ERRORS) do |err|
     raise GraphQL::ExecutionError, err
   end

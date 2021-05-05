@@ -7,7 +7,7 @@ module Types
     field :display_text, String, null: true
 
     def display_text
-      "Activities::For#{activity_user.camelize}"
+      "ActivitiesFormatter::For#{activity_user.camelize}"
         .constantize
         .new(current_user: current_user, attributes: { activity: object }).call
     end

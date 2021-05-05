@@ -8,6 +8,14 @@ module Users
       authorize! current_user, to: :update?, with: UserPolicy
 
       user.update!(attributes)
+
+      ActivityPopulator.new(
+        owner: current_user,
+        recipient: user,
+        verb: :profile_updated,
+        trackable_type: 'User',
+        parameters: attributes
+      ).log_activity
     end
   end
 end

@@ -154,7 +154,7 @@ describe 'Invitations API', type: :request do
       consumes 'application/json'
       produces 'application/json'
 
-      before { user.invite! }
+      before { user.invite!(user) }
 
       parameter name: :params, in: :body, schema: {
         type: :object,

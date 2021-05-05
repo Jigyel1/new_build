@@ -11,11 +11,18 @@ module Users
     def call
       authorize! current_user, to: :delete?, with: UserPolicy
 
-      user.discard!.tap do
-        user.update_column(
-          :email, user.email.prepend(Time.current.strftime("#{TIME_FORMAT}_"))
-        )
-      end
+      user.discard!
+
+      ActivityPopulator.new(
+        owner: current_user,
+        recipient: user,
+        verb: :profile_deleted,
+        trackable_type: 'User'
+      ).log_activity
+
+      user.update_column(
+        :email, user.email.prepend(Time.current.strftime("#{TIME_FORMAT}_"))
+      )
     end
   end
 end

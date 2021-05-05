@@ -8,11 +8,13 @@ class CreateActivities < ActiveRecord::Migration[6.1]
       t.references :recipient, type: :uuid, null: false, foreign_key: { to_table: :telco_uam_users }
       t.string :verb, null: false
 
+      t.jsonb :log_data, null: false, default: {}, index: true
       t.jsonb :parameters, null: false, default: {}, index: true
 
       t.timestamps
     end
 
     add_index :activities, %i[trackable_id trackable_type]
+    add_index :activities, :created_at, order: :desc
   end
 end

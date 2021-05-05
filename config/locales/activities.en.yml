@@ -9,3 +9,19 @@ en:
         owner: 'you invited %{recipient_email} to the portal'
         recipient: '%{owner_email} invited you to the portal'
         others: '%{owner_email} invited %{recipient_email} to the portal'
+      profile_updated:
+        owner: 'you updated %{recipient_email} profile'
+        recipient: '%{owner_email} updated your profile'
+        others: '%{owner_email} updated %{recipient_email} profile'
+      profile_deleted:
+        owner: 'you deleted %{recipient_email} from the portal'
+        recipient: '%{owner_email} deleted you from the portal'
+        others: '%{owner_email} deleted %{recipient_email} from the portal'
+      re_invited:
+        owner: 'you re-invited %{recipient_email} to the portal'
+        recipient: '%{owner_email} re-invited you to the portal'
+        others: '%{owner_email} re-invited %{recipient_email} to the portal'
+      role_updated:
+        owner: 'you updated %{recipient_email} role to %{role}'
+        recipient: '%{owner_email} updated your role to %{role}'
+        others: '%{owner_email} updated %{recipient_email} role to %{role}'

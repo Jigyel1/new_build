@@ -354,6 +354,7 @@ CREATE TABLE public.activities (
     trackable_id uuid,
     recipient_id uuid NOT NULL,
     verb character varying NOT NULL,
+    log_data jsonb DEFAULT '{}'::jsonb NOT NULL,
     parameters jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -557,6 +558,20 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.telco_uam_users
     ADD CONSTRAINT telco_uam_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_activities_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_created_at ON public.activities USING btree (created_at DESC);
+
+
+--
+-- Name: index_activities_on_log_data; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_log_data ON public.activities USING btree (log_data);
 
 
 --

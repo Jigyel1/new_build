@@ -9,4 +9,6 @@ class Activity < ApplicationRecord
   belongs_to :trackable, polymorphic: true, optional: true
 
   validates :verb, presence: true
+
+  default_scope { order(created_at: :desc) }
 end
