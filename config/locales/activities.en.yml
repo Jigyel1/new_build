@@ -2,6 +2,10 @@ en:
   activities:
     user:
       status_updated:
-        owner: 'you updated %{owner_email} active status to %{active}'
-        recipient: '%{recipient_email} updated your active status to %{active}'
+        owner: 'you updated %{recipient_email} active status to %{active}'
+        recipient: '%{owner_email} updated your active status to %{active}'
         others: '%{owner_email} updated %{recipient_email} active status to %{active}'
+      invited:
+        owner: 'you invited %{recipient_email} to the portal'
+        recipient: '%{owner_email} invited you to the portal'
+        others: '%{owner_email} invited %{recipient_email} to the portal'

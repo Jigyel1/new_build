@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module Activities
-  class Recipient < BaseService
+  class ForRecipient < BaseService
     include ActivityHelper
 
     def call
@@ -7,7 +9,7 @@ module Activities
       when :status_updated
         t(
           "activities.#{activity.trackable_type.downcase}.status_updated.recipient",
-          recipient_email: current_user.email,
+          owner_email: activity.owner.email,
           active: parameters.active
         )
       end

@@ -418,8 +418,8 @@ CREATE TABLE public.profiles (
     department character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    avatar_url character varying,
-    log_data jsonb
+    log_data jsonb,
+    avatar_url character varying
 );
 
 
@@ -496,48 +496,6 @@ CREATE VIEW public.users_lists AS
 
 
 --
--- Name: versions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.versions (
-    id bigint NOT NULL,
-    item_type character varying,
-    "{:null=>false}" character varying,
-    item_id bigint NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object text,
-    created_at timestamp without time zone
-);
-
-
---
--- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
-
-
---
--- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
-
-
---
 -- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -599,14 +557,6 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.telco_uam_users
     ADD CONSTRAINT telco_uam_users_pkey PRIMARY KEY (id);
-
-
---
--- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.versions
-    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -743,13 +693,6 @@ CREATE INDEX index_telco_uam_users_on_role_id ON public.telco_uam_users USING bt
 
 
 --
--- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING btree (item_type, item_id);
-
-
---
 -- Name: profiles logidze_on_profiles; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -812,7 +755,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210425904822'),
 ('20210426065837'),
 ('20210428110340'),
-('20210503164422'),
 ('20210504155710');
 
 

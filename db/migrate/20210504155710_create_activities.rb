@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateActivities < ActiveRecord::Migration[6.1]
   def change
     create_table :activities, id: :uuid do |t|
@@ -11,6 +13,6 @@ class CreateActivities < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :activities, [:trackable_id, :trackable_type]
+    add_index :activities, %i[trackable_id trackable_type]
   end
 end

@@ -31,12 +31,12 @@ RSpec.describe Mutations::UpdateUserStatus do
           expect(errors).to be_nil
           activity = activities.first
           expect(activity[:displayText]).to eq(
-                                              t(
-                                                "activities.user.status_updated.owner",
-                                                owner_email: super_user.email,
-                                                active: false
-                                              )
-                                            )
+            t(
+              'activities.user.status_updated.owner',
+              recipient_email: team_standard.email,
+              active: false
+            )
+          )
         end
       end
 
@@ -46,12 +46,12 @@ RSpec.describe Mutations::UpdateUserStatus do
           expect(errors).to be_nil
           activity = activities.first
           expect(activity[:displayText]).to eq(
-                                              t(
-                                                "activities.user.status_updated.recipient",
-                                                recipient_email: team_standard.email,
-                                                active: false
-                                              )
-                                            )
+            t(
+              'activities.user.status_updated.recipient',
+              owner_email: super_user.email,
+              active: false
+            )
+          )
         end
       end
 
@@ -63,12 +63,13 @@ RSpec.describe Mutations::UpdateUserStatus do
           expect(errors).to be_nil
           activity = activities.first
           expect(activity[:displayText]).to eq(
-                                              t(
-                                                "activities.user.status_updated.others",
-                                                email: team_standard.email,
-                                                active: false
-                                              )
-                                            )
+            t(
+              'activities.user.status_updated.others',
+              owner_email: super_user.email,
+              recipient_email: team_standard.email,
+              active: false
+            )
+          )
         end
       end
     end
@@ -96,7 +97,7 @@ RSpec.describe Mutations::UpdateUserStatus do
         activities {
           totalCount
           edges {
-            node { 
+            node {
               id createdAt displayText
             }
           }
