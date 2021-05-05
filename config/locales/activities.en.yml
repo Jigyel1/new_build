@@ -1,0 +1,7 @@
+en:
+  activities:
+    user:
+      status_updated:
+        owner: 'you updated %{owner_email} active status to %{active}'
+        recipient: '%{recipient_email} updated your active status to %{active}'
+        others: '%{owner_email} updated %{recipient_email} active status to %{active}'

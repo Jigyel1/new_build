@@ -344,6 +344,23 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activities (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    owner_id uuid NOT NULL,
+    trackable_type character varying,
+    trackable_id uuid,
+    recipient_id uuid NOT NULL,
+    verb character varying NOT NULL,
+    parameters jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: addresses; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -401,8 +418,8 @@ CREATE TABLE public.profiles (
     department character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    log_data jsonb,
-    avatar_url character varying
+    avatar_url character varying,
+    log_data jsonb
 );
 
 
@@ -479,6 +496,56 @@ CREATE VIEW public.users_lists AS
 
 
 --
+-- Name: versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.versions (
+    id bigint NOT NULL,
+    item_type character varying,
+    "{:null=>false}" character varying,
+    item_id bigint NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object text,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
+
+
+--
+-- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
+
+
+--
+-- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: addresses addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -532,6 +599,49 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.telco_uam_users
     ADD CONSTRAINT telco_uam_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.versions
+    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_activities_on_owner_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_owner_id ON public.activities USING btree (owner_id);
+
+
+--
+-- Name: index_activities_on_parameters; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_parameters ON public.activities USING btree (parameters);
+
+
+--
+-- Name: index_activities_on_recipient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_recipient_id ON public.activities USING btree (recipient_id);
+
+
+--
+-- Name: index_activities_on_trackable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_trackable ON public.activities USING btree (trackable_type, trackable_id);
+
+
+--
+-- Name: index_activities_on_trackable_id_and_trackable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_trackable_id_and_trackable_type ON public.activities USING btree (trackable_id, trackable_type);
 
 
 --
@@ -633,6 +743,13 @@ CREATE INDEX index_telco_uam_users_on_role_id ON public.telco_uam_users USING bt
 
 
 --
+-- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING btree (item_type, item_id);
+
+
+--
 -- Name: profiles logidze_on_profiles; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -644,6 +761,22 @@ CREATE TRIGGER logidze_on_profiles BEFORE INSERT OR UPDATE ON public.profiles FO
 --
 
 CREATE TRIGGER logidze_on_telco_uam_users BEFORE INSERT OR UPDATE ON public.telco_uam_users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION public.logidze_logger('null', 'updated_at', '{active,email,invitation_created_at}', 'true');
+
+
+--
+-- Name: activities fk_rails_02313f8952; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT fk_rails_02313f8952 FOREIGN KEY (recipient_id) REFERENCES public.telco_uam_users(id);
+
+
+--
+-- Name: activities fk_rails_8c2b010743; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT fk_rails_8c2b010743 FOREIGN KEY (owner_id) REFERENCES public.telco_uam_users(id);
 
 
 --
@@ -678,6 +811,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210422050925'),
 ('20210425904822'),
 ('20210426065837'),
-('20210428110340');
+('20210428110340'),
+('20210503164422'),
+('20210504155710');
 
 

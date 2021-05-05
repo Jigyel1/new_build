@@ -32,5 +32,7 @@ module Types
     field :permissions, resolver: Resolvers::PermissionsResolver, description: <<~DESC
       A list of valid permissions for different resources with respect for individual roles`
     DESC
+
+    field :activities, resolver: Resolvers::ActivitiesResolver
   end
 end

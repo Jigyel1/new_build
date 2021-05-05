@@ -15,6 +15,9 @@ User.class_eval do
   has_one :profile, inverse_of: :user, dependent: :destroy
   has_one :address, as: :addressable, inverse_of: :addressable, dependent: :destroy
 
+  has_many :activities, foreign_key: :owner_id
+  has_many :involvements, foreign_key: :recipient_id, class_name: 'Activity'
+
   validates :profile, presence: true
 
   default_scope { kept }
