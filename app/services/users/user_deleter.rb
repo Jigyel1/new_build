@@ -18,7 +18,7 @@ module Users
         recipient: user,
         verb: :profile_deleted,
         trackable_type: 'User'
-      ).log_activity
+      ).call
 
       user.update_column(
         :email, user.email.prepend(Time.current.strftime("#{TIME_FORMAT}_"))

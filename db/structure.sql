@@ -355,7 +355,6 @@ CREATE TABLE public.activities (
     recipient_id uuid NOT NULL,
     verb character varying NOT NULL,
     log_data jsonb DEFAULT '{}'::jsonb NOT NULL,
-    parameters jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -579,13 +578,6 @@ CREATE INDEX index_activities_on_log_data ON public.activities USING btree (log_
 --
 
 CREATE INDEX index_activities_on_owner_id ON public.activities USING btree (owner_id);
-
-
---
--- Name: index_activities_on_parameters; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activities_on_parameters ON public.activities USING btree (parameters);
 
 
 --

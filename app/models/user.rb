@@ -41,7 +41,7 @@ User.class_eval do
         recipient: self,
         verb: :invited,
         trackable_type: 'User'
-      ).log_involvement
+      ).call
     end
   end
 end

@@ -17,7 +17,7 @@ module Users
         verb: :role_updated,
         trackable_type: 'User',
         parameters: { role: user.role_name }
-      ).log_activity
+      ).call
     end
   end
 end

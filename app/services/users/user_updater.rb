@@ -15,7 +15,7 @@ module Users
         verb: :profile_updated,
         trackable_type: 'User',
         parameters: attributes
-      ).log_activity
+      ).call
     end
   end
 end

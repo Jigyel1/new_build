@@ -7,9 +7,7 @@ class CreateActivities < ActiveRecord::Migration[6.1]
       t.references :trackable, type: :uuid, polymorphic: true
       t.references :recipient, type: :uuid, null: false, foreign_key: { to_table: :telco_uam_users }
       t.string :verb, null: false
-
       t.jsonb :log_data, null: false, default: {}, index: true
-      t.jsonb :parameters, null: false, default: {}, index: true
 
       t.timestamps
     end
