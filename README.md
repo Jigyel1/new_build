@@ -33,6 +33,8 @@ run `bundle; rails db:migrate; sudo service puma_new_build restart, sudo service
 
 `rails db:setup_dev` to seed fake data.
 
+`rails db:reset_dev` custom version of `rails db:reset` with fake data seeded.
+
 ---
 
 ## Test guidelines
