@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DomainValidator
-  ALLOWED_DOMAINS = ENV['ALLOWED_DOMAINS'].delete(' ').split(',').freeze
+  ALLOWED_DOMAINS = Rails.application.config.allowed_domains
 
   class UnPermittedDomainError < StandardError
     def to_s

@@ -4,6 +4,7 @@ User = Telco::Uam::User
 
 User.class_eval do
   include Discard::Model
+  include LogidzeWrapper
 
   # Since user is derived from the engine(telco-uam), it has no knowledge
   # of it's associations. To support `strict_loading_by_default` we have to add custom
@@ -15,8 +16,8 @@ User.class_eval do
   has_one :profile, inverse_of: :user, dependent: :destroy
   has_one :address, as: :addressable, inverse_of: :addressable, dependent: :destroy
 
-  has_many :activities, foreign_key: :owner_id
-  has_many :involvements, foreign_key: :recipient_id, class_name: 'Activity'
+  has_many :activities, foreign_key: :owner_id, dependent: :destroy
+  has_many :involvements, foreign_key: :recipient_id, class_name: 'Activity', dependent: :destroy
 
   validates :profile, presence: true
 
@@ -32,16 +33,19 @@ User.class_eval do
 
   has_logidze
 
-  def invite!(invited_by = nil, options = {})
+  def invite!(invited_by = nil, options = {}) # rubocop:disable Metrics/SeliseMethodLength
     DomainValidator.new(email).run
 
-    super.tap do
-      ActivityPopulator.new(
-        owner: self.invited_by,
-        recipient: self,
-        verb: :invited,
-        trackable_type: 'User'
-      ).call
+    track_update(activity_id = SecureRandom.uuid) do
+      super.tap do
+        ActivityPopulator.new(
+          activity_id: activity_id,
+          owner: self.invited_by,
+          recipient: self,
+          verb: :invited,
+          trackable_type: 'User'
+        ).call
+      end
     end
   end
 end

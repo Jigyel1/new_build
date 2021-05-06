@@ -17,7 +17,7 @@ module Types
         .for(
           UsersList,
           :role_id,
-          limit: ENV.fetch('USERS_PER_ROLE', 10).to_i,
+          limit: Rails.application.config.users_per_role,
           order_col: :avatar_url,
           order_dir: :asc
         )

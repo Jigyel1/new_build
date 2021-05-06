@@ -28,9 +28,13 @@ Metrics/SeliseMethodLength:
   Max: 10
   CountAsOne: ['array', 'heredoc']
 
-# Devs are expected to be aware of methods that don't trigger
-# validations/callbacks. `insert_all`, `upsert_all`, `update_columns` etc
-# are used for an improved performance.
+# Rails automatically detects `inverse_of` association from 4.1 onwards. Although it
+# doesn't notify if it fails to infer. If that is noticed, add it and re-enable this.
+Rails/InverseOf:
+  Enabled: false
+
+# Devs are expected to be aware of methods that don't trigger validations/callbacks.
+# `insert_all`, `upsert_all`, `update_columns` etc are used for an improved performance.
 Rails/SkipsModelValidations:
   Enabled: false
 
@@ -40,6 +44,7 @@ RSpec/ContextWording:
     - when
     - with
     - without
+    - as
 
 # With swagger, it blocks aren't necessary
 RSpec/EmptyExampleGroup:

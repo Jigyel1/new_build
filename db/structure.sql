@@ -710,7 +710,7 @@ CREATE TRIGGER logidze_on_profiles BEFORE INSERT OR UPDATE ON public.profiles FO
 -- Name: telco_uam_users logidze_on_telco_uam_users; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER logidze_on_telco_uam_users BEFORE INSERT OR UPDATE ON public.telco_uam_users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION public.logidze_logger('null', 'updated_at', '{active,email,invitation_created_at}', 'true');
+CREATE TRIGGER logidze_on_telco_uam_users BEFORE INSERT OR UPDATE ON public.telco_uam_users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION public.logidze_logger('null', 'updated_at', '{active,email,invitation_created_at,discarded_at,role_id}', 'true');
 
 
 --

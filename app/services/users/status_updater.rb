@@ -7,15 +7,13 @@ module Users
     def call
       authorize! current_user, to: :update_status?, with: UserPolicy
 
-      user.update!(active: attributes[:active])
+      track_update(activity_id = SecureRandom.uuid) do
+        user.update!(active: attributes[:active])
 
-      ActivityPopulator.new(
-        owner: current_user,
-        recipient: user,
-        verb: :status_updated,
-        trackable_type: 'User',
-        parameters: attributes
-      ).call
+        ActivityPopulator.new(
+          activity_params(activity_id, :status_updated, { active: attributes[:active] })
+        ).call
+      end
     end
   end
 end

@@ -11,14 +11,13 @@ module Users
     def call
       authorize! current_user, to: :delete?, with: UserPolicy
 
-      user.discard!
+      track_update(activity_id = SecureRandom.uuid) do
+        user.discard!
 
-      ActivityPopulator.new(
-        owner: current_user,
-        recipient: user,
-        verb: :profile_deleted,
-        trackable_type: 'User'
-      ).call
+        ActivityPopulator.new(
+          activity_params(activity_id, :profile_deleted)
+        ).call
+      end
 
       user.update_column(
         :email, user.email.prepend(Time.current.strftime("#{TIME_FORMAT}_"))

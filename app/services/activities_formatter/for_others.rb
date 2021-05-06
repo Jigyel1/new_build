@@ -4,7 +4,7 @@ module ActivitiesFormatter
   class ForOthers < BaseService
     include ActivityHelper
 
-    def call
+    def call # rubocop:disable Metrics/AbcSize, Metrics/SeliseMethodLength
       case activity.verb.to_sym
       when :status_updated
         t(
