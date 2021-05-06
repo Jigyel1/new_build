@@ -28,7 +28,7 @@ User.class_eval do
   delegate :salutation, :name, :lastname, :firstname, to: :profile
   delegate :id, to: :profile, prefix: true
   delegate :id, to: :address, prefix: true, allow_nil: true
-  delegate :permissions, to: :role
+  delegate :permissions, :admin?, to: :role
   delegate :name, to: :role, prefix: true
 
   has_logidze
@@ -42,7 +42,7 @@ User.class_eval do
           activity_id: activity_id,
           owner: self.invited_by,
           recipient: self,
-          verb: :invited,
+          verb: :user_invited,
           trackable_type: 'User'
         ).call
       end

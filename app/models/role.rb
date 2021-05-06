@@ -30,4 +30,8 @@ class Role < ApplicationRecord
     administrator: 'Administrator',
     super_user: 'Super User'
   }
+
+  def admin?
+    %w[administrator super_user].any?(name)
+  end
 end

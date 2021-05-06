@@ -8,28 +8,28 @@ module ActivitiesFormatter
       case activity.verb.to_sym
       when :status_updated
         t(
-          "activities.#{activity.trackable_type.downcase}.status_updated.recipient",
+          'activities.user.status_updated.recipient',
           owner_email: log_data.owner_email,
           active: parameters.active
         )
-      when :invited
+      when :user_invited
         t(
-          "activities.#{activity.trackable_type.downcase}.invited.recipient",
+          'activities.user.user_invited.recipient',
           owner_email: log_data.owner_email
         )
       when :profile_updated
         t(
-          "activities.#{activity.trackable_type.downcase}.profile_updated.recipient",
+          'activities.user.profile_updated.recipient',
           owner_email: log_data.owner_email
         )
       when :profile_deleted
         t(
-          "activities.#{activity.trackable_type.downcase}.profile_deleted.recipient",
+          'activities.user.profile_deleted.recipient',
           owner_email: log_data.owner_email
         )
       when :role_updated
         t(
-          "activities.#{activity.trackable_type.downcase}.role_updated.recipient",
+          'activities.user.role_updated.recipient',
           owner_email: log_data.owner_email,
           role: parameters.role
         )
