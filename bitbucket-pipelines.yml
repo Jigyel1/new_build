@@ -28,7 +28,7 @@ definitions:
           - LOCALE=de bundle exec rspec
           - LOCALE=fr bundle exec rspec
           - LOCALE=it bundle exec rspec
-          - brakeman; bullet; rubycritic
+          - brakeman; rubycritic
           - bundle exec rails_best_practices
 
         services:
