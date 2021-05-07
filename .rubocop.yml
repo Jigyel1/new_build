@@ -59,3 +59,8 @@ RSpec/MultipleExpectations:
 
 RSpec/ExampleLength:
   Max: 30
+
+# Temporary code. This has been fixed in another branch.
+# Remove it soon.
+Rails/EnvironmentVariableAccess:
+  Enabled: false

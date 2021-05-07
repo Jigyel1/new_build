@@ -2,7 +2,7 @@
 
 class UsersList < ApplicationRecord
   include Discard::Model
-  has_one :profile # rubocop:disable Rails/HasManyOrHasOneDependent
+  has_one :profile
 
   self.primary_key = :id
 
