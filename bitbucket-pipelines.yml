@@ -18,7 +18,7 @@ definitions:
           - bundler
 
         script:
-          - apt-get update && apt-get install -y libpq-dev poppler-utils libdmtx-dev libvips42 postgres-client
+          - apt-get update && apt-get install -y libpq-dev poppler-utils libdmtx-dev libvips42 postgresql postgresql-contrib
           - gem install bundler -v 2.2.14
           - bundle config gems.selise.tech ${GEM_USERNAME}:${GEM_PASSWORD}
           - bundle _2.2.14_ install
