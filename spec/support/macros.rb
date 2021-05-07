@@ -42,6 +42,7 @@ end
 
 def paginated_collection(node, query_string, current_user: nil)
   response = execute(query_string, current_user: current_user)
+  puts response
   [
     response.dig(:data, node, :edges)&.pluck(:node),
     response[:errors]
