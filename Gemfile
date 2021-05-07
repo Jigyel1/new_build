@@ -84,6 +84,7 @@ gem 'logidze', '~> 1.1'
 gem 'lograge'
 gem 'rack-cors'
 gem 'recursive-open-struct'
+gem 'rollbar'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'scenic'

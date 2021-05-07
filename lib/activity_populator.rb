@@ -21,7 +21,6 @@ class ActivityPopulator
         recipient_email: recipient.email,
         parameters: parameters
       }
-    ).then { |activity| activity.persisted? ? activity : (puts activity.errors.full_messages) } # rubocop:disable Rails/Output
+    ).then { |activity| activity.persisted? ? activity : Rollbar.error(activity.errors.full_messages) } # rubocop:disable Rails/Output
   end
 end
-# Rollbar.error(activity.errors.full_messages)
