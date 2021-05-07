@@ -2,11 +2,11 @@
 
 # Be sure to restart your server when you modify this file.
 
-# enable CORS for test/staging servers
+# `PRODUCTION_SERVER` should be set to true in production server to disable cors!
 unless ActiveModel::Type::Boolean.new.cast(ENV['PRODUCTION_SERVER'])
-  Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  Rails.application.config.middleware.insert_before 0, Rack::Cors, debug: true, logger: (-> { Rails.logger }) do
     allow do
-      origins 'https://new-build.selise.ch'
+      origins '*'
       resource(
         '*',
         headers: :any,
