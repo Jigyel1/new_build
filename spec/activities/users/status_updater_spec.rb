@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Users::StatusUpdater do
+  include ActivitiesSpecHelper
+
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: [:update_status] }) }
   let_it_be(:team_standard) { create(:user, :team_standard) }
 
@@ -18,7 +20,7 @@ RSpec.describe Users::StatusUpdater do
           t(
             'activities.user.status_updated.owner',
             recipient_email: team_standard.email,
-            active: false
+            action: action(false).camelize
           )
         )
       end
@@ -33,7 +35,7 @@ RSpec.describe Users::StatusUpdater do
           t(
             'activities.user.status_updated.recipient',
             owner_email: super_user.email,
-            active: false
+            action: action(false)
           )
         )
       end
@@ -51,7 +53,7 @@ RSpec.describe Users::StatusUpdater do
             'activities.user.status_updated.others',
             owner_email: super_user.email,
             recipient_email: team_standard.email,
-            active: false
+            action: action(false)
           )
         )
       end

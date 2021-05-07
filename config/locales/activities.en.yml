@@ -1,28 +1,30 @@
 en:
   activities:
+    activated: 'activated'
+    deactivated: 'deactivated'
     user:
       status_updated:
-        owner: 'you updated %{recipient_email} active status to %{active}'
-        recipient: '%{owner_email} updated your active status to %{active}'
-        others: '%{owner_email} updated %{recipient_email} active status to %{active}'
+        owner: '%{action} the user %{recipient_email} in the portal'
+        recipient: 'User profile was %{action} by %{owner_email}'
+        others: '%{owner_email} %{action} the user profile of %{recipient_email}'
       user_invited:
-        owner: 'you invited %{recipient_email} to the portal'
-        recipient: '%{owner_email} invited you to the portal'
-        others: '%{owner_email} invited %{recipient_email} to the portal'
+        owner: 'Added %{recipient_email} as a new user in the role of %{role}'
+        recipient: 'Was added as a new user in the role of %{role} by %{owner_email}'
+        others: '%{recipient_email} was added in the role of %{role} by %{owner_email}'
       profile_updated:
-        owner: 'you updated %{recipient_email} profile'
-        recipient: '%{owner_email} updated your profile'
-        others: '%{owner_email} updated %{recipient_email} profile'
+        owner: 'Edited the user profile of #{recipient_email}'
+        recipient: 'User profile was edited by %{owner_email}'
+        others: '%{owner_email} made changes to the user profile of %{recipient_email}'
       profile_deleted:
-        owner: 'you deleted %{recipient_email} from the portal'
-        recipient: '%{owner_email} deleted you from the portal'
-        others: '%{owner_email} deleted %{recipient_email} from the portal'
+        owner: 'Deleted the user %{recipient_email} from the portal'
+        recipient: 'User Profile was deleted by %{owner_email}'
+        others: '%{owner_email} deleted the user profile of %{recipient_email} permanently from the portal'
       re_invited:
         owner: 'you re-invited %{recipient_email} to the portal'
         recipient: '%{owner_email} re-invited you to the portal'
         others: '%{owner_email} re-invited %{recipient_email} to the portal'
       role_updated:
-        owner: 'you updated %{recipient_email} role to %{role}'
-        recipient: '%{owner_email} updated your role to %{role}'
-        others: '%{owner_email} updated %{recipient_email} role to %{role}'
+        owner: 'Changed the role of the user %{recipient_email} from %{previous_role} to %{role} the portal'
+        recipient: 'Role was changed from %{previous_role} to %{role} by %{owner_email}'
+        others: '%{owner_email} changed the role of %{recipient_email} from %{previous_role} to %{role}'
 

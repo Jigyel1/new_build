@@ -43,7 +43,8 @@ User.class_eval do
           owner: self.invited_by,
           recipient: self,
           verb: :user_invited,
-          trackable_type: 'User'
+          trackable_type: 'User',
+          parameters: { role: role_name }
         ).call
       end
     end

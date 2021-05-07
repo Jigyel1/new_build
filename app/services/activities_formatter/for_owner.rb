@@ -10,12 +10,13 @@ module ActivitiesFormatter
         t(
           'activities.user.status_updated.owner',
           recipient_email: log_data.recipient_email,
-          active: parameters.active
+          action: action.camelize
         )
       when :user_invited
         t(
           'activities.user.user_invited.owner',
-          recipient_email: log_data.recipient_email
+          recipient_email: log_data.recipient_email,
+          role: parameters.role
         )
       when :profile_updated
         t(
@@ -31,7 +32,8 @@ module ActivitiesFormatter
         t(
           'activities.user.role_updated.owner',
           recipient_email: log_data.recipient_email,
-          role: parameters.role
+          role: parameters.role,
+          previous_role: parameters.previous_role
         )
       end
     end

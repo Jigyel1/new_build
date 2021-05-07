@@ -21,6 +21,14 @@ class ActivityPopulator
         recipient_email: recipient.email,
         parameters: parameters
       }
-    ).then { |activity| activity.persisted? ? activity : Rollbar.error(activity.errors.full_messages) } # rubocop:disable Rails/Output
+    ).then { |activity| activity.persisted? ? activity : log_error }
+  end
+
+  private
+
+  def log_error
+    return Rollbar.error(activity.errors.full_messages) if Rails.env.production?
+
+    Rails.logger.error(activity.errors.full_messages)
   end
 end

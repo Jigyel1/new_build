@@ -18,7 +18,8 @@ RSpec.describe Users::RoleUpdater do
           t(
             'activities.user.role_updated.owner',
             recipient_email: team_standard.email,
-            role: super_user.role_name
+            role: super_user.role_name,
+            previous_role: team_standard.role_name
           )
         )
       end
@@ -33,7 +34,8 @@ RSpec.describe Users::RoleUpdater do
           t(
             'activities.user.role_updated.recipient',
             owner_email: super_user.email,
-            role: super_user.role_name
+            role: super_user.role_name,
+            previous_role: team_standard.role_name
           )
         )
       end
@@ -51,7 +53,8 @@ RSpec.describe Users::RoleUpdater do
             'activities.user.role_updated.others',
             owner_email: super_user.email,
             recipient_email: team_standard.email,
-            role: super_user.role_name
+            role: super_user.role_name,
+            previous_role: team_standard.role_name
           )
         )
       end
