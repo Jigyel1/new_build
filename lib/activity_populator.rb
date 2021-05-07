@@ -11,7 +11,7 @@ class ActivityPopulator
   end
 
   def call # rubocop:disable Metrics/SeliseMethodLength
-    owner.activities.create(
+    owner.activities.create!(
       id: activity_id || SecureRandom.uuid,
       recipient: recipient,
       verb: verb,
