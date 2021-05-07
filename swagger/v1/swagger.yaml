@@ -1,0 +1,122 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/users/invitation":
+    post:
+      summary: Sends invitation
+      tags:
+      - Invitation
+      security:
+      - Bearer: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer Token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user invited
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      default: ym@selise.ch
+                    role_id:
+                      type: integer
+                      default: 1
+                    profile_attributes:
+                      type: object
+                      properties:
+                        salutation:
+                          type: string
+                          default: Mr
+                        firstname:
+                          type: string
+                          default: Yogesh
+                        lastname:
+                          type: string
+                          default: Mongar
+                        phone:
+                          type: string
+                          default: "+97517858728"
+                        department:
+                          type: string
+                          default: Sales
+                      required:
+                      - salutation
+                      - firstname
+                      - lastname
+                      - phone
+                    address_attributes:
+                      type: object
+                      properties:
+                        street:
+                          type: string
+                          default: Haldenstrasse
+                        street_no:
+                          type: string
+                          default: '23'
+                        zip:
+                          type: string
+                          default: '8006'
+                        city:
+                          type: string
+                          default: Zurich
+                      required:
+                      - street
+                      - street_no
+                      - zip
+                      - city
+                  required:
+                  - email
+                  - role_id
+    put:
+      summary: Accept invitation
+      tags:
+      - Invitation
+      parameters: []
+      responses:
+        '200':
+          description: invitation accepted
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    password:
+                      type: string
+                      default: MySecurePass21!
+                    password_confirmation:
+                      type: string
+                      default: MySecurePass21!
+                    invitation_token:
+                      type: string
+                      default: JdtMBzQz9kYQEiszxzb3
+                  required:
+                  - password
+                  - invitation_token
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com

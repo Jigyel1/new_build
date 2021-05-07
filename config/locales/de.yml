@@ -1,0 +1,3 @@
+de:
+  domain_validator:
+    unsupported_domain: only users with %{domain} %{domains} can be invited to the portal!

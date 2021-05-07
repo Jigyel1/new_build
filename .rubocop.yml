@@ -1,0 +1,66 @@
+require:
+  - ./rubocop/cop/metrics/selise_method_length.rb
+  - rubocop-performance
+  - rubocop-rspec
+  - rubocop-rails
+  - rubocop-rake
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3
+  Exclude:
+    - 'local/**/*'
+    - 'bin/bundle'
+    - 'db/schema.rb'
+    - 'lib/rubocop/cop/metrics/selise_method_length.rb'
+    - 'lib/log_formatter.rb'
+    - 'db/migrate/*_logidze*.rb'
+Metrics/BlockLength:
+  IgnoredMethods: ['describe']
+  Max: 300
+Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false # Use SeliseMethodLength instead
+
+Metrics/SeliseMethodLength:
+  CountComments: false
+  Max: 10
+  CountAsOne: ['array', 'heredoc']
+
+# Devs are expected to be aware of methods that don't trigger
+# validations/callbacks. `insert_all`, `upsert_all`, `update_columns` etc
+# are used for an improved performance.
+Rails/SkipsModelValidations:
+  Enabled: false
+
+RSpec/ContextWording:
+  Prefixes:
+    - for
+    - when
+    - with
+    - without
+
+# With swagger, it blocks aren't necessary
+RSpec/EmptyExampleGroup:
+  Enabled: false
+
+# This is for a special case
+#  #=> let(:Authorization) { token(user) }
+# where you need to send variable name as 'Authorization'
+RSpec/VariableName:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 6
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/ExampleLength:
+  Max: 30
+
+# Temporary code. This has been fixed in another branch.
+# Remove it soon.
+Rails/EnvironmentVariableAccess:
+  Enabled: false

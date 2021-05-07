@@ -1,0 +1,5 @@
+minimum_score: 95
+paths: # Files to analyse.
+  - 'app/'
+  - 'lib/'
+  - 'config/'
