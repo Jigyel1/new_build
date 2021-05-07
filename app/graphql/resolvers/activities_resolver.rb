@@ -19,11 +19,12 @@ module Resolvers
       Send one or two dates in the dates array. If only one date is sent, logs created on that date will
       be returned. Else the logs between the first two dates will be returned. Date format expected -> '2021-05-06'
     DESC
+    option :query, type: String, with: :apply_search
 
     def apply_email_filter(scope, value)
       scope.where(
-        "log_data->'owner_email' ?| array[:keys] OR log_data->'recipient_email' ?| array[:keys] ",
-        keys: value
+        "log_data->'owner_email' ?| array[:value] OR log_data->'recipient_email' ?| array[:value]",
+        value: value
       )
     end
 
@@ -36,6 +37,19 @@ module Resolvers
       else
         scope
       end
+    end
+
+    def apply_search(scope, value)
+      query = <<~QUERY.squish
+        verb iLIKE :value OR
+        log_data ->> 'recipient_email' iLIKE :value OR
+        log_data ->> 'owner_email' iLIKE :value OR
+        log_data -> 'parameters' ->> 'role' iLIKE :value OR
+        log_data -> 'parameters' ->> 'active' iLIKE :value OR
+        log_data -> 'parameters' ? :key
+      QUERY
+
+      scope.where(query, key: value, value: "%#{value}%")
     end
   end
 end
