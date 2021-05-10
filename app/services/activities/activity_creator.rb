@@ -3,6 +3,11 @@
 # Activity creation is a secondary action. Primary action eg. `status_update`, `role_change` etc
 # should not be affected if the activity creation fails.
 # We will only raise a rollbar error for devs to debug and not show to the end user.
+#
+# Also, When you have more recipients for an activity. For eg.
+#    #=> User A, B, C were added to the Project X by User D
+# where A, B, C are your recipients, create an activity for each recipient.
+#
 module Activities
   class ActivityCreator < BaseActivity
     attr_accessor :activity_id, :activity_type, :owner, :recipient, :verb, :parameters
