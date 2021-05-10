@@ -36,9 +36,9 @@ User.class_eval do
   def invite!(invited_by = nil, options = {}) # rubocop:disable Metrics/SeliseMethodLength
     DomainValidator.new(email).run
 
-    track_update(activity_id = SecureRandom.uuid) do
+    with_tracking(activity_id = SecureRandom.uuid) do
       super.tap do
-        ActivityPopulator.new(
+        Activities::ActivityCreator.new(
           activity_id: activity_id,
           owner: self.invited_by,
           recipient: self,

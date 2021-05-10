@@ -7,10 +7,10 @@ module Users
     def call
       authorize! current_user, to: :update?, with: UserPolicy
 
-      track_update(activity_id = SecureRandom.uuid) do
+      with_tracking(activity_id = SecureRandom.uuid) do
         user.update!(attributes)
 
-        ActivityPopulator.new(
+        Activities::ActivityCreator.new(
           activity_params(activity_id, :profile_updated, attributes)
         ).call
       end

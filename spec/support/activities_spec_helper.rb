@@ -19,8 +19,4 @@ module ActivitiesSpecHelper
     log_data = { owner_email: super_user.email, recipient_email: kam.email }
     create(:activity, :tomorrow, owner: super_user, recipient: kam, verb: :profile_updated, log_data: log_data)
   end
-
-  def action(active)
-    active ? I18n.t('activities.activated') : I18n.t('activities.deactivated')
-  end
 end

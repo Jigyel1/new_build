@@ -11,10 +11,10 @@ module Users
     def call
       authorize! current_user, to: :delete?, with: UserPolicy
 
-      track_update(activity_id = SecureRandom.uuid) do
+      with_tracking(activity_id = SecureRandom.uuid) do
         user.discard!
 
-        ActivityPopulator.new(
+        Activities::ActivityCreator.new(
           activity_params(activity_id, :profile_deleted)
         ).call
       end

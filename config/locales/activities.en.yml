@@ -2,11 +2,15 @@ en:
   activities:
     activated: 'activated'
     deactivated: 'deactivated'
+    sl_no: 'Sl. No'
+    date: 'Date'
+    time: 'Time'
+    activity: 'Activity'
     user:
       status_updated:
-        owner: '%{action} the user %{recipient_email} in the portal'
-        recipient: 'User profile was %{action} by %{owner_email}'
-        others: '%{owner_email} %{action} the user profile of %{recipient_email}'
+        owner: 'You have %{status_text} the user %{recipient_email} in the portal'
+        recipient: 'User profile was %{status_text} by %{owner_email}'
+        others: '%{owner_email} %{status_text} the user profile of %{recipient_email}'
       user_invited:
         owner: 'Added %{recipient_email} as a new user in the role of %{role}'
         recipient: 'Was added as a new user in the role of %{role} by %{owner_email}'

@@ -20,7 +20,7 @@ RSpec.describe Users::StatusUpdater do
           t(
             'activities.user.status_updated.owner',
             recipient_email: team_standard.email,
-            action: action(false).camelize
+            status_text: t('activities.deactivated')
           )
         )
       end
@@ -35,7 +35,7 @@ RSpec.describe Users::StatusUpdater do
           t(
             'activities.user.status_updated.recipient',
             owner_email: super_user.email,
-            action: action(false)
+            status_text: t('activities.deactivated')
           )
         )
       end
@@ -53,7 +53,7 @@ RSpec.describe Users::StatusUpdater do
             'activities.user.status_updated.others',
             owner_email: super_user.email,
             recipient_email: team_standard.email,
-            action: action(false)
+            status_text: t('activities.deactivated')
           )
         )
       end

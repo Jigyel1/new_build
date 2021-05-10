@@ -9,11 +9,11 @@ module Users
     def call
       authorize! current_user, to: :update_role?, with: UserPolicy
 
-      track_update(activity_id = SecureRandom.uuid) do
+      with_tracking(activity_id = SecureRandom.uuid) do
         previous_role = user.role_name
         user.update!(role_id: attributes[:roleId])
 
-        ActivityPopulator.new(
+        Activities::ActivityCreator.new(
           activity_params(activity_id, :role_updated, { role: user.role_name, previous_role: previous_role })
         ).call
       end

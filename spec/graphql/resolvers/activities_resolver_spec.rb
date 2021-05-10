@@ -27,7 +27,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
             t('activities.user.profile_deleted.owner',
               recipient_email: management.email),
             t('activities.user.status_updated.owner',
-              recipient_email: management.email, action: action(false).camelize),
+              recipient_email: management.email, status_text: t('activities.deactivated')),
             t('activities.user.user_invited.owner',
               recipient_email: administrator.email, role: :administrator)
           ]
@@ -48,7 +48,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
             t('activities.user.profile_deleted.others', owner_email: super_user.email,
                                                         recipient_email: management.email),
             t('activities.user.status_updated.others', owner_email: super_user.email, recipient_email: management.email,
-                                                       action: action(false)),
+                                                       status_text: t('activities.deactivated')),
             t('activities.user.user_invited.recipient',
               owner_email: super_user.email, role: :administrator)
           ]
@@ -65,7 +65,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
             t('activities.user.profile_deleted.recipient',
               owner_email: super_user.email),
             t('activities.user.status_updated.recipient',
-              owner_email: super_user.email, action: action(false))
+              owner_email: super_user.email, status_text: t('activities.deactivated'))
           ]
         )
       end
@@ -98,8 +98,12 @@ RSpec.describe Resolvers::ActivitiesResolver do
                                                      role: :super_user, previous_role: :kam),
             t('activities.user.profile_deleted.others', owner_email: super_user.email,
                                                         recipient_email: management.email),
-            t('activities.user.status_updated.others', owner_email: super_user.email,
-                                                       recipient_email: management.email, action: action(false)),
+            t(
+              'activities.user.status_updated.others',
+              owner_email: super_user.email,
+              recipient_email: management.email,
+              status_text: t('activities.deactivated')
+            ),
             t('activities.user.user_invited.others', owner_email: super_user.email,
                                                      recipient_email: administrator.email, role: :administrator)
           ]
@@ -144,7 +148,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
             t('activities.user.profile_deleted.owner',
               recipient_email: management.email),
             t('activities.user.status_updated.owner',
-              recipient_email: management.email, action: action(false).camelize)
+              recipient_email: management.email, status_text: t('activities.deactivated'))
           ]
         )
       end
@@ -162,7 +166,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
             t('activities.user.profile_deleted.owner',
               recipient_email: management.email),
             t('activities.user.status_updated.owner',
-              recipient_email: management.email, action: action(false).camelize),
+              recipient_email: management.email, status_text: t('activities.deactivated')),
             t('activities.user.user_invited.owner',
               recipient_email: administrator.email, role: :administrator)
           ]
@@ -195,7 +199,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
               t('activities.user.profile_deleted.owner',
                 recipient_email: management.email),
               t('activities.user.status_updated.owner',
-                recipient_email: management.email, action: action(false).camelize)
+                recipient_email: management.email, status_text: t('activities.deactivated'))
             ]
           )
         end
@@ -215,7 +219,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
               t('activities.user.profile_deleted.owner',
                 recipient_email: management.email),
               t('activities.user.status_updated.owner',
-                recipient_email: management.email, action: action(false).camelize),
+                recipient_email: management.email, status_text: t('activities.deactivated')),
               t('activities.user.user_invited.owner',
                 recipient_email: administrator.email, role: :administrator)
             ]
@@ -235,7 +239,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
               t('activities.user.role_updated.owner',
                 recipient_email: kam.email, role: :super_user, previous_role: :kam),
               t('activities.user.status_updated.owner',
-                recipient_email: management.email, action: action(false).camelize)
+                recipient_email: management.email, status_text: t('activities.deactivated'))
             ]
           )
         end
@@ -265,7 +269,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(activities.pluck('displayText')).to eq(
             [
               t('activities.user.status_updated.owner',
-                recipient_email: management.email, action: action(false).camelize)
+                recipient_email: management.email, status_text: t('activities.deactivated'))
             ]
           )
         end
@@ -279,7 +283,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(activities.pluck('displayText')).to eq(
             [
               t('activities.user.status_updated.owner',
-                recipient_email: management.email, action: action(false).camelize)
+                recipient_email: management.email, status_text: t('activities.deactivated'))
             ]
           )
         end

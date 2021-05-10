@@ -7,5 +7,6 @@ module Types
     field_class Types::BaseField
 
     include GraphqlHelper
+    include TimeFormatter
   end
 end

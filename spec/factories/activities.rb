@@ -5,6 +5,7 @@ FactoryBot.define do
     owner { nil }
     recipient { nil }
     verb { 'MyString' }
+    trackable_type { 'User' }
 
     trait :yesterday do
       created_at { Date.yesterday }

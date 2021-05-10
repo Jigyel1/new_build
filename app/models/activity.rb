@@ -11,6 +11,8 @@ class Activity < ApplicationRecord
     )
   ).freeze
 
+  include JsonAccessible
+
   belongs_to :owner, class_name: 'Telco::Uam::User'
   belongs_to :recipient, class_name: 'Telco::Uam::User'
 
@@ -19,6 +21,7 @@ class Activity < ApplicationRecord
   belongs_to :trackable, polymorphic: true, optional: true
 
   validates :verb, presence: true, inclusion: VALID_VERBS
+  validates :trackable_type, presence: true
   validates :log_data, activity_log: true
 
   default_scope { order(created_at: :desc) }
