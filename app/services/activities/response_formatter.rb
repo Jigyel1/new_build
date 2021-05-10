@@ -12,7 +12,7 @@ module Activities
     #   #=> owner: 'You have %{status_text} the user %{recipient_email} in the portal'
     #
     def call
-      keys = BaseActivity::TRANSLATION_KEYS.dig('activities', attributes[:user_type], activity.verb)
+      keys = BaseActivity::TRANSLATION_KEYS.dig('activities', attributes[:user_type], activity.action)
 
       t(translation_key, **keys.index_with { |key| activity.send(key) }.symbolize_keys)
     end
@@ -20,7 +20,7 @@ module Activities
     private
 
     def translation_key
-      "activities.#{activity.trackable_type.downcase}.#{activity.verb}.#{attributes[:user_type]}"
+      "activities.#{activity.trackable_type.downcase}.#{activity.action}.#{attributes[:user_type]}"
     end
   end
 end

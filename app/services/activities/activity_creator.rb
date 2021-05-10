@@ -10,13 +10,13 @@
 #
 module Activities
   class ActivityCreator < BaseActivity
-    attr_accessor :activity_id, :activity_type, :owner, :recipient, :verb, :parameters
+    attr_accessor :activity_id, :activity_type, :owner, :recipient, :action, :parameters
 
     def call # rubocop:disable Metrics/SeliseMethodLength
       owner.activities.create!(
         id: activity_id || SecureRandom.uuid,
         recipient: recipient,
-        verb: verb,
+        action: action,
         trackable_type: 'User',
         log_data: {
           owner_email: owner.email,

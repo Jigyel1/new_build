@@ -12,10 +12,10 @@ class BaseService
     assign_attributes(attributes)
   end
 
-  def activity_params(activity_id, verb, parameters = {})
+  def activity_params(activity_id, action, parameters = {})
     {
       activity_id: activity_id,
-      verb: verb,
+      action: action,
       owner: current_user,
       recipient: user,
       trackable_type: 'User',

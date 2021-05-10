@@ -34,5 +34,6 @@ module Types
     DESC
 
     field :activities, resolver: Resolvers::ActivitiesResolver
+    field :activity_actions, resolver: Resolvers::ActivityActionsResolver
   end
 end

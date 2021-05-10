@@ -2,7 +2,7 @@
 
 class ActivityLogValidator < ActiveModel::EachValidator
   def validate_each(record, _attribute, value)
-    case record.verb
+    case record.action
     when 'status_updated'
       !value.dig('parameters', 'active').nil? || record.errors.add(:log_data, :active_flag_blank)
     when 'role_updated'

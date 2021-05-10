@@ -5,11 +5,12 @@ require 'csv'
 module Activities
   class ActivityExporter < BaseActivity
     include Rails.application.routes.url_helpers
-    attr_accessor :emails, :dates, :query
+    attr_accessor :emails, :actions, :dates, :query
 
-    def call
+    def call # rubocop:disable Metrics/AbcSize
       scoped_activities
         .then { |scope| apply_filter(:email_filter, scope, emails) }
+        .then { |scope| apply_filter(:action_filter, scope, actions) }
         .then { |scope| apply_filter(:date_filter, scope, dates) }
         .then { |scope| apply_filter(:search, scope, query) }
         .then { |scope| export(scope) }

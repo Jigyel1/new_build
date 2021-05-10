@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Activity, type: :model do
+  subject(:activity) { create(:activity, owner: create(:user, :kam), recipient: create(:user, :kam)) }
+
   describe 'associations' do
     it { is_expected.to belong_to(:owner).class_name('Telco::Uam::User') }
     it { is_expected.to belong_to(:recipient).class_name('Telco::Uam::User') }
@@ -10,7 +12,15 @@ RSpec.describe Activity, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_inclusion_of(:verb).in_array(Activity::VALID_VERBS) }
+    it {
+      expect(activity).to(
+        validate_inclusion_of(:action)
+          .in_array(
+            Activity::VALID_ACTIONS[activity.trackable_type.downcase]
+          )
+      )
+    }
+
     it { is_expected.to validate_presence_of(:trackable_type) }
   end
 end

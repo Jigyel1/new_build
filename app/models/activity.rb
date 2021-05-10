@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Activity < ApplicationRecord
-  VALID_VERBS = YAML.safe_load(
+  VALID_ACTIONS = YAML.safe_load(
     File.read(
-      Rails.root.join('config/verbs.yml')
+      Rails.root.join('config/actions.yml')
     )
   ).freeze
 
@@ -16,7 +16,15 @@ class Activity < ApplicationRecord
   # come into picture when we use other modules like project, news, events etc.
   belongs_to :trackable, polymorphic: true, optional: true
 
-  validates :verb, presence: true, inclusion: VALID_VERBS
+  validates(
+    :action,
+    presence: true,
+    inclusion: {
+      in: proc { |activity| VALID_ACTIONS[activity.trackable_type.downcase] },
+      if: proc { |activity| activity.trackable_type.present? }
+    }
+  )
+
   validates :log_data, activity_log: true
 
   # Although trackable is optional(for users at least, the trackable type is still

@@ -187,6 +187,22 @@ RSpec.describe Resolvers::ActivitiesResolver do
       end
     end
 
+    context 'with actions filter' do
+      it 'returns logs matching actions' do
+        activities, errors = paginated_collection(:activities, query(actions: %w[role_updated status_updated]),
+                                                  current_user: super_user)
+        expect(errors).to be_nil
+        expect(activities.pluck('displayText')).to eq(
+          [
+            t('activities.user.role_updated.owner',
+              recipient_email: kam.email, role: :super_user, previous_role: :kam),
+            t('activities.user.status_updated.owner',
+              recipient_email: management.email, status_text: t('activities.deactivated'))
+          ]
+        )
+      end
+    end
+
     context 'with search queries' do
       context 'when queried by recipient email' do
         it 'returns logs matching recipient email' do
@@ -226,8 +242,8 @@ RSpec.describe Resolvers::ActivitiesResolver do
         end
       end
 
-      context 'when queried by verb' do
-        it 'returns logs matching the verb' do
+      context 'when queried by action' do
+        it 'returns logs matching the action' do
           activities, errors = paginated_collection(:activities, query(query: 'updated'),
                                                     current_user: super_user)
           expect(errors).to be_nil
@@ -312,6 +328,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
   def query_string(args = {})
     params = args[:emails] ? ["emails: #{args[:emails]}"] : []
     params += ["dates: #{args[:dates]}"] if args[:dates]
+    params += ["actions: #{args[:actions]}"] if args[:actions]
     params << "query: \"#{args[:query]}\"" if args[:query]
     params.empty? ? nil : "(#{params.join(',')})"
   end

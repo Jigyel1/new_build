@@ -19,6 +19,10 @@ module Activities
       )
     end
 
+    def apply_action_filter(scope, value)
+      scope.where(action: value)
+    end
+
     def apply_date_filter(scope, value)
       start_date, end_date = value.map(&:to_date)
       end_date ||= start_date
@@ -28,7 +32,7 @@ module Activities
 
     def apply_search(scope, value)
       query = <<~QUERY.squish
-        verb iLIKE :value OR
+        action iLIKE :value OR
         log_data ->> 'recipient_email' iLIKE :value OR
         log_data ->> 'owner_email' iLIKE :value OR
         log_data -> 'parameters' ->> 'role' iLIKE :value OR

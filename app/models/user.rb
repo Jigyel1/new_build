@@ -44,7 +44,7 @@ User.class_eval do
           activity_id: activity_id,
           owner: self.invited_by,
           recipient: self,
-          verb: :user_invited,
+          action: :user_invited,
           trackable_type: 'User',
           parameters: { role: role_name }
         ).call

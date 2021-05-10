@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :activity do
     owner { nil }
     recipient { nil }
-    verb { 'MyString' }
+    action { 'profile_updated' }
     trackable_type { 'User' }
 
     trait :yesterday do
