@@ -21,13 +21,9 @@ module Activities
 
     def apply_date_filter(scope, value)
       start_date, end_date = value.map(&:to_date)
-      if start_date && end_date
-        scope.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
-      elsif start_date
-        scope.where('DATE(created_at) = :date', date: value)
-      else
-        scope
-      end
+      end_date ||= start_date
+
+      scope.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
     end
 
     def apply_search(scope, value)

@@ -174,19 +174,18 @@ RSpec.describe Resolvers::ActivitiesResolver do
       end
     end
 
-    # TODO: FIX THIS!
-    # context 'with date filter' do
-    #   it 'returns logs created in the given date' do
-    #     activities, errors = paginated_collection(:activities, query(dates: [Date.tomorrow.to_s]),
-    #                                               current_user: super_user)
-    #     expect(errors).to be_nil
-    #     expect(activities.pluck('displayText')).to eq(
-    #       [
-    #         t('activities.user.profile_updated.owner', recipient_email: kam.email)
-    #       ]
-    #     )
-    #   end
-    # end
+    context 'with date filter' do
+      it 'returns logs created in the given date' do
+        activities, errors = paginated_collection(:activities, query(dates: [Date.tomorrow.to_s]),
+                                                  current_user: super_user)
+        expect(errors).to be_nil
+        expect(activities.pluck('displayText')).to eq(
+          [
+            t('activities.user.profile_updated.owner', recipient_email: kam.email)
+          ]
+        )
+      end
+    end
 
     context 'with search queries' do
       context 'when queried by recipient email' do
