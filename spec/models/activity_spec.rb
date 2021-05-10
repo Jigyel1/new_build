@@ -10,7 +10,7 @@ RSpec.describe Activity, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_inclusion_of(:verb).in_array(Activity::VALID_VERBS)}
+    it { is_expected.to validate_inclusion_of(:verb).in_array(Activity::VALID_VERBS) }
     it { is_expected.to validate_presence_of(:trackable_type) }
   end
 end

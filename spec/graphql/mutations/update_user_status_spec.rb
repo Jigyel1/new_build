@@ -14,13 +14,6 @@ RSpec.describe Mutations::UpdateUserStatus do
       expect(errors).to be_nil
       expect(response.user.active).to be(false)
     end
-
-    it 'logs the activity' do
-      _ = formatted_response(query(params), current_user: super_user, key: :updateUserStatus)
-      expect(team_standard.reload.log_data.version).to eq(2)
-      expect(team_standard.at(version: 1).active).to be(true)
-      expect(team_standard.at(version: 2).active).to be(false)
-    end
   end
 
   def query(args = {})

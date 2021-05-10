@@ -14,6 +14,7 @@ AllCops:
     - 'lib/rubocop/cop/metrics/selise_method_length.rb'
     - 'lib/log_formatter.rb'
     - 'db/migrate/*_logidze*.rb'
+    - 'db/migrate/*create_active_storage_tables.active_storage.rb'
 Metrics/BlockLength:
   IgnoredMethods: ['describe']
   Max: 300

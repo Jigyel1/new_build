@@ -15,7 +15,9 @@ RSpec.describe Mutations::ExportActivities do
 
   describe '.resolve' do
     it 'exports activities to csv' do
-      _response, _errors = formatted_response(query, current_user: super_user, key: :exportActivities)
+      response, errors = formatted_response(query, current_user: super_user, key: :exportActivities)
+      expect(errors).to be_nil
+      expect { (uri = URI.parse(response.url)) && uri.host }.not_to raise_error
     end
   end
 

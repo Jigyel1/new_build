@@ -4,6 +4,7 @@ require 'csv'
 
 module Activities
   class ActivityExporter < BaseActivity
+    include Rails.application.routes.url_helpers
     attr_accessor :emails, :dates, :query
 
     def call
@@ -31,20 +32,14 @@ module Activities
       end
     end
 
-    # The idea is to save file with cnc-storage and return that url to FE.
-    def url(_scope)
-      # byebug
-      # # Cnc::Storage.by_file(scope)
-      #
-      # file = File.new(Tempfile.new("export_#{formatted_time(Time.current)}"))
-      # begin
-      #   file.write(scope)
-      #   Cnc::Storage.by_request(file.path)
-      # ensure
-      #   file.close
-      #   file.unlink   # deletes the temp file
-      # end
-      'a valid url'
+    def url(scope)
+      current_user.activity_download.attach(
+        io: StringIO.new(scope),
+        filename: 'user_activities.csv',
+        content_type: 'application/csv'
+      ).then do |attached|
+        attached && url_for(current_user.activity_download)
+      end
     end
   end
 end

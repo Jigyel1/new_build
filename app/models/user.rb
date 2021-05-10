@@ -19,6 +19,8 @@ User.class_eval do
   has_many :activities, foreign_key: :owner_id, dependent: :destroy
   has_many :involvements, foreign_key: :recipient_id, class_name: 'Activity', dependent: :destroy
 
+  has_one_attached :activity_download
+
   validates :profile, presence: true
 
   default_scope { kept }
