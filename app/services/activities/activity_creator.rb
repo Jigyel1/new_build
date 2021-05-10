@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-# Activity creation is a secondary action. We will only raise a rollbar
-# error for devs to debug and not show to the end user.
+# Activity creation is a secondary action. Primary action eg. `status_update`, `role_change` etc
+# should not be affected if the activity creation fails.
+# We will only raise a rollbar error for devs to debug and not show to the end user.
 module Activities
   class ActivityCreator < BaseActivity
     attr_accessor :activity_id, :activity_type, :owner, :recipient, :verb, :parameters
@@ -22,6 +23,7 @@ module Activities
 
     private
 
+    # TODO: Add more info to the rollbar for easier debugging.
     def log_error
       return Rollbar.error(activity.errors.full_messages) if Rails.env.production?
 
