@@ -39,7 +39,6 @@ RSpec.describe 'User Invitation', type: :request do
 
       it 'keeps track of attribute changes' do
         fields = logidze_fields(User, invitee.id)
-
         expect(fields).to have_attributes(
           email: invitee.email,
           active: true,

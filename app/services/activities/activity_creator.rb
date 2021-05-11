@@ -13,7 +13,7 @@ module Activities
     attr_accessor :activity_id, :activity_type, :owner, :recipient, :action, :parameters
 
     def call # rubocop:disable Metrics/SeliseMethodLength
-      owner.activities.create!(
+      owner.activities.create(
         id: activity_id || SecureRandom.uuid,
         recipient: recipient,
         action: action,
@@ -28,7 +28,6 @@ module Activities
 
     private
 
-    # TODO: Add more info to the rollbar for easier debugging.
     def log_error
       return Rollbar.error(activity.errors.full_messages) if Rails.env.production?
 

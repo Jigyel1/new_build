@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-# A preferred way to implement this would have been through a use of
-# `store` accessor from ActiveRecord. This however was affecting the
-# query(returning unexpected results).
-# TODO: Try this again and see if it works before raising a PR.
 module JsonAccessible
   extend ActiveSupport::Concern
 

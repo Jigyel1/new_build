@@ -8,6 +8,7 @@ class BaseService
   include LogidzeWrapper
 
   attr_accessor :attributes, :current_user
+
   define_callbacks :call
 
   def initialize(attributes = {})
