@@ -23,6 +23,16 @@ RSpec.describe Users::RoleUpdater do
           )
         )
       end
+
+      it 'keeps track of attribute changes' do
+        fields = logidze_fields(User, team_standard.id)
+        expect(fields).to have_attributes(role_id: super_user.role_id)
+      end
+
+      it 'checks for duplicate activities before creation' do
+        execute(update_query, current_user: super_user)
+        expect(Activity.pluck(:action).size).to eq(1)
+      end
     end
 
     context 'as a recipient' do

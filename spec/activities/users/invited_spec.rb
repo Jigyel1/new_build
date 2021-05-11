@@ -36,6 +36,17 @@ RSpec.describe 'User Invitation', type: :request do
           )
         )
       end
+
+      it 'keeps track of attribute changes' do
+        fields = logidze_fields(User, invitee.id)
+
+        expect(fields).to have_attributes(
+          email: invitee.email,
+          active: true,
+          role_id: invitee.role_id
+        )
+        expect(fields.invitation_created_at).to be_present
+      end
     end
 
     context 'as a recipient' do

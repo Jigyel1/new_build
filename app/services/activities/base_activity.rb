@@ -10,7 +10,5 @@ module Activities
 
     include Activities::ActivityHelper
     include TimeFormatter
-
-    attr_accessor :kwargs
   end
 end

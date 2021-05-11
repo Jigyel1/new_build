@@ -23,6 +23,22 @@ RSpec.describe Users::UserUpdater do
           )
         )
       end
+
+      it 'keeps track of attribute changes' do
+        fields = logidze_fields(Profile, team_standard.profile_id)
+        expect(fields).to have_attributes(
+          firstname: 'Matt',
+          lastname: 'Swanson'
+        )
+
+        fields = logidze_fields(Address, team_standard.address.id)
+        expect(fields).to have_attributes(street_no: 8008)
+      end
+
+      it 'checks for duplicate activities before creation' do
+        execute(update_query, current_user: super_user)
+        expect(Activity.pluck(:action).size).to eq(1)
+      end
     end
 
     context 'as a recipient' do
@@ -63,7 +79,7 @@ RSpec.describe Users::UserUpdater do
     profile = <<~PROFILE
       {
         id: "#{team_standard.profile_id}"
-        salutation: "Mr"
+        salutation: "mr"
         firstname: "Matt"
         lastname: "Swanson"
       }

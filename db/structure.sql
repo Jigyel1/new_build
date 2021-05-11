@@ -472,7 +472,8 @@ CREATE TABLE public.addresses (
     addressable_type character varying,
     addressable_id uuid,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    log_data jsonb
 );
 
 
@@ -872,6 +873,13 @@ CREATE INDEX index_telco_uam_users_on_role_id ON public.telco_uam_users USING bt
 
 
 --
+-- Name: addresses logidze_on_addresses; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER logidze_on_addresses BEFORE INSERT OR UPDATE ON public.addresses FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION public.logidze_logger('null', 'updated_at');
+
+
+--
 -- Name: profiles logidze_on_profiles; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -951,6 +959,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210426065837'),
 ('20210428110340'),
 ('20210504155710'),
-('20210510070226');
+('20210510070226'),
+('20210511095338');
 
 

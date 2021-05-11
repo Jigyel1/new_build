@@ -22,6 +22,11 @@ RSpec.describe Users::UserDeleter do
           )
         )
       end
+
+      it 'keeps track of attribute changes' do
+        fields = logidze_fields(User, team_standard.id, unscoped: true)
+        expect(fields.discarded_at).to be_present
+      end
     end
 
     context 'as a recipient' do

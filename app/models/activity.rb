@@ -16,6 +16,10 @@ class Activity < ApplicationRecord
   # come into picture when we use other modules like project, news, events etc.
   belongs_to :trackable, polymorphic: true, optional: true
 
+  alias actor owner
+  alias object recipient
+  alias target trackable
+
   validates(
     :action,
     presence: true,
