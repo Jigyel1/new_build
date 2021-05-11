@@ -29,7 +29,7 @@ module Activities
     private
 
     def log_error
-      return Rollbar.error(activity.errors.full_messages) if Rails.env.production?
+      Rollbar.error(activity.errors.full_messages) if Rails.env.production?
 
       Rails.logger.error(activity.errors.full_messages)
     end
