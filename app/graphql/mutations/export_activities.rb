@@ -6,7 +6,7 @@ module Mutations
     field :url, String, null: true
 
     def resolve(attributes:)
-      resolver = Activities::ActivityExporter.new(current_user: current_user, attributes: attributes)
+      resolver = ::Activities::ActivityExporter.new(current_user: current_user, attributes: attributes)
 
       { url: resolver.call }
     end
