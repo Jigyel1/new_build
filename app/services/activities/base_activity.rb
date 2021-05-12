@@ -9,6 +9,5 @@ module Activities
     ).freeze
 
     include Activities::ActivityHelper
-    include TimeFormatter
   end
 end
