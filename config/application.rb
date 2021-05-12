@@ -17,8 +17,7 @@ require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
 
-# TODO:
-#   @chimmi -
+# TODO: @chimmi
 #   Uncomment the below three lines while testing
 #   This is to have the email delivered in the foreground instead of sending the job to redis.
 #   Once ready, remove it and raise a PR.
@@ -28,7 +27,7 @@ require 'action_cable/engine'
 # Sidekiq::Testing.inline!
 
 # For GraphiQL
-require 'sprockets/railtie' if Rails.env.development?
+require 'sprockets/railtie'
 
 # require "rails/test_unit/railtie"
 
