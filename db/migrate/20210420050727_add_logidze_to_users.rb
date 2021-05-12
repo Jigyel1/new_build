@@ -11,7 +11,7 @@ class AddLogidzeToUsers < ActiveRecord::Migration[6.1]
             CREATE TRIGGER logidze_on_telco_uam_users
             BEFORE UPDATE OR INSERT ON telco_uam_users FOR EACH ROW
             WHEN (coalesce(current_setting('logidze.disabled', true), '') <> 'on')
-            EXECUTE PROCEDURE logidze_logger(null, 'updated_at', '{active,email,invitation_created_at,discarded_at,role_id}', true);
+            EXECUTE PROCEDURE logidze_logger(null, 'updated_at', '{active,email,invitation_created_at,invited_by_id,discarded_at,role_id}', true);
           SQL
         end
 

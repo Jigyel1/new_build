@@ -23,12 +23,12 @@ module Activities
           recipient_email: recipient.email,
           parameters: parameters
         }
-      ).then { |activity| activity.persisted? ? activity : log_error }
+      ).then { |activity| activity.persisted? ? activity : log_error(activity) }
     end
 
     private
 
-    def log_error
+    def log_error(activity)
       Rollbar.error(activity.errors.full_messages) if Rails.env.production?
 
       Rails.logger.error(activity.errors.full_messages)

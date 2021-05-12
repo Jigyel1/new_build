@@ -5,7 +5,7 @@ module Types
     include Activities::ActivityHelper
 
     field :id, ID, null: false
-    field :created_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :created_at, String, null: true
     field :display_text, String, null: true
 
     def created_at

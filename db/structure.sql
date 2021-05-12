@@ -564,7 +564,7 @@ CREATE TABLE public.telco_uam_users (
     invitation_accepted_at timestamp without time zone,
     invitation_limit integer,
     invited_by_type character varying,
-    invited_by_id bigint,
+    invited_by_id uuid,
     invitations_count integer DEFAULT 0,
     jti character varying NOT NULL,
     role_id uuid NOT NULL,

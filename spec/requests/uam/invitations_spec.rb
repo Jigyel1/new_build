@@ -154,7 +154,10 @@ describe 'Invitations API', type: :request do
       consumes 'application/json'
       produces 'application/json'
 
-      before { user.invite!(user) }
+      before do
+        allow_any_instance_of(Users::UserInviter).to receive(:current_user).and_return(user) # rubocop:disable RSpec/AnyInstance
+        user.invite!(user)
+      end
 
       parameter name: :params, in: :body, schema: {
         type: :object,
