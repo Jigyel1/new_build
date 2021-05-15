@@ -35,7 +35,7 @@ RSpec.describe Resolvers::UsersResolver do
       it 'returns users matching the given roles' do
         users, errors = paginated_collection(
           :users,
-          query(roleIds: role_ids(%w[super_user team_standard])),
+          query(role_ids: role_ids(%w[super_user team_standard])),
           current_user: super_user
         )
         expect(errors).to be_nil
@@ -120,7 +120,7 @@ RSpec.describe Resolvers::UsersResolver do
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
-    params = args[:roleIds] ? ["roleIds: #{args[:roleIds]}"] : []
+    params = args[:role_ids] ? ["roleIds: #{args[:role_ids]}"] : []
     params << "departments: #{args[:departments]}" if args[:departments].present?
     params << "active: #{args[:active]}" unless args[:active].nil?
     params << "query: \"#{args[:query]}\"" if args[:query]

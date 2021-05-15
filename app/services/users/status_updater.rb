@@ -4,14 +4,22 @@ module Users
   class StatusUpdater < BaseService
     include UserFinder
 
-    # By default .with_meta wraps the block into a DB transaction.
-    # That could lead to an unexpected behavior, especially, when using .with_meta within an around_action.
-    # To avoid wrapping the block into a DB transaction use transactional: false option.
-    # Above comment relevant when logidze is integrated. To be done in the next PR(#ActivityStream)
-    def call
+    private
+
+    def process
       authorize! current_user, to: :update_status?, with: UserPolicy
 
-      user.update!(active: attributes[:active])
+      with_tracking(activity_id = SecureRandom.uuid) do
+        user.update!(active: attributes[:active])
+
+        Activities::ActivityCreator.new(
+          activity_params(activity_id, :status_updated, { active: attributes[:active] })
+        ).call
+      end
+    end
+
+    def execute?
+      user.active != attributes.active
     end
   end
 end

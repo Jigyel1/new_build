@@ -12,6 +12,7 @@ require 'test_prof/recipes/rspec/let_it_be'
 require_relative '../permissions/bulk_updater'
 require 'action_policy/rspec'
 require 'database_cleaner/active_record'
+require 'support/activities_spec_helper'
 
 require 'simplecov'
 SimpleCov.start

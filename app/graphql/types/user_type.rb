@@ -13,13 +13,6 @@ module Types
     field :profile, Types::ProfileType, null: true
     field :address, Types::AddressType, null: true
 
-    field :log_data, [GraphQL::Types::JSON], null: true
-
-    # TODO: Log data to be implemented when the next PR(#ActivityStream)
-    def log_data
-      # LogFormatter.new(object.log_data).call
-    end
-
     def role
       BatchLoaders::AssociationLoader.for(object.class, :role).load(object)
     end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NewBuildSchema < GraphQL::Schema
-  default_max_page_size ENV.fetch('MAX_PAGE_SIZE', 100).to_i
+  default_max_page_size Rails.application.config.default_max_page_size
 
   GENERIC_ERRORS = [
     JWT::VerificationError,
@@ -42,6 +42,7 @@ class NewBuildSchema < GraphQL::Schema
   end
 
   rescue_from(*GENERIC_ERRORS) do |err|
+    Rollbar.error(err)
     raise GraphQL::ExecutionError, err
   end
 end

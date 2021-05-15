@@ -4,7 +4,7 @@ require 'faker'
 
 module Test
   class AttributesGenerator
-    def initialize(count = ENV['USERS'])
+    def initialize(count = ENV['USERS']) # rubocop:disable Rails/EnvironmentVariableAccess
       @count = count
     end
 

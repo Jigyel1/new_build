@@ -50,8 +50,10 @@ rescue StandardError
   error = response.dig(:errors, 0)
 
   ap case error.class
-     when Hash then error[:message]
-     else error
+     when Hash
+       error[:message]
+     else
+       error
      end
 end
 
@@ -61,4 +63,16 @@ end
 
 def role_id(role)
   role_ids([role]).first || create(:role, role).id
+end
+
+def logidze_fields(klass, id, activity_id: Activity.first.id, unscoped: false)
+  if unscoped
+    klass.unscoped
+  else
+    klass
+  end
+    .with_log_data.find(id)
+    .log_data.data['h']
+    .find { |history| history.dig('m', 'activity_id') == activity_id }
+    .then { |version| OpenStruct.new(version['c']) }
 end

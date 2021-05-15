@@ -9,6 +9,8 @@ definitions:
         POSTGRES_DB: new_build_test
         POSTGRES_USER: root
         POSTGRES_HOST_AUTH_METHOD: trust
+    redis:
+      image: redis
 
   steps:
     - step: &app_build
@@ -22,7 +24,7 @@ definitions:
           - gem install bundler -v 2.2.14
           - bundle config gems.selise.tech ${GEM_USERNAME}:${GEM_PASSWORD}
           - bundle _2.2.14_ install
-          - RAILS_ENV=test bundle exec rails db:drop db:create db:test:prepare
+          - RAILS_ENV=test bundle exec rails db:test:prepare
           - bundle audit
           - bundle exec rspec; rubocop
           - LOCALE=de bundle exec rspec
@@ -33,6 +35,7 @@ definitions:
 
         services:
           - postgres
+          - redis
 
 pipelines:
   pull-requests:

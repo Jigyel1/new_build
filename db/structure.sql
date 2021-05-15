@@ -344,6 +344,122 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.active_storage_attachments (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    record_type character varying NOT NULL,
+    record_id uuid NOT NULL,
+    blob_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.active_storage_attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.active_storage_attachments_id_seq OWNED BY public.active_storage_attachments.id;
+
+
+--
+-- Name: active_storage_blobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.active_storage_blobs (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    filename character varying NOT NULL,
+    content_type character varying,
+    metadata text,
+    service_name character varying NOT NULL,
+    byte_size bigint NOT NULL,
+    checksum character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.active_storage_blobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage_blobs.id;
+
+
+--
+-- Name: active_storage_variant_records; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.active_storage_variant_records (
+    id bigint NOT NULL,
+    blob_id bigint NOT NULL,
+    variation_digest character varying NOT NULL
+);
+
+
+--
+-- Name: active_storage_variant_records_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.active_storage_variant_records_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_variant_records_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.active_storage_variant_records_id_seq OWNED BY public.active_storage_variant_records.id;
+
+
+--
+-- Name: activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activities (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    owner_id uuid NOT NULL,
+    trackable_type character varying,
+    trackable_id uuid,
+    recipient_id uuid NOT NULL,
+    action character varying NOT NULL,
+    log_data jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: addresses; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -356,7 +472,8 @@ CREATE TABLE public.addresses (
     addressable_type character varying,
     addressable_id uuid,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    log_data jsonb
 );
 
 
@@ -447,7 +564,7 @@ CREATE TABLE public.telco_uam_users (
     invitation_accepted_at timestamp without time zone,
     invitation_limit integer,
     invited_by_type character varying,
-    invited_by_id bigint,
+    invited_by_id uuid,
     invitations_count integer DEFAULT 0,
     jti character varying NOT NULL,
     role_id uuid NOT NULL,
@@ -476,6 +593,59 @@ CREATE VIEW public.users_lists AS
      JOIN public.roles ON ((roles.id = telco_uam_users.role_id)))
   WHERE (telco_uam_users.discarded_at IS NULL)
   ORDER BY (concat(profiles.firstname, ' ', profiles.lastname));
+
+
+--
+-- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_attachments ALTER COLUMN id SET DEFAULT nextval('public.active_storage_attachments_id_seq'::regclass);
+
+
+--
+-- Name: active_storage_blobs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval('public.active_storage_blobs_id_seq'::regclass);
+
+
+--
+-- Name: active_storage_variant_records id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAULT nextval('public.active_storage_variant_records_id_seq'::regclass);
+
+
+--
+-- Name: active_storage_attachments active_storage_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT active_storage_attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_blobs active_storage_blobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_blobs
+    ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_variant_records active_storage_variant_records_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_variant_records
+    ADD CONSTRAINT active_storage_variant_records_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -532,6 +702,76 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.telco_uam_users
     ADD CONSTRAINT telco_uam_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_attachments_on_blob_id ON public.active_storage_attachments USING btree (blob_id);
+
+
+--
+-- Name: index_active_storage_attachments_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active_storage_attachments USING btree (record_type, record_id, name, blob_id);
+
+
+--
+-- Name: index_active_storage_blobs_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
+-- Name: index_active_storage_variant_records_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.active_storage_variant_records USING btree (blob_id, variation_digest);
+
+
+--
+-- Name: index_activities_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_created_at ON public.activities USING btree (created_at DESC);
+
+
+--
+-- Name: index_activities_on_log_data; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_log_data ON public.activities USING btree (log_data);
+
+
+--
+-- Name: index_activities_on_owner_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_owner_id ON public.activities USING btree (owner_id);
+
+
+--
+-- Name: index_activities_on_recipient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_recipient_id ON public.activities USING btree (recipient_id);
+
+
+--
+-- Name: index_activities_on_trackable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_trackable ON public.activities USING btree (trackable_type, trackable_id);
+
+
+--
+-- Name: index_activities_on_trackable_id_and_trackable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activities_on_trackable_id_and_trackable_type ON public.activities USING btree (trackable_id, trackable_type);
 
 
 --
@@ -633,6 +873,13 @@ CREATE INDEX index_telco_uam_users_on_role_id ON public.telco_uam_users USING bt
 
 
 --
+-- Name: addresses logidze_on_addresses; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER logidze_on_addresses BEFORE INSERT OR UPDATE ON public.addresses FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION public.logidze_logger('null', 'updated_at');
+
+
+--
 -- Name: profiles logidze_on_profiles; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -643,7 +890,39 @@ CREATE TRIGGER logidze_on_profiles BEFORE INSERT OR UPDATE ON public.profiles FO
 -- Name: telco_uam_users logidze_on_telco_uam_users; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER logidze_on_telco_uam_users BEFORE INSERT OR UPDATE ON public.telco_uam_users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION public.logidze_logger('null', 'updated_at', '{active,email,invitation_created_at}', 'true');
+CREATE TRIGGER logidze_on_telco_uam_users BEFORE INSERT OR UPDATE ON public.telco_uam_users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION public.logidze_logger('null', 'updated_at', '{active,email,invitation_created_at,discarded_at,role_id}', 'true');
+
+
+--
+-- Name: activities fk_rails_02313f8952; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT fk_rails_02313f8952 FOREIGN KEY (recipient_id) REFERENCES public.telco_uam_users(id);
+
+
+--
+-- Name: activities fk_rails_8c2b010743; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT fk_rails_8c2b010743 FOREIGN KEY (owner_id) REFERENCES public.telco_uam_users(id);
+
+
+--
+-- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_variant_records
+    ADD CONSTRAINT fk_rails_993965df05 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
 
 
 --
@@ -678,6 +957,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210422050925'),
 ('20210425904822'),
 ('20210426065837'),
-('20210428110340');
+('20210428110340'),
+('20210504155710'),
+('20210510070226'),
+('20210511095338');
 
 

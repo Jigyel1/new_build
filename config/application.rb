@@ -46,8 +46,12 @@ module NewBuild
     config.api_only = true
     config.lograge.enabled = true
 
+    config.default_locale = :de
+    config.time_zone = 'Europe/Amsterdam'
+
     # Logidze uses DB functions and triggers, hence you need to use SQL format for a schema dump
     config.active_record.schema_format = :sql
+    config.logidze.ignore_log_data_by_default = true
 
     config.middleware.use ActionDispatch::Cookies
     if Rails.env.production?
