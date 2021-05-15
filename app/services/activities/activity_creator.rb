@@ -12,7 +12,7 @@ module Activities
   class ActivityCreator < BaseActivity
     attr_accessor :activity_id, :activity_type, :owner, :recipient, :action, :parameters
 
-    def call # rubocop:disable Metrics/SeliseMethodLength
+    def call
       owner.activities.create(
         id: activity_id || SecureRandom.uuid,
         recipient: recipient,

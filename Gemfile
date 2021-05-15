@@ -57,6 +57,7 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'solargraph'
   gem 'test-prof'
+  gem 'webmock'
   gem 'webrick'
 end
 
@@ -77,7 +78,7 @@ gem 'batch-loader'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
-gem 'foreman'
+gem 'faraday'
 gem 'graphql'
 gem 'graphql-batch'
 gem 'graphql-query-resolver'

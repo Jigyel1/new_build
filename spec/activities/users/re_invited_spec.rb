@@ -18,7 +18,9 @@ RSpec.describe 'User Re-Invitation', type: :request do
       }
     }
   end
-  before_all do
+
+  before do
+    skip_azure_call(super_user)
     post user_invitation_path, params: params, headers: { Authorization: token(super_user) }
     # Invite the user again.
     post user_invitation_path, params: { user: { email: 'ym@selise.ch' } },
@@ -26,7 +28,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
   end
 
   describe '.activities' do
-    let_it_be(:invitee) { User.find_by!(email: 'ym@selise.ch') }
+    let(:invitee) { User.find_by!(email: 'ym@selise.ch') }
 
     context 'as an owner' do
       it 'returns activity text in terms of a first person' do

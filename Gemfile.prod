@@ -22,7 +22,7 @@ gem "azure-storage-blob", require: false
 gem 'batch-loader'
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
-gem 'foreman'
+gem 'faraday'
 gem 'graphql'
 gem 'graphql-batch'
 gem 'graphql-query-resolver'

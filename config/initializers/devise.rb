@@ -240,4 +240,8 @@ Devise.setup do |config|
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.devise_jwt_secret_key
   end
+
+  config.warden do |manager|
+    manager.default_strategies(scope: :user).unshift :azure_authenticatable
+  end
 end

@@ -33,6 +33,11 @@ User.class_eval do
   delegate :permissions, :admin?, to: :role
   delegate :name, to: :role, prefix: true
 
+  # Users will be logged in through Azure B2C so password won't be necessary.
+  def password_required?
+    false
+  end
+
   has_logidze
 
   def invite!(invited_by = nil, options = {})
