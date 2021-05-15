@@ -9,6 +9,8 @@ definitions:
         POSTGRES_DB: new_build_test
         POSTGRES_USER: root
         POSTGRES_HOST_AUTH_METHOD: trust
+    redis:
+      image: redis
 
   steps:
     - step: &app_build
@@ -33,6 +35,7 @@ definitions:
 
         services:
           - postgres
+          - redis
 
 pipelines:
   pull-requests:
