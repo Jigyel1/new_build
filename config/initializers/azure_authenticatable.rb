@@ -9,7 +9,7 @@ module Devise
       class InvalidToken < StandardError; end
 
       def valid?
-        access_token.present? || request.url.include?('users/sign_in')
+        request.url.include?('users/sign_in') && access_token.present?
       end
 
       def authenticate!
@@ -25,14 +25,14 @@ module Devise
       private
 
       def access_token
-        @access_token ||= request.headers['X-ACCESS-TOKEN']
+        @access_token ||= request.headers['Authorization']
       end
 
       def mount_request # rubocop:disable Metrics/AbcSize
-        header = { Authorization: "Bearer #{access_token}" }
+        headers = { Authorization: access_token }
 
         lambda do
-          Faraday.get(Rails.application.config.microsoft_graph_api, {}, header).then do |response|
+          Faraday.get(Rails.application.config.microsoft_graph_api, {}, headers).then do |response|
             case response.status
             when 200
               OpenStruct.new(JSON(response.body))
