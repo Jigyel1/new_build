@@ -53,17 +53,19 @@ module NewBuild
     config.active_record.schema_format = :sql
     config.logidze.ignore_log_data_by_default = true
 
-    config.middleware.use ActionDispatch::Cookies
-    if Rails.env.production?
-      config.middleware.use(
-        ActionDispatch::Session::CacheStore,
-        key: '_new_build_session',
-        expire_after: 30.days,
-        domain: :all,
-        secure: true
-      )
-    else
-      config.middleware.use ActionDispatch::Session::CookieStore, key: '_new_build_session'
+    if ActiveModel::Type::Boolean.new.cast(ENV['PRODUCTION_SERVER'])
+      config.middleware.use ActionDispatch::Cookies
+      if Rails.env.production?
+        config.middleware.use(
+          ActionDispatch::Session::CacheStore,
+          key: '_new_build_session',
+          expire_after: 30.days,
+          domain: :all,
+          secure: true
+        )
+      else
+        config.middleware.use ActionDispatch::Session::CookieStore, key: '_new_build_session'
+      end
     end
   end
 end

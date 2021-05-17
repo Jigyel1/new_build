@@ -9,12 +9,12 @@ module Devise
       class InvalidToken < StandardError; end
 
       def valid?
-        true
+        access_token.present? || request.url.include?('users/sign_in')
       end
 
       def authenticate!
         response = mount_request.call
-        resource = mapping.to.find_by!(email: response.mail)
+        resource = mapping.to.find_by!(email: response.mail || response.userPrincipalName)
         success!(resource)
       rescue InvalidToken => e
         fail!(e)
@@ -24,8 +24,12 @@ module Devise
 
       private
 
+      def access_token
+        @access_token ||= request.headers['X-ACCESS-TOKEN']
+      end
+
       def mount_request # rubocop:disable Metrics/AbcSize
-        header = { Authorization: request.headers['Authorization'] }
+        header = { Authorization: "Bearer #{access_token}" }
 
         lambda do
           Faraday.get(Rails.application.config.microsoft_graph_api, {}, header).then do |response|
