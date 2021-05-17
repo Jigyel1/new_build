@@ -9,7 +9,7 @@ module Devise
       class InvalidToken < StandardError; end
 
       def valid?
-        request.url.include?('users/sign_in') && access_token.present?
+        request.url.include?('users/sign_in')
       end
 
       def authenticate!
