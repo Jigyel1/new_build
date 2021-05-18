@@ -13,7 +13,7 @@ gem 'rails', '~> 6.1.3.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma'
 gem 'sd_notify'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -57,6 +57,7 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'solargraph'
   gem 'test-prof'
+  gem 'webmock'
   gem 'webrick'
 end
 
@@ -77,7 +78,7 @@ gem 'batch-loader'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
-gem 'foreman'
+gem 'faraday'
 gem 'graphql'
 gem 'graphql-batch'
 gem 'graphql-query-resolver'
@@ -99,7 +100,7 @@ gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
   gem 'cnc-storage'
-  gem 'telco-uam', '0.1.2'
+  gem 'telco-uam', '0.1.3'
 end
 
 # gem "influxdb-rails", "~> 1.0"

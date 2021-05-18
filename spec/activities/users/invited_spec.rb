@@ -18,7 +18,11 @@ RSpec.describe 'User Invitation', type: :request do
       }
     }
   end
-  before { post user_invitation_path, params: params, headers: { Authorization: token(super_user) } }
+
+  before do
+    skip_azure_call(super_user)
+    post user_invitation_path, params: params, headers: { Authorization: token(super_user) }
+  end
 
   describe '.activities' do
     let(:invitee) { User.find_by!(email: 'ym@selise.ch') }

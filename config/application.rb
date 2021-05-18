@@ -62,8 +62,8 @@ module NewBuild
     config.active_record.schema_format = :sql
     config.logidze.ignore_log_data_by_default = true
 
-    config.middleware.use ActionDispatch::Cookies
-    if Rails.env.production?
+    if ActiveModel::Type::Boolean.new.cast(ENV['PRODUCTION_SERVER'])
+      config.middleware.use ActionDispatch::Cookies
       config.middleware.use(
         ActionDispatch::Session::CacheStore,
         key: '_new_build_session',
@@ -71,8 +71,6 @@ module NewBuild
         domain: :all,
         secure: true
       )
-    else
-      config.middleware.use ActionDispatch::Session::CookieStore, key: '_new_build_session'
     end
 
     config.sass.preferred_syntax = :sass

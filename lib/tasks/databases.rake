@@ -14,7 +14,7 @@ namespace :db do
 
   desc 'Drop, create, run migrations & seed db from scratch'
   task reset_dev: :environment do
-    def update_file # rubocop:disable Metrics/AbcSize, Metrics/SeliseMethodLength, Rake/MethodDefinitionInTask
+    def update_file # rubocop:disable Metrics/AbcSize, Rake/MethodDefinitionInTask
       routes = Rails.root.join('config/routes.rb')
       lines = File.readlines(routes)
       index = lines.index { |line| line.include?('devise_for :users') }
