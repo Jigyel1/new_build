@@ -55,17 +55,13 @@ module NewBuild
 
     if ActiveModel::Type::Boolean.new.cast(ENV['PRODUCTION_SERVER'])
       config.middleware.use ActionDispatch::Cookies
-      if Rails.env.production?
-        config.middleware.use(
-          ActionDispatch::Session::CacheStore,
-          key: '_new_build_session',
-          expire_after: 30.days,
-          domain: :all,
-          secure: true
-        )
-      else
-        config.middleware.use ActionDispatch::Session::CookieStore, key: '_new_build_session'
-      end
+      config.middleware.use(
+        ActionDispatch::Session::CacheStore,
+        key: '_new_build_session',
+        expire_after: 30.days,
+        domain: :all,
+        secure: true
+      )
     end
   end
 end

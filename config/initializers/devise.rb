@@ -220,6 +220,7 @@ Devise.setup do |config|
   # end
   config.warden do |manager|
     manager.failure_app = Devise::CustomFailureApp
+    manager.default_strategies(scope: :user).unshift :azure_authenticatable
   end
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
@@ -241,9 +242,5 @@ Devise.setup do |config|
 
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.devise_jwt_secret_key
-  end
-
-  config.warden do |manager|
-    manager.default_strategies(scope: :user).unshift :azure_authenticatable
   end
 end
