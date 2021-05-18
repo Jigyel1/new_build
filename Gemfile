@@ -97,7 +97,7 @@ gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
   gem 'cnc-storage'
-  gem 'telco-uam', '0.1.2'
+  gem 'telco-uam', '0.1.3'
 end
 
 # gem "influxdb-rails", "~> 1.0"
