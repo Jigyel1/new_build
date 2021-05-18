@@ -1,0 +1,51 @@
+@mixin padding($values, $directions) {
+  @each $value in $values {
+    @each $dir in $directions {
+      .p#{str-slice($dir, 0, 1)}-#{$value} {
+        padding-#{$dir}: #{$value}px;
+      }
+    }
+    .p-#{$value} {
+      padding: #{$value}px;
+    }
+
+    .px-#{$value} {
+      padding-right: #{$value}px;
+      padding-left: #{$value}px;
+    }
+    .py-#{$value} {
+      padding-top: #{$value}px;
+      padding-bottom: #{$value}px;
+    }
+  }
+}
+
+@mixin margin($values, $directions) {
+  @each $value in $values {
+    @each $dir in $directions {
+      .m#{str-slice($dir, 0, 1)}-#{$value} {
+        padding-#{$dir}: #{$value}px;
+      }
+    }
+    .m-#{$value} {
+      padding: #{$value}px;
+    }
+
+    .mx-#{$value} {
+      padding-right: #{$value}px;
+      padding-left: #{$value}px;
+    }
+    .my-#{$value} {
+      padding-top: #{$value}px;
+      padding-bottom: #{$value}px;
+    }
+  }
+}
+
+@mixin fontSize($font-size) {
+  @each $size in $font-size {
+    .font-size--#{$size} {
+      font-size: #{$size}px;
+    }
+  }
+}

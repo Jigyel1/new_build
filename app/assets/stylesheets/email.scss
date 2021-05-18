@@ -1,0 +1,10 @@
+@import 'variable';
+
+.email-container {
+  background-color: $mercury;
+
+  .email-content {
+    background-color: $white;
+    border-radius: 0 0 $radius $radius;
+  }
+}

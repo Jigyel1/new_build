@@ -87,6 +87,8 @@ gem 'premailer-rails'
 gem 'rack-cors'
 gem 'recursive-open-struct'
 gem 'rollbar'
+gem 'sass-rails'
+
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'scenic'

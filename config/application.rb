@@ -74,5 +74,9 @@ module NewBuild
     else
       config.middleware.use ActionDispatch::Session::CookieStore, key: '_new_build_session'
     end
+
+    config.sass.preferred_syntax = :sass
+    config.sass.line_comments = false
+    config.sass.cache = false
   end
 end
