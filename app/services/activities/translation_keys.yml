@@ -14,6 +14,8 @@ activities:
     user_invited:
       - owner_email
       - role
+    user_reinvited:
+      - owner_email
   owner:
     status_updated:
       - status_text
@@ -29,6 +31,8 @@ activities:
     user_invited:
       - recipient_email
       - role
+    user_reinvited:
+      - recipient_email
   others:
     status_updated:
       - status_text
@@ -49,3 +53,6 @@ activities:
       - owner_email
       - recipient_email
       - role
+    user_reinvited:
+      - owner_email
+      - recipient_email

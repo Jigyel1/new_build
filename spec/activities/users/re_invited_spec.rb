@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'User Invitation', type: :request do
+RSpec.describe 'User Re-Invitation', type: :request do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: [:update_status] }) }
   let_it_be(:params) do
     {
@@ -18,7 +18,13 @@ RSpec.describe 'User Invitation', type: :request do
       }
     }
   end
-  before { post user_invitation_path, params: params, headers: { Authorization: token(super_user) } }
+
+  before do
+    post user_invitation_path, params: params, headers: { Authorization: token(super_user) }
+    # Invite the user again.
+    post user_invitation_path, params: { user: { email: 'ym@selise.ch' } },
+                               headers: { Authorization: token(super_user) }
+  end
 
   describe '.activities' do
     let(:invitee) { User.find_by!(email: 'ym@selise.ch') }
@@ -30,6 +36,14 @@ RSpec.describe 'User Invitation', type: :request do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
+            'activities.user.user_reinvited.owner',
+            recipient_email: invitee.email
+          )
+        )
+
+        activity = activities.last
+        expect(activity[:displayText]).to eq(
+          t(
             'activities.user.user_invited.owner',
             recipient_email: invitee.email,
             role: invitee.role_name
@@ -38,7 +52,7 @@ RSpec.describe 'User Invitation', type: :request do
       end
 
       it 'keeps track of attribute changes' do
-        fields = logidze_fields(User, invitee.id)
+        fields = logidze_fields(User, invitee.id, activity_id: Activity.last.id)
         expect(fields).to have_attributes(
           email: invitee.email,
           active: true,
@@ -52,7 +66,16 @@ RSpec.describe 'User Invitation', type: :request do
       it 'returns activity text in terms of a second person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: invitee)
         expect(errors).to be_nil
+
         activity = activities.first
+        expect(activity[:displayText]).to eq(
+          t(
+            'activities.user.user_reinvited.recipient',
+            owner_email: super_user.email
+          )
+        )
+
+        activity = activities.last
         expect(activity[:displayText]).to eq(
           t(
             'activities.user.user_invited.recipient',
@@ -69,7 +92,16 @@ RSpec.describe 'User Invitation', type: :request do
       it 'returns activity text in terms of a third person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
         expect(errors).to be_nil
+
         activity = activities.first
+        expect(activity[:displayText]).to eq(
+          t(
+            'activities.user.user_reinvited.others',
+            owner_email: super_user.email,
+            recipient_email: invitee.email
+          )
+        )
+        activity = activities.last
         expect(activity[:displayText]).to eq(
           t(
             'activities.user.user_invited.others',

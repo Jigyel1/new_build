@@ -147,6 +147,30 @@ describe 'Invitations API', type: :request do
           )
         end
       end
+
+      response '400', 'bad request' do
+        context 'when domain is invalid' do
+          let(:params) do
+            {
+              user: {
+                email: 'ym@invalid-domain.com',
+                role_id: role.id,
+                profile_attributes: {
+                  salutation: 'Mr',
+                  firstname: 'yogesh',
+                  lastname: 'mongar',
+                  phone: '+98717857882'
+                }
+              }
+            }
+          end
+          let(:Authorization) { token(user) }
+
+          run_test! do
+            expect(json.errors).to(eq([Users::UserInviter::UnPermittedDomainError.new.to_s]))
+          end
+        end
+      end
     end
 
     put 'Accept invitation' do
@@ -154,7 +178,10 @@ describe 'Invitations API', type: :request do
       consumes 'application/json'
       produces 'application/json'
 
-      before { user.invite!(user) }
+      before do
+        allow_any_instance_of(Users::UserInviter).to receive(:current_user).and_return(user) # rubocop:disable RSpec/AnyInstance
+        user.invite!(user)
+      end
 
       parameter name: :params, in: :body, schema: {
         type: :object,

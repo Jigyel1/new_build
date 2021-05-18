@@ -1,5 +1,7 @@
 en:
   devise:
+    failure:
+      role_change_on_invite: 'You cannot change user role on re invite.'
     mailer:
       invitation_instructions:
         button_text: 'Start Using the New Build Tool'
