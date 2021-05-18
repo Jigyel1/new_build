@@ -12,7 +12,7 @@ module Activities
   class ActivityCreator < BaseActivity
     attr_accessor :activity_id, :activity_type, :owner, :recipient, :action, :parameters
 
-    def call # rubocop:disable Metrics/SeliseMethodLength
+    def call
       owner.activities.create(
         id: activity_id || SecureRandom.uuid,
         recipient: recipient,
@@ -23,13 +23,13 @@ module Activities
           recipient_email: recipient.email,
           parameters: parameters
         }
-      ).then { |activity| activity.persisted? ? activity : log_error }
+      ).then { |activity| activity.persisted? ? activity : log_error(activity) }
     end
 
     private
 
-    def log_error
-      return Rollbar.error(activity.errors.full_messages) if Rails.env.production?
+    def log_error(activity)
+      Rollbar.error(activity.errors.full_messages) if Rails.env.production?
 
       Rails.logger.error(activity.errors.full_messages)
     end

@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
 module TimeFormatter
-  def formatted_date(timestamp)
-    timestamp.strftime('%d %B %Y')
-  end
+  refine ActiveSupport::TimeWithZone do
+    def date_str
+      strftime('%d %B %Y')
+    end
 
-  def formatted_time(timestamp)
-    timestamp.strftime('%H:%M:%S')
-  end
+    def time_str
+      strftime('%H:%M:%S')
+    end
 
-  def formatted_datetime(timestamp)
-    timestamp.strftime('%d %B %Y at %H:%M:%S')
+    def datetime_str
+      strftime('%d %B %Y at %H:%M:%S')
+    end
   end
 end

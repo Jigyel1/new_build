@@ -13,7 +13,7 @@ require_relative '../permissions/bulk_updater'
 require 'action_policy/rspec'
 require 'database_cleaner/active_record'
 require 'support/activities_spec_helper'
-
+require 'webmock/rspec'
 require 'simplecov'
 SimpleCov.start
 # Add additional requires below this line. Rails is not loaded until this point!

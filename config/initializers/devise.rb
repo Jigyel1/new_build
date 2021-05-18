@@ -126,7 +126,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  config.timeout_in = ENV.fetch('SESSION_TIMEOUT', 30).to_i
+  config.timeout_in = ENV.fetch('SESSION_TIMEOUT', 30).to_i.minutes
 
   # ==> Configuration for :lockable
   # Defines which strategy will be used to lock an account.
@@ -219,7 +219,10 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
-
+  config.warden do |manager|
+    manager.failure_app = Devise::CustomFailureApp
+    manager.default_strategies(scope: :user).unshift :azure_authenticatable
+  end
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
   # is mountable, there are some extra configurations to be taken into account.

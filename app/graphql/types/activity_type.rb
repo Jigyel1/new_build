@@ -3,13 +3,14 @@
 module Types
   class ActivityType < BaseObject
     include Activities::ActivityHelper
+    using TimeFormatter
 
     field :id, ID, null: false
-    field :created_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :created_at, String, null: true
     field :display_text, String, null: true
 
     def created_at
-      formatted_datetime(object.created_at)
+      object.created_at.datetime_str
     end
   end
 end

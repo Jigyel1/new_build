@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'active_support/core_ext/integer/time'
+require 'sidekiq/testing'
 
 Rails.application.configure do
   config.after_initialize do
@@ -83,4 +84,8 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  Sidekiq::Testing.fake! # fake is the default mode
+  Sidekiq::Testing.inline!
+  Sidekiq::Testing.disable!
 end

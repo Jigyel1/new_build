@@ -33,22 +33,14 @@ User.class_eval do
   delegate :permissions, :admin?, to: :role
   delegate :name, to: :role, prefix: true
 
+  # Users will be logged in through Azure B2C so password won't be necessary.
+  def password_required?
+    false
+  end
+
   has_logidze
 
-  def invite!(invited_by = nil, options = {}) # rubocop:disable Metrics/SeliseMethodLength
-    DomainValidator.new(email).run
-
-    with_tracking(activity_id = SecureRandom.uuid) do
-      super.tap do
-        Activities::ActivityCreator.new(
-          activity_id: activity_id,
-          owner: self.invited_by,
-          recipient: self,
-          action: :user_invited,
-          trackable_type: 'User',
-          parameters: { role: role_name }
-        ).call
-      end
-    end
+  def invite!(invited_by = nil, options = {})
+    Users::UserInviter.new(current_user: Current.current_user, user: self).call { super }
   end
 end
