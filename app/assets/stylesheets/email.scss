@@ -6,5 +6,14 @@
   .email-content {
     background-color: $white;
     border-radius: 0 0 $radius $radius;
+
+    .logo {
+      margin: 0;
+
+      img {
+        width: auto;
+        height: 128px;
+      }
+    }
   }
 }
