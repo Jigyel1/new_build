@@ -52,9 +52,5 @@ module NewBuild
     # Logidze uses DB functions and triggers, hence you need to use SQL format for a schema dump
     config.active_record.schema_format = :sql
     config.logidze.ignore_log_data_by_default = true
-
-    config.sass.preferred_syntax = :sass
-    config.sass.line_comments = false
-    config.sass.cache = false
   end
 end
