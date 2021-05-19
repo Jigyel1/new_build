@@ -17,17 +17,8 @@ require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
 
-# TODO: @chimmi
-#   Uncomment the below three lines while testing
-#   This is to have the email delivered in the foreground instead of sending the job to redis.
-#   Once ready, remove it and raise a PR.
-#
-# require 'sidekiq/testing'
-# Sidekiq::Testing.fake! # fake is the default mode
-# Sidekiq::Testing.inline!
-
 # For GraphiQL
-require 'sprockets/railtie'
+require 'sprockets/railtie' if Rails.env.development?
 
 # require "rails/test_unit/railtie"
 
@@ -61,17 +52,6 @@ module NewBuild
     # Logidze uses DB functions and triggers, hence you need to use SQL format for a schema dump
     config.active_record.schema_format = :sql
     config.logidze.ignore_log_data_by_default = true
-
-    if ActiveModel::Type::Boolean.new.cast(ENV['PRODUCTION_SERVER'])
-      config.middleware.use ActionDispatch::Cookies
-      config.middleware.use(
-        ActionDispatch::Session::CacheStore,
-        key: '_new_build_session',
-        expire_after: 30.days,
-        domain: :all,
-        secure: true
-      )
-    end
 
     config.sass.preferred_syntax = :sass
     config.sass.line_comments = false
