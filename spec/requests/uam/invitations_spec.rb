@@ -50,6 +50,8 @@ describe 'Invitations API', type: :request do
 
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer Token'
 
+      before { skip_azure_call(user) } # rubocop:disable RSpec/ScatteredSetup
+
       response '200', 'user invited' do
         context 'without address' do
           let(:params) do
@@ -178,7 +180,8 @@ describe 'Invitations API', type: :request do
       consumes 'application/json'
       produces 'application/json'
 
-      before do
+      before do # rubocop:disable RSpec/ScatteredSetup
+        skip_azure_call(user)
         allow_any_instance_of(Users::UserInviter).to receive(:current_user).and_return(user) # rubocop:disable RSpec/AnyInstance
         user.invite!(user)
       end
@@ -224,54 +227,6 @@ describe 'Invitations API', type: :request do
 
           run_test! do
             expect(json.errors).to eq(["Invitation token #{t('errors.messages.invalid')}"])
-          end
-        end
-
-        context 'with password mismatch' do
-          let(:params) do
-            {
-              user: {
-                password: 'Selise99',
-                password_confirmation: 'Selise29',
-                invitation_token: user.raw_invitation_token
-              }
-            }
-          end
-
-          run_test! do
-            expect(json.errors).to(
-              eq(["Password confirmation #{t('errors.messages.confirmation', attribute: :Password)}"])
-            )
-          end
-        end
-
-        context 'with a blank password' do
-          let(:params) do
-            {
-              user: {
-                password: '',
-                invitation_token: user.raw_invitation_token
-              }
-            }
-          end
-
-          run_test! do
-            expect(json.errors).to eq(["Password #{t('errors.messages.blank')}"])
-          end
-        end
-
-        context 'with a weak password' do
-          let(:params) do
-            {
-              user: {
-                password: 'weak',
-                invitation_token: user.raw_invitation_token
-              }
-            }
-          end
-
-          run_test! do
-            expect(json.errors).to eq(["Password #{t('errors.messages.too_short.other', count: 6)}"])
           end
         end
       end

@@ -1,3 +1,8 @@
 it:
+  devise:
+    sign_in:
+      not_found: You need to be invited to the portal before you can log in. Please contact admin for support.
   domain_validator:
     unsupported_domain: only users with %{domain} %{domains} can be invited to the portal!
+  permission:
+    role_only: Permissions can only be set for roles at the moment
