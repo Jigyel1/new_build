@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationMailer < ActionMailer::Base
-  default from: ENV['MAIL_SENDER']
+  default from: Rails.application.config.mail_sender
   layout 'mailer'
 
   before_action :inline_logo
