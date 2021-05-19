@@ -9,6 +9,7 @@ AllCops:
   TargetRubyVersion: 3
   Exclude:
     - 'local/**/*'
+    - 'app/assets/**/*'
     - 'bin/bundle'
     - 'db/schema.rb'
     - 'lib/rubocop/cop/metrics/selise_method_length.rb'
