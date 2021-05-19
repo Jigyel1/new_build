@@ -95,7 +95,6 @@ gem 'sidekiq'
 gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
-  gem 'cnc-storage'
   gem 'telco-uam', '0.1.3'
 end
 
