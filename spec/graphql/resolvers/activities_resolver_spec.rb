@@ -119,9 +119,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
       end
     end
 
-    context 'with single email filter' do
-      it 'returns logs matching given email' do
-        activities, errors = paginated_collection(:activities, query(emails: [kam.email]), current_user: super_user)
+    context 'with single user id filter' do
+      it 'returns logs for the given user' do
+        activities, errors = paginated_collection(:activities, query(user_ids: [kam.id]), current_user: super_user)
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
@@ -134,9 +134,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
       end
     end
 
-    context 'with multiple emails in filter' do
-      it 'returns logs matching given emails' do
-        activities, errors = paginated_collection(:activities, query(emails: [management.email, kam.email]),
+    context 'with multiple user ids in filter' do
+      it 'returns logs for given user ids' do
+        activities, errors = paginated_collection(:activities, query(user_ids: [management.id, kam.id]),
                                                   current_user: super_user)
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
@@ -326,7 +326,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
   end
 
   def query_string(args = {})
-    params = args[:emails] ? ["emails: #{args[:emails]}"] : []
+    params = args[:user_ids] ? ["userIds: #{args[:user_ids]}"] : []
     params += ["dates: #{args[:dates]}"] if args[:dates]
     params += ["actions: #{args[:actions]}"] if args[:actions]
     params << "query: \"#{args[:query]}\"" if args[:query]
