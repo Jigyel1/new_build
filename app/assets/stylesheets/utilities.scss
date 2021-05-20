@@ -1,0 +1,44 @@
+@import 'variable';
+@import 'mixins';
+
+a {
+  text-decoration: none;
+}
+
+/* Font size */
+@include fontSize($font-size);
+
+/* Padding  */
+@include padding($values, $directions);
+
+/* Margin */
+@include margin($values, $directions);
+
+/* Colors */
+.color--primary {
+  color: $primary;
+}
+
+.color--dove-gray {
+  color: $dove-gray;
+}
+
+/* Border */
+
+.border--left-right {
+  border-width: 0 1px 0 1px;
+  border-style: solid;
+  border-color: rgba($black, 0.16);
+}
+
+
+/* Text Align */
+.text-align--center {
+  text-align: center;
+}
+
+/* Line height */
+
+.line-height--22 {
+  line-height: 22px;
+}
