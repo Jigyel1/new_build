@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require_relative '../../support/ips_helper'
 
 RSpec.describe Resolvers::ActivitiesResolver do
   include ActivitiesSpecHelper
+  include IpsHelper
 
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:administrator) { create(:user, :administrator) }
@@ -302,6 +304,18 @@ RSpec.describe Resolvers::ActivitiesResolver do
             ]
           )
         end
+      end
+    end
+
+    describe 'performance benchmarks' do
+      it 'executes within 10 ms' do
+        expect { paginated_collection(:activities, query, current_user: super_user) }.to perform_under(10).ms
+      end
+
+      it 'executes n iterations in x seconds', ips: true do
+        expect { paginated_collection(:activities, query, current_user: super_user) }.to(
+          perform_at_least(perform_atleast).within(perform_within).warmup(warmup_for).ips
+        )
       end
     end
   end

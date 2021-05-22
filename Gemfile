@@ -45,6 +45,7 @@ group :development, :test do
   gem 'niceql' # Don't use in production!
   gem 'pry'
   gem 'rails_best_practices'
+  gem 'rspec-benchmark'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rswag-specs'
   gem 'rubocop-performance'

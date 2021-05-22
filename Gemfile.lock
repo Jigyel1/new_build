@@ -97,9 +97,11 @@ GEM
       net-http-persistent (~> 4.0)
       nokogiri (~> 1.11.0.rc2)
     backport (1.1.2)
-    batch-loader (2.0.1)
     bcrypt (3.1.16)
     benchmark (0.1.1)
+    benchmark-malloc (0.2.0)
+    benchmark-perf (0.6.0)
+    benchmark-trend (0.4.0)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
     brakeman (5.0.1)
@@ -329,6 +331,15 @@ GEM
       nokogiri
     rexml (3.2.5)
     rollbar (3.1.2)
+    rspec (3.10.0)
+      rspec-core (~> 3.10.0)
+      rspec-expectations (~> 3.10.0)
+      rspec-mocks (~> 3.10.0)
+    rspec-benchmark (0.6.0)
+      benchmark-malloc (~> 0.2)
+      benchmark-perf (~> 0.6)
+      benchmark-trend (~> 0.4)
+      rspec (>= 3.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -482,7 +493,6 @@ DEPENDENCIES
   apollo_upload_server (= 2.0.5)
   awesome_print
   azure-storage-blob
-  batch-loader
   bootsnap (>= 1.4.4)
   brakeman
   bullet
@@ -513,6 +523,7 @@ DEPENDENCIES
   rails_best_practices
   recursive-open-struct
   rollbar
+  rspec-benchmark
   rspec-rails (~> 5.0.0)
   rswag
   rswag-api

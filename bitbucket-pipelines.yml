@@ -26,10 +26,10 @@ definitions:
           - bundle _2.2.14_ install
           - RAILS_ENV=test bundle exec rails db:test:prepare
           - bundle audit
-          - bundle exec rspec; rubocop
-          - LOCALE=de bundle exec rspec
-          - LOCALE=fr bundle exec rspec
-          - LOCALE=it bundle exec rspec
+          - bundle exec rspec --tag ~@ips; rubocop
+          - LOCALE=de bundle exec rspec --tag ~@ips
+          - LOCALE=fr bundle exec rspec --tag ~@ips
+          - LOCALE=it bundle exec rspec --tag ~@ips
           - brakeman; rubycritic
           - bundle exec rails_best_practices
 
