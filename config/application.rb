@@ -52,5 +52,17 @@ module NewBuild
     # Logidze uses DB functions and triggers, hence you need to use SQL format for a schema dump
     config.active_record.schema_format = :sql
     config.logidze.ignore_log_data_by_default = true
+
+    # For test servers, we implement user authentication through JWT tokens. So you don't have
+    # to set user session. But to use sidekiq UI, you will need to enable sessions.
+    # Also, to use omniauth, you will need session.
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use(
+      ActionDispatch::Session::CacheStore,
+      key: '_new_build_session',
+      expire_after: 30.days,
+      domain: :all,
+      secure: true
+    )
   end
 end

@@ -244,4 +244,9 @@ Devise.setup do |config|
     jwt.secret = Rails.application.credentials.devise_jwt_secret_key
     jwt.expiration_time = ENV.fetch('SESSION_TIMEOUT', 30).to_i
   end
+
+  config.omniauth :azure_activedirectory_v2,
+                  client_id: ENV['AZURE_CLIENT_ID'],
+                  client_secret: ENV['AZURE_SECRET'],
+                  tenant_id: ENV['AZURE_TENANT_ID']
 end

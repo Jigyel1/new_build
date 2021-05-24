@@ -570,7 +570,9 @@ CREATE TABLE public.telco_uam_users (
     role_id uuid NOT NULL,
     active boolean DEFAULT true NOT NULL,
     discarded_at timestamp without time zone,
-    log_data jsonb
+    log_data jsonb,
+    provider character varying,
+    uid character varying
 );
 
 
@@ -960,6 +962,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210428110340'),
 ('20210504155710'),
 ('20210510070226'),
-('20210511095338');
+('20210511095338'),
+('20210523105703');
 
 
