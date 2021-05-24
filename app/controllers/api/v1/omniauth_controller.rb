@@ -1,3 +1,5 @@
+Api::V1::OmniauthCallbacksController = Telco::Uam::Api::V1::OmniauthCallbacksController
+
 module Api
   module V1
     class OmniauthController < ActionController::API
@@ -13,10 +15,11 @@ module Api
 
       def params
         {
+          response_type: :code,
           client_id: Rails.application.config.azure_client_id,
           tenant_id: Rails.application.config.azure_tenant_id,
           scope: 'User.read',
-          redirect_uri: "#{request.base_url}/#{api_v1_user_azure_activedirectory_v2_omniauth_callback_path}"
+          redirect_uri: "#{request.base_url}#{api_v1_user_azure_activedirectory_v2_omniauth_callback_path}"
         }
       end
     end
