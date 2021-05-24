@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      get :authorization_endpoint, to: 'omniauth#authorization_endpoint'
+
       # comment this out(`devise_for ...`) in case you face issues like
       #    #=>`PG::UndefinedTable: ERROR:  relation "profiles" does not exist`
       # in development/test servers when running migration from scratch.

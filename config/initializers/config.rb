@@ -7,4 +7,7 @@ Rails.application.configure do
   config.users_per_role = ENV.fetch('USERS_PER_ROLE', 10).to_i
   config.allowed_domains = ENV['ALLOWED_DOMAINS'].delete(' ').split(',').freeze
   config.microsoft_graph_api = ENV.fetch('MICROSOFT_GRAPH_API', 'https://graph.microsoft.com/v1.0/me')
+
+  config.azure_tenant_id = ENV['AZURE_TENANT_ID']
+  config.azure_client_id = ENV['AZURE_CLIENT_ID']
 end
