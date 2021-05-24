@@ -5,23 +5,43 @@ For REST specific docs, check out [project-url/api-docs](https://new-build.selis
 
 ## Test Server 
 
-url: `new-build.selise.dev`
-project_root: `/home/dragondevel/Documents/new-build/be/new-build`
+Navigating to the server - 
+```ruby
+ssh ssh telco@192.168.20.2 -p 5657 # jump box
+ssh telco # actual test server
+```
+
+### Server 1 #Thor
+url: `new-build-thor.selise.dev`
+project_root: `/home/telco/new-build/thor/be/new-build`
+type `new-build-thor` to go to project root
+
+---
+TODO: update this 
 
 nginx_config: `/etc/nginx/conf.d/new-build.conf`
 
-sidekiq-ui: `new-build.selise.dev/sidekiq`
+---
 
-api-docs: `new-build.selise.dev/api-docs`
+sidekiq-ui: `new-build-thor.selise.dev/sidekiq`
+
+api-docs: `new-build-thor.selise.dev/api-docs`
 
 Credentials available in the `.env` file.
 
-puma_config: `/usr/lib/systemd/system/puma_new_build.service`
+puma_config: `/lib/systemd/system/puma_new_build_thor.service`
 
-sidekiq_config: `/usr/lib/systemd/system/sidekiq_new_build.service`
+sidekiq_config: `/lib/systemd/system/sidekiq_new_build.service`
 
-sidekiq logs: `journalctl -u sidekiq_new_build -f`
+sidekiq logs: `journalctl -u sidekiq_new_build_thor -f`
 
+---
+
+### Server 2 #Loki
+
+Use the same configuration as server 1 but instead of thor, replace all text with loki.
+
+---
 
 ### After update
 
