@@ -1,0 +1,47 @@
+@font-face {
+  font-family: 'Bloom Speak OT Regular';
+  src: url('https://images.selise.club/ui-assets/fonts/bloomspeak/Regular/BloomSpeakOT-Regular.eot');
+  src:
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Regular/BloomSpeakOT-Regular.eot?#iefix') format('embedded-opentype'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Regular/BloomSpeakOT-Regular.woff2') format('woff2'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Regular/BloomSpeakOT-Regular.woff') format('woff'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Regular/BloomSpeakOT-Regular.ttf') format('truetype'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Regular/BloomSpeakOT-Regular.svg#Bloom_Speak_OTregular') format('svg');
+}
+
+@font-face {
+  font-family: 'Bloom Speak OT Bold';
+  src: url('https://images.selise.club/ui-assets/fonts/bloomspeak/Bold/BloomSpeakOT-Bold.eot');
+  src:
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Bold/BloomSpeakOT-Bold.eot?#iefix') format('embedded-opentype'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Bold/BloomSpeakOT-Bold.woff2') format('woff2'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Bold/BloomSpeakOT-Bold.woff') format('woff'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Bold/BloomSpeakOT-Bold.ttf') format('truetype'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Bold/BloomSpeakOT-Bold.svg#Bloom_Speak_OTbold') format('svg');
+}
+
+@font-face {
+  font-family: 'Bloom Speak OT Light';
+  src: url('https://images.selise.club/ui-assets/fonts/bloomspeak/Light/BloomSpeakOT-Light.eot');
+  src:
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Light/BloomSpeakOT-Light.eot?#iefix') format('embedded-opentype'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Light/BloomSpeakOT-Light.woff2') format('woff2'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Light/BloomSpeakOT-Light.woff') format('woff'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Light/BloomSpeakOT-Light.ttf') format('truetype'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Light/BloomSpeakOT-Light.svg#Bloom_Speak_OTlight') format('svg');
+}
+
+@font-face {
+  font-family: 'Bloom Speak OT Heavy';
+  src: url('https://images.selise.club/ui-assets/fonts/bloomspeak/Heavy/BloomSpeakOT-HeavyPS.eot');
+  src:
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Heavy/BloomSpeakOT-HeavyPS.eot?#iefix') format('embedded-opentype'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Heavy/BloomSpeakOT-HeavyPS.woff2') format('woff2'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Heavy/BloomSpeakOT-HeavyPS.woff') format('woff'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Heavy/BloomSpeakOT-HeavyPS.ttf') format('truetype'),
+          url('https://images.selise.club/ui-assets/fonts/bloomspeak/Heavy/BloomSpeakOT-HeavyPS.svg#Bloom_Speak_OTlight') format('svg');
+}
+
+* {
+  font-family:'Bloom Speak OT Bold', sans-serif;
+}

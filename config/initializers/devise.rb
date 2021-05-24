@@ -2,6 +2,7 @@
 
 Devise.setup do |config|
   config.mailer_sender = ENV['MAIL_SENDER']
+  config.parent_mailer = 'ApplicationMailer'
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
