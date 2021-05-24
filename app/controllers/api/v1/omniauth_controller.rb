@@ -15,6 +15,7 @@ module Api
         {
           client_id: Rails.application.config.azure_client_id,
           tenant_id: Rails.application.config.azure_tenant_id,
+          scope: 'User.read',
           redirect_uri: "#{request.base_url}/#{api_v1_user_azure_activedirectory_v2_omniauth_callback_path}"
         }
       end
