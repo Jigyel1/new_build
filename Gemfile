@@ -45,6 +45,7 @@ group :development, :test do
   gem 'niceql' # Don't use in production!
   gem 'pry'
   gem 'rails_best_practices'
+  gem 'rspec-benchmark'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rswag-specs'
   gem 'rubocop-performance'
@@ -73,7 +74,6 @@ end
 gem 'action_policy-graphql'
 gem 'apollo_upload_server', '2.0.5'
 gem 'azure-storage-blob', require: false
-gem 'batch-loader'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
@@ -98,7 +98,6 @@ gem 'sidekiq'
 gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
-  gem 'cnc-storage'
   gem 'telco-uam', '0.1.3'
 end
 

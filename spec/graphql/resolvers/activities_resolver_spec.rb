@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require_relative '../../support/ips_helper'
 
 RSpec.describe Resolvers::ActivitiesResolver do
   include ActivitiesSpecHelper
+  include IpsHelper
 
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:administrator) { create(:user, :administrator) }
@@ -119,9 +121,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
       end
     end
 
-    context 'with single email filter' do
-      it 'returns logs matching given email' do
-        activities, errors = paginated_collection(:activities, query(emails: [kam.email]), current_user: super_user)
+    context 'with single user id filter' do
+      it 'returns logs for the given user' do
+        activities, errors = paginated_collection(:activities, query(user_ids: [kam.id]), current_user: super_user)
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
@@ -134,9 +136,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
       end
     end
 
-    context 'with multiple emails in filter' do
-      it 'returns logs matching given emails' do
-        activities, errors = paginated_collection(:activities, query(emails: [management.email, kam.email]),
+    context 'with multiple user ids in filter' do
+      it 'returns logs for given user ids' do
+        activities, errors = paginated_collection(:activities, query(user_ids: [management.id, kam.id]),
                                                   current_user: super_user)
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
@@ -304,6 +306,18 @@ RSpec.describe Resolvers::ActivitiesResolver do
         end
       end
     end
+
+    describe 'performance benchmarks' do
+      it 'executes within 10 ms' do
+        expect { paginated_collection(:activities, query, current_user: super_user) }.to perform_under(10).ms
+      end
+
+      it 'executes n iterations in x seconds', ips: true do
+        expect { paginated_collection(:activities, query, current_user: super_user) }.to(
+          perform_at_least(perform_atleast).within(perform_within).warmup(warmup_for).ips
+        )
+      end
+    end
   end
 
   def query(args = {})
@@ -326,7 +340,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
   end
 
   def query_string(args = {})
-    params = args[:emails] ? ["emails: #{args[:emails]}"] : []
+    params = args[:user_ids] ? ["userIds: #{args[:user_ids]}"] : []
     params += ["dates: #{args[:dates]}"] if args[:dates]
     params += ["actions: #{args[:actions]}"] if args[:actions]
     params << "query: \"#{args[:query]}\"" if args[:query]

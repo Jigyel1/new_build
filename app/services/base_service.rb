@@ -3,6 +3,7 @@
 class BaseService
   include ActionPolicy::GraphQL::Behaviour
   include ActionView::Helpers::TranslationHelper
+  include Rails.application.routes.url_helpers
   include ActiveSupport::Callbacks
   include Assigner
   include LogidzeWrapper

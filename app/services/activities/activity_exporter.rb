@@ -4,15 +4,14 @@ require 'csv'
 
 module Activities
   class ActivityExporter < BaseActivity
-    include Rails.application.routes.url_helpers
-    attr_accessor :emails, :actions, :dates, :query
+    attr_accessor :user_ids, :actions, :dates, :query
 
-    def call # rubocop:disable Metrics/AbcSize
+    def call
       scoped_activities
-        .then { |scope| apply_filter(:email_filter, scope, emails) }
-        .then { |scope| apply_filter(:action_filter, scope, actions) }
-        .then { |scope| apply_filter(:date_filter, scope, dates) }
-        .then { |scope| apply_filter(:search, scope, query) }
+        .then { |scope| apply_filter(:user_filter, scope, :user_ids) }
+        .then { |scope| apply_filter(:action_filter, scope, :actions) }
+        .then { |scope| apply_filter(:date_filter, scope, :dates) }
+        .then { |scope| apply_filter(:search, scope, :query) }
         .then { |scope| export(scope) }
         .then { |scope| url(scope) }
     end
@@ -20,7 +19,8 @@ module Activities
     private
 
     def apply_filter(filter, scope, param)
-      param.present? ? send("apply_#{filter}", scope, param) : scope
+      value = attributes.send(param)
+      value.present? ? send("apply_#{filter}", scope, value) : scope
     end
 
     def export(scope)

@@ -61,11 +61,15 @@ Do the opposite of success mocks(i.e. Test `data/response` first)
 
 ---
 
+# Performance
+
+1. Resolvers are expected to execute any implementation within `10 ms` - Max 50 only at extreme cases. To ensure that, we use `rspec-benchmark`.
+For example check out - `spec/graphql/resolvers/users_resolver_spec.rb`. 
 
 # Avatar upload
 
 ```ruby
-curl localhost:3000/api/v1/graphql -H "Accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3OTA2ZmM0ZS04YTA5LTQ2YmEtOTE3YS05M2M4ZDY5ZjZiYmEiLCJzdWIiOiI1YTVmYmI0NS0zYmE2LTQzMDgtODlkYy01NTYzNjc1Nzc5ZWEiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE2MTk2Mjk2MjksImV4cCI6MTYxOTYzMzIyOX0.k-OYoMA31JsMf-8L2FflBzXFv2poCYxV_N5J_Hkf6W0``" -F operations='{ "query": "mutation (\$avatar: Upload!) { uploadAvatar(input: { avatar: \$avatar }) { user { profile {avatarUrl} } } }", "variables": { "avatar": null} }' -F map='{ "0": ["variables.avatar"] }' -F 0=@spec/files/matrix.jpeg
+curl -X POST localhost:3000/api/v1/graphql -H "Accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkYzQyNTcwYS1mN2ZlLTRmMTMtYmY5MS02ODk2ZDhjZmJjM2YiLCJzdWIiOiI3NjdhNmQwZC1jNWViLTQ1ZTAtOGRlZS1jYWY1ZGVmMDdiNmMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE2MjE0MjU2MjUsImV4cCI6MTYyMjUyNDUxM30.MD9Eg3jN3HKzJtoST0hwqZcZyYVM8Uhy42oFrVsU7d4"  -F operations='{ "query": "mutation ($avatar: Upload!) { uploadAvatar(input: { avatar: \$avatar }) { user { profile {avatarUrl} } } }", "variables": { "avatar": null} }' -F map='{ "0": ["variables.avatar"] }'  -F 0=@spec/files/matrix.jpeg
 ```
 
 ---

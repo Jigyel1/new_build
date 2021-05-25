@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Any change made in this file should be reflected in
+#   `app/services/activities/activity_exporter.rb`
+#
 module Activities
   module ActivityHelper
     def scoped_activities
@@ -12,11 +15,8 @@ module Activities
       end
     end
 
-    def apply_email_filter(scope, value)
-      scope.where(
-        "log_data->'owner_email' ?| array[:value] OR log_data->'recipient_email' ?| array[:value]",
-        value: value
-      )
+    def apply_user_filter(scope, value)
+      scope.where(owner_id: value).or(scope.where(recipient_id: value))
     end
 
     def apply_action_filter(scope, value)
