@@ -15,8 +15,6 @@ describe 'Sign Out API', type: :request do
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer Token'
 
       response '204', 'user signed out' do
-        before { stub_microsoft_graph_api_success }
-
         let_it_be(:user) { create(:user, email: 'ym@selise.ch', role: role) }
 
         let(:Authorization) { token(user) }

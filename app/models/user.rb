@@ -33,6 +33,19 @@ User.class_eval do
   delegate :permissions, :admin?, to: :role
   delegate :name, to: :role, prefix: true
 
+  def self.from_omniauth(auth)
+    user = find_by!(email: auth.info.email)
+    user.password = Devise.friendly_token[0, 20]
+    user.uid = auth.uid
+    user.provider = auth.provider
+    user.password = Devise.friendly_token[0, 20]
+    user
+  rescue ActiveRecord::RecordNotFound, I18n.t('devise.sign_in.not_found')
+    user = new(email: auth.info.email)
+    user.errors.add(:base, I18n.t('devise.sign_in.not_found'))
+    user
+  end
+
   # Users will be logged in through Azure B2C so password won't be necessary.
   def password_required?
     false

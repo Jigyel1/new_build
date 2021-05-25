@@ -50,8 +50,6 @@ describe 'Invitations API', type: :request do
 
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer Token'
 
-      before { skip_azure_call(user) } # rubocop:disable RSpec/ScatteredSetup
-
       response '200', 'user invited' do
         context 'without address' do
           let(:params) do
@@ -181,7 +179,6 @@ describe 'Invitations API', type: :request do
       produces 'application/json'
 
       before do # rubocop:disable RSpec/ScatteredSetup
-        skip_azure_call(user)
         allow_any_instance_of(Users::UserInviter).to receive(:current_user).and_return(user) # rubocop:disable RSpec/AnyInstance
         user.invite!(user)
       end

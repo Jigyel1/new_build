@@ -20,7 +20,6 @@ RSpec.describe 'User Re-Invitation', type: :request do
   end
 
   before do
-    skip_azure_call(super_user)
     post user_invitation_path, params: params, headers: { Authorization: token(super_user) }
     # Invite the user again.
     post user_invitation_path, params: { user: { email: 'ym@selise.ch' } },
