@@ -1,5 +1,5 @@
-GEM
-  remote: https://gems.selise.tech/
+PATH
+  remote: /Users/yogesh/Documents/projects/telco-iam/telco-uam
   specs:
     telco-uam (0.1.4)
       devise (~> 4.8.0)
@@ -553,6 +553,7 @@ DEPENDENCIES
   rails (~> 6.1.3.2)
   rails_best_practices
   recursive-open-struct
+  repost
   rollbar
   rspec-benchmark
   rspec-rails (~> 5.0.0)
@@ -575,7 +576,7 @@ DEPENDENCIES
   spring
   sprockets (~> 3)
   strong_migrations
-  telco-uam (= 0.1.4)!
+  telco-uam!
   test-prof
   tzinfo-data
   webmock

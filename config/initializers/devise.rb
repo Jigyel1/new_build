@@ -248,4 +248,9 @@ Devise.setup do |config|
                   client_id: ENV['AZURE_CLIENT_ID'],
                   client_secret: ENV['AZURE_SECRET'],
                   tenant_id: ENV['AZURE_TENANT_ID']
+                  # provider_ignores_state: true
 end
+
+
+# set a form authenticity token from a cookie
+# through csrf cookie, extract state from the form authenticity token.

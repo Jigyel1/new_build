@@ -1,11 +1,20 @@
-Api::V1::OmniauthCallbacksController = Telco::Uam::Api::V1::OmniauthCallbacksController
+# Api::V1::OmniauthCallbacksController = Telco::Uam::Api::V1::OmniauthCallbacksController
 
 module Api
   module V1
-    class OmniauthController < ActionController::API
+    class OmniauthController < ActionController::Base
+      after_action :set_csrf_token
+      # before_action :form_authenticity_token
+
       def authorization_endpoint
-        render json: { endpoint: "#{endpoint}?#{URI.encode_www_form(params)}" }, status: :ok
+        session['omniauth.state'] = omniauth_state
+        session['after_login_url'] = params['url']
+        # # byebug
+        # render json: { endpoint: "#{endpoint}?#{URI.encode_www_form(params)}" }, status: :ok
+        redirect_to "#{endpoint}?#{URI.encode_www_form(params)}"
       end
+
+
 
       private
 
@@ -15,12 +24,24 @@ module Api
 
       def params
         {
+          state: omniauth_state,
           response_type: :code,
           client_id: Rails.application.config.azure_client_id,
           tenant_id: Rails.application.config.azure_tenant_id,
           scope: 'User.read',
-          redirect_uri: "#{request.base_url}#{api_v1_user_azure_activedirectory_v2_omniauth_callback_path}"
+          redirect_uri: "#{request.base_url}/api/v1/users/auth/azure_activedirectory_v2/callback"
         }
+      end
+
+      def set_csrf_token
+        cookies['X-CSRF-TOKEN'] = {
+          value: form_authenticity_token,
+          http_only: true
+        }
+      end
+
+      def omniauth_state
+        @omniauth_state ||= SecureRandom.hex(24)
       end
     end
   end

@@ -94,8 +94,9 @@ gem 'search_object_graphql'
 gem 'sidekiq'
 gem 'strong_migrations'
 
-source 'https://gems.selise.tech' do
-  gem 'telco-uam', '0.1.4'
-end
+# source 'https://gems.selise.tech' do
+#   gem 'telco-uam', path: 'Users/yogesh/Documents/projects/telco-iam/telco-uam' #, '0.1.4'
+# end
+gem 'telco-uam', path: '/Users/yogesh/Documents/projects/telco-iam/telco-uam' #, '0.1.4'
 
 # gem "influxdb-rails", "~> 1.0"
