@@ -21,7 +21,7 @@ describe "GET api/v1/users/auth/azure_activedirectory_v2/callback" do
   context 'for a valid user' do
     let_it_be(:super_user) { create(:user, :super_user, email: 'ym@selise.ch') }
     before do
-      get api_v1_user_azure_activedirectory_v2_omniauth_callback_path
+      get user_azure_activedirectory_v2_omniauth_callback_path
     end
 
     it "sets user_id" do
@@ -35,7 +35,7 @@ describe "GET api/v1/users/auth/azure_activedirectory_v2/callback" do
 
   context 'when user does not exist in the portal' do
     before do
-      get api_v1_user_azure_activedirectory_v2_omniauth_callback_path
+      get user_azure_activedirectory_v2_omniauth_callback_path
     end
 
     it 'raises user not invited exception' do

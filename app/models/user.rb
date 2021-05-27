@@ -34,12 +34,12 @@ User.class_eval do
   delegate :name, to: :role, prefix: true
 
   def self.from_omniauth(auth)
-    user = find_by!(email: auth.info.email)
-    user.password = Devise.friendly_token[0, 20]
-    user.uid = auth.uid
-    user.provider = auth.provider
-    user.password = Devise.friendly_token[0, 20]
-    user
+    find_by!(email: auth.info.email).tap do |user|
+      user.password = Devise.friendly_token[0, 20]
+      user.uid = auth.uid
+      user.provider = auth.provider
+      user.save
+    end
   rescue ActiveRecord::RecordNotFound, I18n.t('devise.sign_in.not_found')
     user = new(email: auth.info.email)
     user.errors.add(:base, I18n.t('devise.sign_in.not_found'))
