@@ -15,7 +15,7 @@ Devise.setup do |config|
   # Use Telco::Uam Engine's ApplicationController as it already has
   # some defaults configured
   #   like `respond_to: :json`, `error_formatting`, etc.
-  config.parent_controller = 'DeviseApplicationController'
+  config.parent_controller = 'BaseController'
   config.mailer = 'UserMailer'
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and

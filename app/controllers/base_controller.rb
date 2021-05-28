@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
-class DeviseApplicationController < ApplicationController
+class BaseController < ApplicationController
+  include SetCurrentRequestDetails
+
+  before_action :authenticate_user!
   before_action :configure_permitted_params, if: :devise_controller?
 
-  respond_to :json
+  private
 
   def respond_with(resource, _opts = {})
     if resource.is_a?(Hash) then super
