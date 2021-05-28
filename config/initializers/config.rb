@@ -9,4 +9,7 @@ Rails.application.configure do
 
   config.azure_tenant_id = ENV['AZURE_TENANT_ID']
   config.azure_client_id = ENV['AZURE_CLIENT_ID']
+  config.azure_secret = ENV['AZURE_SECRET']
+
+  config.mail_sender = ENV['MAIL_SENDER']
 end
