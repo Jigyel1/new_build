@@ -48,7 +48,7 @@ describe 'Invitations API', type: :request do
         }
       }
 
-      before { sign_in(user) }
+      before { sign_in(user) } # rubocop:disable RSpec/ScatteredSetup
 
       response '200', 'user invited' do
         context 'without address' do

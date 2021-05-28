@@ -100,5 +100,4 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-
 Api::V1::OmniauthCallbacksController = Telco::Uam::Api::V1::OmniauthCallbacksController

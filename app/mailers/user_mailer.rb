@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
   def invitation_instructions(record, token, opts = {})
     @token = token

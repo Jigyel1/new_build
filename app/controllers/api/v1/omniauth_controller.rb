@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Api
   module V1
-    class OmniauthController < ActionController::Base
+    class OmniauthController < ApplicationController
       def authorization_endpoint
         session['omniauth.state'] = omniauth_state
         session['redirect_uri'] = params['redirect_uri']

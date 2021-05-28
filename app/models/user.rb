@@ -33,17 +33,14 @@ User.class_eval do
   delegate :permissions, :admin?, to: :role
   delegate :name, to: :role, prefix: true
 
+  # Updates provider & uid for the user.
+  #
+  # @param auth Hash - which contains uid & provider details
+  # @return user - resource instance
   def self.from_omniauth(auth)
-    find_by!(email: auth.info.email).tap do |user|
-      user.password = Devise.friendly_token[0, 20]
-      user.uid = auth.uid
-      user.provider = auth.provider
-      user.save
-    end
-  rescue ActiveRecord::RecordNotFound
-    user = new(email: auth.info.email)
-    user.errors.add(:base, I18n.t('devise.sign_in.not_found'))
-    user
+    user_creator = Users::UserCreator.new(auth: auth)
+    user_creator.call
+    user_creator.user
   end
 
   # Users will be logged in through Azure B2C so password won't be necessary.

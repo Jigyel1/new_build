@@ -4,7 +4,6 @@ class NewBuildSchema < GraphQL::Schema
   default_max_page_size Rails.application.config.default_max_page_size
 
   GENERIC_ERRORS = [
-    JWT::VerificationError,
     ArgumentError,
     StandardError
   ].freeze

@@ -239,18 +239,11 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
 
-  # config.jwt do |jwt|
-  #   jwt.secret = Rails.application.credentials.devise_jwt_secret_key
-  #   jwt.expiration_time = ENV.fetch('SESSION_TIMEOUT', 30).to_i
-  # end
-
   config.omniauth :azure_activedirectory_v2,
                   client_id: ENV['AZURE_CLIENT_ID'],
                   client_secret: ENV['AZURE_SECRET'],
                   tenant_id: ENV['AZURE_TENANT_ID']
-                  # provider_ignores_state: true
 end
-
 
 # set a form authenticity token from a cookie
 # through csrf cookie, extract state from the form authenticity token.

@@ -18,7 +18,8 @@ module RuboCop
           /\w+_variables$/,
           /\w+_search$/,
           /^query$/,
-          /\w+_hash$/
+          /\w+_hash$/,
+          /valid_azure_login_setup/
         ].freeze
 
         def on_def(node)

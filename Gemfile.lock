@@ -1,5 +1,5 @@
-PATH
-  remote: /Users/yogesh/Documents/projects/telco-iam/telco-uam
+GEM
+  remote: https://gems.selise.tech/
   specs:
     telco-uam (0.1.4)
       devise (~> 4.8.0)
@@ -9,10 +9,6 @@ PATH
       omniauth-rails_csrf_protection (~> 1.0.0)
       pg (~> 1.2.3)
       rails (~> 6.1.3.2)
-
-GEM
-  remote: https://gems.selise.tech/
-  specs:
 
 GEM
   remote: https://rubygems.org/
@@ -557,7 +553,7 @@ DEPENDENCIES
   spring
   sprockets (~> 3)
   strong_migrations
-  telco-uam!
+  telco-uam (= 0.1.4)!
   test-prof
   tzinfo-data
   webmock

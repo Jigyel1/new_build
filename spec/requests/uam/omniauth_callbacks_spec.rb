@@ -1,21 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require_relative '../../support/omniauth_test_helper'
 
-describe "GET api/v1/users/auth/azure_activedirectory_v2/callback" do
+describe 'GET api/v1/users/auth/azure_activedirectory_v2/callback' do # rubocop:disable RSpec/MultipleDescribes, RSpec/DescribeClass
   include OmniauthTestHelper
 
   before do
-    # allow_any_instance_of(
-    #   Api::V1::OmniauthCallbacksController
-    # ).to(
-    #   receive(:omniauth_params).and_return(
-    #     'state' => '/api/v1/omniauth/azure_ad'
-    #   )
-    # )
-
     valid_azure_login_setup
-    Rails.application.env_config["devise.mapping"] = Devise.mappings[:user] # If using Devise
-    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:azure_activedirectory_v2]
+    Rails.application.env_config['devise.mapping'] = Devise.mappings[:user] # If using Devise
+    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:azure_activedirectory_v2]
   end
 
   context 'for a valid user' do
@@ -24,8 +18,8 @@ describe "GET api/v1/users/auth/azure_activedirectory_v2/callback" do
       get user_azure_activedirectory_v2_omniauth_callback_path, params: { redirect_uri: '/api/v1/omniauth/azure_ad' }
     end
 
-    it "sets user_id" do
-      expect(session["warden.user.user.key"][0][0]).to eq(super_user.id)
+    it 'sets user_id' do
+      expect(session['warden.user.user.key'][0][0]).to eq(super_user.id)
     end
   end
 
@@ -35,20 +29,19 @@ describe "GET api/v1/users/auth/azure_activedirectory_v2/callback" do
     end
 
     it 'raises user not invited exception' do
-      expect(session["warden.user.user.key"]).to be_nil
+      expect(session['warden.user.user.key']).to be_nil
       expect(response).to have_http_status(:forbidden)
       expect(json.errors).to eq([t('devise.sign_in.not_found')])
     end
   end
 end
 
-describe "GET '/auth/failure'" do
+describe "GET '/api/v1/users/auth/failure'" do # rubocop:disable RSpec/DescribeClass
   after do
     Rails.application.reload_routes!
   end
 
   before do
-
     Rails.application.routes.draw do
       devise_scope :user do
         get 'api/v1/omniauth_callbacks/failure' => 'telco/uam/api/v1/omniauth_callbacks#failure'
@@ -56,7 +49,7 @@ describe "GET '/auth/failure'" do
     end
   end
 
-  it "raises bad request" do
+  it 'raises bad request' do
     get '/api/v1/omniauth_callbacks/failure'
     expect(response).to have_http_status(:bad_request)
   end
