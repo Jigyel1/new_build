@@ -12,13 +12,10 @@ describe 'Sign Out API', type: :request do
       produces 'application/json'
       security [Bearer: []]
 
-      parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer Token'
+      let_it_be(:user) { create(:user, email: 'ym@selise.ch', role: role) }
+      before { sign_in(user) }
 
       response '204', 'user signed out' do
-        let_it_be(:user) { create(:user, email: 'ym@selise.ch', role: role) }
-
-        let(:Authorization) { token(user) }
-
         run_test!
       end
     end

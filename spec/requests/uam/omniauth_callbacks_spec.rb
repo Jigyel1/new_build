@@ -5,13 +5,13 @@ describe "GET api/v1/users/auth/azure_activedirectory_v2/callback" do
   include OmniauthTestHelper
 
   before do
-    allow_any_instance_of(
-      Api::V1::OmniauthCallbacksController
-    ).to(
-      receive(:omniauth_params).and_return(
-        'state' => '/api/v1/omniauth/azure_ad'
-      )
-    )
+    # allow_any_instance_of(
+    #   Api::V1::OmniauthCallbacksController
+    # ).to(
+    #   receive(:omniauth_params).and_return(
+    #     'state' => '/api/v1/omniauth/azure_ad'
+    #   )
+    # )
 
     valid_azure_login_setup
     Rails.application.env_config["devise.mapping"] = Devise.mappings[:user] # If using Devise
@@ -21,15 +21,11 @@ describe "GET api/v1/users/auth/azure_activedirectory_v2/callback" do
   context 'for a valid user' do
     let_it_be(:super_user) { create(:user, :super_user, email: 'ym@selise.ch') }
     before do
-      get user_azure_activedirectory_v2_omniauth_callback_path
+      get user_azure_activedirectory_v2_omniauth_callback_path, params: { redirect_uri: '/api/v1/omniauth/azure_ad' }
     end
 
     it "sets user_id" do
-      expect(session["warden.user.api_v1_user.key"][0][0]).to eq(super_user.id)
-    end
-
-    it "redirects to the path given as a state" do
-      expect(response).to redirect_to "#{root_url}api/v1/omniauth/azure_ad"
+      expect(session["warden.user.user.key"][0][0]).to eq(super_user.id)
     end
   end
 
@@ -39,7 +35,7 @@ describe "GET api/v1/users/auth/azure_activedirectory_v2/callback" do
     end
 
     it 'raises user not invited exception' do
-      expect(session["warden.user.api_v1_user.key"]).to be_nil
+      expect(session["warden.user.user.key"]).to be_nil
       expect(response).to have_http_status(:forbidden)
       expect(json.errors).to eq([t('devise.sign_in.not_found')])
     end

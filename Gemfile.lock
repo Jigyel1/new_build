@@ -1,17 +1,18 @@
-GEM
-  remote: https://gems.selise.tech/
+PATH
+  remote: /Users/yogesh/Documents/projects/telco-iam/telco-uam
   specs:
     telco-uam (0.1.4)
       devise (~> 4.8.0)
       devise-async (~> 1.0.0)
-      devise-jwt (~> 0.8.1)
       devise_invitable (~> 2.0.5)
-      dotenv-rails
-      omniauth-azure-activedirectory-v2
-      omniauth-rails_csrf_protection
+      omniauth-azure-activedirectory-v2 (~> 1.0.0)
+      omniauth-rails_csrf_protection (~> 1.0.0)
       pg (~> 1.2.3)
       rails (~> 6.1.3.2)
-      repost
+
+GEM
+  remote: https://gems.selise.tech/
+  specs:
 
 GEM
   remote: https://rubygems.org/
@@ -142,9 +143,6 @@ GEM
     devise-async (1.0.0)
       activejob (>= 5.0)
       devise (>= 4.0)
-    devise-jwt (0.8.1)
-      devise (~> 4.0)
-      warden-jwt_auth (~> 0.5)
     devise_invitable (2.0.5)
       actionmailer (>= 5.0)
       devise (>= 4.6)
@@ -157,16 +155,6 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
-    dry-auto_inject (0.7.0)
-      dry-container (>= 0.3.4)
-    dry-configurable (0.12.1)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 0.5, >= 0.5.0)
-    dry-container (0.7.2)
-      concurrent-ruby (~> 1.0)
-      dry-configurable (~> 0.1, >= 0.1.3)
-    dry-core (0.5.0)
-      concurrent-ruby (~> 1.0)
     e2mmap (0.1.0)
     equalizer (0.0.11)
     erubi (1.10.0)
@@ -262,7 +250,7 @@ GEM
       connection_pool (~> 2.2)
     niceql (0.1.25)
     nio4r (2.5.7)
-    nokogiri (1.11.5-arm64-darwin)
+    nokogiri (1.11.6-arm64-darwin)
       racc (~> 1.4)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -351,7 +339,6 @@ GEM
       psych (~> 3.1)
       rainbow (>= 2.0, < 4.0)
     regexp_parser (2.1.1)
-    repost (0.3.8)
     request_store (1.5.0)
       rack (>= 1.4)
     require_all (3.0.0)
@@ -410,7 +397,7 @@ GEM
       rubocop-ast (>= 1.5.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.5.0)
+    rubocop-ast (1.6.0)
       parser (>= 3.0.1.1)
     rubocop-performance (1.11.3)
       rubocop (>= 1.7.0, < 2.0)
@@ -500,17 +487,12 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.9)
       rack (>= 2.0.9)
-    warden-jwt_auth (0.5.0)
-      dry-auto_inject (~> 0.6)
-      dry-configurable (~> 0.9)
-      jwt (~> 2.1)
-      warden (~> 1.2)
     webmock (3.13.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.7.0)
-    websocket-driver (0.7.3)
+    websocket-driver (0.7.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     yard (0.9.26)
@@ -575,7 +557,7 @@ DEPENDENCIES
   spring
   sprockets (~> 3)
   strong_migrations
-  telco-uam (= 0.1.4)!
+  telco-uam!
   test-prof
   tzinfo-data
   webmock
@@ -585,4 +567,4 @@ RUBY VERSION
    ruby 3.0.1p64
 
 BUNDLED WITH
-   2.2.17
+   2.2.18

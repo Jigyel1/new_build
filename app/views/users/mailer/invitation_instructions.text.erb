@@ -1,12 +1,8 @@
-<p><%= t("devise.mailer.invitation_instructions.hello", lastname: @resource.lastname) %></p>
+<p><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></p>
 
 <%= t('devise.mailer.invitation_instructions.description') %>
 
-<p>
-  <a href="<%= root_url %>auth/invitation?invitation_token=<%= @token %>">
-    <button type="button"><%= t('devise.mailer.invitation_instructions.button_text') %></button>
-  </a>
-</p>
+<%= root_url %>auth/invitation?invitation_token=<%= @token %>
 
 <% if @resource.invitation_due_at %>
   <%= t(

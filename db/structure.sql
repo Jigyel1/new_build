@@ -566,7 +566,6 @@ CREATE TABLE public.telco_uam_users (
     invited_by_type character varying,
     invited_by_id uuid,
     invitations_count integer DEFAULT 0,
-    jti character varying NOT NULL,
     role_id uuid NOT NULL,
     active boolean DEFAULT true NOT NULL,
     discarded_at timestamp without time zone,
@@ -854,13 +853,6 @@ CREATE INDEX index_telco_uam_users_on_invited_by_id ON public.telco_uam_users US
 
 
 --
--- Name: index_telco_uam_users_on_jti; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_telco_uam_users_on_jti ON public.telco_uam_users USING btree (jti);
-
-
---
 -- Name: index_telco_uam_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -963,6 +955,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210504155710'),
 ('20210510070226'),
 ('20210511095338'),
-('20210523105703');
+('20210523105703'),
+('20210527121206');
 
 

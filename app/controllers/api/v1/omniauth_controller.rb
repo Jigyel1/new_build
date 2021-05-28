@@ -1,9 +1,6 @@
-# Api::V1::OmniauthCallbacksController = Telco::Uam::Api::V1::OmniauthCallbacksController
-
 module Api
   module V1
     class OmniauthController < ActionController::Base
-
       def authorization_endpoint
         session['omniauth.state'] = omniauth_state
         session['redirect_uri'] = params['redirect_uri']

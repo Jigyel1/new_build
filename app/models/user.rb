@@ -40,7 +40,7 @@ User.class_eval do
       user.provider = auth.provider
       user.save
     end
-  rescue ActiveRecord::RecordNotFound, I18n.t('devise.sign_in.not_found')
+  rescue ActiveRecord::RecordNotFound
     user = new(email: auth.info.email)
     user.errors.add(:base, I18n.t('devise.sign_in.not_found'))
     user

@@ -1,17 +1,20 @@
 # frozen_string_literal: true
 
-class ApplicationController < ActionController::API
-  include ApiErrors::ErrorHandler
-  include SetCurrentRequestDetails
-  # `ActionController::MimeResponds` provides access to `respond_to`
-  include ActionController::MimeResponds
-
-  before_action :authenticate_user!
+class DeviseApplicationController < ApplicationController
   before_action :configure_permitted_params, if: :devise_controller?
 
   respond_to :json
 
-  private
+  def respond_with(resource, _opts = {})
+    if resource.is_a?(Hash) then super
+    elsif resource.errors.present? then render json: error_message, status: :unprocessable_entity
+    else render json: resource
+    end
+  end
+
+  def error_message
+    { errors: resource.errors.full_messages }
+  end
 
   def configure_permitted_params
     devise_parameter_sanitizer.permit(
