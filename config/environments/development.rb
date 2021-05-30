@@ -45,7 +45,7 @@ Rails.application.configure do
   #   config.cache_store = :null_store
   # end
 
-  config.cache_store = :redis_cache_store
+  config.cache_store = :redis_cache_store, { url: ENV['REDIS_HOST'] }
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
@@ -53,7 +53,9 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'new-build-local', port: 3000 }
+  config.hosts << "new-build.local"
 
   config.action_mailer.perform_caching = false
 

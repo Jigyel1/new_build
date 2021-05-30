@@ -16,6 +16,7 @@ require 'action_mailbox/engine'
 require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
+require_relative '../lib/custom_domain_cookie'
 
 # For GraphiQL
 require 'sprockets/railtie' if Rails.env.development?
@@ -57,10 +58,13 @@ module NewBuild
       ActionDispatch::Session::CookieStore,
       key: '_new_build_session',
       expire_after: 30.days,
-      serializer: :json
+      serializer: :json,
+      domain: 'new-build.selise.dev'
     )
+    config.hosts << "new-build.selise.dev"
 
     # https://andycroll.com/ruby/opt-out-of-google-floc-tracking-in-rails
     config.action_dispatch.default_headers['Permissions-Policy'] = 'interest-cohort=()'
+    config.middleware.use CustomDomainCookie, 'localhost'
   end
 end

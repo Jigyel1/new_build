@@ -44,6 +44,7 @@ docker-compose.yml
 config/initializers/influxdb_rails.rb
 server.crt
 server.key
+fe
 
 # These are some examples of commonly ignored file patterns.
 # You should customize this list as applicable to your project.

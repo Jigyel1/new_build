@@ -6,6 +6,7 @@ module Api
       def authorization_endpoint
         session['omniauth.state'] = omniauth_state
         session['redirect_uri'] = params['redirect_uri']
+        puts "redirect_to #{endpoint}?#{URI.encode_www_form(request_params)}"
         redirect_to "#{endpoint}?#{URI.encode_www_form(request_params)}"
       end
 
@@ -17,6 +18,7 @@ module Api
 
       def request_params
         {
+          provider_ignores_state: true,
           state: omniauth_state,
           response_type: :code,
           client_id: Rails.application.config.azure_client_id,
