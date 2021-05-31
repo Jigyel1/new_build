@@ -243,7 +243,6 @@ Devise.setup do |config|
   config.omniauth :azure_activedirectory_v2,
                   client_id: ENV['AZURE_CLIENT_ID'],
                   client_secret: ENV['AZURE_SECRET'],
-                  tenant_id: ENV['AZURE_TENANT_ID'],
-                  provider_ignores_state: true
+                  tenant_id: ENV['AZURE_TENANT_ID']
 end
 

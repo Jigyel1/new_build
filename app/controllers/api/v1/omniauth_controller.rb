@@ -18,7 +18,6 @@ module Api
 
       def request_params
         {
-          provider_ignores_state: true,
           state: omniauth_state,
           response_type: :code,
           client_id: Rails.application.config.azure_client_id,
