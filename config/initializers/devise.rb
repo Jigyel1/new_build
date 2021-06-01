@@ -244,5 +244,16 @@ Devise.setup do |config|
                   client_id: ENV['AZURE_CLIENT_ID'],
                   client_secret: ENV['AZURE_SECRET'],
                   tenant_id: ENV['AZURE_TENANT_ID']
+
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.credentials.devise_jwt_secret_key
+    jwt.dispatch_requests = [
+      ['POST', %r{^\/users\/sign_in}]
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^\/logout}]
+    ]
+    jwt.expiration_time = 1.day.to_i
+  end
 end
 
