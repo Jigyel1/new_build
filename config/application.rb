@@ -16,7 +16,6 @@ require 'action_mailbox/engine'
 require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
-require_relative '../lib/custom_domain_cookie'
 
 # For GraphiQL
 require 'sprockets/railtie' if Rails.env.development?
