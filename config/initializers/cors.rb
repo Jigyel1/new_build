@@ -8,7 +8,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors, debug: true, lo
     resource(
       '*',
       headers: :any,
-      methods: :all,
+      methods: :any,
       max_age: 600,
       credentials: true
     )

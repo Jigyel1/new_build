@@ -20,7 +20,7 @@ en:
         recipient: 'User profile was reinvited by %{owner_email}'
         others: '%{owner_email} reinvited the user profile of %{recipient_email}'
       profile_updated:
-        owner: 'Edited the user profile of #{recipient_email}'
+        owner: 'Edited the user profile of %{recipient_email}'
         recipient: 'User profile was edited by %{owner_email}'
         others: '%{owner_email} made changes to the user profile of %{recipient_email}'
       profile_deleted:
