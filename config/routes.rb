@@ -29,12 +29,12 @@ Rails.application.routes.draw do
   end
 
   scope 'api/v1', defaults: { format: :json } do
-    devise_for :users,
-               class_name: 'Telco::Uam::User',
-               module: :devise,
-               controllers: {
-                 omniauth_callbacks: 'telco/uam/api/v1/omniauth_callbacks'
-               }
+    devise_for(
+      :users,
+      class_name: 'Telco::Uam::User',
+      module: :devise,
+      controllers: { omniauth_callbacks: 'telco/uam/api/v1/omniauth_callbacks' }
+    )
   end
 
   mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: 'api/v1/graphql' if Rails.env.development?
