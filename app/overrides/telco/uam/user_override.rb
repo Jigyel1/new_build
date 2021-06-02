@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 User = Telco::Uam::User
 
 module Telco
@@ -35,8 +37,8 @@ module Telco
 
       # Updates provider & uid for the user.
       #
-      # @param auth Hash - which contains uid & provider details
-      # @return user - resource instance
+      # @param auth [Hash] - which contains uid & provider details
+      # @return [<User>] - resource instance
       def self.from_omniauth(auth)
         user_creator = Users::UserCreator.new(auth: auth)
         user_creator.call

@@ -16,7 +16,7 @@ Devise.setup do |config|
   # some defaults configured
   #   like `respond_to: :json`, `error_formatting`, etc.
   config.parent_controller = 'BaseController'
-  config.mailer = 'UserMailer'
+  # config.mailer = 'UserMailer'
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
@@ -247,13 +247,6 @@ Devise.setup do |config|
 
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.devise_jwt_secret_key
-    jwt.dispatch_requests = [
-      ['POST', %r{^\/users\/sign_in}]
-    ]
-    jwt.revocation_requests = [
-      ['DELETE', %r{^\/logout}]
-    ]
-    jwt.expiration_time = 1.day.to_i
+    jwt.expiration_time = ENV.fetch('SESSION_TIMEOUT', 30).to_i.minutes
   end
 end
-

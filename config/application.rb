@@ -30,7 +30,8 @@ module NewBuild
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    overrides = "#{Rails.root}/app/overrides"
+    # https://guides.rubyonrails.org/engines.html#overriding-models-and-controllers
+    overrides = Rails.root.join('app/overrides')
     Rails.autoloaders.main.ignore(overrides)
     config.to_prepare do
       Dir.glob("#{overrides}/**/*_override.rb").each do |override|
@@ -60,11 +61,8 @@ module NewBuild
       expire_after: 30.days,
       serializer: :json
     )
-    # config.hosts << "new-build.selise.dev" # use this in test, comment the below
-    # config.hosts << "localhost:4200"
 
     # https://andycroll.com/ruby/opt-out-of-google-floc-tracking-in-rails
     config.action_dispatch.default_headers['Permissions-Policy'] = 'interest-cohort=()'
-    # config.middleware.use CustomDomainCookie
   end
 end

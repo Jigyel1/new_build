@@ -7,6 +7,8 @@ Rails.application.configure do
   config.users_per_role = ENV.fetch('USERS_PER_ROLE', 10).to_i
   config.allowed_domains = ENV['ALLOWED_DOMAINS'].delete(' ').split(',').freeze
 
+  config.azure_authorization_endpoint = ENV['AZURE_AUTHORIZATION_ENDPOINT']
+  config.azure_callback_uri = ENV['AZURE_CALLBACK_URI']
   config.azure_tenant_id = ENV['AZURE_TENANT_ID']
   config.azure_client_id = ENV['AZURE_CLIENT_ID']
   config.azure_secret = ENV['AZURE_SECRET']

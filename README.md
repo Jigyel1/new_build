@@ -107,9 +107,9 @@ TODO: Activity Stream 2.0
 
 ## .env
 
-PRODUCTION_SERVER
-> When `PRODUCTION_SERVER` is false, cors will be enabled.
-  Set this to true in the actual production server!
+TEST_SERVER
+> When `TEST_SERVER` is true, cors will be enabled. Also, if this is enabled, jwt token will be sent to FE for development/testing purposes.
+  User this only in the test servers. 
 
 ALLOWED_DOMAINS
 > Only users with the given domain can be invited & use the portal. For specs to work in bitbucket pipelines, make sure you atleast add selise.ch in ALLOWED_DOMAINS
