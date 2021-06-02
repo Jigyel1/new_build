@@ -16,7 +16,6 @@ require 'action_mailbox/engine'
 require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
-
 # For GraphiQL
 require 'sprockets/railtie' if Rails.env.development?
 
@@ -31,12 +30,14 @@ module NewBuild
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
+    overrides = "#{Rails.root}/app/overrides"
+    Rails.autoloaders.main.ignore(overrides)
+    config.to_prepare do
+      Dir.glob("#{overrides}/**/*_override.rb").each do |override|
+        load override
+      end
+    end
+
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('permissions/*')
 
@@ -64,6 +65,6 @@ module NewBuild
 
     # https://andycroll.com/ruby/opt-out-of-google-floc-tracking-in-rails
     config.action_dispatch.default_headers['Permissions-Policy'] = 'interest-cohort=()'
-    # config.middleware.use CustomDomainCookie, 'localhost'
+    # config.middleware.use CustomDomainCookie
   end
 end

@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base #ActionController::API
   skip_before_action :verify_authenticity_token
 
   respond_to :json
+
+  def redirect_url
+    "#{request.base_url}/profile"
+  end
 end
