@@ -73,7 +73,6 @@ end
 
 gem 'action_policy-graphql'
 gem 'apollo_upload_server', '2.0.5'
-gem 'azure-storage-blob', require: false
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'

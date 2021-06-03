@@ -28,7 +28,7 @@ module Permissions
     end
 
     def allowed_keys
-      actions.select { |_key, value| value }.keys
+      @allowed_keys ||= actions.select { |_key, value| value }.keys
     end
   end
 end

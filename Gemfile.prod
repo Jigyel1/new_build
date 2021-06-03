@@ -17,7 +17,7 @@ gem 'rswag-ui'
 
 gem 'action_policy-graphql'
 gem 'apollo_upload_server', '2.0.5'
-gem "azure-storage-blob", require: false
+gem 'aws-sdk-s3', require: false
 gem 'batch-loader'
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'

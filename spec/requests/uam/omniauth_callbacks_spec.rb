@@ -37,9 +37,7 @@ describe 'GET api/v1/users/auth/azure_activedirectory_v2/callback' do # rubocop:
 end
 
 describe "GET '/api/v1/users/auth/failure'" do # rubocop:disable RSpec/DescribeClass
-  after do
-    Rails.application.reload_routes!
-  end
+  after { Rails.application.reload_routes! }
 
   before do
     Rails.application.routes.draw do

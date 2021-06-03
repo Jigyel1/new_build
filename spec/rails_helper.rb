@@ -99,5 +99,3 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
-
-Api::V1::OmniauthCallbacksController = Telco::Uam::Api::V1::OmniauthCallbacksController
