@@ -22,7 +22,7 @@ module Permissions
     private
 
     def invalid_keys
-      (allowed_keys - Role::PERMISSIONS.dig(accessor.name, resource))
+      (allowed_keys - Rails.application.config.role_permissions.dig(accessor.name, resource))
     rescue TypeError # raised whenever a resource is not defined for a given role in permissions.yml
       allowed_keys
     end

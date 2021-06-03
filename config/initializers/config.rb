@@ -22,4 +22,24 @@ Rails.application.configure do
       )
     )
   ).freeze
+
+  config.role_permissions = HashWithIndifferentAccess.new(
+    YAML.safe_load(
+      File.read(
+        Rails.root.join('config/permissions.yml')
+      )
+    )
+  ).freeze
+
+  config.activity_actions = YAML.safe_load(
+    File.read(
+      Rails.root.join('config/actions.yml')
+    )
+  ).freeze
+
+  config.user_departments = YAML.safe_load(
+    File.read(
+      Rails.root.join('config/departments.yml')
+    )
+  ).freeze
 end

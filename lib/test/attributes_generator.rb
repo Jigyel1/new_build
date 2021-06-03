@@ -31,7 +31,7 @@ module Test
           lastname: Faker::Name.last_name,
           salutation: Profile.salutations.keys.sample,
           phone: Faker::PhoneNumber.phone_number,
-          department: Profile::VALID_DEPARTMENTS.sample,
+          department: Rails.application.config.user_departments.sample,
           created_at: Time.current,
           updated_at: Time.current
         }

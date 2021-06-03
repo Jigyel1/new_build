@@ -14,7 +14,7 @@ describe Permissions::BulkUpdater do
       it 'creates permission with all action values as false' do
         updater.call
 
-        keys = Role::PERMISSIONS.dig(:super_user, :user)
+        keys = Rails.application.config.role_permissions.dig(:super_user, :user)
         permission = role.reload.permissions.find_by!(resource: :user)
 
         expect(permission.actions.size).to eq(keys.size)
@@ -26,7 +26,7 @@ describe Permissions::BulkUpdater do
       it 'updates the permission with actions relevant to the given role' do
         updater.call
 
-        keys = Role::PERMISSIONS.dig(:super_user, :user)
+        keys = Rails.application.config.role_permissions.dig(:super_user, :user)
         permission = role.reload.permissions.find_by!(resource: :user)
         expect(permission.actions.size).to eq(keys.size)
         expect(keys.flat_map { |key| permission.actions.values_at(key) }.uniq).to eq([true])

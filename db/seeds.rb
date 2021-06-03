@@ -29,7 +29,7 @@ def profile_attributes(email_prefix)
     lastname: email_prefix.reverse,
     salutation: Profile.salutations.keys.sample,
     phone: Faker::PhoneNumber.phone_number,
-    department: Profile::VALID_DEPARTMENTS.sample
+    department: Rails.application.config.user_departments.sample
   }
 end
 

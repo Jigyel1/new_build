@@ -26,7 +26,7 @@ module Permissions
     end
 
     def update_permission!
-      Role::PERMISSIONS[role.name].each_pair do |resource, actions|
+      Rails.application.config.role_permissions[role.name].each_pair do |resource, actions|
         role.permissions.find_by!(resource: resource).update!(actions: actions.index_with { |_item| true })
       end
     end
