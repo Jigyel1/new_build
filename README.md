@@ -93,7 +93,13 @@ For example check out - `spec/graphql/resolvers/users_resolver_spec.rb`.
 # Avatar upload
 
 ```ruby
-curl -X POST localhost:3000/api/v1/graphql -H "Accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkYzQyNTcwYS1mN2ZlLTRmMTMtYmY5MS02ODk2ZDhjZmJjM2YiLCJzdWIiOiI3NjdhNmQwZC1jNWViLTQ1ZTAtOGRlZS1jYWY1ZGVmMDdiNmMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE2MjE0MjU2MjUsImV4cCI6MTYyMjUyNDUxM30.MD9Eg3jN3HKzJtoST0hwqZcZyYVM8Uhy42oFrVsU7d4"  -F operations='{ "query": "mutation ($avatar: Upload!) { uploadAvatar(input: { avatar: \$avatar }) { user { profile {avatarUrl} } } }", "variables": { "avatar": null} }' -F map='{ "0": ["variables.avatar"] }'  -F 0=@spec/files/matrix.jpeg
+curl -X POST localhost:3000/api/v1/graphql -H "Accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhODM1NzU2Ny1mODhiLTQ0MDctOTUyOS1kNzcyODM2NGJlY2MiLCJzdWIiOiIyYTJiZjJkZS1kMjMxLTRiMTEtYTBmMi0yMzM4ZTQ5NTljYjYiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE2MjI3MTYzOTUsImV4cCI6IjE2NTkwMDQzOTUifQ.PnleIkS9hskyU8vGz2C83crVAI5nSfwUiqjcfElHp7M"  -F operations='{ "query": "mutation ($avatar: Upload!) { uploadAvatar(input: { avatar: \$avatar }) { user { profile {avatarUrl} } } }", "variables": { "avatar": null} }' -F map='{ "0": ["variables.avatar"] }'  -F 0=@spec/files/matrix.jpeg
+```
+
+```ruby
+# test server - thor 
+curl -X POST https://new-build-thor.selise.dev/api/v1/graphql -H "Accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhODM1NzU2Ny1mODhiLTQ0MDctOTUyOS1kNzcyODM2NGJlY2MiLCJzdWIiOiIyYTJiZjJkZS1kMjMxLTRiMTEtYTBmMi0yMzM4ZTQ5NTljYjYiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE2MjI3MTYzOTUsImV4cCI6IjE2NTkwMDQzOTUifQ.PnleIkS9hskyU8vGz2C83crVAI5nSfwUiqjcfElHp7M"  -F operations='{ "query": "mutation ($avatar: Upload!) { uploadAvatar(input: { avatar: \$avatar }) { user { profile {avatarUrl} } } }", "variables": { "avatar": null} }' -F map='{ "0": ["variables.avatar"] }'  -F 0=@spec/files/matrix.jpeg
+
 ```
 
 ---
