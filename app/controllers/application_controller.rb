@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
   include ApiErrors::ErrorHandler
   # `ActionController::MimeResponds` provides access to `respond_to`
   include ActionController::MimeResponds
+  include TimeZone
 
   respond_to :json
 
