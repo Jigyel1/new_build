@@ -12,7 +12,7 @@ module Api
         result = NewBuildSchema.execute(
           params[:query],
           variables: prepare_variables(params[:variables]),
-          context: { current_user: current_user },
+          context: { current_user: current_user, time_zone: time_zone },
           operation_name: params[:operationName]
         )
         render json: result

@@ -10,9 +10,10 @@ module TimeZone
   private
 
   def use_time_zone(&block)
-    Time.use_zone(
-      ActiveSupport::TimeZone[request.headers.fetch('X-TIME-ZONE', '')] || Time.zone,
-      &block
-    )
+    Time.use_zone(time_zone, &block)
+  end
+
+  def time_zone
+    ActiveSupport::TimeZone[request.headers.fetch('X-Time-Zone', '')] || Time.zone
   end
 end
