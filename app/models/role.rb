@@ -9,6 +9,8 @@ class Role < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
+  default_scope { order(:name) }
+
   # admin & super_user are the general admins of the portal.
   enum name: {
     team_expert: 'NBO Team Expert',
