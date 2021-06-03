@@ -14,4 +14,12 @@ Rails.application.configure do
   config.azure_secret = ENV['AZURE_SECRET']
 
   config.mail_sender = ENV['MAIL_SENDER']
+
+  config.available_permissions = HashWithIndifferentAccess.new(
+    YAML.safe_load(
+      File.read(
+        Rails.root.join('config/available_permissions.yml')
+      )
+    )
+  ).freeze
 end

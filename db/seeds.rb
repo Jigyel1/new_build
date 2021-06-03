@@ -42,5 +42,5 @@ end
     profile_attributes: profile_attributes(email_prefix.to_s)
   )
 rescue ActiveRecord::RecordInvalid => e
-  puts "#{e} for user with email(#{email_prefix}@selise.ch)" # rubocop:disable Rails/Output
+  puts "#{e} for user with email(#{email_prefix}@selise.ch)"
 end

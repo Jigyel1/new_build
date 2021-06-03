@@ -2,11 +2,12 @@
 
 module Permissions
   class AcceptanceValidator
-    include Assigner
-    attr_accessor :resource, :accessor, :keys
+    attr_accessor :resource, :accessor, :actions
 
-    def initialize(attributes = {})
-      assign_attributes(attributes)
+    def initialize(record:, actions:)
+      @resource = record.resource
+      @accessor = record.accessor
+      @actions = actions
     end
 
     def call
@@ -14,16 +15,20 @@ module Permissions
 
       raise StandardError, <<~MSG
         Action(s) #{invalid_keys.to_sentence} #{'is'.pluralize(invalid_keys.size)}
-        not valid for resource #{resource} of role #{accessor.name}
+        not allowed for resource #{resource} of role #{accessor.name}
       MSG
     end
 
     private
 
     def invalid_keys
-      (keys - Role::PERMISSIONS.dig(accessor.name, resource))
+      (allowed_keys - Role::PERMISSIONS.dig(accessor.name, resource))
     rescue TypeError # raised whenever a resource is not defined for a given role in permissions.yml
-      keys
+      allowed_keys
+    end
+
+    def allowed_keys
+      actions.select { |_key, value| value }.keys
     end
   end
 end

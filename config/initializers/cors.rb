@@ -2,7 +2,7 @@
 
 # Be sure to restart your server when you modify this file.
 
-unless ActiveModel::Type::Boolean.new.cast(ENV['TEST_SERVER'])
+if ActiveModel::Type::Boolean.new.cast(ENV['TEST_SERVER'])
   Rails.application.config.middleware.insert_before 0, Rack::Cors, debug: true, logger: (-> { Rails.logger }) do
     allow do
       origins 'http://localhost:4200'

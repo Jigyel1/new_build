@@ -12,26 +12,23 @@ module Permissions
     def call
       raise StandardError, I18n.t('permission.role_only') unless role.is_a?(Role)
 
-      Role::PERMISSIONS[role.name].each_pair do |resource, actions|
-        permission = role.permissions.find_by(resource: resource)
-        permission ? update(actions, permission) : create(resource, actions)
-      end
+      seed_default!
+      update_permission!
     end
 
     private
 
-    def create(resource, actions)
-      Permission.create!(
-        resource: resource,
-        actions: actions.index_with { |_item| true },
-        accessor: role
-      )
+    def seed_default!
+      Rails.application.config.available_permissions.each_pair do |resource, actions|
+        permission = role.permissions.find_or_create_by!(resource: resource)
+        permission.update!(actions: actions.index_with { |_item| false })
+      end
     end
 
-    def update(actions, policy)
-      missing_keys = actions - policy.actions.keys
-      policy.actions.merge!(missing_keys.index_with { |_item| true })
-      policy.save!
+    def update_permission!
+      Role::PERMISSIONS[role.name].each_pair do |resource, actions|
+        role.permissions.find_by!(resource: resource).update!(actions: actions.index_with { |_item| true })
+      end
     end
   end
 end

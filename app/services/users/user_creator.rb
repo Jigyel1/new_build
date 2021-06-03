@@ -15,10 +15,12 @@ module Users
     private
 
     def update
-      user.password = Devise.friendly_token[0, 20]
-      user.uid = auth[:uid]
-      user.email = auth.dig(:info, :email)
-      user.provider = auth[:provider]
+      user.assign_attributes(
+        uid: auth[:uid],
+        email: auth.dig(:info, :email),
+        provider: auth[:provider],
+        password: Devise.friendly_token[0, 20]
+      )
       user.save
     end
 

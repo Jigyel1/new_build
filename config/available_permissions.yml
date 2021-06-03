@@ -1,0 +1,9 @@
+user:
+  - read
+  - invite
+  - update
+  - update_role
+  - update_status
+  - delete
+role:
+  - read

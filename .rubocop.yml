@@ -16,6 +16,7 @@ AllCops:
     - 'lib/log_formatter.rb'
     - 'db/migrate/*_logidze*.rb'
     - 'db/migrate/*create_active_storage_tables.active_storage.rb'
+    - 'fe/**/*'
 Metrics/BlockLength:
   IgnoredMethods: ['describe']
   Max: 300
@@ -66,3 +67,6 @@ RSpec/MultipleExpectations:
 
 RSpec/ExampleLength:
   Max: 30
+
+Rails/Output:
+  Enabled: false
