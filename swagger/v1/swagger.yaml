@@ -11,18 +11,14 @@ paths:
       - Invitation
       security:
       - Bearer: []
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Bearer Token
-        schema:
-          type: string
+      parameters: []
       responses:
         '200':
           description: user invited
         '422':
           description: unprocessable entity
+        '400':
+          description: bad request
       requestBody:
         content:
           application/json:
@@ -115,6 +111,16 @@ paths:
                   required:
                   - password
                   - invitation_token
+  "/api/v1/users/sign_out":
+    delete:
+      summary: Signs out user
+      tags:
+      - Logout
+      security:
+      - Bearer: []
+      responses:
+        '204':
+          description: user signed out
 servers:
 - url: https://{defaultHost}
   variables:
