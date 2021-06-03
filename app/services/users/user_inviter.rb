@@ -24,7 +24,7 @@ module Users
           yield
 
           Activities::ActivityCreator.new(
-            activity_params(activity_id, @activity_action, { role: user.role_name })
+            activity_params(activity_id, @activity_action, { role: Role.names[user.role_name] })
           ).call
         end
       end

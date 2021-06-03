@@ -65,6 +65,10 @@ def role_id(role)
   role_ids([role]).first || create(:role, role).id
 end
 
+def role_name(key)
+  Role.names[key]
+end
+
 def logidze_fields(klass, id, activity_id: Activity.first.id, unscoped: false)
   if unscoped
     klass.unscoped

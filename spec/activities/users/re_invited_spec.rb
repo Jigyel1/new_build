@@ -46,7 +46,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
           t(
             'activities.user.user_invited.owner',
             recipient_email: invitee.email,
-            role: invitee.role_name
+            role: role_name(invitee.role_name)
           )
         )
       end
@@ -80,7 +80,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
           t(
             'activities.user.user_invited.recipient',
             owner_email: super_user.email,
-            role: invitee.role_name
+            role: role_name(invitee.role_name)
           )
         )
       end
@@ -107,7 +107,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
             'activities.user.user_invited.others',
             owner_email: super_user.email,
             recipient_email: invitee.email,
-            role: invitee.role_name
+            role: role_name(invitee.role_name)
           )
         )
       end

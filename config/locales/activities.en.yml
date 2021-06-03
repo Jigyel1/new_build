@@ -32,7 +32,7 @@ en:
         recipient: '%{owner_email} re-invited you to the portal'
         others: '%{owner_email} re-invited %{recipient_email} to the portal'
       role_updated:
-        owner: 'Changed the role of the user %{recipient_email} from %{previous_role} to %{role} the portal'
+        owner: 'Changed the role of the user %{recipient_email} from %{previous_role} to %{role} in the portal'
         recipient: 'Role was changed from %{previous_role} to %{role} by %{owner_email}'
         others: '%{owner_email} changed the role of %{recipient_email} from %{previous_role} to %{role}'
 
