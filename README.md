@@ -17,9 +17,10 @@ project_root: `/home/telco/new-build/thor/be/new-build`
 type `new-build-thor` to go to project root
 
 ---
-TODO: update this 
 
-nginx_config: `/etc/nginx/conf.d/new-build.conf`
+from the jump server - `su mvm`, then `ssh nginx`
+
+nginx_config: `//etc/nginx/conf.d/telco/new-build-thor.conf`
 
 ---
 
@@ -34,6 +35,8 @@ puma_config: `/lib/systemd/system/puma_new_build_thor.service`
 sidekiq_config: `/lib/systemd/system/sidekiq_new_build.service`
 
 sidekiq logs: `journalctl -u sidekiq_new_build_thor -f`
+
+action mailer settings with SMTP - check out `config/environments/production.rb` at `/home/telco/new-build/thor/be/new-build`
 
 ---
 

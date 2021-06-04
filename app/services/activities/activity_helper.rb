@@ -28,7 +28,6 @@ module Activities
     # @return [ActiveRecord::Relation] The activities
     def apply_date_filter(scope, value)
       start_date, end_date = value.map { |time_str| time_str.to_datetime.in_time_zone(context[:time_zone]) }
-      # start_date, end_date = value.map(&:to_date)
       end_date ||= start_date
 
       scope.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
