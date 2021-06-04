@@ -15,7 +15,10 @@ end
 
 def execute(query, current_user: nil)
   HashWithIndifferentAccess.new(
-    NewBuildSchema.execute(query, context: { current_user: current_user }).as_json
+    NewBuildSchema.execute(
+      query,
+      context: { current_user: current_user, time_zone: Time.zone }
+    ).as_json
   )
 end
 
