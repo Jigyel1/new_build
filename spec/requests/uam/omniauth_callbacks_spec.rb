@@ -30,8 +30,8 @@ describe 'GET api/v1/users/auth/azure_activedirectory_v2/callback' do # rubocop:
 
     it 'raises user not invited exception' do
       expect(session['warden.user.user.key']).to be_nil
-      expect(response).to have_http_status(:forbidden)
-      expect(json.errors).to eq([t('devise.sign_in.not_found')])
+      expect(response).to have_http_status(:redirect)
+      expect(response.body).to include("#{root_url}auth/login-failed")
     end
   end
 end
