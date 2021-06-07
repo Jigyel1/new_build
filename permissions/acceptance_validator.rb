@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module Permissions
+  # Validates keys requested for a given resource with respect to a given role
+  #
+  # param [<Permission>] record
+  # param [<Hash>] actions
+  # return [nil]
   class AcceptanceValidator
     attr_accessor :resource, :accessor, :actions
 
@@ -21,12 +26,14 @@ module Permissions
 
     private
 
+    # return keys not permitted for a role
     def invalid_keys
       (allowed_keys - Rails.application.config.role_permissions.dig(accessor.name, resource))
     rescue TypeError # raised whenever a resource is not defined for a given role in permissions.yml
       allowed_keys
     end
 
+    # return only the actions with value `true`
     def allowed_keys
       @allowed_keys ||= actions.select { |_key, value| value }.keys
     end

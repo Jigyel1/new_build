@@ -6,7 +6,7 @@ module Api
       # @param redirect_uri [String] where the user is redirected after a successful authentication
       def authorization_endpoint
         session['omniauth.state'] = omniauth_state
-        session['redirect_uri'] = params['redirect_uri']
+        session['redirect_uri'] = redirect_uri
         redirect_to "#{Rails.application.config.azure_authorization_endpoint}?#{URI.encode_www_form(request_params)}"
       end
 
@@ -25,6 +25,18 @@ module Api
 
       def omniauth_state
         @omniauth_state ||= SecureRandom.hex(24)
+      end
+
+      # Validates if the redirect happens to the same application
+      # with an exception of `localhost:4200` which will only be enabled for TEST servers
+      def redirect_uri
+        redirect_uri = params['redirect_uri'] || super
+        uri = URI.parse(redirect_uri)
+
+        case uri.host
+        when URI.parse(request.base_url).host, 'localhost' then redirect_uri
+        else raise StandardError, "Invalid redirect_uri => #{redirect_uri}"
+        end
       end
     end
   end
