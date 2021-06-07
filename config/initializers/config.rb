@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../lib/file_parser'
+
 # Reading from ENV within the application code can lead to runtime errors due to
 # misconfiguration. To avoid that, we are loading it at boot time to application's configuration.
 Rails.application.configure do
@@ -15,31 +17,8 @@ Rails.application.configure do
 
   config.mail_sender = ENV['MAIL_SENDER']
 
-  config.available_permissions = HashWithIndifferentAccess.new(
-    YAML.safe_load(
-      File.read(
-        Rails.root.join('config/available_permissions.yml')
-      )
-    )
-  ).freeze
-
-  config.role_permissions = HashWithIndifferentAccess.new(
-    YAML.safe_load(
-      File.read(
-        Rails.root.join('config/permissions.yml')
-      )
-    )
-  ).freeze
-
-  config.activity_actions = YAML.safe_load(
-    File.read(
-      Rails.root.join('config/actions.yml')
-    )
-  ).freeze
-
-  config.user_departments = YAML.safe_load(
-    File.read(
-      Rails.root.join('config/departments.yml')
-    )
-  ).freeze
+  config.available_permissions = FileParser.parse { 'config/available_permissions.yml' }.with_indifferent_access
+  config.role_permissions = FileParser.parse { 'config/permissions.yml' }.with_indifferent_access
+  config.activity_actions = FileParser.parse { 'config/actions.yml' }
+  config.user_departments = FileParser.parse { 'config/departments.yml' }
 end
