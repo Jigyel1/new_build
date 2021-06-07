@@ -31,9 +31,10 @@ module Api
       # with an exception of `localhost:4200` which will only be enabled for TEST servers
       def redirect_uri
         redirect_uri = params['redirect_uri'] || super
+        uri = URI.parse(redirect_uri)
 
-        case redirect_uri
-        when request.base_url, 'http://localhost:4200' then redirect_uri
+        case uri.host
+        when URI.parse(request.base_url).host, 'localhost' then redirect_uri
         else raise StandardError, "Invalid redirect_uri => #{redirect_uri}"
         end
       end
