@@ -157,7 +157,7 @@ GEM
       actionmailer (>= 5.0)
       devise (>= 4.6)
     diff-lcs (1.4.4)
-    diffend-monitor (0.2.46)
+    diffend-monitor (0.2.48)
     discard (1.2.0)
       activerecord (>= 4.2, < 7)
     docile (1.4.0)
@@ -269,8 +269,6 @@ GEM
     niceql (0.1.25)
     nio4r (2.5.7)
     nokogiri (1.11.7-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.11.7-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -542,7 +540,6 @@ GEM
 
 PLATFORMS
   arm64-darwin-20
-  x86_64-linux
 
 DEPENDENCIES
   action_policy-graphql
