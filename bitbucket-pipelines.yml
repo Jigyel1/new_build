@@ -46,13 +46,13 @@ definitions:
         script:
           - BITBUCKET_TAG=${BITBUCKET_TAG#*/}
           - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
-          - docker build --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE \
-            --build-arg DEVISE_SECRET_KEY=$DEVISE_SECRET_KEY \
-            --build-arg DEVISE_JWT_SECRET_KEY=$DEVISE_JWT_SECRET_KEY \
-            --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY \
-            --build-arg GEM_USERNAME=$GEM_USERNAME \
-            --build-arg GEM_PASSWORD=$GEM_PASSWORD \
-            --build-arg ALLOWED_DOMAINS=$ALLOWED_DOMAINS \
+          - docker build --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE
+            --build-arg DEVISE_SECRET_KEY=$DEVISE_SECRET_KEY
+            --build-arg DEVISE_JWT_SECRET_KEY=$DEVISE_JWT_SECRET_KEY
+            --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+            --build-arg GEM_USERNAME=$GEM_USERNAME
+            --build-arg GEM_PASSWORD=$GEM_PASSWORD
+            --build-arg ALLOWED_DOMAINS=$ALLOWED_DOMAINS
             -t selisebt/new-build:${BITBUCKET_TAG} .
 
           - docker push selisebt/new-build:${BITBUCKET_TAG}
