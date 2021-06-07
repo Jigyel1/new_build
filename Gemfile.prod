@@ -41,5 +41,5 @@ gem 'sidekiq'
 gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
-  gem 'telco-uam', '0.1.2'
+  gem 'telco-uam', '0.1.6'
 end
