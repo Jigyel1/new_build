@@ -18,8 +18,7 @@ Rails.application.routes.draw do
   end
   mount Sidekiq::Web, at: '/sidekiq'
 
-  get 'homes/index', to: 'homes#index'
-  root 'homes#index'
+  root 'home#index'
 
   namespace :api do
     namespace :v1 do
