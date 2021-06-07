@@ -15,7 +15,6 @@ module Resolvers
       Supports searches on user's email, firstname, lastname, phone and role
     DESC
 
-    option :first, type: Int, with: :apply_first
     option :skip, type: Int, with: :apply_skip
 
     def apply_role_filter(scope, value)
@@ -28,14 +27,6 @@ module Resolvers
 
     def apply_status_filter(scope, value)
       scope.where(active: value)
-    end
-
-    def apply_first(scope, value)
-      scope.limit(value)
-    end
-
-    def apply_skip(scope, value)
-      scope.offset(value)
     end
 
     def apply_search(scope, value)
