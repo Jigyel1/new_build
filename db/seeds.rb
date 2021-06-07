@@ -29,7 +29,7 @@ def profile_attributes(email_prefix)
     lastname: email_prefix.reverse,
     salutation: Profile.salutations.keys.sample,
     phone: Faker::PhoneNumber.phone_number,
-    department: Profile::VALID_DEPARTMENTS.sample
+    department: Rails.application.config.user_departments.sample
   }
 end
 
@@ -42,5 +42,5 @@ end
     profile_attributes: profile_attributes(email_prefix.to_s)
   )
 rescue ActiveRecord::RecordInvalid => e
-  puts "#{e} for user with email(#{email_prefix}@selise.ch)" # rubocop:disable Rails/Output
+  puts "#{e} for user with email(#{email_prefix}@selise.ch)"
 end

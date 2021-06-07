@@ -22,15 +22,18 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      # comment this out(`devise_for ...`) in case you face issues like
-      #    #=>`PG::UndefinedTable: ERROR:  relation "profiles" does not exist`
-      # in development/test servers when running migration from scratch.
-      #
-      # Note: This is already taken care of when you run `rails db:reset_dev`
-      devise_for :users, controllers: { invitations: :invitations }
-
+      get :authorization_endpoint, to: 'omniauth#authorization_endpoint'
       post '/graphql', to: 'graphql#execute'
     end
+  end
+
+  scope 'api/v1', defaults: { format: :json } do
+    devise_for(
+      :users,
+      class_name: 'Telco::Uam::User',
+      module: :devise,
+      controllers: { omniauth_callbacks: 'telco/uam/api/v1/omniauth_callbacks' }
+    )
   end
 
   mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: 'api/v1/graphql' if Rails.env.development?

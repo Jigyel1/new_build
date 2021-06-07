@@ -7,7 +7,7 @@ RSpec.describe Resolvers::DepartmentsResolver do
     it 'returns departments that the server will accept' do
       response, errors = formatted_response(query)
       expect(errors).to be_nil
-      expect(response.departments).to match_array(Profile::VALID_DEPARTMENTS)
+      expect(response.departments).to match_array(Rails.application.config.user_departments)
     end
   end
 

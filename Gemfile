@@ -73,7 +73,6 @@ end
 
 gem 'action_policy-graphql'
 gem 'apollo_upload_server', '2.0.5'
-gem 'azure-storage-blob', require: false
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
@@ -91,6 +90,7 @@ gem 'sass-rails'
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
+gem 'aws-sdk-s3', require: false
 gem 'scenic'
 gem 'search_object'
 gem 'search_object_graphql'
@@ -98,7 +98,7 @@ gem 'sidekiq'
 gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
-  gem 'telco-uam', '0.1.3'
+  gem 'telco-uam', '0.1.6'
 end
 
 # gem "influxdb-rails", "~> 1.0"

@@ -5,38 +5,32 @@ require 'rails_helper'
 describe Permissions::BulkUpdater do
   let_it_be(:role) { create(:role, :super_user) }
 
-  context 'when permission is not defined' do
+  context 'with accessor as role' do
     subject(:updater) { described_class.new(role: role) }
 
-    it 'creates a new permission' do
-      updater.call
+    describe '.seed_default!' do
+      before { allow(updater).to receive(:update_permission!).and_return(double) } # rubocop:disable RSpec/SubjectStub
 
-      keys = Role::PERMISSIONS.dig(:super_user, :user)
-      permission = role.reload.permissions.find_by!(resource: :user)
+      it 'creates permission with all action values as false' do
+        updater.call
 
-      expect(permission.actions.size).to eq(keys.size)
-      expect(keys.flat_map { |key| permission.actions.values_at(key) }.uniq).to eq([true])
+        keys = Rails.application.config.role_permissions.dig(:super_user, :user)
+        permission = role.reload.permissions.find_by!(resource: :user)
+
+        expect(permission.actions.size).to eq(keys.size)
+        expect(keys.flat_map { |key| permission.actions.values_at(key) }.uniq).to eq([false])
+      end
     end
-  end
 
-  context 'for an existing permission' do
-    subject(:updater) { described_class.new(role: role) }
+    describe '.update!' do
+      it 'updates the permission with actions relevant to the given role' do
+        updater.call
 
-    before { create(:permission, actions: { read: true, invite: false, update_status: false }, accessor: role) }
-
-    it 'updates the permission' do
-      updater.call
-
-      keys = Role::PERMISSIONS.dig(:super_user, :user)
-      permission = role.reload.permissions.find_by!(resource: :user)
-
-      expect(permission.actions.size).to eq(keys.size)
-
-      false_keys = %w[invite update_status]
-      expect(false_keys.flat_map { |key| permission.actions.values_at(key) }.uniq).to eq([false])
-
-      true_keys = keys - false_keys
-      expect(true_keys.flat_map { |key| permission.actions.values_at(key) }.uniq).to eq([true])
+        keys = Rails.application.config.role_permissions.dig(:super_user, :user)
+        permission = role.reload.permissions.find_by!(resource: :user)
+        expect(permission.actions.size).to eq(keys.size)
+        expect(keys.flat_map { |key| permission.actions.values_at(key) }.uniq).to eq([true])
+      end
     end
   end
 

@@ -15,8 +15,8 @@ Devise.setup do |config|
   # Use Telco::Uam Engine's ApplicationController as it already has
   # some defaults configured
   #   like `respond_to: :json`, `error_formatting`, etc.
-  config.parent_controller = 'Telco::Uam::ApplicationController'
-
+  config.parent_controller = 'BaseController'
+  # config.mailer = 'UserMailer'
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
@@ -126,7 +126,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  config.timeout_in = ENV.fetch('SESSION_TIMEOUT', 30).to_i
+  config.timeout_in = ENV.fetch('SESSION_TIMEOUT', 30).to_i.minutes
 
   # ==> Configuration for :lockable
   # Defines which strategy will be used to lock an account.
@@ -221,7 +221,6 @@ Devise.setup do |config|
   # end
   config.warden do |manager|
     manager.failure_app = Devise::CustomFailureApp
-    manager.default_strategies(scope: :user).unshift :azure_authenticatable
   end
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
@@ -241,8 +240,13 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
 
+  config.omniauth :azure_activedirectory_v2,
+                  client_id: ENV['AZURE_CLIENT_ID'],
+                  client_secret: ENV['AZURE_SECRET'],
+                  tenant_id: ENV['AZURE_TENANT_ID']
+
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.devise_jwt_secret_key
-    jwt.expiration_time = ENV.fetch('SESSION_TIMEOUT', 30).to_i
+    jwt.expiration_time = ENV.fetch('SESSION_TIMEOUT', 30).to_i.minutes
   end
 end

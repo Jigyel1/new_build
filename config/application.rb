@@ -16,7 +16,6 @@ require 'action_mailbox/engine'
 require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
-
 # For GraphiQL
 require 'sprockets/railtie' if Rails.env.development?
 
@@ -31,19 +30,21 @@ module NewBuild
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
+    # https://guides.rubyonrails.org/engines.html#overriding-models-and-controllers
+    overrides = Rails.root.join('app/overrides')
+    Rails.autoloaders.main.ignore(overrides)
+    config.to_prepare do
+      Dir.glob("#{overrides}/**/*_override.rb").each do |override|
+        load override
+      end
+    end
+
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('permissions/*')
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
-    config.api_only = true
     config.lograge.enabled = true
 
     config.default_locale = :de
@@ -52,5 +53,16 @@ module NewBuild
     # Logidze uses DB functions and triggers, hence you need to use SQL format for a schema dump
     config.active_record.schema_format = :sql
     config.logidze.ignore_log_data_by_default = true
+
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use(
+      ActionDispatch::Session::CookieStore,
+      key: '_new_build_session',
+      expire_after: 30.days,
+      serializer: :json
+    )
+
+    # https://andycroll.com/ruby/opt-out-of-google-floc-tracking-in-rails
+    config.action_dispatch.default_headers['Permissions-Policy'] = 'interest-cohort=()'
   end
 end

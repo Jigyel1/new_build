@@ -27,8 +27,8 @@ RSpec.describe Resolvers::RolesResolver do
     end
 
     describe 'performance benchmarks' do
-      it 'executes within 10 ms' do
-        expect { paginated_collection(:roles, query, current_user: admin_manager) }.to perform_under(10).ms
+      it 'executes within 30 ms' do
+        expect { paginated_collection(:roles, query, current_user: admin_manager) }.to perform_under(30).ms
       end
 
       it 'executes n iterations in x seconds', ips: true do

@@ -5,7 +5,7 @@ en:
     mailer:
       invitation_instructions:
         button_text: 'Start Using the New Build Tool'
-        hello: "Hello %{lastname}"
+        hello_user: "Hello %{lastname}"
         description: 'You have been invited to New Build Tool. In order for you to start
           using the portal you have to sign in to your Sunrise-UPC account.'
       trouble_text: 'If you are having trouble visiting the page from this button,

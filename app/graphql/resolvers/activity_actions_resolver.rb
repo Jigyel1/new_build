@@ -2,7 +2,7 @@
 
 module Resolvers
   class ActivityActionsResolver < SearchObjectBase
-    scope { Activity::VALID_ACTIONS }
+    scope { Rails.application.config.activity_actions }
 
     type GraphQL::Types::JSON, null: false
   end

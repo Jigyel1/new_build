@@ -9,10 +9,14 @@ RSpec.describe Resolvers::PermissionsResolver do
       expect(errors).to be_nil
 
       super_user_permissions = response.permissions.super_user
-      expect(super_user_permissions.user).to match_array(Role::PERMISSIONS.dig(:super_user, :user))
+      expect(super_user_permissions.user).to match_array(
+        Rails.application.config.role_permissions.dig(:super_user, :user)
+      )
 
       admin_permissions = response.permissions.administrator
-      expect(admin_permissions.user).to match_array(Role::PERMISSIONS.dig(:administrator, :user))
+      expect(admin_permissions.user).to match_array(
+        Rails.application.config.role_permissions.dig(:administrator, :user)
+      )
     end
   end
 

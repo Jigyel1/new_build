@@ -16,7 +16,7 @@ RSpec.describe Activity, type: :model do
       expect(activity).to(
         validate_inclusion_of(:action)
           .in_array(
-            Activity::VALID_ACTIONS[activity.trackable_type.downcase]
+            Rails.application.config.activity_actions[activity.trackable_type.downcase]
           )
       )
     }

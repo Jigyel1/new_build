@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 class Activity < ApplicationRecord
-  VALID_ACTIONS = YAML.safe_load(
-    File.read(
-      Rails.root.join('config/actions.yml')
-    )
-  ).freeze
-
   include JsonAccessible
 
   belongs_to :owner, class_name: 'Telco::Uam::User'
@@ -24,7 +18,7 @@ class Activity < ApplicationRecord
     :action,
     presence: true,
     inclusion: {
-      in: proc { |activity| VALID_ACTIONS[activity.trackable_type.downcase] },
+      in: proc { |activity| Rails.application.config.activity_actions[activity.trackable_type.downcase] },
       if: proc { |activity| activity.trackable_type.present? }
     }
   )

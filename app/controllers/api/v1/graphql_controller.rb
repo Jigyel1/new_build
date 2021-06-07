@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class GraphqlController < ApplicationController
+    class GraphqlController < BaseController
       # If accessing from outside this domain, nullify the session
       # This allows for outside API access while preventing CSRF attacks,
       # but you'll have to authenticate your user separately
@@ -12,7 +12,7 @@ module Api
         result = NewBuildSchema.execute(
           params[:query],
           variables: prepare_variables(params[:variables]),
-          context: { current_user: current_user },
+          context: { current_user: current_user, time_zone: time_zone },
           operation_name: params[:operationName]
         )
         render json: result

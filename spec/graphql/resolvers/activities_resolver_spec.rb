@@ -158,7 +158,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
 
     context 'with dates filter' do
       it 'returns logs created in the given date range' do
-        activities, errors = paginated_collection(:activities, query(dates: [Date.yesterday.to_s, Date.current.to_s]),
+        activities, errors = paginated_collection(:activities, query(dates: [1.day.ago.to_s, Time.current.to_s]),
                                                   current_user: super_user)
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
@@ -178,7 +178,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
 
     context 'with date filter' do
       it 'returns logs created in the given date' do
-        activities, errors = paginated_collection(:activities, query(dates: [Date.tomorrow.to_s]),
+        activities, errors = paginated_collection(:activities, query(dates: [1.day.from_now.to_s]),
                                                   current_user: super_user)
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
@@ -308,8 +308,8 @@ RSpec.describe Resolvers::ActivitiesResolver do
     end
 
     describe 'performance benchmarks' do
-      it 'executes within 10 ms' do
-        expect { paginated_collection(:activities, query, current_user: super_user) }.to perform_under(10).ms
+      it 'executes within 30 ms' do
+        expect { paginated_collection(:activities, query, current_user: super_user) }.to perform_under(30).ms
       end
 
       it 'executes n iterations in x seconds', ips: true do

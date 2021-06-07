@@ -23,8 +23,11 @@ module Activities
       scope.where(action: value)
     end
 
+    # @param scope [<Activity>] Filtered activities
+    # @param value [Array<Datetime>] StartDate and EndDate in UTC format => ["2021-06-02T18:00:00.000Z"]
+    # @return [ActiveRecord::Relation] The activities
     def apply_date_filter(scope, value)
-      start_date, end_date = value.map(&:to_date)
+      start_date, end_date = value.map { |time_str| time_str.to_datetime.in_time_zone(context[:time_zone]) }
       end_date ||= start_date
 
       scope.where(created_at: start_date.beginning_of_day..end_date.end_of_day)

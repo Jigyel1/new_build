@@ -558,6 +558,7 @@ CREATE TABLE public.telco_uam_users (
     remember_created_at timestamp without time zone,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
+    discarded_at timestamp without time zone,
     invitation_token character varying,
     invitation_created_at timestamp without time zone,
     invitation_sent_at timestamp without time zone,
@@ -566,11 +567,12 @@ CREATE TABLE public.telco_uam_users (
     invited_by_type character varying,
     invited_by_id uuid,
     invitations_count integer DEFAULT 0,
-    jti character varying NOT NULL,
     role_id uuid NOT NULL,
     active boolean DEFAULT true NOT NULL,
-    discarded_at timestamp without time zone,
-    log_data jsonb
+    log_data jsonb,
+    provider character varying,
+    uid character varying,
+    jti character varying NOT NULL
 );
 
 
@@ -945,10 +947,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210403005710'),
 ('20210403005711'),
 ('20210403005712'),
+('20210403005713'),
 ('20210403100122'),
 ('20210408104835'),
 ('20210409151253'),
-('20210416052020'),
 ('20210419104850'),
 ('20210420015215'),
 ('20210420015216'),
@@ -960,6 +962,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210428110340'),
 ('20210504155710'),
 ('20210510070226'),
-('20210511095338');
+('20210511095338'),
+('20210523105703'),
+('20210527121206'),
+('20210601074347');
 
 

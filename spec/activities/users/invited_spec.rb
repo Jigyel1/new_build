@@ -19,10 +19,7 @@ RSpec.describe 'User Invitation', type: :request do
     }
   end
 
-  before do
-    skip_azure_call(super_user)
-    post user_invitation_path, params: params, headers: { Authorization: token(super_user) }
-  end
+  before { post user_invitation_path, params: params, headers: { Authorization: token(super_user) } }
 
   describe '.activities' do
     let(:invitee) { User.find_by!(email: 'ym@selise.ch') }
@@ -36,7 +33,7 @@ RSpec.describe 'User Invitation', type: :request do
           t(
             'activities.user.user_invited.owner',
             recipient_email: invitee.email,
-            role: invitee.role_name
+            role: role_name(invitee.role_name)
           )
         )
       end
@@ -61,7 +58,7 @@ RSpec.describe 'User Invitation', type: :request do
           t(
             'activities.user.user_invited.recipient',
             owner_email: super_user.email,
-            role: invitee.role_name
+            role: role_name(invitee.role_name)
           )
         )
       end
@@ -79,7 +76,7 @@ RSpec.describe 'User Invitation', type: :request do
             'activities.user.user_invited.others',
             owner_email: super_user.email,
             recipient_email: invitee.email,
-            role: invitee.role_name
+            role: role_name(invitee.role_name)
           )
         )
       end

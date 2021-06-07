@@ -6,8 +6,6 @@ class PermissionActionsValidator < ActiveModel::EachValidator
   def validate_each(record, _attr, value)
     return if record.resource.blank? || record.accessor.nil?
 
-    Permissions::AcceptanceValidator
-      .new(accessor: record.accessor, keys: value.keys, resource: record.resource)
-      .call
+    Permissions::AcceptanceValidator.new(record: record, actions: value).call
   end
 end

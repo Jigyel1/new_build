@@ -9,11 +9,12 @@ module Test
     end
 
     def users_hash
+      domains = Rails.application.config.allowed_domains
       n_times do |index|
         {
           id: index,
           role_id: Role.find_by(name: Role.names.keys.sample).id,
-          email: Faker::Internet.email,
+          email: "#{Faker::Name.first_name}.#{Faker::Name.last_name}@#{domains.sample}",
           created_at: Time.current,
           updated_at: Time.current,
           jti: SecureRandom.hex
@@ -30,7 +31,7 @@ module Test
           lastname: Faker::Name.last_name,
           salutation: Profile.salutations.keys.sample,
           phone: Faker::PhoneNumber.phone_number,
-          department: Profile::VALID_DEPARTMENTS.sample,
+          department: Rails.application.config.user_departments.sample,
           created_at: Time.current,
           updated_at: Time.current
         }

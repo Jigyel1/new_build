@@ -4,7 +4,7 @@
           <%= image_tag(attachments['logo.png'].url) %>
         </div>
         <h1 class="font-size--50">New Build Invitation</h1>
-        <p class="color--primary"><%= t("devise.mailer.invitation_instructions.hello", lastname: @resource.lastname) %></p>
+        <p class="color--primary"><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></p>
 
         <p class="line-height--22">
             <%= t('devise.mailer.invitation_instructions.description') %>

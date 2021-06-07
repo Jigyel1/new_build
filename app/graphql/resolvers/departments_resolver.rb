@@ -2,7 +2,7 @@
 
 module Resolvers
   class DepartmentsResolver < SearchObjectBase
-    scope { Profile::VALID_DEPARTMENTS }
+    scope { Rails.application.config.user_departments }
 
     type [String], null: false
   end

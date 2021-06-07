@@ -2,34 +2,15 @@
 
 class ApplicationController < ActionController::API
   include ApiErrors::ErrorHandler
-  include SetCurrentRequestDetails
+  # `ActionController::MimeResponds` provides access to `respond_to`
+  include ActionController::MimeResponds
+  include TimeZone
 
-  before_action :authenticate_user!
-  before_action :configure_permitted_params, if: :devise_controller?
+  respond_to :json
 
-  private
-
-  def configure_permitted_params
-    devise_parameter_sanitizer.permit(
-      :invite,
-      keys: [
-        :role_id,
-        {
-          profile_attributes: %i[
-            salutation
-            firstname
-            lastname
-            phone
-            department
-          ],
-          address_attributes: %i[
-            street
-            street_no
-            city
-            zip
-          ]
-        }
-      ]
-    )
+  # User will be redirected to this path if FE does not send `redirect_uri` in
+  # the request params.
+  def redirect_uri
+    "#{request.base_url}/profile"
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe Resolvers::ActivityActionsResolver do
     it 'returns actions by resource' do
       response, errors = formatted_response(query)
       expect(errors).to be_nil
-      expect(response.activityActions.to_json).to eq(Activity::VALID_ACTIONS.to_json)
+      expect(response.activityActions.to_json).to eq(Rails.application.config.activity_actions.to_json)
     end
   end
 

@@ -8,30 +8,6 @@ def json
   )
 end
 
-def skip_azure_call(user)
-  allow_any_instance_of(Devise::Strategies::AzureAuthenticatable).to receive(:authenticate!).and_return(user) # rubocop:disable RSpec/AnyInstance
-end
-
-def stub_microsoft_graph_api_success
-  stub_request(:get, 'https://graph.microsoft.com/v1.0/me')
-    .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-                     'User-Agent' => 'Faraday v1.4.1' })
-    .to_return(status: 200, body: '{"mail":"ym@selise.ch","id":"0f790111-4207-40e6-8c80-9ab4c9c9b4dd"}', headers: {})
-end
-
-def stub_microsoft_graph_api_unauthorized
-  stub_request(:get, 'https://graph.microsoft.com/v1.0/me')
-    .with(headers: {
-            'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-            'User-Agent' => 'Faraday v1.4.1'
-          })
-    .to_return(
-      status: 401,
-      body: '{"error":{"code":"InvalidAuthenticationToken","message":"Access token has expired or is not yet valid."}}',
-      headers: {}
-    )
-end
-
 def token(user)
   post user_session_url, params: { user: { email: user.email, password: user.password } }
   response.header['Authorization']
@@ -39,7 +15,10 @@ end
 
 def execute(query, current_user: nil)
   HashWithIndifferentAccess.new(
-    NewBuildSchema.execute(query, context: { current_user: current_user }).as_json
+    NewBuildSchema.execute(
+      query,
+      context: { current_user: current_user, time_zone: Time.zone }
+    ).as_json
   )
 end
 
@@ -87,6 +66,10 @@ end
 
 def role_id(role)
   role_ids([role]).first || create(:role, role).id
+end
+
+def role_name(key)
+  Role.names[key]
 end
 
 def logidze_fields(klass, id, activity_id: Activity.first.id, unscoped: false)

@@ -5,23 +5,46 @@ For REST specific docs, check out [project-url/api-docs](https://new-build.selis
 
 ## Test Server 
 
-url: `new-build.selise.dev`
-project_root: `/home/dragondevel/Documents/new-build/be/new-build`
+Navigating to the server - 
+```ruby
+ssh ssh telco@192.168.20.2 -p 5657 # jump box
+ssh telco # actual test server
+```
 
-nginx_config: `/etc/nginx/conf.d/new-build.conf`
+### Server 1 #Thor
+url: `new-build-thor.selise.dev`
+project_root: `/home/telco/new-build/thor/be/new-build`
+type `new-build-thor` to go to project root
 
-sidekiq-ui: `new-build.selise.dev/sidekiq`
+---
 
-api-docs: `new-build.selise.dev/api-docs`
+from the jump server - `su mvm`, then `ssh nginx`
+
+nginx_config: `//etc/nginx/conf.d/telco/new-build-thor.conf`
+
+---
+
+sidekiq-ui: `new-build-thor.selise.dev/sidekiq`
+
+api-docs: `new-build-thor.selise.dev/api-docs`
 
 Credentials available in the `.env` file.
 
-puma_config: `/usr/lib/systemd/system/puma_new_build.service`
+puma_config: `/lib/systemd/system/puma_new_build_thor.service`
 
-sidekiq_config: `/usr/lib/systemd/system/sidekiq_new_build.service`
+sidekiq_config: `/lib/systemd/system/sidekiq_new_build.service`
 
-sidekiq logs: `journalctl -u sidekiq_new_build -f`
+sidekiq logs: `journalctl -u sidekiq_new_build_thor -f`
 
+action mailer settings with SMTP - check out `config/environments/production.rb` at `/home/telco/new-build/thor/be/new-build`
+
+---
+
+### Server 2 #Loki
+
+Use the same configuration as server 1 but instead of thor, replace all text with loki.
+
+---
 
 ### After update
 
@@ -59,6 +82,10 @@ Do the opposite of success mocks(i.e. Test `data/response` first)
 
 2. And those that accept multiple arguments, nest it under the attributes params. eg. `update_user`, `update_user_status` etc.
 
+### Azure Login
+
+![azure-login-sequence-diagram](class_diagrams/azure-login.png)
+
 ---
 
 # Performance
@@ -69,7 +96,13 @@ For example check out - `spec/graphql/resolvers/users_resolver_spec.rb`.
 # Avatar upload
 
 ```ruby
-curl -X POST localhost:3000/api/v1/graphql -H "Accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkYzQyNTcwYS1mN2ZlLTRmMTMtYmY5MS02ODk2ZDhjZmJjM2YiLCJzdWIiOiI3NjdhNmQwZC1jNWViLTQ1ZTAtOGRlZS1jYWY1ZGVmMDdiNmMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE2MjE0MjU2MjUsImV4cCI6MTYyMjUyNDUxM30.MD9Eg3jN3HKzJtoST0hwqZcZyYVM8Uhy42oFrVsU7d4"  -F operations='{ "query": "mutation ($avatar: Upload!) { uploadAvatar(input: { avatar: \$avatar }) { user { profile {avatarUrl} } } }", "variables": { "avatar": null} }' -F map='{ "0": ["variables.avatar"] }'  -F 0=@spec/files/matrix.jpeg
+curl -X POST localhost:3000/api/v1/graphql -H "Accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhODM1NzU2Ny1mODhiLTQ0MDctOTUyOS1kNzcyODM2NGJlY2MiLCJzdWIiOiIyYTJiZjJkZS1kMjMxLTRiMTEtYTBmMi0yMzM4ZTQ5NTljYjYiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE2MjI3MTYzOTUsImV4cCI6IjE2NTkwMDQzOTUifQ.PnleIkS9hskyU8vGz2C83crVAI5nSfwUiqjcfElHp7M"  -F operations='{ "query": "mutation ($avatar: Upload!) { uploadAvatar(input: { avatar: \$avatar }) { user { profile {avatarUrl} } } }", "variables": { "avatar": null} }' -F map='{ "0": ["variables.avatar"] }'  -F 0=@spec/files/matrix.jpeg
+```
+
+```ruby
+# test server - thor 
+curl -X POST https://new-build-thor.selise.dev/api/v1/graphql -H "Accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhODM1NzU2Ny1mODhiLTQ0MDctOTUyOS1kNzcyODM2NGJlY2MiLCJzdWIiOiIyYTJiZjJkZS1kMjMxLTRiMTEtYTBmMi0yMzM4ZTQ5NTljYjYiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE2MjI3MTYzOTUsImV4cCI6IjE2NTkwMDQzOTUifQ.PnleIkS9hskyU8vGz2C83crVAI5nSfwUiqjcfElHp7M"  -F operations='{ "query": "mutation ($avatar: Upload!) { uploadAvatar(input: { avatar: \$avatar }) { user { profile {avatarUrl} } } }", "variables": { "avatar": null} }' -F map='{ "0": ["variables.avatar"] }'  -F 0=@spec/files/matrix.jpeg
+
 ```
 
 ---
@@ -87,9 +120,9 @@ TODO: Activity Stream 2.0
 
 ## .env
 
-PRODUCTION_SERVER
-> When `PRODUCTION_SERVER` is false, cors will be enabled.
-  Set this to true in the actual production server!
+TEST_SERVER
+> When `TEST_SERVER` is true, cors will be enabled. Also, if this is enabled, jwt token will be sent to FE for development/testing purposes.
+  Use this only in the test servers!
 
 ALLOWED_DOMAINS
 > Only users with the given domain can be invited & use the portal. For specs to work in bitbucket pipelines, make sure you atleast add selise.ch in ALLOWED_DOMAINS
