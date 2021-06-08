@@ -1,0 +1,15 @@
+.env*
+.git
+.gitignore
+README.md
+docker-compose.*
+.bundle/*
+log/*
+tmp/*
+spec/*
+coverage/*
+.git-config/*
+.githooks/*
+Gemfile.lock
+fe/*
+class_diagrams/*

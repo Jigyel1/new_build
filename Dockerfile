@@ -2,7 +2,7 @@ FROM ruby:3.0.1-alpine3.13
 
 RUN apk --update add --virtual build-dependencies make g++ && \
     apk update && apk add build-base && \
-    apk add nodejs postgresql-dev && \
+    apk add nodejs postgresql-dev tzdata && \
     mkdir /new-build
 
 WORKDIR /new-build
@@ -14,7 +14,7 @@ ARG GEM_PASSWORD
 
 RUN bundle config gems.selise.tech ${GEM_USERNAME}:${GEM_PASSWORD}
 
-RUN gem install bundler -v 2.2.14 && \
+RUN gem install bundler -v 2.2.18 && \
     bundle config set --local without 'development test' && \
     bundle install && \
     apk del build-dependencies &&  \
@@ -25,11 +25,10 @@ RUN gem install bundler -v 2.2.14 && \
 
 ADD . /new-build
 
-ADD Gemfile.prod  /new-build/Gemfile
-RUN rm -fr /new-build/log && mkdir /new-build/log
+RUN mv /new-build/Gemfile.prod  /new-build/Gemfile && \
+    mkdir -p /new-build/tmp/pids && \
+    RAILS_ENV=production bundle exec rails assets:precompile
+
 COPY entrypoint.sh /usr/local/bin
-
-RUN chmod +x /usr/local/bin/entrypoint.sh && \
-    mkdir -p tmp/pids
-
 ENTRYPOINT ["entrypoint.sh"]
+

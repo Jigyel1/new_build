@@ -114,7 +114,7 @@ GEM
     benchmark-trend (0.4.0)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
-    brakeman (5.0.1)
+    brakeman (5.0.2)
     builder (3.2.4)
     bullet (6.1.4)
       activesupport (>= 3.0.0)
@@ -269,8 +269,6 @@ GEM
     niceql (0.1.25)
     nio4r (2.5.7)
     nokogiri (1.11.7-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.11.7-x86_64-darwin)
       racc (~> 1.4)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -506,7 +504,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    strong_migrations (0.7.6)
+    strong_migrations (0.7.7)
       activerecord (>= 5)
     test-prof (1.0.5)
     thor (1.1.0)
@@ -542,7 +540,6 @@ GEM
 
 PLATFORMS
   arm64-darwin-20
-  x86_64-darwin-20
 
 DEPENDENCIES
   action_policy-graphql
