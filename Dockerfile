@@ -11,6 +11,7 @@ ADD Gemfile.prod /new-build/Gemfile
 
 ARG GEM_USERNAME
 ARG GEM_PASSWORD
+ARG ALLOWED_DOMAINS
 
 RUN bundle config gems.selise.tech ${GEM_USERNAME}:${GEM_PASSWORD}
 
