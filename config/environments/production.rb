@@ -116,4 +116,14 @@ Rails.application.configure do
   config.sass.preferred_syntax = :sass
   config.sass.line_comments = false
   config.sass.cache = false
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: Rails.application.credentials.smtp[:address],
+    port: 587,
+    user_name: Rails.application.credentials.smtp[:username],
+    password: Rails.application.credentials.smtp[:password],
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
 end
