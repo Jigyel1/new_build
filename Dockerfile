@@ -32,6 +32,7 @@ RUN mv /new-build/Gemfile.prod  /new-build/Gemfile && \
     mkdir -p /new-build/tmp/pids && \
     RAILS_ENV=production bundle exec rails assets:precompile
 
-COPY entrypoint.sh /usr/local/bin
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN  chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
