@@ -48,3 +48,5 @@ end
 #  13 1.235 rails aborted!
 #  13 1.236 LoadError: cannot load such file -- rspec/core
 gem 'rspec'
+
+gem 'faker'
