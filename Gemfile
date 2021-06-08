@@ -29,7 +29,6 @@ gem 'puma'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'multi_json'
-gem 'rswag'
 gem 'rswag-api'
 gem 'rswag-ui'
 

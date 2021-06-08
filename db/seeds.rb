@@ -4,7 +4,7 @@
 #   :=> `rails db:seed` or
 #   :=> `rails db:dev_setup`
 
-require 'faker'
+require 'faker' unless Rails.env.production?
 
 exception = <<~MESSAGE
   The Rails environment is running in production mode!

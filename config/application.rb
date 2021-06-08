@@ -3,8 +3,6 @@
 require_relative 'boot'
 
 require 'rails'
-require 'devise'
-require 'devise/strategies/database_authenticatable'
 # Pick the frameworks you want:
 require 'active_model/railtie'
 require 'active_job/railtie'

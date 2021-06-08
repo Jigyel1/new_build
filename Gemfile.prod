@@ -11,7 +11,6 @@ gem 'puma'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'multi_json'
-gem 'rswag'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'action_policy-graphql'
@@ -27,7 +26,6 @@ gem 'graphql-query-resolver'
 gem 'logidze', '~> 1.1'
 gem 'lograge'
 gem 'premailer-rails'
-gem 'rack-cors'
 gem 'recursive-open-struct'
 gem 'rollbar'
 gem 'sass-rails'
@@ -42,11 +40,3 @@ gem 'strong_migrations'
 source 'https://gems.selise.tech' do
   gem 'telco-uam', '0.1.6'
 end
-
-# Adding `rspec` to avoid the below error. Need to find why it's even called.
-#  > [ 9/10] RUN RAILS_ENV=production bundle exec rails assets:precompile:
-#  13 1.235 rails aborted!
-#  13 1.236 LoadError: cannot load such file -- rspec/core
-gem 'rspec'
-
-gem 'faker'
