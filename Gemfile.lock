@@ -114,7 +114,7 @@ GEM
     benchmark-trend (0.4.0)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
-    brakeman (5.0.2)
+    brakeman (5.0.4)
     builder (3.2.4)
     bullet (6.1.4)
       activesupport (>= 3.0.0)
@@ -400,10 +400,6 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    rswag (2.4.0)
-      rswag-api (= 2.4.0)
-      rswag-specs (= 2.4.0)
-      rswag-ui (= 2.4.0)
     rswag-api (2.4.0)
       railties (>= 3.1, < 7.0)
     rswag-specs (2.4.0)
@@ -579,7 +575,6 @@ DEPENDENCIES
   rollbar
   rspec-benchmark
   rspec-rails (~> 5.0.0)
-  rswag
   rswag-api
   rswag-specs
   rswag-ui
