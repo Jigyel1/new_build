@@ -42,8 +42,8 @@ danger
 spec/failed_specs.txt
 docker-compose.yml
 config/initializers/influxdb_rails.rb
-server.crt
-server.key
+local/server.crt
+local/server.key
 fe
 
 # These are some examples of commonly ignored file patterns.

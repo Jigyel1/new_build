@@ -14,3 +14,6 @@ Gemfile.lock
 fe/*
 class_diagrams/*
 local/*
+public/*
+rubocop/*
+storage/*
