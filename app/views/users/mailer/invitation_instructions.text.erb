@@ -2,7 +2,7 @@
 
 <%= t('devise.mailer.invitation_instructions.description') %>
 
-<%= root_url %>auth/invitation?invitation_token=<%= @token %>
+<%= root_url %>
 
 <% if @resource.invitation_due_at %>
   <%= t(

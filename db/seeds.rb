@@ -4,7 +4,7 @@
 #   :=> `rails db:seed` or
 #   :=> `rails db:dev_setup`
 
-require 'faker'
+require 'faker' unless Rails.env.production?
 
 exception = <<~MESSAGE
   The Rails environment is running in production mode!
@@ -39,7 +39,8 @@ end
     password: 'Selise21',
     role: Role.find_by(name: role),
     address_attributes: address_attributes,
-    profile_attributes: profile_attributes(email_prefix.to_s)
+    profile_attributes: profile_attributes(email_prefix.to_s),
+    invitation_token: SecureRandom.hex
   )
 rescue ActiveRecord::RecordInvalid => e
   puts "#{e} for user with email(#{email_prefix}@selise.ch)"

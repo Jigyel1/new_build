@@ -29,7 +29,6 @@ gem 'puma'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'multi_json'
-gem 'rswag'
 gem 'rswag-api'
 gem 'rswag-ui'
 
@@ -77,7 +76,7 @@ gem 'apollo_upload_server', '2.0.5'
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
 gem 'faraday'
-gem 'graphql'
+gem 'graphql', '1.12.10'
 gem 'graphql-batch'
 gem 'graphql-query-resolver'
 gem 'logidze', '~> 1.1'

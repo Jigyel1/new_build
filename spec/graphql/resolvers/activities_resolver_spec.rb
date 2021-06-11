@@ -318,6 +318,55 @@ RSpec.describe Resolvers::ActivitiesResolver do
         )
       end
     end
+
+    describe 'pagination' do
+      context 'with first N filter' do
+        it 'returns the first N activities' do
+          activities, errors = paginated_collection(:activities, query(first: 2), current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.pluck('displayText')).to eq(
+            [
+              t('activities.user.profile_updated.owner',
+                recipient_email: kam.email),
+              t('activities.user.role_updated.owner',
+                recipient_email: kam.email, role: :super_user, previous_role: :kam)
+            ]
+          )
+        end
+      end
+
+      context 'with skip N filter' do
+        it 'returns activities after skipping N records' do
+          activities, errors = paginated_collection(:activities, query(skip: 2), current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.pluck('displayText')).to eq(
+            [
+              t('activities.user.profile_deleted.owner',
+                recipient_email: management.email),
+              t('activities.user.status_updated.owner',
+                recipient_email: management.email, status_text: t('activities.deactivated')),
+              t('activities.user.user_invited.owner',
+                recipient_email: administrator.email, role: :administrator)
+            ]
+          )
+        end
+      end
+
+      context 'with first N & skip M filter' do
+        it 'returns first N activities after skipping M records' do
+          activities, errors = paginated_collection(:activities, query(first: 2, skip: 2), current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.pluck('displayText')).to eq(
+            [
+              t('activities.user.profile_deleted.owner',
+                recipient_email: management.email),
+              t('activities.user.status_updated.owner',
+                recipient_email: management.email, status_text: t('activities.deactivated'))
+            ]
+          )
+        end
+      end
+    end
   end
 
   def query(args = {})
@@ -339,11 +388,15 @@ RSpec.describe Resolvers::ActivitiesResolver do
     GQL
   end
 
-  def query_string(args = {})
+  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
     params = args[:user_ids] ? ["userIds: #{args[:user_ids]}"] : []
     params += ["dates: #{args[:dates]}"] if args[:dates]
     params += ["actions: #{args[:actions]}"] if args[:actions]
+
+    params << "first: #{args[:first]}" if args[:first]
+    params << "skip: #{args[:skip]}" if args[:skip]
     params << "query: \"#{args[:query]}\"" if args[:query]
+
     params.empty? ? nil : "(#{params.join(',')})"
   end
 end
