@@ -146,9 +146,9 @@ describe 'Invitations API', type: :request do
           )
         end
 
-
         context 'when user already exists' do
           before { user.update_column(:email, 'ym@selise.ch') }
+
           let(:params) do
             {
               user: {
@@ -167,8 +167,8 @@ describe 'Invitations API', type: :request do
           run_test! do
             profile = user.reload.profile
             expect(profile).to be_present
-            expect(profile.firstname).to_not eq('thomas')
-            expect(profile.lastname).to_not eq('hilfinger')
+            expect(profile.firstname).not_to eq('thomas')
+            expect(profile.lastname).not_to eq('hilfinger')
           end
         end
       end
