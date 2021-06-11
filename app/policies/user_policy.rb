@@ -5,16 +5,15 @@ class UserPolicy < ApplicationPolicy
     own_profile? || super
   end
 
-  %i[update delete update_role update_status].each do |method|
+  %i[update_role update_status delete].each do |method|
     define_method "#{method}?" do
-      super(method)
+      !own_profile? && super(method)
     end
   end
 
   private
 
-  # TODO: Implement comparable <=> for ARs
   def own_profile?
-    record.id == current_user.id
+    record == user
   end
 end

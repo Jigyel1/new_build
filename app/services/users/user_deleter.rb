@@ -11,7 +11,7 @@ module Users
     # you don't get email uniqueness error.
     # also prepending current time to maintain uniqueness of deleted records with same email.
     def process
-      authorize! current_user, to: :delete?, with: UserPolicy
+      authorize! user, to: :delete?, with: UserPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
         user.discard!

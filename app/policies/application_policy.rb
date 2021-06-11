@@ -9,7 +9,6 @@ class ApplicationPolicy < ActionPolicy::Base
   #   authorize :account, optional: true
   #
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
-  alias current_user user
 
   # match any one or more of a character suffixed with ?
   def method_missing(method_sym, *_args)
