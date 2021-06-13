@@ -9,7 +9,7 @@ module Users
     private
 
     def process
-      authorize! current_user, to: :update_role?, with: UserPolicy
+      authorize! user, to: :update_role?, with: UserPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
         previous_role = Role.names[user.role_name]

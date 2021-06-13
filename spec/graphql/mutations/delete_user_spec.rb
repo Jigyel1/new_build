@@ -37,6 +37,14 @@ RSpec.describe Mutations::DeleteUser do
         expect(errors[0]).to include("Couldn't find Telco::Uam::User with 'id'=16c85b18-473d-4f5d-9ab4-666c7faceb6c\"")
       end
     end
+
+    context 'when deleting your own profile' do
+      it 'forbids action' do
+        response, errors = formatted_response(query(id: super_user.id), current_user: super_user, key: :deleteUser)
+        expect(response.user).to be_nil
+        expect(errors).to eq(['Not Authorized'])
+      end
+    end
   end
 
   def query(args = {})

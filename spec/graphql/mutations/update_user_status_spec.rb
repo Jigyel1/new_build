@@ -7,12 +7,24 @@ RSpec.describe Mutations::UpdateUserStatus do
   let_it_be(:team_standard) { create(:user, :team_standard) }
 
   describe '.resolve' do
-    let!(:params) { { id: team_standard.id, active: false } }
+    context 'with valid permissions' do
+      let!(:params) { { id: team_standard.id, active: false } }
 
-    it 'updates the user status' do
-      response, errors = formatted_response(query(params), current_user: super_user, key: :updateUserStatus)
-      expect(errors).to be_nil
-      expect(response.user.active).to be(false)
+      it 'updates the user status' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :updateUserStatus)
+        expect(errors).to be_nil
+        expect(response.user.active).to be(false)
+      end
+    end
+
+    context 'when updating your own status' do
+      let!(:params) { { id: super_user.id, active: false } }
+
+      it 'forbids action' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :updateUserStatus)
+        expect(response.user).to be_nil
+        expect(errors).to eq(['Not Authorized'])
+      end
     end
   end
 

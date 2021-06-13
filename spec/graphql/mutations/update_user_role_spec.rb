@@ -7,12 +7,24 @@ RSpec.describe Mutations::UpdateUserRole do
   let_it_be(:team_standard) { create(:user, :team_standard) }
 
   describe '.resolve' do
-    let!(:params) { { id: team_standard.id, role_id: super_user.role_id } }
+    context 'with valid permissions' do
+      let!(:params) { { id: team_standard.id, role_id: super_user.role_id } }
 
-    it 'updates the user role' do
-      response, errors = formatted_response(query(params), current_user: super_user, key: :updateUserRole)
-      expect(errors).to be_nil
-      expect(response.user.roleId).to eq(super_user.role_id)
+      it 'updates the user role' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :updateUserRole)
+        expect(errors).to be_nil
+        expect(response.user.roleId).to eq(super_user.role_id)
+      end
+    end
+
+    context 'when updating your own role' do
+      let!(:params) { { id: super_user.id, role_id: team_standard.role_id } }
+
+      it 'forbids action' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :updateUserRole)
+        expect(response.user).to be_nil
+        expect(errors).to eq(['Not Authorized'])
+      end
     end
   end
 

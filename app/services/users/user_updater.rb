@@ -7,7 +7,7 @@ module Users
     private
 
     def process
-      authorize! current_user, to: :update?, with: UserPolicy
+      authorize! user, to: :update?, with: UserPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
         user.update!(attributes)

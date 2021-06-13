@@ -32,7 +32,10 @@ Rails.application.routes.draw do
       :users,
       class_name: 'Telco::Uam::User',
       module: :devise,
-      controllers: { omniauth_callbacks: 'telco/uam/api/v1/omniauth_callbacks' }
+      controllers: {
+        invitations: 'telco/uam/api/v1/invitations',
+        omniauth_callbacks: 'telco/uam/api/v1/omniauth_callbacks'
+      }
     )
   end
 

@@ -97,7 +97,7 @@ gem 'sidekiq'
 gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
-  gem 'telco-uam', '0.1.6'
+  gem 'telco-uam', '0.1.7'
 end
 
 # gem "influxdb-rails", "~> 1.0"

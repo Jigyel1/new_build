@@ -145,6 +145,32 @@ describe 'Invitations API', type: :request do
                ])
           )
         end
+
+        context 'when user already exists' do
+          before { user.update_column(:email, 'ym@selise.ch') }
+
+          let(:params) do
+            {
+              user: {
+                email: 'ym@selise.ch',
+                role_id: SecureRandom.hex,
+                profile_attributes: {
+                  firstname: 'thomas',
+                  lastname: 'hilfinger'
+                }
+              }
+            }
+          end
+          let(:Authorization) { token(user) }
+
+          # associated records are still intact!
+          run_test! do
+            profile = user.reload.profile
+            expect(profile).to be_present
+            expect(profile.firstname).not_to eq('thomas')
+            expect(profile.lastname).not_to eq('hilfinger')
+          end
+        end
       end
 
       response '400', 'bad request' do
