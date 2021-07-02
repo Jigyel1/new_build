@@ -25,13 +25,15 @@ rescue NoMethodError
 end
 
 AdminToolkit::PctValue.delete_all
+AdminToolkit::FootprintValue.delete_all
 AdminToolkit::PctCost.delete_all
 AdminToolkit::PctMonth.delete_all
 AdminToolkit::FootprintBuilding.delete_all
 AdminToolkit::FootprintType.delete_all
+AdminToolkit::LabelGroup.delete_all
 
 # The maximum signed integer, with 4 bytes
-MAX_SIGNED = 2**31 - 1
+MAX_SIGNED = 2 ** 31 - 1
 
 [
   { index: 0, header: 'Less than CHF 2.5K', min: 0, max: 2500 },
@@ -59,11 +61,11 @@ end
 #   #=> puts AdminToolkit::PctValue.all.map{|x| "#{x.pct_month.header} || #{x.pct_cost.header} || #{x.status}"}
 # to confirm matrix generation.
 [
-  [ 0, 0, :prio_1 ], [ 0, 1, :prio_1 ], [ 0, 2, :prio_1 ], [ 0, 3, :prio_2 ], [ 0, 4, :prio_2 ], [ 0, 5, :prio_2 ],
-  [ 1, 0, :prio_2 ], [ 1, 1, :prio_2 ], [ 1, 2, :prio_2 ], [ 1, 3, :prio_2 ], [ 1, 4, :prio_2 ], [ 0, 5, :prio_2 ],
-  [ 2, 0, :prio_2 ], [ 2, 1, :prio_2 ], [ 2, 2, :prio_2 ], [ 2, 3, :on_hold ], [ 2, 4, :on_hold ], [ 0, 5, :prio_2 ],
-  [ 3, 0, :on_hold ], [ 3, 1, :on_hold ], [ 3, 2, :on_hold ], [ 3, 3, :on_hold ], [ 3, 4, :on_hold ], [ 0, 5, :on_hold ],
-  [ 4, 0, :on_hold ], [ 4, 1, :on_hold ], [ 4, 2, :on_hold ], [ 4, 3, :on_hold ], [ 4, 4, :on_hold ], [ 0, 5, :on_hold ],
+  [0, 0, :prio_1], [0, 1, :prio_1], [0, 2, :prio_1], [0, 3, :prio_2], [0, 4, :prio_2], [0, 5, :prio_2],
+  [1, 0, :prio_2], [1, 1, :prio_2], [1, 2, :prio_2], [1, 3, :prio_2], [1, 4, :prio_2], [0, 5, :prio_2],
+  [2, 0, :prio_2], [2, 1, :prio_2], [2, 2, :prio_2], [2, 3, :on_hold], [2, 4, :on_hold], [0, 5, :prio_2],
+  [3, 0, :on_hold], [3, 1, :on_hold], [3, 2, :on_hold], [3, 3, :on_hold], [3, 4, :on_hold], [0, 5, :on_hold],
+  [4, 0, :on_hold], [4, 1, :on_hold], [4, 2, :on_hold], [4, 3, :on_hold], [4, 4, :on_hold], [0, 5, :on_hold],
 ].each do |array|
   AdminToolkit::PctValue.create!(
     pct_month: AdminToolkit::PctMonth.find_by!(index: array[0]),
@@ -71,7 +73,6 @@ end
     status: array[2]
   )
 end
-
 
 # FOOTPRINT
 
@@ -102,11 +103,11 @@ end
 #   #=> puts AdminToolkit::FootprintValue.all.map{|x| "building #{x.footprint_building.min} - #{x.footprint_building.max} || footprint type #{x.footprint_type.provider} || #{x.project_type}" }
 # to confirm matrix generation.
 [
-  [ 0, 0, :standard ], [ 0, 1, :standard ], [ 0, 2, :irrelevant ], [ 0, 3, :irrelevant ],
-  [ 1, 0, :standard ], [ 1, 1, :standard ], [ 1, 2, :irrelevant ], [ 1, 3, :irrelevant ],
-  [ 2, 0, :standard ], [ 2, 1, :standard ], [ 2, 2, :irrelevant ], [ 2, 3, :irrelevant ],
-  [ 3, 0, :complex ], [ 3, 1, :complex ], [ 3, 2, :marketing_only ], [ 3, 3, :marketing_only ],
-  [ 4, 0, :complex ], [ 4, 1, :complex ], [ 4, 2, :complex ], [ 4, 3, :complex]
+  [0, 0, :standard], [0, 1, :standard], [0, 2, :irrelevant], [0, 3, :irrelevant],
+  [1, 0, :standard], [1, 1, :standard], [1, 2, :irrelevant], [1, 3, :irrelevant],
+  [2, 0, :standard], [2, 1, :standard], [2, 2, :irrelevant], [2, 3, :irrelevant],
+  [3, 0, :complex], [3, 1, :complex], [3, 2, :marketing_only], [3, 3, :marketing_only],
+  [4, 0, :complex], [4, 1, :complex], [4, 2, :complex], [4, 3, :complex]
 ].each do |array|
   AdminToolkit::FootprintValue.create!(
     footprint_building: AdminToolkit::FootprintBuilding.find_by!(index: array[0]),
@@ -114,3 +115,15 @@ end
     project_type: array[2]
   )
 end
+
+# Labels
+# These are the initial default label groups to be created based on the available project stages
+
+AdminToolkit::LabelGroup.insert_all(
+  [
+    'New',
+    'Technical Analysis',
+    'Technical Analysis Finished',
+    'Ready to Offer'
+  ].map { |name| { name: name, created_at: Time.now, updated_at: Time.now } }
+)

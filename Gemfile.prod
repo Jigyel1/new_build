@@ -14,6 +14,7 @@ gem 'multi_json'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'action_policy-graphql'
+gem 'acts-as-taggable-on'
 gem 'apollo_upload_server', '2.0.5'
 gem 'aws-sdk-s3', require: false
 gem 'batch-loader'

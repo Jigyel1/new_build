@@ -71,6 +71,7 @@ group :development do
 end
 
 gem 'action_policy-graphql'
+gem 'acts-as-taggable-on'
 gem 'apollo_upload_server', '2.0.5'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'discard', '~> 1.2'
