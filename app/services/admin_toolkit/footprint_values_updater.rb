@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 module AdminToolkit
-  class PctValuesUpdater < BaseService
+  class FootprintValuesUpdater < BaseService
     private
 
     def process
-      authorize! ::AdminToolkit::PctValue, to: :update?, with: AdminToolkitPolicy
+      authorize! ::AdminToolkit::FootprintValue, to: :update?, with: AdminToolkitPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
-        attributes.each do |pct_value|
-          id, status = pct_value
-          ::AdminToolkit::PctValue.find(id).update_column(:status, status)
+        attributes.each do |footprint_value|
+          id, project_type = footprint_value
+          ::AdminToolkit::FootprintValue.find(id).update_column(:project_type, project_type)
         end
 
         Activities::ActivityCreator.new(activity_params(activity_id)).call
@@ -25,7 +25,7 @@ module AdminToolkit
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :pct_values_updated,
+        action: :footprint_values_updated,
         owner: current_user,
         trackable_type: 'AdminToolkit',
         parameters: attributes

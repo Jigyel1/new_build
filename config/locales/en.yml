@@ -46,3 +46,6 @@ en:
     pct_month:
       invalid_min: System tried updating min month for PCT with header "%{header}" to CHF %{new_max} which is
         not valid as it is less than its max month (CHF %{old_max}). Please send a value less than %{old_max}.
+    footprint_building:
+      invalid_min: System tried updating min building for Footprint with header "%{header}" to %{new_max} which is
+        not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.

@@ -478,6 +478,48 @@ CREATE TABLE public.addresses (
 
 
 --
+-- Name: admin_toolkit_footprint_buildings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_footprint_buildings (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    min integer,
+    max integer,
+    index integer,
+    header character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_footprint_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_footprint_types (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    provider character varying,
+    index integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_footprint_values; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_footprint_values (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    project_type character varying,
+    footprint_building_id uuid NOT NULL,
+    footprint_type_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: admin_toolkit_pct_costs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -727,6 +769,30 @@ ALTER TABLE ONLY public.addresses
 
 
 --
+-- Name: admin_toolkit_footprint_buildings admin_toolkit_footprint_buildings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_buildings
+    ADD CONSTRAINT admin_toolkit_footprint_buildings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_footprint_types admin_toolkit_footprint_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_types
+    ADD CONSTRAINT admin_toolkit_footprint_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_footprint_values admin_toolkit_footprint_values_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_values
+    ADD CONSTRAINT admin_toolkit_footprint_values_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: admin_toolkit_pct_costs admin_toolkit_pct_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -876,6 +942,20 @@ CREATE INDEX index_addresses_on_addressable ON public.addresses USING btree (add
 
 
 --
+-- Name: index_admin_toolkit_footprint_values_on_footprint_building_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_footprint_values_on_footprint_building_id ON public.admin_toolkit_footprint_values USING btree (footprint_building_id);
+
+
+--
+-- Name: index_admin_toolkit_footprint_values_on_footprint_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_footprint_values_on_footprint_type_id ON public.admin_toolkit_footprint_values USING btree (footprint_type_id);
+
+
+--
 -- Name: index_admin_toolkit_pct_values_on_pct_cost_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1010,6 +1090,14 @@ ALTER TABLE ONLY public.activities
 
 
 --
+-- Name: admin_toolkit_footprint_values fk_rails_18d8a3b570; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_values
+    ADD CONSTRAINT fk_rails_18d8a3b570 FOREIGN KEY (footprint_building_id) REFERENCES public.admin_toolkit_footprint_buildings(id);
+
+
+--
 -- Name: admin_toolkit_pct_values fk_rails_5300556c7f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1047,6 +1135,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: admin_toolkit_footprint_values fk_rails_c5fec1ddda; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_values
+    ADD CONSTRAINT fk_rails_c5fec1ddda FOREIGN KEY (footprint_type_id) REFERENCES public.admin_toolkit_footprint_types(id);
 
 
 --
@@ -1090,6 +1186,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210601074347'),
 ('20210701091541'),
 ('20210701091755'),
-('20210701094813');
+('20210701094813'),
+('20210702094659'),
+('20210702095119'),
+('20210702101004');
 
 
