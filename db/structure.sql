@@ -600,6 +600,19 @@ CREATE SEQUENCE public.admin_toolkit_pcts_months_index_seq
 
 
 --
+-- Name: admin_toolkit_project_costs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_project_costs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    standard numeric,
+    arpu numeric,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -917,6 +930,14 @@ ALTER TABLE ONLY public.admin_toolkit_pct_months
 
 ALTER TABLE ONLY public.admin_toolkit_pct_values
     ADD CONSTRAINT admin_toolkit_pct_values_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_project_costs admin_toolkit_project_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_project_costs
+    ADD CONSTRAINT admin_toolkit_project_costs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1393,6 +1414,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210702113018'),
 ('20210702113019'),
 ('20210702113020'),
-('20210702113021');
+('20210702113021'),
+('20210702172133');
 
 

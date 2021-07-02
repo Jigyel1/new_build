@@ -28,5 +28,6 @@ module Types
     field :update_footprint_values, mutation: Mutations::AdminToolkit::UpdateFootprintValues
 
     field :update_label, mutation: Mutations::AdminToolkit::UpdateLabels
+    field :update_project_cost, mutation: Mutations::AdminToolkit::UpdateProjectCost
   end
 end
