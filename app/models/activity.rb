@@ -4,10 +4,17 @@ class Activity < ApplicationRecord
   include JsonAccessible
 
   belongs_to :owner, class_name: 'Telco::Uam::User'
-  belongs_to :recipient, class_name: 'Telco::Uam::User'
 
-  # `optional true` when the activity involves just the users. `trackable` will
-  # come into picture when we use other modules like project, news, events etc.
+  # `recipient` is not needed when a user is acting on a different module.
+  # eg. User(owner) updates PCT(trackable)
+  #
+  # `trackable` is not needed when a user is acting on another user.
+  # eg. User A(owner) deactivates User B(recipient)
+  #
+  # A case where all references will be applicable
+  # eg. User A(owner) added User B(recipient) to Project X(trackable)
+  #
+  belongs_to :recipient, class_name: 'Telco::Uam::User', optional: true
   belongs_to :trackable, polymorphic: true, optional: true
 
   alias actor owner

@@ -19,5 +19,9 @@ module Types
     field :upload_avatar, mutation: Mutations::UploadAvatar
 
     field :export_activities, mutation: Mutations::ExportActivities
+
+    field :update_pct_cost, mutation: Mutations::AdminToolkit::UpdatePctCost
+    field :update_pct_month, mutation: Mutations::AdminToolkit::UpdatePctMonth
+    field :update_pct_values, mutation: Mutations::AdminToolkit::UpdatePctValues
   end
 end

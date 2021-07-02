@@ -478,6 +478,74 @@ CREATE TABLE public.addresses (
 
 
 --
+-- Name: admin_toolkit_pct_costs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_pct_costs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    index integer,
+    min integer,
+    max integer,
+    header character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_pct_months; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_pct_months (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    index integer,
+    min integer,
+    max integer,
+    header character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_pct_values; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_pct_values (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    status character varying,
+    pct_month_id uuid NOT NULL,
+    pct_cost_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_pcts_costs_index_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.admin_toolkit_pcts_costs_index_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admin_toolkit_pcts_months_index_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.admin_toolkit_pcts_months_index_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -659,6 +727,30 @@ ALTER TABLE ONLY public.addresses
 
 
 --
+-- Name: admin_toolkit_pct_costs admin_toolkit_pct_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_pct_costs
+    ADD CONSTRAINT admin_toolkit_pct_costs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_pct_months admin_toolkit_pct_months_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_pct_months
+    ADD CONSTRAINT admin_toolkit_pct_months_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_pct_values admin_toolkit_pct_values_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_pct_values
+    ADD CONSTRAINT admin_toolkit_pct_values_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -784,6 +876,20 @@ CREATE INDEX index_addresses_on_addressable ON public.addresses USING btree (add
 
 
 --
+-- Name: index_admin_toolkit_pct_values_on_pct_cost_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_pct_values_on_pct_cost_id ON public.admin_toolkit_pct_values USING btree (pct_cost_id);
+
+
+--
+-- Name: index_admin_toolkit_pct_values_on_pct_month_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_pct_values_on_pct_month_id ON public.admin_toolkit_pct_values USING btree (pct_month_id);
+
+
+--
 -- Name: index_permissions_on_accessor; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -904,6 +1010,22 @@ ALTER TABLE ONLY public.activities
 
 
 --
+-- Name: admin_toolkit_pct_values fk_rails_5300556c7f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_pct_values
+    ADD CONSTRAINT fk_rails_5300556c7f FOREIGN KEY (pct_month_id) REFERENCES public.admin_toolkit_pct_months(id);
+
+
+--
+-- Name: admin_toolkit_pct_values fk_rails_7272faf5b9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_pct_values
+    ADD CONSTRAINT fk_rails_7272faf5b9 FOREIGN KEY (pct_cost_id) REFERENCES public.admin_toolkit_pct_costs(id);
+
+
+--
 -- Name: activities fk_rails_8c2b010743; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -965,6 +1087,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210511095338'),
 ('20210523105703'),
 ('20210527121206'),
-('20210601074347');
+('20210601074347'),
+('20210701091541'),
+('20210701091755'),
+('20210701094813');
 
 

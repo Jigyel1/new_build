@@ -20,7 +20,7 @@ module Activities
         trackable_type: 'User',
         log_data: {
           owner_email: owner.email,
-          recipient_email: recipient.email,
+          recipient_email: recipient.try(:email),
           parameters: parameters
         }
       ).then { |activity| activity.persisted? ? activity : log_error(activity) }

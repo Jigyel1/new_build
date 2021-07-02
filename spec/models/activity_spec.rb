@@ -7,7 +7,7 @@ RSpec.describe Activity, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:owner).class_name('Telco::Uam::User') }
-    it { is_expected.to belong_to(:recipient).class_name('Telco::Uam::User') }
+    it { is_expected.to belong_to(:recipient).class_name('Telco::Uam::User').optional(true) }
     it { is_expected.to belong_to(:trackable).optional(true) }
   end
 
