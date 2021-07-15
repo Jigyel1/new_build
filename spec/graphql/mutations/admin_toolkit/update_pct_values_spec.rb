@@ -16,32 +16,47 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctValues do
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) do
-        [
-          [pct_value_b.id, 'prio_2'],
-          [pct_value_c.id, 'on_hold'],
-          [pct_value_d.id, 'on_hold']
-        ]
-      end
-
       it 'updates PCT data' do
-        _, errors = formatted_response(query(params), current_user: super_user, key: :updatePctValues)
+        response, errors = formatted_response(query(status: :on_hold), current_user: super_user, key: :updatePctValues)
         expect(errors).to be_nil
-        expect(pct_value_b.reload.status).to eq('prio_2')
-        expect(pct_value_c.reload.status).to eq('on_hold')
-        expect(pct_value_d.reload.status).to eq('on_hold')
+
+        value = response.pctValues.find { |item| item[:id] == pct_value_b.id }
+        expect(value[:status]).to eq('prio_2')
+        value = response.pctValues.find { |item| item[:id] == pct_value_c.id }
+        expect(value[:status]).to eq('on_hold')
+        value = response.pctValues.find { |item| item[:id] == pct_value_d.id }
+        expect(value[:status]).to eq('on_hold')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'responds with error' do
+        response, errors = formatted_response(query(status: :invalid), current_user: super_user, key: :updatePctValues)
+        expect(response.pctValues).to be_nil
+        expect(errors).to eq(["'invalid' is not a valid status"])
       end
     end
   end
 
-  def query(params)
+  def query(args={})
     <<~GQL
       mutation {
         updatePctValues(
           input: {
-            attributes: {
-              pctValues: #{params}
-            }
+            attributes: [
+              {
+                id: "#{pct_value_b.id}"
+                status: "prio_2"              
+              },
+              {
+                id: "#{pct_value_c.id}"
+                status: "on_hold"              
+              },
+              {
+                id: "#{pct_value_d.id}"
+                status: "#{args[:status]}"              
+              }
+            ]
           }
         )
         { pctValues { id status } }

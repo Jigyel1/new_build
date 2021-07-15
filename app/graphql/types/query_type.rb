@@ -35,5 +35,17 @@ module Types
 
     field :activities, resolver: Resolvers::ActivitiesResolver
     field :activity_actions, resolver: Resolvers::ActivityActionsResolver
+
+    field(
+      :footprints,
+      resolver: Resolvers::AdminToolkit::FootprintsResolver,
+      preauthorize: { record: ::AdminToolkit::FootprintValue, with: ::AdminToolkitPolicy, to: :index? }
+    )
+
+    field(
+      :pcts,
+      resolver: Resolvers::AdminToolkit::PctsResolver,
+      preauthorize: { record: ::AdminToolkit::PctValue, with: ::AdminToolkitPolicy, to: :index? }
+    )
   end
 end

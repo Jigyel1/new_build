@@ -10,46 +10,76 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintValues do
   let_it_be(:footprint_building_b) { create(:admin_toolkit_footprint_building, index: 1, min: 6, max: 12) }
 
   let_it_be(:footprint_value) do
-    create(:admin_toolkit_footprint_value, footprint_type: footprint_type, footprint_building: footprint_building)
+    create(
+      :admin_toolkit_footprint_value,
+      footprint_type: footprint_type, footprint_building: footprint_building
+    )
   end
+
   let_it_be(:footprint_value_b) do
-    create(:admin_toolkit_footprint_value, footprint_type: footprint_type, footprint_building: footprint_building_b)
+    create(
+      :admin_toolkit_footprint_value,
+      footprint_type: footprint_type, footprint_building: footprint_building_b
+    )
   end
+
   let_it_be(:footprint_value_c) do
-    create(:admin_toolkit_footprint_value, footprint_type: footprint_type_b, footprint_building: footprint_building)
+    create(
+      :admin_toolkit_footprint_value,
+      footprint_type: footprint_type_b, footprint_building: footprint_building
+    )
   end
+
   let_it_be(:footprint_value_d) do
-    create(:admin_toolkit_footprint_value, footprint_type: footprint_type_b, footprint_building: footprint_building_b)
+    create(
+      :admin_toolkit_footprint_value,
+      footprint_type: footprint_type_b, footprint_building: footprint_building_b
+    )
   end
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) do
-        [
-          [footprint_value_b.id, 'standard'],
-          [footprint_value_c.id, 'irrelevant'],
-          [footprint_value_d.id, 'irrelevant']
-        ]
-      end
-
       it 'updates PCT data' do
-        _, errors = formatted_response(query(params), current_user: super_user, key: :updateFootprintValues)
+        response, errors = formatted_response(query(project_type: :irrelevant), current_user: super_user, key: :updateFootprintValues)
         expect(errors).to be_nil
-        expect(footprint_value_b.reload.project_type).to eq('standard')
-        expect(footprint_value_c.reload.project_type).to eq('irrelevant')
-        expect(footprint_value_d.reload.project_type).to eq('irrelevant')
+
+        value = response.footprintValues.find { |item| item[:id] == footprint_value_b.id }
+        expect(value[:projectType]).to eq('standard')
+        value = response.footprintValues.find { |item| item[:id] == footprint_value_c.id }
+        expect(value[:projectType]).to eq('irrelevant')
+        value = response.footprintValues.find { |item| item[:id] == footprint_value_d.id }
+        expect(value[:projectType]).to eq('irrelevant')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'responds with error' do
+        response, errors = formatted_response(query(project_type: :invalid), current_user: super_user, key: :updateFootprintValues)
+        expect(response.footprintValues).to be_nil
+        expect(errors).to eq(["'invalid' is not a valid project_type"])
       end
     end
   end
 
-  def query(params)
+  def query(args = {})
     <<~GQL
       mutation {
         updateFootprintValues(
           input: {
-            attributes: {
-              footprintValues: #{params}
-            }
+            attributes: [
+              {
+                id: "#{footprint_value_b.id}"
+                projectType: "standard"              
+              },
+              {
+                id: "#{footprint_value_c.id}"
+                projectType: "irrelevant"              
+              },
+              {
+                id: "#{footprint_value_d.id}"
+                projectType: "#{args[:project_type]}"              
+              }
+            ]
           }
         )
         { footprintValues { id projectType } }

@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class AdminToolkitPolicy < ApplicationPolicy
-  def update?
+  def index?
     user.admin?
+  end
+
+  def update?
+    index?
   end
 end

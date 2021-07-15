@@ -8,9 +8,8 @@ module AdminToolkit
       authorize! ::AdminToolkit::PctValue, to: :update?, with: AdminToolkitPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
-        attributes.each do |pct_value|
-          id, status = pct_value
-          ::AdminToolkit::PctValue.find(id).update_column(:status, status)
+        attributes.each do |hash|
+          ::AdminToolkit::PctValue.find(hash.delete(:id)).update!(hash)
         end
 
         Activities::ActivityCreator.new(activity_params(activity_id)).call

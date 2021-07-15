@@ -4,15 +4,18 @@ module Mutations
   module AdminToolkit
     class UpdateFootprintValues < BaseMutation
       class UpdateFootprintValuesAttributes < Types::BaseInputObject
-        argument :footprint_values, [[String]], required: true
+        argument :id, ID, required: true
+        argument :project_type, String, required: true
       end
 
-      argument :attributes, UpdateFootprintValuesAttributes, required: true
+      argument :attributes, [UpdateFootprintValuesAttributes], required: true
       field :footprint_values, [Types::AdminToolkit::FootprintValueType], null: true
 
       def resolve(attributes:)
-        ::AdminToolkit::FootprintValuesUpdater.new(current_user: current_user,
-                                                   attributes: attributes.footprint_values).call
+        ::AdminToolkit::FootprintValuesUpdater.new(
+          current_user: current_user,
+          attributes: attributes.map(&:to_h)
+        ).call
 
         { footprint_values: ::AdminToolkit::FootprintValue.all }
       end
