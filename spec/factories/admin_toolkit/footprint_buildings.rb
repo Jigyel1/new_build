@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :admin_toolkit_footprint_building, class: 'AdminToolkit::FootprintBuilding' do
     min { 1 }

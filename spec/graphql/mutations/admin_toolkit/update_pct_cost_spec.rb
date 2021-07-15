@@ -30,7 +30,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctCost)
         expect(response.pctCost).to be_nil
-        expect(errors).to match_array(["Max must be greater than or equal to 0"])
+        expect(errors).to match_array(['Max must be greater than or equal to 0'])
       end
     end
 
@@ -44,8 +44,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
                                         t('admin_toolkit.pct_cost.invalid_min',
                                           header: pct_cost_b.header,
                                           new_max: 5001,
-                                          old_max: 5000
-                                        )
+                                          old_max: 5000)
                                       ])
       end
     end
@@ -58,7 +57,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
           input: {
             attributes: {
               id: "#{args[:id]}"
-              max: #{args[:max]} 
+              max: #{args[:max]}#{' '}
             }
           }
         )

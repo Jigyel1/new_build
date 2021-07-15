@@ -11,7 +11,8 @@ module Mutations
       field :footprint_values, [Types::AdminToolkit::FootprintValueType], null: true
 
       def resolve(attributes:)
-        ::AdminToolkit::FootprintValuesUpdater.new(current_user: current_user, attributes: attributes.footprint_values).call
+        ::AdminToolkit::FootprintValuesUpdater.new(current_user: current_user,
+                                                   attributes: attributes.footprint_values).call
 
         { footprint_values: ::AdminToolkit::FootprintValue.all }
       end

@@ -34,7 +34,6 @@ module AdminToolkit
 
       target_footprint_building.update!(min: footprint_building.max + 1)
     rescue ActiveRecord::RecordInvalid
-
       raise I18n.t(
         'admin_toolkit.footprint_building.invalid_min',
         header: target_footprint_building.header,
@@ -42,7 +41,6 @@ module AdminToolkit
         old_max: target_footprint_building.max
       )
     end
-
 
     def activity_params(activity_id)
       {

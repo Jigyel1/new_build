@@ -10,7 +10,8 @@ RSpec.describe Mutations::AdminToolkit::UpdateLabels do
       let!(:params) { { label_group_id: label_group.id, label_list: 'Prio 3, On Hold' } }
 
       it 'updates the label list' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :super_user), key: :updateLabel)
+        response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
+                                                             key: :updateLabel)
         expect(errors).to be_nil
         expect(response.labelGroup.labelList).to match_array(['Prio 3', 'On Hold'])
       end
@@ -34,7 +35,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateLabels do
           input: {
             attributes: {
               labelGroupId: "#{label_group.id}"
-              labelList: "#{args[:label_list]}" 
+              labelList: "#{args[:label_list]}"#{' '}
             }
           }
         )

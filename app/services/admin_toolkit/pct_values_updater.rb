@@ -21,7 +21,6 @@ module AdminToolkit
       true
     end
 
-
     def activity_params(activity_id)
       {
         activity_id: activity_id,

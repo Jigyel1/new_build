@@ -33,15 +33,15 @@ AdminToolkit::FootprintType.delete_all
 AdminToolkit::LabelGroup.delete_all
 
 # The maximum signed integer, with 4 bytes
-MAX_SIGNED = 2 ** 31 - 1
+MAX_SIGNED = 2**31 - 1
 
 [
   { index: 0, header: 'Less than CHF 2.5K', min: 0, max: 2500 },
   { index: 1, header: 'CHF 2.5K to CHF 5K', min: 2501, max: 5000 },
-  { index: 2, header: 'CHF 5K to CHF 10K', min: 5001, max: 10000 },
-  { index: 3, header: 'CHF 10K to CHF 20K', min: 10001, max: 20000 },
-  { index: 4, header: 'CHF 20K to CHF 30K', min: 20001, max: 30000 },
-  { index: 5, header: 'More than CHF 30K', min: 30001, max: MAX_SIGNED }
+  { index: 2, header: 'CHF 5K to CHF 10K', min: 5001, max: 10_000 },
+  { index: 3, header: 'CHF 10K to CHF 20K', min: 10_001, max: 20_000 },
+  { index: 4, header: 'CHF 20K to CHF 30K', min: 20_001, max: 30_000 },
+  { index: 5, header: 'More than CHF 30K', min: 30_001, max: MAX_SIGNED }
 ].each do |attributes|
   AdminToolkit::PctCost.create!(attributes)
 end
@@ -65,7 +65,7 @@ end
   [1, 0, :prio_2], [1, 1, :prio_2], [1, 2, :prio_2], [1, 3, :prio_2], [1, 4, :prio_2], [0, 5, :prio_2],
   [2, 0, :prio_2], [2, 1, :prio_2], [2, 2, :prio_2], [2, 3, :on_hold], [2, 4, :on_hold], [0, 5, :prio_2],
   [3, 0, :on_hold], [3, 1, :on_hold], [3, 2, :on_hold], [3, 3, :on_hold], [3, 4, :on_hold], [0, 5, :on_hold],
-  [4, 0, :on_hold], [4, 1, :on_hold], [4, 2, :on_hold], [4, 3, :on_hold], [4, 4, :on_hold], [0, 5, :on_hold],
+  [4, 0, :on_hold], [4, 1, :on_hold], [4, 2, :on_hold], [4, 3, :on_hold], [4, 4, :on_hold], [0, 5, :on_hold]
 ].each do |array|
   AdminToolkit::PctValue.create!(
     pct_month: AdminToolkit::PctMonth.find_by!(index: array[0]),
@@ -125,5 +125,5 @@ AdminToolkit::LabelGroup.insert_all(
     'Technical Analysis',
     'Technical Analysis Finished',
     'Ready to Offer'
-  ].map { |name| { name: name, created_at: Time.now, updated_at: Time.now } }
+  ].map { |name| { name: name, created_at: Time.zone.now, updated_at: Time.zone.now } }
 )

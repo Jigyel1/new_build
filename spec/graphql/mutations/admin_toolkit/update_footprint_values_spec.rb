@@ -9,20 +9,28 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintValues do
   let_it_be(:footprint_building) { create(:admin_toolkit_footprint_building) }
   let_it_be(:footprint_building_b) { create(:admin_toolkit_footprint_building, index: 1, min: 6, max: 12) }
 
-  let_it_be(:footprint_value) { create(:admin_toolkit_footprint_value, footprint_type: footprint_type, footprint_building: footprint_building) }
-  let_it_be(:footprint_value_b) { create(:admin_toolkit_footprint_value, footprint_type: footprint_type, footprint_building: footprint_building_b) }
-  let_it_be(:footprint_value_c) { create(:admin_toolkit_footprint_value, footprint_type: footprint_type_b, footprint_building: footprint_building) }
-  let_it_be(:footprint_value_d) { create(:admin_toolkit_footprint_value, footprint_type: footprint_type_b, footprint_building: footprint_building_b) }
+  let_it_be(:footprint_value) do
+    create(:admin_toolkit_footprint_value, footprint_type: footprint_type, footprint_building: footprint_building)
+  end
+  let_it_be(:footprint_value_b) do
+    create(:admin_toolkit_footprint_value, footprint_type: footprint_type, footprint_building: footprint_building_b)
+  end
+  let_it_be(:footprint_value_c) do
+    create(:admin_toolkit_footprint_value, footprint_type: footprint_type_b, footprint_building: footprint_building)
+  end
+  let_it_be(:footprint_value_d) do
+    create(:admin_toolkit_footprint_value, footprint_type: footprint_type_b, footprint_building: footprint_building_b)
+  end
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) {
+      let!(:params) do
         [
           [footprint_value_b.id, 'standard'],
           [footprint_value_c.id, 'irrelevant'],
-          [footprint_value_d.id, 'irrelevant'],
+          [footprint_value_d.id, 'irrelevant']
         ]
-      }
+      end
 
       it 'updates PCT data' do
         _, errors = formatted_response(query(params), current_user: super_user, key: :updateFootprintValues)

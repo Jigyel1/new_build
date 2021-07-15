@@ -4,7 +4,7 @@ require 'faker' unless Rails.env.production?
 
 module Test
   class AttributesGenerator
-    def initialize(count = ENV['USERS']) # rubocop:disable Rails/EnvironmentVariableAccess
+    def initialize(count = ENV['USERS'])
       @count = count
     end
 

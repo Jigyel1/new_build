@@ -30,7 +30,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctMonth do
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctMonth)
         expect(response.pctMonth).to be_nil
-        expect(errors).to match_array(["Max must be greater than or equal to 1"])
+        expect(errors).to match_array(['Max must be greater than or equal to 1'])
       end
     end
 
@@ -44,8 +44,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctMonth do
                                         t('admin_toolkit.pct_month.invalid_min',
                                           header: pct_month_b.header,
                                           new_max: 19,
-                                          old_max: 18
-                                        )
+                                          old_max: 18)
                                       ])
       end
     end
@@ -58,7 +57,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctMonth do
           input: {
             attributes: {
               id: "#{args[:id]}"
-              max: #{args[:max]} 
+              max: #{args[:max]}#{' '}
             }
           }
         )

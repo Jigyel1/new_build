@@ -6,10 +6,10 @@ plugin 'diffend'
 gem 'diffend-monitor', require: 'diffend/monitor'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.1'
+ruby '3.0.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.3.2'
+gem 'rails', '~> 6.1.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
@@ -80,6 +80,7 @@ gem 'faraday'
 gem 'graphql', '1.12.10'
 gem 'graphql-batch'
 gem 'graphql-query-resolver'
+# gem 'kiba'
 gem 'logidze', '~> 1.1'
 gem 'lograge'
 gem 'premailer-rails'
@@ -98,7 +99,7 @@ gem 'sidekiq'
 gem 'strong_migrations'
 
 source 'https://gems.selise.tech' do
-  gem 'telco-uam', '0.1.7'
+  gem 'telco-uam', '0.1.8'
 end
 
 # gem "influxdb-rails", "~> 1.0"

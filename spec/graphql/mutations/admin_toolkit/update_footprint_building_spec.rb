@@ -30,7 +30,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintBuilding do
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateFootprintBuilding)
         expect(response.footprintBuilding).to be_nil
-        expect(errors).to match_array(["Max must be greater than 0 and Max must be greater than or equal to 1"])
+        expect(errors).to match_array(['Max must be greater than 0 and Max must be greater than or equal to 1'])
       end
     end
 
@@ -44,8 +44,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintBuilding do
                                         t('admin_toolkit.footprint_building.invalid_min',
                                           header: footprint_building_b.header,
                                           new_max: 13,
-                                          old_max: 12
-                                        )
+                                          old_max: 12)
                                       ])
       end
     end
@@ -58,7 +57,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintBuilding do
           input: {
             attributes: {
               id: "#{args[:id]}"
-              max: #{args[:max]} 
+              max: #{args[:max]}#{' '}
             }
           }
         )

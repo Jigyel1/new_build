@@ -16,13 +16,13 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctValues do
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) {
+      let!(:params) do
         [
           [pct_value_b.id, 'prio_2'],
           [pct_value_c.id, 'on_hold'],
-          [pct_value_d.id, 'on_hold'],
+          [pct_value_d.id, 'on_hold']
         ]
-      }
+      end
 
       it 'updates PCT data' do
         _, errors = formatted_response(query(params), current_user: super_user, key: :updatePctValues)
