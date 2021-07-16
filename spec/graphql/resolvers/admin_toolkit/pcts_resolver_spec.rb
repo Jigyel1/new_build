@@ -20,7 +20,7 @@ RSpec.describe Resolvers::AdminToolkit::PctsResolver do
       it 'returns all footprint values' do
         response, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
-        expect(response.pcts.pluck(:id)).to match_array([
+        expect(response.adminToolkitPcts.pluck(:id)).to match_array([
           pct_value.id, pct_value_b.id, pct_value_c.id, pct_value_d.id
         ])
       end
@@ -31,7 +31,7 @@ RSpec.describe Resolvers::AdminToolkit::PctsResolver do
 
       it 'forbids action' do
         response, errors = formatted_response(query, current_user: kam)
-        expect(response.footprints).to be_nil
+        expect(response.adminToolkitPcts).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
     end
@@ -40,7 +40,7 @@ RSpec.describe Resolvers::AdminToolkit::PctsResolver do
   def query
     <<~GQL
       query { 
-        pcts {
+        adminToolkitPcts {
           id status
           pctCost { index min max }
           pctMonth { index min max}

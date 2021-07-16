@@ -43,11 +43,11 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintValues do
         response, errors = formatted_response(query(project_type: :irrelevant), current_user: super_user, key: :updateFootprintValues)
         expect(errors).to be_nil
 
-        value = response.footprintValues.find { |item| item[:id] == footprint_value_b.id }
+        value = response.footprintValues.find { _1[:id] == footprint_value_b.id }
         expect(value[:projectType]).to eq('standard')
-        value = response.footprintValues.find { |item| item[:id] == footprint_value_c.id }
+        value = response.footprintValues.find { _1[:id] == footprint_value_c.id }
         expect(value[:projectType]).to eq('irrelevant')
-        value = response.footprintValues.find { |item| item[:id] == footprint_value_d.id }
+        value = response.footprintValues.find { _1[:id] == footprint_value_d.id }
         expect(value[:projectType]).to eq('irrelevant')
       end
     end

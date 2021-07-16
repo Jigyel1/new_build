@@ -4,7 +4,6 @@ module Mutations
   module AdminToolkit
     class UpdateProjectCost < BaseMutation
       class UpdateProjectCostAttributes < Types::BaseInputObject
-        argument :id, ID, required: true
         argument :standard, Float, required: false
         argument :arpu, Float, required: false
       end

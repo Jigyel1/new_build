@@ -34,7 +34,6 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
         updateProjectCost(
           input: {
             attributes: {
-              id: "#{project_cost.id}"
               arpu: #{args[:arpu]}
               standard: #{args[:standard]}
             }

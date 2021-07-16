@@ -43,7 +43,7 @@ RSpec.describe Resolvers::AdminToolkit::FootprintsResolver do
       it 'returns all footprint values' do
         response, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
-        expect(response.footprints.pluck(:id)).to match_array([
+        expect(response.adminToolkitFootprints.pluck(:id)).to match_array([
           footprint_value.id, footprint_value_b.id, footprint_value_c.id, footprint_value_d.id
         ])
       end
@@ -54,7 +54,7 @@ RSpec.describe Resolvers::AdminToolkit::FootprintsResolver do
 
       it 'forbids action' do
         response, errors = formatted_response(query, current_user: kam)
-        expect(response.footprints).to be_nil
+        expect(response.adminToolkitFootprints).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
     end
@@ -63,7 +63,7 @@ RSpec.describe Resolvers::AdminToolkit::FootprintsResolver do
   def query
     <<~GQL
       query { 
-        footprints {
+        adminToolkitFootprints {
           id projectType
           footprintType { index provider }
           footprintBuilding { index min max}

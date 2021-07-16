@@ -20,11 +20,11 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctValues do
         response, errors = formatted_response(query(status: :on_hold), current_user: super_user, key: :updatePctValues)
         expect(errors).to be_nil
 
-        value = response.pctValues.find { |item| item[:id] == pct_value_b.id }
+        value = response.pctValues.find { _1[:id] == pct_value_b.id }
         expect(value[:status]).to eq('prio_2')
-        value = response.pctValues.find { |item| item[:id] == pct_value_c.id }
+        value = response.pctValues.find { _1[:id] == pct_value_c.id }
         expect(value[:status]).to eq('on_hold')
-        value = response.pctValues.find { |item| item[:id] == pct_value_d.id }
+        value = response.pctValues.find { _1[:id] == pct_value_d.id }
         expect(value[:status]).to eq('on_hold')
       end
     end

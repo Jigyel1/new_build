@@ -605,8 +605,9 @@ CREATE SEQUENCE public.admin_toolkit_pcts_months_index_seq
 
 CREATE TABLE public.admin_toolkit_project_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    standard numeric,
-    arpu numeric,
+    standard numeric(15,2),
+    arpu numeric(15,2),
+    index integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
