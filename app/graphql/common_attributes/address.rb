@@ -5,8 +5,6 @@ module CommonAttributes
     extend ActiveSupport::Concern
 
     included do
-      graphql_name 'CommonAttributesAddress'
-
       argument :id, GraphQL::Types::ID, required: false
       argument :street, String, required: false
       argument :street_no, String, required: false

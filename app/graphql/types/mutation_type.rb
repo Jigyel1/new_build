@@ -29,5 +29,17 @@ module Types
 
     field :update_label, mutation: Mutations::AdminToolkit::UpdateLabels
     field :update_project_cost, mutation: Mutations::AdminToolkit::UpdateProjectCost
+
+    field :create_penetration, mutation: Mutations::AdminToolkit::CreatePenetration
+    field :update_penetration, mutation: Mutations::AdminToolkit::UpdatePenetration
+    field :delete_penetration, mutation: Mutations::AdminToolkit::DeletePenetration
+
+    field :create_competition, mutation: Mutations::AdminToolkit::CreateCompetition
+    field :update_competition, mutation: Mutations::AdminToolkit::UpdateCompetition
+    field :delete_competition, mutation: Mutations::AdminToolkit::DeleteCompetition
+
+    field :create_kam_mapping, mutation: Mutations::AdminToolkit::CreateKamMapping
+    field :update_kam_mapping, mutation: Mutations::AdminToolkit::UpdateKamMapping
+    field :delete_kam_mapping, mutation: Mutations::AdminToolkit::DeleteKamMapping
   end
 end

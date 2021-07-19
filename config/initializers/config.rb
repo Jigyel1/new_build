@@ -21,4 +21,6 @@ Rails.application.configure do
   config.role_permissions = FileParser.parse { 'config/permissions.yml' }.with_indifferent_access
   config.activity_actions = FileParser.parse { 'config/actions.yml' }
   config.user_departments = FileParser.parse { 'config/departments.yml' }
+
+  config.kam_regions = FileParser.parse { 'config/kam_regions.yml' }
 end

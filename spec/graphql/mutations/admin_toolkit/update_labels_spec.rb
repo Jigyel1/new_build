@@ -35,7 +35,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateLabels do
           input: {
             attributes: {
               labelGroupId: "#{label_group.id}"
-              labelList: "#{args[:label_list]}"#{' '}
+              labelList: "#{args[:label_list]}"
             }
           }
         )

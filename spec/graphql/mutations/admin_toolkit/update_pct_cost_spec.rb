@@ -57,7 +57,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
           input: {
             attributes: {
               id: "#{args[:id]}"
-              max: #{args[:max]}#{' '}
+              max: #{args[:max]}
             }
           }
         )

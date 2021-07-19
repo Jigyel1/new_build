@@ -31,6 +31,7 @@ AdminToolkit::PctMonth.delete_all
 AdminToolkit::FootprintBuilding.delete_all
 AdminToolkit::FootprintType.delete_all
 AdminToolkit::LabelGroup.delete_all
+AdminToolkit::Competition.delete_all
 
 # The maximum signed integer, with 4 bytes
 MAX_SIGNED = 2**31 - 1
@@ -118,7 +119,7 @@ end
 
 # Labels
 # These are the initial default label groups to be created based on the available project stages
-
+#
 AdminToolkit::LabelGroup.insert_all(
   [
     'New',
@@ -126,4 +127,23 @@ AdminToolkit::LabelGroup.insert_all(
     'Technical Analysis Finished',
     'Ready to Offer'
   ].map { |name| { name: name, created_at: Time.zone.now, updated_at: Time.zone.now } }
+)
+
+AdminToolkit::Competition.insert_all(
+  [
+    ['FTTH SC & EVU', 0.7, 75, 'Very high competition (fiber areas such as Zurich, Bern, Lucerne, etc.)'],
+    ['FTTH SC', 0.8, 75, 'With only FTTH from Swisscom (ALO; especially Salt & Sunrise)'],
+    ['FTTH EVU', 0.9, 75, 'With only FTTH of the EVU (Open Access Layer 1 & 2; tendency rather Salt & Sunrise)'],
+    ['G.fast', 1.1, 75, 'Suitable competitive situation for UPC'],
+    ['VDSL', 1.3, 75, 'Very good situation for UPC']
+  ].map do |arr|
+    {
+      name: arr[0],
+      factor: arr[1],
+      lease_rate: arr[2],
+      description: arr[3],
+      created_at: Time.zone.now,
+      updated_at: Time.zone.now
+    }
+  end
 )

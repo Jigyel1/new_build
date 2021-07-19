@@ -28,4 +28,14 @@ class Role < ApplicationRecord
   def admin?
     %w[administrator super_user].any?(name)
   end
+
+  # Overriding the default enum behaviour to return the first role when called with
+  # an enum key.
+  # eg. Role.kam returns the first matching role and not an array.
+  #
+  Role.names.each_key do |name|
+    singleton_class.define_method name do
+      Role.find_by(name: name)
+    end
+  end
 end

@@ -55,5 +55,23 @@ module Types
           resolver: Resolvers::AdminToolkit::ProjectCostResolver,
           preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
     )
+
+    field(:admin_toolkit_penetrations,
+          resolver: Resolvers::AdminToolkit::PenetrationsResolver,
+          connection: true,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
+    )
+
+    field(:admin_toolkit_competitions,
+          resolver: Resolvers::AdminToolkit::CompetitionsResolver,
+          connection: true,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
+    )
+
+    field(:admin_toolkit_kam_mappings,
+          resolver: Resolvers::AdminToolkit::KamMappingsResolver,
+          connection: true,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
+    )
   end
 end

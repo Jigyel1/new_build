@@ -5,8 +5,6 @@ module CommonAttributes
     extend ActiveSupport::Concern
 
     included do
-      graphql_name 'CommonAttributesProfile'
-
       argument :id, GraphQL::Types::ID, required: false
       argument :salutation, String, required: false
       argument :firstname, String, required: false
