@@ -3,7 +3,7 @@
 module AdminToolkit
   class FootprintType < ApplicationRecord
     has_many(
-      :admin_toolkit_footprint_values,
+      :footprint_values,
       class_name: 'AdminToolkit::FootprintValue',
       dependent: :restrict_with_error
     )
@@ -15,6 +15,7 @@ module AdminToolkit
       neither: 'No Footprint SFN n'
     }
 
+    validates :provider, presence: true
     validates :index, uniqueness: true
   end
 end

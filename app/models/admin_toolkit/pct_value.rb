@@ -5,6 +5,7 @@ module AdminToolkit
     belongs_to :pct_month
     belongs_to :pct_cost
 
+    validates :status, presence: true
     validates :status, uniqueness: { scope: %i[pct_cost_id pct_month_id] }
 
     enum status: {

@@ -18,6 +18,7 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
           rate: '19.22',
           kamRegion: 'Ost Agglomeration Winterthur',
           type: 'land',
+          competition: 'ftth_swisscom',
           hfcFootprint: false
         )
       end
@@ -56,6 +57,7 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
               rate: "19.22"
               kamRegion: "Ost Agglomeration Winterthur"
               type: "Land"
+              competition: "FTTH Swisscom"
               hfcFootprint: false
             }
           }

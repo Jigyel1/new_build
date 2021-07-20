@@ -3,5 +3,24 @@
 require 'rails_helper'
 
 RSpec.describe AdminToolkit::FootprintValue, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:project_type) }
+
+    it do
+      subject = create(
+        :admin_toolkit_footprint_value,
+        footprint_building: create(:admin_toolkit_footprint_building),
+        footprint_type: create(:admin_toolkit_footprint_type)
+      )
+
+      expect(subject).to validate_uniqueness_of(:project_type)
+        .scoped_to(%i[footprint_building_id footprint_type_id])
+        .ignoring_case_sensitivity
+    end
+  end
+
+  describe 'associations' do
+    it { is_expected.to belong_to(:footprint_building) }
+    it { is_expected.to belong_to(:footprint_type) }
+  end
 end

@@ -605,30 +605,6 @@ CREATE TABLE public.admin_toolkit_pct_values (
 
 
 --
--- Name: admin_toolkit_pcts_costs_index_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.admin_toolkit_pcts_costs_index_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: admin_toolkit_pcts_months_index_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.admin_toolkit_pcts_months_index_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
 -- Name: admin_toolkit_penetrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -636,11 +612,11 @@ CREATE TABLE public.admin_toolkit_penetrations (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     zip character varying NOT NULL,
     city character varying NOT NULL,
-    rate double precision,
-    competition character varying,
-    kam_region character varying,
-    hfc_footprint boolean,
-    type character varying,
+    rate double precision NOT NULL,
+    competition character varying NOT NULL,
+    kam_region character varying NOT NULL,
+    hfc_footprint boolean NOT NULL,
+    type character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -1200,6 +1176,13 @@ CREATE INDEX index_admin_toolkit_pct_values_on_pct_cost_id ON public.admin_toolk
 --
 
 CREATE INDEX index_admin_toolkit_pct_values_on_pct_month_id ON public.admin_toolkit_pct_values USING btree (pct_month_id);
+
+
+--
+-- Name: index_admin_toolkit_penetrations_on_zip; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_penetrations_on_zip ON public.admin_toolkit_penetrations USING btree (zip);
 
 
 --
