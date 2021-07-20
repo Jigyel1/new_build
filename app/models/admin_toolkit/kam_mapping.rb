@@ -1,5 +1,9 @@
-class AdminToolkit::KamMapping < ApplicationRecord
-  belongs_to :kam, class_name: 'Telco::Uam::User'
+# frozen_string_literal: true
 
-  validates :investor_id, presence: true, uniqueness: { case_sensitive: false }
+module AdminToolkit
+  class KamMapping < ApplicationRecord
+    belongs_to :kam, class_name: 'Telco::Uam::User'
+
+    validates :investor_id, presence: true, uniqueness: { case_sensitive: false }
+  end
 end

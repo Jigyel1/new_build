@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAdminToolkitCompetitions < ActiveRecord::Migration[6.1]
   def change
     create_table :admin_toolkit_competitions, id: :uuid do |t|

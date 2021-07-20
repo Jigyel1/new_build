@@ -16,6 +16,7 @@ AllCops:
     - 'lib/log_formatter.rb'
     - 'db/migrate/*_logidze*.rb'
     - 'db/migrate/*create_active_storage_tables.active_storage.rb'
+    - 'db/migrate/*.acts_as_taggable_on_engine.rb'
     - 'fe/**/*'
 Metrics/BlockLength:
   IgnoredMethods: ['describe']

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Penetrations
   class Transform
     ZIP = 0
@@ -11,7 +13,7 @@ module Penetrations
     using TextFormatter
 
     def process(row)
-      format(row, ZIP, { action: [:to_i]})
+      format(row, ZIP, { action: [:to_i] })
       format(row, RATE, { action: [:*, 100] })
       format(row, FOOTPRINT, { action: [:to_boolean] })
 
@@ -34,6 +36,7 @@ module Penetrations
       return if row[index].blank?
 
       row[index] = row[index].send(*options[:action])
+      row
     end
   end
 end

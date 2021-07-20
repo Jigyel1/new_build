@@ -13,7 +13,6 @@ module Mutations
       def resolve(attributes:)
         resolver = ::AdminToolkit::PenetrationCreator.new(current_user: current_user, attributes: attributes.to_h)
         resolver.call
-
         { penetration: resolver.penetration }
       end
     end

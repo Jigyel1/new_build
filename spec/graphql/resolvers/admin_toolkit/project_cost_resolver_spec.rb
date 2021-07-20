@@ -29,10 +29,10 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
 
   def query
     <<~GQL
-      query { 
+      query {
         adminToolkitProjectCost {
           id arpu standard
-        }       
+        }
       }
     GQL
   end

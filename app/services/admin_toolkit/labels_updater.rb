@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module AdminToolkit
-  class LabelUpdater < BaseService
+  class LabelsUpdater < BaseService
     def label_group
-      @_label_group ||= AdminToolkit::LabelGroup.find(attributes[:label_group_id])
+      @label_group ||= AdminToolkit::LabelGroup.find(attributes[:label_group_id])
     end
 
     private

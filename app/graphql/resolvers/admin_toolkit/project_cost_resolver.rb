@@ -5,7 +5,7 @@ module Resolvers
     class ProjectCostResolver < BaseResolver
       type Types::AdminToolkit::ProjectCostType, null: true
 
-      def resolve(id: nil)
+      def resolve
         ::AdminToolkit::ProjectCost.instance
       end
     end

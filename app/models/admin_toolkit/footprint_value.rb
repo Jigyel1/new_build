@@ -11,5 +11,7 @@ module AdminToolkit
       marketing_only: 'Marketing Only',
       irrelevant: 'Irrelevant'
     }
+
+    validates :project_type, uniqueness: { scope: %i[footprint_building_id footprint_type_id] }
   end
 end

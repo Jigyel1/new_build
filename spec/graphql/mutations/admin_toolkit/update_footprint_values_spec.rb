@@ -40,7 +40,8 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintValues do
   describe '.resolve' do
     context 'with valid params' do
       it 'updates PCT data' do
-        response, errors = formatted_response(query(project_type: :irrelevant), current_user: super_user, key: :updateFootprintValues)
+        response, errors = formatted_response(query(project_type: :irrelevant), current_user: super_user,
+                                                                                key: :updateFootprintValues)
         expect(errors).to be_nil
 
         value = response.footprintValues.find { _1[:id] == footprint_value_b.id }
@@ -54,7 +55,8 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintValues do
 
     context 'with invalid params' do
       it 'responds with error' do
-        response, errors = formatted_response(query(project_type: :invalid), current_user: super_user, key: :updateFootprintValues)
+        response, errors = formatted_response(query(project_type: :invalid), current_user: super_user,
+                                                                             key: :updateFootprintValues)
         expect(response.footprintValues).to be_nil
         expect(errors).to eq(["'invalid' is not a valid project_type"])
       end
@@ -69,15 +71,15 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintValues do
             attributes: [
               {
                 id: "#{footprint_value_b.id}"
-                projectType: "standard"              
+                projectType: "standard"#{'              '}
               },
               {
                 id: "#{footprint_value_c.id}"
-                projectType: "irrelevant"              
+                projectType: "irrelevant"#{'              '}
               },
               {
                 id: "#{footprint_value_d.id}"
-                projectType: "#{args[:project_type]}"              
+                projectType: "#{args[:project_type]}"#{'              '}
               }
             ]
           }

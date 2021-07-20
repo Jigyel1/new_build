@@ -7,17 +7,18 @@ module Resolvers
 
       type Types::AdminToolkit::KamMappingConnectionType, null: false
 
+      option :kam_ids, type: [String], with: :apply_kam_ids_filter
       option :query, type: String, with: :apply_search
       option :skip, type: Int, with: :apply_skip
 
-      # filter by kam id
+      def apply_kam_ids_filter(scope, value)
+        scope.where(kam_id: value)
+      end
 
       def apply_search(scope, value)
-        # joins by kam
-        # use concat to join firstname & lastname
         scope.joins(kam: :profile).where(
-          "CONCAT_WS(' ', investor_id investor_description profiles.firstname)
-          iLIKE ?", "%#{value.strip}%"
+          "CONCAT_WS(' ', investor_id, investor_description, firstname, lastname) iLIKE ?",
+          "%#{value.strip}%"
         )
       end
     end

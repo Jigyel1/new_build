@@ -3,7 +3,7 @@
 module AdminToolkit
   class PctCostUpdater < BaseService
     def pct_cost
-      @_pct_cost ||= AdminToolkit::PctCost.find(attributes[:id])
+      @pct_cost ||= AdminToolkit::PctCost.find(attributes[:id])
     end
 
     private
@@ -26,7 +26,7 @@ module AdminToolkit
       true
     end
 
-    def propagate_changes!
+    def propagate_changes! # rubocop:disable Metrics/AbcSize
       return unless pct_cost.max_changed?
 
       target_pct_cost = AdminToolkit::PctCost.find_by(index: pct_cost.index + 1)

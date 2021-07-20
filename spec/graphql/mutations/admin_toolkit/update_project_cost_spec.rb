@@ -19,7 +19,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
       end
     end
 
-    context 'non admins' do
+    context 'for non admins' do
       it 'forbids action' do
         response, errors = formatted_response(query(params), current_user: create(:user, :kam), key: :updateProjectCost)
         expect(response.labelGroup).to be_nil

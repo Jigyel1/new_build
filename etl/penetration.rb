@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Penetration < EtlBase
   SHEET_INDEX = 0
 

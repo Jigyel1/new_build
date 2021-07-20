@@ -21,11 +21,11 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctValues do
         expect(errors).to be_nil
 
         value = response.pctValues.find { _1[:id] == pct_value_b.id }
-        expect(value[:status]).to eq('prio_2')
+        expect(value[:status]).to eq('Prio 2')
         value = response.pctValues.find { _1[:id] == pct_value_c.id }
-        expect(value[:status]).to eq('on_hold')
+        expect(value[:status]).to eq('On Hold')
         value = response.pctValues.find { _1[:id] == pct_value_d.id }
-        expect(value[:status]).to eq('on_hold')
+        expect(value[:status]).to eq('On Hold')
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctValues do
     end
   end
 
-  def query(args={})
+  def query(args = {})
     <<~GQL
       mutation {
         updatePctValues(
@@ -46,15 +46,15 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctValues do
             attributes: [
               {
                 id: "#{pct_value_b.id}"
-                status: "prio_2"              
+                status: "prio_two"
               },
               {
                 id: "#{pct_value_c.id}"
-                status: "on_hold"              
+                status: "on_hold"
               },
               {
                 id: "#{pct_value_d.id}"
-                status: "#{args[:status]}"              
+                status: "#{args[:status]}"
               }
             ]
           }

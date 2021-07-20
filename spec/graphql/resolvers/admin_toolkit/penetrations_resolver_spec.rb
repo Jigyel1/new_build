@@ -14,9 +14,11 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
       it 'returns all penetrations' do
         penetrations, errors = paginated_collection(:adminToolkitPenetrations, query, current_user: super_user)
         expect(errors).to be_nil
-        expect(penetrations.pluck(:id)).to match_array([
-          penetration.id, penetration_b.id, penetration_c.id, penetration_d.id
-        ])
+        expect(penetrations.pluck(:id)).to match_array(
+          [
+            penetration.id, penetration_b.id, penetration_c.id, penetration_d.id
+          ]
+        )
       end
     end
 
@@ -24,15 +26,16 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
       let_it_be(:kam) { create(:user, :kam) }
 
       it 'forbids action' do
-        response, errors = formatted_response(query, current_user: kam)
-        expect(response.adminToolkitPenetrations).to be_nil
+        penetrations, errors = paginated_collection(:adminToolkitPenetrations, query, current_user: kam)
+        expect(penetrations).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
     end
 
     context 'with search queries' do
       it 'fetches records matching the query' do
-        penetrations, errors = paginated_collection(:adminToolkitPenetrations, query(query: 'Bougeries'), current_user: super_user)
+        penetrations, errors = paginated_collection(:adminToolkitPenetrations, query(query: 'Bougeries'),
+                                                    current_user: super_user)
         expect(errors).to be_nil
         expect(penetrations.size).to eq(1)
         expect(penetrations.dig(0, :id)).to eq(penetration.id)
@@ -50,7 +53,7 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
     end
 
     context 'with types filter' do
-      let(:filters) { { types: ['Land', 'Agglo'] } }
+      let(:filters) { { types: %w[Land Agglo] } }
 
       it 'fetches records matching filter' do
         penetrations, errors = paginated_collection(:adminToolkitPenetrations, query(filters), current_user: super_user)

@@ -13,7 +13,6 @@ module Mutations
       def resolve(attributes:)
         resolver = ::AdminToolkit::KamMappingCreator.new(current_user: current_user, attributes: attributes.to_h)
         resolver.call
-
         { kam_mapping: resolver.kam_mapping }
       end
     end

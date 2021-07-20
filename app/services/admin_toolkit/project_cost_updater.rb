@@ -3,7 +3,7 @@
 module AdminToolkit
   class ProjectCostUpdater < BaseService
     def project_cost
-      @_project_cost ||= AdminToolkit::ProjectCost.instance
+      @project_cost ||= AdminToolkit::ProjectCost.instance
     end
 
     private

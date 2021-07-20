@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 namespace :import do
-  desc "TODO"
+  desc 'TODO'
   task penetrations: :environment do
     Penetration.call(pathname: Rails.root.join('etl/docs/penetrations.xlsx'))
   end

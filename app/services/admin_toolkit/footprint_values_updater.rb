@@ -16,8 +16,6 @@ module AdminToolkit
       end
     end
 
-    private
-
     def execute?
       true
     end

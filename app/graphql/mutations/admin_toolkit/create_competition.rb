@@ -13,7 +13,6 @@ module Mutations
       def resolve(attributes:)
         resolver = ::AdminToolkit::CompetitionCreator.new(current_user: current_user, attributes: attributes.to_h)
         resolver.call
-
         { competition: resolver.competition }
       end
     end

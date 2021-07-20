@@ -13,13 +13,13 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createPenetration)
         expect(errors).to be_nil
         expect(response.penetration).to have_attributes(
-                                          zip: '8602',
-                                          city: 'Wangen-Brüttisellen',
-                                          rate: '19.22',
-                                          kamRegion: 'Ost Agglomeration Winterthur',
-                                          type: 'land',
-                                          hfcFootprint: false
-                                        )
+          zip: '8602',
+          city: 'Wangen-Brüttisellen',
+          rate: '19.22',
+          kamRegion: 'Ost Agglomeration Winterthur',
+          type: 'land',
+          hfcFootprint: false
+        )
       end
     end
 

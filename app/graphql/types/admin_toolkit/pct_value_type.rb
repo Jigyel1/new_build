@@ -7,6 +7,10 @@ module Types
       field :status, String, null: true
       field :pct_cost, PctCostType, null: true
       field :pct_month, PctMonthType, null: true
+
+      def status
+        ::AdminToolkit::PctValue.statuses[object.status]
+      end
     end
   end
 end

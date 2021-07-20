@@ -14,7 +14,6 @@ module Mutations
       def resolve(attributes:)
         resolver = ::AdminToolkit::ProjectCostUpdater.new(current_user: current_user, attributes: attributes.to_h)
         resolver.call
-
         { project_cost: resolver.project_cost }
       end
     end

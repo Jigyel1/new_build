@@ -5,11 +5,11 @@ module AdminToolkit
     belongs_to :pct_month
     belongs_to :pct_cost
 
-    # validate index of the above two does not repeat
+    validates :status, uniqueness: { scope: %i[pct_cost_id pct_month_id] }
 
     enum status: {
-      prio_1: 'Prio 1',
-      prio_2: 'Prio 2',
+      prio_one: 'Prio 1',
+      prio_two: 'Prio 2',
       on_hold: 'On Hold'
     }
   end

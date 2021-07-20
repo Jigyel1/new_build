@@ -3,6 +3,7 @@
 module AdminToolkit
   class KamMappingCreator < BaseService
     attr_reader :kam_mapping
+
     set_callback :call, :before, :validate!
 
     private

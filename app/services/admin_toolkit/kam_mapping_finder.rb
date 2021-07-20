@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module AdminToolkit
   module KamMappingFinder
     def kam_mapping
-      @_kam_mapping ||= AdminToolkit::KamMapping.find(attributes[:id])
+      @kam_mapping ||= AdminToolkit::KamMapping.find(attributes[:id])
     end
   end
 end

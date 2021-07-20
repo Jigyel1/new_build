@@ -16,8 +16,8 @@ RSpec.describe Resolvers::AdminToolkit::LabelsResolver do
         response, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(response.adminToolkitLabels.pluck(:id)).to match_array([
-          label_group.id, label_group_b.id
-        ])
+                                                                        label_group.id, label_group_b.id
+                                                                      ])
       end
     end
 
@@ -34,10 +34,10 @@ RSpec.describe Resolvers::AdminToolkit::LabelsResolver do
 
   def query
     <<~GQL
-      query { 
+      query {#{' '}
         adminToolkitLabels {
-          id 
-        }       
+          id#{' '}
+        }#{'       '}
       }
     GQL
   end

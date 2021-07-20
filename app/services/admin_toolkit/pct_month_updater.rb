@@ -3,7 +3,7 @@
 module AdminToolkit
   class PctMonthUpdater < BaseService
     def pct_month
-      @_pct_month ||= AdminToolkit::PctMonth.find(attributes[:id])
+      @pct_month ||= AdminToolkit::PctMonth.find(attributes[:id])
     end
 
     private
@@ -26,7 +26,7 @@ module AdminToolkit
       true
     end
 
-    def propagate_changes!
+    def propagate_changes! # rubocop:disable Metrics/AbcSize
       return unless pct_month.max_changed?
 
       target_pct_month = AdminToolkit::PctMonth.find_by(index: pct_month.index + 1)

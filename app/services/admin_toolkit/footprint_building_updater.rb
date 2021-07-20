@@ -3,7 +3,7 @@
 module AdminToolkit
   class FootprintBuildingUpdater < BaseService
     def footprint_building
-      @_footprint_building ||= AdminToolkit::FootprintBuilding.find(attributes[:id])
+      @footprint_building ||= AdminToolkit::FootprintBuilding.find(attributes[:id])
     end
 
     private
@@ -26,7 +26,7 @@ module AdminToolkit
       true
     end
 
-    def propagate_changes!
+    def propagate_changes! # rubocop:disable Metrics/AbcSize
       return unless footprint_building.max_changed?
 
       target_footprint_building = AdminToolkit::FootprintBuilding.find_by(index: footprint_building.index + 1)

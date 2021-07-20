@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAdminToolkitPenetrations < ActiveRecord::Migration[6.1]
   def change
     create_table :admin_toolkit_penetrations, id: :uuid do |t|

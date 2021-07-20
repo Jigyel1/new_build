@@ -17,7 +17,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateLabels do
       end
     end
 
-    context 'non admins' do
+    context 'for non admins' do
       let!(:params) { { label_group_id: label_group.id, label_list: 'Assign kam' } }
 
       it 'forbids action' do

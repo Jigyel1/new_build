@@ -20,9 +20,11 @@ RSpec.describe Resolvers::AdminToolkit::PctsResolver do
       it 'returns all footprint values' do
         response, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
-        expect(response.adminToolkitPcts.pluck(:id)).to match_array([
-          pct_value.id, pct_value_b.id, pct_value_c.id, pct_value_d.id
-        ])
+        expect(response.adminToolkitPcts.pluck(:id)).to match_array(
+          [
+            pct_value.id, pct_value_b.id, pct_value_c.id, pct_value_d.id
+          ]
+        )
       end
     end
 
@@ -39,12 +41,12 @@ RSpec.describe Resolvers::AdminToolkit::PctsResolver do
 
   def query
     <<~GQL
-      query { 
+      query {#{' '}
         adminToolkitPcts {
           id status
           pctCost { index min max }
           pctMonth { index min max}
-        }       
+        }#{'       '}
       }
     GQL
   end

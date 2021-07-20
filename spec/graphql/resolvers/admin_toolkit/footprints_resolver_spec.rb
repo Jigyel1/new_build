@@ -25,7 +25,7 @@ RSpec.describe Resolvers::AdminToolkit::FootprintsResolver do
   let_it_be(:footprint_value_c) do
     create(
       :admin_toolkit_footprint_value,
-           footprint_type: footprint_type_b, footprint_building: footprint_building
+      footprint_type: footprint_type_b, footprint_building: footprint_building
     )
   end
 
@@ -43,9 +43,11 @@ RSpec.describe Resolvers::AdminToolkit::FootprintsResolver do
       it 'returns all footprint values' do
         response, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
-        expect(response.adminToolkitFootprints.pluck(:id)).to match_array([
-          footprint_value.id, footprint_value_b.id, footprint_value_c.id, footprint_value_d.id
-        ])
+        expect(response.adminToolkitFootprints.pluck(:id)).to match_array(
+          [
+            footprint_value.id, footprint_value_b.id, footprint_value_c.id, footprint_value_d.id
+          ]
+        )
       end
     end
 
@@ -62,12 +64,12 @@ RSpec.describe Resolvers::AdminToolkit::FootprintsResolver do
 
   def query
     <<~GQL
-      query { 
+      query {
         adminToolkitFootprints {
           id projectType
           footprintType { index provider }
           footprintBuilding { index min max}
-        }       
+        }
       }
     GQL
   end

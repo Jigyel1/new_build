@@ -37,41 +37,34 @@ module Types
     field :activity_actions, resolver: Resolvers::ActivityActionsResolver
 
     field(:admin_toolkit_footprints,
-      resolver: Resolvers::AdminToolkit::FootprintsResolver,
-      preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
-    )
+          resolver: Resolvers::AdminToolkit::FootprintsResolver,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field(:admin_toolkit_pcts,
-      resolver: Resolvers::AdminToolkit::PctsResolver,
-      preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
-    )
+          resolver: Resolvers::AdminToolkit::PctsResolver,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field(:admin_toolkit_labels,
           resolver: Resolvers::AdminToolkit::LabelsResolver,
-          preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
-    )
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field(:admin_toolkit_project_cost,
           resolver: Resolvers::AdminToolkit::ProjectCostResolver,
-          preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
-    )
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field(:admin_toolkit_penetrations,
           resolver: Resolvers::AdminToolkit::PenetrationsResolver,
           connection: true,
-          preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
-    )
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field(:admin_toolkit_competitions,
           resolver: Resolvers::AdminToolkit::CompetitionsResolver,
           connection: true,
-          preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
-    )
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field(:admin_toolkit_kam_mappings,
           resolver: Resolvers::AdminToolkit::KamMappingsResolver,
           connection: true,
-          preauthorize: { with: ::AdminToolkitPolicy, to: :index? }
-    )
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAdminToolkitKamMappings < ActiveRecord::Migration[6.1]
   def change
     create_table :admin_toolkit_kam_mappings, id: :uuid do |t|
