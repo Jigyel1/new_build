@@ -41,12 +41,12 @@ RSpec.describe Resolvers::AdminToolkit::PctsResolver do
 
   def query
     <<~GQL
-      query {#{' '}
+      query {
         adminToolkitPcts {
           id status
           pctCost { index min max }
           pctMonth { index min max}
-        }#{'       '}
+        }
       }
     GQL
   end

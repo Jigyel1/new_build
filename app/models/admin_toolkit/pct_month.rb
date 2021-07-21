@@ -8,5 +8,7 @@ module AdminToolkit
     validates :min, :max, numericality: { greater_than_or_equal_to: 1, only_integer: true }
     validates :max, numericality: { greater_than_or_equal_to: :min }
     validates :index, uniqueness: true
+
+    default_scope { order(:index) }
   end
 end

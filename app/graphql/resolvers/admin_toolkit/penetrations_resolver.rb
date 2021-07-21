@@ -30,7 +30,7 @@ module Resolvers
       def apply_search(scope, value)
         scope.where(
           "CONCAT_WS(' ', zip, city, rate, competition, type, hfc_footprint, kam_region)
-          iLIKE ?", "%#{value.strip}%"
+          iLIKE ?", "%#{value.squish}%"
         )
       end
     end

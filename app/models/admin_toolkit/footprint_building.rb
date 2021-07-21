@@ -12,5 +12,7 @@ module AdminToolkit
     validates :min, :max, numericality: { only_integer: true, greater_than: 0 }
     validates :max, numericality: { greater_than_or_equal_to: :min }
     validates :index, uniqueness: true
+
+    default_scope { order(:index) }
   end
 end

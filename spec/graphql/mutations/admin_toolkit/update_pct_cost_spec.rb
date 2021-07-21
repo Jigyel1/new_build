@@ -42,7 +42,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
         expect(response.pctCost).to be_nil
         expect(errors).to match_array([
                                         t('admin_toolkit.pct_cost.invalid_min',
-                                          header: pct_cost_b.header,
+                                          index: pct_cost_b.index,
                                           new_max: 5001,
                                           old_max: 5000)
                                       ])
@@ -61,7 +61,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
             }
           }
         )
-        { pctCost { id max min header } }
+        { pctCost { id max min } }
       }
     GQL
   end

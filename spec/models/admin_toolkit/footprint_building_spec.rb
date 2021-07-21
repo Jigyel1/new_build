@@ -9,7 +9,11 @@ RSpec.describe AdminToolkit::FootprintBuilding, type: :model do
     it { is_expected.to validate_presence_of(:index) }
 
     it { is_expected.to validate_numericality_of(:min).is_greater_than(0) }
-    it { is_expected.to validate_uniqueness_of(:index) }
+
+    it do
+      subject = create(:admin_toolkit_footprint_building)
+      expect(subject).to validate_uniqueness_of(:index)
+    end
   end
 
   describe 'associations' do

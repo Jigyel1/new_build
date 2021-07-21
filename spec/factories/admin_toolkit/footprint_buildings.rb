@@ -5,6 +5,5 @@ FactoryBot.define do
     min { 1 }
     max { 5 }
     index { 0 }
-    header { 'Less than 2 buildings' }
   end
 end

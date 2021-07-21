@@ -5,6 +5,5 @@ FactoryBot.define do
     index { 0 }
     min { 0 }
     max { 2500 }
-    header { 'Less than CHF 2.5K' }
   end
 end

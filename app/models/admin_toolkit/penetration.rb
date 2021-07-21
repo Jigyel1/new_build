@@ -23,5 +23,7 @@ module AdminToolkit
       agglo: 'Agglo',
       med_city: 'Med City'
     }
+
+    default_scope { order(:zip) }
   end
 end

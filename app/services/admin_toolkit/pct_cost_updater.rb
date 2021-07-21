@@ -36,7 +36,7 @@ module AdminToolkit
     rescue ActiveRecord::RecordInvalid
       raise I18n.t(
         'admin_toolkit.pct_cost.invalid_min',
-        header: target_pct_cost.header,
+        index: target_pct_cost.index,
         new_max: pct_cost.max + 1,
         old_max: target_pct_cost.max
       )

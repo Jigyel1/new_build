@@ -3,10 +3,9 @@
 class CreateAdminToolkitFootprintBuildings < ActiveRecord::Migration[6.1]
   def change
     create_table :admin_toolkit_footprint_buildings, id: :uuid do |t|
-      t.integer :min
-      t.integer :max
-      t.integer :index
-      t.string :header
+      t.integer :min, null: false
+      t.integer :max, null: false
+      t.integer :index, null: false, index: true
 
       t.timestamps
     end

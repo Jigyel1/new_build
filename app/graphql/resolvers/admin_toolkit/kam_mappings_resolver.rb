@@ -18,7 +18,7 @@ module Resolvers
       def apply_search(scope, value)
         scope.joins(kam: :profile).where(
           "CONCAT_WS(' ', investor_id, investor_description, firstname, lastname) iLIKE ?",
-          "%#{value.strip}%"
+          "%#{value.squish}%"
         )
       end
     end

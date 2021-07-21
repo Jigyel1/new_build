@@ -5,6 +5,5 @@ FactoryBot.define do
     index { 0 }
     min { 1 }
     max { 12 }
-    header { 'Less than 12 months' }
   end
 end

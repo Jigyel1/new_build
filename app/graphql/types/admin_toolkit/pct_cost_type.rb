@@ -7,7 +7,6 @@ module Types
       field :index, Int, null: true
       field :min, Int, null: true
       field :max, Int, null: true
-      field :header, String, null: true
     end
   end
 end

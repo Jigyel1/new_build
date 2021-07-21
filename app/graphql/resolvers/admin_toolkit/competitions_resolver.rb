@@ -13,7 +13,7 @@ module Resolvers
       def apply_search(scope, value)
         scope.where(
           "CONCAT_WS(' ', name, factor, lease_rate, description)
-          iLIKE ?", "%#{value.strip}%"
+          iLIKE ?", "%#{value.squish}%"
         )
       end
     end

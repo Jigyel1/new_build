@@ -42,7 +42,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctMonth do
         expect(response.pctMonth).to be_nil
         expect(errors).to match_array([
                                         t('admin_toolkit.pct_month.invalid_min',
-                                          header: pct_month_b.header,
+                                          index: pct_month_b.index,
                                           new_max: 19,
                                           old_max: 18)
                                       ])
@@ -61,7 +61,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctMonth do
             }
           }
         )
-        { pctMonth { id max min header } }
+        { pctMonth { id max min } }
       }
     GQL
   end

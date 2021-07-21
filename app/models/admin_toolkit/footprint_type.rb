@@ -17,5 +17,7 @@ module AdminToolkit
 
     validates :provider, presence: true
     validates :index, uniqueness: true
+
+    default_scope { order(:index) }
   end
 end

@@ -36,7 +36,7 @@ module AdminToolkit
     rescue ActiveRecord::RecordInvalid
       raise I18n.t(
         'admin_toolkit.footprint_building.invalid_min',
-        header: target_footprint_building.header,
+        index: target_footprint_building.index,
         new_max: footprint_building.max + 1,
         old_max: target_footprint_building.max
       )

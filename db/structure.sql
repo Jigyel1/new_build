@@ -498,10 +498,9 @@ CREATE TABLE public.admin_toolkit_competitions (
 
 CREATE TABLE public.admin_toolkit_footprint_buildings (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    min integer,
-    max integer,
-    index integer,
-    header character varying,
+    min integer NOT NULL,
+    max integer NOT NULL,
+    index integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -513,8 +512,8 @@ CREATE TABLE public.admin_toolkit_footprint_buildings (
 
 CREATE TABLE public.admin_toolkit_footprint_types (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    provider character varying,
-    index integer,
+    provider character varying NOT NULL,
+    index integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -526,7 +525,7 @@ CREATE TABLE public.admin_toolkit_footprint_types (
 
 CREATE TABLE public.admin_toolkit_footprint_values (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    project_type character varying,
+    project_type character varying NOT NULL,
     footprint_building_id uuid NOT NULL,
     footprint_type_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -554,7 +553,7 @@ CREATE TABLE public.admin_toolkit_kam_mappings (
 
 CREATE TABLE public.admin_toolkit_label_groups (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -566,10 +565,9 @@ CREATE TABLE public.admin_toolkit_label_groups (
 
 CREATE TABLE public.admin_toolkit_pct_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    index integer,
-    min integer,
-    max integer,
-    header character varying,
+    index integer NOT NULL,
+    min integer NOT NULL,
+    max integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -581,10 +579,9 @@ CREATE TABLE public.admin_toolkit_pct_costs (
 
 CREATE TABLE public.admin_toolkit_pct_months (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    index integer,
-    min integer,
-    max integer,
-    header character varying,
+    index integer NOT NULL,
+    min integer NOT NULL,
+    max integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -596,7 +593,7 @@ CREATE TABLE public.admin_toolkit_pct_months (
 
 CREATE TABLE public.admin_toolkit_pct_values (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    status character varying,
+    status character varying NOT NULL,
     pct_month_id uuid NOT NULL,
     pct_cost_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -1137,6 +1134,20 @@ CREATE INDEX index_admin_toolkit_competitions_on_name ON public.admin_toolkit_co
 
 
 --
+-- Name: index_admin_toolkit_footprint_buildings_on_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_footprint_buildings_on_index ON public.admin_toolkit_footprint_buildings USING btree (index);
+
+
+--
+-- Name: index_admin_toolkit_footprint_types_on_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_footprint_types_on_index ON public.admin_toolkit_footprint_types USING btree (index);
+
+
+--
 -- Name: index_admin_toolkit_footprint_values_on_footprint_building_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1162,6 +1173,20 @@ CREATE INDEX index_admin_toolkit_kam_mappings_on_investor_id ON public.admin_too
 --
 
 CREATE INDEX index_admin_toolkit_kam_mappings_on_kam_id ON public.admin_toolkit_kam_mappings USING btree (kam_id);
+
+
+--
+-- Name: index_admin_toolkit_pct_costs_on_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_pct_costs_on_index ON public.admin_toolkit_pct_costs USING btree (index);
+
+
+--
+-- Name: index_admin_toolkit_pct_months_on_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_pct_months_on_index ON public.admin_toolkit_pct_months USING btree (index);
 
 
 --
