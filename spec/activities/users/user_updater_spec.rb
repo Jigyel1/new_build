@@ -17,7 +17,7 @@ RSpec.describe Users::UserUpdater do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.profile_updated.owner',
+            'activities.telco.profile_updated.owner',
             recipient_email: team_standard.email,
             active: false
           )
@@ -48,7 +48,7 @@ RSpec.describe Users::UserUpdater do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.profile_updated.recipient',
+            'activities.telco.profile_updated.recipient',
             owner_email: super_user.email,
             active: false
           )
@@ -65,7 +65,7 @@ RSpec.describe Users::UserUpdater do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.profile_updated.others',
+            'activities.telco.profile_updated.others',
             owner_email: super_user.email,
             recipient_email: team_standard.email,
             active: false

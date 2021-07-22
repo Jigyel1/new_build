@@ -9,7 +9,7 @@ module AdminToolkit
 
       with_tracking(activity_id = SecureRandom.uuid) do
         attributes.each do |hash|
-          ::AdminToolkit::FootprintValue.find(hash.delete(:id)).update!(hash)
+          ::AdminToolkit::FootprintValue.find(hash[:id]).update!(hash)
         end
 
         Activities::ActivityCreator.new(activity_params(activity_id)).call
@@ -23,9 +23,9 @@ module AdminToolkit
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :footprint_values_updated,
+        action: :footprint_value_updated,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
+        trackable: ::AdminToolkit::FootprintValue.find_by(id: attributes.dig(0, :id)),
         parameters: attributes
       }
     end

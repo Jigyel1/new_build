@@ -16,7 +16,7 @@ RSpec.describe Users::UserDeleter do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.profile_deleted.owner',
+            'activities.telco.profile_deleted.owner',
             recipient_email: team_standard.email,
             active: false
           )
@@ -36,7 +36,7 @@ RSpec.describe Users::UserDeleter do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.profile_deleted.recipient',
+            'activities.telco.profile_deleted.recipient',
             owner_email: super_user.email,
             active: false
           )
@@ -53,7 +53,7 @@ RSpec.describe Users::UserDeleter do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.profile_deleted.others',
+            'activities.telco.profile_deleted.others',
             owner_email: super_user.email,
             recipient_email: team_standard.email,
             active: false

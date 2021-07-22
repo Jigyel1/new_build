@@ -19,7 +19,7 @@ class Role < ApplicationRecord
     presales: 'Presales Engineer',
     manager_nbo_kam: 'Manager NBO/KAM',
     manager_presales: 'Manager Presales',
-    manager_commercialization: 'Commericialization Manager',
+    manager_commercialization: 'Commercialization Manager',
     management: 'Management',
     administrator: 'Administrator',
     super_user: 'Super User'

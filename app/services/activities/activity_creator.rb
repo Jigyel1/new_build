@@ -10,14 +10,14 @@
 #
 module Activities
   class ActivityCreator < BaseActivity
-    attr_accessor :activity_id, :activity_type, :owner, :recipient, :action, :parameters
+    attr_accessor :activity_id, :activity_type, :owner, :recipient, :action, :parameters, :trackable
 
     def call
       owner.activities.create(
         id: activity_id || SecureRandom.uuid,
         recipient: recipient,
         action: action,
-        trackable_type: 'User',
+        trackable: trackable,
         log_data: {
           owner_email: owner.email,
           recipient_email: recipient.try(:email),

@@ -1,7 +1,44 @@
-user:
+telco/uam/user:
   - status_updated
   - user_invited
   - user_reinvited
   - profile_updated
   - profile_deleted
   - role_updated
+
+admin_toolkit/competition:
+  - competition_created
+  - competition_updated
+  - competition_deleted
+
+admin_toolkit/kam_mapping:
+  - kam_mapping_created
+  - kam_mapping_updated
+  - kam_mapping_deleted
+
+admin_toolkit/penetration:
+  - penetration_created
+  - penetration_updated
+  - penetration_deleted
+
+admin_toolkit/footprint_building:
+  - footprint_building_updated
+
+admin_toolkit/footprint_value:
+  - footprint_value_updated
+
+admin_toolkit/label_group:
+  - label_group_updated
+
+
+admin_toolkit/pct_cost:
+  - pct_cost_updated
+
+admin_toolkit/pct_month:
+  - pct_month_updated
+
+admin_toolkit/pct_value:
+  - pct_value_updated
+  -
+admin_toolkit/project_cost:
+  - project_cost_updated

@@ -24,8 +24,8 @@ module AdminToolkit
         activity_id: activity_id,
         action: :competition_updated,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
-        parameters: attributes
+        trackable: competition,
+        parameters: attributes.except(:id)
       }
     end
   end

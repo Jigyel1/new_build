@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 [
-  { index: 0, header: 'Less than CHF 2.5K', min: 0, max: 2500 },
-  { index: 1, header: 'CHF 2.5K to CHF 5K', min: 2501, max: 5000 },
-  { index: 2, header: 'CHF 5K to CHF 10K', min: 5001, max: 10_000 },
-  { index: 3, header: 'CHF 10K to CHF 20K', min: 10_001, max: 20_000 },
-  { index: 4, header: 'CHF 20K to CHF 30K', min: 20_001, max: 30_000 },
-  { index: 5, header: 'More than CHF 30K', min: 30_001, max: MAX_SIGNED }
+  { index: 0, min: 0, max: 2500 },
+  { index: 1, min: 2501, max: 5000 },
+  { index: 2, min: 5001, max: 10_000 },
+  { index: 3, min: 10_001, max: 20_000 },
+  { index: 4, min: 20_001, max: 30_000 },
+  { index: 5, min: 30_001, max: MAX_SIGNED }
 ].each do |attributes|
   index = attributes.delete(:index)
   create_record(attributes) { AdminToolkit::PctCost.find_or_initialize_by(index: index) }
@@ -14,11 +14,11 @@ end
 
 MAX_MONTH = 60
 [
-  { index: 0, header: 'Less than 12 months', min: 1, max: 12 },
-  { index: 1, header: '12-18 months', min: 12, max: 18 },
-  { index: 2, header: '18-24 months', min: 18, max: 24 },
-  { index: 3, header: '24-36 months', min: 24, max: 36 },
-  { index: 4, header: 'More than 36 months', min: 36, max: MAX_MONTH }
+  { index: 0, min: 1, max: 12 },
+  { index: 1, min: 12, max: 18 },
+  { index: 2, min: 18, max: 24 },
+  { index: 3, min: 24, max: 36 },
+  { index: 4, min: 36, max: MAX_MONTH }
 ].each do |attributes|
   index = attributes.delete(:index)
   create_record(attributes) { AdminToolkit::PctMonth.find_or_initialize_by(index: index) }

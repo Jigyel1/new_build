@@ -24,8 +24,8 @@ module AdminToolkit
         activity_id: activity_id,
         action: :competition_deleted,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
-        parameters: attributes
+        trackable: competition,
+        parameters: competition.attributes.slice('name', 'factor', 'lease_rate')
       }
     end
   end

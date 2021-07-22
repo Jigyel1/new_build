@@ -47,8 +47,8 @@ module AdminToolkit
         activity_id: activity_id,
         action: :pct_cost_updated,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
-        parameters: attributes
+        trackable: pct_cost,
+        parameters: attributes.except(:id)
       }
     end
   end

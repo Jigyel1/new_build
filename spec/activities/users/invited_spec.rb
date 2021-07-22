@@ -31,7 +31,7 @@ RSpec.describe 'User Invitation', type: :request do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.user_invited.owner',
+            'activities.telco.user_invited.owner',
             recipient_email: invitee.email,
             role: role_name(invitee.role_name)
           )
@@ -56,7 +56,7 @@ RSpec.describe 'User Invitation', type: :request do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.user_invited.recipient',
+            'activities.telco.user_invited.recipient',
             owner_email: super_user.email,
             role: role_name(invitee.role_name)
           )
@@ -73,7 +73,7 @@ RSpec.describe 'User Invitation', type: :request do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.user_invited.others',
+            'activities.telco.user_invited.others',
             owner_email: super_user.email,
             recipient_email: invitee.email,
             role: role_name(invitee.role_name)

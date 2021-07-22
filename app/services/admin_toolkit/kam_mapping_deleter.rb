@@ -24,8 +24,9 @@ module AdminToolkit
         activity_id: activity_id,
         action: :kam_mapping_deleted,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
-        parameters: attributes
+        trackable: kam_mapping,
+        recipient: kam_mapping.kam,
+        parameters: kam_mapping.attributes.slice('kam_id', 'investor_id')
       }
     end
   end

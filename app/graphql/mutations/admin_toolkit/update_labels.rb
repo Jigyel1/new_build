@@ -4,7 +4,7 @@ module Mutations
   module AdminToolkit
     class UpdateLabels < BaseMutation
       class UpdateLabelAttributes < Types::BaseInputObject
-        argument :label_group_id, ID, required: true
+        argument :id, ID, required: true
         argument :labelList, String, required: true
       end
 

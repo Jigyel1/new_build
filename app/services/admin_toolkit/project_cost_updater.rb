@@ -27,7 +27,7 @@ module AdminToolkit
         activity_id: activity_id,
         action: :project_cost_updated,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
+        trackable: project_cost,
         parameters: attributes
       }
     end

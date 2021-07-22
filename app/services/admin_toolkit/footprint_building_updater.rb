@@ -47,8 +47,8 @@ module AdminToolkit
         activity_id: activity_id,
         action: :footprint_building_updated,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
-        parameters: attributes
+        trackable: footprint_building,
+        parameters: attributes.except(:id)
       }
     end
   end

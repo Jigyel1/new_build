@@ -7,7 +7,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateLabels do
 
   describe '.resolve' do
     context 'for admins' do
-      let!(:params) { { label_group_id: label_group.id, label_list: 'Prio 3, On Hold' } }
+      let!(:params) { { id: label_group.id, label_list: 'Prio 3, On Hold' } }
 
       it 'updates the label list' do
         response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
@@ -18,7 +18,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateLabels do
     end
 
     context 'for non admins' do
-      let!(:params) { { label_group_id: label_group.id, label_list: 'Assign kam' } }
+      let!(:params) { { id: label_group.id, label_list: 'Assign kam' } }
 
       it 'forbids action' do
         response, errors = formatted_response(query(params), current_user: create(:user, :kam), key: :updateLabel)
@@ -34,7 +34,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateLabels do
         updateLabel(
           input: {
             attributes: {
-              labelGroupId: "#{label_group.id}"
+              id: "#{label_group.id}"
               labelList: "#{args[:label_list]}"
             }
           }

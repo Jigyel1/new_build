@@ -9,7 +9,7 @@ module AdminToolkit
 
       with_tracking(activity_id = SecureRandom.uuid) do
         attributes.each do |hash|
-          ::AdminToolkit::PctValue.find(hash.delete(:id)).update!(hash)
+          ::AdminToolkit::PctValue.find(hash[:id]).update!(hash)
         end
 
         Activities::ActivityCreator.new(activity_params(activity_id)).call
@@ -23,9 +23,9 @@ module AdminToolkit
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :pct_values_updated,
+        action: :pct_value_updated,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
+        trackable: ::AdminToolkit::PctValue.find(attributes.dig(0, :id)),
         parameters: attributes
       }
     end

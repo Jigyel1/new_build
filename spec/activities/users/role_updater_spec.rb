@@ -16,7 +16,7 @@ RSpec.describe Users::RoleUpdater do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.role_updated.owner',
+            'activities.telco.role_updated.owner',
             recipient_email: team_standard.email,
             role: role_name(super_user.role_name),
             previous_role: role_name(team_standard.role_name)
@@ -42,7 +42,7 @@ RSpec.describe Users::RoleUpdater do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.role_updated.recipient',
+            'activities.telco.role_updated.recipient',
             owner_email: super_user.email,
             role: role_name(super_user.role_name),
             previous_role: role_name(team_standard.role_name)
@@ -60,7 +60,7 @@ RSpec.describe Users::RoleUpdater do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.role_updated.others',
+            'activities.telco.role_updated.others',
             owner_email: super_user.email,
             recipient_email: team_standard.email,
             role: role_name(super_user.role_name),

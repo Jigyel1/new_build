@@ -6,7 +6,59 @@ en:
     date: 'Date'
     time: 'Time'
     activity: 'Activity'
-    user:
+    admin_toolkit:
+      competition_created:
+        owner: 'You have added a new competition with entries %{parameters}'
+        others: '%{owner_email} added a new competition with entries %{parameters}'
+      competition_updated:
+        owner: 'You have updated competition having ID %{trackable_id} with %{parameters}'
+        others: '%{owner_email} updated competition having ID %{trackable_id} with %{parameters}'
+      competition_deleted:
+        owner: 'You have deleted competition having ID %{trackable_id} and attributes %{parameters}'
+        others: '%{owner_email} deleted competition having ID %{trackable_id} and attributes %{parameters}'
+      kam_mapping_created:
+        owner: 'You have mapped KAM %{recipient_email} to investor with id %{investor_id}'
+        recipient: '%{owner_email} mapped you to investor with id %{investor_id}'
+        others: '%{owner_email} mapped KAM %{recipient_email} to investor with id %{investor_id}'
+      kam_mapping_updated:
+        owner: 'You have updated KAM mapping having ID %{trackable_id} with %{parameters}'
+        recipient: '%{owner_email} updated KAM mapping having ID %{trackable_id} with %{parameters}'
+        others: '%{owner_email} updated KAM mapping having ID %{trackable_id} with %{parameters}'
+      kam_mapping_deleted:
+        owner: 'You have deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
+        recipient: '%{owner_email} deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
+        others: '%{owner_email} deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
+      penetration_created:
+        owner: 'You have added an entry to the penetration rates with values %{parameters}'
+        others: '%{owner_email} added an entry to the penetration rates with values %{parameters}'
+      penetration_updated:
+        owner: 'You have updated penetration rates having ID %{trackable_id} with values %{parameters}'
+        others: '%{owner_email} updated penetration rates having ID %{trackable_id} with values %{parameters}'
+      penetration_deleted:
+        owner: 'You have deleted penetration rate having ID %{trackable_id} and attributes %{parameters}'
+        others: '%{owner_email} deleted penetration rates having ID %{trackable_id} and attributes %{parameters}'
+      footprint_building_updated:
+        owner: 'You have updated footprint building having ID %{trackable_id} with values %{parameters}'
+        others: '%{owner_email} updated footprint building having ID %{trackable_id} with values %{parameters}'
+      footprint_value_updated:
+        owner: 'You have updated footprint values with params %{parameters}'
+        others: '%{owner_email} updated footprint values with params %{parameters}'
+      label_group_updated:
+        owner: 'You have updated labels for %{trackable_name} with params %{parameters}'
+        others: '%{owner_email} updated labels for %{trackable_name} with params %{parameters}'
+      pct_cost_updated:
+        owner: 'You have updated pct cost having ID %{trackable_id} with values %{parameters}'
+        others: '%{owner_email} updated pct cost having ID %{trackable_id} with values %{parameters}'
+      pct_month_updated:
+        owner: 'You have updated pct month having ID %{trackable_id} with values %{parameters}'
+        others: '%{owner_email} updated pct month having ID %{trackable_id} with values %{parameters}'
+      pct_value_updated:
+        owner: 'You have updated pct values with params %{parameters}'
+        others: '%{owner_email} updated pct values with params %{parameters}'
+      project_cost_updated:
+        owner: 'You have updated project cost with params %{parameters}'
+        others: '%{owner_email} updated project cost with params %{parameters}'
+    telco:
       status_updated:
         owner: 'You have %{status_text} the user %{recipient_email} in the portal'
         recipient: 'User profile was %{status_text} by %{owner_email}'

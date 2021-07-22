@@ -19,8 +19,15 @@ module Activities
 
     private
 
+    # trackable_type can be 'user'
     def translation_key
-      "activities.#{activity.trackable_type.downcase}.#{activity.action}.#{attributes[:user_type]}"
+      "activities.#{translation_module}.#{activity.action}.#{attributes[:user_type]}"
+    end
+
+    # pick the top level namespace
+    # eg if the trackable type returns "AdminToolkit::Competition", pick 'admin_toolkit'
+    def translation_module
+      activity.trackable_type.split('::').first.underscore
     end
   end
 end

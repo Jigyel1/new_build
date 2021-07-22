@@ -22,15 +22,15 @@ RSpec.describe Resolvers::ActivitiesResolver do
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
-            t('activities.user.profile_updated.owner',
+            t('activities.telco.profile_updated.owner',
               recipient_email: kam.email),
-            t('activities.user.role_updated.owner',
+            t('activities.telco.role_updated.owner',
               recipient_email: kam.email, role: :super_user, previous_role: :kam),
-            t('activities.user.profile_deleted.owner',
+            t('activities.telco.profile_deleted.owner',
               recipient_email: management.email),
-            t('activities.user.status_updated.owner',
+            t('activities.telco.status_updated.owner',
               recipient_email: management.email, status_text: t('activities.deactivated')),
-            t('activities.user.user_invited.owner',
+            t('activities.telco.user_invited.owner',
               recipient_email: administrator.email, role: :administrator)
           ]
         )
@@ -43,15 +43,15 @@ RSpec.describe Resolvers::ActivitiesResolver do
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
-            t('activities.user.profile_updated.others',
+            t('activities.telco.profile_updated.others',
               owner_email: super_user.email, recipient_email: kam.email),
-            t('activities.user.role_updated.others', owner_email: super_user.email, recipient_email: kam.email,
+            t('activities.telco.role_updated.others', owner_email: super_user.email, recipient_email: kam.email,
                                                      role: :super_user, previous_role: :kam),
-            t('activities.user.profile_deleted.others', owner_email: super_user.email,
+            t('activities.telco.profile_deleted.others', owner_email: super_user.email,
                                                         recipient_email: management.email),
-            t('activities.user.status_updated.others', owner_email: super_user.email, recipient_email: management.email,
+            t('activities.telco.status_updated.others', owner_email: super_user.email, recipient_email: management.email,
                                                        status_text: t('activities.deactivated')),
-            t('activities.user.user_invited.recipient',
+            t('activities.telco.user_invited.recipient',
               owner_email: super_user.email, role: :administrator)
           ]
         )
@@ -64,9 +64,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
-            t('activities.user.profile_deleted.recipient',
+            t('activities.telco.profile_deleted.recipient',
               owner_email: super_user.email),
-            t('activities.user.status_updated.recipient',
+            t('activities.telco.status_updated.recipient',
               owner_email: super_user.email, status_text: t('activities.deactivated'))
           ]
         )
@@ -79,9 +79,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
-            t('activities.user.profile_updated.recipient',
+            t('activities.telco.profile_updated.recipient',
               owner_email: super_user.email),
-            t('activities.user.role_updated.recipient',
+            t('activities.telco.role_updated.recipient',
               owner_email: super_user.email, role: :super_user, previous_role: :kam)
           ]
         )
@@ -94,19 +94,19 @@ RSpec.describe Resolvers::ActivitiesResolver do
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
-            t('activities.user.profile_updated.others',
+            t('activities.telco.profile_updated.others',
               owner_email: super_user.email, recipient_email: kam.email),
-            t('activities.user.role_updated.others', owner_email: super_user.email, recipient_email: kam.email,
+            t('activities.telco.role_updated.others', owner_email: super_user.email, recipient_email: kam.email,
                                                      role: :super_user, previous_role: :kam),
-            t('activities.user.profile_deleted.others', owner_email: super_user.email,
+            t('activities.telco.profile_deleted.others', owner_email: super_user.email,
                                                         recipient_email: management.email),
             t(
-              'activities.user.status_updated.others',
+              'activities.telco.status_updated.others',
               owner_email: super_user.email,
               recipient_email: management.email,
               status_text: t('activities.deactivated')
             ),
-            t('activities.user.user_invited.others', owner_email: super_user.email,
+            t('activities.telco.user_invited.others', owner_email: super_user.email,
                                                      recipient_email: administrator.email, role: :administrator)
           ]
         )
@@ -127,9 +127,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
-            t('activities.user.profile_updated.owner',
+            t('activities.telco.profile_updated.owner',
               recipient_email: kam.email),
-            t('activities.user.role_updated.owner',
+            t('activities.telco.role_updated.owner',
               recipient_email: kam.email, role: :super_user, previous_role: :kam)
           ]
         )
@@ -143,13 +143,13 @@ RSpec.describe Resolvers::ActivitiesResolver do
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
-            t('activities.user.profile_updated.owner',
+            t('activities.telco.profile_updated.owner',
               recipient_email: kam.email),
-            t('activities.user.role_updated.owner',
+            t('activities.telco.role_updated.owner',
               recipient_email: kam.email, role: :super_user, previous_role: :kam),
-            t('activities.user.profile_deleted.owner',
+            t('activities.telco.profile_deleted.owner',
               recipient_email: management.email),
-            t('activities.user.status_updated.owner',
+            t('activities.telco.status_updated.owner',
               recipient_email: management.email, status_text: t('activities.deactivated'))
           ]
         )
@@ -163,13 +163,13 @@ RSpec.describe Resolvers::ActivitiesResolver do
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
-            t('activities.user.role_updated.owner',
+            t('activities.telco.role_updated.owner',
               recipient_email: kam.email, role: :super_user, previous_role: :kam),
-            t('activities.user.profile_deleted.owner',
+            t('activities.telco.profile_deleted.owner',
               recipient_email: management.email),
-            t('activities.user.status_updated.owner',
+            t('activities.telco.status_updated.owner',
               recipient_email: management.email, status_text: t('activities.deactivated')),
-            t('activities.user.user_invited.owner',
+            t('activities.telco.user_invited.owner',
               recipient_email: administrator.email, role: :administrator)
           ]
         )
@@ -183,7 +183,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
-            t('activities.user.profile_updated.owner', recipient_email: kam.email)
+            t('activities.telco.profile_updated.owner', recipient_email: kam.email)
           ]
         )
       end
@@ -196,9 +196,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
-            t('activities.user.role_updated.owner',
+            t('activities.telco.role_updated.owner',
               recipient_email: kam.email, role: :super_user, previous_role: :kam),
-            t('activities.user.status_updated.owner',
+            t('activities.telco.status_updated.owner',
               recipient_email: management.email, status_text: t('activities.deactivated'))
           ]
         )
@@ -213,9 +213,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
-              t('activities.user.profile_deleted.owner',
+              t('activities.telco.profile_deleted.owner',
                 recipient_email: management.email),
-              t('activities.user.status_updated.owner',
+              t('activities.telco.status_updated.owner',
                 recipient_email: management.email, status_text: t('activities.deactivated'))
             ]
           )
@@ -229,15 +229,15 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
-              t('activities.user.profile_updated.owner',
+              t('activities.telco.profile_updated.owner',
                 recipient_email: kam.email),
-              t('activities.user.role_updated.owner',
+              t('activities.telco.role_updated.owner',
                 recipient_email: kam.email, role: :super_user, previous_role: :kam),
-              t('activities.user.profile_deleted.owner',
+              t('activities.telco.profile_deleted.owner',
                 recipient_email: management.email),
-              t('activities.user.status_updated.owner',
+              t('activities.telco.status_updated.owner',
                 recipient_email: management.email, status_text: t('activities.deactivated')),
-              t('activities.user.user_invited.owner',
+              t('activities.telco.user_invited.owner',
                 recipient_email: administrator.email, role: :administrator)
             ]
           )
@@ -251,11 +251,11 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
-              t('activities.user.profile_updated.owner',
+              t('activities.telco.profile_updated.owner',
                 recipient_email: kam.email),
-              t('activities.user.role_updated.owner',
+              t('activities.telco.role_updated.owner',
                 recipient_email: kam.email, role: :super_user, previous_role: :kam),
-              t('activities.user.status_updated.owner',
+              t('activities.telco.status_updated.owner',
                 recipient_email: management.email, status_text: t('activities.deactivated'))
             ]
           )
@@ -269,7 +269,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
-              t('activities.user.role_updated.owner',
+              t('activities.telco.role_updated.owner',
                 recipient_email: kam.email, role: :super_user, previous_role: :kam)
             ]
           )
@@ -285,7 +285,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
-              t('activities.user.status_updated.owner',
+              t('activities.telco.status_updated.owner',
                 recipient_email: management.email, status_text: t('activities.deactivated'))
             ]
           )
@@ -299,7 +299,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
-              t('activities.user.status_updated.owner',
+              t('activities.telco.status_updated.owner',
                 recipient_email: management.email, status_text: t('activities.deactivated'))
             ]
           )
@@ -326,9 +326,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
-              t('activities.user.profile_updated.owner',
+              t('activities.telco.profile_updated.owner',
                 recipient_email: kam.email),
-              t('activities.user.role_updated.owner',
+              t('activities.telco.role_updated.owner',
                 recipient_email: kam.email, role: :super_user, previous_role: :kam)
             ]
           )
@@ -341,11 +341,11 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
-              t('activities.user.profile_deleted.owner',
+              t('activities.telco.profile_deleted.owner',
                 recipient_email: management.email),
-              t('activities.user.status_updated.owner',
+              t('activities.telco.status_updated.owner',
                 recipient_email: management.email, status_text: t('activities.deactivated')),
-              t('activities.user.user_invited.owner',
+              t('activities.telco.user_invited.owner',
                 recipient_email: administrator.email, role: :administrator)
             ]
           )
@@ -358,9 +358,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
-              t('activities.user.profile_deleted.owner',
+              t('activities.telco.profile_deleted.owner',
                 recipient_email: management.email),
-              t('activities.user.status_updated.owner',
+              t('activities.telco.status_updated.owner',
                 recipient_email: management.email, status_text: t('activities.deactivated'))
             ]
           )

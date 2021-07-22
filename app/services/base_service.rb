@@ -28,7 +28,7 @@ class BaseService
       action: action,
       owner: current_user,
       recipient: user,
-      trackable_type: 'User',
+      trackable: user,
       parameters: parameters
     }
   end

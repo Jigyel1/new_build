@@ -24,8 +24,10 @@ module AdminToolkit
         activity_id: activity_id,
         action: :penetration_deleted,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
-        parameters: attributes
+        trackable: penetration,
+        parameters: penetration.attributes.slice(
+          'zip', 'city', 'rate', 'competition', 'kam_region', 'hfc_footprint', 'type'
+        )
       }
     end
   end

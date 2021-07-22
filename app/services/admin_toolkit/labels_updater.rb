@@ -3,7 +3,7 @@
 module AdminToolkit
   class LabelsUpdater < BaseService
     def label_group
-      @label_group ||= AdminToolkit::LabelGroup.find(attributes[:label_group_id])
+      @label_group ||= AdminToolkit::LabelGroup.find(attributes[:id])
     end
 
     private
@@ -26,10 +26,10 @@ module AdminToolkit
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :label_created,
+        action: :label_group_updated,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
-        parameters: attributes
+        trackable: label_group,
+        parameters: attributes.except(:id)
       }
     end
   end

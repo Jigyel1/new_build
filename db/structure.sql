@@ -451,7 +451,7 @@ CREATE TABLE public.activities (
     owner_id uuid NOT NULL,
     trackable_type character varying,
     trackable_id uuid,
-    recipient_id uuid NOT NULL,
+    recipient_id uuid,
     action character varying NOT NULL,
     log_data jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -1527,6 +1527,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210702172133'),
 ('20210717131742'),
 ('20210719104513'),
-('20210719124603');
+('20210719124603'),
+('20210722055733');
 
 

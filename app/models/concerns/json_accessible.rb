@@ -3,13 +3,13 @@
 module JsonAccessible
   extend ActiveSupport::Concern
 
-  %w[recipient_email owner_email].each do |method|
+  %w[recipient_email owner_email parameters].each do |method|
     define_method method do
       log_data[method]
     end
   end
 
-  %w[role previous_role active].each do |method|
+  %w[role previous_role active investor_id record_id].each do |method|
     define_method method do
       log_data.dig('parameters', method)
     end

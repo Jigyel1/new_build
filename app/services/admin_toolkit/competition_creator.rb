@@ -24,7 +24,7 @@ module AdminToolkit
         activity_id: activity_id,
         action: :competition_created,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
+        trackable: competition,
         parameters: attributes
       }
     end

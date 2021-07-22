@@ -33,7 +33,8 @@ module AdminToolkit
         activity_id: activity_id,
         action: :kam_mapping_created,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
+        recipient: kam_mapping.kam,
+        trackable: kam_mapping,
         parameters: attributes
       }
     end

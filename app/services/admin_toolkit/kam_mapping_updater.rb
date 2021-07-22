@@ -32,8 +32,9 @@ module AdminToolkit
         activity_id: activity_id,
         action: :kam_mapping_updated,
         owner: current_user,
-        trackable_type: 'AdminToolkit',
-        parameters: attributes
+        recipient: kam_mapping.kam,
+        trackable: kam_mapping,
+        parameters: attributes.except(:id)
       }
     end
   end
