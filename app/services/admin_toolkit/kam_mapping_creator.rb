@@ -6,26 +6,24 @@ module AdminToolkit
 
     set_callback :call, :before, :validate!
 
-    private
+    def call
+      super do
+        authorize! ::AdminToolkit::KamMapping, to: :create?, with: AdminToolkitPolicy
 
-    def process
-      authorize! ::AdminToolkit::KamMapping, to: :create?, with: AdminToolkitPolicy
-
-      with_tracking(activity_id = SecureRandom.uuid) do
-        @kam_mapping = ::AdminToolkit::KamMapping.create!(attributes)
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
+        with_tracking(activity_id = SecureRandom.uuid) do
+          @kam_mapping = ::AdminToolkit::KamMapping.create!(attributes)
+          Activities::ActivityCreator.new(activity_params(activity_id)).call
+        end
       end
     end
+
+    private
 
     # Validate if the User with id `kam_id` is a KAM
     def validate!
       return if User.find(attributes[:kam_id]).kam?
 
       raise t('admin_toolkit.kam_mapping.invalid_kam')
-    end
-
-    def execute?
-      true
     end
 
     def activity_params(activity_id)

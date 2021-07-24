@@ -7,9 +7,8 @@ RSpec.describe Activity, type: :model do
   subject(:activity) do
     create(:activity,
            owner: create(:user, :kam),
-           recipient: kam ,
-           trackable: kam
-    )
+           recipient: kam,
+           trackable: kam)
   end
 
   describe 'associations' do
@@ -25,6 +24,6 @@ RSpec.describe Activity, type: :model do
             Rails.application.config.activity_actions[activity.trackable_type.underscore]
           )
       )
-      end
+    end
   end
 end

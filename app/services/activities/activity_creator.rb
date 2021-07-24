@@ -10,7 +10,7 @@
 #
 module Activities
   class ActivityCreator < BaseActivity
-    attr_accessor :activity_id, :activity_type, :owner, :recipient, :action, :parameters, :trackable
+    attr_accessor :activity_id, :owner, :recipient, :action, :parameters, :trackable
 
     def call
       owner.activities.create(

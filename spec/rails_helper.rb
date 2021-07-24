@@ -20,7 +20,7 @@ SimpleCov.start
 
 ips_desc = <<~IPS_DESC
   Testing iterations per second will take more of your time in executing the specs.
-  To skip running ips tests, run `bundle exec rspec --tags ~@ips` provided you add the ips tag to your spec block.
+  To skip running ips tests, run `bundle exec rspec --tag ~@ips` provided you add the ips tag to your spec block.
 
   You can pass values for the
     => number of iterations to be performed as PERFORM_AT_LEAST, defaults to 100 iterations

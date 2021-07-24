@@ -4,7 +4,7 @@ module Mutations
   module AdminToolkit
     class CreateCompetition < BaseMutation
       class CreateCompetitionAttributes < Types::BaseInputObject
-        include CommonAttributes::Competition
+        include Concerns::Competition
       end
 
       argument :attributes, CreateCompetitionAttributes, required: true

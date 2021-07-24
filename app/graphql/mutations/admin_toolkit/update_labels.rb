@@ -14,7 +14,6 @@ module Mutations
       def resolve(attributes:)
         resolver = ::AdminToolkit::LabelsUpdater.new(current_user: current_user, attributes: attributes.to_h)
         resolver.call
-
         { label_group: resolver.label_group }
       end
     end

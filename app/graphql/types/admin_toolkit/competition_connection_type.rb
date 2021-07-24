@@ -2,16 +2,8 @@
 
 module Types
   module AdminToolkit
-    class CompetitionConnectionType < GraphQL::Types::Relay::BaseConnection
+    class CompetitionConnectionType < BaseConnectionType
       edge_type(Types::AdminToolkit::CompetitionEdgeType)
-
-      field :total_count, Integer, null: false
-
-      # - `object` is the Connection
-      # - `object.items` is the original collection of Competitions
-      def total_count
-        object.items.size
-      end
     end
   end
 end

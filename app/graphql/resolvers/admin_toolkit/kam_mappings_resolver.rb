@@ -7,13 +7,9 @@ module Resolvers
 
       type Types::AdminToolkit::KamMappingConnectionType, null: false
 
-      option :kam_ids, type: [String], with: :apply_kam_ids_filter
+      option(:kam_ids, type: [String]) { |scope, value| scope.where(kam_id: value) }
       option :query, type: String, with: :apply_search
       option :skip, type: Int, with: :apply_skip
-
-      def apply_kam_ids_filter(scope, value)
-        scope.where(kam_id: value)
-      end
 
       def apply_search(scope, value)
         scope.joins(kam: :profile).where(

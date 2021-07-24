@@ -16,9 +16,14 @@ class BaseService
     assign_attributes(attributes)
   end
 
+  # to trigger callbacks set in subclasses, execute the call method as
+  #   def call
+  #     super { 'put your code here' }
+  #   end
+  #
   def call
     run_callbacks :call do
-      process if execute?
+      yield if block_given?
     end
   end
 
@@ -31,9 +36,5 @@ class BaseService
       trackable: user,
       parameters: parameters
     }
-  end
-
-  def execute?
-    true
   end
 end

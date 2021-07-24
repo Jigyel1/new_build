@@ -14,7 +14,6 @@ module Mutations
       def resolve(attributes:)
         resolver = ::AdminToolkit::FootprintBuildingUpdater.new(current_user: current_user, attributes: attributes.to_h)
         resolver.call
-
         { footprint_building: resolver.footprint_building }
       end
     end

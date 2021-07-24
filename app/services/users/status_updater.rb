@@ -4,22 +4,27 @@ module Users
   class StatusUpdater < BaseService
     include UserFinder
 
-    private
+    set_callback :call, :before, :status_changed?
 
-    def process
+    def call
       authorize! user, to: :update_status?, with: UserPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
-        user.update!(active: attributes[:active])
+        user.assign_attributes(active: attributes[:active])
+        super { user.save! }
 
-        Activities::ActivityCreator.new(
-          activity_params(activity_id, :status_updated, { active: attributes[:active] })
-        ).call
+        if status_changed?
+          Activities::ActivityCreator.new(
+            activity_params(activity_id, :status_updated, { active: attributes[:active] })
+          ).call
+        end
       end
     end
 
-    def execute?
-      user.active != attributes.active
+    private
+
+    def status_changed?
+      @status_changed ||= user.active_changed?
     end
   end
 end

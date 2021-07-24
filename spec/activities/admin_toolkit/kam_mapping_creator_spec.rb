@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AdminToolkit::KamMappingCreator do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:investor_id) { '8741a6d80de7f8d70c1a027c1fa1eab2' }
-  let_it_be(:params) {{ kam_id: kam.id, investor_id: investor_id }}
+  let_it_be(:params) { { kam_id: kam.id, investor_id: investor_id } }
 
   describe '.activities' do
     before { ::AdminToolkit::KamMappingCreator.new(current_user: super_user, attributes: params).call }

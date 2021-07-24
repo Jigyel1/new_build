@@ -4,7 +4,7 @@ module Mutations
   module AdminToolkit
     class CreatePenetration < BaseMutation
       class CreatePenetrationAttributes < Types::BaseInputObject
-        include CommonAttributes::Penetration
+        include Concerns::Penetration
       end
 
       argument :attributes, CreatePenetrationAttributes, required: true

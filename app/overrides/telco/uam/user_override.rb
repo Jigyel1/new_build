@@ -56,7 +56,9 @@ module Telco
         Users::UserInviter.new(current_user: Current.current_user, user: self).call { super }
       end
 
-      # for `Role` enum delegations
+      # for `Role` enum delegations that works as
+      #   `delegate :kam?, :team_expert?, :super_user?..to: :role`
+      # plus for any new role added at a later point of time.
       def method_missing(method, *args, &block)
         if role.respond_to?(method)
           role.send(method, *args, &block)

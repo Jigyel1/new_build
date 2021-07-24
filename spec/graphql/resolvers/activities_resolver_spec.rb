@@ -46,11 +46,13 @@ RSpec.describe Resolvers::ActivitiesResolver do
             t('activities.telco.profile_updated.others',
               owner_email: super_user.email, recipient_email: kam.email),
             t('activities.telco.role_updated.others', owner_email: super_user.email, recipient_email: kam.email,
-                                                     role: :super_user, previous_role: :kam),
+                                                      role: :super_user, previous_role: :kam),
             t('activities.telco.profile_deleted.others', owner_email: super_user.email,
-                                                        recipient_email: management.email),
-            t('activities.telco.status_updated.others', owner_email: super_user.email, recipient_email: management.email,
-                                                       status_text: t('activities.deactivated')),
+                                                         recipient_email: management.email),
+            t('activities.telco.status_updated.others',
+              owner_email: super_user.email,
+              recipient_email: management.email,
+              status_text: t('activities.deactivated')),
             t('activities.telco.user_invited.recipient',
               owner_email: super_user.email, role: :administrator)
           ]
@@ -97,9 +99,9 @@ RSpec.describe Resolvers::ActivitiesResolver do
             t('activities.telco.profile_updated.others',
               owner_email: super_user.email, recipient_email: kam.email),
             t('activities.telco.role_updated.others', owner_email: super_user.email, recipient_email: kam.email,
-                                                     role: :super_user, previous_role: :kam),
+                                                      role: :super_user, previous_role: :kam),
             t('activities.telco.profile_deleted.others', owner_email: super_user.email,
-                                                        recipient_email: management.email),
+                                                         recipient_email: management.email),
             t(
               'activities.telco.status_updated.others',
               owner_email: super_user.email,
@@ -107,7 +109,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
               status_text: t('activities.deactivated')
             ),
             t('activities.telco.user_invited.others', owner_email: super_user.email,
-                                                     recipient_email: administrator.email, role: :administrator)
+                                                      recipient_email: administrator.email, role: :administrator)
           ]
         )
       end

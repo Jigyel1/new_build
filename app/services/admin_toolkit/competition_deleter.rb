@@ -4,9 +4,7 @@ module AdminToolkit
   class CompetitionDeleter < BaseService
     include CompetitionFinder
 
-    private
-
-    def process
+    def call
       authorize! competition, to: :destroy?, with: AdminToolkitPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
@@ -15,9 +13,7 @@ module AdminToolkit
       end
     end
 
-    def execute?
-      true
-    end
+    private
 
     def activity_params(activity_id)
       {

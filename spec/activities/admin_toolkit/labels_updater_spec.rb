@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AdminToolkit::LabelsUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:label_group) { create(:admin_toolkit_label_group, label_list: 'Prio 1, Prio 2') }
-  let_it_be(:params) {{ id: label_group.id, label_list: 'On Hold, Prio N' }}
+  let_it_be(:params) { { id: label_group.id, label_list: 'On Hold, Prio N' } }
 
   describe '.activities' do
     before { ::AdminToolkit::LabelsUpdater.new(current_user: super_user, attributes: params).call }

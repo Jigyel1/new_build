@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AdminToolkit::PenetrationUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:penetration) { create(:admin_toolkit_penetration) }
-  let_it_be(:params) {{ id: penetration.id, zip: '1009', city: 'Pully' }}
+  let_it_be(:params) { { id: penetration.id, zip: '1009', city: 'Pully' } }
 
   describe '.activities' do
     before { ::AdminToolkit::PenetrationUpdater.new(current_user: super_user, attributes: params).call }

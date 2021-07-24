@@ -14,7 +14,6 @@ module Mutations
       def resolve(attributes:)
         resolver = ::AdminToolkit::PctCostUpdater.new(current_user: current_user, attributes: attributes.to_h)
         resolver.call
-
         { pct_cost: resolver.pct_cost }
       end
     end

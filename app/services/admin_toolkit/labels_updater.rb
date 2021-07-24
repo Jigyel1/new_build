@@ -6,9 +6,7 @@ module AdminToolkit
       @label_group ||= AdminToolkit::LabelGroup.find(attributes[:id])
     end
 
-    private
-
-    def process
+    def call
       authorize! label_group, to: :update?, with: AdminToolkitPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
@@ -19,9 +17,7 @@ module AdminToolkit
       end
     end
 
-    def execute?
-      true
-    end
+    private
 
     def activity_params(activity_id)
       {

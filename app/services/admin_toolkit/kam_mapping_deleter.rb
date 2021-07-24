@@ -4,9 +4,7 @@ module AdminToolkit
   class KamMappingDeleter < BaseService
     include KamMappingFinder
 
-    private
-
-    def process
+    def call
       authorize! kam_mapping, to: :destroy?, with: AdminToolkitPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
@@ -15,9 +13,7 @@ module AdminToolkit
       end
     end
 
-    def execute?
-      true
-    end
+    private
 
     def activity_params(activity_id)
       {

@@ -23,4 +23,7 @@ Rails.application.configure do
   config.user_departments = FileParser.parse { 'config/departments.yml' }
 
   config.kam_regions = FileParser.parse { 'config/kam_regions.yml' }
+  config.translation_keys = Dir.glob(Rails.root.join('config/translation_keys/*.yml')).flat_map do |file|
+    FileParser.parse { file }
+  end.reduce({}, :merge)
 end

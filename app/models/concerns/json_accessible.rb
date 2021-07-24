@@ -9,7 +9,7 @@ module JsonAccessible
     end
   end
 
-  %w[role previous_role active investor_id record_id].each do |method|
+  %w[role previous_role active investor_id].each do |method|
     define_method method do
       log_data.dig('parameters', method)
     end

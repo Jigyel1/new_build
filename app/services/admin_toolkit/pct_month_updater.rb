@@ -6,9 +6,7 @@ module AdminToolkit
       @pct_month ||= AdminToolkit::PctMonth.find(attributes[:id])
     end
 
-    private
-
-    def process
+    def call
       authorize! pct_month, to: :update?, with: AdminToolkitPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
@@ -22,9 +20,7 @@ module AdminToolkit
       end
     end
 
-    def execute?
-      true
-    end
+    private
 
     def propagate_changes! # rubocop:disable Metrics/AbcSize
       return unless pct_month.max_changed?

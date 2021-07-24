@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AdminToolkit::KamMappingDeleter do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:kam_mapping){ create(:admin_toolkit_kam_mapping, kam: kam) }
-  let_it_be(:params) {{ id: kam_mapping.id }}
+  let_it_be(:kam_mapping) { create(:admin_toolkit_kam_mapping, kam: kam) }
+  let_it_be(:params) { { id: kam_mapping.id } }
 
   describe '.activities' do
     before { ::AdminToolkit::KamMappingDeleter.new(current_user: super_user, attributes: params).call }

@@ -4,7 +4,7 @@ module Mutations
   module AdminToolkit
     class CreateKamMapping < BaseMutation
       class CreateKamMappingAttributes < Types::BaseInputObject
-        include CommonAttributes::KamMapping
+        include Concerns::KamMapping
       end
 
       argument :attributes, CreateKamMappingAttributes, required: true

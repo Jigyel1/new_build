@@ -4,9 +4,7 @@ module AdminToolkit
   class PenetrationCreator < BaseService
     attr_reader :penetration
 
-    private
-
-    def process
+    def call
       authorize! ::AdminToolkit::Penetration, to: :create?, with: AdminToolkitPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
@@ -15,9 +13,7 @@ module AdminToolkit
       end
     end
 
-    def execute?
-      true
-    end
+    private
 
     def activity_params(activity_id)
       {

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AdminToolkit::CompetitionUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:competition) { create(:admin_toolkit_competition) }
-  let_it_be(:params) {{ id: competition.id, name: 'FTTH SC', factor: 1.55 }}
+  let_it_be(:params) { { id: competition.id, name: 'FTTH SC', factor: 1.55 } }
 
   describe '.activities' do
     before { ::AdminToolkit::CompetitionUpdater.new(current_user: super_user, attributes: params).call }

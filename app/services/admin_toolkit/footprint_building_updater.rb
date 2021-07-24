@@ -6,9 +6,7 @@ module AdminToolkit
       @footprint_building ||= AdminToolkit::FootprintBuilding.find(attributes[:id])
     end
 
-    private
-
-    def process
+    def call
       authorize! footprint_building, to: :update?, with: AdminToolkitPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
@@ -22,9 +20,7 @@ module AdminToolkit
       end
     end
 
-    def execute?
-      true
-    end
+    private
 
     def propagate_changes! # rubocop:disable Metrics/AbcSize
       return unless footprint_building.max_changed?

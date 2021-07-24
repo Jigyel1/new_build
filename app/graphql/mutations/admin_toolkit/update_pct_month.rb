@@ -14,7 +14,6 @@ module Mutations
       def resolve(attributes:)
         resolver = ::AdminToolkit::PctMonthUpdater.new(current_user: current_user, attributes: attributes.to_h)
         resolver.call
-
         { pct_month: resolver.pct_month }
       end
     end

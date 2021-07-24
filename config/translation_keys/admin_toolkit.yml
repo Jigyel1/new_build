@@ -1,22 +1,5 @@
-activities:
+admin_toolkit:
   recipient:
-    status_updated:
-      - status_text
-      - owner_email
-    profile_deleted:
-      - owner_email
-    profile_updated:
-      - owner_email
-    role_updated:
-      - owner_email
-      - role
-      - previous_role
-    user_invited:
-      - owner_email
-      - role
-    user_reinvited:
-      - owner_email
-
     kam_mapping_created:
       - owner_email
       - investor_id
@@ -30,23 +13,6 @@ activities:
       - trackable_id
 
   owner:
-    status_updated:
-      - status_text
-      - recipient_email
-    profile_deleted:
-      - recipient_email
-    profile_updated:
-      - recipient_email
-    role_updated:
-      - recipient_email
-      - role
-      - previous_role
-    user_invited:
-      - recipient_email
-      - role
-    user_reinvited:
-      - recipient_email
-
     competition_created:
       - parameters
     competition_updated:
@@ -95,29 +61,6 @@ activities:
 
 
   others:
-    status_updated:
-      - status_text
-      - owner_email
-      - recipient_email
-    profile_deleted:
-      - owner_email
-      - recipient_email
-    profile_updated:
-      - owner_email
-      - recipient_email
-    role_updated:
-      - owner_email
-      - recipient_email
-      - role
-      - previous_role
-    user_invited:
-      - owner_email
-      - recipient_email
-      - role
-    user_reinvited:
-      - owner_email
-      - recipient_email
-
     competition_created:
       - owner_email
       - parameters

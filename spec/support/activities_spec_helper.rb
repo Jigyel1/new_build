@@ -18,10 +18,12 @@ module ActivitiesSpecHelper
     )
 
     log_data = { owner_email: super_user.email, recipient_email: management.email, parameters: { active: false } }
-    create(:activity, owner: super_user, recipient: management, trackable: management, action: :status_updated, log_data: log_data)
+    create(:activity, owner: super_user, recipient: management, trackable: management, action: :status_updated,
+                      log_data: log_data)
 
     log_data = { owner_email: super_user.email, recipient_email: management.email }
-    create(:activity, owner: super_user, recipient: management, trackable: management, action: :profile_deleted, log_data: log_data)
+    create(:activity, owner: super_user, recipient: management, trackable: management, action: :profile_deleted,
+                      log_data: log_data)
 
     log_data = {
       owner_email: super_user.email,
@@ -31,6 +33,7 @@ module ActivitiesSpecHelper
     create(:activity, owner: super_user, recipient: kam, trackable: kam, action: :role_updated, log_data: log_data)
 
     log_data = { owner_email: super_user.email, recipient_email: kam.email }
-    create(:activity, :tomorrow, owner: super_user, recipient: kam, trackable: kam, action: :profile_updated, log_data: log_data)
+    create(:activity, :tomorrow, owner: super_user, recipient: kam, trackable: kam, action: :profile_updated,
+                                 log_data: log_data)
   end
 end

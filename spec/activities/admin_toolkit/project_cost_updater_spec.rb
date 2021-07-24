@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AdminToolkit::ProjectCostUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:project_cost) { create(:admin_toolkit_project_cost) }
-  let_it_be(:params) {{ arpu: 340, standard: 10_300 }}
+  let_it_be(:params) { { arpu: 340, standard: 10_300 } }
 
   describe '.activities' do
     before { ::AdminToolkit::ProjectCostUpdater.new(current_user: super_user, attributes: params).call }

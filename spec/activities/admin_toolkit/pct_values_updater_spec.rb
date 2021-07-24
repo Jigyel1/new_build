@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AdminToolkit::PctValuesUpdater do
@@ -8,7 +10,7 @@ describe AdminToolkit::PctValuesUpdater do
   let_it_be(:pct_value) do
     create(
       :admin_toolkit_pct_value,
-      pct_cost: pct_cost, 
+      pct_cost: pct_cost,
       pct_month: pct_month
     )
   end
@@ -17,7 +19,7 @@ describe AdminToolkit::PctValuesUpdater do
     create(
       :admin_toolkit_pct_value,
       status: 'Prio 2',
-      pct_cost: pct_cost, 
+      pct_cost: pct_cost,
       pct_month: pct_month
     )
   end

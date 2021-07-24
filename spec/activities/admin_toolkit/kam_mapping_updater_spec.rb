@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AdminToolkit::KamMappingUpdater do
@@ -6,8 +8,8 @@ describe AdminToolkit::KamMappingUpdater do
   let_it_be(:kam_b) { create(:user, :kam) }
 
   let_it_be(:investor_id) { '8741a6d80de7f8d70c1a027c1fa1eab2' }
-  let_it_be(:kam_mapping){ create(:admin_toolkit_kam_mapping, kam: kam) }
-  let_it_be(:params) {{ id: kam_mapping.id, kam_id: kam_b.id, investor_id: investor_id }}
+  let_it_be(:kam_mapping) { create(:admin_toolkit_kam_mapping, kam: kam) }
+  let_it_be(:params) { { id: kam_mapping.id, kam_id: kam_b.id, investor_id: investor_id } }
 
   describe '.activities' do
     before { ::AdminToolkit::KamMappingUpdater.new(current_user: super_user, attributes: params).call }

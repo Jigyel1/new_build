@@ -12,20 +12,24 @@ module Activities
     #   #=> owner: 'You have %{status_text} the user %{recipient_email} in the portal'
     #
     def call
-      keys = BaseActivity::TRANSLATION_KEYS.dig('activities', attributes[:user_type], activity.action)
+      keys = translation_keys.dig(attributes[:user_type], activity.action)
 
       t(translation_key, **keys.index_with { |key| activity.send(key) }.symbolize_keys)
     end
 
     private
 
-    # trackable_type can be 'user'
     def translation_key
       "activities.#{translation_module}.#{activity.action}.#{attributes[:user_type]}"
     end
 
-    # pick the top level namespace
+    def translation_keys
+      Rails.application.config.translation_keys[translation_module]
+    end
+
+    # picks the top level namespace
     # eg if the trackable type returns "AdminToolkit::Competition", pick 'admin_toolkit'
+    #     and for users it picks "telco" as the trackable type will be "Telco::Uam::User"
     def translation_module
       activity.trackable_type.split('::').first.underscore
     end

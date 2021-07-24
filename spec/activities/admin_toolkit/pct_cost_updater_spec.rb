@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AdminToolkit::PctCostUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:pct_cost) { create(:admin_toolkit_pct_cost) }
-  let_it_be(:params) {{ id: pct_cost.id, max: 1000 }}
+  let_it_be(:params) { { id: pct_cost.id, max: 1000 } }
 
   describe '.activities' do
     before { ::AdminToolkit::PctCostUpdater.new(current_user: super_user, attributes: params).call }

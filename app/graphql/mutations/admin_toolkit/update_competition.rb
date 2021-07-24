@@ -4,7 +4,7 @@ module Mutations
   module AdminToolkit
     class UpdateCompetition < BaseMutation
       class UpdateCompetitionAttributes < Types::BaseInputObject
-        include CommonAttributes::Competition
+        include Concerns::Competition
 
         argument :id, ID, required: true
       end
@@ -15,7 +15,6 @@ module Mutations
       def resolve(attributes:)
         resolver = ::AdminToolkit::CompetitionUpdater.new(current_user: current_user, attributes: attributes.to_h)
         resolver.call
-
         { competition: resolver.competition }
       end
     end

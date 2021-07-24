@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AdminToolkit::FootprintBuildingUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:footprint_building) { create(:admin_toolkit_footprint_building) }
-  let_it_be(:params) {{ id: footprint_building.id, max: 10 }}
+  let_it_be(:params) { { id: footprint_building.id, max: 10 } }
 
   describe '.activities' do
     before { ::AdminToolkit::FootprintBuildingUpdater.new(current_user: super_user, attributes: params).call }
