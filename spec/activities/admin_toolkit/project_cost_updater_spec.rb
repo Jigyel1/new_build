@@ -7,15 +7,15 @@ describe AdminToolkit::ProjectCostUpdater do
   let_it_be(:project_cost) { create(:admin_toolkit_project_cost) }
   let_it_be(:params) { { arpu: 340, standard: 10_300 } }
 
-  describe '.activities' do
-    before { ::AdminToolkit::ProjectCostUpdater.new(current_user: super_user, attributes: params).call }
+  before_all { ::AdminToolkit::ProjectCostUpdater.new(current_user: super_user, attributes: params).call }
 
+  describe '.activities' do
     context 'as an owner' do
-      it 'returns activity text' do
+      it 'returns activity text in terms of a first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
-        activity = activities.first
-        expect(activity[:displayText]).to eq(
+        expect(activities.size).to eq(1)
+        expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.project_cost_updated.owner',
             parameters: params.except(:id).stringify_keys)
         )
@@ -28,28 +28,13 @@ describe AdminToolkit::ProjectCostUpdater do
       it 'returns activity text in terms of a third person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
         expect(errors).to be_nil
-        activity = activities.first
-        expect(activity[:displayText]).to eq(
+        expect(activities.size).to eq(1)
+        expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.project_cost_updated.others',
             owner_email: super_user.email,
             parameters: params.except(:id).stringify_keys)
         )
       end
     end
-  end
-
-  def activities_query
-    <<~GQL
-      query {
-        activities {
-          totalCount
-          edges {
-            node {
-              id createdAt displayText
-            }
-          }
-        }
-      }
-    GQL
   end
 end

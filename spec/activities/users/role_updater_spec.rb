@@ -86,19 +86,4 @@ RSpec.describe Users::RoleUpdater do
       }
     GQL
   end
-
-  def activities_query
-    <<~GQL
-      query {
-        activities {
-          totalCount
-          edges {
-            node {
-              id createdAt displayText
-            }
-          }
-        }
-      }
-    GQL
-  end
 end

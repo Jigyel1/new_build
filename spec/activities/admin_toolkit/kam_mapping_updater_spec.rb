@@ -11,15 +11,15 @@ describe AdminToolkit::KamMappingUpdater do
   let_it_be(:kam_mapping) { create(:admin_toolkit_kam_mapping, kam: kam) }
   let_it_be(:params) { { id: kam_mapping.id, kam_id: kam_b.id, investor_id: investor_id } }
 
-  describe '.activities' do
-    before { ::AdminToolkit::KamMappingUpdater.new(current_user: super_user, attributes: params).call }
+  before_all { ::AdminToolkit::KamMappingUpdater.new(current_user: super_user, attributes: params).call }
 
+  describe '.activities' do
     context 'as an owner' do
-      it 'returns activity text' do
+      it 'returns activity text in terms of a first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
-        activity = activities.first
-        expect(activity[:displayText]).to eq(
+        expect(activities.size).to eq(1)
+        expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_mapping_updated.owner',
             parameters: params.except(:id).stringify_keys,
             trackable_id: kam_mapping.id)
@@ -28,11 +28,11 @@ describe AdminToolkit::KamMappingUpdater do
     end
 
     context 'as an recipient' do
-      it 'returns activity text' do
+      it 'returns activity text in terms of a second person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: kam_b)
         expect(errors).to be_nil
-        activity = activities.first
-        expect(activity[:displayText]).to eq(
+        expect(activities.size).to eq(1)
+        expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_mapping_updated.recipient',
             parameters: params.except(:id).stringify_keys,
             owner_email: super_user.email,
@@ -47,8 +47,8 @@ describe AdminToolkit::KamMappingUpdater do
       it 'returns activity text in terms of a third person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
         expect(errors).to be_nil
-        activity = activities.first
-        expect(activity[:displayText]).to eq(
+        expect(activities.size).to eq(1)
+        expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_mapping_updated.others',
             parameters: params.except(:id).stringify_keys,
             owner_email: super_user.email,
@@ -56,20 +56,5 @@ describe AdminToolkit::KamMappingUpdater do
         )
       end
     end
-  end
-
-  def activities_query
-    <<~GQL
-      query {
-        activities {
-          totalCount
-          edges {
-            node {
-              id createdAt displayText
-            }
-          }
-        }
-      }
-    GQL
   end
 end

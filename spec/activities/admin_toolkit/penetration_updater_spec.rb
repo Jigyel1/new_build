@@ -7,15 +7,15 @@ describe AdminToolkit::PenetrationUpdater do
   let_it_be(:penetration) { create(:admin_toolkit_penetration) }
   let_it_be(:params) { { id: penetration.id, zip: '1009', city: 'Pully' } }
 
-  describe '.activities' do
-    before { ::AdminToolkit::PenetrationUpdater.new(current_user: super_user, attributes: params).call }
+  before_all { ::AdminToolkit::PenetrationUpdater.new(current_user: super_user, attributes: params).call }
 
+  describe '.activities' do
     context 'as an owner' do
-      it 'returns activity text' do
+      it 'returns activity text in terms of a first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
-        activity = activities.first
-        expect(activity[:displayText]).to eq(
+        expect(activities.size).to eq(1)
+        expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.penetration_updated.owner',
             trackable_id: penetration.id,
             parameters: params.except(:id).stringify_keys)
@@ -29,8 +29,8 @@ describe AdminToolkit::PenetrationUpdater do
       it 'returns activity text in terms of a third person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
         expect(errors).to be_nil
-        activity = activities.first
-        expect(activity[:displayText]).to eq(
+        expect(activities.size).to eq(1)
+        expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.penetration_updated.others',
             trackable_id: penetration.id,
             owner_email: super_user.email,
@@ -38,20 +38,5 @@ describe AdminToolkit::PenetrationUpdater do
         )
       end
     end
-  end
-
-  def activities_query
-    <<~GQL
-      query {
-        activities {
-          totalCount
-          edges {
-            node {
-              id createdAt displayText
-            }
-          }
-        }
-      }
-    GQL
   end
 end

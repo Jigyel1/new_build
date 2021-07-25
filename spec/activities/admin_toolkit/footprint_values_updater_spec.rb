@@ -29,15 +29,15 @@ describe AdminToolkit::FootprintValuesUpdater do
     ]
   end
 
-  describe '.activities' do
-    before { ::AdminToolkit::FootprintValuesUpdater.new(current_user: super_user, attributes: params).call }
+  before_all { ::AdminToolkit::FootprintValuesUpdater.new(current_user: super_user, attributes: params).call }
 
+  describe '.activities' do
     context 'as an owner' do
-      it 'returns activity text' do
+      it 'returns activity text in terms of a first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
-        activity = activities.first
-        expect(activity[:displayText]).to eq(
+        expect(activities.size).to eq(1)
+        expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.footprint_value_updated.owner', parameters: params.map(&:stringify_keys))
         )
       end
@@ -49,8 +49,8 @@ describe AdminToolkit::FootprintValuesUpdater do
       it 'returns activity text in terms of a third person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
         expect(errors).to be_nil
-        activity = activities.first
-        expect(activity[:displayText]).to eq(
+        expect(activities.size).to eq(1)
+        expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.footprint_value_updated.others',
             owner_email: super_user.email,
             parameters: params.map(&:stringify_keys))

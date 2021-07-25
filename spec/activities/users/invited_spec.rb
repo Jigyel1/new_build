@@ -82,19 +82,4 @@ RSpec.describe 'User Invitation', type: :request do
       end
     end
   end
-
-  def activities_query
-    <<~GQL
-      query {
-        activities {
-          totalCount
-          edges {
-            node {
-              id createdAt displayText
-            }
-          }
-        }
-      }
-    GQL
-  end
 end

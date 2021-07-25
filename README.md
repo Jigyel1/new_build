@@ -82,9 +82,9 @@ Do the opposite of success mocks(i.e. Test `data/response` first)
 
 2. And those that accept multiple arguments, nest it under the attributes params. eg. `update_user`, `update_user_status` etc.
 
-### Azure Login
+### Graphical Workflow
 
-![azure-login-sequence-diagram](class_diagrams/azure-login.png)
+![graphical-workflow](class_diagrams/graphical-workflow.png)
 
 ---
 

@@ -107,19 +107,4 @@ RSpec.describe Users::UserUpdater do
       }
     GQL
   end
-
-  def activities_query
-    <<~GQL
-      query {
-        activities {
-          totalCount
-          edges {
-            node {
-              id createdAt displayText
-            }
-          }
-        }
-      }
-    GQL
-  end
 end

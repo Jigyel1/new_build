@@ -36,4 +36,19 @@ module ActivitiesSpecHelper
     create(:activity, :tomorrow, owner: super_user, recipient: kam, trackable: kam, action: :profile_updated,
                                  log_data: log_data)
   end
+
+  def activities_query
+    <<~GQL
+      query {
+        activities {
+          totalCount
+          edges {
+            node {
+              id createdAt displayText
+            }
+          }
+        }
+      }
+    GQL
+  end
 end

@@ -16,7 +16,7 @@ require 'action_view/railtie'
 require 'action_cable/engine'
 # For GraphiQL
 require 'sprockets/railtie' if Rails.env.development?
-require_relative '../lib/core_ext/float'
+require_relative '../lib/float'
 
 # require "rails/test_unit/railtie"
 

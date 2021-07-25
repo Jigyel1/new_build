@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
-class Penetration < EtlBase
+class Penetration
   SHEET_INDEX = 0
 
+  def self.call(pathname:)
+    new.call(pathname: pathname)
+  end
+
   def call(pathname:)
-    sheet = Xsv::Workbook.open(pathname.to_s).sheets[0]
+    sheet = Xsv::Workbook.open(pathname.to_s).sheets[SHEET_INDEX]
     sheet.row_skip = 1
 
     Kiba.run(

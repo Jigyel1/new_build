@@ -3,12 +3,11 @@
 module Penetrations
   class Transform
     ZIP = 0
-    CITY = 1
     RATE = 2
-    COMPETITION = 3
-    KAM_REGION = 4
     FOOTPRINT = 5
-    TYPE = 6
+
+    # Don't change the order!
+    HEADERS = %i[zip city rate competition kam_region hfc_footprint type].freeze
 
     using TextFormatter
 
@@ -17,15 +16,7 @@ module Penetrations
       format(row, RATE, { action: [:*, 100] })
       format(row, FOOTPRINT, { action: [:to_boolean] })
 
-      {
-        zip: row[ZIP],
-        city: row[CITY],
-        rate: row[RATE],
-        competition: row[COMPETITION],
-        kam_region: row[KAM_REGION],
-        hfc_footprint: row[FOOTPRINT],
-        type: row[TYPE]
-      }
+      HEADERS.zip(row).to_h
     end
 
     private

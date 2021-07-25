@@ -35,7 +35,7 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
     end
 
     context 'without permissions' do
-      let_it_be(:kam) { create(:user, :kam) }
+      let!(:kam) { create(:user, :kam) }
       let!(:params) { { zip: '8602' } }
 
       it 'forbids action' do

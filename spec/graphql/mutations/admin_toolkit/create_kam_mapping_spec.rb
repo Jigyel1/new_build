@@ -5,22 +5,23 @@ require 'rails_helper'
 RSpec.describe Mutations::AdminToolkit::CreateKamMapping do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
+  let_it_be(:investor_id) { '8741a6d80de7f8d70c1a027c1fa1eab2' }
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) { { kam_id: kam.id, investor_id: '8741a6d80de7f8d70c1a027c1fa1eab2' } }
+      let!(:params) { { kam_id: kam.id, investor_id: investor_id } }
 
       it 'creates the kam mapping' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createKamMapping)
         expect(errors).to be_nil
         kam_mapping = response.kamMapping
-        expect(kam_mapping.investorId).to eq('8741a6d80de7f8d70c1a027c1fa1eab2')
+        expect(kam_mapping.investorId).to eq(investor_id)
         expect(kam_mapping.kam).to have_attributes(id: kam.id, name: kam.name)
       end
     end
 
     context 'with invalid params' do
-      let!(:params) { { kam_id: super_user.id, investor_id: '8741a6d80de7f8d70c1a027c1fa1eab2' } }
+      let!(:params) { { kam_id: super_user.id, investor_id: investor_id } }
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createKamMapping)
@@ -30,8 +31,8 @@ RSpec.describe Mutations::AdminToolkit::CreateKamMapping do
     end
 
     context 'without permissions' do
-      let_it_be(:kam) { create(:user, :kam) }
-      let!(:params) { { kam_id: kam.id, investor_id: '8741a6d80de7f8d70c1a027c1fa1eab2' } }
+      let!(:kam) { create(:user, :kam) }
+      let!(:params) { { kam_id: kam.id, investor_id: investor_id } }
 
       it 'forbids action' do
         response, errors = formatted_response(query(params), current_user: kam, key: :createKamMapping)
