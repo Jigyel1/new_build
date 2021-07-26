@@ -93,6 +93,17 @@ Do the opposite of success mocks(i.e. Test `data/response` first)
 1. Resolvers are expected to execute any implementation within `10 ms` - Max 50 only at extreme cases. To ensure that, we use `rspec-benchmark`.
 For example check out - `spec/graphql/resolvers/users_resolver_spec.rb`. 
 
+---
+
+# Modules
+
+### Admin Toolkit
+
+- [Stories](https://docs.google.com/document/d/1vdkGmwaZxw4uApvr-fqXgd0JG4YNEp2OxjtEfENXvus/edit)
+- [Designs](https://www.figma.com/file/1wn1cKsrkRryY3lv6ATGZm/UPC-New-Build?node-id=2661%3A5365)
+
+---
+
 # Avatar upload
 
 ```ruby

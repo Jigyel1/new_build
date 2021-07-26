@@ -2,6 +2,7 @@
 
 module Users
   class RoleUpdater < BaseService
+    include ActivityHelper
     include UserFinder
 
     set_callback :call, :before, :role_changed?

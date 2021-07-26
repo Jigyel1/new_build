@@ -2,6 +2,7 @@
 
 module Users
   class StatusUpdater < BaseService
+    include ActivityHelper
     include UserFinder
 
     set_callback :call, :before, :status_changed?

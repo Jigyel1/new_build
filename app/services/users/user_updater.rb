@@ -2,9 +2,10 @@
 
 module Users
   class UserUpdater < BaseService
+    include ActivityHelper
     include UserFinder
 
-    set_callback :call, :before, :attributes_changed?
+    set_callback :call, :before, :association_changed?
 
     def call
       authorize! user, to: :update?, with: UserPolicy
@@ -13,7 +14,7 @@ module Users
         user.assign_attributes(attributes)
         super { user.save! }
 
-        if attributes_changed?
+        if association_changed?
           Activities::ActivityCreator.new(
             activity_params(activity_id, :profile_updated, attributes)
           ).call
@@ -23,8 +24,8 @@ module Users
 
     private
 
-    def attributes_changed?
-      @attributes_changed ||= user.profile.changed? || user.address.changed?
+    def association_changed?
+      @association_changed ||= user.profile.changed? || user.address.changed?
     end
   end
 end

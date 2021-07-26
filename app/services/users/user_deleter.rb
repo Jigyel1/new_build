@@ -3,6 +3,7 @@
 module Users
   class UserDeleter < BaseService
     TIME_FORMAT = '%Y_%m_%d_%H_%M'
+    include ActivityHelper
     include UserFinder
 
     set_callback :call, :after, :update_email
