@@ -3,19 +3,19 @@
 class Activity < ApplicationRecord
   include JsonAccessible
 
+  # Activity `owner` is the one who creates the activity.
   belongs_to :owner, class_name: 'Telco::Uam::User'
 
   # `recipient` is not needed when a user is acting on a different module.
   # eg. User(owner) updates PCT(trackable)
-  #
+  belongs_to :recipient, class_name: 'Telco::Uam::User', optional: true
+
   # `trackable` will be same as the recipient when a user is acting on another user.
   # eg. User A(owner) deactivates User B(recipient)
-  #
+  belongs_to :trackable, polymorphic: true
+
   # A case where all references will be applicable
   # eg. User A(owner) added User B(recipient) to Project X(trackable)
-  #
-  belongs_to :recipient, class_name: 'Telco::Uam::User', optional: true
-  belongs_to :trackable, polymorphic: true
 
   delegate :name, to: :trackable, prefix: true, allow_nil: true
 

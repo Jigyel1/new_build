@@ -11,13 +11,13 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctMonth do
     context 'with valid params' do
       let!(:params) { { id: pct_month.id, max: 16 } }
 
-      it 'updates PCT data' do
+      it 'updates PCT month' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctMonth)
         expect(errors).to be_nil
         expect(response.pctMonth).to have_attributes(max: 16)
       end
 
-      it 'propagates update to the next PCT table' do
+      it 'propagates update to the next PCT month table' do
         _, errors = formatted_response(query(params), current_user: super_user, key: :updatePctMonth)
         expect(errors).to be_nil
         expect(pct_month_b.reload).to have_attributes(min: 17)
@@ -34,18 +34,20 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctMonth do
       end
     end
 
-    context 'when max exceeds or is equal to the PCT max of the adjacent table' do
+    context 'when max exceeds or is equal to the PCT month max of the adjacent table' do
       let!(:params) { { id: pct_month.id, max: 18 } }
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctMonth)
         expect(response.pctMonth).to be_nil
-        expect(errors).to match_array([
-                                        t('admin_toolkit.pct_month.invalid_min',
-                                          index: pct_month_b.index,
-                                          new_max: 19,
-                                          old_max: 18)
-                                      ])
+        expect(errors).to match_array(
+          [
+            t('admin_toolkit.pct_month.invalid_min',
+              index: pct_month_b.index,
+              new_max: 19,
+              old_max: 18)
+          ]
+        )
       end
     end
   end

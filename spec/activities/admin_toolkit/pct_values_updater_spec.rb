@@ -6,7 +6,6 @@ describe AdminToolkit::PctValuesUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:pct_cost) { create(:admin_toolkit_pct_cost) }
   let_it_be(:pct_month) { create(:admin_toolkit_pct_month) }
-
   let_it_be(:pct_value) { create(:admin_toolkit_pct_value, pct_cost: pct_cost, pct_month: pct_month) }
 
   let_it_be(:pct_value_b) do

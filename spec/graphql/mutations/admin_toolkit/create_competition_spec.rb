@@ -32,7 +32,7 @@ RSpec.describe Mutations::AdminToolkit::CreateCompetition do
     end
 
     context 'without permissions' do
-      let_it_be(:kam) { create(:user, :kam) }
+      let!(:kam) { create(:user, :kam) }
       let!(:params) { { factor: 1.3 } }
 
       it 'forbids action' do

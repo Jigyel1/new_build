@@ -14,7 +14,5 @@ RSpec.describe AdminToolkit::PctCost, type: :model do
     end
 
     it { is_expected.to validate_numericality_of(:min).only_integer.is_greater_than_or_equal_to(0) }
-    # it { is_expected.to validate_numericality_of(:max).only_integer.is_greater_than_or_equal_to(0) }
-    # it { is_expected.to validate_numericality_of(:max).is_greater_than_or_equal_to(:min) }
   end
 end

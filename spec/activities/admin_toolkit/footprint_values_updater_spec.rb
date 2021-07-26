@@ -58,19 +58,4 @@ describe AdminToolkit::FootprintValuesUpdater do
       end
     end
   end
-
-  def activities_query
-    <<~GQL
-      query {
-        activities {
-          totalCount
-          edges {
-            node {
-              id createdAt displayText
-            }
-          }
-        }
-      }
-    GQL
-  end
 end

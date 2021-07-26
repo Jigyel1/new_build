@@ -22,6 +22,10 @@ module AdminToolkit
 
     private
 
+    # Increments the min of the adjacent(but with higher index) record to record's max + 1
+    # eg. Say FootprintCost(FPC) A has a min 10, max 1000 and FPC B has min 1001, max 3000
+    #    And an update is triggered for FPC A with max of 1501. This method should
+    #   update FPC's min to 1502.
     def propagate_changes! # rubocop:disable Metrics/AbcSize
       return unless pct_cost.max_changed?
 

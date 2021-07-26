@@ -11,13 +11,13 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintBuilding do
     context 'with valid params' do
       let!(:params) { { id: footprint_building.id, max: 3 } }
 
-      it 'updates PCT data' do
+      it 'updates footprint building data' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateFootprintBuilding)
         expect(errors).to be_nil
         expect(response.footprintBuilding).to have_attributes(max: 3)
       end
 
-      it 'propagates update to the next PCT table' do
+      it 'propagates update to the next footprint building table' do
         _, errors = formatted_response(query(params), current_user: super_user, key: :updateFootprintBuilding)
         expect(errors).to be_nil
         expect(footprint_building_b.reload).to have_attributes(min: 4)
@@ -34,8 +34,8 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintBuilding do
       end
     end
 
-    context 'when max exceeds or is equal to the PCT max of the adjacent table' do
-      let!(:params) { { id: footprint_building.id, max: 12  } } # 11 sh work, sh fail with 12
+    context 'when max exceeds or is equal to the footprint building max of the adjacent table' do
+      let!(:params) { { id: footprint_building.id, max: 12 } } # 11 sh work, sh fail with 12
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateFootprintBuilding)

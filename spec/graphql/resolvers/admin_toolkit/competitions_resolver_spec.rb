@@ -15,9 +15,7 @@ RSpec.describe Resolvers::AdminToolkit::CompetitionsResolver do
         competitions, errors = paginated_collection(:adminToolkitCompetitions, query, current_user: super_user)
         expect(errors).to be_nil
         expect(competitions.pluck(:id)).to match_array(
-          [
-            competition.id, competition_b.id, competition_c.id, competition_d.id
-          ]
+          [competition.id, competition_b.id, competition_c.id, competition_d.id]
         )
       end
     end
@@ -35,8 +33,9 @@ RSpec.describe Resolvers::AdminToolkit::CompetitionsResolver do
     context 'with search queries' do
       context 'when queried for factor' do
         it 'fetches records matching the query' do
-          competitions, errors = paginated_collection(:adminToolkitCompetitions, query(query: '3'),
-                                                      current_user: super_user)
+          competitions, errors = paginated_collection(
+            :adminToolkitCompetitions, query(query: '3'), current_user: super_user
+          )
           expect(errors).to be_nil
           expect(competitions.pluck(:id)).to match_array([competition.id, competition_c.id, competition_d.id])
         end
@@ -44,8 +43,9 @@ RSpec.describe Resolvers::AdminToolkit::CompetitionsResolver do
 
       context 'when queried for name' do
         it 'fetches records matching the query' do
-          competitions, errors = paginated_collection(:adminToolkitCompetitions, query(query: 'ftth'),
-                                                      current_user: super_user)
+          competitions, errors = paginated_collection(
+            :adminToolkitCompetitions, query(query: 'ftth'), current_user: super_user
+          )
           expect(errors).to be_nil
           expect(competitions.pluck(:id)).to match_array([competition.id, competition_b.id])
         end

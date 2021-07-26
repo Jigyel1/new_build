@@ -17,7 +17,7 @@ RSpec.describe Resolvers::AdminToolkit::PctsResolver do
     context 'for admins' do
       let_it_be(:super_user) { create(:user, :super_user) }
 
-      it 'returns all footprint values' do
+      it 'returns all PCT values' do
         response, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(response.adminToolkitPcts.pluck(:id)).to match_array(

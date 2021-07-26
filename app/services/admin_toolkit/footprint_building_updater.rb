@@ -22,6 +22,10 @@ module AdminToolkit
 
     private
 
+    # Increments the min of the adjacent(but with higher index) record to record's max + 1
+    # eg. Say FootprintBuilding(FPB) A has a min 1, max 10 and FPB B has min 11, max 30
+    #    And an update is triggered for FPB A with max of 15. This method should
+    #   update FPB's min to 16.
     def propagate_changes! # rubocop:disable Metrics/AbcSize
       return unless footprint_building.max_changed?
 

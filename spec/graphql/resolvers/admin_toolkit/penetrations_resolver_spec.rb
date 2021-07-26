@@ -21,9 +21,7 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
         penetrations, errors = paginated_collection(:adminToolkitPenetrations, query, current_user: super_user)
         expect(errors).to be_nil
         expect(penetrations.pluck(:id)).to match_array(
-          [
-            penetration.id, penetration_b.id, penetration_c.id, penetration_d.id
-          ]
+          [penetration.id, penetration_b.id, penetration_c.id, penetration_d.id]
         )
       end
     end
@@ -40,8 +38,9 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
 
     context 'with search queries' do
       it 'fetches records matching the query' do
-        penetrations, errors = paginated_collection(:adminToolkitPenetrations, query(query: 'Bougeries'),
-                                                    current_user: super_user)
+        penetrations, errors = paginated_collection(
+          :adminToolkitPenetrations, query(query: 'Bougeries'), current_user: super_user
+        )
         expect(errors).to be_nil
         expect(penetrations.size).to eq(1)
         expect(penetrations.dig(0, :id)).to eq(penetration.id)

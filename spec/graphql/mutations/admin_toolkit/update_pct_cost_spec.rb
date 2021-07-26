@@ -11,13 +11,13 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
     context 'with valid params' do
       let!(:params) { { id: pct_cost.id, max: 2600 } }
 
-      it 'updates PCT data' do
+      it 'updates PCT cost' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctCost)
         expect(errors).to be_nil
         expect(response.pctCost).to have_attributes(max: 2600)
       end
 
-      it 'propagates update to the next PCT table' do
+      it 'propagates update to the next PCT cost table' do
         _, errors = formatted_response(query(params), current_user: super_user, key: :updatePctCost)
         expect(errors).to be_nil
         expect(pct_cost_b.reload).to have_attributes(min: 2601)
@@ -34,18 +34,20 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
       end
     end
 
-    context 'when max exceeds or is equal to the PCT max of the adjacent table' do
+    context 'when max exceeds or is equal to the PCT cost max of the adjacent table' do
       let!(:params) { { id: pct_cost.id, max: 5000 } }
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctCost)
         expect(response.pctCost).to be_nil
-        expect(errors).to match_array([
-                                        t('admin_toolkit.pct_cost.invalid_min',
-                                          index: pct_cost_b.index,
-                                          new_max: 5001,
-                                          old_max: 5000)
-                                      ])
+        expect(errors).to match_array(
+          [
+            t('admin_toolkit.pct_cost.invalid_min',
+              index: pct_cost_b.index,
+              new_max: 5001,
+              old_max: 5000)
+          ]
+        )
       end
     end
   end

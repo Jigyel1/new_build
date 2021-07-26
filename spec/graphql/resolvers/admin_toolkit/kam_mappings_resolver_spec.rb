@@ -19,9 +19,7 @@ RSpec.describe Resolvers::AdminToolkit::KamMappingsResolver do
         kam_mappings, errors = paginated_collection(:adminToolkitKamMappings, query, current_user: super_user)
         expect(errors).to be_nil
         expect(kam_mappings.pluck(:id)).to match_array(
-          [
-            kam_mapping.id, kam_mapping_b.id, kam_mapping_c.id
-          ]
+          [kam_mapping.id, kam_mapping_b.id, kam_mapping_c.id]
         )
       end
     end
@@ -51,8 +49,9 @@ RSpec.describe Resolvers::AdminToolkit::KamMappingsResolver do
     context 'with search queries' do
       context 'when queried by kam' do
         it 'fetches records matching the query' do
-          kam_mappings, errors = paginated_collection(:adminToolkitKamMappings, query(query: 'nis ant'),
-                                                      current_user: super_user)
+          kam_mappings, errors = paginated_collection(
+            :adminToolkitKamMappings, query(query: 'nis ant'), current_user: super_user
+          )
           expect(errors).to be_nil
           expect(kam_mappings.pluck(:id)).to eq([kam_mapping.id])
         end
@@ -60,8 +59,9 @@ RSpec.describe Resolvers::AdminToolkit::KamMappingsResolver do
 
       context 'when queried by investor id' do
         it 'fetches records matching the query' do
-          kam_mappings, errors = paginated_collection(:adminToolkitKamMappings, query(query: 'A87'),
-                                                      current_user: super_user)
+          kam_mappings, errors = paginated_collection(
+            :adminToolkitKamMappings, query(query: 'A87'), current_user: super_user
+          )
           expect(errors).to be_nil
           expect(kam_mappings.pluck(:id)).to match_array([kam_mapping.id, kam_mapping_b.id])
         end

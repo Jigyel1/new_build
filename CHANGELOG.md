@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Seed competitions, footprints, labels & PCTs.
 ```ruby
 rails db:setup_prod
+rails import:penetrations
 ```
 
 ## [0.1.0] - 2021-05-03

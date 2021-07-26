@@ -4,12 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Activity, type: :model do
   let_it_be(:kam) { create(:user, :kam) }
-  subject(:activity) do
-    create(:activity,
-           owner: create(:user, :kam),
-           recipient: kam,
-           trackable: kam)
-  end
+  subject(:activity) { create(:activity, owner: create(:user, :kam), recipient: kam, trackable: kam) }
 
   describe 'associations' do
     it { is_expected.to belong_to(:owner).class_name('Telco::Uam::User') }

@@ -9,7 +9,7 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
     context 'for admins' do
       let_it_be(:super_user) { create(:user, :super_user) }
 
-      it 'returns all footprint values' do
+      it 'returns the project cost' do
         response, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(response.adminToolkitProjectCost).to have_attributes(arpu: '50.0', standard: '10500.0')
