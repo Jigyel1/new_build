@@ -5,6 +5,7 @@ module AdminToolkit
     belongs_to :footprint_building
     belongs_to :footprint_type
 
+    # TODO: Rename this to project category
     enum project_type: {
       standard: 'Standard',
       complex: 'Complex',

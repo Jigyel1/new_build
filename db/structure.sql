@@ -680,6 +680,30 @@ CREATE TABLE public.profiles (
 
 
 --
+-- Name: projects; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name character varying,
+    external_id character varying,
+    project_nr character varying,
+    type character varying,
+    category character varying,
+    landlord character varying,
+    assignee_id uuid NOT NULL,
+    construction_type character varying,
+    move_in_from date,
+    move_in_till date,
+    lot_number character varying,
+    buildings integer,
+    apartments integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1010,6 +1034,14 @@ ALTER TABLE ONLY public.profiles
 
 
 --
+-- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1236,6 +1268,13 @@ CREATE INDEX index_profiles_on_firstname_and_lastname ON public.profiles USING b
 --
 
 CREATE INDEX index_profiles_on_user_id ON public.profiles USING btree (user_id);
+
+
+--
+-- Name: index_projects_on_assignee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_assignee_id ON public.projects USING btree (assignee_id);
 
 
 --
@@ -1481,6 +1520,14 @@ ALTER TABLE ONLY public.profiles
 
 
 --
+-- Name: projects fk_rails_ef70228550; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_ef70228550 FOREIGN KEY (assignee_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -1528,6 +1575,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210717131742'),
 ('20210719104513'),
 ('20210719124603'),
-('20210722055733');
+('20210722055733'),
+('20210727111136');
 
 
