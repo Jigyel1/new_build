@@ -22,7 +22,7 @@ RSpec.describe Mutations::AdminToolkit::DeleteKamMapping do
       it 'forbids action' do
         response, errors = formatted_response(query, current_user: kam, key: :deleteKamMapping)
         expect(response.kamMapping).to be_nil
-        expect(errors).to match_array(['Not Authorized'])
+        expect(errors).to eq(['Not Authorized'])
       end
     end
   end

@@ -22,7 +22,7 @@ module AdminToolkit
     def validate!
       return if attributes[:kam_id].blank? || User.find(attributes[:kam_id]).kam?
 
-      raise t('admin_toolkit.kam_mapping.invalid_kam')
+      raise t('admin_toolkit.invalid_kam')
     end
 
     def activity_params(activity_id)

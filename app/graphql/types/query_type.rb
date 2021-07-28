@@ -66,5 +66,10 @@ module Types
           resolver: Resolvers::AdminToolkit::KamMappingsResolver,
           connection: true,
           preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(:admin_toolkit_kam_regions,
+          resolver: Resolvers::AdminToolkit::KamRegionsResolver,
+          connection: true,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
   end
 end

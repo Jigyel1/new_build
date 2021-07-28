@@ -548,6 +548,19 @@ CREATE TABLE public.admin_toolkit_kam_mappings (
 
 
 --
+-- Name: admin_toolkit_kam_regions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_kam_regions (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    kam_id uuid,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: admin_toolkit_label_groups; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -610,12 +623,12 @@ CREATE TABLE public.admin_toolkit_penetrations (
     zip character varying NOT NULL,
     city character varying NOT NULL,
     rate double precision NOT NULL,
-    competition character varying NOT NULL,
-    kam_region character varying NOT NULL,
     hfc_footprint boolean NOT NULL,
     type character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    kam_region_id uuid,
+    competition_id uuid
 );
 
 
@@ -640,6 +653,19 @@ CREATE TABLE public.admin_toolkit_project_costs (
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: kam_regions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.kam_regions (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    kam_id uuid NOT NULL,
+    name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -676,6 +702,30 @@ CREATE TABLE public.profiles (
     updated_at timestamp(6) without time zone NOT NULL,
     log_data jsonb,
     avatar_url character varying
+);
+
+
+--
+-- Name: projects; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name character varying,
+    external_id character varying,
+    project_nr character varying,
+    type character varying,
+    category character varying,
+    landlord character varying,
+    assignee_id uuid NOT NULL,
+    construction_type character varying,
+    move_in_from date,
+    move_in_till date,
+    lot_number character varying,
+    buildings integer,
+    apartments integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -938,6 +988,14 @@ ALTER TABLE ONLY public.admin_toolkit_kam_mappings
 
 
 --
+-- Name: admin_toolkit_kam_regions admin_toolkit_kam_regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_kam_regions
+    ADD CONSTRAINT admin_toolkit_kam_regions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: admin_toolkit_label_groups admin_toolkit_label_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -994,6 +1052,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: kam_regions kam_regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kam_regions
+    ADD CONSTRAINT kam_regions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: permissions permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1007,6 +1073,14 @@ ALTER TABLE ONLY public.permissions
 
 ALTER TABLE ONLY public.profiles
     ADD CONSTRAINT profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
 
 
 --
@@ -1176,6 +1250,20 @@ CREATE INDEX index_admin_toolkit_kam_mappings_on_kam_id ON public.admin_toolkit_
 
 
 --
+-- Name: index_admin_toolkit_kam_regions_on_kam_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_kam_regions_on_kam_id ON public.admin_toolkit_kam_regions USING btree (kam_id);
+
+
+--
+-- Name: index_admin_toolkit_kam_regions_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_kam_regions_on_name ON public.admin_toolkit_kam_regions USING btree (name);
+
+
+--
 -- Name: index_admin_toolkit_pct_costs_on_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1204,10 +1292,38 @@ CREATE INDEX index_admin_toolkit_pct_values_on_pct_month_id ON public.admin_tool
 
 
 --
+-- Name: index_admin_toolkit_penetrations_on_competition_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_penetrations_on_competition_id ON public.admin_toolkit_penetrations USING btree (competition_id);
+
+
+--
+-- Name: index_admin_toolkit_penetrations_on_kam_region_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_penetrations_on_kam_region_id ON public.admin_toolkit_penetrations USING btree (kam_region_id);
+
+
+--
 -- Name: index_admin_toolkit_penetrations_on_zip; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_admin_toolkit_penetrations_on_zip ON public.admin_toolkit_penetrations USING btree (zip);
+
+
+--
+-- Name: index_kam_regions_on_kam_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_kam_regions_on_kam_id ON public.kam_regions USING btree (kam_id);
+
+
+--
+-- Name: index_kam_regions_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_kam_regions_on_name ON public.kam_regions USING btree (name);
 
 
 --
@@ -1236,6 +1352,13 @@ CREATE INDEX index_profiles_on_firstname_and_lastname ON public.profiles USING b
 --
 
 CREATE INDEX index_profiles_on_user_id ON public.profiles USING btree (user_id);
+
+
+--
+-- Name: index_projects_on_assignee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_assignee_id ON public.projects USING btree (assignee_id);
 
 
 --
@@ -1409,6 +1532,14 @@ ALTER TABLE ONLY public.admin_toolkit_footprint_values
 
 
 --
+-- Name: kam_regions fk_rails_24e2b86010; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kam_regions
+    ADD CONSTRAINT fk_rails_24e2b86010 FOREIGN KEY (kam_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- Name: admin_toolkit_pct_values fk_rails_5300556c7f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1422,6 +1553,14 @@ ALTER TABLE ONLY public.admin_toolkit_pct_values
 
 ALTER TABLE ONLY public.admin_toolkit_pct_values
     ADD CONSTRAINT fk_rails_7272faf5b9 FOREIGN KEY (pct_cost_id) REFERENCES public.admin_toolkit_pct_costs(id);
+
+
+--
+-- Name: admin_toolkit_kam_regions fk_rails_74c804eab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_kam_regions
+    ADD CONSTRAINT fk_rails_74c804eab4 FOREIGN KEY (kam_id) REFERENCES public.telco_uam_users(id);
 
 
 --
@@ -1481,6 +1620,14 @@ ALTER TABLE ONLY public.profiles
 
 
 --
+-- Name: projects fk_rails_ef70228550; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_ef70228550 FOREIGN KEY (assignee_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -1528,6 +1675,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210717131742'),
 ('20210719104513'),
 ('20210719124603'),
-('20210722055733');
+('20210722055733'),
+('20210727111136'),
+('20210728055113'),
+('20210728055509'),
+('20210728055632'),
+('20210728080555');
 
 

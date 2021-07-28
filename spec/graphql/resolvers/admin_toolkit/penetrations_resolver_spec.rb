@@ -4,15 +4,26 @@ require 'rails_helper'
 
 RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
   let_it_be(:super_user) { create(:user, :super_user) }
-  let_it_be(:penetration) { create(:admin_toolkit_penetration, :hfc_footprint, city: 'Chêne-Bougeries') }
-  let_it_be(:penetration_b) { create(:admin_toolkit_penetration, :hfc_footprint, :land, city: 'Le Grand-Saconnex') }
+  let_it_be(:competition) { create(:admin_toolkit_competition) }
+  let_it_be(:competition_b) { create(:admin_toolkit_competition, name: 'FTTH SVN') }
+  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
+  let_it_be(:kam_region_b) { create(:admin_toolkit_kam_region, name: 'Ticino') }
+
+  let_it_be(:penetration) do
+    create(
+    :admin_toolkit_penetration, :hfc_footprint, city: 'Chêne-Bougeries', kam_region: kam_region, competition: competition_b)
+  end
+
+  let_it_be(:penetration_b) do
+    create(:admin_toolkit_penetration, :hfc_footprint, :land, city: 'Le Grand-Saconnex', kam_region: kam_region, competition: competition)
+  end
 
   let_it_be(:penetration_c) do
-    create(:admin_toolkit_penetration, :agglo, :f_fast, city: 'Meinier', kam_region: 'Ticino')
+    create(:admin_toolkit_penetration, :agglo, city: 'Meinier', kam_region: kam_region_b, competition: competition_b)
   end
 
   let_it_be(:penetration_d) do
-    create(:admin_toolkit_penetration, :med_city, :vdsl, city: 'Troinex', kam_region: 'Ticino')
+    create(:admin_toolkit_penetration, :med_city, city: 'Troinex', kam_region: kam_region_b, competition: competition)
   end
 
   describe '.resolve' do
@@ -48,12 +59,12 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
     end
 
     context 'with competitions filter' do
-      let(:filters) { { competitions: ['FTTH Swisscom', 'VDSL'] } }
+      let(:filters) { { competitions: ['FTTH SVN'] } }
 
       it 'fetches records matching filter' do
         penetrations, errors = paginated_collection(:adminToolkitPenetrations, query(filters), current_user: super_user)
         expect(errors).to be_nil
-        expect(penetrations.pluck(:id)).to contain_exactly(penetration.id, penetration_b.id, penetration_d.id)
+        expect(penetrations.pluck(:id)).to contain_exactly(penetration.id, penetration_c.id)
       end
     end
 
@@ -94,7 +105,7 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
         adminToolkitPenetrations#{query_string(args)} {
           totalCount
           edges {
-            node { id zip city rate competition kamRegion hfcFootprint type }
+            node { id zip city rate competition { name } hfcFootprint type kamRegion { id kam { name } } }
           }
           pageInfo {
             endCursor

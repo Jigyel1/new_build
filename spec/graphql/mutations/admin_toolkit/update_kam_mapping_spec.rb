@@ -24,7 +24,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamMapping do
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateKamMapping)
         expect(response.kamMapping).to be_nil
-        expect(errors).to match_array(["Investor #{t('errors.messages.blank')}"])
+        expect(errors).to eq(["Investor #{t('errors.messages.blank')}"])
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamMapping do
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateKamMapping)
         expect(response.kamMapping).to be_nil
-        expect(errors).to match_array([t('admin_toolkit.kam_mapping.invalid_kam')])
+        expect(errors).to eq([t('admin_toolkit.invalid_kam')])
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamMapping do
       it 'forbids action' do
         response, errors = formatted_response(query(params), current_user: kam, key: :updateKamMapping)
         expect(response.kamMapping).to be_nil
-        expect(errors).to match_array(['Not Authorized'])
+        expect(errors).to eq(['Not Authorized'])
       end
     end
   end

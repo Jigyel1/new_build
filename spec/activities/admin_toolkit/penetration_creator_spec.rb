@@ -4,6 +4,8 @@ require 'rails_helper'
 
 describe AdminToolkit::PenetrationCreator do
   let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:kam_region) { create(:admin_toolkit_kam_region, name: 'Ost ZH') }
+  let_it_be(:competition) { create(:admin_toolkit_competition) }
 
   let_it_be(:params) do
     {
@@ -11,9 +13,9 @@ describe AdminToolkit::PenetrationCreator do
       city: 'Jouxtens-Mézery',
       rate: 77,
       type: 'top_city',
-      kam_region: 'Ost ZH',
-      competition: 'FTTH Swisscom',
-      hfc_footprint: false
+      hfc_footprint: false,
+      kam_region_id: kam_region.id,
+      competition_id: competition.id
     }
   end
 

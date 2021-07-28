@@ -26,7 +26,7 @@ RSpec.describe Mutations::AdminToolkit::CreateKamMapping do
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createKamMapping)
         expect(response.kamMapping).to be_nil
-        expect(errors).to match_array([t('admin_toolkit.kam_mapping.invalid_kam')])
+        expect(errors).to match_array([t('admin_toolkit.invalid_kam')])
       end
     end
 
@@ -37,7 +37,7 @@ RSpec.describe Mutations::AdminToolkit::CreateKamMapping do
       it 'forbids action' do
         response, errors = formatted_response(query(params), current_user: kam, key: :createKamMapping)
         expect(response.kamMapping).to be_nil
-        expect(errors).to match_array(['Not Authorized'])
+        expect(errors).to eq(['Not Authorized'])
       end
     end
   end

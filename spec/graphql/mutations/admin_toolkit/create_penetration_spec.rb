@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Mutations::AdminToolkit::CreatePenetration do
   let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:competition) { create(:admin_toolkit_competition) }
+  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
 
   describe '.resolve' do
     context 'with valid params' do
@@ -16,11 +18,12 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
           zip: '8602',
           city: 'Wangen-Brüttisellen',
           rate: '19.22',
-          kamRegion: 'Ost Agglomeration Winterthur',
           type: 'land',
-          competition: 'ftth_swisscom',
           hfcFootprint: false
         )
+
+        expect(response.penetration.kamRegion.name).to eq(kam_region.name)
+        expect(response.penetration.competition.name).to eq(competition.name)
       end
     end
 
@@ -41,7 +44,7 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
       it 'forbids action' do
         response, errors = formatted_response(query(params), current_user: kam, key: :createPenetration)
         expect(response.penetration).to be_nil
-        expect(errors).to match_array(['Not Authorized'])
+        expect(errors).to eq(['Not Authorized'])
       end
     end
   end
@@ -55,14 +58,14 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
               zip: "#{args[:zip]}"
               city: "Wangen-Brüttisellen"
               rate: "19.22"
-              kamRegion: "Ost Agglomeration Winterthur"
+              kamRegionId: "#{kam_region.id}"
               type: "Land"
-              competition: "FTTH Swisscom"
+              competitionId: "#{competition.id}"
               hfcFootprint: false
             }
           }
         )
-        { penetration { id zip city rate competition kamRegion hfcFootprint type } }
+        { penetration { id zip city rate competition { name } hfcFootprint type kamRegion { name kam { name }} } }
       }
     GQL
   end
