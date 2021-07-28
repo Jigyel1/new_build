@@ -57,6 +57,8 @@ module Types
           connection: true,
           preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
+    field :penetration_types, resolver: Resolvers::AdminToolkit::PenetrationTypesResolver
+
     field(:admin_toolkit_competitions,
           resolver: Resolvers::AdminToolkit::CompetitionsResolver,
           connection: true,

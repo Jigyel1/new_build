@@ -25,6 +25,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamRegions do
 
     context 'with blank kam id' do
       before { kam_region_b.update_column(:kam_id, kam.id) }
+
       let!(:params) { { kam_id: nil } }
 
       it 'un assigns the KAM from that region' do

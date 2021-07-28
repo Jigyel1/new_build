@@ -11,11 +11,20 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
 
   let_it_be(:penetration) do
     create(
-    :admin_toolkit_penetration, :hfc_footprint, city: 'Chêne-Bougeries', kam_region: kam_region, competition: competition_b)
+      :admin_toolkit_penetration,
+      :hfc_footprint,
+      city: 'Chêne-Bougeries',
+      kam_region: kam_region,
+      competition: competition_b
+    )
   end
 
   let_it_be(:penetration_b) do
-    create(:admin_toolkit_penetration, :hfc_footprint, :land, city: 'Le Grand-Saconnex', kam_region: kam_region, competition: competition)
+    create(:admin_toolkit_penetration,
+           :hfc_footprint, :land,
+           city: 'Le Grand-Saconnex',
+           kam_region: kam_region,
+           competition: competition)
   end
 
   let_it_be(:penetration_c) do

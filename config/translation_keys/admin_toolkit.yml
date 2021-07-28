@@ -11,7 +11,7 @@ admin_toolkit:
       - owner_email
       - parameters
       - trackable_id
-
+      
 
   owner:
     competition_created:
@@ -29,6 +29,10 @@ admin_toolkit:
       - parameters
       - trackable_id
     kam_mapping_deleted:
+      - parameters
+      - trackable_id
+
+    kam_region_updated:
       - parameters
       - trackable_id
 
@@ -83,6 +87,11 @@ admin_toolkit:
       - parameters
       - trackable_id
     kam_mapping_deleted:
+      - owner_email
+      - parameters
+      - trackable_id
+
+    kam_region_updated:
       - owner_email
       - parameters
       - trackable_id

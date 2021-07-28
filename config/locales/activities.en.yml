@@ -28,6 +28,11 @@ en:
         owner: 'You have deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
         recipient: '%{owner_email} deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
         others: '%{owner_email} deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
+
+      kam_region_updated:
+        owner: 'You have updated KAM region having ID %{trackable_id} with %{parameters}'
+        others: '%{owner_email} updated KAM region having ID %{trackable_id} with %{parameters}'
+
       penetration_created:
         owner: 'You have added an entry to the penetration rates with values %{parameters}'
         others: '%{owner_email} added an entry to the penetration rates with values %{parameters}'

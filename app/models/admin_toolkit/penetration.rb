@@ -11,7 +11,7 @@ module AdminToolkit
     validates :hfc_footprint, inclusion: { in: [true, false] }
     validates :rate, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
     validates :zip, uniqueness: { case_sensitive: false }
-    
+
     enum type: {
       top_city: 'Top City',
       land: 'Land',

@@ -16,6 +16,9 @@ admin_toolkit/kam_mapping:
   - kam_mapping_updated
   - kam_mapping_deleted
 
+admin_toolkit/kam_region:
+  - kam_region_updated
+
 admin_toolkit/penetration:
   - penetration_created
   - penetration_updated
@@ -29,7 +32,6 @@ admin_toolkit/footprint_value:
 
 admin_toolkit/label_group:
   - label_group_updated
-
 
 admin_toolkit/pct_cost:
   - pct_cost_updated

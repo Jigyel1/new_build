@@ -15,7 +15,7 @@ module Resolvers
       end
 
       option(:competitions, type: [String]) do |scope, value|
-        scope.joins(:competition).where(admin_toolkit_competitions: { name: value} )
+        scope.joins(:competition).where(admin_toolkit_competitions: { name: value })
       end
 
       option :query, type: String, with: :apply_search

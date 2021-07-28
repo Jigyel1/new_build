@@ -4,8 +4,9 @@ require 'rails_helper'
 
 RSpec.describe AdminToolkit::Penetration, type: :model do
   describe 'validations' do
-    let(:kam_region) { create(:admin_toolkit_kam_region) }
     subject(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region) }
+
+    let(:kam_region) { create(:admin_toolkit_kam_region) }
 
     it { is_expected.to validate_presence_of(:city) }
     it { is_expected.to validate_presence_of(:zip) }
