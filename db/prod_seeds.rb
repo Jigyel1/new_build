@@ -35,7 +35,7 @@ def create_record(attributes)
   record.save!
 end
 
-%w[pcts footprints label_groups competitions].each do |file|
+%w[pcts footprints label_groups competitions kam_regions].each do |file|
   puts "Loading #{file.camelize}"
   load(Rails.root.join("db/seeds/#{file}.rb"))
 end
