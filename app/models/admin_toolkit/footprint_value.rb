@@ -12,7 +12,10 @@ module AdminToolkit
       irrelevant: 'Irrelevant'
     }
 
-    validates :project_type, presence: true
-    validates :project_type, uniqueness: { scope: %i[footprint_building_id footprint_type_id], case_sensitive: false }
+    validates(
+      :project_type,
+      presence: true,
+      uniqueness: { scope: %i[footprint_building_id footprint_type_id], case_sensitive: false }
+    )
   end
 end
