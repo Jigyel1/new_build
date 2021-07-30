@@ -64,8 +64,8 @@ module Types
           connection: true,
           preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
-    field(:admin_toolkit_kam_mappings,
-          resolver: Resolvers::AdminToolkit::KamMappingsResolver,
+    field(:admin_toolkit_kam_investors,
+          resolver: Resolvers::AdminToolkit::KamInvestorsResolver,
           connection: true,
           preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 

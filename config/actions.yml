@@ -11,10 +11,10 @@ admin_toolkit/competition:
   - competition_updated
   - competition_deleted
 
-admin_toolkit/kam_mapping:
-  - kam_mapping_created
-  - kam_mapping_updated
-  - kam_mapping_deleted
+admin_toolkit/kam_investor:
+  - kam_investor_created
+  - kam_investor_updated
+  - kam_investor_deleted
 
 admin_toolkit/kam_region:
   - kam_region_updated

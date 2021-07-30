@@ -7,7 +7,7 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationTypesResolver do
     it 'returns a list of valid penetration types' do
       response, errors = formatted_response(query)
       expect(errors).to be_nil
-      expect(response.penetrationTypes).to match_array(AdminToolkit::Penetration.types.values)
+      expect(response.penetrationTypes).to match_array(AdminToolkit::Penetration.types)
     end
   end
 

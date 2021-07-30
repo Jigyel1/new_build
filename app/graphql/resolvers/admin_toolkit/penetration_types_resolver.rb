@@ -3,9 +3,9 @@
 module Resolvers
   module AdminToolkit
     class PenetrationTypesResolver < SearchObjectBase
-      scope { ::AdminToolkit::Penetration.types.values }
+      scope { ::AdminToolkit::Penetration.types }
 
-      type [String], null: false
+      type [GraphQL::Types::JSON], null: false
     end
   end
 end

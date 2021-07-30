@@ -39,8 +39,8 @@ module Types
     field :update_competition, mutation: Mutations::AdminToolkit::UpdateCompetition
     field :delete_competition, mutation: Mutations::AdminToolkit::DeleteCompetition
 
-    field :create_kam_mapping, mutation: Mutations::AdminToolkit::CreateKamMapping
-    field :update_kam_mapping, mutation: Mutations::AdminToolkit::UpdateKamMapping
-    field :delete_kam_mapping, mutation: Mutations::AdminToolkit::DeleteKamMapping
+    field :create_kam_investor, mutation: Mutations::AdminToolkit::CreateKamInvestor
+    field :update_kam_investor, mutation: Mutations::AdminToolkit::UpdateKamInvestor
+    field :delete_kam_investor, mutation: Mutations::AdminToolkit::DeleteKamInvestor
   end
 end

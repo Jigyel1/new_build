@@ -16,15 +16,15 @@ en:
       competition_deleted:
         owner: 'You have deleted competition having ID %{trackable_id} and attributes %{parameters}'
         others: '%{owner_email} deleted competition having ID %{trackable_id} and attributes %{parameters}'
-      kam_mapping_created:
+      kam_investor_created:
         owner: 'You have mapped KAM %{recipient_email} to investor with id %{investor_id}'
         recipient: '%{owner_email} mapped you to investor with id %{investor_id}'
         others: '%{owner_email} mapped KAM %{recipient_email} to investor with id %{investor_id}'
-      kam_mapping_updated:
+      kam_investor_updated:
         owner: 'You have updated KAM mapping having ID %{trackable_id} with %{parameters}'
         recipient: '%{owner_email} updated KAM mapping having ID %{trackable_id} with %{parameters}'
         others: '%{owner_email} updated KAM mapping having ID %{trackable_id} with %{parameters}'
-      kam_mapping_deleted:
+      kam_investor_deleted:
         owner: 'You have deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
         recipient: '%{owner_email} deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
         others: '%{owner_email} deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'

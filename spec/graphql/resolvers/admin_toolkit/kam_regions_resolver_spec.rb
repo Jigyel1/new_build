@@ -15,7 +15,7 @@ RSpec.describe Resolvers::AdminToolkit::KamRegionsResolver do
 
   describe '.resolve' do
     context 'for admins' do
-      it 'returns all kam mappings' do
+      it 'returns all kam investors' do
         kam_regions, errors = paginated_collection(:adminToolkitKamRegions, query, current_user: super_user)
         expect(errors).to be_nil
         expect(kam_regions.pluck(:id)).to match_array(

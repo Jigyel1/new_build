@@ -2,7 +2,7 @@
 
 module Mutations
   module Concerns
-    module KamMapping
+    module KamInvestor
       extend ActiveSupport::Concern
 
       included do

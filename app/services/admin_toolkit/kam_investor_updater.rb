@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 module AdminToolkit
-  class KamMappingUpdater < BaseService
-    include KamMappingFinder
+  class KamInvestorUpdater < BaseService
+    include KamInvestorFinder
     set_callback :call, :before, :validate!
 
     def call
-      authorize! kam_mapping, to: :update?, with: AdminToolkitPolicy
+      authorize! kam_investor, to: :update?, with: AdminToolkitPolicy
 
       super do
         with_tracking(activity_id = SecureRandom.uuid) do
-          kam_mapping.update!(attributes)
+          kam_investor.update!(attributes)
           Activities::ActivityCreator.new(activity_params(activity_id)).call
         end
       end
@@ -28,10 +28,10 @@ module AdminToolkit
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :kam_mapping_updated,
+        action: :kam_investor_updated,
         owner: current_user,
-        recipient: kam_mapping.kam,
-        trackable: kam_mapping,
+        recipient: kam_investor.kam,
+        trackable: kam_investor,
         parameters: attributes.except(:id)
       }
     end

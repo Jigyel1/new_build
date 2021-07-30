@@ -2,10 +2,10 @@
 
 module Resolvers
   module AdminToolkit
-    class KamMappingsResolver < SearchObjectBase
-      scope { ::AdminToolkit::KamMapping.all }
+    class KamInvestorsResolver < SearchObjectBase
+      scope { ::AdminToolkit::KamInvestor.all }
 
-      type Types::AdminToolkit::KamMappingConnectionType, null: false
+      type Types::AdminToolkit::KamInvestorConnectionType, null: false
 
       option(:kam_ids, type: [String]) { |scope, value| scope.where(kam_id: value) }
       option :query, type: String, with: :apply_search

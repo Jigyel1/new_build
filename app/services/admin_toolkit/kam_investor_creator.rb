@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 module AdminToolkit
-  class KamMappingCreator < BaseService
-    attr_reader :kam_mapping
+  class KamInvestorCreator < BaseService
+    attr_reader :kam_investor
 
     set_callback :call, :before, :validate!
 
     def call
       super do
-        authorize! ::AdminToolkit::KamMapping, to: :create?, with: AdminToolkitPolicy
+        authorize! ::AdminToolkit::KamInvestor, to: :create?, with: AdminToolkitPolicy
 
         with_tracking(activity_id = SecureRandom.uuid) do
-          @kam_mapping = ::AdminToolkit::KamMapping.create!(attributes)
+          @kam_investor = ::AdminToolkit::KamInvestor.create!(attributes)
           Activities::ActivityCreator.new(activity_params(activity_id)).call
         end
       end
@@ -29,10 +29,10 @@ module AdminToolkit
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :kam_mapping_created,
+        action: :kam_investor_created,
         owner: current_user,
-        recipient: kam_mapping.kam,
-        trackable: kam_mapping,
+        recipient: kam_investor.kam,
+        trackable: kam_investor,
         parameters: attributes
       }
     end

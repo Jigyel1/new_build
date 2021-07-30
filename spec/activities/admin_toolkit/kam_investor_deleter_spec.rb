@@ -2,16 +2,13 @@
 
 require 'rails_helper'
 
-describe AdminToolkit::KamMappingUpdater do
+describe AdminToolkit::KamInvestorDeleter do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:kam_b) { create(:user, :kam) }
+  let_it_be(:kam_investor) { create(:admin_toolkit_kam_investor, kam: kam) }
+  let_it_be(:params) { { id: kam_investor.id } }
 
-  let_it_be(:investor_id) { '8741a6d80de7f8d70c1a027c1fa1eab2' }
-  let_it_be(:kam_mapping) { create(:admin_toolkit_kam_mapping, kam: kam) }
-  let_it_be(:params) { { id: kam_mapping.id, kam_id: kam_b.id, investor_id: investor_id } }
-
-  before_all { ::AdminToolkit::KamMappingUpdater.new(current_user: super_user, attributes: params).call }
+  before_all { ::AdminToolkit::KamInvestorDeleter.new(current_user: super_user, attributes: params).call }
 
   describe '.activities' do
     context 'as an owner' do
@@ -20,23 +17,23 @@ describe AdminToolkit::KamMappingUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.kam_mapping_updated.owner',
-            parameters: params.except(:id).stringify_keys,
-            trackable_id: kam_mapping.id)
+          t('activities.admin_toolkit.kam_investor_deleted.owner',
+            parameters: kam_investor.attributes.slice('kam_id', 'investor_id').stringify_keys,
+            trackable_id: kam_investor.id)
         )
       end
     end
 
     context 'as an recipient' do
       it 'returns activity text in terms of a second person' do
-        activities, errors = paginated_collection(:activities, activities_query, current_user: kam_b)
+        activities, errors = paginated_collection(:activities, activities_query, current_user: kam)
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.kam_mapping_updated.recipient',
-            parameters: params.except(:id).stringify_keys,
+          t('activities.admin_toolkit.kam_investor_deleted.recipient',
+            parameters: kam_investor.attributes.slice('kam_id', 'investor_id').stringify_keys,
             owner_email: super_user.email,
-            trackable_id: kam_mapping.id)
+            trackable_id: kam_investor.id)
         )
       end
     end
@@ -49,10 +46,10 @@ describe AdminToolkit::KamMappingUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.kam_mapping_updated.others',
-            parameters: params.except(:id).stringify_keys,
+          t('activities.admin_toolkit.kam_investor_deleted.others',
+            parameters: kam_investor.attributes.slice('kam_id', 'investor_id').stringify_keys,
             owner_email: super_user.email,
-            trackable_id: kam_mapping.id)
+            trackable_id: kam_investor.id)
         )
       end
     end

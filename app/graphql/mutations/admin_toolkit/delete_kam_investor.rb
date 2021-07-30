@@ -2,12 +2,12 @@
 
 module Mutations
   module AdminToolkit
-    class DeleteKamMapping < BaseMutation
+    class DeleteKamInvestor < BaseMutation
       argument :id, ID, required: true
       field :status, Boolean, null: true
 
       def resolve(id:)
-        ::AdminToolkit::KamMappingDeleter.new(current_user: current_user, attributes: { id: id }).call
+        ::AdminToolkit::KamInvestorDeleter.new(current_user: current_user, attributes: { id: id }).call
         { status: true }
       end
     end
