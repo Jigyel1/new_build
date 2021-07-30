@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Users::StatusUpdater do
-  include ActivitiesSpecHelper
-
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: [:update_status] }) }
   let_it_be(:team_standard) { create(:user, :team_standard) }
 
@@ -18,7 +16,7 @@ RSpec.describe Users::StatusUpdater do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.status_updated.owner',
+            'activities.telco.status_updated.owner',
             recipient_email: team_standard.email,
             status_text: t('activities.deactivated')
           )
@@ -43,7 +41,7 @@ RSpec.describe Users::StatusUpdater do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.status_updated.recipient',
+            'activities.telco.status_updated.recipient',
             owner_email: super_user.email,
             status_text: t('activities.deactivated')
           )
@@ -60,7 +58,7 @@ RSpec.describe Users::StatusUpdater do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.status_updated.others',
+            'activities.telco.status_updated.others',
             owner_email: super_user.email,
             recipient_email: team_standard.email,
             status_text: t('activities.deactivated')
@@ -82,21 +80,6 @@ RSpec.describe Users::StatusUpdater do
           }
         )
         { user { id active } }
-      }
-    GQL
-  end
-
-  def activities_query
-    <<~GQL
-      query {
-        activities {
-          totalCount
-          edges {
-            node {
-              id createdAt displayText
-            }
-          }
-        }
       }
     GQL
   end

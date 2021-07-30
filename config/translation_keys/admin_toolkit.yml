@@ -1,0 +1,135 @@
+admin_toolkit:
+  recipient:
+    kam_investor_created:
+      - owner_email
+      - investor_id
+    kam_investor_updated:
+      - owner_email
+      - parameters
+      - trackable_id
+    kam_investor_deleted:
+      - owner_email
+      - parameters
+      - trackable_id
+      
+
+  owner:
+    competition_created:
+      - parameters
+    competition_updated:
+      - trackable_id
+      - parameters
+    competition_deleted:
+      - trackable_id
+      - parameters
+    kam_investor_created:
+      - recipient_email
+      - investor_id
+    kam_investor_updated:
+      - parameters
+      - trackable_id
+    kam_investor_deleted:
+      - parameters
+      - trackable_id
+
+    kam_region_updated:
+      - parameters
+      - trackable_id
+
+    penetration_created:
+      - parameters
+    penetration_updated:
+      - parameters
+      - trackable_id
+    penetration_deleted:
+      - parameters
+      - trackable_id
+    footprint_building_updated:
+      - parameters
+      - trackable_id
+    footprint_value_updated:
+      - parameters
+    label_group_updated:
+      - trackable_name
+      - parameters
+
+    pct_cost_updated:
+      - parameters
+      - trackable_id
+    pct_month_updated:
+      - parameters
+      - trackable_id
+    pct_value_updated:
+      - parameters
+    project_cost_updated:
+      - parameters
+
+
+  others:
+    competition_created:
+      - owner_email
+      - parameters
+    competition_updated:
+      - trackable_id
+      - owner_email
+      - parameters
+    competition_deleted:
+      - trackable_id
+      - owner_email
+      - parameters
+
+    kam_investor_created:
+      - owner_email
+      - recipient_email
+      - investor_id
+    kam_investor_updated:
+      - owner_email
+      - parameters
+      - trackable_id
+    kam_investor_deleted:
+      - owner_email
+      - parameters
+      - trackable_id
+
+    kam_region_updated:
+      - owner_email
+      - parameters
+      - trackable_id
+
+    penetration_created:
+      - owner_email
+      - parameters
+    penetration_updated:
+      - owner_email
+      - parameters
+      - trackable_id
+    penetration_deleted:
+      - owner_email
+      - parameters
+      - trackable_id
+    footprint_building_updated:
+      - owner_email
+      - parameters
+      - trackable_id
+    footprint_value_updated:
+      - owner_email
+      - parameters
+    label_group_updated:
+      - owner_email
+      - trackable_name
+      - parameters
+
+    pct_cost_updated:
+      - owner_email
+      - parameters
+      - trackable_id
+    pct_month_updated:
+      - owner_email
+      - parameters
+      - trackable_id
+    pct_value_updated:
+      - owner_email
+      - parameters
+    project_cost_updated:
+      - owner_email
+      - parameters

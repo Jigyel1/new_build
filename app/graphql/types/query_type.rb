@@ -35,5 +35,43 @@ module Types
 
     field :activities, resolver: Resolvers::ActivitiesResolver
     field :activity_actions, resolver: Resolvers::ActivityActionsResolver
+
+    field(:admin_toolkit_footprints,
+          resolver: Resolvers::AdminToolkit::FootprintsResolver,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(:admin_toolkit_pcts,
+          resolver: Resolvers::AdminToolkit::PctsResolver,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(:admin_toolkit_labels,
+          resolver: Resolvers::AdminToolkit::LabelsResolver,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(:admin_toolkit_project_cost,
+          resolver: Resolvers::AdminToolkit::ProjectCostResolver,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(:admin_toolkit_penetrations,
+          resolver: Resolvers::AdminToolkit::PenetrationsResolver,
+          connection: true,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field :penetration_types, resolver: Resolvers::AdminToolkit::PenetrationTypesResolver
+
+    field(:admin_toolkit_competitions,
+          resolver: Resolvers::AdminToolkit::CompetitionsResolver,
+          connection: true,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(:admin_toolkit_kam_investors,
+          resolver: Resolvers::AdminToolkit::KamInvestorsResolver,
+          connection: true,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(:admin_toolkit_kam_regions,
+          resolver: Resolvers::AdminToolkit::KamRegionsResolver,
+          connection: true,
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
   end
 end

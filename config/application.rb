@@ -16,6 +16,7 @@ require 'action_view/railtie'
 require 'action_cable/engine'
 # For GraphiQL
 require 'sprockets/railtie' if Rails.env.development?
+require_relative '../lib/float'
 
 # require "rails/test_unit/railtie"
 
@@ -39,11 +40,12 @@ module NewBuild
 
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('permissions/*')
+    config.eager_load_paths << Rails.root.join('etl')
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
-    config.lograge.enabled = true
+    config.lograge.enabled = Rails.env.production?
 
     config.default_locale = :de
     config.time_zone = 'Europe/Amsterdam'

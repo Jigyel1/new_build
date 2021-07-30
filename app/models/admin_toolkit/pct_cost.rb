@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+module AdminToolkit
+  class PctCost < ApplicationRecord
+    has_many :pct_values, class_name: 'AdminToolkit::PctValue', dependent: :restrict_with_error
+
+    validates :min, :max, :index, presence: true
+    validates :min, :max, numericality: { greater_than_or_equal_to: 0, only_integer: true }
+    validates :max, numericality: { greater_than_or_equal_to: :min }
+    validates :index, uniqueness: true
+
+    default_scope { order(:index) }
+  end
+end

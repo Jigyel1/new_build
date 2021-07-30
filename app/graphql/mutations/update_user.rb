@@ -3,14 +3,12 @@
 module Mutations
   class UpdateUser < BaseMutation
     class ProfileAttributes < Types::BaseInputObject
-      include CommonAttributes::Profile
-
+      include Concerns::Profile
       argument :id, ID, required: true
     end
 
     class AddressAttributes < Types::BaseInputObject
-      include CommonAttributes::Address
-
+      include Concerns::Address
       argument :id, ID, required: true
     end
 
@@ -26,7 +24,6 @@ module Mutations
     def resolve(attributes:)
       resolver = ::Users::UserUpdater.new(current_user: current_user, attributes: attributes.to_h)
       resolver.call
-
       { user: resolver.user }
     end
   end

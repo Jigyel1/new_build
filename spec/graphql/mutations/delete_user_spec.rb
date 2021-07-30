@@ -45,6 +45,16 @@ RSpec.describe Mutations::DeleteUser do
         expect(errors).to eq(['Not Authorized'])
       end
     end
+
+    context 'when deleting an already discarded user' do
+      before { team_standard.update_column(:discarded_at, Time.zone.now) }
+
+      it 'responds with error' do
+        response, errors = formatted_response(query(id: team_standard.id), current_user: super_user, key: :deleteUser)
+        expect(response.user).to be_nil
+        expect(errors[0]).to include("Couldn't find Telco::Uam::User with 'id'=#{team_standard.id}")
+      end
+    end
   end
 
   def query(args = {})

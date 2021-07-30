@@ -36,7 +36,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.user_reinvited.owner',
+            'activities.telco.user_reinvited.owner',
             recipient_email: invitee.email
           )
         )
@@ -44,7 +44,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
         activity = activities.last
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.user_invited.owner',
+            'activities.telco.user_invited.owner',
             recipient_email: invitee.email,
             role: role_name(invitee.role_name)
           )
@@ -70,7 +70,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.user_reinvited.recipient',
+            'activities.telco.user_reinvited.recipient',
             owner_email: super_user.email
           )
         )
@@ -78,7 +78,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
         activity = activities.last
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.user_invited.recipient',
+            'activities.telco.user_invited.recipient',
             owner_email: super_user.email,
             role: role_name(invitee.role_name)
           )
@@ -96,7 +96,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
         activity = activities.first
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.user_reinvited.others',
+            'activities.telco.user_reinvited.others',
             owner_email: super_user.email,
             recipient_email: invitee.email
           )
@@ -104,7 +104,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
         activity = activities.last
         expect(activity[:displayText]).to eq(
           t(
-            'activities.user.user_invited.others',
+            'activities.telco.user_invited.others',
             owner_email: super_user.email,
             recipient_email: invitee.email,
             role: role_name(invitee.role_name)
@@ -112,20 +112,5 @@ RSpec.describe 'User Re-Invitation', type: :request do
         )
       end
     end
-  end
-
-  def activities_query
-    <<~GQL
-      query {
-        activities {
-          totalCount
-          edges {
-            node {
-              id createdAt displayText
-            }
-          }
-        }
-      }
-    GQL
   end
 end

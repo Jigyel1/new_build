@@ -16,24 +16,14 @@ class BaseService
     assign_attributes(attributes)
   end
 
+  # to trigger callbacks set in subclasses, execute the call method as
+  #   def call
+  #     super { 'put your code here' }
+  #   end
+  #
   def call
     run_callbacks :call do
-      process if execute?
+      yield if block_given?
     end
-  end
-
-  def activity_params(activity_id, action, parameters = {})
-    {
-      activity_id: activity_id,
-      action: action,
-      owner: current_user,
-      recipient: user,
-      trackable_type: 'User',
-      parameters: parameters
-    }
-  end
-
-  def execute?
-    true
   end
 end

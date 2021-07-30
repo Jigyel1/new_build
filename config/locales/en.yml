@@ -37,4 +37,16 @@ en:
     unsupported_domain: only users with %{domain} %{domains} can be invited to the portal!
   permission:
     role_only: Permissions can only be set for roles at the moment
-
+  admin_toolkit:
+    invalid_kam: KAM is not valid. Please select from a list of Key Account Managers.
+    pct:
+      invalid_min_month: System is trying to update min month for PCT with header %{header} to %{max_month_new} months which is not valid as it is less than its max month(%{max_month_old})
+    pct_cost:
+      invalid_min: System tried updating min cost for PCT with index "%{index}" to CHF %{new_max} which is
+        not valid as it is less than its max cost (CHF %{old_max}). Please send a value less than %{old_max}.
+    pct_month:
+      invalid_min: System tried updating min month for PCT with index "%{index}" to CHF %{new_max} which is
+        not valid as it is less than its max month (CHF %{old_max}). Please send a value less than %{old_max}.
+    footprint_building:
+      invalid_min: System tried updating min building for Footprint with index "%{index}" to %{new_max} which is
+        not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.

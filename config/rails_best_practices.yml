@@ -37,6 +37,6 @@ UseMultipartAlternativeAsContentTypeOfEmailCheck: { }
 #UseParenthesesInMethodDefCheck: { }
 UseObserverCheck: { }
 UseQueryAttributeCheck: { }
-UseSayWithTimeInMigrationsCheck: { }
+UseSayWithTimeInMigrationsCheck: { ignored_files: ['20210702113018_add_taggings_counter_cache_to_tags.acts_as_taggable_on_engine.rb'] }
 UseScopeAccessCheck: { }
 UseTurboSprocketsRails3Check: { }

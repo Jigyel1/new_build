@@ -2,6 +2,8 @@
 
 module Users
   class UserInviter < BaseService
+    include ActivityHelper
+
     ALLOWED_DOMAINS = Rails.application.config.allowed_domains
     attr_accessor :user
 

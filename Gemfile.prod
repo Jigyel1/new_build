@@ -3,9 +3,9 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.1'
+ruby '3.0.2'
 
-gem 'rails', '~> 6.1.3.2'
+gem 'rails', '~> 6.1.4'
 gem 'pg', '~> 1.1'
 gem 'puma'
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -14,6 +14,7 @@ gem 'multi_json'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'action_policy-graphql'
+gem 'acts-as-taggable-on'
 gem 'apollo_upload_server', '2.0.5'
 gem 'aws-sdk-s3', require: false
 gem 'batch-loader'
@@ -23,6 +24,7 @@ gem 'faraday'
 gem 'graphql', '1.12.10'
 gem 'graphql-batch'
 gem 'graphql-query-resolver'
+gem 'kiba'
 gem 'logidze', '~> 1.1'
 gem 'lograge'
 gem 'premailer-rails'
@@ -36,7 +38,8 @@ gem 'search_object'
 gem 'search_object_graphql'
 gem 'sidekiq'
 gem 'strong_migrations'
+gem 'xsv'
 
 source 'https://gems.selise.tech' do
-  gem 'telco-uam', '0.1.7'
+  gem 'telco-uam', '0.1.8'
 end

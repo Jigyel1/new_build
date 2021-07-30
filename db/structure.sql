@@ -451,7 +451,7 @@ CREATE TABLE public.activities (
     owner_id uuid NOT NULL,
     trackable_type character varying,
     trackable_id uuid,
-    recipient_id uuid NOT NULL,
+    recipient_id uuid,
     action character varying NOT NULL,
     log_data jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -474,6 +474,175 @@ CREATE TABLE public.addresses (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     log_data jsonb
+);
+
+
+--
+-- Name: admin_toolkit_competitions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_competitions (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name character varying NOT NULL,
+    factor double precision NOT NULL,
+    lease_rate numeric NOT NULL,
+    description text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_footprint_buildings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_footprint_buildings (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    min integer NOT NULL,
+    max integer NOT NULL,
+    index integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_footprint_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_footprint_types (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    provider character varying NOT NULL,
+    index integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_footprint_values; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_footprint_values (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    project_type character varying NOT NULL,
+    footprint_building_id uuid NOT NULL,
+    footprint_type_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_kam_investors; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_kam_investors (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    kam_id uuid NOT NULL,
+    investor_id character varying NOT NULL,
+    investor_description text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_kam_regions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_kam_regions (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    kam_id uuid,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_label_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_label_groups (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_pct_costs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_pct_costs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    index integer NOT NULL,
+    min integer NOT NULL,
+    max integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_pct_months; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_pct_months (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    index integer NOT NULL,
+    min integer NOT NULL,
+    max integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_pct_values; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_pct_values (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    status character varying NOT NULL,
+    pct_month_id uuid NOT NULL,
+    pct_cost_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_penetrations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_penetrations (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    zip character varying NOT NULL,
+    city character varying NOT NULL,
+    rate double precision NOT NULL,
+    competition_id uuid NOT NULL,
+    kam_region_id uuid NOT NULL,
+    hfc_footprint boolean NOT NULL,
+    type character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_project_costs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_project_costs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    standard numeric(15,2),
+    arpu numeric(15,2),
+    index integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -543,6 +712,75 @@ CREATE TABLE public.roles (
 CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
+
+
+--
+-- Name: taggings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.taggings (
+    id integer NOT NULL,
+    tag_id integer,
+    taggable_type character varying,
+    taggable_id integer,
+    tagger_type character varying,
+    tagger_id integer,
+    context character varying(128),
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.taggings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.taggings_id_seq OWNED BY public.taggings.id;
+
+
+--
+-- Name: tags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.tags (
+    id integer NOT NULL,
+    name character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    taggings_count integer DEFAULT 0
+);
+
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.tags_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
 
 
 --
@@ -619,6 +857,20 @@ ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAU
 
 
 --
+-- Name: taggings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.taggings ALTER COLUMN id SET DEFAULT nextval('public.taggings_id_seq'::regclass);
+
+
+--
+-- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id_seq'::regclass);
+
+
+--
 -- Name: active_storage_attachments active_storage_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -659,6 +911,102 @@ ALTER TABLE ONLY public.addresses
 
 
 --
+-- Name: admin_toolkit_competitions admin_toolkit_competitions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_competitions
+    ADD CONSTRAINT admin_toolkit_competitions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_footprint_buildings admin_toolkit_footprint_buildings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_buildings
+    ADD CONSTRAINT admin_toolkit_footprint_buildings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_footprint_types admin_toolkit_footprint_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_types
+    ADD CONSTRAINT admin_toolkit_footprint_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_footprint_values admin_toolkit_footprint_values_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_values
+    ADD CONSTRAINT admin_toolkit_footprint_values_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_kam_investors admin_toolkit_kam_investors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_kam_investors
+    ADD CONSTRAINT admin_toolkit_kam_investors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_kam_regions admin_toolkit_kam_regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_kam_regions
+    ADD CONSTRAINT admin_toolkit_kam_regions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_label_groups admin_toolkit_label_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_label_groups
+    ADD CONSTRAINT admin_toolkit_label_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_pct_costs admin_toolkit_pct_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_pct_costs
+    ADD CONSTRAINT admin_toolkit_pct_costs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_pct_months admin_toolkit_pct_months_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_pct_months
+    ADD CONSTRAINT admin_toolkit_pct_months_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_pct_values admin_toolkit_pct_values_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_pct_values
+    ADD CONSTRAINT admin_toolkit_pct_values_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_penetrations admin_toolkit_penetrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_penetrations
+    ADD CONSTRAINT admin_toolkit_penetrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_project_costs admin_toolkit_project_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_project_costs
+    ADD CONSTRAINT admin_toolkit_project_costs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -696,6 +1044,22 @@ ALTER TABLE ONLY public.roles
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: taggings taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.taggings
+    ADD CONSTRAINT taggings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tags
+    ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
 
 
 --
@@ -784,6 +1148,118 @@ CREATE INDEX index_addresses_on_addressable ON public.addresses USING btree (add
 
 
 --
+-- Name: index_admin_toolkit_competitions_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_competitions_on_name ON public.admin_toolkit_competitions USING btree (name);
+
+
+--
+-- Name: index_admin_toolkit_footprint_buildings_on_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_footprint_buildings_on_index ON public.admin_toolkit_footprint_buildings USING btree (index);
+
+
+--
+-- Name: index_admin_toolkit_footprint_types_on_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_footprint_types_on_index ON public.admin_toolkit_footprint_types USING btree (index);
+
+
+--
+-- Name: index_admin_toolkit_footprint_values_on_footprint_building_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_footprint_values_on_footprint_building_id ON public.admin_toolkit_footprint_values USING btree (footprint_building_id);
+
+
+--
+-- Name: index_admin_toolkit_footprint_values_on_footprint_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_footprint_values_on_footprint_type_id ON public.admin_toolkit_footprint_values USING btree (footprint_type_id);
+
+
+--
+-- Name: index_admin_toolkit_kam_investors_on_investor_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_kam_investors_on_investor_id ON public.admin_toolkit_kam_investors USING btree (investor_id);
+
+
+--
+-- Name: index_admin_toolkit_kam_investors_on_kam_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_kam_investors_on_kam_id ON public.admin_toolkit_kam_investors USING btree (kam_id);
+
+
+--
+-- Name: index_admin_toolkit_kam_regions_on_kam_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_kam_regions_on_kam_id ON public.admin_toolkit_kam_regions USING btree (kam_id);
+
+
+--
+-- Name: index_admin_toolkit_kam_regions_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_kam_regions_on_name ON public.admin_toolkit_kam_regions USING btree (name);
+
+
+--
+-- Name: index_admin_toolkit_pct_costs_on_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_pct_costs_on_index ON public.admin_toolkit_pct_costs USING btree (index);
+
+
+--
+-- Name: index_admin_toolkit_pct_months_on_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_pct_months_on_index ON public.admin_toolkit_pct_months USING btree (index);
+
+
+--
+-- Name: index_admin_toolkit_pct_values_on_pct_cost_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_pct_values_on_pct_cost_id ON public.admin_toolkit_pct_values USING btree (pct_cost_id);
+
+
+--
+-- Name: index_admin_toolkit_pct_values_on_pct_month_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_pct_values_on_pct_month_id ON public.admin_toolkit_pct_values USING btree (pct_month_id);
+
+
+--
+-- Name: index_admin_toolkit_penetrations_on_competition_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_penetrations_on_competition_id ON public.admin_toolkit_penetrations USING btree (competition_id);
+
+
+--
+-- Name: index_admin_toolkit_penetrations_on_kam_region_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_penetrations_on_kam_region_id ON public.admin_toolkit_penetrations USING btree (kam_region_id);
+
+
+--
+-- Name: index_admin_toolkit_penetrations_on_zip; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_penetrations_on_zip ON public.admin_toolkit_penetrations USING btree (zip);
+
+
+--
 -- Name: index_permissions_on_accessor; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -816,6 +1292,55 @@ CREATE INDEX index_profiles_on_user_id ON public.profiles USING btree (user_id);
 --
 
 CREATE UNIQUE INDEX index_roles_on_name ON public.roles USING btree (name);
+
+
+--
+-- Name: index_taggings_on_context; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_context ON public.taggings USING btree (context);
+
+
+--
+-- Name: index_taggings_on_tag_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_tag_id ON public.taggings USING btree (tag_id);
+
+
+--
+-- Name: index_taggings_on_taggable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_taggable_id ON public.taggings USING btree (taggable_id);
+
+
+--
+-- Name: index_taggings_on_taggable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_taggable_type ON public.taggings USING btree (taggable_type);
+
+
+--
+-- Name: index_taggings_on_tagger_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_tagger_id ON public.taggings USING btree (tagger_id);
+
+
+--
+-- Name: index_taggings_on_tagger_id_and_tagger_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_tagger_id_and_tagger_type ON public.taggings USING btree (tagger_id, tagger_type);
+
+
+--
+-- Name: index_tags_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_tags_on_name ON public.tags USING btree (name);
 
 
 --
@@ -875,6 +1400,27 @@ CREATE INDEX index_telco_uam_users_on_role_id ON public.telco_uam_users USING bt
 
 
 --
+-- Name: taggings_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX taggings_idx ON public.taggings USING btree (tag_id, taggable_id, taggable_type, context, tagger_id, tagger_type);
+
+
+--
+-- Name: taggings_idy; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX taggings_idy ON public.taggings USING btree (taggable_id, taggable_type, tagger_id, context);
+
+
+--
+-- Name: taggings_taggable_context_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX taggings_taggable_context_idx ON public.taggings USING btree (taggable_id, taggable_type, context);
+
+
+--
 -- Name: addresses logidze_on_addresses; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -904,6 +1450,62 @@ ALTER TABLE ONLY public.activities
 
 
 --
+-- Name: admin_toolkit_kam_investors fk_rails_1648c14d14; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_kam_investors
+    ADD CONSTRAINT fk_rails_1648c14d14 FOREIGN KEY (kam_id) REFERENCES public.telco_uam_users(id);
+
+
+--
+-- Name: admin_toolkit_footprint_values fk_rails_18d8a3b570; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_values
+    ADD CONSTRAINT fk_rails_18d8a3b570 FOREIGN KEY (footprint_building_id) REFERENCES public.admin_toolkit_footprint_buildings(id);
+
+
+--
+-- Name: admin_toolkit_penetrations fk_rails_39afe522bc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_penetrations
+    ADD CONSTRAINT fk_rails_39afe522bc FOREIGN KEY (competition_id) REFERENCES public.admin_toolkit_competitions(id);
+
+
+--
+-- Name: admin_toolkit_pct_values fk_rails_5300556c7f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_pct_values
+    ADD CONSTRAINT fk_rails_5300556c7f FOREIGN KEY (pct_month_id) REFERENCES public.admin_toolkit_pct_months(id);
+
+
+--
+-- Name: admin_toolkit_pct_values fk_rails_7272faf5b9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_pct_values
+    ADD CONSTRAINT fk_rails_7272faf5b9 FOREIGN KEY (pct_cost_id) REFERENCES public.admin_toolkit_pct_costs(id);
+
+
+--
+-- Name: admin_toolkit_penetrations fk_rails_743612a9a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_penetrations
+    ADD CONSTRAINT fk_rails_743612a9a0 FOREIGN KEY (kam_region_id) REFERENCES public.admin_toolkit_kam_regions(id);
+
+
+--
+-- Name: admin_toolkit_kam_regions fk_rails_74c804eab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_kam_regions
+    ADD CONSTRAINT fk_rails_74c804eab4 FOREIGN KEY (kam_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- Name: activities fk_rails_8c2b010743; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -920,11 +1522,27 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 
 --
+-- Name: taggings fk_rails_9fcd2e236b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.taggings
+    ADD CONSTRAINT fk_rails_9fcd2e236b FOREIGN KEY (tag_id) REFERENCES public.tags(id);
+
+
+--
 -- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: admin_toolkit_footprint_values fk_rails_c5fec1ddda; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_values
+    ADD CONSTRAINT fk_rails_c5fec1ddda FOREIGN KEY (footprint_type_id) REFERENCES public.admin_toolkit_footprint_types(id);
 
 
 --
@@ -965,6 +1583,25 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210511095338'),
 ('20210523105703'),
 ('20210527121206'),
-('20210601074347');
+('20210601074347'),
+('20210701091541'),
+('20210701091755'),
+('20210701094813'),
+('20210702094659'),
+('20210702095119'),
+('20210702101004'),
+('20210702112728'),
+('20210702113016'),
+('20210702113017'),
+('20210702113018'),
+('20210702113019'),
+('20210702113020'),
+('20210702113021'),
+('20210702172133'),
+('20210713104513'),
+('20210715055509'),
+('20210717131742'),
+('20210719124603'),
+('20210722055733');
 
 

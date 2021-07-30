@@ -7,7 +7,6 @@ module Mutations
 
     def resolve(id:)
       resolver = ::Users::UserDeleter.new(current_user: current_user, attributes: { id: id })
-
       { status: resolver.call }
     end
   end

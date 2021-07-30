@@ -26,6 +26,17 @@ RSpec.describe Mutations::UpdateUserStatus do
         expect(errors).to eq(['Not Authorized'])
       end
     end
+
+    context 'when activating an already active user' do
+      let!(:params) { { id: team_standard.id, active: true } }
+
+      it 'does not create an activity' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :updateUserStatus)
+        expect(errors).to be_nil
+        expect(response.user.active).to be(true)
+        expect(Activity.count).to be_zero
+      end
+    end
   end
 
   def query(args = {})

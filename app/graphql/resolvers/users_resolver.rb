@@ -38,7 +38,7 @@ module Resolvers
           phone,
           role)
           iLIKE ?",
-        "%#{value.strip}%"
+        "%#{value.squish}%"
       )
     end
   end

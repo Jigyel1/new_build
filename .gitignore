@@ -45,6 +45,7 @@ config/initializers/influxdb_rails.rb
 local/server.crt
 local/server.key
 fe
+doc
 
 # These are some examples of commonly ignored file patterns.
 # You should customize this list as applicable to your project.
