@@ -5,7 +5,7 @@ module Resolvers
     class PenetrationTypesResolver < SearchObjectBase
       scope { ::AdminToolkit::Penetration.types }
 
-      type [GraphQL::Types::JSON], null: false
+      type GraphQL::Types::JSON, null: false
     end
   end
 end
