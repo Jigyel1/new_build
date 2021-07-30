@@ -23,25 +23,46 @@ def address_attributes
   }
 end
 
-def profile_attributes(email_prefix)
+def profile_attributes(name)
+  firstname, lastname = name.split('.')
   {
-    firstname: email_prefix,
-    lastname: email_prefix.reverse,
+    firstname: firstname,
+    lastname: lastname || firstname.reverse,
     salutation: Profile.salutations.keys.sample,
     phone: Faker::PhoneNumber.phone_number,
     department: Rails.application.config.user_departments.sample
   }
 end
 
-{ ym: :super_user, sk: :administrator, cw: :team_expert, lw: :kam }.each_pair do |email_prefix, role|
+[
+  # Internal Users
+  ['ym@selise.ch', :super_user],
+  ['arijit.saha@selise.ch', :super_user],
+  ['lhatul.wangmo@selise.ch', :super_user],
+  ['sujata.pradhan@selise.ch', :administrator],
+  ['chimi.wangchuk@selise.ch', :administrator],
+  ['upali.choden@selise.ch', :administrator],
+  ['nahian.kabir@selise.ch', :administrator],
+
+  # For QA test
+  ['sujata.pradhan+admin@selise.ch', :kam],
+  ['sujata.pradhan+cm@selise.ch', :presales],
+  ['sujata.pradhan+kam@selise.ch', :management],
+
+  # External Users
+  ['stefan.fitsch@upc.ch', :super_user],
+  ['michael.egger@upc.ch', :administrator],
+  ['danijela.martinovic@upc.ch', :administrator]
+].each do |array|
+  email, role = array
   User.create!(
-    email: "#{email_prefix}@selise.ch",
+    email: email,
     password: 'Selise21',
     role: Role.find_by(name: role),
     address_attributes: address_attributes,
-    profile_attributes: profile_attributes(email_prefix.to_s),
+    profile_attributes: profile_attributes(email.split('@').first),
     invitation_token: SecureRandom.hex
   )
 rescue ActiveRecord::RecordInvalid => e
-  puts "#{e} for user with email(#{email_prefix}@selise.ch)"
+  puts "#{e} for user with email(#{email})"
 end

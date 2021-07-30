@@ -33,13 +33,14 @@ module Types
     field :create_penetration, mutation: Mutations::AdminToolkit::CreatePenetration
     field :update_penetration, mutation: Mutations::AdminToolkit::UpdatePenetration
     field :delete_penetration, mutation: Mutations::AdminToolkit::DeletePenetration
+    field :update_kam_regions, mutation: Mutations::AdminToolkit::UpdateKamRegions
 
     field :create_competition, mutation: Mutations::AdminToolkit::CreateCompetition
     field :update_competition, mutation: Mutations::AdminToolkit::UpdateCompetition
     field :delete_competition, mutation: Mutations::AdminToolkit::DeleteCompetition
 
-    field :create_kam_mapping, mutation: Mutations::AdminToolkit::CreateKamMapping
-    field :update_kam_mapping, mutation: Mutations::AdminToolkit::UpdateKamMapping
-    field :delete_kam_mapping, mutation: Mutations::AdminToolkit::DeleteKamMapping
+    field :create_kam_investor, mutation: Mutations::AdminToolkit::CreateKamInvestor
+    field :update_kam_investor, mutation: Mutations::AdminToolkit::UpdateKamInvestor
+    field :delete_kam_investor, mutation: Mutations::AdminToolkit::DeleteKamInvestor
   end
 end

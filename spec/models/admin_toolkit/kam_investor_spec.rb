@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe AdminToolkit::KamMapping, type: :model do
+RSpec.describe AdminToolkit::KamInvestor, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:investor_id) }
 
     it do
-      subject = create(:admin_toolkit_kam_mapping, kam: create(:user, :kam))
+      subject = create(:admin_toolkit_kam_investor, kam: create(:user, :kam))
       expect(subject).to validate_uniqueness_of(:investor_id).ignoring_case_sensitivity
     end
   end

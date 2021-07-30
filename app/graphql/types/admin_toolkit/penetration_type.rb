@@ -7,8 +7,8 @@ module Types
       field :zip, String, null: true
       field :city, String, null: true
       field :rate, String, null: true
-      field :competition, String, null: true
-      field :kam_region, String, null: true
+      field :competition, CompetitionType, null: true
+      field :kam_region, KamRegionType, null: true
       field :hfc_footprint, Boolean, null: true
       field :type, String, null: true
 

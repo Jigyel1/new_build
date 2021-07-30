@@ -34,7 +34,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateCompetition do
       it 'forbids action' do
         response, errors = formatted_response(query(params), current_user: kam, key: :updateCompetition)
         expect(response.competition).to be_nil
-        expect(errors).to match_array(['Not Authorized'])
+        expect(errors).to eq(['Not Authorized'])
       end
     end
   end

@@ -534,14 +534,27 @@ CREATE TABLE public.admin_toolkit_footprint_values (
 
 
 --
--- Name: admin_toolkit_kam_mappings; Type: TABLE; Schema: public; Owner: -
+-- Name: admin_toolkit_kam_investors; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.admin_toolkit_kam_mappings (
+CREATE TABLE public.admin_toolkit_kam_investors (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     kam_id uuid NOT NULL,
     investor_id character varying NOT NULL,
     investor_description text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_kam_regions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_kam_regions (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    kam_id uuid,
+    name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -610,8 +623,8 @@ CREATE TABLE public.admin_toolkit_penetrations (
     zip character varying NOT NULL,
     city character varying NOT NULL,
     rate double precision NOT NULL,
-    competition character varying NOT NULL,
-    kam_region character varying NOT NULL,
+    competition_id uuid NOT NULL,
+    kam_region_id uuid NOT NULL,
     hfc_footprint boolean NOT NULL,
     type character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -954,11 +967,19 @@ ALTER TABLE ONLY public.admin_toolkit_footprint_values
 
 
 --
--- Name: admin_toolkit_kam_mappings admin_toolkit_kam_mappings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_toolkit_kam_investors admin_toolkit_kam_investors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.admin_toolkit_kam_mappings
-    ADD CONSTRAINT admin_toolkit_kam_mappings_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.admin_toolkit_kam_investors
+    ADD CONSTRAINT admin_toolkit_kam_investors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_kam_regions admin_toolkit_kam_regions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_kam_regions
+    ADD CONSTRAINT admin_toolkit_kam_regions_pkey PRIMARY KEY (id);
 
 
 --
@@ -1194,17 +1215,31 @@ CREATE INDEX index_admin_toolkit_footprint_values_on_footprint_type_id ON public
 
 
 --
--- Name: index_admin_toolkit_kam_mappings_on_investor_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_admin_toolkit_kam_investors_on_investor_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_kam_mappings_on_investor_id ON public.admin_toolkit_kam_mappings USING btree (investor_id);
+CREATE INDEX index_admin_toolkit_kam_investors_on_investor_id ON public.admin_toolkit_kam_investors USING btree (investor_id);
 
 
 --
--- Name: index_admin_toolkit_kam_mappings_on_kam_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_admin_toolkit_kam_investors_on_kam_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_kam_mappings_on_kam_id ON public.admin_toolkit_kam_mappings USING btree (kam_id);
+CREATE INDEX index_admin_toolkit_kam_investors_on_kam_id ON public.admin_toolkit_kam_investors USING btree (kam_id);
+
+
+--
+-- Name: index_admin_toolkit_kam_regions_on_kam_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_kam_regions_on_kam_id ON public.admin_toolkit_kam_regions USING btree (kam_id);
+
+
+--
+-- Name: index_admin_toolkit_kam_regions_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_kam_regions_on_name ON public.admin_toolkit_kam_regions USING btree (name);
 
 
 --
@@ -1233,6 +1268,20 @@ CREATE INDEX index_admin_toolkit_pct_values_on_pct_cost_id ON public.admin_toolk
 --
 
 CREATE INDEX index_admin_toolkit_pct_values_on_pct_month_id ON public.admin_toolkit_pct_values USING btree (pct_month_id);
+
+
+--
+-- Name: index_admin_toolkit_penetrations_on_competition_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_penetrations_on_competition_id ON public.admin_toolkit_penetrations USING btree (competition_id);
+
+
+--
+-- Name: index_admin_toolkit_penetrations_on_kam_region_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_penetrations_on_kam_region_id ON public.admin_toolkit_penetrations USING btree (kam_region_id);
 
 
 --
@@ -1440,11 +1489,27 @@ ALTER TABLE ONLY public.activities
 
 
 --
+-- Name: admin_toolkit_kam_investors fk_rails_1648c14d14; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_kam_investors
+    ADD CONSTRAINT fk_rails_1648c14d14 FOREIGN KEY (kam_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- Name: admin_toolkit_footprint_values fk_rails_18d8a3b570; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.admin_toolkit_footprint_values
     ADD CONSTRAINT fk_rails_18d8a3b570 FOREIGN KEY (footprint_building_id) REFERENCES public.admin_toolkit_footprint_buildings(id);
+
+
+--
+-- Name: admin_toolkit_penetrations fk_rails_39afe522bc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_penetrations
+    ADD CONSTRAINT fk_rails_39afe522bc FOREIGN KEY (competition_id) REFERENCES public.admin_toolkit_competitions(id);
 
 
 --
@@ -1464,6 +1529,22 @@ ALTER TABLE ONLY public.admin_toolkit_pct_values
 
 
 --
+-- Name: admin_toolkit_penetrations fk_rails_743612a9a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_penetrations
+    ADD CONSTRAINT fk_rails_743612a9a0 FOREIGN KEY (kam_region_id) REFERENCES public.admin_toolkit_kam_regions(id);
+
+
+--
+-- Name: admin_toolkit_kam_regions fk_rails_74c804eab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_kam_regions
+    ADD CONSTRAINT fk_rails_74c804eab4 FOREIGN KEY (kam_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- Name: activities fk_rails_8c2b010743; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1477,14 +1558,6 @@ ALTER TABLE ONLY public.activities
 
 ALTER TABLE ONLY public.active_storage_variant_records
     ADD CONSTRAINT fk_rails_993965df05 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
-
-
---
--- Name: admin_toolkit_kam_mappings fk_rails_99e473a4ec; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.admin_toolkit_kam_mappings
-    ADD CONSTRAINT fk_rails_99e473a4ec FOREIGN KEY (kam_id) REFERENCES public.telco_uam_users(id);
 
 
 --
@@ -1572,8 +1645,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210702113020'),
 ('20210702113021'),
 ('20210702172133'),
+('20210713104513'),
+('20210715055509'),
 ('20210717131742'),
-('20210719104513'),
 ('20210719124603'),
 ('20210722055733'),
 ('20210727111136');

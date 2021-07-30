@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe AdminToolkit::KamMappingDeleter do
+describe AdminToolkit::KamInvestorCreator do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:kam_mapping) { create(:admin_toolkit_kam_mapping, kam: kam) }
-  let_it_be(:params) { { id: kam_mapping.id } }
+  let_it_be(:investor_id) { '8741a6d80de7f8d70c1a027c1fa1eab2' }
+  let_it_be(:params) { { kam_id: kam.id, investor_id: investor_id } }
 
-  before_all { ::AdminToolkit::KamMappingDeleter.new(current_user: super_user, attributes: params).call }
+  before_all { ::AdminToolkit::KamInvestorCreator.new(current_user: super_user, attributes: params).call }
 
   describe '.activities' do
     context 'as an owner' do
@@ -17,9 +17,9 @@ describe AdminToolkit::KamMappingDeleter do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.kam_mapping_deleted.owner',
-            parameters: kam_mapping.attributes.slice('kam_id', 'investor_id').stringify_keys,
-            trackable_id: kam_mapping.id)
+          t('activities.admin_toolkit.kam_investor_created.owner',
+            recipient_email: kam.email,
+            investor_id: investor_id)
         )
       end
     end
@@ -30,10 +30,9 @@ describe AdminToolkit::KamMappingDeleter do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.kam_mapping_deleted.recipient',
-            parameters: kam_mapping.attributes.slice('kam_id', 'investor_id').stringify_keys,
+          t('activities.admin_toolkit.kam_investor_created.recipient',
             owner_email: super_user.email,
-            trackable_id: kam_mapping.id)
+            investor_id: investor_id)
         )
       end
     end
@@ -46,10 +45,10 @@ describe AdminToolkit::KamMappingDeleter do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.kam_mapping_deleted.others',
-            parameters: kam_mapping.attributes.slice('kam_id', 'investor_id').stringify_keys,
+          t('activities.admin_toolkit.kam_investor_created.others',
             owner_email: super_user.email,
-            trackable_id: kam_mapping.id)
+            recipient_email: kam.email,
+            investor_id: investor_id)
         )
       end
     end

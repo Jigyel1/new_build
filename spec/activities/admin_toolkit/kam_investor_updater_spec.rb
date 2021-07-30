@@ -2,13 +2,16 @@
 
 require 'rails_helper'
 
-describe AdminToolkit::KamMappingCreator do
+describe AdminToolkit::KamInvestorUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:investor_id) { '8741a6d80de7f8d70c1a027c1fa1eab2' }
-  let_it_be(:params) { { kam_id: kam.id, investor_id: investor_id } }
+  let_it_be(:kam_b) { create(:user, :kam) }
 
-  before_all { ::AdminToolkit::KamMappingCreator.new(current_user: super_user, attributes: params).call }
+  let_it_be(:investor_id) { '8741a6d80de7f8d70c1a027c1fa1eab2' }
+  let_it_be(:kam_investor) { create(:admin_toolkit_kam_investor, kam: kam) }
+  let_it_be(:params) { { id: kam_investor.id, kam_id: kam_b.id, investor_id: investor_id } }
+
+  before_all { ::AdminToolkit::KamInvestorUpdater.new(current_user: super_user, attributes: params).call }
 
   describe '.activities' do
     context 'as an owner' do
@@ -17,22 +20,23 @@ describe AdminToolkit::KamMappingCreator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.kam_mapping_created.owner',
-            recipient_email: kam.email,
-            investor_id: investor_id)
+          t('activities.admin_toolkit.kam_investor_updated.owner',
+            parameters: params.except(:id).stringify_keys,
+            trackable_id: kam_investor.id)
         )
       end
     end
 
     context 'as an recipient' do
       it 'returns activity text in terms of a second person' do
-        activities, errors = paginated_collection(:activities, activities_query, current_user: kam)
+        activities, errors = paginated_collection(:activities, activities_query, current_user: kam_b)
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.kam_mapping_created.recipient',
+          t('activities.admin_toolkit.kam_investor_updated.recipient',
+            parameters: params.except(:id).stringify_keys,
             owner_email: super_user.email,
-            investor_id: investor_id)
+            trackable_id: kam_investor.id)
         )
       end
     end
@@ -45,10 +49,10 @@ describe AdminToolkit::KamMappingCreator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.kam_mapping_created.others',
+          t('activities.admin_toolkit.kam_investor_updated.others',
+            parameters: params.except(:id).stringify_keys,
             owner_email: super_user.email,
-            recipient_email: kam.email,
-            investor_id: investor_id)
+            trackable_id: kam_investor.id)
         )
       end
     end

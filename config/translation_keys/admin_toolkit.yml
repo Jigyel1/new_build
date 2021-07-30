@@ -1,17 +1,17 @@
 admin_toolkit:
   recipient:
-    kam_mapping_created:
+    kam_investor_created:
       - owner_email
       - investor_id
-    kam_mapping_updated:
+    kam_investor_updated:
       - owner_email
       - parameters
       - trackable_id
-    kam_mapping_deleted:
+    kam_investor_deleted:
       - owner_email
       - parameters
       - trackable_id
-
+      
 
   owner:
     competition_created:
@@ -22,13 +22,17 @@ admin_toolkit:
     competition_deleted:
       - trackable_id
       - parameters
-    kam_mapping_created:
+    kam_investor_created:
       - recipient_email
       - investor_id
-    kam_mapping_updated:
+    kam_investor_updated:
       - parameters
       - trackable_id
-    kam_mapping_deleted:
+    kam_investor_deleted:
+      - parameters
+      - trackable_id
+
+    kam_region_updated:
       - parameters
       - trackable_id
 
@@ -74,15 +78,20 @@ admin_toolkit:
       - owner_email
       - parameters
 
-    kam_mapping_created:
+    kam_investor_created:
       - owner_email
       - recipient_email
       - investor_id
-    kam_mapping_updated:
+    kam_investor_updated:
       - owner_email
       - parameters
       - trackable_id
-    kam_mapping_deleted:
+    kam_investor_deleted:
+      - owner_email
+      - parameters
+      - trackable_id
+
+    kam_region_updated:
       - owner_email
       - parameters
       - trackable_id

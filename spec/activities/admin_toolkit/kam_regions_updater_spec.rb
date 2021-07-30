@@ -2,29 +2,26 @@
 
 require 'rails_helper'
 
-describe AdminToolkit::PenetrationDeleter do
+describe AdminToolkit::KamRegionsUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
-  let_it_be(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region) }
-  let_it_be(:params) { { id: penetration.id } }
+  let_it_be(:kam) { create(:user, :kam) }
+  let_it_be(:kam_b) { create(:user, :kam) }
 
-  before_all { ::AdminToolkit::PenetrationDeleter.new(current_user: super_user, attributes: params).call }
+  let_it_be(:kam_region) { create(:admin_toolkit_kam_region, kam: kam) }
+  let_it_be(:params) { [{ id: kam_region.id, kam_id: kam_b.id }] }
+
+  before_all { ::AdminToolkit::KamRegionsUpdater.new(current_user: super_user, attributes: params).call }
 
   describe '.activities' do
     context 'as an owner' do
       it 'returns activity text in terms of a first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
-
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
-        attributes = penetration.attributes.slice(
-          'zip', 'city', 'rate', 'type', 'kam_region', 'competition', 'hfc_footprint'
-        )
-
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.penetration_deleted.owner',
-            trackable_id: penetration.id,
-            parameters: attributes.stringify_keys)
+          t('activities.admin_toolkit.kam_region_updated.owner',
+            parameters: params.map(&:stringify_keys),
+            trackable_id: kam_region.id)
         )
       end
     end
@@ -34,18 +31,13 @@ describe AdminToolkit::PenetrationDeleter do
 
       it 'returns activity text in terms of a third person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
-
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
-        attributes = penetration.attributes.slice(
-          'zip', 'city', 'rate', 'type', 'kam_region', 'competition', 'hfc_footprint'
-        )
-
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.penetration_deleted.others',
-            trackable_id: penetration.id,
+          t('activities.admin_toolkit.kam_region_updated.others',
+            parameters: params.map(&:stringify_keys),
             owner_email: super_user.email,
-            parameters: attributes.stringify_keys)
+            trackable_id: kam_region.id)
         )
       end
     end

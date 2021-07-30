@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 module AdminToolkit
-  class KamMappingUpdater < BaseService
-    include KamMappingFinder
+  class KamInvestorCreator < BaseService
+    attr_reader :kam_investor
+
     set_callback :call, :before, :validate!
 
     def call
-      authorize! kam_mapping, to: :update?, with: AdminToolkitPolicy
-
       super do
+        authorize! ::AdminToolkit::KamInvestor, to: :create?, with: AdminToolkitPolicy
+
         with_tracking(activity_id = SecureRandom.uuid) do
-          kam_mapping.update!(attributes)
+          @kam_investor = ::AdminToolkit::KamInvestor.create!(attributes)
           Activities::ActivityCreator.new(activity_params(activity_id)).call
         end
       end
@@ -20,19 +21,19 @@ module AdminToolkit
 
     # Validate if the User with id `kam_id` is a KAM
     def validate!
-      return if attributes[:kam_id].blank? || User.find(attributes[:kam_id]).kam?
+      return if User.find(attributes[:kam_id]).kam?
 
-      raise t('admin_toolkit.kam_mapping.invalid_kam')
+      raise t('admin_toolkit.invalid_kam')
     end
 
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :kam_mapping_updated,
+        action: :kam_investor_created,
         owner: current_user,
-        recipient: kam_mapping.kam,
-        trackable: kam_mapping,
-        parameters: attributes.except(:id)
+        recipient: kam_investor.kam,
+        trackable: kam_investor,
+        parameters: attributes
       }
     end
   end

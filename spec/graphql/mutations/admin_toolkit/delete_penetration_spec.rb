@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::AdminToolkit::DeletePenetration do
-  let_it_be(:penetration) { create(:admin_toolkit_penetration) }
+  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
+  let_it_be(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region) }
 
   describe '.resolve' do
     context 'with permissions' do
@@ -23,7 +24,7 @@ RSpec.describe Mutations::AdminToolkit::DeletePenetration do
       it 'forbids action' do
         response, errors = formatted_response(query, current_user: kam, key: :deletePenetration)
         expect(response.penetration).to be_nil
-        expect(errors).to match_array(['Not Authorized'])
+        expect(errors).to eq(['Not Authorized'])
       end
     end
   end
