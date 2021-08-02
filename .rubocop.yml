@@ -17,11 +17,12 @@ AllCops:
     - 'db/migrate/*_logidze*.rb'
     - 'db/migrate/*create_active_storage_tables.active_storage.rb'
     - 'db/migrate/*.acts_as_taggable_on_engine.rb'
-    - 'fe/**/*'
+    - 'new-build-fe/**/*'
+    - 'tmp/**/*'
 Metrics/BlockLength:
   IgnoredMethods: ['describe']
   Max: 300
-Documentation:
+Style/Documentation:
   Enabled: false
 
 Metrics/MethodLength:
