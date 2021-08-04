@@ -36,7 +36,7 @@ RSpec.describe Resolvers::AdminToolkit::LabelsResolver do
 
   def query
     <<~GQL
-      query { adminToolkitLabels { id } }
+      query { adminToolkitLabels { id labelList } }
     GQL
   end
 end

@@ -703,15 +703,42 @@ CREATE TABLE public.projects (
     project_nr character varying,
     type character varying,
     category character varying,
+    status character varying,
     landlord_id character varying,
     assignee_id uuid,
     construction_type character varying,
-    move_in_from date,
-    move_in_till date,
+    construction_starts_on date,
+    move_in_starts_on date,
+    move_in_ends_on date,
     lot_number character varying,
     buildings integer,
     apartments integer,
+    description text,
+    additional_info text,
+    coordinate_east double precision,
+    coordinate_north double precision,
     settings jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: projects_address_books; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects_address_books (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name character varying NOT NULL,
+    additional_name character varying,
+    company character varying NOT NULL,
+    po_box character varying,
+    language character varying,
+    phone character varying NOT NULL,
+    mobile character varying NOT NULL,
+    email character varying NOT NULL,
+    website character varying NOT NULL,
+    project_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -1056,6 +1083,14 @@ ALTER TABLE ONLY public.profiles
 
 
 --
+-- Name: projects_address_books projects_address_books_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_address_books
+    ADD CONSTRAINT projects_address_books_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1321,6 +1356,13 @@ CREATE INDEX index_profiles_on_user_id ON public.profiles USING btree (user_id);
 
 
 --
+-- Name: index_projects_address_books_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_address_books_on_project_id ON public.projects_address_books USING btree (project_id);
+
+
+--
 -- Name: index_projects_on_assignee_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1521,6 +1563,14 @@ ALTER TABLE ONLY public.admin_toolkit_penetrations
 
 
 --
+-- Name: projects_address_books fk_rails_39b8a18518; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_address_books
+    ADD CONSTRAINT fk_rails_39b8a18518 FOREIGN KEY (project_id) REFERENCES public.projects(id);
+
+
+--
 -- Name: admin_toolkit_pct_values fk_rails_5300556c7f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1658,6 +1708,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210717131742'),
 ('20210719124603'),
 ('20210722055733'),
-('20210727111136');
+('20210727111136'),
+('20210804105002');
 
 

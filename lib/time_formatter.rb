@@ -3,7 +3,7 @@
 module TimeFormatter
   refine ActiveSupport::TimeWithZone do
     def date_str
-      strftime('%d %B %Y')
+      strftime('%d.%m.%Y')
     end
 
     def time_str
