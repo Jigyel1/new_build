@@ -6,28 +6,29 @@ RSpec.describe Mutations::CreateProject do
   using TimeFormatter
 
   let_it_be(:super_user) { create(:user, :super_user) }
-  let_it_be(:management) { create(:user, :management) }
+  let_it_be(:kam) { create(:user, :kam) }
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) do 
-        { status: 'Technical Analysis', assignee_id: management.id, move_in_starts_on: Date.current } 
+      let!(:params) do
+        { status: 'Technical Analysis', assignee_id: kam.id, move_in_starts_on: Date.current }
       end
 
       it 'creates the competition record' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
         expect(errors).to be_nil
         expect(response.project).to have_attributes(
-                                      externalId: 'e922833',
-                                      moveInStartsOn: Date.current.in_time_zone.date_str,
-                                      status: 'Technical Analysis'
-                                    )
+          externalId: 'e922833',
+          moveInStartsOn: Date.current.in_time_zone.date_str,
+          status: 'Technical Analysis'
+        )
 
-        byebug
-        expect(response.project.assignee)
+        expect(response.project.assignee).to have_attributes(
+          id: kam.id,
+          name: kam.name
+        )
       end
     end
-
 
     # context 'with invalid assignee'
     # context 'with assignee '
@@ -67,7 +68,7 @@ RSpec.describe Mutations::CreateProject do
             }
           }
         )
-        { project { id status moveInStartsOn assignee { id name } } }
+        { project { id status externalId moveInStartsOn assignee { id name } } }
       }
     GQL
   end

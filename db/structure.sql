@@ -567,6 +567,7 @@ CREATE TABLE public.admin_toolkit_kam_regions (
 CREATE TABLE public.admin_toolkit_label_groups (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying NOT NULL,
+    label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -767,75 +768,6 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: taggings; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.taggings (
-    id integer NOT NULL,
-    tag_id integer,
-    taggable_type character varying,
-    taggable_id integer,
-    tagger_type character varying,
-    tagger_id integer,
-    context character varying(128),
-    created_at timestamp without time zone
-);
-
-
---
--- Name: taggings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.taggings_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: taggings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.taggings_id_seq OWNED BY public.taggings.id;
-
-
---
--- Name: tags; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.tags (
-    id integer NOT NULL,
-    name character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    taggings_count integer DEFAULT 0
-);
-
-
---
--- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.tags_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
-
-
---
 -- Name: telco_uam_users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -906,20 +838,6 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAULT nextval('public.active_storage_variant_records_id_seq'::regclass);
-
-
---
--- Name: taggings id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.taggings ALTER COLUMN id SET DEFAULT nextval('public.taggings_id_seq'::regclass);
-
-
---
--- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id_seq'::regclass);
 
 
 --
@@ -1115,22 +1033,6 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
--- Name: taggings taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.taggings
-    ADD CONSTRAINT taggings_pkey PRIMARY KEY (id);
-
-
---
--- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.tags
-    ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
-
-
---
 -- Name: telco_uam_users telco_uam_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1279,6 +1181,13 @@ CREATE INDEX index_admin_toolkit_kam_regions_on_name ON public.admin_toolkit_kam
 
 
 --
+-- Name: index_admin_toolkit_label_groups_on_label_list; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_label_groups_on_label_list ON public.admin_toolkit_label_groups USING btree (label_list);
+
+
+--
 -- Name: index_admin_toolkit_pct_costs_on_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1384,55 +1293,6 @@ CREATE UNIQUE INDEX index_roles_on_name ON public.roles USING btree (name);
 
 
 --
--- Name: index_taggings_on_context; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_taggings_on_context ON public.taggings USING btree (context);
-
-
---
--- Name: index_taggings_on_tag_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_taggings_on_tag_id ON public.taggings USING btree (tag_id);
-
-
---
--- Name: index_taggings_on_taggable_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_taggings_on_taggable_id ON public.taggings USING btree (taggable_id);
-
-
---
--- Name: index_taggings_on_taggable_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_taggings_on_taggable_type ON public.taggings USING btree (taggable_type);
-
-
---
--- Name: index_taggings_on_tagger_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_taggings_on_tagger_id ON public.taggings USING btree (tagger_id);
-
-
---
--- Name: index_taggings_on_tagger_id_and_tagger_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_taggings_on_tagger_id_and_tagger_type ON public.taggings USING btree (tagger_id, tagger_type);
-
-
---
--- Name: index_tags_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_tags_on_name ON public.tags USING btree (name);
-
-
---
 -- Name: index_telco_uam_users_on_discarded_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1486,27 +1346,6 @@ CREATE UNIQUE INDEX index_telco_uam_users_on_reset_password_token ON public.telc
 --
 
 CREATE INDEX index_telco_uam_users_on_role_id ON public.telco_uam_users USING btree (role_id);
-
-
---
--- Name: taggings_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX taggings_idx ON public.taggings USING btree (tag_id, taggable_id, taggable_type, context, tagger_id, tagger_type);
-
-
---
--- Name: taggings_idy; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX taggings_idy ON public.taggings USING btree (taggable_id, taggable_type, tagger_id, context);
-
-
---
--- Name: taggings_taggable_context_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX taggings_taggable_context_idx ON public.taggings USING btree (taggable_id, taggable_type, context);
 
 
 --
@@ -1619,14 +1458,6 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 
 --
--- Name: taggings fk_rails_9fcd2e236b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.taggings
-    ADD CONSTRAINT fk_rails_9fcd2e236b FOREIGN KEY (tag_id) REFERENCES public.tags(id);
-
-
---
 -- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1696,12 +1527,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210702095119'),
 ('20210702101004'),
 ('20210702112728'),
-('20210702113016'),
-('20210702113017'),
-('20210702113018'),
-('20210702113019'),
-('20210702113020'),
-('20210702113021'),
 ('20210702172133'),
 ('20210713104513'),
 ('20210715055509'),
