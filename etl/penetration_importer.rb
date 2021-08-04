@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Penetration
+class PenetrationImporter
   SHEET_INDEX = 0
 
   def self.call(pathname:)

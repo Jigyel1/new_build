@@ -699,18 +699,19 @@ CREATE TABLE public.profiles (
 CREATE TABLE public.projects (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying,
-    external_id character varying,
+    external_id character varying NOT NULL,
     project_nr character varying,
     type character varying,
     category character varying,
-    landlord character varying,
-    assignee_id uuid NOT NULL,
+    landlord_id character varying,
+    assignee_id uuid,
     construction_type character varying,
     move_in_from date,
     move_in_till date,
     lot_number character varying,
     buildings integer,
     apartments integer,
+    settings jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -1324,6 +1325,13 @@ CREATE INDEX index_profiles_on_user_id ON public.profiles USING btree (user_id);
 --
 
 CREATE INDEX index_projects_on_assignee_id ON public.projects USING btree (assignee_id);
+
+
+--
+-- Name: index_projects_on_settings; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_settings ON public.projects USING btree (settings);
 
 
 --

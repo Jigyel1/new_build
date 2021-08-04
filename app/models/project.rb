@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
-  belongs_to :assignee
+  belongs_to :assignee, optional: true
 end
