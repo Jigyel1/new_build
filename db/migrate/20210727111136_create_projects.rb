@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CreateProjects < ActiveRecord::Migration[6.1]
-  def change # rubocop:disable Metrics/SeliseMethodLength
+  def change # rubocop:disable Metrics/SeliseMethodLength, Metrics/AbcSize
     create_table :projects, id: :uuid do |t|
       t.string :name
       t.string :external_id, null: false
@@ -9,6 +9,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :type
       t.string :category
       t.string :status
+      t.string :assignee_type, null: false, default: 'NBO Project'
       t.string :landlord_id
       t.references :assignee, null: true, foreign_key: { to_table: :telco_uam_users }, type: :uuid
 

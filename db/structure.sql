@@ -705,6 +705,7 @@ CREATE TABLE public.projects (
     type character varying,
     category character varying,
     status character varying,
+    assignee_type character varying DEFAULT 'NBO Project'::character varying NOT NULL,
     landlord_id character varying,
     assignee_id uuid,
     construction_type character varying,
@@ -730,6 +731,7 @@ CREATE TABLE public.projects (
 
 CREATE TABLE public.projects_address_books (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
+    type character varying NOT NULL,
     name character varying NOT NULL,
     additional_name character varying,
     company character varying NOT NULL,

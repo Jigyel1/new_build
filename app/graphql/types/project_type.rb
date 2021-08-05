@@ -15,6 +15,8 @@ module Types
     field :category, String, null: true
     field :construction_type, String, null: true
 
+    field :address_books, [Projects::AddressBookType], null: true
+
     field(
       :move_in_starts_on,
       String,

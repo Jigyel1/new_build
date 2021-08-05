@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class CreateProjectsAddressBooks < ActiveRecord::Migration[6.1]
-  def change
+  def change # rubocop:disable Metrics::SeliseMethodLength
     create_table :projects_address_books, id: :uuid do |t|
+      t.string :type, null: false
       t.string :name, null: false
       t.string :additional_name
       t.string :company, null: false
