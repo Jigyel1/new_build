@@ -706,8 +706,8 @@ CREATE TABLE public.projects (
     category character varying,
     status character varying,
     assignee_type character varying DEFAULT 'NBO Project'::character varying NOT NULL,
-    landlord_id character varying,
     assignee_id uuid,
+    kam_region_id uuid,
     construction_type character varying,
     construction_starts_on date,
     move_in_starts_on date,
@@ -719,7 +719,7 @@ CREATE TABLE public.projects (
     additional_info text,
     coordinate_east double precision,
     coordinate_north double precision,
-    settings jsonb DEFAULT '{}'::jsonb NOT NULL,
+    additional_details jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -731,16 +731,19 @@ CREATE TABLE public.projects (
 
 CREATE TABLE public.projects_address_books (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
+    external_id character varying,
     type character varying NOT NULL,
+    display_name character varying NOT NULL,
     name character varying NOT NULL,
     additional_name character varying,
-    company character varying NOT NULL,
+    company character varying,
     po_box character varying,
     language character varying,
-    phone character varying NOT NULL,
-    mobile character varying NOT NULL,
-    email character varying NOT NULL,
-    website character varying NOT NULL,
+    phone character varying,
+    mobile character varying,
+    email character varying,
+    website character varying,
+    additional_details jsonb DEFAULT '{}'::jsonb NOT NULL,
     project_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -1274,6 +1277,13 @@ CREATE INDEX index_projects_address_books_on_project_id ON public.projects_addre
 
 
 --
+-- Name: index_projects_on_additional_details; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_additional_details ON public.projects USING btree (additional_details);
+
+
+--
 -- Name: index_projects_on_assignee_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1281,10 +1291,10 @@ CREATE INDEX index_projects_on_assignee_id ON public.projects USING btree (assig
 
 
 --
--- Name: index_projects_on_settings; Type: INDEX; Schema: public; Owner: -
+-- Name: index_projects_on_kam_region_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_projects_on_settings ON public.projects USING btree (settings);
+CREATE INDEX index_projects_on_kam_region_id ON public.projects USING btree (kam_region_id);
 
 
 --
@@ -1457,6 +1467,14 @@ ALTER TABLE ONLY public.activities
 
 ALTER TABLE ONLY public.active_storage_variant_records
     ADD CONSTRAINT fk_rails_993965df05 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: projects fk_rails_99fc2a1a9e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_99fc2a1a9e FOREIGN KEY (kam_region_id) REFERENCES public.admin_toolkit_kam_regions(id);
 
 
 --

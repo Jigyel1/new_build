@@ -1,14 +1,22 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
+  self.inheritance_column = nil
+
   belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
+  belongs_to :kam_region, class_name: 'AdminToolkit::KamRegion', optional: true
 
   has_one :address, as: :addressable, dependent: :destroy
   has_many :address_books, class_name: 'Projects::AddressBook', dependent: :destroy
   accepts_nested_attributes_for :address, :address_books, allow_destroy: true
 
-  validates :buildings, :apartments, numericality: { greater_than: 0 }
-  validates :apartments, numericality: { greater_than: :buildings }
+  validates :external_id, uniqueness: true
+  validates :buildings, :apartments, numericality: { greater_than: 0 }, allow_nil: true
+  validates(
+    :apartments,
+    numericality: { greater_than_or_equal_to: :buildings, message: 'should be greater than or equal to the buildings.' },
+    allow_nil: true
+  )
 
   delegate :zip, to: :address
 

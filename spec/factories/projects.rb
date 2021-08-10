@@ -2,16 +2,13 @@
 
 FactoryBot.define do
   factory :project do
-    name { 'MyString' }
-    external_id { 'MyString' }
+    name { Faker::Lorem.word }
+    external_id { SecureRandom.hex }
     project_nr { 'MyString' }
-    type { '' }
-    category { 'MyString' }
-    landlord { 'MyString' }
+    category { :standard }
     assignee { nil }
-    type { '' }
+    type { :proactive }
     construction_type { 'MyString' }
-    move_in { '2021-07-27' }
     lot_number { 'MyString' }
     buildings { 1 }
     apartments { '' }

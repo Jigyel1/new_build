@@ -2,12 +2,21 @@
 
 module Projects
   class Destination
-    def write(row)
-      project = Project.find_or_initialize_by(external_id: row.delete(:external_id))
-      return if project.persisted?
+    def initialize(errors)
+      @errors = errors
+    end
 
-      project.assign_attributes(row)
+    def write(project)
+      # Store the errors set during the transformation pipeline as it will be lost with `project.save!`
+      errors_before_save = project.errors.full_messages
+
       project.save!
+    rescue ActiveRecord::RecordInvalid
+      # pop the in-memory errors to avoid reloading it in the ensure block.
+      project.errors.full_messages << errors_before_save.pop
+      @errors << "Project #{project.external_id} => #{project.errors.full_messages.to_sentence}"
+    ensure
+      @errors << "Project #{project.external_id} => #{errors_before_save.to_sentence}" if errors_before_save.present?
     end
   end
 end

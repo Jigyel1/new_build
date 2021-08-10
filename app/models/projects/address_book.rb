@@ -8,10 +8,19 @@ module Projects
     has_one :address, as: :addressable, dependent: :destroy
     accepts_nested_attributes_for :address, allow_destroy: true
 
-    enum language: { en: 'EN', de: 'DE', fr: 'FR', it: 'IT' }
-    enum type: { investor: 'Investor', architect: 'Architect' }
+    enum language: { de: 'D', fr: 'F', it: 'I' }
 
-    validates :type, :name, :company, :phone, :mobile, :email, :website, presence: true
+    enum type: { investor: 'Investor', architect: 'Architect', others: 'Others' }
+
+    validates :type, :name, :display_name, presence: true
     validates :type, uniqueness: { scope: :project_id }
+
+    before_validation :set_display_name
+
+    private
+
+    def set_display_name
+      self.display_name = type if %w[investor architect].include?(type)
+    end
   end
 end

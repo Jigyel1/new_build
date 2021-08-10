@@ -28,5 +28,7 @@ module AdminToolkit
         parameters: attributes.except(:id)
       }
     end
+
+    # TODO: Labels should be unique - case insensitive!
   end
 end

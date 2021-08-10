@@ -5,5 +5,5 @@ class Address < ApplicationRecord
 
   belongs_to :addressable, polymorphic: true
 
-  validates :street, :street_no, :city, :zip, presence: true
+  validates :street, :street_no, :city, :zip, presence: true, if: ->(record) { record.addressable.is_a?(User) }
 end

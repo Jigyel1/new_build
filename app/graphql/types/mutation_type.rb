@@ -44,5 +44,6 @@ module Types
     field :delete_kam_investor, mutation: Mutations::AdminToolkit::DeleteKamInvestor
 
     field :create_project, mutation: Mutations::CreateProject
+    field :excel_create_project, mutation: Mutations::Projects::ExcelCreate
   end
 end

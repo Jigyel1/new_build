@@ -20,7 +20,7 @@ RSpec.describe Mutations::CreateProject do
           moveInStartsOn: Date.current.in_time_zone.date_str,
           status: 'Technical Analysis',
           assignee: nil,
-          assignee_type: 'NBO Project'
+          assigneeType: 'NBO Project'
         )
       end
 
@@ -43,7 +43,7 @@ RSpec.describe Mutations::CreateProject do
         expect(OpenStruct.new(record)).to have_attributes(
           name: 'Isiah',
           company: 'Detroit Pistons',
-          language: 'EN',
+          language: 'I',
           phone: '049292922',
           mobile: '103393933',
           email: 'isiah.thomas@pistons.us',
@@ -118,7 +118,7 @@ RSpec.describe Mutations::CreateProject do
           name: "Philips"
           additionalName: "Jordan"
           company: "Charlotte Hornets"
-          language: "DE"
+          language: "D"
           phone: "099292922"
           mobile: "03393933"
           email: "philips.jordan@chornets.us"
@@ -130,7 +130,7 @@ RSpec.describe Mutations::CreateProject do
           name: "Isiah"
           additionalName: "Thomas"
           company: "Detroit Pistons"
-          language: "EN"
+          language: "I"
           phone: "049292922"
           mobile: "103393933"
           email: "isiah.thomas@pistons.us"
@@ -166,7 +166,7 @@ RSpec.describe Mutations::CreateProject do
         )
         {
           project {
-            id status externalId moveInStartsOn assignee { id name }
+            id status externalId moveInStartsOn assigneeType assignee { id name }
             addressBooks { id type name company language email website phone mobile address { id street city zip} }
           }
         }

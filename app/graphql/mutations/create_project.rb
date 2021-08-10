@@ -10,6 +10,11 @@ module Mutations
     class AddressBooksAttributes < Types::BaseInputObject
       argument :type, String, required: true
       argument :name, String, required: true
+      argument :display_name, String, required: false, description: <<~DESC
+        For architect & investor, display name will be set the same as the type. If the type is
+        others, display name will have a custom name and is REQUIRED!.
+      DESC
+
       argument :additional_name, String, required: false
       argument :company, String, required: true
       argument :po_box, String, required: false
