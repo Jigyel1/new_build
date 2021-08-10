@@ -2,7 +2,7 @@
 
 class ProjectPolicy < ApplicationPolicy
   def index?
-    user.admin?
+    user.admin? || user.kam? || user.manager_nbo_kam?
   end
 
   def create?
@@ -10,6 +10,10 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def update?
+    index?
+  end
+
+  def import?
     index?
   end
 

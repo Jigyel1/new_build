@@ -10,7 +10,7 @@ RSpec.describe Mutations::CreateProject do
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) {{ status: 'Technical Analysis', move_in_starts_on: Date.current }}
+      let!(:params) { { status: 'Technical Analysis', move_in_starts_on: Date.current } }
 
       it 'creates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
@@ -23,37 +23,10 @@ RSpec.describe Mutations::CreateProject do
           assigneeType: 'NBO Project'
         )
       end
-
-      it 'creates the associated address books' do
-        response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
-        expect(errors).to be_nil
-        address_books = response.project.addressBooks
-
-        record = address_books.find { |address_book| address_book[:type] == 'Investor' }
-        expect(OpenStruct.new(record)).to have_attributes(
-          name: 'Philips',
-          company: 'Charlotte Hornets',
-          phone: '099292922',
-          mobile: '03393933',
-          email: 'philips.jordan@chornets.us',
-          website: 'charlotte-hornets.com'
-        )
-
-        record = address_books.find { |address_book| address_book[:type] == 'Architect' }
-        expect(OpenStruct.new(record)).to have_attributes(
-          name: 'Isiah',
-          company: 'Detroit Pistons',
-          language: 'I',
-          phone: '049292922',
-          mobile: '103393933',
-          email: 'isiah.thomas@pistons.us',
-          website: 'detroit-pistons.com'
-        )
-      end
     end
 
     context 'when the project has more than 50 apartments' do
-      let!(:params) {{ status: 'Technical Analysis', apartments: 51 }}
+      let!(:params) { { status: 'Technical Analysis', apartments: 51 } }
 
       context 'and has a KAM assigned for the region' do
         let!(:kam_region) { create(:admin_toolkit_kam_region, kam: kam) }
@@ -63,9 +36,9 @@ RSpec.describe Mutations::CreateProject do
           response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
           expect(errors).to be_nil
           expect(response.project.assignee).to have_attributes(
-                                                 id: kam.id,
-                                                 name: kam.name
-                                      )
+            id: kam.id,
+            name: kam.name
+          )
         end
       end
 
@@ -89,10 +62,10 @@ RSpec.describe Mutations::CreateProject do
     end
 
     context 'without permissions' do
-      let!(:params) {{ status: 'Technical Analysis' }}
+      let!(:params) { { status: 'Technical Analysis' } }
 
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: kam, key: :createProject)
+        response, errors = formatted_response(query(params), current_user: create(:user, :presales), key: :createProject)
         expect(response.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
@@ -160,7 +133,6 @@ RSpec.describe Mutations::CreateProject do
               buildings: 3
               apartments: #{apartments}
               #{address}
-              #{address_books}
             }
           }
         )

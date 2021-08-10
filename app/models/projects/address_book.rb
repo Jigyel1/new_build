@@ -20,7 +20,7 @@ module Projects
     private
 
     def set_display_name
-      self.display_name = type if %w[investor architect].include?(type)
+      self.display_name = AddressBook.types[type] if %w[investor architect].include?(type)
     end
   end
 end

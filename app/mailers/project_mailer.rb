@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectMailer < ApplicationMailer
   def notify_import(user, errors)
     @errors = errors

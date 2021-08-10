@@ -72,3 +72,9 @@ RSpec/ExampleLength:
 
 Rails/Output:
   Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: optional
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case

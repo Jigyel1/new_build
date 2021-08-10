@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :projects_address_book, class: 'Projects::AddressBook' do
+  factory :address_book, class: 'Projects::AddressBook' do
     name { 'MyString' }
+    type { :investor }
     additional_name { 'MyString' }
     company { 'MyString' }
     po_box { 'MyString' }
-    language { 'MyString' }
+    language { 'D' }
     phone { 'MyString' }
     mobile { 'MyString' }
     email { 'MyString' }

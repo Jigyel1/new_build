@@ -22,20 +22,20 @@ class ProjectImporter < EtlBase
 
   private
 
-  def import(current_user, sheet)
+  def import(current_user, sheet) # rubocop:disable Metrics/SeliseMethodLength
     super do
       Kiba.parse do
         source EtlSource, sheet: sheet
 
         errors = []
-        transform Projects::TransformProject, errors = errors
+        transform Projects::TransformProject, errors
 
         transform Projects::TransformAddressBook, :investor
         transform Projects::TransformAddressBook, :architect
         transform Projects::TransformAddressBook, :role_type_3
         transform Projects::TransformAddressBook, :role_type_4
 
-        destination Projects::Destination, errors = errors
+        destination Projects::Destination, errors
 
         post_process do
           ProjectMailer.notify_import(current_user, errors).deliver_later if errors.present?

@@ -6,6 +6,7 @@ module Types
       field :id, ID, null: false
       field :type, String, null: true
       field :name, String, null: true
+      field :display_name, String, null: true
       field :additional_name, String, null: true
       field :company, String, null: true
 

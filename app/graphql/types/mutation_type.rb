@@ -44,6 +44,10 @@ module Types
     field :delete_kam_investor, mutation: Mutations::AdminToolkit::DeleteKamInvestor
 
     field :create_project, mutation: Mutations::CreateProject
-    field :excel_create_project, mutation: Mutations::Projects::ExcelCreate
+    field :update_project, mutation: Mutations::UpdateProject
+    field :import_project, mutation: Mutations::ImportProject
+
+    field :create_address_book, mutation: Mutations::Projects::CreateAddressBook
+    field :update_address_book, mutation: Mutations::Projects::UpdateAddressBook
   end
 end

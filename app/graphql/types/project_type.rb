@@ -58,6 +58,8 @@ module Types
     end
 
     def move_in_starts_on
+      return unless object.move_in_starts_on
+
       object.move_in_starts_on.in_time_zone(context[:time_zone]).date_str
     end
   end

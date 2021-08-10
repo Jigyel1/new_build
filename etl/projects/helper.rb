@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Projects
   module Helper
     extend Forwardable
@@ -13,16 +15,14 @@ module Projects
 
     def assign_address_attributes(attributes, addressable)
       # split the array between the last item and the rest.
-      # eg. for street { "street"=>"Chemin du Taxéroz 3A et 3B" }
-      # street => ["Chemin", "du", "Taxéroz", "3A", "et"] and street_no => 3B.
+      # eg. for street { "street"=>"Chemin du Taxroz 3A et 3B" }
+      # street => ["Chemin", "du", "Taxroz", "3A", "et"] and street_no => 3B.
       # Then convert the street to a string with a join.
       #
       *street, street_no = attributes[:street].try(:split, ' ') || [nil, nil]
       addressable.build_address(
         attributes.merge(street: street.join(' '), street_no: street_no)
       )
-    rescue Exception => e
-      byebug
     end
   end
 end

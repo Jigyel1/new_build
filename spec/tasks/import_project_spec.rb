@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 Rails.application.load_tasks
@@ -10,7 +12,7 @@ describe 'Project Import' do
   # This project will be skipped on import but available in the errors as a skipped project.
   let_it_be(:project) { create(:project, external_id: '3068125') }
 
-  before_all   { ProjectImporter.call(current_user: super_user, input: file) }
+  before_all { ProjectImporter.call(current_user: super_user, input: file) }
 
   let_it_be(:project) { Project.find_by(external_id: '2826123') }
 
@@ -20,33 +22,33 @@ describe 'Project Import' do
 
   it 'updates project attributes' do
     expect(project).to have_attributes(
-                         name: 'Neubau Einfamilienhaus mit Garage',
-                         lot_number: 'Kat. 2024',
-                         description: 'Neubau Einfamilienhaus mit Garage',
-                         buildings: 1,
-                         apartments: 1,
-                         coordinate_east: 2680642.427,
-                         coordinate_north: 1236913.869
-                       )
+      name: 'Neubau Einfamilienhaus mit Garage',
+      lot_number: 'Kat. 2024',
+      description: 'Neubau Einfamilienhaus mit Garage',
+      buildings: 1,
+      apartments: 1,
+      coordinate_east: 2_680_642.427,
+      coordinate_north: 1_236_913.869
+    )
 
     expect(project.kam_region.name).to eq('Ost ZH')
 
     additional_details = OpenStruct.new(project.additional_details)
     expect(additional_details).to have_attributes(
-                                    planstage: 'Projekt wird nicht realisiert',
-                                    planstage_date: '2020-03-24',
-                                    project_value: '1.50 Mio CHF',
-                                    purpose: 'Eigenbedarf',
-                                    main_category: 'Wohnen (bis 2 Wohneinheiten)',
-                                    cat_code_01: 111,
-                                    cat_text_01: 'Einfamilienhäuser',
-                                    cat_art_01: 'Neubau',
-                                    cat_code_02: 1313,
-                                    project_text_part_01: ' Neubau eines 5-1/2-6-1/2-Zimmer-Einfamilienhauses in einer Massiv- und Holzkonstruktion mit einem Satteldach und Ziegeleindeckung. Um- und Ausbau Dachgeschoss. Einbau einer Wärmepumpe mit Erdsonde und Fussbodenheizung. Integrierte Garage.',
-                                    proj_extern_id: 2826123,
-                                    prod_id: 510842,
-                                    geocod_sccs: 'Gebäudeeingang'
-                                  )
+      planstage: 'Projekt wird nicht realisiert',
+      planstage_date: '2020-03-24',
+      project_value: '1.50 Mio CHF',
+      purpose: 'Eigenbedarf',
+      main_category: 'Wohnen (bis 2 Wohneinheiten)',
+      cat_code_01: 111,
+      cat_text_01: 'Einfamilienhäuser',
+      cat_art_01: 'Neubau',
+      cat_code_02: 1313,
+      project_text_part_01: ' Neubau eines 5-1/2-6-1/2-Zimmer-Einfamilienhauses in einer Massiv- und Holzkonstruktion mit einem Satteldach und Ziegeleindeckung. Um- und Ausbau Dachgeschoss. Einbau einer Wärmepumpe mit Erdsonde und Fussbodenheizung. Integrierte Garage.',
+      proj_extern_id: 2_826_123,
+      prod_id: 510_842,
+      geocod_sccs: 'Gebäudeeingang'
+    )
 
     expect(project.address_books.find_by(type: :role_type_3)).to be_nil
     expect(project.address_books.find_by(type: :role_type_4)).to be_nil
@@ -54,58 +56,58 @@ describe 'Project Import' do
 
   it "updates project's address" do
     expect(project.address).to have_attributes(
-                                 street: 'Hüttliacherweg',
-                                 street_no: '4',
-                                 zip: '8914',
-                                 city: 'Aeugstertal'
-                               )
+      street: 'Hüttliacherweg',
+      street_no: '4',
+      zip: '8914',
+      city: 'Aeugstertal'
+    )
   end
 
   it "updates project's investor" do
     address_book = project.address_books.find_by!(type: :investor)
     expect(address_book).to have_attributes(
-                              external_id: '3527154',
-                              name: 'Marc Hofstetter und Marina Jasmin Ellouzi',
-                              company: 'c/o ArchStudio Architekten AG',
-                              language: 'de',
-                              phone: '044 482 08 08'
-                            )
+      external_id: '3527154',
+      name: 'Marc Hofstetter und Marina Jasmin Ellouzi',
+      company: 'c/o ArchStudio Architekten AG',
+      language: 'de',
+      phone: '044 482 08 08'
+    )
     expect(address_book.address).to have_attributes(
-                                 street: 'Grubenstrasse',
-                                 street_no: '38',
-                                 zip: '8045',
-                                 city: 'Zürich'
-                               )
+      street: 'Grubenstrasse',
+      street_no: '38',
+      zip: '8045',
+      city: 'Zürich'
+    )
 
     additional_details = OpenStruct.new(address_book.additional_details)
     expect(additional_details).to have_attributes(
-                                    investor_province: 'ZH'
-                                    )
+      investor_province: 'ZH'
+    )
   end
 
   it "updates project's architect" do
     address_book = project.address_books.find_by!(type: :architect)
     expect(address_book).to have_attributes(
-                              external_id: '168370',
-                              name: 'ArchStudio Architekten AG',
-                              company: nil,
-                              language: 'de',
-                              phone: '044 482 08 08',
-                              email: 'architekten@archstudio.ch',
-                              website: 'http://www.archstudio.ch'
-                            )
+      external_id: '168370',
+      name: 'ArchStudio Architekten AG',
+      company: nil,
+      language: 'de',
+      phone: '044 482 08 08',
+      email: 'architekten@archstudio.ch',
+      website: 'http://www.archstudio.ch'
+    )
     expect(address_book.address).to have_attributes(
-                                      street: 'Grubenstrasse',
-                                      street_no: '38',
-                                      zip: '8045',
-                                      city: 'Zürich'
-                                    )
+      street: 'Grubenstrasse',
+      street_no: '38',
+      zip: '8045',
+      city: 'Zürich'
+    )
 
     additional_details = OpenStruct.new(address_book.additional_details)
     expect(additional_details).to have_attributes(
-                                    architect_province: 'ZH',
-                                    architect_contact: 'Herr Christian Fierz'
-                                  )
+      architect_province: 'ZH',
+      architect_contact: 'Herr Christian Fierz'
+    )
   end
 
   it "updates project's address book with role type 3" do
@@ -113,27 +115,27 @@ describe 'Project Import' do
     address_book = project.address_books.find_by!(external_id: '3470858')
 
     expect(address_book).to have_attributes(
-                              type: 'others',
-                              display_name: 'Bauingenieur',
-                              name: 'Tea Engineering Sagl',
-                              company: 'Tecniche di sicurezza antincendio',
-                              language: 'it',
-                              phone: '091 606 50 00',
-                              email: 'info@teasagl.ch',
-                              website: 'http://www.teasagl.ch'
-                            )
+      type: 'others',
+      display_name: 'Bauingenieur',
+      name: 'Tea Engineering Sagl',
+      company: 'Tecniche di sicurezza antincendio',
+      language: 'it',
+      phone: '091 606 50 00',
+      email: 'info@teasagl.ch',
+      website: 'http://www.teasagl.ch'
+    )
     expect(address_book.address).to have_attributes(
-                                      street: 'Via Cantonale',
-                                      street_no: '87',
-                                      zip: '6818',
-                                      city: 'Melano'
-                                    )
+      street: 'Via Cantonale',
+      street_no: '87',
+      zip: '6818',
+      city: 'Melano'
+    )
 
     additional_details = OpenStruct.new(address_book.additional_details)
     expect(additional_details).to have_attributes(
-                                    role_type_3_province: 'TI',
-                                    role_type_3_contact: 'Herr Alessandro Furio'
-                                  )
+      role_type_3_province: 'TI',
+      role_type_3_contact: 'Herr Alessandro Furio'
+    )
   end
 
   it "updates project's address book with role type 4" do
@@ -141,27 +143,27 @@ describe 'Project Import' do
     address_book = project.address_books.find_by!(external_id: '432928')
 
     expect(address_book).to have_attributes(
-                              type: 'others',
-                              display_name: 'HLK-Planer',
-                              name: 'PhysArch Sagl - Mirko Galli',
-                              company: 'Fisica della costruzione e del territorio',
-                              language: 'it',
-                              phone: '091 972 24 68',
-                              email: 'mgalli@physarch.ch',
-                              website: nil
-                            )
+      type: 'others',
+      display_name: 'HLK-Planer',
+      name: 'PhysArch Sagl - Mirko Galli',
+      company: 'Fisica della costruzione e del territorio',
+      language: 'it',
+      phone: '091 972 24 68',
+      email: 'mgalli@physarch.ch',
+      website: nil
+    )
     expect(address_book.address).to have_attributes(
-                                      street: 'Via agli Orti',
-                                      street_no: '8',
-                                      zip: '6962',
-                                      city: 'Viganello'
-                                    )
+      street: 'Via agli Orti',
+      street_no: '8',
+      zip: '6962',
+      city: 'Viganello'
+    )
 
     additional_details = OpenStruct.new(address_book.additional_details)
     expect(additional_details).to have_attributes(
-                                    role_type_3_province: 'TI',
-                                    role_type_3_contact: 'Herr Mirko Galli'
-                                  )
+      role_type_3_province: 'TI',
+      role_type_3_contact: 'Herr Mirko Galli'
+    )
   end
 
   it 'sends email with projects that were not imported with well formatted reasons' do
@@ -169,9 +171,9 @@ describe 'Project Import' do
       ProjectImporter.call(current_user: super_user, input: file)
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       expect(ActionMailer::Base.deliveries.first).to have_attributes(
-                                                       subject: 'Notify import',
-                                                       to: [super_user.email]
-                                                     )
+        subject: 'Notify import',
+        to: [super_user.email]
+      )
     end
   end
 end

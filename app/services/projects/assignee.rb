@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 module Projects
   class Assignee
     extend Forwardable
     attr_reader :project, :kam_investor_lookup, :kam, :assignee_type
+
     def_delegators :project, :zip, :apartments
 
     # No need to assign KAM from Kam Region if apartments is less than 50
@@ -15,11 +18,17 @@ module Projects
     # We will skip KAM lookup by investor for manual project creations as there is no provision to enter
     # investor ID for the users.
     def call
+      return if skip_assignment?
+
       @kam = by_kam_investor if kam_investor_lookup
       @kam ||= by_kam_region if kam_region_lookup
     end
 
     private
+
+    def skip_assignment?
+      apartments.nil?
+    end
 
     def by_kam_investor
       AdminToolkit::KamInvestor

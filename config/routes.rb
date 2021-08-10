@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   namespace :api do
-    namespace :v1 do
+    namespace :v1 do # rubocop:disable Naming/VariableNumber
       get :authorization_endpoint, to: 'omniauth#authorization_endpoint'
       post '/graphql', to: 'graphql#execute'
     end

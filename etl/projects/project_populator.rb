@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../app/models/admin_toolkit'
 
 module Projects
@@ -42,7 +44,10 @@ module Projects
       if kam_region
         project.kam_region = kam_region
       else
-        project.errors.add(:kam_region, I18n.t('activerecord.errors.models.project.kam_region_missing', region_name: region_name))
+        project.errors.add(
+          :kam_region,
+          I18n.t('activerecord.errors.models.project.kam_region_missing', region_name: region_name)
+        )
       end
     end
   end

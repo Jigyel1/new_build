@@ -62,7 +62,7 @@ end
     address_attributes: address_attributes,
     profile_attributes: profile_attributes(email.split('@').first),
     invitation_token: SecureRandom.hex
-  ).then{|user| user.accept_invitation! }
+  ).then(&:accept_invitation!)
 rescue ActiveRecord::RecordInvalid => e
   puts "#{e} for user with email(#{email})"
 end

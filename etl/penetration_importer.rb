@@ -18,7 +18,7 @@ class PenetrationImporter < EtlBase
 
   private
 
-  def import(current_user, sheet)
+  def import(_current_user, sheet)
     super do
       Kiba.parse do
         source EtlSource, sheet: sheet

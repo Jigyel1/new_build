@@ -14,7 +14,10 @@ class Project < ApplicationRecord
   validates :buildings, :apartments, numericality: { greater_than: 0 }, allow_nil: true
   validates(
     :apartments,
-    numericality: { greater_than_or_equal_to: :buildings, message: 'should be greater than or equal to the buildings.' },
+    numericality: {
+      greater_than_or_equal_to: :buildings,
+      message: 'should be greater than or equal to the buildings.'
+    },
     allow_nil: true
   )
 
