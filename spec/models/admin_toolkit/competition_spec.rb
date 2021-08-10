@@ -13,4 +13,8 @@ RSpec.describe AdminToolkit::Competition, type: :model do
       expect(create(:admin_toolkit_competition)).to validate_uniqueness_of(:name).ignoring_case_sensitivity
     end
   end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:penetrations).dependent(:restrict_with_error) }
+  end
 end

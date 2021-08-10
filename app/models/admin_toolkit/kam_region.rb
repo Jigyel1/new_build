@@ -3,6 +3,7 @@
 module AdminToolkit
   class KamRegion < ApplicationRecord
     belongs_to :kam, class_name: 'Telco::Uam::User', optional: true
+    has_many :penetrations, class_name: 'AdminToolkit::Penetration', dependent: :restrict_with_error
 
     validates(
       :name,

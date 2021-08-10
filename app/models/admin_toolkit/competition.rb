@@ -5,5 +5,7 @@ module AdminToolkit
     validates :name, :factor, :lease_rate, presence: true
     validates :name, uniqueness: { case_sensitive: false }
     validates :factor, numericality: { greater_than_or_equal_to: 0 }
+
+    has_many :penetrations, class_name: 'AdminToolkit::Penetration', dependent: :restrict_with_error
   end
 end
