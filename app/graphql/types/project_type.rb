@@ -2,8 +2,6 @@
 
 module Types
   class ProjectType < BaseObject
-    using TimeFormatter
-
     field :id, ID, null: false
     field :name, String, null: true
     field :external_id, String, null: true
@@ -16,7 +14,10 @@ module Types
     field :construction_type, String, null: true
     field :assignee_type, String, null: true
 
+    field :assignee, Types::UserType, null: true
+    field :address, [Types::AddressType], null: true
     field :address_books, [Projects::AddressBookType], null: true
+    field :kam_region, [AdminToolkit::KamRegionType], null: true
 
     field(
       :move_in_starts_on,
@@ -37,9 +38,11 @@ module Types
     field :lot_number, String, null: true
     field :buildings, Int, null: true
     field :apartments, Int, null: true
-    field :settings, GraphQL::Types::JSON, null: true
-
-    field :assignee, Types::UserType, null: true
+    field :coordinate_east, Float, null: true
+    field :coordinate_north, Float, null: true
+    field :description, String, null: true
+    field :additional_info, String, null: true
+    field :additional_details, GraphQL::Types::JSON, null: true
 
     def status
       ::Project.statuses[object.status]
@@ -57,10 +60,10 @@ module Types
       ::Project.assignee_types[object.assignee_type]
     end
 
-    def move_in_starts_on
-      return unless object.move_in_starts_on
-
-      object.move_in_starts_on.in_time_zone(context[:time_zone]).date_str
+    %i[move_in_starts_on move_in_ends_on construction_starts_on].each do |method_name|
+      define_method method_name do
+        in_time_zone(method_name)
+      end
     end
   end
 end

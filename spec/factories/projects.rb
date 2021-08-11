@@ -8,7 +8,7 @@ FactoryBot.define do
     category { :standard }
     assignee { nil }
     type { :proactive }
-    construction_type { 'MyString' }
+    construction_type { :reconstruction }
     lot_number { 'MyString' }
     buildings { 1 }
     apartments { '' }

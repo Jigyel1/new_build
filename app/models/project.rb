@@ -40,6 +40,14 @@ class Project < ApplicationRecord
 
   enum type: {
     proactive: 'Proactive',
-    reactive: 'Reactive'
+    reactive: 'Reactive',
+    customer_request: 'Customer Request'
+  }
+
+  enum construction_type: {
+    reconstruction: 'Reconstruction',
+    new_construction: 'New Construction',
+    b2b_new: 'B2B (New)',
+    b2b_reconstruction: 'B2B (Reconstruction)'
   }
 end
