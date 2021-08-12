@@ -28,9 +28,9 @@ module Mutations
       argument :buildings, Int, required: false
       argument :apartments, Int, required: false
 
-      argument :move_in_starts_on, String, required: false
-      argument :move_in_ends_on, String, required: false
-      argument :construction_starts_on, String, required: false
+      argument :move_in_starts_on, GraphQL::Types::ISO8601DateTime, required: false
+      argument :move_in_ends_on, GraphQL::Types::ISO8601DateTime, required: false
+      argument :construction_starts_on, GraphQL::Types::ISO8601DateTime, required: false
 
       argument :address, AddressAttributes, required: false, as: :address_attributes
     end

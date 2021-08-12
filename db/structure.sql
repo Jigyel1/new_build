@@ -751,28 +751,6 @@ CREATE TABLE public.projects_address_books (
 
 
 --
--- Name: roles; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.roles (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    users_count integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.schema_migrations (
-    version character varying NOT NULL
-);
-
-
---
 -- Name: telco_uam_users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -800,6 +778,58 @@ CREATE TABLE public.telco_uam_users (
     provider character varying,
     uid character varying,
     jti character varying NOT NULL
+);
+
+
+--
+-- Name: projects_lists; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.projects_lists AS
+ SELECT projects.id,
+    projects.external_id,
+    projects.project_nr,
+    projects.category,
+    projects.name,
+    projects.type AS project_type,
+    projects.construction_type,
+    projects.move_in_starts_on,
+    projects.move_in_ends_on,
+    projects.buildings,
+    projects.apartments,
+    projects.lot_number,
+    concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
+    concat(profiles.firstname, ' ', profiles.lastname) AS assignee,
+    projects_address_books.display_name AS investor,
+    admin_toolkit_kam_regions.name AS kam_region
+   FROM (((((public.projects
+     LEFT JOIN public.telco_uam_users ON ((telco_uam_users.id = projects.assignee_id)))
+     LEFT JOIN public.profiles ON ((profiles.user_id = telco_uam_users.id)))
+     LEFT JOIN public.addresses ON (((addresses.addressable_id = projects.id) AND ((addresses.addressable_type)::text = 'Project'::text))))
+     LEFT JOIN public.projects_address_books ON (((projects_address_books.project_id = projects.id) AND ((projects_address_books.type)::text = 'Investor'::text))))
+     LEFT JOIN public.admin_toolkit_kam_regions ON ((admin_toolkit_kam_regions.id = projects.kam_region_id)))
+  ORDER BY projects.name;
+
+
+--
+-- Name: roles; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.roles (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    users_count integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schema_migrations (
+    version character varying NOT NULL
 );
 
 
@@ -1554,6 +1584,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210719124603'),
 ('20210722055733'),
 ('20210727111136'),
-('20210804105002');
+('20210804105002'),
+('20210811121923');
 
 

@@ -73,5 +73,14 @@ module Types
           resolver: Resolvers::AdminToolkit::KamRegionsResolver,
           connection: true,
           preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(
+      :projects,
+      resolver: Resolvers::ProjectsResolver,
+      connection: true,
+      preauthorize: { record: ::Project, with: ::ProjectPolicy, to: :index? }
+    )
+
+    field :project, resolver: Resolvers::ProjectResolver, authorize: { with: ProjectPolicy }
   end
 end

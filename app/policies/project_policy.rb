@@ -5,6 +5,10 @@ class ProjectPolicy < ApplicationPolicy
     user.admin? || user.kam? || user.manager_nbo_kam?
   end
 
+  def show?
+    index?
+  end
+
   def create?
     index?
   end

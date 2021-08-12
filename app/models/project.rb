@@ -10,7 +10,7 @@ class Project < ApplicationRecord
   has_many :address_books, class_name: 'Projects::AddressBook', dependent: :destroy
   accepts_nested_attributes_for :address, :address_books, allow_destroy: true
 
-  validates :external_id, uniqueness: true
+  validates :external_id, uniqueness: true, allow_nil: true
   validates :buildings, :apartments, numericality: { greater_than: 0 }, allow_nil: true
   validates(
     :apartments,

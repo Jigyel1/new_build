@@ -13,7 +13,7 @@ module Projects
     enum type: { investor: 'Investor', architect: 'Architect', others: 'Others' }
 
     validates :type, :name, :display_name, presence: true
-    validates :type, uniqueness: { scope: :project_id }
+    validates :type, uniqueness: { unless: ->(record) { record.others? }, scope: :project_id }
 
     before_validation :set_display_name
 

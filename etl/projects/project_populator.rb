@@ -6,6 +6,8 @@ module Projects
   class ProjectPopulator < BasePopulator
     # return <Project>
     # TODO: Use interactor organizer for this?
+    #   LL have to build buildings for the projects based on the count and not just assign number
+    #   once counter cache is implemented.
     def call
       super do
         assign_project_attributes
