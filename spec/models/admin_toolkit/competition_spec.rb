@@ -15,6 +15,6 @@ RSpec.describe AdminToolkit::Competition, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:penetrations).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:penetration_competitions).dependent(:destroy) }
   end
 end

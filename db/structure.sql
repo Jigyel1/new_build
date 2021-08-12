@@ -616,6 +616,19 @@ CREATE TABLE public.admin_toolkit_pct_values (
 
 
 --
+-- Name: admin_toolkit_penetration_competitions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_penetration_competitions (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    penetration_id uuid NOT NULL,
+    competition_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: admin_toolkit_penetrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -624,7 +637,6 @@ CREATE TABLE public.admin_toolkit_penetrations (
     zip character varying NOT NULL,
     city character varying NOT NULL,
     rate double precision NOT NULL,
-    competition_id uuid NOT NULL,
     kam_region_id uuid NOT NULL,
     hfc_footprint boolean NOT NULL,
     type character varying NOT NULL,
@@ -996,6 +1008,14 @@ ALTER TABLE ONLY public.admin_toolkit_pct_values
 
 
 --
+-- Name: admin_toolkit_penetration_competitions admin_toolkit_penetration_competitions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_penetration_competitions
+    ADD CONSTRAINT admin_toolkit_penetration_competitions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: admin_toolkit_penetrations admin_toolkit_penetrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1073,6 +1093,13 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.telco_uam_users
     ADD CONSTRAINT telco_uam_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: by_penetration_competition; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX by_penetration_competition ON public.admin_toolkit_penetration_competitions USING btree (penetration_id, competition_id);
 
 
 --
@@ -1251,10 +1278,17 @@ CREATE INDEX index_admin_toolkit_pct_values_on_pct_month_id ON public.admin_tool
 
 
 --
--- Name: index_admin_toolkit_penetrations_on_competition_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_admin_toolkit_penetration_competitions_on_competition_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_penetrations_on_competition_id ON public.admin_toolkit_penetrations USING btree (competition_id);
+CREATE INDEX index_admin_toolkit_penetration_competitions_on_competition_id ON public.admin_toolkit_penetration_competitions USING btree (competition_id);
+
+
+--
+-- Name: index_admin_toolkit_penetration_competitions_on_penetration_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_penetration_competitions_on_penetration_id ON public.admin_toolkit_penetration_competitions USING btree (penetration_id);
 
 
 --
@@ -1436,11 +1470,19 @@ ALTER TABLE ONLY public.admin_toolkit_footprint_values
 
 
 --
--- Name: admin_toolkit_penetrations fk_rails_39afe522bc; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_toolkit_penetration_competitions fk_rails_23e3df12e1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.admin_toolkit_penetrations
-    ADD CONSTRAINT fk_rails_39afe522bc FOREIGN KEY (competition_id) REFERENCES public.admin_toolkit_competitions(id);
+ALTER TABLE ONLY public.admin_toolkit_penetration_competitions
+    ADD CONSTRAINT fk_rails_23e3df12e1 FOREIGN KEY (competition_id) REFERENCES public.admin_toolkit_competitions(id);
+
+
+--
+-- Name: admin_toolkit_penetration_competitions fk_rails_2efc921e87; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_penetration_competitions
+    ADD CONSTRAINT fk_rails_2efc921e87 FOREIGN KEY (penetration_id) REFERENCES public.admin_toolkit_penetrations(id);
 
 
 --
@@ -1585,6 +1627,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210722055733'),
 ('20210727111136'),
 ('20210804105002'),
-('20210811121923');
+('20210811121923'),
+('20210812065826'),
+('20210812065902');
 
 
