@@ -7,7 +7,7 @@ module AdminToolkit
     def label_list=(value)
       return unless value
 
-      super(value.split(',').map(&:strip))
+      super(value.split(',').map(&:strip).uniq)
     end
   end
 end

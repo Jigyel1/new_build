@@ -8,7 +8,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :project_nr
       t.string :type
       t.string :category
-      t.string :status
+      t.string :status, null: false, default: 'Technical Analysis', index: true
       t.string :assignee_type, null: false, default: 'NBO Project'
 
       t.references :assignee, null: true, foreign_key: { to_table: :telco_uam_users }, type: :uuid
@@ -26,6 +26,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.text :additional_info
       t.float :coordinate_east
       t.float :coordinate_north
+      t.string :label_list, index: true, array: true
 
       t.jsonb :additional_details, null: false, default: {}, index: true
 

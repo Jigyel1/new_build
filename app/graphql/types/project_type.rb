@@ -43,6 +43,7 @@ module Types
     field :description, String, null: true
     field :additional_info, String, null: true
     field :additional_details, GraphQL::Types::JSON, null: true
+    field :label_list, [String], null: true
 
     def status
       ::Project.statuses[object.status]

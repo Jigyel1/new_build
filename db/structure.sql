@@ -567,6 +567,7 @@ CREATE TABLE public.admin_toolkit_kam_regions (
 CREATE TABLE public.admin_toolkit_label_groups (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying NOT NULL,
+    code character varying NOT NULL,
     label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -729,7 +730,7 @@ CREATE TABLE public.projects (
     project_nr character varying DEFAULT nextval('public.projects_project_nr_seq'::regclass),
     type character varying,
     category character varying,
-    status character varying,
+    status character varying DEFAULT 'Technical Analysis'::character varying NOT NULL,
     assignee_type character varying DEFAULT 'NBO Project'::character varying NOT NULL,
     assignee_id uuid,
     kam_region_id uuid,
@@ -744,6 +745,7 @@ CREATE TABLE public.projects (
     additional_info text,
     coordinate_east double precision,
     coordinate_north double precision,
+    label_list character varying[],
     additional_details jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -824,6 +826,7 @@ CREATE VIEW public.projects_lists AS
     projects.buildings,
     projects.apartments,
     projects.lot_number,
+    cardinality(projects.label_list) AS labels,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     concat(profiles.firstname, ' ', profiles.lastname) AS assignee,
     projects.assignee_id,
@@ -1258,6 +1261,13 @@ CREATE INDEX index_admin_toolkit_kam_regions_on_name ON public.admin_toolkit_kam
 
 
 --
+-- Name: index_admin_toolkit_label_groups_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_label_groups_on_code ON public.admin_toolkit_label_groups USING btree (code);
+
+
+--
 -- Name: index_admin_toolkit_label_groups_on_label_list; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1381,6 +1391,20 @@ CREATE INDEX index_projects_on_external_id ON public.projects USING btree (exter
 --
 
 CREATE INDEX index_projects_on_kam_region_id ON public.projects USING btree (kam_region_id);
+
+
+--
+-- Name: index_projects_on_label_list; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_label_list ON public.projects USING btree (label_list);
+
+
+--
+-- Name: index_projects_on_status; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_status ON public.projects USING btree (status);
 
 
 --

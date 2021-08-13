@@ -23,19 +23,32 @@ class Project < ApplicationRecord
 
   delegate :zip, to: :address
 
+  def label_list=(value)
+    return unless value
+
+    super(value.split(',').map(&:strip).uniq)
+  end
+
+  def label_list
+    super || AdminToolkit::LabelGroup.find_by!(code: status).label_list
+  end
+
   enum assignee_type: { kam: 'KAM Project', nbo: 'NBO Project' }
+
   enum status: {
     technical_analysis: 'Technical Analysis',
-    technical_analysis_complete: 'Technical Analysis Complete',
-    ready_to_offer: 'Ready to Offer',
-    commercialization: 'Commercialization'
+    pct_calculation: 'PCT Calculation',
+    technical_analysis_completed: 'Technical Analysis Completed/On-Hold Meeting',
+    ready_for_offer: 'Ready for Offer',
+    contract: 'Contract',
+    contract_accepted: 'Contract Accepted',
+    under_construction: 'Under Construction'
   }
 
+  # 'Marketing only' and 'Irrelevant' to be added later.
   enum category: {
     standard: 'Standard',
-    complex: 'Complex',
-    marketing: 'Marketing only',
-    irrelevant: 'Irrelevant'
+    complex: 'Complex'
   }
 
   enum type: {
