@@ -11,7 +11,7 @@ SELECT projects.id                                        AS id,
        projects.buildings                                 AS buildings,
        projects.apartments                                AS apartments,
        projects.lot_number                                AS lot_number,
-       cardinality(projects.label_list)                   AS labels,
+       cardinality(projects.label_list)                AS labels,
 
        CONCAT(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city )                                  AS address,
        CONCAT(profiles.firstname, ' ', profiles.lastname)                                AS assignee,

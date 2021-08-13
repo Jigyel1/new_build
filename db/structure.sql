@@ -745,7 +745,7 @@ CREATE TABLE public.projects (
     additional_info text,
     coordinate_east double precision,
     coordinate_north double precision,
-    label_list character varying[],
+    label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     additional_details jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL

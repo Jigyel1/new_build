@@ -26,7 +26,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.text :additional_info
       t.float :coordinate_east
       t.float :coordinate_north
-      t.string :label_list, index: true, array: true
+      t.string :label_list, null: false, index: true, array: true, default: []
 
       t.jsonb :additional_details, null: false, default: {}, index: true
 

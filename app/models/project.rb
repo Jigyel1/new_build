@@ -30,7 +30,9 @@ class Project < ApplicationRecord
   end
 
   def label_list
-    super || AdminToolkit::LabelGroup.find_by!(code: status).label_list
+    return super if super.present?
+
+    AdminToolkit::LabelGroup.find_by!(code: status).label_list
   end
 
   enum assignee_type: { kam: 'KAM Project', nbo: 'NBO Project' }

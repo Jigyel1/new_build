@@ -15,7 +15,8 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
       address: address_a,
       buildings: 5,
-      apartments: 14
+      apartments: 14,
+      label_list: 'Assign KAM, Offer Needed'
     )
   end
 
@@ -130,7 +131,7 @@ RSpec.describe Resolvers::ProjectsResolver do
         projects#{query_string(args)} {
           totalCount
           edges {
-            node { id name }
+            node { id name labels }
           }
           pageInfo {
             endCursor
