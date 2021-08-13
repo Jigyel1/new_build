@@ -804,7 +804,7 @@ CREATE VIEW public.projects_lists AS
     projects.project_nr,
     projects.category,
     projects.name,
-    projects.type AS project_type,
+    projects.type,
     projects.construction_type,
     projects.move_in_starts_on,
     projects.move_in_ends_on,
@@ -813,6 +813,7 @@ CREATE VIEW public.projects_lists AS
     projects.lot_number,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     concat(profiles.firstname, ' ', profiles.lastname) AS assignee,
+    projects.assignee_id,
     projects_address_books.display_name AS investor,
     admin_toolkit_kam_regions.name AS kam_region
    FROM (((((public.projects

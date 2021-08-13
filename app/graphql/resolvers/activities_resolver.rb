@@ -16,6 +16,5 @@ module Resolvers
     DESC
 
     option :query, type: String, with: :apply_search
-    option :skip, type: Int, with: :apply_skip
   end
 end

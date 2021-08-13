@@ -48,6 +48,7 @@ class Project < ApplicationRecord
     reconstruction: 'Reconstruction',
     new_construction: 'New Construction',
     b2b_new: 'B2B (New)',
-    b2b_reconstruction: 'B2B (Reconstruction)'
+    b2b_reconstruction: 'B2B (Reconstruction)',
+    overbuild: 'Overbuild'
   }
 end

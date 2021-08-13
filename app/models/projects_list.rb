@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ProjectsList < ApplicationRecord
+  self.inheritance_column = nil
   has_one :addresss
 
   self.primary_key = :id

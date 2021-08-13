@@ -16,8 +16,6 @@ module Resolvers
       Supports searches on user's email, firstname, lastname, phone and role
     DESC
 
-    option :skip, type: Int, with: :apply_skip
-
     def apply_search(scope, value)
       scope.where(
         "CONCAT_WS(

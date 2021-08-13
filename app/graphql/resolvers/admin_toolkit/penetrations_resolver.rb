@@ -19,7 +19,6 @@ module Resolvers
       end
 
       option :query, type: String, with: :apply_search
-      option :skip, type: Int, with: :apply_skip
 
       def apply_search(scope, value)
         scope.left_outer_joins(penetration_competitions: :competition, kam_region: { kam: :profile }).where(

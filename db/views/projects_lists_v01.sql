@@ -3,7 +3,7 @@ SELECT projects.id                                        AS id,
        projects.project_nr                                AS project_nr,
        projects.category                                  AS category,
        projects.name                                      AS name,
-       projects.type                                      AS project_type,
+       projects.type                                      AS type,
        projects.construction_type                         AS construction_type,
 
        projects.move_in_starts_on                         AS move_in_starts_on,
@@ -14,6 +14,7 @@ SELECT projects.id                                        AS id,
 
        CONCAT(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city )                                  AS address,
        CONCAT(profiles.firstname, ' ', profiles.lastname)                                AS assignee,
+       projects.assignee_id                               AS assignee_id,
        projects_address_books.display_name                            AS investor,
        admin_toolkit_kam_regions.name                                AS kam_region
 
