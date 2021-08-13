@@ -3,6 +3,7 @@
 module AdminToolkit
   class ProjectCost < ApplicationRecord
     include Singleton
+    public_class_method :allocate
 
     validates :index, presence: true, uniqueness: true, inclusion: { in: [0] }
 
