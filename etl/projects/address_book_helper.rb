@@ -2,6 +2,8 @@
 
 module Projects
   module AddressBookHelper
+    prepend CustomAssigner
+
     def call
       super do
         assign_attributes

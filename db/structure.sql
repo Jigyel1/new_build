@@ -747,6 +747,7 @@ CREATE TABLE public.projects_address_books (
     external_id character varying,
     type character varying NOT NULL,
     display_name character varying NOT NULL,
+    main_contact boolean DEFAULT false NOT NULL,
     name character varying NOT NULL,
     additional_name character varying,
     company character varying,

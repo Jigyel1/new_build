@@ -166,6 +166,13 @@ describe 'Project Import' do
     )
   end
 
+  context 'when address book is the main contact' do
+    it 'updates the address book appropriately' do
+      address_book = Project.find_by!(external_id: '3039521').address_books.find_by!(type: :investor)
+      expect(address_book).to have_attributes(external_id: '3654317', main_contact: true)
+    end
+  end
+
   it 'sends email with projects that were not imported with well formatted reasons' do
     perform_enqueued_jobs do
       ProjectImporter.call(current_user: super_user, input: file)

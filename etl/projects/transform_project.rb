@@ -6,7 +6,7 @@ module Projects
 
     # values in these indexes need to be converted to integer.
     # Move the zip, etc of other modules to their respective transforms
-    TO_INTS = [1, 2, 8, 17, 23, 33, 49, 39, 55, 66, 76, 77, 82, 85, 90, 91].freeze
+    TO_INTS = [1, 8, 23, 39, 55, 66, 76, 77, 82, 85, 90, 91].freeze
     EXTERNAL_ID = 1
 
     def initialize(errors)

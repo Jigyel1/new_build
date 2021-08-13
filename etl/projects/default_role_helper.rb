@@ -15,6 +15,7 @@ module Projects
     def assign_attributes
       attributes = row_mappings(type)
       address_book.assign_attributes(attributes_hash(attributes))
+      super
     end
 
     def address_book
