@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CreateProjects < ActiveRecord::Migration[6.1]
-  def change # rubocop:disable Metrics/SeliseMethodLength, Metrics/AbcSize
+  def self.up # rubocop:disable Metrics/SeliseMethodLength, Metrics/AbcSize
     create_table :projects, id: :uuid do |t|
       t.string :name
       t.string :external_id, null: false, index: true
@@ -31,5 +31,16 @@ class CreateProjects < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    safety_assured do
+      execute "CREATE SEQUENCE projects_project_nr_seq START 1"
+      execute "ALTER TABLE projects ALTER COLUMN project_nr SET DEFAULT NEXTVAL('projects_project_nr_seq')"
+    end
+  end
+
+  def self.down
+    drop_table :projects
+
+    execute "DROP SEQUENCE projects_project_nr_seq"
   end
 end

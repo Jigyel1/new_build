@@ -707,6 +707,18 @@ CREATE TABLE public.profiles (
 
 
 --
+-- Name: projects_project_nr_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.projects_project_nr_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
 -- Name: projects; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -714,7 +726,7 @@ CREATE TABLE public.projects (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying,
     external_id character varying NOT NULL,
-    project_nr character varying,
+    project_nr character varying DEFAULT nextval('public.projects_project_nr_seq'::regclass),
     type character varying,
     category character varying,
     status character varying,
@@ -1355,6 +1367,13 @@ CREATE INDEX index_projects_on_additional_details ON public.projects USING btree
 --
 
 CREATE INDEX index_projects_on_assignee_id ON public.projects USING btree (assignee_id);
+
+
+--
+-- Name: index_projects_on_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_external_id ON public.projects USING btree (external_id);
 
 
 --

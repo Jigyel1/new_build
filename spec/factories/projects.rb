@@ -7,7 +7,6 @@ FactoryBot.define do
   factory :project do
     name { Faker::Lorem.word }
     external_id { SecureRandom.hex }
-    project_nr { 'MyString' }
     category { :standard }
     assignee { nil }
     type { :proactive }
