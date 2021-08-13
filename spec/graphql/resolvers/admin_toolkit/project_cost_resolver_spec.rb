@@ -31,7 +31,7 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
     <<~GQL
       query {
         adminToolkitProjectCost {
-          id arpu standard
+          id arpu standard socketInstallationRate
         }
       }
     GQL

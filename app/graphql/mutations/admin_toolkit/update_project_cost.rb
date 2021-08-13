@@ -6,6 +6,7 @@ module Mutations
       class UpdateProjectCostAttributes < Types::BaseInputObject
         argument :standard, Float, required: false
         argument :arpu, Float, required: false
+        argument :socket_installation_rate, Float, required: false
       end
 
       argument :attributes, UpdateProjectCostAttributes, required: true

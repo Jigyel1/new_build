@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.1.1] - 
+
+### Feature
+- Projects
+
+### Fixes
+
+### Tasks
+- Redo admin toolkit project cost create migration
+```ruby
+rails db:migrate:redo VERSION=20210702172133
+```
+
 ## [0.1.1] - 2021-07-30
 
 ### Feature 
