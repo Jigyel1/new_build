@@ -35,6 +35,12 @@ class Project < ApplicationRecord
     AdminToolkit::LabelGroup.find_by!(code: status).label_list
   end
 
+  # Project Nr - To be created by SELISE for manually created projects and imported projects.
+  # This ID should start from the number '2' and in the format: eg: '2826123'
+  def project_nr
+    "2#{super}"
+  end
+
   enum assignee_type: { kam: 'KAM Project', nbo: 'NBO Project' }
 
   enum status: {
