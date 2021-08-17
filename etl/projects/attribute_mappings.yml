@@ -45,20 +45,17 @@ investor:
   company: 5
   po_box: 7
   language: 10
+  province: 11
   phone: 12
   mobile: 13
   email: 14
   website: 15
+  contact: 16
 
 investor_address:
   street: 6
   zip: 8
   city: 9
-
-investor_additional_details:
-  investor_province: 11
-  investor_contact: 16
-
 
 architect:
   external_id: 17
@@ -67,19 +64,18 @@ architect:
   company: 20
   po_box: 22
   language: 25
+  province: 26
   phone: 27
   mobile: 28
   email: 29
   website: 30
+  contact: 31
 
 architect_address:
   street: 21
   zip: 23
   city: 24
 
-architect_additional_details:
-  architect_province: 26
-  architect_contact: 31
 
 role_type_3:
   type: 32
@@ -89,19 +85,18 @@ role_type_3:
   company: 36
   po_box: 38
   language: 41
+  province: 42
   phone: 43
   mobile: 44
   email: 45
   website: 46
+  contact: 47
 
 role_type_3_address:
   street: 37
   zip: 39
   city: 40
 
-role_type_3_additional_details:
-  role_type_3_province: 42
-  role_type_3_contact: 47
 
 role_type_4:
   type: 48
@@ -111,16 +106,14 @@ role_type_4:
   company: 52
   po_box: 54
   language: 57
+  province: 58
   phone: 59
   mobile: 60
   email: 61
   website: 62
+  contact: 63
 
 role_type_4_address:
   street: 53
   zip: 55
   city: 56
-
-role_type_4_additional_details:
-  role_type_3_province: 58
-  role_type_3_contact: 63

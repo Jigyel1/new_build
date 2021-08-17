@@ -2,7 +2,7 @@
 
 class EtlBase
   def self.call(input:, current_user: nil)
-    new.call(current_user: current_user, input: input)
+    new.call(input: input, current_user: current_user)
   end
 
   private

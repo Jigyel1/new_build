@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'byebug'
+require_relative '../../app/models/projects/address_book'
 
 FactoryBot.define do
   # by default all projects are `standard`, `proactive`, `reconstruction`
@@ -11,9 +11,14 @@ FactoryBot.define do
     assignee { nil }
     type { :proactive }
     construction_type { :reconstruction }
-    lot_number { 'MyString' }
-    buildings { 1 }
-    apartments { '' }
+
+    transient do
+      add_investor { false }
+    end
+
+    after(:create) do |project, evaluator|
+      project.address_books << build(:address_book, type: :investor) if evaluator.add_investor
+    end
 
     %w[categories types construction_types].each do |key|
       Project.send(key).each_key do |name|

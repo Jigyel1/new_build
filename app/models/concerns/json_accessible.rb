@@ -3,6 +3,7 @@
 module JsonAccessible
   extend ActiveSupport::Concern
 
+  # TODO: OR change this to store :log_data, accessors: %i[recipient_email owner_email...], coder: JSON
   %w[recipient_email owner_email parameters].each do |method|
     define_method method do
       log_data[method]

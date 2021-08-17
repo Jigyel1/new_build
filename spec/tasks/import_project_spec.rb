@@ -12,7 +12,7 @@ describe 'Project Import' do
   # This project will be skipped on import but available in the errors as a skipped project.
   let_it_be(:project) { create(:project, external_id: '3068125') }
 
-  before_all { ProjectImporter.call(current_user: super_user, input: file) }
+  before_all { ProjectsImporter.call(current_user: super_user, input: file) }
 
   let_it_be(:project) { Project.find_by(external_id: '2826123') }
 
@@ -69,19 +69,15 @@ describe 'Project Import' do
       external_id: '3527154',
       name: 'Marc Hofstetter und Marina Jasmin Ellouzi',
       company: 'c/o ArchStudio Architekten AG',
-      language: 'de',
-      phone: '044 482 08 08'
+      language: 'D',
+      phone: '044 482 08 08',
+      province: 'ZH'
     )
     expect(address_book.address).to have_attributes(
       street: 'Grubenstrasse',
       street_no: '38',
       zip: '8045',
       city: 'Zürich'
-    )
-
-    additional_details = OpenStruct.new(address_book.additional_details)
-    expect(additional_details).to have_attributes(
-      investor_province: 'ZH'
     )
   end
 
@@ -91,22 +87,18 @@ describe 'Project Import' do
       external_id: '168370',
       name: 'ArchStudio Architekten AG',
       company: nil,
-      language: 'de',
+      language: 'D',
       phone: '044 482 08 08',
       email: 'architekten@archstudio.ch',
-      website: 'http://www.archstudio.ch'
+      website: 'http://www.archstudio.ch',
+      province: 'ZH',
+      contact: 'Herr Christian Fierz'
     )
     expect(address_book.address).to have_attributes(
       street: 'Grubenstrasse',
       street_no: '38',
       zip: '8045',
       city: 'Zürich'
-    )
-
-    additional_details = OpenStruct.new(address_book.additional_details)
-    expect(additional_details).to have_attributes(
-      architect_province: 'ZH',
-      architect_contact: 'Herr Christian Fierz'
     )
   end
 
@@ -119,22 +111,18 @@ describe 'Project Import' do
       display_name: 'Bauingenieur',
       name: 'Tea Engineering Sagl',
       company: 'Tecniche di sicurezza antincendio',
-      language: 'it',
+      language: 'I',
       phone: '091 606 50 00',
       email: 'info@teasagl.ch',
-      website: 'http://www.teasagl.ch'
+      website: 'http://www.teasagl.ch',
+      province: 'TI',
+      contact: 'Herr Alessandro Furio'
     )
     expect(address_book.address).to have_attributes(
       street: 'Via Cantonale',
       street_no: '87',
       zip: '6818',
       city: 'Melano'
-    )
-
-    additional_details = OpenStruct.new(address_book.additional_details)
-    expect(additional_details).to have_attributes(
-      role_type_3_province: 'TI',
-      role_type_3_contact: 'Herr Alessandro Furio'
     )
   end
 
@@ -147,22 +135,18 @@ describe 'Project Import' do
       display_name: 'HLK-Planer',
       name: 'PhysArch Sagl - Mirko Galli',
       company: 'Fisica della costruzione e del territorio',
-      language: 'it',
+      language: 'I',
       phone: '091 972 24 68',
       email: 'mgalli@physarch.ch',
-      website: nil
+      website: nil,
+      province: 'TI',
+      contact: 'Herr Mirko Galli'
     )
     expect(address_book.address).to have_attributes(
       street: 'Via agli Orti',
       street_no: '8',
       zip: '6962',
       city: 'Viganello'
-    )
-
-    additional_details = OpenStruct.new(address_book.additional_details)
-    expect(additional_details).to have_attributes(
-      role_type_3_province: 'TI',
-      role_type_3_contact: 'Herr Mirko Galli'
     )
   end
 
@@ -175,7 +159,7 @@ describe 'Project Import' do
 
   it 'sends email with projects that were not imported with well formatted reasons' do
     perform_enqueued_jobs do
-      ProjectImporter.call(current_user: super_user, input: file)
+      ProjectsImporter.call(current_user: super_user, input: file)
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       expect(ActionMailer::Base.deliveries.first).to have_attributes(
         subject: 'Notify import',

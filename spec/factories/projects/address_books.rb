@@ -2,16 +2,12 @@
 
 FactoryBot.define do
   factory :address_book, class: 'Projects::AddressBook' do
-    name { 'MyString' }
+    name { Faker::Job.title }
     type { :investor }
-    additional_name { 'MyString' }
-    company { 'MyString' }
-    po_box { 'MyString' }
-    language { 'D' }
-    phone { 'MyString' }
-    mobile { 'MyString' }
-    email { 'MyString' }
-    website { 'MyString' }
-    project { nil }
+    main_contact { false }
+
+    trait :main_contact do
+      main_contact { true }
+    end
   end
 end

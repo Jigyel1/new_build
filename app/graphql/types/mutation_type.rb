@@ -45,7 +45,8 @@ module Types
 
     field :create_project, mutation: Mutations::CreateProject
     field :update_project, mutation: Mutations::UpdateProject
-    field :import_project, mutation: Mutations::ImportProject
+    field :import_projects, mutation: Mutations::ImportProjects
+    field :export_projects, mutation: Mutations::ExportProjects
 
     field :create_address_book, mutation: Mutations::Projects::CreateAddressBook
     field :update_address_book, mutation: Mutations::Projects::UpdateAddressBook

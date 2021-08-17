@@ -3,6 +3,8 @@
 class Project < ApplicationRecord
   self.inheritance_column = nil
 
+  default_scope { where(draft: false) }
+
   belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
   belongs_to :kam_region, class_name: 'AdminToolkit::KamRegion', optional: true
 
@@ -20,6 +22,29 @@ class Project < ApplicationRecord
     },
     allow_nil: true
   )
+
+  ACCESSORS = %i[
+    site_area
+    base_area
+    purpose
+    main_category
+    cat_code_01
+    cat_text_01
+    cat_art_01
+    cat_code_02
+    cat_text_02
+    project_text_part_01
+    project_text_part_02
+    project_text_part_03
+    proj_extern_id
+    prod_id
+    geocod_sccs
+    coord_e
+    coord_n
+    regi_keyaccountmanager_name
+  ].freeze
+
+  store :additional_details, accessors: ACCESSORS, coder: JSON
 
   delegate :zip, to: :address
 

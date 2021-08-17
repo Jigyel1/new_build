@@ -17,8 +17,8 @@ Rails.application.configure do
 
   config.mail_sender = ENV['MAIL_SENDER']
 
-  config.available_permissions = FileParser.parse { 'config/available_permissions.yml' }.with_indifferent_access
-  config.role_permissions = FileParser.parse { 'config/permissions.yml' }.with_indifferent_access
+  config.available_permissions = FileParser.parse { 'config/available_permissions.yml' }
+  config.role_permissions = FileParser.parse { 'config/permissions.yml' }
   config.activity_actions = FileParser.parse { 'config/actions.yml' }
   config.user_departments = FileParser.parse { 'config/departments.yml' }
 

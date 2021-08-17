@@ -1,0 +1,91 @@
+project:
+  external_id: ProjectID
+  name: ProjectName
+  lot_number: ProjectReference
+  description: ProjectDescription
+  move_in_starts_on: ProjectStart
+  move_in_ends_on: ProjectEnd
+  buildings: ProjectStructures
+  apartments: ProjectApartments
+  site_area: ProjectSitearea
+  base_area: ProjectBasearea
+  purpose: ProjectPurpose
+  main_category: ProjectMaincategory
+  cat_code_01: CatCode01
+  cat_text_01: CatText01
+  cat_art_01: CatArt01
+  cat_code_02: CatCode02
+  cat_text_02: CatText02
+  project_text_part_01: ProjecttextPart01
+  project_text_part_02: ProjecttextPart02
+  project_text_part_03: ProjecttextPart03
+  proj_extern_id: PROJ_EXTERN_ID
+  prod_id: PROJ_ID
+  geocod_sccs: GEOCOD_SCCS
+  coord_e: COORD_E
+  coord_n: COORD_N
+  regi_keyaccountmanager_name: REGI_KEYACCOUNTMANAGER_NAME
+
+project_address:
+  street_with_street_no: ProjectStreet
+  city: ProjectTown
+  zip: ProjectPostcode
+
+investor:
+  external_id_with_contact: InvestorID
+  name: InvestorName1
+  additional_name: InvestorFirstname
+  company: InvestorName2
+  po_box: InvestorPOBox
+  language: InvestorLang
+  phone: InvestorPhone
+  mobile: InvestorMobile
+  email: InvestorEmail
+  website: InvestorHomepage
+  province: InvestorProvince
+  contact: InvestorContact
+
+investor_address:
+  street_with_street_no: InvestorStreet
+  zip: InvestorPostcode
+  city: InvestorTown
+
+architect:
+  external_id_with_contact: ArchitectID
+  name: ArchitectName1
+  additional_name: ArchitectFirstname
+  company: ArchitectName2
+  po_box: ArchitectPOBox
+  language: ArchitectLang
+  phone: ArchitectPhone
+  mobile: ArchitectMobile
+  email: ArchitectEmail
+  website: ArchitectHomepage
+  province: ArchitectProvince
+  contact: ArchitectContact
+
+architect_address:
+  street_with_street_no: ArchitectStreet
+  zip: ArchitectPostcode
+  city: ArchitectTown
+
+# Need to do some custom formatting for this section.
+others:
+  display_name: RoleTypeX
+  external_id_with_contact: AddressXID
+  name: AddressXName1
+  additional_name: AddressXFirstname
+  company: AddressXName2
+  po_box: AddressXPOBox
+  language: AddressXLang
+  phone: AddressXPhone
+  mobile: AddressXMobile
+  email: AddressXEmail
+  website: AddressXHomepage
+  province: AddressXProvince
+  contact: AddressXContact
+
+others_address:
+  street_with_street_no: AddressXStreet
+  zip: AddressXPostcode
+  city: AddressXTown

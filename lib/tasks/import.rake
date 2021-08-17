@@ -9,6 +9,6 @@ namespace :import do
   # To pass filepath as an arg
   desc 'Import projects from a shared excel'
   task :projects, [:filepath] => [:environment] do |_task, args|
-    ProjectImporter.call(input: File.new(Rails.root.join('etl/docs/projects.xlsx')), current_user: User.first)
+    ProjectsImporter.call(input: File.new(Rails.root.join('etl/docs/projects.xlsx')), current_user: User.first)
   end
 end

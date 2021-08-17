@@ -6,7 +6,7 @@ module Projects
     def_delegators :project, :row
 
     def row_mappings(*type)
-      ProjectImporter::ATTRIBUTE_MAPPINGS.dig(*type)
+      ProjectsImporter::ATTRIBUTE_MAPPINGS.dig(*type)
     end
 
     def attributes_hash(attributes)

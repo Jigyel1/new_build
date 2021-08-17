@@ -17,7 +17,7 @@ RSpec.describe Resolvers::ProjectResolver do
                                   id: project.id,
                                   name: project.name
                                 )
-        
+
         expect(data.project.address).to have_attributes(
                                           street: address.street,
                                           city: address.city,

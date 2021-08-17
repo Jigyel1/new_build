@@ -22,6 +22,7 @@ module Telco
       has_many :involvements, foreign_key: :recipient_id, class_name: 'Activity', dependent: :destroy
 
       has_one_attached :activity_download
+      has_one_attached :projects_download
 
       validates :profile, presence: true
 

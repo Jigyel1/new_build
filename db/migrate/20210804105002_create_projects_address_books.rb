@@ -17,7 +17,8 @@ class CreateProjectsAddressBooks < ActiveRecord::Migration[6.1]
       t.string :mobile
       t.string :email
       t.string :website
-      t.jsonb :additional_details, null: false, default: {}
+      t.string :province
+      t.string :contact
       t.references :project, null: false, foreign_key: true, type: :uuid
 
       t.timestamps

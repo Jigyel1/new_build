@@ -4,7 +4,7 @@ module Projects
   class AddressBook < ApplicationRecord
     self.inheritance_column = nil
 
-    belongs_to :project
+    belongs_to :project, counter_cache: true
     has_one :address, as: :addressable, dependent: :destroy
     accepts_nested_attributes_for :address, allow_destroy: true
 
@@ -16,6 +16,15 @@ module Projects
     validates :type, uniqueness: { unless: ->(record) { record.others? }, scope: :project_id }
 
     before_validation :set_display_name
+
+    # If the given address book is a main contact for the project, prefix it with character `c`
+    def external_id_with_contact
+      main_contact? ? "c#{external_id}" : external_id
+    end
+
+    def language
+      Projects::AddressBook.languages[super]
+    end
 
     private
 

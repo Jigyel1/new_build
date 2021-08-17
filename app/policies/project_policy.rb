@@ -21,6 +21,10 @@ class ProjectPolicy < ApplicationPolicy
     index?
   end
 
+  def export?
+    index?
+  end
+
   def destroy?
     index?
   end

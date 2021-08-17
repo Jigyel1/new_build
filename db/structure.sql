@@ -747,6 +747,8 @@ CREATE TABLE public.projects (
     coordinate_north double precision,
     label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     additional_details jsonb DEFAULT '{}'::jsonb NOT NULL,
+    draft boolean DEFAULT false NOT NULL,
+    address_books_count integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -771,7 +773,8 @@ CREATE TABLE public.projects_address_books (
     mobile character varying,
     email character varying,
     website character varying,
-    additional_details jsonb DEFAULT '{}'::jsonb NOT NULL,
+    province character varying,
+    contact character varying,
     project_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -1377,6 +1380,13 @@ CREATE INDEX index_projects_on_additional_details ON public.projects USING btree
 --
 
 CREATE INDEX index_projects_on_assignee_id ON public.projects USING btree (assignee_id);
+
+
+--
+-- Name: index_projects_on_draft; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_draft ON public.projects USING btree (draft) WHERE (draft IS NOT FALSE);
 
 
 --

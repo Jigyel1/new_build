@@ -29,6 +29,8 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :label_list, null: false, index: true, array: true, default: []
 
       t.jsonb :additional_details, null: false, default: {}, index: true
+      t.boolean :draft, null: false, default: false
+      t.integer :address_books_count, null: false, default: 0
 
       t.timestamps
     end
@@ -37,6 +39,9 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       execute "CREATE SEQUENCE projects_project_nr_seq START 1"
       execute "ALTER TABLE projects ALTER COLUMN project_nr SET DEFAULT NEXTVAL('projects_project_nr_seq')"
     end
+
+    # Add a partial index to for non draft projects
+    add_index :projects, :draft, where: "draft IS NOT FALSE"
   end
 
   def self.down

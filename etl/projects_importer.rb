@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-class ProjectImporter < EtlBase
+class ProjectsImporter < EtlBase
   SHEET_INDEX = 0
   SKIP_ROWS = 6
 
-  ATTRIBUTE_MAPPINGS = ActiveSupport::ConfigurationFile.new(
-    Rails.root.join('etl/projects/attribute_mappings.yml')
-  ).parse.with_indifferent_access.freeze
+  ATTRIBUTE_MAPPINGS = FileParser.parse { 'etl/projects/attribute_mappings.yml'}.freeze
 
   # Imports projects from the excel.
   #
@@ -14,7 +12,9 @@ class ProjectImporter < EtlBase
   # @param input [File] the file upload
   #
   def call(current_user:, input:)
-    sheet = Xsv::Workbook.open(input.tempfile.path).sheets[SHEET_INDEX]
+    # sheet = Xsv::Workbook.open(input.tempfile.path).sheets[SHEET_INDEX]
+    sheet = Xsv::Workbook.open(input).sheets[SHEET_INDEX]
+
     sheet.row_skip = SKIP_ROWS
 
     import(current_user, sheet)

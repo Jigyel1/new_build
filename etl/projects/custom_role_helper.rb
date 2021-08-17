@@ -10,7 +10,7 @@ module Projects
 
     def row_mappings(*type)
       type = type.is_a?(Array) ? type : [type]
-      ProjectImporter::ATTRIBUTE_MAPPINGS.dig(*type)
+      ProjectsImporter::ATTRIBUTE_MAPPINGS.dig(*type)
     end
 
     def assign_attributes
