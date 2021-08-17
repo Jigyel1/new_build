@@ -8,7 +8,7 @@ module Projects
 
     def call
       authorize! Project, to: :export?, with: ProjectPolicy
-      
+
       string_io = CSV.generate(headers: true) do |csv|
         csv << Exports::PrepareHeaders.new(csv_headers, projects).call
 

@@ -20,10 +20,7 @@ module Mutations
       argument :coordinate_east, Float, required: false
       argument :coordinate_north, Float, required: false
 
-      # beyond this, will be presented as a second page. Hence optional.
-      # Commenting out assignee id for now. System is suppose to pick on that from the AdminToolkit::KamRegion
-      # or AdminToolkit::KamMapping
-      # argument :assignee_id, ID, required: false
+      argument :assignee_id, ID, required: false
       argument :lot_number, String, required: false
       argument :buildings, Int, required: false
       argument :apartments, Int, required: false
