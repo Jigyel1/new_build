@@ -3,9 +3,7 @@
 module Mutations
   module Projects
     class CreateAddressBook < BaseMutation
-      class AddressAttributes < Types::BaseInputObject
-        graphql_name 'CreateAddressBookAddressAtttributes'
-
+      class CreateAddressBookAddressAttributes < Types::BaseInputObject
         argument :street, String, required: true
         argument :street_no, String, required: true
         argument :city, String, required: true
@@ -13,24 +11,14 @@ module Mutations
       end
 
       class CreateAddressBookAttributes < Types::BaseInputObject
+        include Concerns::AddressBook
+
         argument :project_id, ID, required: true
         argument :type, String, required: true
         argument :name, String, required: true
-        argument :display_name, String, required: false, description: <<~DESC
-          For architect & investor, display name will be set the same as the type. If the type is
-          others, display name will have a custom name and is REQUIRED!.
-        DESC
-
-        argument :additional_name, String, required: false
-        argument :company, String, required: false
-        argument :po_box, String, required: false
-        argument :language, String, required: false
         argument :phone, String, required: true
-        argument :mobile, String, required: false
-        argument :email, String, required: false
-        argument :website, String, required: false
 
-        argument :address, AddressAttributes, as: :address_attributes, required: false
+        argument :address, CreateAddressBookAddressAttributes, as: :address_attributes, required: false
       end
 
       argument :attributes, CreateAddressBookAttributes, required: true

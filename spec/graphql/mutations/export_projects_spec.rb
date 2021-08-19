@@ -22,58 +22,6 @@ RSpec.describe Mutations::ExportProjects do
         csv = CSV.new(File.read(file_path), headers: true)
         row = OpenStruct.new(csv.shift.to_h)
         expect(row).to have_attributes(
-                         ProjectName: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
-                         ProjectStructures: '5',
-                         ProjectApartments: '14',
-                         ProjectReference: 'Kat. 2024',
-                         ProjectDescription: 'Neubau Einfamilienhaus mit Garage',
-                         ProjectStart: 1.year.from_now.to_date.to_s,
-                         ProjectEnd: 2.years.from_now.to_date.to_s,
-                         ProjectPurpose: 'Vermietung / Verkauf',
-                         ProjectMaincategory: 'Wohnen (ab 3 Wohneinheiten)',
-                         ProjectStreet: 'Sharell Meadows 44',
-                         ProjectTown: 'New Murray',
-                         ProjectPostcode: '16564'
-                       )
-
-        expect(row).to have_attributes(
-                         InvestorID: '3527154',
-                         InvestorName1: 'Marc Hofstetter und Marina Jasmin Ellouzi',
-                         InvestorFirstname: '',
-                         InvestorName2: 'c/o ArchStudio Architekten AG',
-                         InvestorPOBox: '',
-                         InvestorLang: 'D',
-                         InvestorPhone: '044 482 08 08',
-                         InvestorMobile: '',
-                         InvestorEmail: 'info@repond-sa.ch',
-                         InvestorHomepage: 'http://www.repond-sa.ch',
-                         InvestorProvince: 'ZH',
-                         InvestorContact: '',
-                         InvestorStreet: 'Grubenstrasse 38',
-                         InvestorPostcode: '8045',
-                         InvestorTown: 'Zürich',
-                       )
-
-        expect(row).to have_attributes(
-                         ArchitectID: '168370',
-                         ArchitectName1: 'ArchStudio Architekten AG',
-                         ArchitectFirstname: '',
-                         ArchitectName2: '',
-                         ArchitectPOBox: '',
-                         ArchitectLang: 'D',
-                         ArchitectPhone: '044 482 08 08',
-                         ArchitectMobile: '',
-                         ArchitectEmail: 'architekten@archstudio.ch',
-                         ArchitectHomepage: 'http://www.archstudio.ch',
-                         ArchitectProvince: 'ZH',
-                         ArchitectContact: 'Herr Christian Fierz',
-                         ArchitectStreet: 'Grubenstrasse 38',
-                         ArchitectPostcode: '8045',
-                         ArchitectTown: 'Zürich',
-                       )
-
-        row = OpenStruct.new(csv.shift.to_h.tap { |hash| hash.delete(nil) })
-        expect(row).to have_attributes(
                          ProjectID: '3050832',
                          ProjectName: 'Costruzione abitazione unifamiliare',
                          ProjectStructures: '',
@@ -175,6 +123,60 @@ RSpec.describe Mutations::ExportProjects do
                          Address4Street: 'Via agli Orti 8',
                          Address4Postcode: '6962',
                          Address4Town: 'Viganello',
+                         )
+
+        # If the row has nil keys, delete those with `csv.shift.tap { |hash| hash.delete(nil) }`
+        row = OpenStruct.new(csv.shift.to_h)
+        expect(row).to have_attributes(
+                         ProjectID: '3062289',
+                         ProjectName: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
+                         ProjectStructures: '5',
+                         ProjectApartments: '14',
+                         ProjectReference: 'Kat. 2024',
+                         ProjectDescription: 'Neubau Einfamilienhaus mit Garage',
+                         ProjectStart: 1.year.from_now.to_date.to_s,
+                         ProjectEnd: 2.years.from_now.to_date.to_s,
+                         ProjectPurpose: 'Vermietung / Verkauf',
+                         ProjectMaincategory: 'Wohnen (ab 3 Wohneinheiten)',
+                         ProjectStreet: 'Sharell Meadows 44',
+                         ProjectTown: 'New Murray',
+                         ProjectPostcode: '16564'
+                       )
+
+        expect(row).to have_attributes(
+                         InvestorID: '3527154',
+                         InvestorName1: 'Marc Hofstetter und Marina Jasmin Ellouzi',
+                         InvestorFirstname: '',
+                         InvestorName2: 'c/o ArchStudio Architekten AG',
+                         InvestorPOBox: '',
+                         InvestorLang: 'D',
+                         InvestorPhone: '044 482 08 08',
+                         InvestorMobile: '',
+                         InvestorEmail: 'info@repond-sa.ch',
+                         InvestorHomepage: 'http://www.repond-sa.ch',
+                         InvestorProvince: 'ZH',
+                         InvestorContact: '',
+                         InvestorStreet: 'Grubenstrasse 38',
+                         InvestorPostcode: '8045',
+                         InvestorTown: 'Zürich',
+                         )
+
+        expect(row).to have_attributes(
+                         ArchitectID: '168370',
+                         ArchitectName1: 'ArchStudio Architekten AG',
+                         ArchitectFirstname: '',
+                         ArchitectName2: '',
+                         ArchitectPOBox: '',
+                         ArchitectLang: 'D',
+                         ArchitectPhone: '044 482 08 08',
+                         ArchitectMobile: '',
+                         ArchitectEmail: 'architekten@archstudio.ch',
+                         ArchitectHomepage: 'http://www.archstudio.ch',
+                         ArchitectProvince: 'ZH',
+                         ArchitectContact: 'Herr Christian Fierz',
+                         ArchitectStreet: 'Grubenstrasse 38',
+                         ArchitectPostcode: '8045',
+                         ArchitectTown: 'Zürich',
                          )
       end
     end

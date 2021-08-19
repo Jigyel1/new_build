@@ -27,6 +27,34 @@ RSpec.describe Mutations::CreateProject do
                                                name: kam.name
                                              )
       end
+
+      it 'creates the associated address books' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
+        expect(errors).to be_nil
+        address_books = response.project.addressBooks
+
+        record = address_books.find { |address_book| address_book[:type] == 'Investor' }
+        expect(OpenStruct.new(record)).to have_attributes(
+                                            name: 'Philips',
+                                            company: 'Charlotte Hornets',
+                                            phone: '099292922',
+                                            mobile: '03393933',
+                                            language: 'D',
+                                            email: 'philips.jordan@chornets.us',
+                                            website: 'charlotte-hornets.com'
+                                          )
+
+        record = address_books.find { |address_book| address_book[:type] == 'Architect' }
+        expect(OpenStruct.new(record)).to have_attributes(
+                                            name: 'Isiah',
+                                            company: 'Detroit Pistons',
+                                            language: 'I',
+                                            phone: '049292922',
+                                            mobile: '103393933',
+                                            email: 'isiah.thomas@pistons.us',
+                                            website: 'detroit-pistons.com'
+                                          )
+      end
     end
 
     context 'when assignee is not a KAM' do
@@ -125,6 +153,7 @@ RSpec.describe Mutations::CreateProject do
               buildings: 3
               apartments: #{apartments}
               #{address}
+              #{address_books}
             }
           }
         )

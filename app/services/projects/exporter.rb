@@ -23,7 +23,7 @@ module Projects
     private
 
     def projects
-      @_projects ||= Project.where(id: ids)
+      @_projects ||= Project.where(id: ids).order(:external_id)
     end
 
     def url(csv)

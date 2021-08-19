@@ -23,10 +23,6 @@ module Types
       def type
         ::Projects::AddressBook.types[object.type]
       end
-
-      def language
-        ::Projects::AddressBook.languages[object.language]
-      end
     end
   end
 end
