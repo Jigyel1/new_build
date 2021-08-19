@@ -5,16 +5,17 @@ SELECT projects.id                                        AS id,
        projects.name                                      AS name,
        projects.type                                      AS type,
        projects.construction_type                         AS construction_type,
+       projects.apartments_count                         AS apartments_count,
 
        projects.move_in_starts_on                         AS move_in_starts_on,
        projects.move_in_ends_on                           AS move_in_ends_on,
-       projects.buildings                                 AS buildings,
-       projects.apartments                                AS apartments,
-       projects.lot_number                                AS lot_number,
-       cardinality(projects.label_list)                AS labels,
+       projects.buildings_count                           AS buildings_count,
 
-       CONCAT(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city )                                  AS address,
-       CONCAT(profiles.firstname, ' ', profiles.lastname)                                AS assignee,
+       projects.lot_number                                AS lot_number,
+       cardinality(projects.label_list)                   AS labels,
+
+       CONCAT(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city )    AS address,
+       CONCAT(profiles.firstname, ' ', profiles.lastname)  AS assignee,
        projects.assignee_id                               AS assignee_id,
        projects_address_books.display_name                            AS investor,
        admin_toolkit_kam_regions.name                                AS kam_region
@@ -28,5 +29,4 @@ FROM projects
     LEFT JOIN projects_address_books ON projects_address_books.project_id = projects.id AND projects_address_books.type = 'Investor'
 
     LEFT JOIN admin_toolkit_kam_regions ON admin_toolkit_kam_regions.id = projects.kam_region_id
-
 ORDER BY projects.name ASC

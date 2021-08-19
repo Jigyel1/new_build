@@ -740,8 +740,8 @@ CREATE TABLE public.projects (
     move_in_starts_on date,
     move_in_ends_on date,
     lot_number character varying,
-    buildings integer,
-    apartments integer,
+    buildings_count integer DEFAULT 0 NOT NULL,
+    apartments_count integer,
     description text,
     additional_info text,
     coordinate_east double precision,
@@ -778,6 +778,24 @@ CREATE TABLE public.projects_address_books (
     province character varying,
     contact character varying,
     project_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: projects_buildings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects_buildings (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name character varying NOT NULL,
+    external_id character varying,
+    assignee_id uuid,
+    project_id uuid NOT NULL,
+    apartments_count integer DEFAULT 0 NOT NULL,
+    move_in_starts_on date,
+    move_in_ends_on date,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -826,10 +844,10 @@ CREATE VIEW public.projects_lists AS
     projects.name,
     projects.type,
     projects.construction_type,
+    projects.apartments_count,
     projects.move_in_starts_on,
     projects.move_in_ends_on,
-    projects.buildings,
-    projects.apartments,
+    projects.buildings_count,
     projects.lot_number,
     cardinality(projects.label_list) AS labels,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
@@ -1084,6 +1102,14 @@ ALTER TABLE ONLY public.profiles
 
 ALTER TABLE ONLY public.projects_address_books
     ADD CONSTRAINT projects_address_books_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: projects_buildings projects_buildings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_buildings
+    ADD CONSTRAINT projects_buildings_pkey PRIMARY KEY (id);
 
 
 --
@@ -1371,6 +1397,27 @@ CREATE INDEX index_projects_address_books_on_project_id ON public.projects_addre
 
 
 --
+-- Name: index_projects_buildings_on_assignee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_buildings_on_assignee_id ON public.projects_buildings USING btree (assignee_id);
+
+
+--
+-- Name: index_projects_buildings_on_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_buildings_on_external_id ON public.projects_buildings USING btree (external_id);
+
+
+--
+-- Name: index_projects_buildings_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_buildings_on_project_id ON public.projects_buildings USING btree (project_id);
+
+
+--
 -- Name: index_projects_on_additional_details; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1544,6 +1591,22 @@ ALTER TABLE ONLY public.admin_toolkit_penetration_competitions
 
 
 --
+-- Name: projects_buildings fk_rails_2f76a3f772; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_buildings
+    ADD CONSTRAINT fk_rails_2f76a3f772 FOREIGN KEY (project_id) REFERENCES public.projects(id);
+
+
+--
+-- Name: projects_buildings fk_rails_34f45f79c2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_buildings
+    ADD CONSTRAINT fk_rails_34f45f79c2 FOREIGN KEY (assignee_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- Name: projects_address_books fk_rails_39b8a18518; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1685,6 +1748,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210722055733'),
 ('20210727111136'),
 ('20210804105002'),
+('20210804120138'),
 ('20210811121923'),
 ('20210812065826'),
 ('20210812065902');

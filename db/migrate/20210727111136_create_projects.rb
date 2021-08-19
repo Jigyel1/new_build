@@ -20,8 +20,8 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.date :move_in_starts_on
       t.date :move_in_ends_on
       t.string :lot_number
-      t.integer :buildings
-      t.integer :apartments
+      t.integer :buildings_count, null: false, default: 0
+      t.integer :apartments_count, null: true
 
       t.text :description
       t.text :additional_info

@@ -13,11 +13,11 @@ module Resolvers
     option(:types, type: [String]) { |scope, value| scope.where(type: value) }
     option(:construction_types, type: [String]) { |scope, value| scope.where(construction_type: value) }
 
-    option :buildings, type: [Int], with: :apply_buildings_filter, description: <<~DESC
+    option :buildings_count, type: [Int], with: :apply_buildings_filter, description: <<~DESC
       Send min and max values in the array. eg. [2, 10]. Only the first two values will be picked.
     DESC
 
-    option :apartments, type: [Int], with: :apply_apartments_filter, description: <<~DESC
+    option :apartments_count, type: [Int], with: :apply_apartments_filter, description: <<~DESC
       Send min and max values in the array. eg. [2, 10]. Only the first two values will be picked.
     DESC
 
@@ -27,11 +27,11 @@ module Resolvers
     DESC
 
     def apply_buildings_filter(scope, value)
-      apply_range_filter(scope, :buildings, value)
+      apply_range_filter(scope, :buildings_count, value)
     end
 
     def apply_apartments_filter(scope, value)
-      apply_range_filter(scope, :apartments, value)
+      apply_range_filter(scope, :apartments_count, value)
     end
 
     def apply_search(scope, value)

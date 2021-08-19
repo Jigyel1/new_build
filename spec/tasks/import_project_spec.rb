@@ -25,8 +25,8 @@ describe 'Project Import' do
       name: 'Neubau Einfamilienhaus mit Garage',
       lot_number: 'Kat. 2024',
       description: 'Neubau Einfamilienhaus mit Garage',
-      buildings: 1,
-      apartments: 1,
+      buildings_count: 1,
+      apartments_count: 1,
       coordinate_east: 2_680_642.427,
       coordinate_north: 1_236_913.869
     )

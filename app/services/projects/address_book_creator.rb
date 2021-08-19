@@ -2,7 +2,7 @@
 
 module Projects
   class AddressBookCreator < BaseService
-    attr_reader :project, :address_book
+    attr_reader :address_book
 
     def call
       authorize! project, to: :create?, with: ProjectPolicy

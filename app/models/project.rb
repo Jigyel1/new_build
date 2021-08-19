@@ -10,18 +10,11 @@ class Project < ApplicationRecord
 
   has_one :address, as: :addressable, dependent: :destroy
   has_many :address_books, class_name: 'Projects::AddressBook', dependent: :destroy
+  has_many :buildings, class_name: 'Projects::Building', dependent: :restrict_with_error
+
   accepts_nested_attributes_for :address, :address_books, allow_destroy: true
 
   validates :external_id, uniqueness: true, allow_nil: true
-  validates :buildings, :apartments, numericality: { greater_than: 0 }, allow_nil: true
-  validates(
-    :apartments,
-    numericality: {
-      greater_than_or_equal_to: :buildings,
-      message: 'should be greater than or equal to the buildings.'
-    },
-    allow_nil: true
-  )
 
   ACCESSORS = %i[
     site_area
@@ -101,3 +94,5 @@ class Project < ApplicationRecord
     overbuild: 'Overbuild'
   }
 end
+
+

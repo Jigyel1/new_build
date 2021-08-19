@@ -36,8 +36,8 @@ module Types
     field :construction_starts_on, String, null: true
 
     field :lot_number, String, null: true
-    field :buildings, Int, null: true
-    field :apartments, Int, null: true
+    field :buildings_count, Int, null: true
+    field :apartments_count, Int, null: true
     field :coordinate_east, Float, null: true
     field :coordinate_north, Float, null: true
     field :description, String, null: true

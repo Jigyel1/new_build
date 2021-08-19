@@ -19,7 +19,9 @@ RSpec.describe Mutations::CreateProject do
           externalId: 'e922833',
           moveInStartsOn: Date.current.in_time_zone.date_str,
           status: 'Technical Analysis',
-          assigneeType: 'KAM Project'
+          assigneeType: 'KAM Project',
+          apartmentsCount: 10,
+          buildingsCount: 3
         )
 
         expect(response.project.assignee).to have_attributes(
@@ -54,6 +56,15 @@ RSpec.describe Mutations::CreateProject do
                                             email: 'isiah.thomas@pistons.us',
                                             website: 'detroit-pistons.com'
                                           )
+      end
+
+      it 'creates associated apartments and buildings' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
+        expect(errors).to be_nil
+
+        buildings = Project.find(response.project.id).buildings
+        expect(buildings.count).to eq(3)
+        expect(buildings.pluck(:apartments_count)).to match_array([3,3,4])
       end
     end
 
@@ -150,8 +161,8 @@ RSpec.describe Mutations::CreateProject do
               moveInEndsOn: "#{Date.current + 3.months}"
               constructionStartsOn: "#{Date.current - 3.years}"
               lotNumber: "EA0988833"
-              buildings: 3
-              apartments: #{apartments}
+              buildingsCount: 3
+              apartmentsCount: #{apartments}
               #{address}
               #{address_books}
             }
@@ -159,7 +170,7 @@ RSpec.describe Mutations::CreateProject do
         )
         {
           project {
-            id status externalId moveInStartsOn assigneeType assignee { id name }
+            id status externalId moveInStartsOn assigneeType apartmentsCount buildingsCount assignee { id name }
             addressBooks { id type name company language email website phone mobile address { id street city zip} }
           }
         }

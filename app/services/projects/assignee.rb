@@ -5,7 +5,7 @@ module Projects
     extend Forwardable
     attr_reader :project, :kam, :assignee_type
 
-    def_delegators :project, :zip, :apartments
+    def_delegators :project, :zip, :apartments_count
 
     # No need to assign KAM from Kam Region if apartments is less than 50
     APARTMENTS_COUNT_NOT_REQUIRING_KAM = 50
@@ -45,7 +45,7 @@ module Projects
     end
 
     def kam_region_lookup
-      apartments && apartments > APARTMENTS_COUNT_NOT_REQUIRING_KAM
+      apartments_count && apartments_count > APARTMENTS_COUNT_NOT_REQUIRING_KAM
     end
   end
 end

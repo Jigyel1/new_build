@@ -70,8 +70,6 @@ RSpec.describe Mutations::UpdateProject do
               externalId: "e922833"
               status: "#{args[:status]}"
               lotNumber: "EA0988833"
-              buildings: 3
-              apartments: #{apartments}
               #{address}
             }
           }

@@ -24,7 +24,7 @@ RSpec.describe Mutations::ExportProjects do
         expect(row).to have_attributes(
                          ProjectID: '3050832',
                          ProjectName: 'Costruzione abitazione unifamiliare',
-                         ProjectStructures: '',
+                         ProjectStructures: '0',
                          ProjectApartments: '',
                          ProjectReference: 'Mapp. 1168',
                          ProjectDescription: 'Costruzione abitazione unifamiliare',
@@ -131,7 +131,7 @@ RSpec.describe Mutations::ExportProjects do
                          ProjectID: '3062289',
                          ProjectName: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
                          ProjectStructures: '5',
-                         ProjectApartments: '14',
+                         ProjectApartments: '15',
                          ProjectReference: 'Kat. 2024',
                          ProjectDescription: 'Neubau Einfamilienhaus mit Garage',
                          ProjectStart: 1.year.from_now.to_date.to_s,

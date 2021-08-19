@@ -5,8 +5,8 @@ project:
   description: ProjectDescription
   move_in_starts_on: ProjectStart
   move_in_ends_on: ProjectEnd
-  buildings: ProjectStructures
-  apartments: ProjectApartments
+  buildings_count: ProjectStructures
+  apartments_count: ProjectApartments
   site_area: ProjectSitearea
   base_area: ProjectBasearea
   purpose: ProjectPurpose

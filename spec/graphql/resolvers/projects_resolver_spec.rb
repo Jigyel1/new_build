@@ -14,8 +14,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       :project,
       name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
       address: address_a,
-      buildings: 5,
-      apartments: 14,
+      buildings: build_list(:buildings, 5, apartments_count: 3),
       label_list: 'Assign KAM, Offer Needed'
     )
   end
@@ -28,8 +27,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: "Construction d'une habitation de quatre logements",
       address: address_b,
       assignee: kam,
-      buildings: 15,
-      apartments: 25
+      buildings: build_list(:buildings, 15, apartments_count: 6)
     )
   end
 
@@ -42,8 +40,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: 'Neubau Einfamilienhaus mit Pavillon',
       address: address_c,
       assignee: team_expert,
-      buildings: 25,
-      apartments: 26
+      buildings: build_list(:buildings, 25, apartments_count: 8)
     )
   end
 
@@ -107,7 +104,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     end
 
     context 'with apartments filter' do
-      let(:apartments) { [15, 25] }
+      let(:apartments) { [16, 90] }
 
       it 'returns projects with apartments in the given range' do
         projects, errors = paginated_collection(:projects, query(apartments: apartments), current_user: super_user)
@@ -144,14 +141,13 @@ RSpec.describe Resolvers::ProjectsResolver do
     GQL
   end
 
-  def query_string(args = {})
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
     params = args[:categories] ? ["categories: #{args[:categories]}"] : []
     params << "assignees: #{args[:assignees]}" if args[:assignees].present?
     params << "types: #{args[:types]}" if args[:types].present?
     params << "constructionTypes: #{args[:construction_types]}" if args[:construction_types].present?
-    params << "buildings: #{args[:buildings]}" if args[:buildings].present?
-    params << "apartments: #{args[:apartments]}" if args[:apartments].present?
+    params << "buildingsCount: #{args[:buildings]}" if args[:buildings].present?
+    params << "apartmentsCount: #{args[:apartments]}" if args[:apartments].present?
     params << "query: \"#{args[:query]}\"" if args[:query]
     # params << "first: #{args[:first]}" if args[:first]
     # params << "skip: #{args[:skip]}" if args[:skip]
