@@ -20,7 +20,7 @@ RSpec.describe Mutations::UpdateProject do
           externalId: 'e922833',
           status: 'Technical Analysis',
           assignee: nil,
-          assigneeType: 'NBO Project'
+          assigneeType: 'KAM Project'
         )
       end
     end

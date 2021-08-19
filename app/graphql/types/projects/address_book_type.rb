@@ -16,6 +16,7 @@ module Types
       field :mobile, String, null: true
       field :email, String, null: true
       field :website, String, null: true
+      field :entry_type, String, null: true
 
       field :address, Types::AddressType, null: true
 

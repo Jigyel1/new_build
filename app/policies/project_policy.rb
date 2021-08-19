@@ -6,19 +6,19 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show?
-    index?
+    create? || user.manager_nbo_kam?
   end
 
   def create?
-    index?
+    user.admin? || user.management? || user.nbo_team? || user.kam? || user.presales?
   end
 
   def update?
-    index?
+    user.admin? || user == record.assignee
   end
 
   def import?
-    index?
+    user.admin? || user.management?
   end
 
   def export?

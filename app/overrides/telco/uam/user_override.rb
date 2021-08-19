@@ -33,7 +33,7 @@ module Telco
       delegate :salutation, :name, :lastname, :firstname, to: :profile
       delegate :id, to: :profile, prefix: true
       delegate :id, to: :address, prefix: true, allow_nil: true
-      delegate :permissions, :admin?, to: :role
+      delegate :permissions, :admin?, :nbo_team?, to: :role
       delegate :name, to: :role, prefix: true
 
       # Updates provider & uid for the user.

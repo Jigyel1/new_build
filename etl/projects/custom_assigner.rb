@@ -15,7 +15,11 @@ module Projects
 
       # `to_i` otherwise the value will be saved with a decimal.
       # eg. '109933.0' => '109933'
-      address_book.assign_attributes(main_contact: main_contact, external_id: external_id.to_i)
+      address_book.assign_attributes(
+        main_contact: main_contact,
+        external_id: external_id.to_i,
+        entry_type: :info_manager
+      )
     end
   end
 end

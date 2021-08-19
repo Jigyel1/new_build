@@ -26,6 +26,7 @@ module Projects
     def assign_project_attributes
       attributes = row_mappings(:project)
       project.assign_attributes(attributes_hash(attributes))
+      project.entry_type = :info_manager
     end
 
     def assign_address_attributes

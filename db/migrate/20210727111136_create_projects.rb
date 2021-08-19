@@ -9,7 +9,8 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :type
       t.string :category
       t.string :status, null: false, default: 'Technical Analysis', index: true
-      t.string :assignee_type, null: false, default: 'NBO Project'
+      t.string :assignee_type, null: false, default: 'KAM Project'
+      t.string :entry_type, null: false, default: 'Manual'
 
       t.references :assignee, null: true, foreign_key: { to_table: :telco_uam_users }, type: :uuid
       t.references :kam_region, null: true, foreign_key: { to_table: :admin_toolkit_kam_regions }, type: :uuid

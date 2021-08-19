@@ -14,23 +14,23 @@ module Mutations
 
       class CreateAddressBookAttributes < Types::BaseInputObject
         argument :project_id, ID, required: true
-          argument :type, String, required: true
-          argument :name, String, required: true
-          argument :display_name, String, required: false, description: <<~DESC
-            For architect & investor, display name will be set the same as the type. If the type is
-            others, display name will have a custom name and is REQUIRED!.
-          DESC
+        argument :type, String, required: true
+        argument :name, String, required: true
+        argument :display_name, String, required: false, description: <<~DESC
+          For architect & investor, display name will be set the same as the type. If the type is
+          others, display name will have a custom name and is REQUIRED!.
+        DESC
 
-          argument :additional_name, String, required: false
-          argument :company, String, required: true
-          argument :po_box, String, required: false
-          argument :language, String, required: false
-          argument :phone, String, required: true
-          argument :mobile, String, required: true
-          argument :email, String, required: true
-          argument :website, String, required: true
+        argument :additional_name, String, required: false
+        argument :company, String, required: false
+        argument :po_box, String, required: false
+        argument :language, String, required: false
+        argument :phone, String, required: true
+        argument :mobile, String, required: false
+        argument :email, String, required: false
+        argument :website, String, required: false
 
-          argument :address, AddressAttributes, as: :address_attributes, required: false
+        argument :address, AddressAttributes, as: :address_attributes, required: false
       end
 
       argument :attributes, CreateAddressBookAttributes, required: true

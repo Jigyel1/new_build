@@ -5,6 +5,7 @@ FactoryBot.define do
     name { Faker::Job.title }
     type { :investor }
     main_contact { false }
+    entry_type { :manual }
 
     trait :main_contact do
       main_contact { true }

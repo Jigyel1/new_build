@@ -29,6 +29,10 @@ class Role < ApplicationRecord
     %w[administrator super_user].any?(name)
   end
 
+  def nbo_team?
+    team_expert? || team_standard?
+  end
+
   # Overriding the default enum behaviour to return the first role when called with
   # an enum key.
   # eg. Role.kam returns the first matching role and not an array.

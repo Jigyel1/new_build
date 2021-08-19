@@ -51,7 +51,9 @@ class Project < ApplicationRecord
   def label_list=(value)
     return unless value
 
-    super(value.split(',').map(&:strip).uniq)
+    entries = value.split(',').map(&:strip)
+    entries << 'Manually Created' if manual?
+    super(entries.uniq)
   end
 
   def label_list
@@ -67,6 +69,7 @@ class Project < ApplicationRecord
   end
 
   enum assignee_type: { kam: 'KAM Project', nbo: 'NBO Project' }
+  enum entry_type: { manual: 'Manual', info_manager: 'Info Manager' }
 
   enum status: {
     technical_analysis: 'Technical Analysis',

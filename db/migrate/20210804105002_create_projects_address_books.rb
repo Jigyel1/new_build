@@ -6,6 +6,7 @@ class CreateProjectsAddressBooks < ActiveRecord::Migration[6.1]
       t.string :external_id
       t.string :type, null: false
       t.string :display_name, null: false
+      t.string :entry_type, null: false
 
       t.boolean :main_contact, null: false, default: false
       t.string :name, null: false

@@ -9,8 +9,8 @@ module Projects
     accepts_nested_attributes_for :address, allow_destroy: true
 
     enum language: { de: 'D', fr: 'F', it: 'I' }
-
     enum type: { investor: 'Investor', architect: 'Architect', others: 'Others' }
+    enum entry_type: { manual: 'Manual', info_manager: 'Info Manager' }
 
     validates :type, :name, :display_name, presence: true
     validates :type, uniqueness: { unless: ->(record) { record.others? }, scope: :project_id }

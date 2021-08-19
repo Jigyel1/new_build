@@ -7,12 +7,15 @@ module Projects
     attr_reader :project
 
     def call
-      authorize! Project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?, with: ProjectPolicy
       with_tracking(activity_id = SecureRandom.uuid) do
-        @project = ::Project.find(attributes.delete(:id))
         project.update!(attributes)
         # Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
+    end
+
+    def project
+      @project ||= ::Project.find(attributes.delete(:id))
     end
 
     private

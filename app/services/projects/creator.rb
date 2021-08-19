@@ -10,6 +10,7 @@ module Projects
       authorize! Project, to: :create?, with: ProjectPolicy
       with_tracking(activity_id = SecureRandom.uuid) do
         @project = ::Project.new(attributes)
+        project.assignee_type = :nbo if project.assignee.nbo_team?
         project.save!
         # Activities::ActivityCreator.new(activity_params(activity_id)).call
       end

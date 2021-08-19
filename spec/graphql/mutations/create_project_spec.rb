@@ -19,13 +19,24 @@ RSpec.describe Mutations::CreateProject do
           externalId: 'e922833',
           moveInStartsOn: Date.current.in_time_zone.date_str,
           status: 'Technical Analysis',
-          assigneeType: 'NBO Project'
+          assigneeType: 'KAM Project'
         )
 
         expect(response.project.assignee).to have_attributes(
                                                id: kam.id,
                                                name: kam.name
                                              )
+      end
+    end
+
+    context 'when assignee is not a KAM' do
+      let!(:team_expert) { create(:user, :team_expert) }
+      let!(:params) { { assignee_id: team_expert.id, status: 'Technical Analysis' } }
+
+      it 'sets the assignee type as NBO project' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
+        expect(errors).to be_nil
+        expect(response.project.assigneeType).to eq('NBO Project')
       end
     end
 
@@ -40,10 +51,11 @@ RSpec.describe Mutations::CreateProject do
     end
 
     context 'without permissions' do
+      let!(:manager_commercialization) { create(:user, :manager_commercialization) }
       let!(:params) { { status: 'Technical Analysis' } }
 
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :presales), key: :createProject)
+        response, errors = formatted_response(query(params), current_user: manager_commercialization, key: :createProject)
         expect(response.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
@@ -95,6 +107,7 @@ RSpec.describe Mutations::CreateProject do
   def query(args = {})
     apartments = args[:apartments] || 10
     move_in_starts_on = args[:move_in_starts_on] || Date.current
+    assignee_id = args[:assignee_id] || kam.id
 
     <<~GQL
       mutation {
@@ -102,7 +115,7 @@ RSpec.describe Mutations::CreateProject do
           input: {
             attributes: {
               name: "West ZentralSchweiz + Solothurn Offnet"
-              assigneeId: "#{kam.id}"
+              assigneeId: "#{assignee_id}"
               externalId: "e922833"
               status: "#{args[:status]}"
               moveInStartsOn: "#{move_in_starts_on}"

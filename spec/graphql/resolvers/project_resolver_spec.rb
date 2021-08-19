@@ -29,10 +29,10 @@ RSpec.describe Resolvers::ProjectResolver do
     end
 
     context 'without read permission' do
-      let(:presales) { create(:user, :presales) }
+      let!(:manager_commercialization) { create(:user, :manager_commercialization) }
 
       it 'forbids action' do
-        data, errors = formatted_response(query, current_user: presales)
+        data, errors = formatted_response(query, current_user: manager_commercialization)
         expect(data.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end

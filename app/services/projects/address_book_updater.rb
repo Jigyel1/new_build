@@ -7,7 +7,9 @@ module Projects
     def call
       authorize! address_book.project, to: :update?, with: ProjectPolicy
       with_tracking(activity_id = SecureRandom.uuid) do
-        address_book.update!(attributes)
+        address_book.assign_attributes(attributes)
+        address_book.entry_type = :manual # even the ones that were initially `info_manager`
+        address_book.save!
         # Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
