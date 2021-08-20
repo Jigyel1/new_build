@@ -14,7 +14,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       :project,
       name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
       address: address_a,
-      buildings: build_list(:buildings, 5, apartments_count: 3),
+      buildings: build_list(:building, 5, apartments_count: 3),
       label_list: 'Assign KAM, Offer Needed'
     )
   end
@@ -27,7 +27,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: "Construction d'une habitation de quatre logements",
       address: address_b,
       assignee: kam,
-      buildings: build_list(:buildings, 15, apartments_count: 6)
+      buildings: build_list(:building, 15, apartments_count: 6)
     )
   end
 
@@ -40,7 +40,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: 'Neubau Einfamilienhaus mit Pavillon',
       address: address_c,
       assignee: team_expert,
-      buildings: build_list(:buildings, 25, apartments_count: 8)
+      buildings: build_list(:building, 25, apartments_count: 8)
     )
   end
 

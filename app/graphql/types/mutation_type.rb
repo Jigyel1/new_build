@@ -50,5 +50,7 @@ module Types
 
     field :create_address_book, mutation: Mutations::Projects::CreateAddressBook
     field :update_address_book, mutation: Mutations::Projects::UpdateAddressBook
+
+    field :update_building, mutation: Mutations::Projects::UpdateBuilding
   end
 end

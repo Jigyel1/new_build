@@ -35,7 +35,7 @@ module ProjectsSpecHelper
       :project,
       external_id: '3062289',
       name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
-      buildings: build_list(:buildings, 5, apartments_count: 3),
+      buildings: build_list(:building, 5, apartments_count: 3),
       label_list: 'Assign KAM, Offer Needed',
       lot_number: 'Kat. 2024',
       description: 'Neubau Einfamilienhaus mit Garage',

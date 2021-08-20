@@ -41,7 +41,8 @@ module Projects
           assignee: project.assignee,
           apartments_count: grouped_apartments[index].size,
           move_in_starts_on: project.move_in_starts_on,
-          move_in_ends_on: project.move_in_ends_on
+          move_in_ends_on: project.move_in_ends_on,
+          address: project.address
         )
       end
     end
