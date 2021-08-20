@@ -45,20 +45,10 @@ module Types
     field :additional_details, GraphQL::Types::JSON, null: true
     field :label_list, [String], null: true
 
-    def status
-      ::Project.statuses[object.status]
-    end
-
-    def category
-      ::Project.categories[object.category]
-    end
-
-    def type
-      ::Project.types[object.type]
-    end
-
-    def assignee_type
-      ::Project.assignee_types[object.assignee_type]
+    %w[status category type assignee_type].each do |enum|
+      define_method enum do
+        ::Project.send(enum.pluralize)[object.send(enum)]
+      end
     end
 
     %i[move_in_starts_on move_in_ends_on construction_starts_on].each do |method_name|

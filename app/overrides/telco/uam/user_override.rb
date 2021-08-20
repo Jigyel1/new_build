@@ -20,6 +20,8 @@ module Telco
 
       has_many :activities, foreign_key: :owner_id, dependent: :destroy
       has_many :involvements, foreign_key: :recipient_id, class_name: 'Activity', dependent: :destroy
+      has_many :tasks, foreign_key: :owner_id, dependent: :nullify, class_name: 'Projects::Task'
+      has_many :assigned_tasks, foreign_key: :assignee_id, dependent: :restrict_with_error, class_name: 'Projects::Task'
 
       has_one_attached :activity_download
       has_one_attached :projects_download

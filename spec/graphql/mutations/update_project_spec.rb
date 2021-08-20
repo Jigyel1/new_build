@@ -59,8 +59,6 @@ RSpec.describe Mutations::UpdateProject do
   end
 
   def query(args = {})
-    apartments = args[:apartments] || 10
-
     <<~GQL
       mutation {
         updateProject(

@@ -865,6 +865,26 @@ CREATE VIEW public.projects_lists AS
 
 
 --
+-- Name: projects_tasks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects_tasks (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    taskable_type character varying NOT NULL,
+    taskable_id uuid NOT NULL,
+    title character varying NOT NULL,
+    status character varying DEFAULT 'To-Do'::character varying NOT NULL,
+    previous_status character varying,
+    description text NOT NULL,
+    due_date date NOT NULL,
+    assignee_id uuid NOT NULL,
+    owner_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1118,6 +1138,14 @@ ALTER TABLE ONLY public.projects_buildings
 
 ALTER TABLE ONLY public.projects
     ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: projects_tasks projects_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_tasks
+    ADD CONSTRAINT projects_tasks_pkey PRIMARY KEY (id);
 
 
 --
@@ -1467,6 +1495,34 @@ CREATE INDEX index_projects_on_status ON public.projects USING btree (status);
 
 
 --
+-- Name: index_projects_tasks_on_assignee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_tasks_on_assignee_id ON public.projects_tasks USING btree (assignee_id);
+
+
+--
+-- Name: index_projects_tasks_on_owner_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_tasks_on_owner_id ON public.projects_tasks USING btree (owner_id);
+
+
+--
+-- Name: index_projects_tasks_on_taskable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_tasks_on_taskable ON public.projects_tasks USING btree (taskable_type, taskable_id);
+
+
+--
+-- Name: index_projects_tasks_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_tasks_on_updated_at ON public.projects_tasks USING btree (updated_at DESC);
+
+
+--
 -- Name: index_roles_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1623,6 +1679,14 @@ ALTER TABLE ONLY public.admin_toolkit_pct_values
 
 
 --
+-- Name: projects_tasks fk_rails_60d576e258; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_tasks
+    ADD CONSTRAINT fk_rails_60d576e258 FOREIGN KEY (assignee_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- Name: admin_toolkit_pct_values fk_rails_7272faf5b9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1668,6 +1732,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.projects
     ADD CONSTRAINT fk_rails_99fc2a1a9e FOREIGN KEY (kam_region_id) REFERENCES public.admin_toolkit_kam_regions(id);
+
+
+--
+-- Name: projects_tasks fk_rails_ab5dd7512c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_tasks
+    ADD CONSTRAINT fk_rails_ab5dd7512c FOREIGN KEY (owner_id) REFERENCES public.telco_uam_users(id);
 
 
 --
@@ -1751,6 +1823,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210804120138'),
 ('20210811121923'),
 ('20210812065826'),
-('20210812065902');
+('20210812065902'),
+('20210820072417');
 
 

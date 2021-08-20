@@ -52,5 +52,10 @@ module Types
     field :update_address_book, mutation: Mutations::Projects::UpdateAddressBook
 
     field :update_building, mutation: Mutations::Projects::UpdateBuilding
+
+    field :create_task, mutation: Mutations::Projects::CreateTask
+    field :delete_task, mutation: Mutations::Projects::DeleteTask
+    field :update_task, mutation: Mutations::Projects::UpdateTask
+    field :unarchive_task, mutation: Mutations::Projects::UnarchiveTask
   end
 end

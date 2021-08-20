@@ -16,7 +16,7 @@ RSpec.describe Resolvers::RolesResolver do
       roles, errors = paginated_collection(:roles, query, current_user: admin_manager)
       expect(errors).to be_nil
       expect(roles.pluck(:id)).to match_array(Role.pluck(:id))
-      expect(roles.pluck(:name)).to match_array(Role.names.values_at(*Role.pluck(:name)))
+      expect(roles.pluck(:name)).to match_array(Role.pluck(:name))
     end
 
     it 'returns users for by roles' do

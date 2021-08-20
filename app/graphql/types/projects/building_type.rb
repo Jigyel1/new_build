@@ -3,7 +3,7 @@
 module Types
   module Projects
     class BuildingType < BaseObject
-      field :id, ID, null: false
+      field :id, ID, null: true
       field :name, String, null: true
       field :apartments_count, Int, null: true
       field :move_in_starts_on, String, null: true

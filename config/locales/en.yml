@@ -50,3 +50,6 @@ en:
     footprint_building:
       invalid_min: System tried updating min building for Footprint with index "%{index}" to %{new_max} which is
         not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.
+
+  project:
+    task_not_archived: You can only unarchive archived tasks.

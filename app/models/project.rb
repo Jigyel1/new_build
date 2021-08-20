@@ -95,4 +95,3 @@ class Project < ApplicationRecord
   }
 end
 
-
