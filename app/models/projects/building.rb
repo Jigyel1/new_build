@@ -3,6 +3,7 @@ class Projects::Building < ApplicationRecord
   belongs_to :project, counter_cache: true
 
   has_one :address, as: :addressable, dependent: :destroy
+  has_many :tasks, as: :taskable, class_name: 'Project::Tasks', dependent: :destroy
   accepts_nested_attributes_for :address, allow_destroy: true
 
   validates :name, :address, presence: true

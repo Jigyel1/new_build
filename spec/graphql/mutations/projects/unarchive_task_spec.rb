@@ -42,7 +42,7 @@ RSpec.describe Mutations::Projects::UnarchiveTask do
       it 'throws error' do
         response, errors = formatted_response(query, current_user: super_user, key: :unarchiveTask)
         expect(response.task).to be_nil
-        expect(errors).to eq([t('project.task_not_archived')])
+        expect(errors).to eq([t('projects.task.not_archived')])
       end
     end
   end

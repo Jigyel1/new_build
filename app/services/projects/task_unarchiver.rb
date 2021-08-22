@@ -14,7 +14,7 @@ module Projects
     private
 
     def validate_status!
-      task.archived? || (raise t('project.task_not_archived'))
+      task.archived? || (raise t('projects.task.not_archived'))
     end
   end
 end
