@@ -51,9 +51,57 @@ RSpec.describe Mutations::Projects::CreateTask do
         expect(errors).to eq(['Not Authorized'])
       end
     end
+
+    context 'with copy to all buildings flag' do
+      let_it_be(:building_b) { create(:building, project: project) }
+      let_it_be(:building_c) { create(:building, project: project) }
+      let_it_be(:building_d) { create(:building, project: project) }
+
+      context 'when taskable is a building' do
+        let!(:params) do
+          {
+            taskable_type: 'Projects::Building',
+            taskable_id: building.id,
+            due_date: Date.tomorrow,
+            copy_to_all_buildings: true
+          }
+        end
+
+        it "clones task for all buildings belonging to the building's project" do
+          _, errors = formatted_response(query(params), current_user: super_user, key: :createTask)
+          expect(errors).to be_nil
+          expect(Projects::Task.count).to eq(4)
+          expect(Projects::Task.pluck(:taskable_id)).to match_array([building.id, building_b.id, building_c.id, building_d.id])
+        end
+      end
+
+      context 'when taskable is a project' do
+        let!(:params) do
+          {
+            taskable_type: 'Project',
+            taskable_id: project.id,
+            due_date: Date.tomorrow,
+            copy_to_all_buildings: true
+          }
+        end
+
+        it 'clones task for all buildings belonging to the project' do
+          _, errors = formatted_response(query(params), current_user: super_user, key: :createTask)
+          expect(errors).to be_nil
+          expect(Projects::Task.count).to eq(5)
+          expect(Projects::Task.pluck(:taskable_id)).to match_array(
+                                                          [
+                                                            project.id, building.id, building_b.id, building_c.id, building_d.id
+                                                          ]
+                                                        )
+        end
+      end
+    end
   end
 
   def query(args = {})
+    copy_task = args[:copy_to_all_buildings] || false
+
     <<~GQL
       mutation {
         createTask(
@@ -66,6 +114,7 @@ RSpec.describe Mutations::Projects::CreateTask do
               assigneeId: "#{kam.id}"
               taskableType: "#{args[:taskable_type]}"
               taskableId: "#{args[:taskable_id]}"
+              copyToAllBuildings: #{copy_task}
             }
           }
         )
