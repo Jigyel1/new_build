@@ -12,5 +12,11 @@ module AdminToolkit
       prio_two: 'Prio 2',
       on_hold: 'On Hold'
     }
+
+    # TODO: Add index for this in the migration
+    default_scope do
+      joins(:pct_month, :pct_cost)
+        .order('admin_toolkit_pct_months.index, admin_toolkit_pct_costs.index')
+    end
   end
 end
