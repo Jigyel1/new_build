@@ -5,23 +5,26 @@ module Penetrations
     ZIP = 0
     RATE = 2
     COMPETITION = 3
-    KAM_REGION = 4
+    KAM_REGION = 3
     FOOTPRINT = 5
 
-    # Don't change the order!
-    HEADERS = %i[zip city rate competition_id kam_region_id hfc_footprint type].freeze
-
     using TextFormatter
+
+    # Don't change the order!
+    HEADERS = %i[zip city rate kam_region_id hfc_footprint type].freeze
 
     def process(row)
       format(row, ZIP, { action: [:to_i] })
       format(row, RATE, { action: [:*, 100] })
       format(row, FOOTPRINT, { action: [:to_boolean] })
 
-      row[COMPETITION] = ::AdminToolkit::Competition.find_by!(name: row[COMPETITION]).id
-      row[KAM_REGION] = ::AdminToolkit::KamRegion.find_by!(name: row[KAM_REGION]).id
+      penetration = AdminToolkit::Penetration.find_or_initialize_by(zip: row[ZIP])
+      competition = ::AdminToolkit::Competition.find_by!(name: row.delete_at(COMPETITION))
 
-      HEADERS.zip(row).to_h
+      penetration.assign_attributes(HEADERS.zip(row).to_h)
+
+      penetration.kam_region = ::AdminToolkit::KamRegion.find_by!(name: row[KAM_REGION])
+      penetration.penetration_competitions.find_or_initialize_by(competition: competition)
     end
 
     private
