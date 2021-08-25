@@ -2,7 +2,7 @@
 
 module Projects
   class Importer < BaseService
-    attr_reader :file
+    attr_accessor :file
 
     def call
       authorize! Project, to: :import?, with: ProjectPolicy

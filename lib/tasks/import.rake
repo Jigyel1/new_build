@@ -6,9 +6,9 @@ namespace :import do
     PenetrationImporter.call(input: Rails.root.join('etl/docs/penetrations.xlsx'))
   end
 
-  # To pass filepath as an arg
-  desc 'Import projects from a shared excel'
-  task :projects, [:filepath] => [:environment] do |_task, args|
-    ProjectsImporter.call(input: File.new(Rails.root.join('etl/docs/projects.xlsx')), current_user: User.first)
-  end
+  # # To test the import as a rake task, uncomment the below and try it.
+  # desc 'Import projects from a shared excel'
+  # task :projects, [:filepath] => [:environment] do |_task, args|
+  #   ProjectsImporter.call(input: File.new(Rails.root.join('etl/docs/projects.xlsx')), current_user: User.first)
+  # end
 end
