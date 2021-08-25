@@ -128,7 +128,10 @@ RSpec.describe Resolvers::ProjectsResolver do
         projects#{query_string(args)} {
           totalCount
           edges {
-            node { id name labels apartmentsCount buildingsCount }
+            node { 
+              id externalId projectNr name category type constructionType labels apartmentsCount 
+              moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
+            }
           }
           pageInfo {
             endCursor
