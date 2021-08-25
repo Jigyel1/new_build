@@ -128,7 +128,7 @@ RSpec.describe Resolvers::ProjectsResolver do
         projects#{query_string(args)} {
           totalCount
           edges {
-            node { id name labels }
+            node { id name labels apartmentsCount buildingsCount }
           }
           pageInfo {
             endCursor
