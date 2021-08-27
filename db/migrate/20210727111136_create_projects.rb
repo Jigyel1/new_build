@@ -4,7 +4,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
   def self.up # rubocop:disable Metrics/SeliseMethodLength, Metrics/AbcSize
     create_table :projects, id: :uuid do |t|
       t.string :name
-      t.string :external_id, null: false, index: true
+      t.string :external_id, null: true, index: true
       t.string :project_nr
       t.string :type
       t.string :category

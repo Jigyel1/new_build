@@ -5,7 +5,6 @@ module Types
     field :id, ID, null: false
     field :name, String, null: true
     field :external_id, String, null: true
-    field :landlord_id, String, null: true
 
     field :project_nr, String, null: true
     field :status, String, null: true
