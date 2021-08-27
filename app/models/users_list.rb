@@ -12,6 +12,10 @@ class UsersList < ApplicationRecord
     true
   end
 
+  def role
+    Role.names.key(super)
+  end
+
   def self.refresh
     Scenic.database.refresh_materialized_view(:users_list, concurrently: false, cascade: false)
   end

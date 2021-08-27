@@ -43,7 +43,7 @@ module Projects
           .group('projects.id')
           .count
           .values
-          .max
+          .max || 0
       end
 
       def other_headers(index, type)

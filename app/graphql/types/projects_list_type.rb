@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# TODO:
-#   Add labels count
 module Types
   class ProjectsListType < BaseObject
     field :id, ID, null: true
