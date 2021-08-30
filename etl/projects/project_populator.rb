@@ -14,6 +14,7 @@ module Projects
         assign_address_attributes
         assign_additional_details
         assign_kam_region
+        assign_project_category
       end
     end
 
@@ -52,6 +53,10 @@ module Projects
           I18n.t('activerecord.errors.models.project.kam_region_missing', region_name: region_name)
         )
       end
+    end
+
+    def assign_project_category
+      project.category = Projects::CategorySetter.new(project: project).call
     end
   end
 end

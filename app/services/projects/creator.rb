@@ -19,6 +19,7 @@ module Projects
 
       with_tracking(activity_id = SecureRandom.uuid) do
         @project = ::Project.new(formatted_attributes)
+        project.category = CategorySetter.new(project: project).call
         build_associations
         project.save!
         # Activities::ActivityCreator.new(activity_params(activity_id)).call
