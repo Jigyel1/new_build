@@ -5,5 +5,12 @@ FactoryBot.define do
     code { :technical_analysis }
     name { 'Technical Analysis' }
     label_list { 'Assign KAM, Offer Needed' }
+
+    Project.statuses.keys.each do |status|
+      trait status do
+        name { status.titleize }
+        code { status }
+      end
+    end
   end
 end

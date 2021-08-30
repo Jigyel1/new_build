@@ -6,7 +6,7 @@ RSpec.describe Projects::LabelGroup, type: :model do
 
     context "without it's own labels" do
       subject { create(:projects_label_group, project: create(:project), label_group: label_group) }
-      it { is_expected.to have_attributes(label_list: ['Assign KAM', 'Offer Needed']) }
+      it { is_expected.to have_attributes(label_list: []) }
     end
 
     context "with it's own labels" do
