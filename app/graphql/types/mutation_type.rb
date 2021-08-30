@@ -27,7 +27,7 @@ module Types
     field :update_footprint_building, mutation: Mutations::AdminToolkit::UpdateFootprintBuilding
     field :update_footprint_values, mutation: Mutations::AdminToolkit::UpdateFootprintValues
 
-    field :update_label, mutation: Mutations::AdminToolkit::UpdateLabels
+    field :update_labels, mutation: Mutations::AdminToolkit::UpdateLabels
     field :update_project_cost, mutation: Mutations::AdminToolkit::UpdateProjectCost
 
     field :create_penetration, mutation: Mutations::AdminToolkit::CreatePenetration
@@ -57,5 +57,7 @@ module Types
     field :delete_task, mutation: Mutations::Projects::DeleteTask
     field :update_task, mutation: Mutations::Projects::UpdateTask
     field :unarchive_task, mutation: Mutations::Projects::UnarchiveTask
+
+    field :update_project_labels, mutation: Mutations::Projects::UpdateLabels
   end
 end

@@ -726,7 +726,7 @@ CREATE SEQUENCE public.projects_project_nr_seq
 CREATE TABLE public.projects (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying,
-    external_id character varying NOT NULL,
+    external_id character varying,
     project_nr character varying DEFAULT nextval('public.projects_project_nr_seq'::regclass),
     type character varying,
     category character varying,
@@ -747,7 +747,7 @@ CREATE TABLE public.projects (
     coordinate_east double precision,
     coordinate_north double precision,
     label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
-    additional_details jsonb DEFAULT '{}'::jsonb NOT NULL,
+    additional_details jsonb DEFAULT '{}'::jsonb,
     draft boolean DEFAULT false NOT NULL,
     address_books_count integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -796,6 +796,21 @@ CREATE TABLE public.projects_buildings (
     apartments_count integer DEFAULT 0 NOT NULL,
     move_in_starts_on date,
     move_in_ends_on date,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: projects_label_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects_label_groups (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name character varying NOT NULL,
+    label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    project_id uuid NOT NULL,
+    label_group_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -861,7 +876,7 @@ CREATE VIEW public.projects_lists AS
      LEFT JOIN public.addresses ON (((addresses.addressable_id = projects.id) AND ((addresses.addressable_type)::text = 'Project'::text))))
      LEFT JOIN public.projects_address_books ON (((projects_address_books.project_id = projects.id) AND ((projects_address_books.type)::text = 'Investor'::text))))
      LEFT JOIN public.admin_toolkit_kam_regions ON ((admin_toolkit_kam_regions.id = projects.kam_region_id)))
-  ORDER BY projects.name;
+  ORDER BY projects.move_in_starts_on;
 
 
 --
@@ -1130,6 +1145,14 @@ ALTER TABLE ONLY public.projects_address_books
 
 ALTER TABLE ONLY public.projects_buildings
     ADD CONSTRAINT projects_buildings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: projects_label_groups projects_label_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_label_groups
+    ADD CONSTRAINT projects_label_groups_pkey PRIMARY KEY (id);
 
 
 --
@@ -1418,6 +1441,13 @@ CREATE INDEX index_profiles_on_user_id ON public.profiles USING btree (user_id);
 
 
 --
+-- Name: index_projects_address_books_on_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_address_books_on_external_id ON public.projects_address_books USING btree (external_id);
+
+
+--
 -- Name: index_projects_address_books_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1443,6 +1473,27 @@ CREATE INDEX index_projects_buildings_on_external_id ON public.projects_building
 --
 
 CREATE INDEX index_projects_buildings_on_project_id ON public.projects_buildings USING btree (project_id);
+
+
+--
+-- Name: index_projects_label_groups_on_label_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_label_groups_on_label_group_id ON public.projects_label_groups USING btree (label_group_id);
+
+
+--
+-- Name: index_projects_label_groups_on_label_list; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_label_groups_on_label_list ON public.projects_label_groups USING btree (label_list);
+
+
+--
+-- Name: index_projects_label_groups_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_label_groups_on_project_id ON public.projects_label_groups USING btree (project_id);
 
 
 --
@@ -1478,13 +1529,6 @@ CREATE INDEX index_projects_on_external_id ON public.projects USING btree (exter
 --
 
 CREATE INDEX index_projects_on_kam_region_id ON public.projects USING btree (kam_region_id);
-
-
---
--- Name: index_projects_on_label_list; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_projects_on_label_list ON public.projects USING btree (label_list);
 
 
 --
@@ -1655,6 +1699,14 @@ ALTER TABLE ONLY public.projects_buildings
 
 
 --
+-- Name: projects_label_groups fk_rails_32341b9dfb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_label_groups
+    ADD CONSTRAINT fk_rails_32341b9dfb FOREIGN KEY (label_group_id) REFERENCES public.admin_toolkit_label_groups(id);
+
+
+--
 -- Name: projects_buildings fk_rails_34f45f79c2; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1759,6 +1811,14 @@ ALTER TABLE ONLY public.admin_toolkit_footprint_values
 
 
 --
+-- Name: projects_label_groups fk_rails_decd154e23; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_label_groups
+    ADD CONSTRAINT fk_rails_decd154e23 FOREIGN KEY (project_id) REFERENCES public.projects(id);
+
+
+--
 -- Name: profiles fk_rails_e424190865; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1821,6 +1881,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210727111136'),
 ('20210804105002'),
 ('20210804120138'),
+('20210810122815'),
 ('20210811121923'),
 ('20210812065826'),
 ('20210812065902'),

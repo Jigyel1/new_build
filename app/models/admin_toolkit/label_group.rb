@@ -2,7 +2,8 @@
 
 module AdminToolkit
   class LabelGroup < ApplicationRecord
-    validates :name, presence: true, uniqueness: true # inclusion: { in: Project.statuses } => Once project is ready!
+    validates :name, presence: true, uniqueness: true
+    # validates :name, inclusion: { in: Project.statuses.values }, on: :create
 
     def label_list=(value)
       return unless value

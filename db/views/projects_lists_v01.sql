@@ -12,7 +12,7 @@ SELECT projects.id                                        AS id,
        projects.buildings_count                           AS buildings_count,
 
        projects.lot_number                                AS lot_number,
-       cardinality(projects.label_list)                   AS labels,
+       cardinality(projects.label_list)              AS labels,
 
        CONCAT(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city )    AS address,
        CONCAT(profiles.firstname, ' ', profiles.lastname)  AS assignee,
@@ -29,4 +29,5 @@ FROM projects
     LEFT JOIN projects_address_books ON projects_address_books.project_id = projects.id AND projects_address_books.type = 'Investor'
 
     LEFT JOIN admin_toolkit_kam_regions ON admin_toolkit_kam_regions.id = projects.kam_region_id
-ORDER BY projects.name ASC
+
+ORDER BY projects.move_in_starts_on ASC NULLS LAST

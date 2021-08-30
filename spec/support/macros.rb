@@ -35,6 +35,7 @@ end
 def formatted_response(query, current_user: nil, key: nil)
   response = execute(query, current_user: current_user)
   data = response[:data]
+
   [
     RecursiveOpenStruct.new(key ? data[key] : data),
     response[:errors]

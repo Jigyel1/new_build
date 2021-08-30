@@ -101,6 +101,16 @@ RSpec.describe Resolvers::ProjectsResolver do
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_b.id, project_c.id])
       end
+
+      context 'when only min value is sent' do
+        let(:buildings) { [15] }
+
+        it 'fetches all buildings greater than or equal to the min' do
+          projects, errors = paginated_collection(:projects, query(buildings: buildings), current_user: super_user)
+          expect(errors).to be_nil
+          expect(projects.pluck(:id)).to match_array([project_b.id, project_c.id])
+        end
+      end
     end
 
     context 'with apartments filter' do

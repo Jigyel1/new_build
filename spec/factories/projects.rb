@@ -11,6 +11,7 @@ FactoryBot.define do
     assignee { nil }
     type { :proactive }
     construction_type { :reconstruction }
+    additional_details { {} }
 
     transient do
       add_investor { false }
@@ -20,10 +21,14 @@ FactoryBot.define do
       project.address_books << build(:address_book, type: :investor) if evaluator.add_investor
     end
 
+    trait :from_info_manager do
+      entry_type { :info_manager }
+    end
+
     %w[categories types construction_types].each do |key|
       Project.send(key).each_key do |name|
         trait name do
-          send(key.singularize) {  name }
+          send(key.singularize) { name }
         end
       end
     end

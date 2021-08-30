@@ -11,7 +11,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateLabels do
 
       it 'updates the label list' do
         response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
-                                                             key: :updateLabel)
+                                                             key: :updateLabels)
         expect(errors).to be_nil
         expect(response.labelGroup.labelList).to match_array(['Prio 3', 'On Hold'])
       end
@@ -21,7 +21,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateLabels do
       let!(:params) { { id: label_group.id, label_list: 'Assign kam' } }
 
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :kam), key: :updateLabel)
+        response, errors = formatted_response(query(params), current_user: create(:user, :kam), key: :updateLabels)
         expect(response.labelGroup).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
@@ -31,7 +31,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateLabels do
   def query(args = {})
     <<~GQL
       mutation {
-        updateLabel(
+        updateLabels(
           input: {
             attributes: {
               id: "#{label_group.id}"
