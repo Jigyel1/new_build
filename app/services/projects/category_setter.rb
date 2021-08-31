@@ -18,6 +18,7 @@ module Projects
       AdminToolkit::Penetration.find_by!(zip: project.zip)
     end
 
+    # TODO: add a code to the competition to make checks like this more concrete.
     def provider
       sfn = penetration.competitions.exists?(name: 'FTTH SFN')
       hfc = penetration.hfc_footprint
