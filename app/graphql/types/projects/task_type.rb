@@ -11,10 +11,6 @@ module Types
 
       field :assignee, Types::UserType, null: true
       field :owner, Types::UserType, null: true
-
-      def status
-        ::Projects::Task.statuses[object.status]
-      end
     end
   end
 end

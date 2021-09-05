@@ -11,9 +11,10 @@ class Project < ApplicationRecord
 
   has_one :address, as: :addressable, dependent: :destroy
   has_many :address_books, class_name: 'Projects::AddressBook', dependent: :destroy
-  has_many :buildings, class_name: 'Projects::Building', dependent: :restrict_with_error
+  has_many :buildings, class_name: 'Projects::Building', dependent: :destroy
   has_many :tasks, as: :taskable, class_name: 'Projects::Task', dependent: :destroy
   has_many :label_groups, class_name: 'Projects::LabelGroup', dependent: :destroy
+  has_many_attached :files, dependent: :destroy
 
   accepts_nested_attributes_for :address, :address_books, allow_destroy: true
 

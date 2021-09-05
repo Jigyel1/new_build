@@ -10,6 +10,8 @@ class CreateProjectsBuildings < ActiveRecord::Migration[6.1]
       t.date :move_in_starts_on
       t.date :move_in_ends_on
 
+      t.jsonb :additional_details, default: {}, index: true
+
       t.timestamps
     end
   end

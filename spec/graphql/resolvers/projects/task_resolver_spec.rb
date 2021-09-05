@@ -26,7 +26,7 @@ RSpec.describe Resolvers::Projects::TaskResolver do
         expect(data.task).to have_attributes(
                                   id: task.id,
                                   title: task.title,
-                                  status: Projects::Task.statuses[task.status],
+                                  status: task.status,
                                   dueDate: task.due_date.to_s,
                                   description: task.description
                                 )

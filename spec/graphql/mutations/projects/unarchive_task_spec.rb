@@ -13,7 +13,7 @@ RSpec.describe Mutations::Projects::UnarchiveTask do
       it 'un archives the task and resets to its previous status' do
         response, errors = formatted_response(query, current_user: super_user, key: :unarchiveTask)
         expect(errors).to be_nil
-        expect(response.task.status).to eq('To-Do')
+        expect(response.task.status).to eq('todo')
       end
 
       it "resets the task to it's previous status" do
@@ -22,7 +22,7 @@ RSpec.describe Mutations::Projects::UnarchiveTask do
 
         response, errors = formatted_response(query, current_user: super_user, key: :unarchiveTask)
         expect(errors).to be_nil
-        expect(response.task.status).to eq('Completed')
+        expect(response.task.status).to eq('completed')
       end
     end
 

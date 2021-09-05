@@ -2,6 +2,7 @@
 
 module Projects
   class TransformProject
+    include EtlHelper
     attr_reader :row, :attributes
 
     # values in these indexes need to be converted to integer.
@@ -27,15 +28,6 @@ module Projects
     end
 
     private
-
-    def to_int(row)
-      TO_INTS.each do |index|
-        value = row[index]
-        next if value.blank?
-
-        row[index] = row[index].to_i
-      end
-    end
 
     def persisted?(project)
       return unless project.persisted?

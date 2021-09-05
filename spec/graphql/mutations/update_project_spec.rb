@@ -17,7 +17,7 @@ RSpec.describe Mutations::UpdateProject do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
         expect(errors).to be_nil
         expect(response.project).to have_attributes(
-          externalId: 'e922833',
+          internalId: 'e922833',
           status: 'Technical Analysis',
           assignee: nil,
           assigneeType: 'KAM Project'
@@ -65,7 +65,7 @@ RSpec.describe Mutations::UpdateProject do
           input: {
             attributes: {
               id: "#{project.id}"
-              externalId: "e922833"
+              internalId: "e922833"
               status: "#{args[:status]}"
               lotNumber: "EA0988833"
               #{address}
@@ -74,7 +74,7 @@ RSpec.describe Mutations::UpdateProject do
         )
         {
           project {
-            id status externalId moveInStartsOn assigneeType assignee { id name }
+            id status internalId moveInStartsOn assigneeType assignee { id name }
             addressBooks { id type name company language email website phone mobile address { id street city zip} }
           }
         }

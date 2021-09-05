@@ -4,6 +4,8 @@ require_relative '../../app/models/admin_toolkit'
 
 module Projects
   class ProjectPopulator < BasePopulator
+    BUILDINGS_COUNT_COL = 76
+    APARTMENTS_COUNT_COL = 77
     # return <Project>
     # TODO: Use interactor organizer for this?
     #   LL have to build buildings for the projects based on the count and not just assign number
@@ -15,6 +17,7 @@ module Projects
         assign_additional_details
         assign_kam_region
         assign_project_category
+        assign_buildings
       end
     end
 
@@ -33,6 +36,14 @@ module Projects
     def assign_address_attributes
       attributes = row_mappings(:project_address)
       super(attributes_hash(attributes), project)
+    end
+
+    def assign_buildings
+      Projects::BuildingsBuilder.new(
+        project: project,
+        buildings_count: row[BUILDINGS_COUNT_COL],
+        apartments_count: row[APARTMENTS_COUNT_COL]
+      ).call
     end
 
     def assign_additional_details

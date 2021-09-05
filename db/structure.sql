@@ -727,6 +727,7 @@ CREATE TABLE public.projects (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying,
     external_id character varying,
+    internal_id character varying,
     project_nr character varying DEFAULT nextval('public.projects_project_nr_seq'::regclass),
     type character varying,
     category character varying,
@@ -796,6 +797,7 @@ CREATE TABLE public.projects_buildings (
     apartments_count integer DEFAULT 0 NOT NULL,
     move_in_starts_on date,
     move_in_ends_on date,
+    additional_details jsonb DEFAULT '{}'::jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -1452,6 +1454,13 @@ CREATE INDEX index_projects_address_books_on_external_id ON public.projects_addr
 --
 
 CREATE INDEX index_projects_address_books_on_project_id ON public.projects_address_books USING btree (project_id);
+
+
+--
+-- Name: index_projects_buildings_on_additional_details; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_buildings_on_additional_details ON public.projects_buildings USING btree (additional_details);
 
 
 --

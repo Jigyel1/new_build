@@ -84,3 +84,7 @@ def logidze_fields(klass, id, activity_id: Activity.first.id, unscoped: false)
     .find { |history| history.dig('m', 'activity_id') == activity_id }
     .then { |version| OpenStruct.new(version['c']) }
 end
+
+def load_files(count, file)
+  count.times.map{ file }
+end

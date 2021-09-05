@@ -16,7 +16,7 @@ RSpec.describe Mutations::Projects::UpdateTask do
       it 'updates the task' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateTask)
         expect(errors).to be_nil
-        expect(response.task).to have_attributes(status: 'In Progress')
+        expect(response.task).to have_attributes(status: 'in_progress')
       end
     end
 

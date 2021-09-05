@@ -18,7 +18,7 @@ module Mutations
     end
 
     class CreateProjectAttributes < Types::BaseInputObject
-      argument :external_id, ID, required: false
+      argument :internal_id, ID, required: false
       argument :name, String, required: true
       argument :status, String, required: false
       argument :description, String, required: false

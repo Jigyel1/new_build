@@ -16,7 +16,7 @@ RSpec.describe Mutations::CreateProject do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
         expect(errors).to be_nil
         expect(response.project).to have_attributes(
-          externalId: 'e922833',
+          internalId: 'e922833',
           moveInStartsOn: Date.current.in_time_zone.date_str,
           status: 'Technical Analysis',
           assigneeType: 'KAM Project',
@@ -155,7 +155,7 @@ RSpec.describe Mutations::CreateProject do
             attributes: {
               name: "West ZentralSchweiz + Solothurn Offnet"
               assigneeId: "#{assignee_id}"
-              externalId: "e922833"
+              internalId: "e922833"
               status: "#{args[:status]}"
               moveInStartsOn: "#{move_in_starts_on}"
               moveInEndsOn: "#{Date.current + 3.months}"
@@ -170,7 +170,7 @@ RSpec.describe Mutations::CreateProject do
         )
         {
           project {
-            id status externalId moveInStartsOn assigneeType apartmentsCount buildingsCount assignee { id name }
+            id status internalId moveInStartsOn assigneeType apartmentsCount buildingsCount assignee { id name }
             addressBooks { id type name company language email website phone mobile address { id street city zip} }
           }
         }

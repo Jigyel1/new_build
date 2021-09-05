@@ -16,10 +16,11 @@ module Enumable
         under_construction: 'Under Construction'
       }
 
-      # 'Marketing only' and 'Irrelevant' to be added later.
       enum category: {
         standard: 'Standard',
-        complex: 'Complex'
+        complex: 'Complex',
+        marketing_only: 'Marketing Only',
+        irrelevant: 'Irrelevant'
       }
 
       enum type: {

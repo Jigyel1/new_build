@@ -4,6 +4,8 @@ require_relative '../../../app/models/admin_toolkit'
 
 module Projects
   class Creator < BaseService
+    include Helper
+
     attr_reader :project
     attr_accessor :buildings_count, :apartments_count
 
@@ -36,20 +38,7 @@ module Projects
     def build_associations
       project.assignee_type = :nbo if project.assignee.nbo_team?
 
-      buildings_count.to_i.times.each do |index|
-        project.buildings.build(
-          name: "#{project.name} #{index}",
-          assignee: project.assignee,
-          apartments_count: grouped_apartments[index].size,
-          move_in_starts_on: project.move_in_starts_on,
-          move_in_ends_on: project.move_in_ends_on,
-          address: project.address
-        )
-      end
-    end
-
-    def grouped_apartments
-      @_grouped_apartments ||= (1..apartments_count).to_a.in_groups(buildings_count, false)
+      BuildingsBuilder.new(project: project, buildings_count: buildings_count, apartments_count: apartments_count).call
     end
 
     def activity_params(activity_id)

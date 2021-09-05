@@ -4,7 +4,7 @@ require 'rails_helper'
 
 Rails.application.load_tasks
 
-describe 'Project Import' do
+describe 'Projects Import' do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam_region) { AdminToolkit::KamRegion.create(name: 'Ost ZH') }
   let_it_be(:file) { fixture_file_upload('spec/files/project-create.xlsx') }

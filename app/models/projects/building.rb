@@ -4,9 +4,11 @@ class Projects::Building < ApplicationRecord
 
   has_one :address, as: :addressable, dependent: :destroy
   has_many :tasks, as: :taskable, class_name: 'Projects::Task', dependent: :destroy
+  has_many_attached :files, dependent: :destroy
   accepts_nested_attributes_for :address, allow_destroy: true
 
   validates :name, :address, presence: true
+  validates :external_id, uniqueness: true, allow_nil: true
 
   after_save :update_project
 
