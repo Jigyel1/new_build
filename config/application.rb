@@ -34,6 +34,8 @@ module NewBuild
     overrides = Rails.root.join('app/overrides')
     Rails.autoloaders.main.ignore(overrides)
     config.to_prepare do
+      ActiveStorage::Attachment.include ActiveStorageAttachmentExtension
+
       Dir.glob("#{overrides}/**/*_override.rb").each do |override|
         load override
       end

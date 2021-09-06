@@ -45,9 +45,6 @@ module Buildings
             }
           )
         end
-
-      rescue Exception => e
-        byebug
       end
     end
 
@@ -60,9 +57,6 @@ module Buildings
         else
           building.destroy!
         end
-
-      rescue Exception => e
-        byebug
       end
     end
 

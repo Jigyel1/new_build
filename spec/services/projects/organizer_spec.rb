@@ -42,17 +42,18 @@ describe Projects::Organizer do
            project: project,
            external_id: 58884,
            address_attributes: address_b_attributes,
-           files: 6.times.map { file },
-           tasks: build_list(:task, 10, owner: super_user, assignee: super_user)
+           files: 20.times.map { file },
+           tasks: build_list(:task, 6, owner: super_user, assignee: super_user)
     )
   end
+
   let_it_be(:building_e) do
     create(:building,
            project: project,
            external_id: 58850,
            address_attributes: address_b_attributes,
-           files: 10.times.map { file },
-           tasks: build_list(:task, 5, owner: super_user, assignee: super_user)
+           files: 8.times.map { file },
+           tasks: build_list(:task, 8, owner: super_user, assignee: super_user)
     )
   end
 
@@ -62,8 +63,8 @@ describe Projects::Organizer do
            project: project,
            external_id: 58853,
            address: address_c,
-           files: 10.times.map { file },
-        tasks: build_list(:task, 11, owner: super_user, assignee: super_user)
+           files: 16.times.map { file },
+        tasks: build_list(:task, 8, owner: super_user, assignee: super_user)
     )
   end
 
@@ -71,15 +72,25 @@ describe Projects::Organizer do
   let_it_be(:building_g) do
     create(:building,
            project: project,
-           external_id: 58840,
+           external_id: 58845,
            address: address_d,
-           files: 20.times.map { file },
-           tasks: build_list(:task, 6, owner: super_user, assignee: super_user)
+           files: 10.times.map { file },
+           tasks: build_list(:task, 8, owner: super_user, assignee: super_user)
     )
   end
 
   let_it_be(:building_h) { create(:building, project: project, external_id: 58580, address: build(:address)) }
   let_it_be(:building_i) { create(:building, project: project, external_id: 58581, address: build(:address)) }
+
+  let_it_be(:building_j) do
+    create(:building,
+           project: project,
+           external_id: 58840,
+           address: build(:address),
+           files: 5.times.map { file },
+           tasks: build_list(:task, 12, owner: super_user, assignee: super_user)
+    )
+  end
 
   let_it_be(:rows)  do
     [
@@ -106,7 +117,7 @@ describe Projects::Organizer do
     expect(subject.addressable_buildings.pluck(:id)).to eq([building_b.id, building_c.id, building_a.id])
     expect(subject.addressable_rows.map{|row| row[Projects::Organizer::BUILDING_ID]}).to eq([58592, 58593, 58594])
 
-    expect(subject.ordered_buildings.pluck(:id)).to eq([building_g.id, building_e.id, building_f.id, building_d.id])
+    expect(subject.ordered_buildings.pluck(:id)).to eq([building_j.id, building_f.id, building_g.id, building_e.id, building_d.id])
     expect(subject.ordered_rows.map{|row| row[Projects::Organizer::BUILDING_ID]}).to eq([58586, 58587, 58588, 58590])
   end
 end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# For enum values - check out - https://bitbucket.org/selise07/shopper-on/pull-requests/36
+
 module Resolvers
   class ProjectsResolver < SearchObjectBase
     scope do

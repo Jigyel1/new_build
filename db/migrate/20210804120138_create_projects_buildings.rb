@@ -11,6 +11,7 @@ class CreateProjectsBuildings < ActiveRecord::Migration[6.1]
       t.date :move_in_ends_on
 
       t.jsonb :additional_details, default: {}, index: true
+      t.integer :files_count, null: false, default: 0
 
       t.timestamps
     end

@@ -751,6 +751,7 @@ CREATE TABLE public.projects (
     additional_details jsonb DEFAULT '{}'::jsonb,
     draft boolean DEFAULT false NOT NULL,
     address_books_count integer DEFAULT 0 NOT NULL,
+    files_count integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -798,6 +799,7 @@ CREATE TABLE public.projects_buildings (
     move_in_starts_on date,
     move_in_ends_on date,
     additional_details jsonb DEFAULT '{}'::jsonb,
+    files_count integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );

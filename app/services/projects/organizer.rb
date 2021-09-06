@@ -45,13 +45,18 @@ module Projects
       end
     end
 
+    # Ordering by count of active storage files doesn't seem to work as expected.
+    # `counter_cache` doesn't seem like an option either.
+    # Hence, adding hair trigger to sort buildings by the count of files attached.
+    #
     def load_remaining
       @ordered_buildings = buildings.where
                                     .not(id: excluded_buildings_for_ordering)
-                                    .left_outer_joins(:tasks, :files_attachments)
+                                    .left_joins(:tasks)
                                     .group(:id)
-                                    .reorder('COUNT(projects_tasks.id) DESC', 'COUNT(active_storage_attachments.id) DESC')
+                                    .reorder('COUNT(projects_tasks.id) DESC', 'files_count DESC')
 
+      # byebug
       @ordered_rows = rows - (idable_rows + addressable_rows.to_a)
     end
 

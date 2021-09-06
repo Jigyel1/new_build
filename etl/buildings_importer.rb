@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# REFERENCE - https://gist.github.com/thbar/ec90bbd5877d1aae40510fadd4320687
+
 class BuildingsImporter < EtlBase
   SHEET_INDEX = 0
   SKIP_ROWS = 7

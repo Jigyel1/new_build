@@ -18,3 +18,6 @@ namespace :import do
     BuildingsImporter.call(input: File.new(Rails.root.join('etl/docs/buildings-test.xlsx')), current_user: User.first)
   end
 end
+
+# look at thor as a drop in replacement for rake
+# https://technology.doximity.com/articles/move-over-rake-thor-is-the-new-king
