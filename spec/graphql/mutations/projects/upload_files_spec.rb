@@ -4,7 +4,8 @@ describe Mutations::Projects::UploadFiles, type: :request do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:project) { create(:project) }
   let_it_be(:building) { create(:building, project: project) }
-  let!(:params) do
+
+  let_it_be(:params) do
     {
       operations: {
         query: query,
@@ -38,6 +39,7 @@ describe Mutations::Projects::UploadFiles, type: :request do
 
     it 'forbids action' do
       post api_v1_graphql_path, params: params
+
       expect(json.data.uploadFiles).to be_nil
       expect(json.errors).to eq(['Not Authorized'])
     end
@@ -46,7 +48,9 @@ describe Mutations::Projects::UploadFiles, type: :request do
   def query
     <<~QUERY
       mutation($files: [Upload!]!) {
-        uploadFiles(input: { attributes: { files: $files, attachableId: "#{building.id}", attachableType: "Projects::Building" }}) {
+        uploadFiles(
+          input: { attributes: { files: $files, attachableId: "#{building.id}", attachableType: "Projects::Building" }}
+        ){
           files { id name size createdAt owner { name } }
         }
       }

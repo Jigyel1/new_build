@@ -85,7 +85,7 @@ module Types
     field :tasks, resolver: Resolvers::Projects::TasksResolver, authorize: { with: ProjectPolicy, to: :index? }
     field :task, resolver: Resolvers::Projects::TaskResolver, authorize: { with: ProjectPolicy }
 
-    # field :files, resolver: Resolvers::Projects::FilesResolver, authorize: { with: ProjectPolicy, to: :index? }
+    field :files, resolver: Resolvers::Projects::FilesResolver, authorize: { with: ProjectPolicy, to: :index? }
     field :file, resolver: Resolvers::Projects::FileResolver, authorize: { with: ProjectPolicy }
   end
 end

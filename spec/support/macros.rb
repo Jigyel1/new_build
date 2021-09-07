@@ -89,6 +89,14 @@ def load_files(count, file)
   count.times.map{ file }
 end
 
-def file_upload
-  fixture_file_upload(Rails.root.join('spec/files/matrix.jpeg'), 'image/jpeg')
+def file_upload(name: nil)
+  if name
+    Rack::Test::UploadedFile.new(
+      Rails.root.join('spec/files/matrix.jpeg'),
+      content_type = 'images/jpeg',
+      original_filename: name
+    )
+  else
+    fixture_file_upload(Rails.root.join('spec/files/matrix.jpeg'), 'images/jpeg')
+  end
 end
