@@ -22,7 +22,7 @@ module Projects
 
     private
 
-    # ActionDispatch::UploadedFile has to be converted to attachable for ActiveStorage
+    # `ActionDispatch::UploadedFile` has to be converted to attachable for ActiveStorage
     # to properly attach it.
     def to_attachables(file)
       ActionDispatch::Http::UploadedFile.new(

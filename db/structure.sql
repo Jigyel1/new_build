@@ -732,7 +732,7 @@ CREATE TABLE public.projects (
     project_nr character varying DEFAULT nextval('public.projects_project_nr_seq'::regclass),
     type character varying,
     category character varying,
-    status character varying DEFAULT 'Technical Analysis'::character varying NOT NULL,
+    status character varying DEFAULT 'New'::character varying NOT NULL,
     assignee_type character varying DEFAULT 'KAM Project'::character varying NOT NULL,
     entry_type character varying DEFAULT 'Manual'::character varying NOT NULL,
     assignee_id uuid,

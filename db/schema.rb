@@ -236,7 +236,7 @@ ActiveRecord::Schema.define(version: 2021_09_06_101429) do
     t.serial "project_nr"
     t.string "type"
     t.string "category"
-    t.string "status", default: "Technical Analysis", null: false
+    t.string "status", default: "New", null: false
     t.string "assignee_type", default: "KAM Project", null: false
     t.string "entry_type", default: "Manual", null: false
     t.uuid "assignee_id"

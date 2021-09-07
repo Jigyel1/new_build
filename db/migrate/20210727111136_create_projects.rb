@@ -9,7 +9,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :project_nr
       t.string :type
       t.string :category
-      t.string :status, null: false, default: 'Technical Analysis', index: true
+      t.string :status, null: false, default: 'New', index: true
       t.string :assignee_type, null: false, default: 'KAM Project'
       t.string :entry_type, null: false, default: 'Manual'
 
