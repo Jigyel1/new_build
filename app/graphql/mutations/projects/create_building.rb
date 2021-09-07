@@ -28,9 +28,7 @@ module Mutations
       field :building, Types::Projects::BuildingType, null: true
 
       def resolve(attributes:)
-        resolver = ::Projects::BuildingCreator.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { building: resolver.building }
+        super(::Projects::BuildingCreator, :building, attributes: attributes)
       end
     end
   end

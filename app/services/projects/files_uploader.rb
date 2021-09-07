@@ -4,6 +4,8 @@ require 'active_storage'
 
 module Projects
   class FilesUploader < BaseService
+    delegate :files, to: :attachable
+
     def call
       authorize! project, to: :update?, with: ProjectPolicy
 

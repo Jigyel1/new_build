@@ -22,9 +22,7 @@ module Mutations
       field :task, Types::Projects::TaskType, null: true
 
       def resolve(attributes:)
-        resolver = ::Projects::TaskCreator.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { task: resolver.task }
+        super(::Projects::TaskCreator, :task, attributes: attributes)
       end
     end
   end

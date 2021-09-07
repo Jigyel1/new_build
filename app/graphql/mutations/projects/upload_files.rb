@@ -15,9 +15,7 @@ module Mutations
       field :files, [Types::Projects::FileType], null: true
 
       def resolve(attributes:)
-        resolver = ::Projects::FilesUploader.new(current_user: current_user, attributes: attributes)
-        resolver.call
-        { files: resolver.attachable.files }
+        super(::Projects::FilesUploader, :files, attributes: attributes)
       end
     end
   end

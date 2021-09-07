@@ -11,11 +11,8 @@ module Mutations
       argument :attributes, UpdateFileAttributes, required: true
       field :file, Types::Projects::FileType, null: true
 
-      # Check out the yield option here?
       def resolve(attributes:)
-        resolver = ::Projects::FileUpdater.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { file: resolver.file }
+        super(::Projects::FileUpdater, :file, attributes: attributes)
       end
     end
   end

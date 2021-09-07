@@ -18,9 +18,7 @@ module Mutations
       field :address_book, Types::Projects::AddressBookType, null: true
 
       def resolve(attributes:)
-        resolver = ::Projects::AddressBookUpdater.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { address_book: resolver.address_book }
+        super(::Projects::AddressBookUpdater, :address_book, attributes: attributes)
       end
     end
   end

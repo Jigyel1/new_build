@@ -7,9 +7,7 @@ module Mutations
       field :task, Types::Projects::TaskType, null: true
 
       def resolve(id:)
-        resolver = ::Projects::TaskUnarchiver.new(current_user: current_user, attributes: { id: id })
-        resolver.call
-        { task: resolver.task }
+        super(::Projects::TaskUnarchiver, :task, attributes: { id: id })
       end
     end
   end
