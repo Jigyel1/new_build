@@ -8,6 +8,7 @@ module Types
     field_class Types::BaseField
 
     include GraphqlHelper
+    include Rails.application.routes.url_helpers
 
     def in_time_zone(method)
       return unless object.send(method)

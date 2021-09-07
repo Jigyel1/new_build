@@ -353,7 +353,8 @@ CREATE TABLE public.active_storage_attachments (
     record_type character varying NOT NULL,
     record_id uuid NOT NULL,
     blob_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    owner_id uuid
 );
 
 
@@ -1214,6 +1215,13 @@ CREATE INDEX index_active_storage_attachments_on_blob_id ON public.active_storag
 
 
 --
+-- Name: index_active_storage_attachments_on_owner_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_attachments_on_owner_id ON public.active_storage_attachments USING btree (owner_id);
+
+
+--
 -- Name: index_active_storage_attachments_uniqueness; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1838,6 +1846,14 @@ ALTER TABLE ONLY public.profiles
 
 
 --
+-- Name: active_storage_attachments fk_rails_e5f3338b0c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT fk_rails_e5f3338b0c FOREIGN KEY (owner_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- Name: projects fk_rails_ef70228550; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1896,6 +1912,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210811121923'),
 ('20210812065826'),
 ('20210812065902'),
-('20210820072417');
+('20210820072417'),
+('20210906101429');
 
 

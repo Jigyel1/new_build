@@ -88,3 +88,7 @@ end
 def load_files(count, file)
   count.times.map{ file }
 end
+
+def file_upload
+  fixture_file_upload(Rails.root.join('spec/files/matrix.jpeg'), 'image/jpeg')
+end

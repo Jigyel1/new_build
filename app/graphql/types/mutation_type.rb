@@ -60,5 +60,9 @@ module Types
     field :unarchive_task, mutation: Mutations::Projects::UnarchiveTask
 
     field :update_project_labels, mutation: Mutations::Projects::UpdateLabels
+
+    field :upload_files, mutation: Mutations::Projects::UploadFiles
+    field :update_file, mutation: Mutations::Projects::UpdateFile
+    field :delete_file, mutation: Mutations::Projects::DeleteFile
   end
 end
