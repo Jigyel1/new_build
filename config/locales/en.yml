@@ -57,3 +57,4 @@ en:
     task:
       invalid_taskable_type: Taskable type is invalid. %{valid_types} are only supported.
       not_archived: You can only unarchive archived tasks.
+    invalid_transition: Event not allowed

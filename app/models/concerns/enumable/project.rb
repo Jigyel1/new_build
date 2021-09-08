@@ -7,7 +7,7 @@ module Enumable
       enum entry_type: { manual: 'Manual', info_manager: 'Info Manager' }
 
       enum status: {
-        draft: 'Draft',
+        open: 'Open',
         technical_analysis: 'Technical Analysis',
         pct_calculation: 'PCT Calculation', # TODO - remove this status
         technical_analysis_completed: 'Technical Analysis Completed/On-Hold Meeting',
@@ -24,7 +24,7 @@ module Enumable
         irrelevant: 'Irrelevant'
       }
 
-      enum type: {
+      enum priority: {
         proactive: 'Proactive',
         reactive: 'Reactive',
         customer_request: 'Customer Request'

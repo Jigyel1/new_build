@@ -234,9 +234,9 @@ ActiveRecord::Schema.define(version: 2021_09_06_101429) do
     t.string "external_id"
     t.string "internal_id"
     t.serial "project_nr"
-    t.string "type"
+    t.string "priority"
     t.string "category"
-    t.string "status", default: "New", null: false
+    t.string "status", default: "Open", null: false
     t.string "assignee_type", default: "KAM Project", null: false
     t.string "entry_type", default: "Manual", null: false
     t.uuid "assignee_id"
@@ -257,6 +257,9 @@ ActiveRecord::Schema.define(version: 2021_09_06_101429) do
     t.boolean "draft", default: false, null: false
     t.integer "address_books_count", default: 0, null: false
     t.integer "files_count", default: 0, null: false
+    t.boolean "standard_cost_applicable"
+    t.string "access_technology"
+    t.boolean "in_house_installation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["additional_details"], name: "index_projects_on_additional_details"
@@ -427,7 +430,7 @@ ActiveRecord::Schema.define(version: 2021_09_06_101429) do
       projects.project_nr,
       projects.category,
       projects.name,
-      projects.type,
+      projects.priority,
       projects.construction_type,
       projects.apartments_count,
       projects.move_in_starts_on,

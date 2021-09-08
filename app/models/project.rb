@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
-  self.inheritance_column = nil
   include Enumable::Project
 
   default_scope { where(draft: false) }

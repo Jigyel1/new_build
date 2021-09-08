@@ -71,6 +71,7 @@ group :development do
   gem 'sprockets', '~> 3'
 end
 
+gem 'aasm'
 gem 'action_policy-graphql'
 gem 'apollo_upload_server', '2.0.5'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

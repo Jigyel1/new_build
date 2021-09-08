@@ -9,7 +9,7 @@ module Types
 
     field :project_nr, String, null: true
     field :status, String, null: true
-    field :type, String, null: true
+    field :priority, String, null: true
     field :category, String, null: true
     field :construction_type, String, null: true
     field :assignee_type, String, null: true
@@ -44,12 +44,6 @@ module Types
     field :additional_info, String, null: true
     field :additional_details, GraphQL::Types::JSON, null: true
     field :label_list, [String], null: true
-
-    %w[status category type assignee_type].each do |enum|
-      define_method enum do
-        ::Project.send(enum.pluralize)[object.send(enum)]
-      end
-    end
 
     %i[move_in_starts_on move_in_ends_on construction_starts_on].each do |method_name|
       define_method method_name do

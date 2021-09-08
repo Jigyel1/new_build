@@ -7,7 +7,7 @@ module Types
     field :project_nr, String, null: true
     field :name, String, null: true
     field :category, String, null: true
-    field :type, String, null: true
+    field :priority, String, null: true
     field :construction_type, String, null: true
 
     field :move_in_starts_on, String, null: true

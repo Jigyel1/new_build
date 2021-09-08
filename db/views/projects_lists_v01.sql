@@ -3,7 +3,7 @@ SELECT projects.id                                        AS id,
        projects.project_nr                                AS project_nr,
        projects.category                                  AS category,
        projects.name                                      AS name,
-       projects.type                                      AS type,
+       projects.priority                                   AS priority,
        projects.construction_type                         AS construction_type,
        projects.apartments_count                         AS apartments_count,
 

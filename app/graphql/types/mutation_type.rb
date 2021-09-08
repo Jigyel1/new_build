@@ -45,6 +45,7 @@ module Types
 
     field :create_project, mutation: Mutations::CreateProject
     field :update_project, mutation: Mutations::UpdateProject
+    field :update_project_status, mutation: Mutations::UpdateProjectStatus
     field :import_projects, mutation: Mutations::ImportProjects
     field :export_projects, mutation: Mutations::ExportProjects
 

@@ -18,8 +18,8 @@ RSpec.describe Mutations::CreateProject do
         expect(response.project).to have_attributes(
           internalId: 'e922833',
           moveInStartsOn: Date.current.in_time_zone.date_str,
-          status: 'Technical Analysis',
-          assigneeType: 'KAM Project',
+          status: 'technical_analysis',
+          assigneeType: 'kam',
           apartmentsCount: 10,
           buildingsCount: 3
         )
@@ -75,7 +75,7 @@ RSpec.describe Mutations::CreateProject do
       it 'sets the assignee type as NBO project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
         expect(errors).to be_nil
-        expect(response.project.assigneeType).to eq('NBO Project')
+        expect(response.project.assigneeType).to eq('nbo')
       end
     end
 

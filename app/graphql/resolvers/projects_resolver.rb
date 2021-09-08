@@ -12,7 +12,7 @@ module Resolvers
 
     option(:categories, type: [String]) { |scope, value| scope.where(category: value) }
     option(:assignees, type: [String]) { |scope, value| scope.where(assignee_id: value) }
-    option(:types, type: [String]) { |scope, value| scope.where(type: value) }
+    option(:priorities, type: [String]) { |scope, value| scope.where(priority: value) }
     option(:construction_types, type: [String]) { |scope, value| scope.where(construction_type: value) }
 
     option :buildings_count, type: [Int], with: :apply_buildings_filter, description: <<~DESC
@@ -38,7 +38,7 @@ module Resolvers
 
     def apply_search(scope, value)
       scope.where(
-        "CONCAT_WS(' ', name, external_id, project_nr, type, construction_type,
+        "CONCAT_WS(' ', name, external_id, project_nr, priority, construction_type,
         lot_number, address, assignee, investor, kam_region) iLIKE ?",
         "%#{value.squish}%"
       )

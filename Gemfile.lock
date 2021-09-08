@@ -14,6 +14,8 @@ GEM
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.2.0)
+      concurrent-ruby (~> 1.0)
     action_policy (0.5.7)
       ruby-next-core (>= 0.11.0)
     action_policy-graphql (0.5.3)
@@ -557,6 +559,7 @@ PLATFORMS
   arm64-darwin-20
 
 DEPENDENCIES
+  aasm
   action_policy-graphql
   apollo_upload_server (= 2.0.5)
   awesome_print

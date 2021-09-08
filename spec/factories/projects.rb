@@ -9,7 +9,7 @@ FactoryBot.define do
     external_id { SecureRandom.hex }
     category { :standard }
     assignee { nil }
-    type { :proactive }
+    priority { :proactive }
     construction_type { :reconstruction }
     additional_details { {} }
 
@@ -25,7 +25,7 @@ FactoryBot.define do
       entry_type { :info_manager }
     end
 
-    %w[categories types construction_types].each do |key|
+    %w[categories priorities construction_types].each do |key|
       Project.send(key).each_key do |name|
         trait name do
           send(key.singularize) { name }

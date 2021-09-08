@@ -15,7 +15,7 @@ module Mutations
       argument :status, String, required: false
       argument :description, String, required: false
       argument :additional_info, String, required: false
-      argument :status, String, required: false
+      # argument :status, String, required: false
       argument :coordinate_east, Float, required: false
       argument :coordinate_north, Float, required: false
 

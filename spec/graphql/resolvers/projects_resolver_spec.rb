@@ -73,11 +73,11 @@ RSpec.describe Resolvers::ProjectsResolver do
       end
     end
 
-    context 'with types filter' do
-      let(:types) { ['Reactive'] }
+    context 'with priorities filter' do
+      let(:priorities) { ['Reactive'] }
 
-      it 'returns projects matching given types' do
-        projects, errors = paginated_collection(:projects, query(types: types), current_user: super_user)
+      it 'returns projects matching given priorities' do
+        projects, errors = paginated_collection(:projects, query(priorities: priorities), current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to eq([project_c.id])
       end
@@ -139,7 +139,7 @@ RSpec.describe Resolvers::ProjectsResolver do
           totalCount
           edges {
             node { 
-              id externalId projectNr name category type constructionType labels apartmentsCount 
+              id externalId projectNr name category priority constructionType labels apartmentsCount 
               moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
             }
           }
@@ -157,7 +157,7 @@ RSpec.describe Resolvers::ProjectsResolver do
   def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
     params = args[:categories] ? ["categories: #{args[:categories]}"] : []
     params << "assignees: #{args[:assignees]}" if args[:assignees].present?
-    params << "types: #{args[:types]}" if args[:types].present?
+    params << "priorities: #{args[:priorities]}" if args[:priorities].present?
     params << "constructionTypes: #{args[:construction_types]}" if args[:construction_types].present?
     params << "buildingsCount: #{args[:buildings]}" if args[:buildings].present?
     params << "apartmentsCount: #{args[:apartments]}" if args[:apartments].present?

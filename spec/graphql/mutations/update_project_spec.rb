@@ -18,9 +18,9 @@ RSpec.describe Mutations::UpdateProject do
         expect(errors).to be_nil
         expect(response.project).to have_attributes(
           internalId: 'e922833',
-          status: 'Technical Analysis',
+          status: 'technical_analysis',
           assignee: nil,
-          assigneeType: 'KAM Project'
+          assigneeType: 'kam'
         )
       end
     end

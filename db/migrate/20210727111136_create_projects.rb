@@ -7,9 +7,9 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :external_id, index: true
       t.string :internal_id
       t.string :project_nr
-      t.string :type
+      t.string :priority
       t.string :category
-      t.string :status, null: false, default: 'New', index: true
+      t.string :status, null: false, default: 'Open', index: true
       t.string :assignee_type, null: false, default: 'KAM Project'
       t.string :entry_type, null: false, default: 'Manual'
 
@@ -31,9 +31,13 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :label_list, null: false, default: [], array: true
 
       t.jsonb :additional_details, default: {}, index: true
-      t.boolean :draft, null: false, default: false
+      t.boolean :draft, null: false, default: false # TODO: Remove this?
       t.integer :address_books_count, null: false, default: 0
       t.integer :files_count, null: false, default: 0
+
+      t.boolean :standard_cost_applicable
+      t.string :access_technology
+      t.boolean :in_house_installation
 
       t.timestamps
     end
