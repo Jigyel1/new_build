@@ -5,6 +5,8 @@ module AdminToolkit
     validates :name, presence: true, uniqueness: true
     # validates :name, inclusion: { in: Project.statuses.values }, on: :create
 
+    default_scope { order(code: :asc) }
+
     def label_list=(value)
       return unless value
 

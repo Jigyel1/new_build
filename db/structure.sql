@@ -344,6 +344,22 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: access_tech_costs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.access_tech_costs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    hfc_on_premise_cost numeric(15,2),
+    hfc_off_premise_cost numeric(15,2),
+    lwl_on_premise_cost numeric(15,2),
+    lwl_off_premise_cost numeric(15,2),
+    project_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -675,6 +691,20 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: installation_details; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.installation_details (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    project_id uuid NOT NULL,
+    sockets integer,
+    builder character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: permissions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -762,6 +792,22 @@ CREATE TABLE public.projects (
 
 
 --
+-- Name: projects_access_tech_costs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects_access_tech_costs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    hfc_on_premise_cost numeric(15,2),
+    hfc_off_premise_cost numeric(15,2),
+    lwl_on_premise_cost numeric(15,2),
+    lwl_off_premise_cost numeric(15,2),
+    project_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: projects_address_books; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -804,6 +850,20 @@ CREATE TABLE public.projects_buildings (
     move_in_ends_on date,
     additional_details jsonb DEFAULT '{}'::jsonb,
     files_count integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: projects_installation_details; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects_installation_details (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    project_id uuid NOT NULL,
+    sockets integer,
+    builder character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -888,6 +948,24 @@ CREATE VIEW public.projects_lists AS
 
 
 --
+-- Name: projects_pct_costs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects_pct_costs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    project_cost numeric(15,2),
+    socket_installation_cost numeric(15,2),
+    arpu numeric(15,2),
+    lease_cost numeric(15,2),
+    penetration_rate double precision,
+    payback_period character varying,
+    project_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: projects_tasks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -969,6 +1047,14 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAULT nextval('public.active_storage_variant_records_id_seq'::regclass);
+
+
+--
+-- Name: access_tech_costs access_tech_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.access_tech_costs
+    ADD CONSTRAINT access_tech_costs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1124,6 +1210,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: installation_details installation_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.installation_details
+    ADD CONSTRAINT installation_details_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: permissions permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1137,6 +1231,14 @@ ALTER TABLE ONLY public.permissions
 
 ALTER TABLE ONLY public.profiles
     ADD CONSTRAINT profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: projects_access_tech_costs projects_access_tech_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_access_tech_costs
+    ADD CONSTRAINT projects_access_tech_costs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1156,11 +1258,27 @@ ALTER TABLE ONLY public.projects_buildings
 
 
 --
+-- Name: projects_installation_details projects_installation_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_installation_details
+    ADD CONSTRAINT projects_installation_details_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: projects_label_groups projects_label_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.projects_label_groups
     ADD CONSTRAINT projects_label_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: projects_pct_costs projects_pct_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_pct_costs
+    ADD CONSTRAINT projects_pct_costs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1208,6 +1326,13 @@ ALTER TABLE ONLY public.telco_uam_users
 --
 
 CREATE UNIQUE INDEX by_penetration_competition ON public.admin_toolkit_penetration_competitions USING btree (penetration_id, competition_id);
+
+
+--
+-- Name: index_access_tech_costs_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_tech_costs_on_project_id ON public.access_tech_costs USING btree (project_id);
 
 
 --
@@ -1428,6 +1553,13 @@ CREATE INDEX index_admin_toolkit_penetrations_on_zip ON public.admin_toolkit_pen
 
 
 --
+-- Name: index_installation_details_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_installation_details_on_project_id ON public.installation_details USING btree (project_id);
+
+
+--
 -- Name: index_permissions_on_accessor; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1453,6 +1585,13 @@ CREATE INDEX index_profiles_on_firstname_and_lastname ON public.profiles USING b
 --
 
 CREATE INDEX index_profiles_on_user_id ON public.profiles USING btree (user_id);
+
+
+--
+-- Name: index_projects_access_tech_costs_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_access_tech_costs_on_project_id ON public.projects_access_tech_costs USING btree (project_id);
 
 
 --
@@ -1495,6 +1634,13 @@ CREATE INDEX index_projects_buildings_on_external_id ON public.projects_building
 --
 
 CREATE INDEX index_projects_buildings_on_project_id ON public.projects_buildings USING btree (project_id);
+
+
+--
+-- Name: index_projects_installation_details_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_installation_details_on_project_id ON public.projects_installation_details USING btree (project_id);
 
 
 --
@@ -1558,6 +1704,13 @@ CREATE INDEX index_projects_on_kam_region_id ON public.projects USING btree (kam
 --
 
 CREATE INDEX index_projects_on_status ON public.projects USING btree (status);
+
+
+--
+-- Name: index_projects_pct_costs_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_pct_costs_on_project_id ON public.projects_pct_costs USING btree (project_id);
 
 
 --
@@ -1713,6 +1866,14 @@ ALTER TABLE ONLY public.admin_toolkit_penetration_competitions
 
 
 --
+-- Name: installation_details fk_rails_2f52e9399c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.installation_details
+    ADD CONSTRAINT fk_rails_2f52e9399c FOREIGN KEY (project_id) REFERENCES public.projects(id);
+
+
+--
 -- Name: projects_buildings fk_rails_2f76a3f772; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1750,6 +1911,14 @@ ALTER TABLE ONLY public.projects_address_books
 
 ALTER TABLE ONLY public.admin_toolkit_pct_values
     ADD CONSTRAINT fk_rails_5300556c7f FOREIGN KEY (pct_month_id) REFERENCES public.admin_toolkit_pct_months(id);
+
+
+--
+-- Name: access_tech_costs fk_rails_5ccb40ef55; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.access_tech_costs
+    ADD CONSTRAINT fk_rails_5ccb40ef55 FOREIGN KEY (project_id) REFERENCES public.projects(id);
 
 
 --
@@ -1809,11 +1978,27 @@ ALTER TABLE ONLY public.projects
 
 
 --
+-- Name: projects_pct_costs fk_rails_a512ef8753; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_pct_costs
+    ADD CONSTRAINT fk_rails_a512ef8753 FOREIGN KEY (project_id) REFERENCES public.projects(id);
+
+
+--
 -- Name: projects_tasks fk_rails_ab5dd7512c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.projects_tasks
     ADD CONSTRAINT fk_rails_ab5dd7512c FOREIGN KEY (owner_id) REFERENCES public.telco_uam_users(id);
+
+
+--
+-- Name: projects_access_tech_costs fk_rails_b5194394d8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_access_tech_costs
+    ADD CONSTRAINT fk_rails_b5194394d8 FOREIGN KEY (project_id) REFERENCES public.projects(id);
 
 
 --
@@ -1854,6 +2039,14 @@ ALTER TABLE ONLY public.profiles
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_e5f3338b0c FOREIGN KEY (owner_id) REFERENCES public.telco_uam_users(id);
+
+
+--
+-- Name: projects_installation_details fk_rails_ebab25d49a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_installation_details
+    ADD CONSTRAINT fk_rails_ebab25d49a FOREIGN KEY (project_id) REFERENCES public.projects(id);
 
 
 --
@@ -1916,6 +2109,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210812065826'),
 ('20210812065902'),
 ('20210820072417'),
-('20210906101429');
+('20210906101429'),
+('20210908120829'),
+('20210908121100'),
+('20210908121800'),
+('20210908121948'),
+('20210908122833');
 
 

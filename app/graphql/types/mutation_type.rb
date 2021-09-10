@@ -45,9 +45,14 @@ module Types
 
     field :create_project, mutation: Mutations::CreateProject
     field :update_project, mutation: Mutations::UpdateProject
-    field :update_project_status, mutation: Mutations::UpdateProjectStatus
     field :import_projects, mutation: Mutations::ImportProjects
     field :export_projects, mutation: Mutations::ExportProjects
+
+    field :transition_to_technical_analysis, mutation: Mutations::Projects::TransitionToTechnicalAnalysis
+    field(
+      :transition_to_technical_analysis_completed,
+      mutation: Mutations::Projects::TransitionToTechnicalAnalysisCompleted
+    )
 
     field :create_address_book, mutation: Mutations::Projects::CreateAddressBook
     field :update_address_book, mutation: Mutations::Projects::UpdateAddressBook

@@ -9,7 +9,7 @@ module Projects
     end
 
     def call
-      send(attributes[:status])
+      send(attributes[:event])
     rescue AASM::InvalidTransition
       raise t('projects.invalid_transition')
     end

@@ -13,7 +13,7 @@ require 'action_mailer/railtie'
 require 'action_mailbox/engine'
 require 'action_text/engine'
 require 'action_view/railtie'
-require 'action_cable/engine'
+# require 'action_cable/engine'
 # For GraphiQL
 require 'sprockets/railtie' if Rails.env.development?
 require_relative '../lib/float'
