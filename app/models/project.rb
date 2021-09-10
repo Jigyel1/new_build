@@ -2,6 +2,7 @@
 
 class Project < ApplicationRecord
   include Enumable::Project
+  include Taskable
 
   default_scope { where(draft: false) }
 

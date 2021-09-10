@@ -12,6 +12,8 @@ class CreateProjectsBuildings < ActiveRecord::Migration[6.1]
 
       t.jsonb :additional_details, default: {}, index: true
       t.integer :files_count, null: false, default: 0
+      t.integer :tasks_count, null: false, default: 0 # excludes archived ones
+      t.integer :completed_tasks_count, null: false, default: 0
 
       t.timestamps
     end

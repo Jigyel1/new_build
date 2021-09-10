@@ -6,7 +6,7 @@ module Resolvers
       VALID_TASKABLE_TYPES = ['Project', 'Projects::Building'].freeze
 
       scope do
-        ::Projects::Task.all
+        ::Projects::Task
       end
 
       type Types::Projects::TaskConnectionType, null: false

@@ -6,7 +6,7 @@ module Resolvers
       VALID_TASKABLE_TYPES = ['Project', 'Projects::Building'].freeze
 
       scope do
-        ActiveStorage::Attachment.all
+        ActiveStorage::Attachment
       end
 
       type Types::Projects::FileConnectionType, null: false

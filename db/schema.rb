@@ -17,17 +17,6 @@ ActiveRecord::Schema.define(version: 2021_09_08_122833) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "access_tech_costs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.decimal "hfc_on_premise_cost", precision: 15, scale: 2
-    t.decimal "hfc_off_premise_cost", precision: 15, scale: 2
-    t.decimal "lwl_on_premise_cost", precision: 15, scale: 2
-    t.decimal "lwl_off_premise_cost", precision: 15, scale: 2
-    t.uuid "project_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id"], name: "index_access_tech_costs_on_project_id"
-  end
-
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -95,6 +84,7 @@ ActiveRecord::Schema.define(version: 2021_09_08_122833) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["factor"], name: "index_admin_toolkit_competitions_on_factor"
     t.index ["name"], name: "index_admin_toolkit_competitions_on_name"
   end
 
@@ -214,15 +204,6 @@ ActiveRecord::Schema.define(version: 2021_09_08_122833) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "installation_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "project_id", null: false
-    t.integer "sockets"
-    t.string "builder"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id"], name: "index_installation_details_on_project_id"
-  end
-
   create_table "permissions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "resource", null: false
     t.jsonb "actions", default: {}, null: false
@@ -277,6 +258,8 @@ ActiveRecord::Schema.define(version: 2021_09_08_122833) do
     t.boolean "draft", default: false, null: false
     t.integer "address_books_count", default: 0, null: false
     t.integer "files_count", default: 0, null: false
+    t.integer "tasks_count", default: 0, null: false
+    t.integer "completed_tasks_count", default: 0, null: false
     t.boolean "standard_cost_applicable"
     t.string "access_technology"
     t.boolean "in_house_installation"
@@ -335,6 +318,8 @@ ActiveRecord::Schema.define(version: 2021_09_08_122833) do
     t.date "move_in_ends_on"
     t.jsonb "additional_details", default: {}
     t.integer "files_count", default: 0, null: false
+    t.integer "tasks_count", default: 0, null: false
+    t.integer "completed_tasks_count", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["additional_details"], name: "index_projects_buildings_on_additional_details"
@@ -436,7 +421,6 @@ ActiveRecord::Schema.define(version: 2021_09_08_122833) do
     t.index ["role_id"], name: "index_telco_uam_users_on_role_id"
   end
 
-  add_foreign_key "access_tech_costs", "projects"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_attachments", "telco_uam_users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
@@ -451,7 +435,6 @@ ActiveRecord::Schema.define(version: 2021_09_08_122833) do
   add_foreign_key "admin_toolkit_penetration_competitions", "admin_toolkit_competitions", column: "competition_id"
   add_foreign_key "admin_toolkit_penetration_competitions", "admin_toolkit_penetrations", column: "penetration_id"
   add_foreign_key "admin_toolkit_penetrations", "admin_toolkit_kam_regions", column: "kam_region_id"
-  add_foreign_key "installation_details", "projects"
   add_foreign_key "profiles", "telco_uam_users", column: "user_id"
   add_foreign_key "projects", "admin_toolkit_kam_regions", column: "kam_region_id"
   add_foreign_key "projects", "telco_uam_users", column: "assignee_id"

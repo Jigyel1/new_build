@@ -34,6 +34,8 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.boolean :draft, null: false, default: false # TODO: Remove this?
       t.integer :address_books_count, null: false, default: 0
       t.integer :files_count, null: false, default: 0
+      t.integer :tasks_count, null: false, default: 0 # excludes archived ones
+      t.integer :completed_tasks_count, null: false, default: 0
 
       t.boolean :standard_cost_applicable
       t.string :access_technology

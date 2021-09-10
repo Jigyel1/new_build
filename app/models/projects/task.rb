@@ -3,6 +3,7 @@
 class Projects::Task < ApplicationRecord
   # taskable can be a building or a project.
   belongs_to :taskable, polymorphic: true
+
   belongs_to :owner, class_name: 'Telco::Uam::User'
   belongs_to :assignee, class_name: 'Telco::Uam::User'
 

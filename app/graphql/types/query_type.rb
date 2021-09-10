@@ -80,8 +80,16 @@ module Types
       connection: true,
       preauthorize: { record: ::Project, with: ::ProjectPolicy, to: :index? }
     )
-
     field :project, resolver: Resolvers::ProjectResolver, authorize: { with: ProjectPolicy }
+
+    field(
+      :buildings,
+      resolver: Resolvers::Projects::BuildingsResolver,
+      connection: true,
+      preauthorize: { record: ::Project, with: ::ProjectPolicy, to: :index? }
+    )
+    field :building, resolver: Resolvers::Projects::BuildingResolver, authorize: { with: ProjectPolicy }
+
     field :tasks, resolver: Resolvers::Projects::TasksResolver, authorize: { with: ProjectPolicy, to: :index? }
     field :task, resolver: Resolvers::Projects::TaskResolver, authorize: { with: ProjectPolicy }
 
