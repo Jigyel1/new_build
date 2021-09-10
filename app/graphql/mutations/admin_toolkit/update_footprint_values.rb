@@ -16,8 +16,7 @@ module Mutations
           current_user: current_user,
           attributes: attributes.map(&:to_h)
         ).call
-
-        { footprint_values: ::AdminToolkit::FootprintValue.all }
+        { footprint_values: ::AdminToolkit::FootprintValue.includes(:footprint_building, :footprint_type) }
       end
     end
   end

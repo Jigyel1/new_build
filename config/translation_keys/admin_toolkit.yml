@@ -5,78 +5,64 @@ admin_toolkit:
       - investor_id
     kam_investor_updated:
       - owner_email
-      - parameters
-      - trackable_id
     kam_investor_deleted:
       - owner_email
-      - parameters
-      - trackable_id
-      
+      - investor_id
 
   owner:
     competition_created:
-      - parameters
+      - name
     competition_updated:
-      - trackable_id
-      - parameters
+      - name
     competition_deleted:
-      - trackable_id
-      - parameters
+      - name
     kam_investor_created:
       - recipient_email
       - investor_id
     kam_investor_updated:
-      - parameters
-      - trackable_id
+      - recipient_email
     kam_investor_deleted:
-      - parameters
-      - trackable_id
-
+      - recipient_email
+      - investor_id
     kam_region_updated:
-      - parameters
-      - trackable_id
-
+      - kam_email
+      - name
     penetration_created:
-      - parameters
+      - zip
     penetration_updated:
-      - parameters
-      - trackable_id
+      - zip
     penetration_deleted:
-      - parameters
-      - trackable_id
+      - zip
     footprint_building_updated:
-      - parameters
-      - trackable_id
+      - max
     footprint_value_updated:
-      - parameters
+      - provider
+      - min
+      - max
+      - project_type
     label_group_updated:
       - trackable_name
-      - parameters
+      - labelList
 
     pct_cost_updated:
-      - parameters
-      - trackable_id
+      - max
     pct_month_updated:
-      - parameters
-      - trackable_id
+      - max
     pct_value_updated:
       - parameters
     project_cost_updated:
-      - parameters
-
+      - standard
 
   others:
     competition_created:
       - owner_email
-      - parameters
+      - name
     competition_updated:
-      - trackable_id
       - owner_email
-      - parameters
+      - name
     competition_deleted:
-      - trackable_id
       - owner_email
-      - parameters
+      - name
 
     kam_investor_created:
       - owner_email
@@ -84,52 +70,46 @@ admin_toolkit:
       - investor_id
     kam_investor_updated:
       - owner_email
-      - parameters
-      - trackable_id
+      - recipient_email
     kam_investor_deleted:
       - owner_email
-      - parameters
-      - trackable_id
+      - investor_id
 
     kam_region_updated:
-      - owner_email
-      - parameters
-      - trackable_id
+      - kam_email
+      - name
 
     penetration_created:
       - owner_email
-      - parameters
+      - zip
     penetration_updated:
       - owner_email
-      - parameters
-      - trackable_id
+      - zip
     penetration_deleted:
       - owner_email
-      - parameters
-      - trackable_id
+      - zip
     footprint_building_updated:
       - owner_email
-      - parameters
-      - trackable_id
+      - max
     footprint_value_updated:
       - owner_email
-      - parameters
+      - provider
+      - min
+      - max
+      - project_type
     label_group_updated:
       - owner_email
       - trackable_name
-      - parameters
 
     pct_cost_updated:
       - owner_email
-      - parameters
-      - trackable_id
+      - max
     pct_month_updated:
       - owner_email
-      - parameters
-      - trackable_id
+      - max
     pct_value_updated:
       - owner_email
-      - parameters
+      - max
     project_cost_updated:
       - owner_email
-      - parameters
+      - standard
