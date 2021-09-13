@@ -60,4 +60,5 @@ module JsonAccessible
   def status_text
     active ? I18n.t('activities.activated') : I18n.t('activities.deactivated')
   end
+
 end
