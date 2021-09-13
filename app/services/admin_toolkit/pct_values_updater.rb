@@ -14,12 +14,14 @@ module AdminToolkit
     private
 
     def activity_params(activity_id)
+      values = ::AdminToolkit::PctValue.find(attributes.dig(0, :id))
       {
         activity_id: activity_id,
         action: :pct_value_updated,
         owner: current_user,
-        trackable: ::AdminToolkit::PctValue.find(attributes.dig(0, :id)),
-        parameters: attributes
+        trackable: values,
+        parameters: { min: values.pct_month.min, max: values.pct_month.max,
+                      min_cost: values.pct_cost.min, max_cost: values.pct_cost.max, status: values.status }
       }
     end
   end

@@ -49,7 +49,11 @@ admin_toolkit:
     pct_month_updated:
       - max
     pct_value_updated:
-      - parameters
+      - min
+      - max
+      - min_cost
+      - max_cost
+      - status
     project_cost_updated:
       - standard
 
@@ -109,7 +113,11 @@ admin_toolkit:
       - max
     pct_value_updated:
       - owner_email
+      - min
       - max
+      - min_cost
+      - max_cost
+      - status
     project_cost_updated:
       - owner_email
       - standard

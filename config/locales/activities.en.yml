@@ -17,7 +17,7 @@ en:
         owner: 'Deleted a competition parameters with name %{name} from the Competition tab in the Admin Toolkit'
         others: 'A competition parameters with name %{name} from the Competition tab in the Admin Toolkit was Deleted by %{owner_email}'
       kam_investor_created:
-        owner: 'You have assigned KAM to %{recipient_email} with Investor Id %{investor_id}'
+        owner: 'You have assigned KAM to %{recipient_email} with Investor ID %{investor_id}'
         recipient: '%{owner_email} has assigned you to investor with id %{investor_id}'
         others: '%{owner_email} has assigned KAM to %{recipient_email} with Investor Id %{investor_id}'
       kam_investor_updated:
@@ -58,8 +58,8 @@ en:
         owner: 'You have updated pct months with new max pct month value %{max}'
         others: '%{owner_email} updated pct months with new pct month value %{max}'
       pct_value_updated:
-        owner: 'You have updated pct values with new max pct value %{max}'
-        others: '%{owner_email} updated pct values with new max pct value %{max}'
+        owner: 'You have updated pct value for pct_month range of %{min}-%{max} and pct_cost range of %{min_cost}-%{max_cost} with status %{status}'
+        others: '%{owner_email} updated pct value for pct_month range of %{min}-%{max} and pct_cost range of %{min_cost}-%{max_cost} with status %{status}'
       project_cost_updated:
         owner: 'You have updated project costs with standard cost value of %{standard}'
         others: '%{owner_email} updated project costs with standard cost value of %{standard}'

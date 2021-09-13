@@ -14,7 +14,7 @@ module Mutations
       def resolve(attributes:)
         ::AdminToolkit::PctValuesUpdater.new(current_user: current_user, attributes: attributes.map(&:to_h)).call
 
-        { pct_values: ::AdminToolkit::PctValue.all }
+        { pct_values: ::AdminToolkit::PctValue.includes(:pct_cost, :pct_month) }
       end
     end
   end
