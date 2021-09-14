@@ -17,7 +17,7 @@ describe AdminToolkit::CompetitionUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.competition_updated.owner',
-            name: params.dig(:name))
+            name: params[:name])
         )
       end
     end
@@ -32,7 +32,7 @@ describe AdminToolkit::CompetitionUpdater do
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.competition_updated.others',
             owner_email: super_user.email,
-            name: params.dig(:name))
+            name: params[:name])
         )
       end
     end

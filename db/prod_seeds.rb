@@ -25,7 +25,7 @@ rescue NoMethodError
 end
 
 # The maximum signed integer, with 4 bytes
-MAX_SIGNED = 2**31 - 1
+MAX_SIGNED = (2**31) - 1
 
 def create_record(attributes)
   record = yield if block_given?

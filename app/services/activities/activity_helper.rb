@@ -74,6 +74,5 @@ module Activities
     def parameters
       @parameters ||= log_data.parameters
     end
-
   end
 end

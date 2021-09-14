@@ -42,8 +42,7 @@ describe AdminToolkit::FootprintValuesUpdater do
             min: footprint_building.min,
             max: footprint_building.max,
             provider: footprint_type.provider,
-            project_type: params.dig(0, :project_type)
-            )
+            project_type: params.dig(0, :project_type))
         )
       end
     end

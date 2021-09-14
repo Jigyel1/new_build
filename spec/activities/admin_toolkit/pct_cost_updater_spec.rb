@@ -17,7 +17,7 @@ describe AdminToolkit::PctCostUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.pct_cost_updated.owner',
-            max: params.dig(:max))
+            max: params[:max])
         )
       end
     end
@@ -32,7 +32,7 @@ describe AdminToolkit::PctCostUpdater do
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.pct_cost_updated.others',
             owner_email: super_user.email,
-            max: params.dig(:max))
+            max: params[:max])
         )
       end
     end
