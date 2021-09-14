@@ -17,7 +17,7 @@ describe AdminToolkit::PctValuesUpdater do
     )
   end
 
-  let_it_be(:params) { [{ id: pct_value.id, status: 'On Hold' }, { id: pct_value_b.id, status: 'Prio 2' }] }
+  let_it_be(:params) { [{ id: pct_value.id, status: 'on_hold' }, { id: pct_value_b.id, status: 'Prio 2' }] }
 
   before_all { ::AdminToolkit::PctValuesUpdater.new(current_user: super_user, attributes: params).call }
 
@@ -28,7 +28,11 @@ describe AdminToolkit::PctValuesUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.pct_value_updated.owner', parameters: params.map(&:stringify_keys))
+          t('activities.admin_toolkit.pct_value_updated.owner', min: pct_month.min,
+                                                                max: pct_month.max,
+                                                                min_cost: pct_cost.min,
+                                                                max_cost: pct_cost.max,
+                                                                status: params.dig(0, :status))
         )
       end
     end
@@ -43,7 +47,11 @@ describe AdminToolkit::PctValuesUpdater do
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.pct_value_updated.others',
             owner_email: super_user.email,
-            parameters: params.map(&:stringify_keys))
+            min: pct_month.min,
+            max: pct_month.max,
+            min_cost: pct_cost.min,
+            max_cost: pct_cost.max,
+            status: params.dig(0, :status))
         )
       end
     end

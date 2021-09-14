@@ -17,8 +17,7 @@ describe AdminToolkit::CompetitionUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.competition_updated.owner',
-            trackable_id: competition.id,
-            parameters: params.except(:id).stringify_keys)
+            name: params.dig(:name))
         )
       end
     end
@@ -32,9 +31,8 @@ describe AdminToolkit::CompetitionUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.competition_updated.others',
-            trackable_id: competition.id,
             owner_email: super_user.email,
-            parameters: params.except(:id).stringify_keys)
+            name: params.dig(:name))
         )
       end
     end

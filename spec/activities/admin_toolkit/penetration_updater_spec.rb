@@ -18,8 +18,7 @@ describe AdminToolkit::PenetrationUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.penetration_updated.owner',
-            trackable_id: penetration.id,
-            parameters: params.except(:id).stringify_keys)
+            zip: params[:zip])
         )
       end
     end
@@ -33,9 +32,8 @@ describe AdminToolkit::PenetrationUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.penetration_updated.others',
-            trackable_id: penetration.id,
             owner_email: super_user.email,
-            parameters: params.except(:id).stringify_keys)
+            zip: params[:zip])
         )
       end
     end

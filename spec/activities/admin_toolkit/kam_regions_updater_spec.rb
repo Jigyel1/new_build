@@ -20,8 +20,8 @@ describe AdminToolkit::KamRegionsUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_region_updated.owner',
-            parameters: params.map(&:stringify_keys),
-            trackable_id: kam_region.id)
+            kam_email: kam_b.email,
+            name: kam_region.name)
         )
       end
     end
@@ -35,9 +35,9 @@ describe AdminToolkit::KamRegionsUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_region_updated.others',
-            parameters: params.map(&:stringify_keys),
-            owner_email: super_user.email,
-            trackable_id: kam_region.id)
+            kam_email: kam_b.email,
+            name: kam_region.name,
+            owner_email: super_user.email)
         )
       end
     end

@@ -18,7 +18,7 @@ describe AdminToolkit::LabelsUpdater do
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.label_group_updated.owner',
             trackable_name: label_group.name,
-            parameters: params.except(:id).stringify_keys)
+            labelList: params.dig('labelList'))
         )
       end
     end
@@ -34,7 +34,7 @@ describe AdminToolkit::LabelsUpdater do
           t('activities.admin_toolkit.label_group_updated.others',
             trackable_name: label_group.name,
             owner_email: super_user.email,
-            parameters: params.except(:id).stringify_keys)
+            labelList: params.dig('labelList'))
         )
       end
     end

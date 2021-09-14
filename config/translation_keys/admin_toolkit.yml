@@ -78,9 +78,11 @@ admin_toolkit:
     kam_investor_deleted:
       - owner_email
       - investor_id
+      - recipient_email
 
     kam_region_updated:
       - kam_email
+      - owner_email
       - name
 
     penetration_created:
@@ -104,6 +106,7 @@ admin_toolkit:
     label_group_updated:
       - owner_email
       - trackable_name
+      - labelList
 
     pct_cost_updated:
       - owner_email

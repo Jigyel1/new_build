@@ -17,8 +17,7 @@ describe AdminToolkit::FootprintBuildingUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.footprint_building_updated.owner',
-            trackable_id: footprint_building.id,
-            parameters: params.except(:id).stringify_keys)
+            max: params[:max])
         )
       end
     end
@@ -32,9 +31,8 @@ describe AdminToolkit::FootprintBuildingUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.footprint_building_updated.others',
-            trackable_id: footprint_building.id,
             owner_email: super_user.email,
-            parameters: params.except(:id).stringify_keys)
+            max: params[:max])
         )
       end
     end

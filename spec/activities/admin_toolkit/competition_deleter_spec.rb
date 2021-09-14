@@ -22,7 +22,7 @@ describe AdminToolkit::CompetitionDeleter do
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.competition_deleted.owner',
             trackable_id: competition.id,
-            parameters: attributes.stringify_keys)
+            name: attributes.dig('name'))
         )
       end
     end
@@ -40,9 +40,8 @@ describe AdminToolkit::CompetitionDeleter do
 
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.competition_deleted.others',
-            trackable_id: competition.id,
             owner_email: super_user.email,
-            parameters: attributes.stringify_keys)
+            name: attributes.dig('name'))
         )
       end
     end

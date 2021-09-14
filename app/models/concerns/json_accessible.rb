@@ -3,7 +3,19 @@
 module JsonAccessible
   extend ActiveSupport::Concern
 
-  F = %w[
+  %w[recipient_email owner_email parameters].each do |method|
+    define_method method do
+      log_data[method]
+    end
+  end
+
+  %w[role previous_role active investor_id].each do |method|
+    define_method method do
+      log_data.dig('parameters', method)
+    end
+  end
+
+  Find_param = %w[
     name
     kam_email
     zip
@@ -19,13 +31,7 @@ module JsonAccessible
     investor_id
   ].freeze
 
-  %w[recipient_email owner_email parameters role previous_role active].each do |method|
-    define_method method do
-      log_data[method]
-    end
-  end
-
-  F.each do |method|
+  Find_param.each do |method|
     define_method method do
       log_data.dig('parameters', method)
     end

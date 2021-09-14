@@ -17,8 +17,7 @@ describe AdminToolkit::PctCostUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.pct_cost_updated.owner',
-            trackable_id: pct_cost.id,
-            parameters: params.except(:id).stringify_keys)
+            max: params.dig(:max))
         )
       end
     end
@@ -32,9 +31,8 @@ describe AdminToolkit::PctCostUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.pct_cost_updated.others',
-            trackable_id: pct_cost.id,
             owner_email: super_user.email,
-            parameters: params.except(:id).stringify_keys)
+            max: params.dig(:max))
         )
       end
     end
