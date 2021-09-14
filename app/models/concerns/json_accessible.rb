@@ -15,7 +15,7 @@ module JsonAccessible
     end
   end
 
-  Find_param = %w[
+  parameters = %w[
     name
     kam_email
     zip
@@ -31,7 +31,7 @@ module JsonAccessible
     investor_id
   ].freeze
 
-  Find_param.each do |method|
+  parameters.each do |method|
     define_method method do
       log_data.dig('parameters', method)
     end
