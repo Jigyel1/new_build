@@ -12,7 +12,7 @@ module Mutations
     def resolve(klass, key, attributes:)
       resolver = klass.new(current_user: current_user, attributes: attributes.to_h)
       resolver.call
-      { "#{key}": resolver.send(key) }
+      { "#{key}": resolver.public_send(key) }
     end
   end
 end

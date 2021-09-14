@@ -25,7 +25,7 @@ FactoryBot.define do
       entry_type { :info_manager }
     end
 
-    %w[categories priorities construction_types].each do |key|
+    %w[categories priorities construction_types statuses].each do |key|
       Project.send(key).each_key do |name|
         trait name do
           send(key.singularize) { name }

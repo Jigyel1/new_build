@@ -8,6 +8,7 @@ class Project < ApplicationRecord
 
   belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
   belongs_to :kam_region, class_name: 'AdminToolkit::KamRegion', optional: true
+  belongs_to :competition, class_name: 'AdminToolkit::Competition', optional: true
 
   has_one :address, as: :addressable, dependent: :destroy
   has_one :access_tech_cost, dependent: :destroy, class_name: 'Projects::AccessTechCost'
@@ -21,7 +22,7 @@ class Project < ApplicationRecord
 
   has_many_attached :files, dependent: :destroy
 
-  accepts_nested_attributes_for :address, :address_books, allow_destroy: true
+  accepts_nested_attributes_for :address, :address_books, :access_tech_cost, :installation_detail, allow_destroy: true
 
   validates :external_id, uniqueness: true, allow_nil: true
 

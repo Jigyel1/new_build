@@ -44,4 +44,11 @@ class NewBuildSchema < GraphQL::Schema
     Rollbar.error(err)
     raise GraphQL::ExecutionError, err
   end
+
+  rescue_from(ActiveModel::UnknownAttributeError) do |err|
+    err.record.errors.add(:base, err.to_s)
+
+    Rollbar.error(err)
+    raise GraphQL::ExecutionError, err
+  end
 end

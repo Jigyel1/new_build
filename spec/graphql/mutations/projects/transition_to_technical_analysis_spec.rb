@@ -1,15 +1,39 @@
 require 'rails_helper'
 
 describe Mutations::Projects::TransitionToTechnicalAnalysis do
-  let_it_be(:super_user) { create(:user, :super_user) }
-  let_it_be(:kam) { create(:user, :kam) }
+  let_it_be(:team_expert) { create(:user, :team_expert) }
   let_it_be(:project) { create(:project) }
 
   describe '.resolve' do
-    describe '#technical analysis' do
+    context 'for standard projects' do
       context 'with permissions' do
         it 'updates project status' do
-          response, errors = formatted_response(query, current_user: super_user, key: :transitionToTechnicalAnalysis)
+          response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysis)
+          expect(errors).to be_nil
+          expect(response.project.status).to eq('technical_analysis')
+        end
+      end
+
+      context 'without permissions' do
+        let_it_be(:kam) { create(:user, :kam) }
+
+        it 'forbids action' do
+          response, errors = formatted_response(query, current_user: kam, key: :transitionToTechnicalAnalysis)
+          expect(response.project).to be_nil
+          expect(errors).to eq(['Not Authorized'])
+          expect(project.reload.status).to eq('open')
+        end
+      end
+    end
+
+    context 'for complex projects' do
+      before_all { project.update_column(:category, :complex) }
+      
+      context 'with permissions' do
+        let_it_be(:management) { create(:user, :management) }
+
+        it 'updates project status' do
+          response, errors = formatted_response(query, current_user: management, key: :transitionToTechnicalAnalysis)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis')
         end
@@ -17,9 +41,9 @@ describe Mutations::Projects::TransitionToTechnicalAnalysis do
 
       context 'without permissions' do
         it 'forbids action' do
-          response, errors = formatted_response(query, current_user: kam, key: :transitionToTechnicalAnalysis)
-          expect(response.user).to be_nil
-          expect(errors).to eq([t('projects.invalid_transition')])
+          response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysis)
+          expect(response.project).to be_nil
+          expect(errors).to eq(['Not Authorized'])
           expect(project.reload.status).to eq('open')
         end
       end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_08_122833) do
+ActiveRecord::Schema.define(version: 2021_09_11_120552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -265,8 +265,12 @@ ActiveRecord::Schema.define(version: 2021_09_08_122833) do
     t.boolean "in_house_installation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "competition_id"
+    t.text "analysis"
+    t.boolean "customer_request"
     t.index ["additional_details"], name: "index_projects_on_additional_details"
     t.index ["assignee_id"], name: "index_projects_on_assignee_id"
+    t.index ["competition_id"], name: "index_projects_on_competition_id"
     t.index ["draft"], name: "index_projects_on_draft", where: "(draft IS NOT FALSE)"
     t.index ["external_id"], name: "index_projects_on_external_id"
     t.index ["kam_region_id"], name: "index_projects_on_kam_region_id"
@@ -278,6 +282,8 @@ ActiveRecord::Schema.define(version: 2021_09_08_122833) do
     t.decimal "hfc_off_premise_cost", precision: 15, scale: 2
     t.decimal "lwl_on_premise_cost", precision: 15, scale: 2
     t.decimal "lwl_off_premise_cost", precision: 15, scale: 2
+    t.text "comment"
+    t.text "explanation"
     t.uuid "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -436,6 +442,7 @@ ActiveRecord::Schema.define(version: 2021_09_08_122833) do
   add_foreign_key "admin_toolkit_penetration_competitions", "admin_toolkit_penetrations", column: "penetration_id"
   add_foreign_key "admin_toolkit_penetrations", "admin_toolkit_kam_regions", column: "kam_region_id"
   add_foreign_key "profiles", "telco_uam_users", column: "user_id"
+  add_foreign_key "projects", "admin_toolkit_competitions", column: "competition_id"
   add_foreign_key "projects", "admin_toolkit_kam_regions", column: "kam_region_id"
   add_foreign_key "projects", "telco_uam_users", column: "assignee_id"
   add_foreign_key "projects_access_tech_costs", "projects"

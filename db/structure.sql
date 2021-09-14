@@ -759,7 +759,10 @@ CREATE TABLE public.projects (
     access_technology character varying,
     in_house_installation boolean,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    competition_id uuid,
+    analysis text,
+    customer_request boolean
 );
 
 
@@ -773,6 +776,8 @@ CREATE TABLE public.projects_access_tech_costs (
     hfc_off_premise_cost numeric(15,2),
     lwl_on_premise_cost numeric(15,2),
     lwl_off_premise_cost numeric(15,2),
+    comment text,
+    explanation text,
     project_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -1630,6 +1635,13 @@ CREATE INDEX index_projects_on_assignee_id ON public.projects USING btree (assig
 
 
 --
+-- Name: index_projects_on_competition_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_competition_id ON public.projects USING btree (competition_id);
+
+
+--
 -- Name: index_projects_on_draft; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1857,6 +1869,14 @@ ALTER TABLE ONLY public.admin_toolkit_pct_values
 
 
 --
+-- Name: projects fk_rails_5fff1d9455; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_5fff1d9455 FOREIGN KEY (competition_id) REFERENCES public.admin_toolkit_competitions(id);
+
+
+--
 -- Name: projects_tasks fk_rails_60d576e258; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2047,6 +2067,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210906101429'),
 ('20210908121800'),
 ('20210908121948'),
-('20210908122833');
+('20210908122833'),
+('20210911120552');
 
 

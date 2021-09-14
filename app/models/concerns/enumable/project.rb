@@ -26,8 +26,7 @@ module Enumable
 
       enum priority: {
         proactive: 'Proactive',
-        reactive: 'Reactive',
-        customer_request: 'Customer Request'
+        reactive: 'Reactive'
       }
 
       enum construction_type: {
@@ -36,6 +35,12 @@ module Enumable
         b2b_new: 'B2B (New)',
         b2b_reconstruction: 'B2B (Reconstruction)',
         overbuild: 'Overbuild'
+      }
+
+      enum access_technology: {
+        ftth: 'FTTH',
+        hfc: 'HFC',
+        lease: 'Lease'
       }
     end
   end

@@ -1,7 +1,9 @@
 module Projects
   class StatusUpdater < BaseService
     include AASM
+    include Transitions::Callbacks
     alias :user :current_user
+    attr_accessor :event
 
     def initialize(attributes = {})
       super
@@ -9,9 +11,13 @@ module Projects
     end
 
     def call
-      send(attributes[:event])
+      send(event)
     rescue AASM::InvalidTransition
-      raise t('projects.invalid_transition')
+      raise t('projects.event_not_allowed')
+    end
+
+    def project
+      @project ||= Project.find(attributes[:id])
     end
 
     aasm whiny_transitions: true, column: :status, enum: true do
@@ -24,7 +30,7 @@ module Projects
         transitions from: :open, to: :technical_analysis
       end
 
-      event :technical_analysis_complete do
+      event :technical_analysis_completed, if: :to_technical_analysis_completed? do
         transitions from: :technical_analysis, to: :technical_analysis_completed
       end
 
@@ -40,19 +46,16 @@ module Projects
     end
 
     def to_technical_analysis?
-      %i[super_user admin management team_expert presales manager_nbo_kam manager_presales].any? do |role|
-        user.send("#{role}?")
-      end
+      authorize! project, to: :to_technical_analysis?, with: ProjectPolicy
     end
 
-    def project
-      @project ||= Project.find(attributes[:id])
-    end
+    def to_technical_analysis_completed?
+      authorize! project, to: :to_technical_analysis_completed?, with: ProjectPolicy
 
-    # Callbacks
-    # def after_technical_analysis
-    #   log activity
-    #   notify users
-    # end
+      project.assign_attributes(attributes)
+      Transitions::TechnicalAnalysisCompletionValidator.new(project: project).call
+
+      true
+    end
   end
 end

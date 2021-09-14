@@ -5,6 +5,7 @@ class ProjectPolicy < ApplicationPolicy
     user.admin? || user.kam? || user.manager_nbo_kam?
   end
 
+  # FIXME: Based on project category - access will be different!
   def show?
     create? || user.manager_nbo_kam?
   end
@@ -28,4 +29,15 @@ class ProjectPolicy < ApplicationPolicy
   def destroy?
     index?
   end
+
+  def to_technical_analysis?
+    state_admins = user.admin? || user.management? || user.presales? || user.manager_presales?
+
+    if record.standard?
+      state_admins || user.team_expert? || user.manager_nbo_kam?
+    elsif record.complex?
+      state_admins
+    end
+  end
+  alias_method :to_technical_analysis_completed?, :to_technical_analysis?
 end

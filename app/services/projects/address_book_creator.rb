@@ -6,6 +6,7 @@ module Projects
 
     def call
       authorize! project, to: :create?, with: ProjectPolicy
+
       with_tracking(activity_id = SecureRandom.uuid) do
         @address_book = project.address_books.build(attributes)
         address_book.entry_type = :manual
