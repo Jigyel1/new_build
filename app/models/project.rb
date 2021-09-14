@@ -57,4 +57,3 @@ class Project < ApplicationRecord
     "2#{super}"
   end
 end
-

@@ -15,6 +15,7 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateBuilding)
         expect(errors).to be_nil
         expect(response.building).to have_attributes(
+                                       externalId: '100202',
                                        name: "Construction d'une habitation de quatre logements",
                                        moveInStartsOn: (Date.current + 1.month).to_s,
                                        moveInEndsOn: (Date.current + 3.months).to_s
@@ -72,6 +73,7 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
               id: "#{building.id}"
               name: "#{args[:name]}"
               assigneeId: "#{super_user.id}"
+              externalId: "100202"
               moveInStartsOn: "#{Date.current + 1.month}"
               moveInEndsOn: "#{Date.current + 3.months}"
               #{address}
@@ -80,7 +82,7 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
         )
         {
           building { 
-            id name apartmentsCount moveInStartsOn moveInEndsOn
+            id name externalId apartmentsCount moveInStartsOn moveInEndsOn
             address { id streetNo street city zip} 
             assignee { id name }
           }

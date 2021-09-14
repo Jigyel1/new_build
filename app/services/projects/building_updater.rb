@@ -2,7 +2,7 @@
 
 module Projects
   class BuildingUpdater < BaseService
-    attr_reader :building
+    include BuildingHelper
 
     def call
       authorize! building.project, to: :update?, with: ProjectPolicy
@@ -11,10 +11,6 @@ module Projects
         building.update!(attributes)
         # Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
-    end
-
-    def building
-      @_building ||= Projects::Building.find(attributes.delete(:id))
     end
 
     private

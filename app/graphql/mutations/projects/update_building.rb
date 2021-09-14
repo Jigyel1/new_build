@@ -10,6 +10,7 @@ module Mutations
       class UpdateBuildingAttributes < Types::BaseInputObject
         argument :id, ID, required: true
         argument :name, String, required: false
+        argument :external_id, ID, required: false
         argument :assignee_id, ID, required: false
         argument :apartments_count, Int, required: false
         argument :move_in_starts_on, GraphQL::Types::ISO8601DateTime, required: false

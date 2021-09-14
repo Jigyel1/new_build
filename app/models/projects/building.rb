@@ -13,6 +13,7 @@ class Projects::Building < ApplicationRecord
   validates :external_id, uniqueness: true, allow_nil: true
 
   after_save :update_project
+  after_destroy :update_project
 
   private
 
