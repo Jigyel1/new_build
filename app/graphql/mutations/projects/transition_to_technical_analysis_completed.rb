@@ -4,13 +4,11 @@ module Mutations
   module Projects
     class TransitionToTechnicalAnalysisCompleted < BaseMutation
       class PctCostAttributes < Types::BaseInputObject
-        argument :socket_installation_cost, Float, required: true
-        argument :project_cost, Float, required: true
-        argument :arpu, Float, required: true
-        argument :lease_cost, Float, required: true
-        argument :penetration_rate, Float, required: true
-        # argument :payback_period, Int, required: true # Calculate in terms of days? Show it in
-        # # x years y months format
+        argument :project_connection_cost, Float, required: false, description: <<~DESC
+          Required only for complex projects. 
+          Irrelevant for standard projects.
+          Optional for irrelevant and marketing only projects.
+        DESC
       end
 
       class InstallationDetailAttributes < Types::BaseInputObject
@@ -46,10 +44,7 @@ module Mutations
         argument :priority, String, required: true
         argument :analysis, String, required: false
 
-        # For PCT Costs, a better way to handle this would be for BE to
-        # Expose an API that does the calculation which FE can display.
-        # Use the same API when updating the PCT costs.
-        # argument :pct_cost, PctCostAttributes, required: true, as: :pct_cost_attributes
+        argument :pct_cost, PctCostAttributes, required: false, as: :pct_cost_attributes
       end
 
       argument :attributes, TransitionToTechnicalAnalysisCompletedAttributes, required: true

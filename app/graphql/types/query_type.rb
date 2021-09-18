@@ -81,6 +81,7 @@ module Types
       preauthorize: { record: ::Project, with: ::ProjectPolicy, to: :index? }
     )
     field :project, resolver: Resolvers::ProjectResolver, authorize: { with: ProjectPolicy }
+    field :project_pct_cost, resolver: Resolvers::Projects::PctCostResolver, authorize: { with: ProjectPolicy }
 
     field(
       :buildings,

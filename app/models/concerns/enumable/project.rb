@@ -9,7 +9,6 @@ module Enumable
       enum status: {
         open: 'Open',
         technical_analysis: 'Technical Analysis',
-        pct_calculation: 'PCT Calculation', # TODO - remove this status
         technical_analysis_completed: 'Technical Analysis Completed/On-Hold Meeting',
         ready_for_offer: 'Ready for Offer',
         contract: 'Contract',

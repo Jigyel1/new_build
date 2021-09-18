@@ -84,8 +84,6 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["factor"], name: "index_admin_toolkit_competitions_on_factor"
-    t.index ["name"], name: "index_admin_toolkit_competitions_on_name"
   end
 
   create_table "admin_toolkit_footprint_buildings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -357,11 +355,11 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
 
   create_table "projects_pct_costs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.decimal "project_cost", precision: 15, scale: 2
-    t.decimal "socket_installation_cost", precision: 15, scale: 2
+    t.decimal "socket_installation_cost", precision: 15, scale: 2, default: "0.0"
     t.decimal "arpu", precision: 15, scale: 2
     t.decimal "lease_cost", precision: 15, scale: 2
     t.float "penetration_rate"
-    t.string "payback_period"
+    t.integer "payback_period", default: 0, null: false
     t.uuid "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

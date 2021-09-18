@@ -21,6 +21,10 @@ FactoryBot.define do
       project.address_books << build(:address_book, type: :investor) if evaluator.add_investor
     end
 
+    after(:build) do |project|
+      project.address = build(:address) unless project.address
+    end
+
     trait :from_info_manager do
       entry_type { :info_manager }
     end

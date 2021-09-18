@@ -24,6 +24,7 @@ class Project < ApplicationRecord
 
   accepts_nested_attributes_for :address, :address_books, :access_tech_cost, :installation_detail, allow_destroy: true
 
+  validates :address, presence: true
   validates :external_id, uniqueness: true, allow_nil: true
 
   ACCESSORS = %i[

@@ -9,6 +9,6 @@ module AdminToolkit
     has_many :penetration_competitions, class_name: 'AdminToolkit::PenetrationCompetition', dependent: :destroy
     has_many :penetrations, through: :penetration_competitions
 
-    default_scope { order(:factor) }
+    default_scope { order(created_at: :desc) }
   end
 end

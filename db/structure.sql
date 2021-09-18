@@ -933,11 +933,11 @@ CREATE VIEW public.projects_lists AS
 CREATE TABLE public.projects_pct_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     project_cost numeric(15,2),
-    socket_installation_cost numeric(15,2),
+    socket_installation_cost numeric(15,2) DEFAULT 0.0,
     arpu numeric(15,2),
     lease_cost numeric(15,2),
     penetration_rate double precision,
-    payback_period character varying,
+    payback_period integer DEFAULT 0 NOT NULL,
     project_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -1373,20 +1373,6 @@ CREATE INDEX index_activities_on_trackable_id_and_trackable_type ON public.activ
 --
 
 CREATE INDEX index_addresses_on_addressable ON public.addresses USING btree (addressable_type, addressable_id);
-
-
---
--- Name: index_admin_toolkit_competitions_on_factor; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_admin_toolkit_competitions_on_factor ON public.admin_toolkit_competitions USING btree (factor);
-
-
---
--- Name: index_admin_toolkit_competitions_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_admin_toolkit_competitions_on_name ON public.admin_toolkit_competitions USING btree (name);
 
 
 --
