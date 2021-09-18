@@ -40,4 +40,8 @@ class ProjectPolicy < ApplicationPolicy
     end
   end
   alias_method :to_technical_analysis_completed?, :to_technical_analysis?
+
+  def to_archived?
+    user.management?
+  end
 end

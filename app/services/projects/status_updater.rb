@@ -23,7 +23,7 @@ module Projects
 
     aasm whiny_transitions: true, column: :status, enum: true do
       state :open, initial: true
-      state :technical_analysis, :technical_analysis_completed, :ready_for_offer
+      state :technical_analysis, :technical_analysis_completed, :ready_for_offer, :archived
 
       before_all_events :before_transition_callback
       after_all_transitions :update_project_state
@@ -42,6 +42,10 @@ module Projects
 
       event :offer_ready do
         transitions from: :technical_analysis_completed, to: :ready_for_offer
+      end
+
+      event :archive, if: :to_archived? do
+        transitions from: :technical_analysis_completed, to: :archived
       end
     end
 
@@ -72,12 +76,24 @@ module Projects
       # the necessary attributes before assigning those to the project.
       pct_cost = OpenStruct.new(attributes.delete(:pct_cost_attributes))
 
+      verdict = attributes.delete(:verdict)
+      project.verdicts[project.status] = verdict unless verdict.blank?
+
       project.assign_attributes(attributes)
 
       Transitions::TechnicalAnalysisCompletionGuard.new(
         project: project,
         project_connection_cost: pct_cost.project_connection_cost
       ).call
+
+      true
+    end
+
+    def to_archived?
+      authorize! project, to: :to_archived?, with: ProjectPolicy
+
+      verdict = attributes.delete(:verdict)
+      project.verdicts[project.status] = verdict unless verdict.blank?
 
       true
     end

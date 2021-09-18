@@ -53,6 +53,7 @@ module Types
       :transition_to_technical_analysis_completed,
       mutation: Mutations::Projects::TransitionToTechnicalAnalysisCompleted
     )
+    field :transition_to_archived, mutation: Mutations::Projects::TransitionToArchived
 
     field :create_address_book, mutation: Mutations::Projects::CreateAddressBook
     field :update_address_book, mutation: Mutations::Projects::UpdateAddressBook

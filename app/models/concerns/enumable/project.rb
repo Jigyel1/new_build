@@ -13,7 +13,8 @@ module Enumable
         ready_for_offer: 'Ready for Offer',
         contract: 'Contract',
         contract_accepted: 'Contract Accepted',
-        under_construction: 'Under Construction'
+        under_construction: 'Under Construction',
+        archived: 'Archived'
       }
 
       enum category: {

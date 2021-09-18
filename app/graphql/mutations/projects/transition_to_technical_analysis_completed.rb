@@ -43,6 +43,7 @@ module Mutations
 
         argument :priority, String, required: true
         argument :analysis, String, required: false
+        argument :verdict, String, required: false
 
         argument :pct_cost, PctCostAttributes, required: false, as: :pct_cost_attributes
       end

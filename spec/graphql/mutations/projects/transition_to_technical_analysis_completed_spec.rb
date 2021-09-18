@@ -39,7 +39,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis_completed')
-
+          expect(response.project.verdicts).to have_attributes(technical_analysis: 'This projects looks feasible with the current resources.')
 
           label_group = project.label_groups.find_by!(label_group: label_group_a)
           expect(label_group.label_list).to include('Prio 2')
@@ -238,13 +238,14 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               constructionType: "b2b_new"
               customerRequest: false
               priority: "proactive"
+              verdict: "This projects looks feasible with the current resources."
               #{access_tech_cost(args[:set_access_tech_cost])}
               #{installation_detail(args[:set_installation_detail])}
               #{pct_cost(args[:set_pct_cost])}
             }
           }
         )
-        { project { id status } }
+        { project { id status verdicts } }
       }
     GQL
   end

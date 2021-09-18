@@ -4,7 +4,7 @@ class Project < ApplicationRecord
   include Enumable::Project
   include Taskable
 
-  default_scope { where(draft: false) }
+  default_scope { where.not(status: :archived) }
 
   belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
   belongs_to :kam_region, class_name: 'AdminToolkit::KamRegion', optional: true

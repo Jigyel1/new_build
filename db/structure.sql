@@ -750,7 +750,7 @@ CREATE TABLE public.projects (
     coordinate_north double precision,
     label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     additional_details jsonb DEFAULT '{}'::jsonb,
-    draft boolean DEFAULT false NOT NULL,
+    archived boolean DEFAULT false NOT NULL,
     address_books_count integer DEFAULT 0 NOT NULL,
     files_count integer DEFAULT 0 NOT NULL,
     tasks_count integer DEFAULT 0 NOT NULL,
@@ -762,7 +762,8 @@ CREATE TABLE public.projects (
     updated_at timestamp(6) without time zone NOT NULL,
     competition_id uuid,
     analysis text,
-    customer_request boolean
+    customer_request boolean,
+    verdicts jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -1628,13 +1629,6 @@ CREATE INDEX index_projects_on_competition_id ON public.projects USING btree (co
 
 
 --
--- Name: index_projects_on_draft; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_projects_on_draft ON public.projects USING btree (draft) WHERE (draft IS NOT FALSE);
-
-
---
 -- Name: index_projects_on_external_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1652,7 +1646,7 @@ CREATE INDEX index_projects_on_kam_region_id ON public.projects USING btree (kam
 -- Name: index_projects_on_status; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_projects_on_status ON public.projects USING btree (status);
+CREATE INDEX index_projects_on_status ON public.projects USING btree (status) WHERE ((status)::text <> 'Archived'::text);
 
 
 --

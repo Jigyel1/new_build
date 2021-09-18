@@ -253,7 +253,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.float "coordinate_north"
     t.string "label_list", default: [], null: false, array: true
     t.jsonb "additional_details", default: {}
-    t.boolean "draft", default: false, null: false
+    t.boolean "archived", default: false, null: false
     t.integer "address_books_count", default: 0, null: false
     t.integer "files_count", default: 0, null: false
     t.integer "tasks_count", default: 0, null: false
@@ -266,13 +266,13 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.uuid "competition_id"
     t.text "analysis"
     t.boolean "customer_request"
+    t.jsonb "verdicts", default: {}, null: false
     t.index ["additional_details"], name: "index_projects_on_additional_details"
     t.index ["assignee_id"], name: "index_projects_on_assignee_id"
     t.index ["competition_id"], name: "index_projects_on_competition_id"
-    t.index ["draft"], name: "index_projects_on_draft", where: "(draft IS NOT FALSE)"
     t.index ["external_id"], name: "index_projects_on_external_id"
     t.index ["kam_region_id"], name: "index_projects_on_kam_region_id"
-    t.index ["status"], name: "index_projects_on_status"
+    t.index ["status"], name: "index_projects_on_status", where: "((status)::text <> 'Archived'::text)"
   end
 
   create_table "projects_access_tech_costs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
