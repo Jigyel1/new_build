@@ -41,7 +41,8 @@ module Projects
       end
 
       event :offer_ready do
-        transitions from: :technical_analysis_completed, to: :ready_for_offer
+        transitions from: :technical_analysis_completed, to: :technical_analysis, if: :back_to_technical_analysis?
+        transitions from: :technical_analysis_completed, to: :ready_for_offer, if: :to_offer?
       end
 
       event :archive, if: :to_archived? do
@@ -50,6 +51,16 @@ module Projects
     end
 
     private
+
+    def back_to_technical_analysis?
+      # revert status to technical analysis based on a variable sent from FE.
+      false
+    end
+
+    def to_offer?
+      # move to offer state based on the same variable sent from FE.
+      true
+    end
 
     def update_project_state
       project.update!(status: aasm.to_state)
