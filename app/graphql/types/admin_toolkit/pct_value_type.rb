@@ -11,6 +11,24 @@ module Types
       def status
         ::AdminToolkit::PctValue.statuses[object.status]
       end
+
+      def pct_cost
+        BatchLoaders::AssociationLoader
+          .for(
+            ::AdminToolkit::PctValue,
+            :pct_cost
+          )
+          .load(object)
+      end
+
+      def pct_month
+        BatchLoaders::AssociationLoader
+          .for(
+            ::AdminToolkit::PctValue,
+            :pct_month
+          )
+          .load(object)
+      end
     end
   end
 end

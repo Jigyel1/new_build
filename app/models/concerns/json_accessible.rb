@@ -9,25 +9,16 @@ module JsonAccessible
     end
   end
 
-  %w[role previous_role active investor_id].each do |method|
-    define_method method do
-      log_data.dig('parameters', method)
-    end
-  end
-
   parameters = %w[
+    role
+    previous_role
+    active
     name
-    kam_email
     zip
     labelList
     standard
-    provider
     max
     min
-    project_type
-    min_cost
-    max_cost
-    status
     investor_id
   ].freeze
 

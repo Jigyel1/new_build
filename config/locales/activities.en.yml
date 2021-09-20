@@ -30,8 +30,8 @@ en:
         others: '%{owner_email} deleted KAM assigned to %{recipient_email} having Investor Id %{investor_id}'
 
       kam_region_updated:
-        owner: 'You have assigned %{kam_email} to a KAM region of %{name}'
-        others: '%{owner_email} have assigned %{kam_email} to a KAM region of %{name}'
+        owner: 'You have updated the parameters in KAM Region section.'
+        others: '%{owner_email} has updated the parameters in KAM region section.'
 
       penetration_created:
         owner: 'You have added new penetration rate for the zip value %{zip}'
@@ -46,8 +46,8 @@ en:
         owner: 'You have updated footprint building with max value of %{max}'
         others: '%{owner_email} updated footprint building with max value of %{max}'
       footprint_value_updated:
-        owner: 'You have updated footprint value of building range from %{min}-%{max} and provider %{provider} with project type %{project_type}'
-        others: '%{owner_email} updated footprint value of building range from %{min}-%{max} and provider %{provider} with project type %{project_type}'
+        owner: 'You have updated the footprint values in Footprint tab of the Admin Toolkit'
+        others: '%{owner_email} has updated the footprint values in footprint tab of the Admin Toolkit'
       label_group_updated:
         owner: 'You have updated label for %{trackable_name} with new sub label %{labelList}'
         others: '%{owner_email} updated label for %{trackable_name} with new sub label %{labelList}'
@@ -58,8 +58,8 @@ en:
         owner: 'You have updated pct months with new max pct month value %{max}'
         others: '%{owner_email} updated pct months with new pct month value %{max}'
       pct_value_updated:
-        owner: 'You have updated pct value for pct_month range of %{min}-%{max} and pct_cost range of %{min_cost}-%{max_cost} with status %{status}'
-        others: '%{owner_email} updated pct value for pct_month range of %{min}-%{max} and pct_cost range of %{min_cost}-%{max_cost} with status %{status}'
+        owner: 'You have updated pct values in the PCT Calculation Tab of the Admin Toolkit.'
+        others: '%{owner_email} updated pct values in the PCT Calculation Tab of the Admin Toolkit.'
       project_cost_updated:
         owner: 'You have updated project costs with standard cost value of %{standard}'
         others: '%{owner_email} updated project costs with standard cost value of %{standard}'

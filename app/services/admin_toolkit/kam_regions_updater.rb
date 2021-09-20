@@ -28,13 +28,11 @@ module AdminToolkit
     end
 
     def activity_params(activity_id)
-      values = ::AdminToolkit::KamRegion.find(attributes.dig(0, :id))
       {
         activity_id: activity_id,
         action: :kam_region_updated,
         owner: current_user,
-        trackable: values,
-        parameters: { kam_email: values.kam.email, name: values.name }
+        trackable: ::AdminToolkit::KamRegion.find(attributes.dig(0, :id))
       }
     end
   end

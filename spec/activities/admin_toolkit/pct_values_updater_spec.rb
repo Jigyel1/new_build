@@ -28,11 +28,7 @@ describe AdminToolkit::PctValuesUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.pct_value_updated.owner', min: pct_month.min,
-                                                                max: pct_month.max,
-                                                                min_cost: pct_cost.min,
-                                                                max_cost: pct_cost.max,
-                                                                status: params.dig(0, :status))
+          t('activities.admin_toolkit.pct_value_updated.owner')
         )
       end
     end
@@ -46,12 +42,7 @@ describe AdminToolkit::PctValuesUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.pct_value_updated.others',
-            owner_email: super_user.email,
-            min: pct_month.min,
-            max: pct_month.max,
-            min_cost: pct_cost.min,
-            max_cost: pct_cost.max,
-            status: params.dig(0, :status))
+            owner_email: super_user.email)
         )
       end
     end

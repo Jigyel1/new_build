@@ -38,11 +38,7 @@ describe AdminToolkit::FootprintValuesUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.footprint_value_updated.owner',
-            min: footprint_building.min,
-            max: footprint_building.max,
-            provider: footprint_type.provider,
-            project_type: params.dig(0, :project_type))
+          t('activities.admin_toolkit.footprint_value_updated.owner')
         )
       end
     end
@@ -56,11 +52,7 @@ describe AdminToolkit::FootprintValuesUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.footprint_value_updated.others',
-            owner_email: super_user.email,
-            min: footprint_building.min,
-            max: footprint_building.max,
-            provider: footprint_type.provider,
-            project_type: params.dig(0, :project_type))
+            owner_email: super_user.email)
         )
       end
     end

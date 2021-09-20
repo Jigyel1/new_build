@@ -25,8 +25,7 @@ admin_toolkit:
       - recipient_email
       - investor_id
     kam_region_updated:
-      - kam_email
-      - name
+      - trackable_id
     penetration_created:
       - zip
     penetration_updated:
@@ -36,10 +35,7 @@ admin_toolkit:
     footprint_building_updated:
       - max
     footprint_value_updated:
-      - provider
-      - min
-      - max
-      - project_type
+      - owner_email
     label_group_updated:
       - trackable_name
       - labelList
@@ -49,11 +45,7 @@ admin_toolkit:
     pct_month_updated:
       - max
     pct_value_updated:
-      - min
-      - max
-      - min_cost
-      - max_cost
-      - status
+      - trackable_id
     project_cost_updated:
       - standard
 
@@ -81,13 +73,12 @@ admin_toolkit:
       - recipient_email
 
     kam_region_updated:
-      - kam_email
       - owner_email
-      - name
 
     penetration_created:
       - owner_email
       - zip
+
     penetration_updated:
       - owner_email
       - zip
@@ -99,10 +90,6 @@ admin_toolkit:
       - max
     footprint_value_updated:
       - owner_email
-      - provider
-      - min
-      - max
-      - project_type
     label_group_updated:
       - owner_email
       - trackable_name
@@ -116,11 +103,6 @@ admin_toolkit:
       - max
     pct_value_updated:
       - owner_email
-      - min
-      - max
-      - min_cost
-      - max_cost
-      - status
     project_cost_updated:
       - owner_email
       - standard
