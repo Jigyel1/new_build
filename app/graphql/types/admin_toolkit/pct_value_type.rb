@@ -13,21 +13,11 @@ module Types
       end
 
       def pct_cost
-        BatchLoaders::AssociationLoader
-          .for(
-            ::AdminToolkit::PctValue,
-            :pct_cost
-          )
-          .load(object)
+        preload_association(:pct_cost)
       end
 
       def pct_month
-        BatchLoaders::AssociationLoader
-          .for(
-            ::AdminToolkit::PctValue,
-            :pct_month
-          )
-          .load(object)
+        preload_association(:pct_month)
       end
     end
   end

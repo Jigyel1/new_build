@@ -9,21 +9,11 @@ module Types
       field :footprint_type, FootprintTypeType, null: true
 
       def footprint_building
-        BatchLoaders::AssociationLoader
-          .for(
-            ::AdminToolkit::FootprintValue,
-            :footprint_building
-          )
-          .load(object)
+        preload_association(:footprint_building)
       end
 
       def footprint_type
-        BatchLoaders::AssociationLoader
-          .for(
-            ::AdminToolkit::FootprintValue,
-            :footprint_type
-          )
-          .load(object)
+        preload_association(:footprint_type)
       end
     end
   end
