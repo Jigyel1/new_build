@@ -35,11 +35,10 @@ admin_toolkit:
     footprint_building_updated:
       - max
     footprint_value_updated:
-      - owner_email
+      - trackable_id
     label_group_updated:
       - trackable_name
       - labelList
-
     pct_cost_updated:
       - max
     pct_month_updated:
@@ -59,7 +58,6 @@ admin_toolkit:
     competition_deleted:
       - owner_email
       - name
-
     kam_investor_created:
       - owner_email
       - recipient_email
@@ -71,14 +69,11 @@ admin_toolkit:
       - owner_email
       - investor_id
       - recipient_email
-
     kam_region_updated:
       - owner_email
-
     penetration_created:
       - owner_email
       - zip
-
     penetration_updated:
       - owner_email
       - zip
@@ -94,7 +89,6 @@ admin_toolkit:
       - owner_email
       - trackable_name
       - labelList
-
     pct_cost_updated:
       - owner_email
       - max
