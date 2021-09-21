@@ -32,8 +32,7 @@ module AdminToolkit
         activity_id: activity_id,
         action: :kam_region_updated,
         owner: current_user,
-        trackable: ::AdminToolkit::KamRegion.find(attributes.dig(0, :id)),
-        parameters: attributes
+        trackable: ::AdminToolkit::KamRegion.find(attributes.dig(0, :id))
       }
     end
   end

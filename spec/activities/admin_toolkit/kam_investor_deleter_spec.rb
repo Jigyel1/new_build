@@ -18,8 +18,8 @@ describe AdminToolkit::KamInvestorDeleter do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_investor_deleted.owner',
-            parameters: kam_investor.attributes.slice('kam_id', 'investor_id').stringify_keys,
-            trackable_id: kam_investor.id)
+            recipient_email: kam.email,
+            investor_id: kam_investor[:investor_id])
         )
       end
     end
@@ -31,9 +31,9 @@ describe AdminToolkit::KamInvestorDeleter do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_investor_deleted.recipient',
-            parameters: kam_investor.attributes.slice('kam_id', 'investor_id').stringify_keys,
             owner_email: super_user.email,
-            trackable_id: kam_investor.id)
+            recipient_email: kam.email,
+            investor_id: kam_investor[:investor_id])
         )
       end
     end
@@ -47,9 +47,9 @@ describe AdminToolkit::KamInvestorDeleter do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_investor_deleted.others',
-            parameters: kam_investor.attributes.slice('kam_id', 'investor_id').stringify_keys,
-            owner_email: super_user.email,
-            trackable_id: kam_investor.id)
+            recipient_email: kam.email,
+            investor_id: kam_investor[:investor_id],
+            owner_email: super_user.email)
         )
       end
     end

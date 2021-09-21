@@ -858,7 +858,7 @@ CREATE TABLE public.projects_label_groups (
     name character varying NOT NULL,
     label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     project_id uuid NOT NULL,
-    label_group_id uuid NOT NULL,
+    label_group_id uuid,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );

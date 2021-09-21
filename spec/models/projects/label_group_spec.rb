@@ -20,9 +20,7 @@ RSpec.describe Projects::LabelGroup, type: :model do
       end
 
       it do
-        is_expected.to have_attributes(
-                         label_list: ['More Information Requested', 'Management Decision Meeting', 'Manually Created']
-                       )
+        is_expected.to have_attributes(label_list: ['More Information Requested', 'Management Decision Meeting'])
       end
     end
   end

@@ -15,7 +15,7 @@ describe AdminToolkit::CompetitionCreator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.competition_created.owner', parameters: params.stringify_keys)
+          t('activities.admin_toolkit.competition_created.owner', name: params[:name])
         )
       end
     end
@@ -30,7 +30,7 @@ describe AdminToolkit::CompetitionCreator do
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.competition_created.others',
             owner_email: super_user.email,
-            parameters: params.stringify_keys)
+            name: params[:name])
         )
       end
     end

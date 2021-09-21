@@ -35,10 +35,10 @@ RSpec.describe ProjectsList, type: :model do
       it 'returns count of the manually created label as just one' do
         expect(subject.labels).to eq(4)
         expect(project.reload.label_list).to match_array(
-                                               [
-                                                 Projects::LabelGroup::MANUALLY_CREATED, 'High Value Project', 'Management Feedback Required', 'Management Approved'
-                                               ]
-                                             )
+         [
+            Hooks::Project::MANUALLY_CREATED, 'High Value Project', 'Management Feedback Required', 'Management Approved'
+         ]
+       )
       end
     end
   end

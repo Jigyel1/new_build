@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
+  include Hooks::Project
   include Enumable::Project
   include Taskable
 

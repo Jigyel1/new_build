@@ -7,6 +7,14 @@ module Types
       field :project_type, String, null: true
       field :footprint_building, FootprintBuildingType, null: true
       field :footprint_type, FootprintTypeType, null: true
+
+      def footprint_building
+        preload_association(:footprint_building)
+      end
+
+      def footprint_type
+        preload_association(:footprint_type)
+      end
     end
   end
 end

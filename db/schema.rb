@@ -345,7 +345,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.string "name", null: false
     t.string "label_list", default: [], null: false, array: true
     t.uuid "project_id", null: false
-    t.uuid "label_group_id", null: false
+    t.uuid "label_group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["label_group_id"], name: "index_projects_label_groups_on_label_group_id"

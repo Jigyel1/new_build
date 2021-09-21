@@ -66,6 +66,18 @@ RSpec.describe Mutations::CreateProject do
         expect(buildings.count).to eq(3)
         expect(buildings.pluck(:apartments_count)).to match_array([3,3,4])
       end
+
+      it 'creates a label group for the project itself' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
+        expect(errors).to be_nil
+
+        project = Project.find(response.project.id)
+        expect(project.label_groups.size).to eq(1)
+        expect(project.label_groups.first).to have_attributes(
+                                                name: Hooks::Project::NAME,
+                                                label_list: [Hooks::Project::MANUALLY_CREATED]
+                                              )
+      end
     end
 
     context 'when assignee is not a KAM' do

@@ -15,5 +15,13 @@ module Types
 
       object.send(method).in_time_zone(context[:time_zone]).date_str
     end
+
+    protected
+
+    def preload_association(association)
+      BatchLoaders::AssociationLoader
+        .for(object.class, association)
+        .load(object)
+    end
   end
 end

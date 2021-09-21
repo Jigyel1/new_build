@@ -26,7 +26,7 @@ describe AdminToolkit::PenetrationCreator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.admin_toolkit.penetration_created.owner', parameters: params.stringify_keys)
+          t('activities.admin_toolkit.penetration_created.owner', zip: params[:zip])
         )
       end
     end
@@ -41,7 +41,7 @@ describe AdminToolkit::PenetrationCreator do
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.penetration_created.others',
             owner_email: super_user.email,
-            parameters: params.stringify_keys)
+            zip: params[:zip])
         )
       end
     end

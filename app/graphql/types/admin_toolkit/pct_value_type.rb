@@ -11,6 +11,14 @@ module Types
       def status
         ::AdminToolkit::PctValue.statuses[object.status]
       end
+
+      def pct_cost
+        preload_association(:pct_cost)
+      end
+
+      def pct_month
+        preload_association(:pct_month)
+      end
     end
   end
 end

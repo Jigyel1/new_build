@@ -23,8 +23,7 @@ describe AdminToolkit::PenetrationDeleter do
 
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.penetration_deleted.owner',
-            trackable_id: penetration.id,
-            parameters: attributes.stringify_keys)
+            zip: attributes['zip'])
         )
       end
     end
@@ -43,9 +42,8 @@ describe AdminToolkit::PenetrationDeleter do
 
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.penetration_deleted.others',
-            trackable_id: penetration.id,
             owner_email: super_user.email,
-            parameters: attributes.stringify_keys)
+            zip: attributes['zip'])
         )
       end
     end
