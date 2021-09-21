@@ -11,7 +11,7 @@ RSpec.describe Mutations::UpdateProject do
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) { { status: 'Technical Analysis' } }
+      let!(:params) { { status: 'Technical Analysis', assignee_id: kam.id } }
 
       it 'creates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
@@ -19,9 +19,9 @@ RSpec.describe Mutations::UpdateProject do
         expect(response.project).to have_attributes(
           internalId: 'e922833',
           status: 'technical_analysis',
-          assignee: nil,
           assigneeType: 'kam'
         )
+        expect(response.project.assignee).to have_attributes(id: kam.id, name: kam.name)
       end
     end
 
@@ -66,6 +66,7 @@ RSpec.describe Mutations::UpdateProject do
             attributes: {
               id: "#{project.id}"
               internalId: "e922833"
+              assigneeId: "#{args[:assignee_id]}"
               status: "#{args[:status]}"
               lotNumber: "EA0988833"
               #{address}
