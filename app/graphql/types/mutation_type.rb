@@ -60,6 +60,7 @@ module Types
 
     field :create_building, mutation: Mutations::Projects::CreateBuilding
     field :update_building, mutation: Mutations::Projects::UpdateBuilding
+    field :import_buildings, mutation: Mutations::Projects::ImportBuildings
     field :delete_building, mutation: Mutations::Projects::DeleteBuilding
 
     field :create_task, mutation: Mutations::Projects::CreateTask

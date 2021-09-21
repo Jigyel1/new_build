@@ -9,13 +9,14 @@ class BuildingsImporter < EtlBase
   ATTRIBUTE_MAPPINGS = FileParser.parse { 'etl/buildings/attribute_mappings.yml'}.freeze
 
   # Imports buildings from the excel.
+  # When the input is the path to the file, i.e. String, replace the first line with
+  #    #=> sheet = Xsv::Workbook.open(input).sheets[SHEET_INDEX]
   #
   # @param current_user [User] the user that initiated the action
   # @param input [File] the file upload
   #
   def call(current_user:, input:)
-    sheet = Xsv::Workbook.open(input).sheets[SHEET_INDEX]
-    # sheet = Xsv::Workbook.open(input.tempfile.path).sheets[SHEET_INDEX]
+    sheet = Xsv::Workbook.open(input.tempfile.path).sheets[SHEET_INDEX]
     sheet.row_skip = SKIP_ROWS
 
     import(current_user, sheet)
@@ -32,7 +33,6 @@ class BuildingsImporter < EtlBase
         transform Buildings::TransformIdable, errors
         transform Buildings::TransformAddressable, errors # Excel - Portal
         transform Buildings::TransformSurplus, errors # Portal - Excel
-        # destination Buildings::Destination
       end
     end
   end
