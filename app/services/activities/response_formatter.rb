@@ -13,7 +13,6 @@ module Activities
     #
     def call
       keys = translation_keys.dig(attributes[:user_type], activity.action)
-
       t(translation_key, **keys.index_with { |key| activity.send(key) }.symbolize_keys)
     end
 

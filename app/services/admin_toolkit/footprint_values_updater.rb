@@ -18,8 +18,7 @@ module AdminToolkit
         activity_id: activity_id,
         action: :footprint_value_updated,
         owner: current_user,
-        trackable: ::AdminToolkit::FootprintValue.find_by(id: attributes.dig(0, :id)),
-        parameters: attributes
+        trackable: ::AdminToolkit::FootprintValue.find_by(id: attributes.dig(0, :id))
       }
     end
   end

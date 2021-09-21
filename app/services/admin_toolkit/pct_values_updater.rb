@@ -18,8 +18,7 @@ module AdminToolkit
         activity_id: activity_id,
         action: :pct_value_updated,
         owner: current_user,
-        trackable: ::AdminToolkit::PctValue.find(attributes.dig(0, :id)),
-        parameters: attributes
+        trackable: ::AdminToolkit::PctValue.find(attributes.dig(0, :id))
       }
     end
   end

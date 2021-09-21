@@ -21,8 +21,7 @@ describe AdminToolkit::KamInvestorUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_investor_updated.owner',
-            parameters: params.except(:id).stringify_keys,
-            trackable_id: kam_investor.id)
+            recipient_email: kam_b.email)
         )
       end
     end
@@ -34,9 +33,7 @@ describe AdminToolkit::KamInvestorUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_investor_updated.recipient',
-            parameters: params.except(:id).stringify_keys,
-            owner_email: super_user.email,
-            trackable_id: kam_investor.id)
+            owner_email: super_user.email)
         )
       end
     end
@@ -50,9 +47,8 @@ describe AdminToolkit::KamInvestorUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.kam_investor_updated.others',
-            parameters: params.except(:id).stringify_keys,
-            owner_email: super_user.email,
-            trackable_id: kam_investor.id)
+            recipient_email: kam_b.email,
+            owner_email: super_user.email)
         )
       end
     end

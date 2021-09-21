@@ -7,5 +7,13 @@ module Types
     field_class Types::BaseField
 
     include GraphqlHelper
+
+    protected
+
+    def preload_association(association)
+      BatchLoaders::AssociationLoader
+        .for(object.class, association)
+        .load(object)
+    end
   end
 end

@@ -17,7 +17,7 @@ describe AdminToolkit::ProjectCostUpdater do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.project_cost_updated.owner',
-            parameters: params.except(:id).stringify_keys)
+            standard: params[:standard])
         )
       end
     end
@@ -32,7 +32,7 @@ describe AdminToolkit::ProjectCostUpdater do
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.admin_toolkit.project_cost_updated.others',
             owner_email: super_user.email,
-            parameters: params.except(:id).stringify_keys)
+            standard: params[:standard])
         )
       end
     end

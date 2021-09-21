@@ -93,6 +93,7 @@ gem 'sass-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'aws-sdk-s3', require: false
+gem 'dry-configurable', '0.12.1'
 gem 'scenic'
 gem 'search_object'
 gem 'search_object_graphql'

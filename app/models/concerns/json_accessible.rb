@@ -9,7 +9,20 @@ module JsonAccessible
     end
   end
 
-  %w[role previous_role active investor_id].each do |method|
+  PARAMETERS = %w[
+    role
+    previous_role
+    active
+    name
+    zip
+    labelList
+    standard
+    max
+    min
+    investor_id
+  ].freeze
+
+  PARAMETERS.each do |method|
     define_method method do
       log_data.dig('parameters', method)
     end
