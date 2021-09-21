@@ -13,6 +13,7 @@ module Types
     field :category, String, null: true
     field :construction_type, String, null: true
     field :assignee_type, String, null: true
+    field :entry_type, String, null: true
 
     field :verdicts, GraphQL::Types::JSON, null: true
 

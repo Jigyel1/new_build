@@ -15,7 +15,8 @@ RSpec.describe Resolvers::ProjectResolver do
 
         expect(data.project).to have_attributes(
                                   id: project.id,
-                                  name: project.name
+                                  name: project.name,
+                                  entryType: 'manual'
                                 )
 
         expect(data.project.address).to have_attributes(
@@ -77,7 +78,11 @@ RSpec.describe Resolvers::ProjectResolver do
 
   def query
     <<~GQL
-      query { project(id: "#{project.id}") { id name projectNr states address { street city zip } } }
+      query 
+        {  
+          project(id: "#{project.id}") 
+          { id name projectNr entryType states address { street city zip } } 
+        }
     GQL
   end
 end
