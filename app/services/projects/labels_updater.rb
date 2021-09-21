@@ -2,6 +2,8 @@
 
 module Projects
   class LabelsUpdater < BaseService
+    set_callback :call, :before, :validate!
+
     def label_group
       @label_group ||= ::Projects::LabelGroup.find(attributes[:id])
     end
@@ -14,14 +16,22 @@ module Projects
       authorize! project, to: :update?, with: ProjectPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
-        label_group.label_list = attributes[:labelList]
-        label_group.save!
+        super do
+          label_group.label_list = attributes[:labelList]
+          label_group.save!
+        end
 
         # Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
     private
+
+    def validate!
+      return if label_group.name != Projects::LabelGroup::SYSTEM_GENERATED
+
+      raise(t('projects.label_group.system_generated'))
+    end
 
     def activity_params(activity_id)
       {

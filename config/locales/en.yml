@@ -54,6 +54,8 @@ en:
   projects:
     file:
       invalid_attachable_type: Attachable type is invalid. %{valid_types} are only supported.
+    label_group:
+      system_generated: These are system generated labels. You cannot edit or delete these.
     task:
       invalid_taskable_type: Taskable type is invalid. %{valid_types} are only supported.
       not_archived: You can only unarchive archived tasks.

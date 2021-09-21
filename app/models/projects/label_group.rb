@@ -1,4 +1,6 @@
 class Projects::LabelGroup < ApplicationRecord
+  SYSTEM_GENERATED = 'System Generated'
+
   belongs_to :project
 
   # optional for the default label group.
