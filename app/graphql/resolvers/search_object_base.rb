@@ -6,6 +6,10 @@ module Resolvers
   class SearchObjectBase < BaseResolver
     include SearchObject.module(:graphql)
 
-    option(:skip, type: Int) { |scope, value| scope.offset(value) }
+    protected
+
+    def apply_skip(scope, value)
+      scope.offset(value)
+    end
   end
 end
