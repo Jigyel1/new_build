@@ -9,7 +9,7 @@ module JsonAccessible
     end
   end
 
-  parameters = %w[
+  PARAMETERS = %w[
     role
     previous_role
     active
@@ -22,7 +22,7 @@ module JsonAccessible
     investor_id
   ].freeze
 
-  parameters.each do |method|
+  PARAMETERS.each do |method|
     define_method method do
       log_data.dig('parameters', method)
     end
