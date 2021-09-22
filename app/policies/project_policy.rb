@@ -35,7 +35,7 @@ class ProjectPolicy < ApplicationPolicy
 
     if record.standard?
       state_admins || user.team_expert? || user.manager_nbo_kam?
-    elsif record.complex?
+    else
       state_admins
     end
   end
