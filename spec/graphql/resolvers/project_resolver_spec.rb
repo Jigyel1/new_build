@@ -6,6 +6,16 @@ RSpec.describe Resolvers::ProjectResolver do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:address) { build(:address) }
   let_it_be(:project) { create(:project, address: address) }
+  let_it_be(:label_group) { create(:admin_toolkit_label_group, :open, label_list: 'Assign KAM, Offer Needed') }
+
+  let_it_be(:projects_label_group) do
+    create(
+      :projects_label_group,
+      label_group: label_group,
+      project: project,
+      label_list: 'Prio 1, Prio 2'
+    )
+  end
 
   describe '.resolve' do
     context 'with read permission' do
@@ -33,6 +43,16 @@ RSpec.describe Resolvers::ProjectResolver do
                                          technical_analysis_completed: false,
                                          ready_for_offer: false
                                        )
+
+        expect(data.project.defaultLabelGroup).to have_attributes(
+                                                    systemGenerated: true,
+                                                    labelList: ['Manually Created']
+                                                  )
+
+        expect(data.project.currentLabelGroup).to have_attributes(
+                                                    systemGenerated: false,
+                                                    labelList: ['Prio 1', 'Prio 2']
+                                                  )
       end
     end
 
@@ -81,7 +101,11 @@ RSpec.describe Resolvers::ProjectResolver do
       query 
         {  
           project(id: "#{project.id}") 
-          { id name projectNr entryType states address { street city zip } } 
+          { 
+            id name projectNr entryType states 
+            defaultLabelGroup { systemGenerated labelList } 
+            currentLabelGroup { systemGenerated labelList } 
+            address { street city zip } } 
         }
     GQL
   end

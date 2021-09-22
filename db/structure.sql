@@ -763,7 +763,8 @@ CREATE TABLE public.projects (
     competition_id uuid,
     analysis text,
     customer_request boolean,
-    verdicts jsonb DEFAULT '{}'::jsonb NOT NULL
+    verdicts jsonb DEFAULT '{}'::jsonb NOT NULL,
+    draft_version jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -855,7 +856,7 @@ CREATE TABLE public.projects_installation_details (
 
 CREATE TABLE public.projects_label_groups (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    name character varying NOT NULL,
+    system_generated boolean DEFAULT false,
     label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     project_id uuid NOT NULL,
     label_group_id uuid,

@@ -267,6 +267,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.text "analysis"
     t.boolean "customer_request"
     t.jsonb "verdicts", default: {}, null: false
+    t.jsonb "draft_version", default: {}
     t.index ["additional_details"], name: "index_projects_on_additional_details"
     t.index ["assignee_id"], name: "index_projects_on_assignee_id"
     t.index ["competition_id"], name: "index_projects_on_competition_id"
@@ -342,7 +343,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
   end
 
   create_table "projects_label_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
+    t.boolean "system_generated", default: false
     t.string "label_list", default: [], null: false, array: true
     t.uuid "project_id", null: false
     t.uuid "label_group_id"

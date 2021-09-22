@@ -74,7 +74,7 @@ RSpec.describe Mutations::CreateProject do
         project = Project.find(response.project.id)
         expect(project.label_groups.size).to eq(1)
         expect(project.label_groups.first).to have_attributes(
-                                                name: Projects::LabelGroup::SYSTEM_GENERATED,
+                                                system_generated: true,
                                                 label_list: [Hooks::Project::MANUALLY_CREATED]
                                               )
       end

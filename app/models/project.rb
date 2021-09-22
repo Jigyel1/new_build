@@ -16,6 +16,8 @@ class Project < ApplicationRecord
   has_one :installation_detail, dependent: :destroy, class_name: 'Projects::InstallationDetail'
   has_one :pct_cost, dependent: :destroy, class_name: 'Projects::PctCost'
 
+  has_one :default_label_group, -> { where(system_generated: true) }, class_name: 'Projects::LabelGroup'
+
   has_many :address_books, class_name: 'Projects::AddressBook', dependent: :destroy
   has_many :buildings, class_name: 'Projects::Building', dependent: :destroy
   has_many :tasks, as: :taskable, class_name: 'Projects::Task', dependent: :destroy

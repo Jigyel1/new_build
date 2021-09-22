@@ -47,6 +47,10 @@ module Types
     field :additional_info, String, null: true
     field :additional_details, GraphQL::Types::JSON, null: true
     field :label_list, [String], null: true
+    field :draft_version, GraphQL::Types::JSON, null: true
+
+    field :default_label_group, Types::Projects::LabelGroupType, null: true
+    field :current_label_group, Types::Projects::LabelGroupType, null: true
 
     field :states, GraphQL::Types::JSON, null: true, description: <<~DESC
       This will be a list statuses that the given project supports.
@@ -60,6 +64,12 @@ module Types
 
     def states
       ::Projects::StateMachine.new(attributes: { id: object.id } ).states
+    end
+
+    def current_label_group
+      object.label_groups.joins(:label_group).find_by(
+        admin_toolkit_label_groups: { code: object.status }
+      )
     end
   end
 end

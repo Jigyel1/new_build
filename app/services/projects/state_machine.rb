@@ -46,7 +46,7 @@ module Projects
 
       before_all_events :before_transition_callback
       after_all_transitions :update_project_state
-      after_all_events :after_transition_callback
+      after_all_events :after_transition_callback, :reset_draft_version
 
       event :technical_analysis, if: :to_technical_analysis? do
         transitions from: :open, to: :technical_analysis
@@ -81,6 +81,10 @@ module Projects
 
     def update_project_state
       project.update!(status: aasm.to_state)
+    end
+
+    def reset_draft_version
+      project.update_column(:draft_version, {})
     end
 
     def after_transition_callback

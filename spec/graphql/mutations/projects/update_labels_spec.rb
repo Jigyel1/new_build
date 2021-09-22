@@ -23,17 +23,17 @@ RSpec.describe Mutations::Projects::UpdateLabels do
         response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
                                               key: :updateProjectLabels)
         expect(errors).to be_nil
-        expect(response.project.labelList).to match_array(['Prio 3', 'On Hold'])
+        expect(response.labelGroup.labelList).to match_array(['Prio 3', 'On Hold'])
       end
     end
 
     context 'for system generated label group' do
-      before { projects_label_group.update_column(:name, Projects::LabelGroup::SYSTEM_GENERATED) }
+      before { projects_label_group.update_column(:system_generated, true) }
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
                                               key: :updateProjectLabels)
-        expect(response.project).to be_nil
+        expect(response.labelGroup).to be_nil
         expect(errors).to eq([t('projects.label_group.system_generated')])
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe Mutations::Projects::UpdateLabels do
     context 'for non admins' do
       it 'forbids action' do
         response, errors = formatted_response(query(params), current_user: create(:user, :kam), key: :updateProjectLabels)
-        expect(response.project).to be_nil
+        expect(response.labelGroup).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
     end
@@ -58,7 +58,7 @@ RSpec.describe Mutations::Projects::UpdateLabels do
             }
           }
         )
-        { project { id labelList } }
+        { labelGroup { id labelList labelGroup { id name } } }
       }
     GQL
   end

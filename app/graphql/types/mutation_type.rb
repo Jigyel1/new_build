@@ -55,6 +55,8 @@ module Types
     )
     field :transition_to_archived, mutation: Mutations::Projects::TransitionToArchived
 
+    field :save_draft, mutation: Mutations::Projects::SaveDraft
+
     field :create_address_book, mutation: Mutations::Projects::CreateAddressBook
     field :update_address_book, mutation: Mutations::Projects::UpdateAddressBook
 
@@ -68,6 +70,7 @@ module Types
     field :update_task, mutation: Mutations::Projects::UpdateTask
     field :unarchive_task, mutation: Mutations::Projects::UnarchiveTask
 
+    field :create_project_labels, mutation: Mutations::Projects::CreateLabels
     field :update_project_labels, mutation: Mutations::Projects::UpdateLabels
 
     field :upload_files, mutation: Mutations::Projects::UploadFiles

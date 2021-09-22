@@ -11,7 +11,7 @@ module Hooks
     private
 
     def create_default_label_group
-      label_group = label_groups.create!(name: Projects::LabelGroup::SYSTEM_GENERATED)
+      label_group = label_groups.create!(system_generated: true)
       label_group.label_list << MANUALLY_CREATED if manual?
     end
   end

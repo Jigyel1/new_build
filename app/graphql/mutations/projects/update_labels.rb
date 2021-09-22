@@ -11,10 +11,10 @@ module Mutations
       end
 
       argument :attributes, UpdateProjectLabelsAttributes, required: true
-      field :project, Types::ProjectType, null: true
+      field :label_group, Types::Projects::LabelGroupType, null: true
 
       def resolve(attributes:)
-        super(::Projects::LabelsUpdater, :project, attributes: attributes)
+        super(::Projects::LabelsUpdater, :label_group, attributes: attributes)
       end
     end
   end
