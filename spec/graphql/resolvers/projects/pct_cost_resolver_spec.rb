@@ -57,7 +57,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
       it 'throws error' do
         data, errors = formatted_response(query, current_user: super_user)
         expect(data.projectPctCost).to be_nil
-        expect(errors).to eq(["Penetration can't be blank and Competition can't be blank"])
+        expect(errors).to eq(["Penetration #{t('projects.transition.penetration_missing')} and Competition can't be blank"])
       end
     end
 

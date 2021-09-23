@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Hooks
   module Project
     extend ActiveSupport::Concern

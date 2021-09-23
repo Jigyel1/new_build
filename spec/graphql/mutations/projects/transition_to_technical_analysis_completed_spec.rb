@@ -169,7 +169,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       it 'responds with error' do
         response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
         expect(response.project).to be_nil
-        expect(errors).to eq(["#{t('projects.transition.error_in_pct_calculation', error: "Penetration can't be blank")}"])
+        expect(errors).to eq(["#{t('projects.transition.error_in_pct_calculation', error: "Penetration #{t('projects.transition.penetration_missing')}")}"])
       end
     end
 

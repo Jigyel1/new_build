@@ -19,7 +19,9 @@ module Projects
         message: I18n.t('projects.transition.project_connection_cost_missing')
       }
     )
-    validates :penetration, :competition, :address, presence: true
+
+    validates_presence_of :penetration, message: I18n.t('projects.transition.penetration_missing')
+    validates :competition, :address, presence: true
     validates :arpu, :socket_installation_rate, :standard_connection_cost, presence: { unless: :lease_cost_only }
 
     def initialize(attributes = {})
