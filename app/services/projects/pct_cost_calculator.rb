@@ -75,6 +75,9 @@ module Projects
     # The value is displayed in Years and Months
     # Values are always Rounded down (13.6 becomes 1 year 1 month)
     def payback_period
+      payback_period = project.pct_cost.try(:payback_period)
+      return payback_period if payback_period && !project.pct_cost.system_generated_payback_period?
+
       divisor = apartments_count * arpu * penetration_rate * competition.factor
 
       if divisor.zero?

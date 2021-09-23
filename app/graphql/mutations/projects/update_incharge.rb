@@ -4,8 +4,8 @@ module Mutations
   module Projects
     class UpdateIncharge < BaseMutation
       class UpdateInchargeAttributes < Types::BaseInputObject
-        argument :project_id, String, required: true
-        argument :incharge_id, String, required: true
+        argument :project_id, ID, required: true
+        argument :incharge_id, ID, required: true
       end
 
       argument :attributes, UpdateInchargeAttributes, required: true

@@ -180,6 +180,28 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         expect(errors).to eq(["#{t('projects.transition.error_while_adding_label', error: "undefined method `status' for nil:NilClass")}"])
       end
     end
+
+    context 'when payback period is system generated' do
+      before { allow_any_instance_of(Projects::StateMachine).to receive(:project_priority).and_return(AdminToolkit::PctValue.first) }
+      let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
+
+      it 'recalculates payback period' do
+        _response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
+        expect(errors).to be(nil)
+        expect(project.reload.pct_cost.payback_period).to be(17)
+      end
+    end
+
+    context 'when payback period is manually set' do
+      before { allow_any_instance_of(Projects::StateMachine).to receive(:project_priority).and_return(AdminToolkit::PctValue.first) }
+      let_it_be(:project_pct_cost) { create(:projects_pct_cost, :manually_set_payback_period, project: project, payback_period: 498) }
+
+      it 'does not recalculate the payback period' do
+        _response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
+        expect(errors).to be(nil)
+        expect(project.reload.pct_cost.payback_period).to be(498)
+      end
+    end
   end
 
   def pct_cost(set_pct_cost)

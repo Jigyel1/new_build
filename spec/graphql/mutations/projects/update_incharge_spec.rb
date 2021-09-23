@@ -9,7 +9,7 @@ RSpec.describe Mutations::Projects::UpdateIncharge do
 
   describe '.resolve' do
     context 'with permissions' do
-      it 'updates the task' do
+      it "updates project's incharge" do
         response, errors = formatted_response(query, current_user: super_user, key: :updateProjectIncharge)
         expect(errors).to be_nil
         expect(response.project.incharge).to have_attributes(id: kam.id, email: kam.email, name: kam.name)

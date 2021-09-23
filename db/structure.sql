@@ -764,7 +764,7 @@ CREATE TABLE public.projects (
     incharge_id uuid,
     analysis text,
     customer_request boolean,
-    verdicts jsonb DEFAULT '{}'::jsonb NOT NULL,
+    verdicts jsonb DEFAULT '{}'::jsonb,
     draft_version jsonb DEFAULT '{}'::jsonb
 );
 
@@ -941,6 +941,7 @@ CREATE TABLE public.projects_pct_costs (
     lease_cost numeric(15,2),
     penetration_rate double precision,
     payback_period integer DEFAULT 0 NOT NULL,
+    system_generated_payback_period boolean DEFAULT true NOT NULL,
     project_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL

@@ -16,6 +16,7 @@ module Types
       field :penetration_rate, Float, null: true
       field :payback_period, Int, null: true, description: 'In months'
       field :payback_period_formatted, String, null: true
+      field :system_generated_payback_period, Boolean, null: true
 
       def payback_period_formatted
         seconds = ActiveSupport::Duration::SECONDS_PER_MONTH * object.payback_period

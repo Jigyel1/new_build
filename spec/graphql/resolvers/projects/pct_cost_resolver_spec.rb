@@ -46,7 +46,8 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
                                          arpu: 45.66,
                                          penetrationRate: 4.56,
                                          paybackPeriod: 602,
-                                         paybackPeriodFormatted: '50 years and 2 months'
+                                         paybackPeriodFormatted: '50 years and 2 months',
+                                         systemGeneratedPaybackPeriod: true
                                        )
       end
     end
@@ -133,7 +134,8 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
           }
         )
         { 
-          id projectCost socketInstallationCost arpu leaseCost penetrationRate paybackPeriod paybackPeriodFormatted
+          id projectCost socketInstallationCost arpu leaseCost penetrationRate 
+          paybackPeriod paybackPeriodFormatted systemGeneratedPaybackPeriod
         }   
       }
     GQL

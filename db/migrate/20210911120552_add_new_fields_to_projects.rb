@@ -7,7 +7,7 @@ class AddNewFieldsToProjects < ActiveRecord::Migration[6.1]
 
     add_column :projects, :analysis, :text
     add_column :projects, :customer_request, :boolean
-    add_column :projects, :verdicts, :jsonb, default: {}, null: false
+    add_column :projects, :verdicts, :jsonb, default: {}
     add_column :projects, :draft_version, :jsonb, default: {}
   end
 end

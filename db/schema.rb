@@ -267,7 +267,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.uuid "incharge_id"
     t.text "analysis"
     t.boolean "customer_request"
-    t.jsonb "verdicts", default: {}, null: false
+    t.jsonb "verdicts", default: {}
     t.jsonb "draft_version", default: {}
     t.index ["additional_details"], name: "index_projects_on_additional_details"
     t.index ["assignee_id"], name: "index_projects_on_assignee_id"
@@ -363,6 +363,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.decimal "lease_cost", precision: 15, scale: 2
     t.float "penetration_rate"
     t.integer "payback_period", default: 0, null: false
+    t.boolean "system_generated_payback_period", default: true, null: false
     t.uuid "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

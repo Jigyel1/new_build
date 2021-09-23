@@ -22,7 +22,9 @@ module Resolvers
       argument :attributes, ProjectsPctCostAttributes, required: true
 
       def resolve(attributes:)
-        resolver = ::Projects::PctCostCalculator.new(attributes.to_h)
+        resolver = ::Projects::PctCostCalculator.new(
+          attributes.to_h.merge(system_generated_payback_period: true)
+        )
         resolver.call
         resolver.pct_cost
       end

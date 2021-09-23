@@ -56,6 +56,7 @@ module Types
     field :transition_to_archived, mutation: Mutations::Projects::TransitionToArchived
 
     field :update_project_incharge, mutation: Mutations::Projects::UpdateIncharge
+    field :update_payback_period, mutation: Mutations::Projects::UpdatePaybackPeriod
 
     field :save_draft, mutation: Mutations::Projects::SaveDraft
 
