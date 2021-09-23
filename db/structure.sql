@@ -761,6 +761,7 @@ CREATE TABLE public.projects (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     competition_id uuid,
+    incharge_id uuid,
     analysis text,
     customer_request boolean,
     verdicts jsonb DEFAULT '{}'::jsonb NOT NULL,
@@ -1637,6 +1638,13 @@ CREATE INDEX index_projects_on_external_id ON public.projects USING btree (exter
 
 
 --
+-- Name: index_projects_on_incharge_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_incharge_id ON public.projects USING btree (incharge_id);
+
+
+--
 -- Name: index_projects_on_kam_region_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1935,6 +1943,14 @@ ALTER TABLE ONLY public.projects_tasks
 
 ALTER TABLE ONLY public.projects_access_tech_costs
     ADD CONSTRAINT fk_rails_b5194394d8 FOREIGN KEY (project_id) REFERENCES public.projects(id);
+
+
+--
+-- Name: projects fk_rails_bb113a6e04; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_bb113a6e04 FOREIGN KEY (incharge_id) REFERENCES public.telco_uam_users(id);
 
 
 --

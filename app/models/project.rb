@@ -7,7 +7,12 @@ class Project < ApplicationRecord
 
   default_scope { where.not(status: :archived) }
 
+  # `assignee` would be the owner of the project.
   belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
+
+  # `incharge` will mainly be responsible for the updating the project status.
+  belongs_to :incharge, class_name: 'Telco::Uam::User', optional: true
+
   belongs_to :kam_region, class_name: 'AdminToolkit::KamRegion', optional: true
   belongs_to :competition, class_name: 'AdminToolkit::Competition', optional: true
 

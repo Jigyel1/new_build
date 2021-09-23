@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "competition_id"
+    t.uuid "incharge_id"
     t.text "analysis"
     t.boolean "customer_request"
     t.jsonb "verdicts", default: {}, null: false
@@ -272,6 +273,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.index ["assignee_id"], name: "index_projects_on_assignee_id"
     t.index ["competition_id"], name: "index_projects_on_competition_id"
     t.index ["external_id"], name: "index_projects_on_external_id"
+    t.index ["incharge_id"], name: "index_projects_on_incharge_id"
     t.index ["kam_region_id"], name: "index_projects_on_kam_region_id"
     t.index ["status"], name: "index_projects_on_status", where: "((status)::text <> 'Archived'::text)"
   end
@@ -444,6 +446,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
   add_foreign_key "projects", "admin_toolkit_competitions", column: "competition_id"
   add_foreign_key "projects", "admin_toolkit_kam_regions", column: "kam_region_id"
   add_foreign_key "projects", "telco_uam_users", column: "assignee_id"
+  add_foreign_key "projects", "telco_uam_users", column: "incharge_id"
   add_foreign_key "projects_access_tech_costs", "projects"
   add_foreign_key "projects_address_books", "projects"
   add_foreign_key "projects_buildings", "projects"
