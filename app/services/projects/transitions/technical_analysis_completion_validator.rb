@@ -11,15 +11,10 @@ module Projects
       private
 
       def validate_access_technology!
-        if project.standard_cost_applicable
-          return unless project.ftth?
+        return unless project.standard_cost_applicable
 
-          raise(t('projects.transition.ftth_not_supported'))
-        else
-          return unless project.access_tech_cost
-
-          raise(t('projects.transition.access_tech_cost_not_supported'))
-        end
+        project.ftth? && raise(t('projects.transition.ftth_not_supported'))
+        project.access_tech_cost && raise(t('projects.transition.access_tech_cost_not_supported'))
       end
 
       def validate_in_house_installation!

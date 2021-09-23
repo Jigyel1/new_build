@@ -92,12 +92,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         expect(errors).to eq([t('projects.transition.ftth_not_supported')])
         expect(project.reload.status).to eq('technical_analysis')
       end
-    end
 
-    context 'when standard cost is not applicable' do
       it 'throws error when access technology cost is set' do
         response, errors = formatted_response(
-          query(set_access_tech_cost: true),
+          query(standard_cost_applicable: true, set_access_tech_cost: true),
           current_user: team_expert,
           key: :transitionToTechnicalAnalysisCompleted
         )
