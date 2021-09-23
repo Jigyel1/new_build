@@ -28,10 +28,10 @@ module Projects
     end
 
     def call
-      if lease_cost_only
-        @pct_cost = Projects::PctCost.new(lease_cost: lease_cost)
-      else
-        super do
+      super do
+        if lease_cost_only
+          @pct_cost = Projects::PctCost.new(lease_cost: lease_cost)
+        else
           @pct_cost = Projects::PctCost.new(
             project_cost: project_cost,
             lease_cost: lease_cost,
@@ -53,6 +53,7 @@ module Projects
     # calculated for a period of 5 years.
     # Lease Price = Lease rate for that competition  *  No. of Apartment  *  Penetration rate  *  60
     MONTHS_IN_FIVE_YEARS = 60
+
     def lease_cost
       competition.lease_rate * apartments_count * penetration_rate * MONTHS_IN_FIVE_YEARS
     end
@@ -77,7 +78,7 @@ module Projects
       if divisor.zero?
         raise(t('projects.transition.payback_period_invalid_divisor'))
       else
-       (project_cost / divisor).to_i
+        (project_cost / divisor).to_i
       end
     end
 
