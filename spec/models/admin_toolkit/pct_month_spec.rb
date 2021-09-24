@@ -13,6 +13,6 @@ RSpec.describe AdminToolkit::PctMonth, type: :model do
       expect(subject).to validate_uniqueness_of(:index)
     end
 
-    it { is_expected.to validate_numericality_of(:min).only_integer.is_greater_than_or_equal_to(1) }
+    it { is_expected.to validate_numericality_of(:min).only_integer.is_greater_than_or_equal_to(0) }
   end
 end

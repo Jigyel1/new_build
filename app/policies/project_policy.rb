@@ -44,4 +44,8 @@ class ProjectPolicy < ApplicationPolicy
   def to_archived?
     user.management?
   end
+
+  def to_offer?
+    user.management?
+  end
 end

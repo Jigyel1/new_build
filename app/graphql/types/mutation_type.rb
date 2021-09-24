@@ -54,6 +54,7 @@ module Types
       :transition_to_technical_analysis_completed,
       mutation: Mutations::Projects::TransitionToTechnicalAnalysisCompleted
     )
+    field :transition_to_ready_for_offer, mutation: Mutations::Projects::TransitionToReadyForOffer
     field :transition_to_archived, mutation: Mutations::Projects::TransitionToArchived
 
     field :update_project_incharge, mutation: Mutations::Projects::UpdateIncharge

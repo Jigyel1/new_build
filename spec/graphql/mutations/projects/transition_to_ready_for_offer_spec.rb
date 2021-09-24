@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Mutations::Projects::TransitionToArchived do
+describe Mutations::Projects::TransitionToReadyForOffer do
   let_it_be(:management) { create(:user, :management) }
   let_it_be(:project) { create(:project, :technical_analysis_completed) }
 
@@ -8,10 +8,10 @@ describe Mutations::Projects::TransitionToArchived do
     context 'for standard projects' do
       context 'with permissions' do
         it 'updates project status' do
-          response, errors = formatted_response(query, current_user: management, key: :transitionToArchived)
+          response, errors = formatted_response(query, current_user: management, key: :transitionToReadyForOffer)
           expect(errors).to be_nil
-          expect(response.project.status).to eq('archived')
-          expect(response.project.verdicts).to have_attributes(archived: 'This project is no longer active')
+          expect(response.project.status).to eq('ready_for_offer')
+          expect(response.project.verdicts).to have_attributes(ready_for_offer: 'Please upload the offer docs.')
         end
       end
 
@@ -19,7 +19,7 @@ describe Mutations::Projects::TransitionToArchived do
         let_it_be(:kam) { create(:user, :kam) }
 
         it 'forbids action' do
-          response, errors = formatted_response(query, current_user: kam, key: :transitionToArchived)
+          response, errors = formatted_response(query, current_user: kam, key: :transitionToReadyForOffer)
           expect(response.project).to be_nil
           expect(errors).to eq(['Not Authorized'])
           expect(project.reload.status).to eq('technical_analysis_completed')
@@ -31,11 +31,11 @@ describe Mutations::Projects::TransitionToArchived do
   def query
     <<~GQL
       mutation {
-        transitionToArchived(
+        transitionToReadyForOffer(
           input: {
             attributes: {
               id: "#{project.id}"
-              verdict: "This project is no longer active"
+              verdict: "Please upload the offer docs."
             }
           }
         )

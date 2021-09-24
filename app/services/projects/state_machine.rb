@@ -75,7 +75,11 @@ module Projects
     end
 
     def to_offer?
-      # move to offer state based on the same variable sent from FE.
+      authorize! project, to: :to_offer?, with: ProjectPolicy
+
+      verdict = attributes.delete(:verdict)
+      project.verdicts[aasm.to_state] = verdict if verdict.present?
+
       true
     end
 
@@ -109,7 +113,7 @@ module Projects
       pct_cost = OpenStruct.new(attributes.delete(:pct_cost_attributes))
 
       verdict = attributes.delete(:verdict)
-      project.verdicts[project.status] = verdict if verdict.present?
+      project.verdicts[aasm.to_state] = verdict if verdict.present?
 
       project.assign_attributes(attributes)
 
@@ -125,7 +129,7 @@ module Projects
       authorize! project, to: :to_archived?, with: ProjectPolicy
 
       verdict = attributes.delete(:verdict)
-      project.verdicts[project.status] = verdict if verdict.present?
+      project.verdicts[aasm.to_state] = verdict if verdict.present?
 
       true
     end
