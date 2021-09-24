@@ -6,7 +6,10 @@ module Projects
       authorize! project, to: :update?, with: ProjectPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
-        project.update!(category: attributes[:category])
+        project.update!(
+          category: attributes[:category],
+          system_sorted_category: false
+        )
         # Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end

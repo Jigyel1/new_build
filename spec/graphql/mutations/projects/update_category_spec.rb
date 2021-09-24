@@ -12,7 +12,7 @@ RSpec.describe Mutations::Projects::UpdateCategory do
       it "updates project's category" do
         response, errors = formatted_response(query, current_user: super_user, key: :updateProjectCategory)
         expect(errors).to be_nil
-        expect(response.project.category).to eq('complex')
+        expect(response.project).to have_attributes(category: 'complex', systemSortedCategory: false)
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe Mutations::Projects::UpdateCategory do
     <<~GQL
       mutation {
         updateProjectCategory( input: { attributes: { projectId: "#{project.id}" category: "complex" } } )
-        { project { category } }
+        { project { category systemSortedCategory } }
       }
     GQL
   end

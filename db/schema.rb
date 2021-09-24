@@ -269,6 +269,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.boolean "customer_request"
     t.jsonb "verdicts", default: {}
     t.jsonb "draft_version", default: {}
+    t.boolean "system_sorted_category", default: true
     t.index ["additional_details"], name: "index_projects_on_additional_details"
     t.index ["assignee_id"], name: "index_projects_on_assignee_id"
     t.index ["competition_id"], name: "index_projects_on_competition_id"

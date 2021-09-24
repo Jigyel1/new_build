@@ -765,7 +765,8 @@ CREATE TABLE public.projects (
     analysis text,
     customer_request boolean,
     verdicts jsonb DEFAULT '{}'::jsonb,
-    draft_version jsonb DEFAULT '{}'::jsonb
+    draft_version jsonb DEFAULT '{}'::jsonb,
+    system_sorted_category boolean DEFAULT true
 );
 
 

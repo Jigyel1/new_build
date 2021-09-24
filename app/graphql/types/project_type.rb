@@ -32,6 +32,7 @@ module Types
     field :customer_request, Boolean, null: true
     field :in_house_installation, Boolean, null: true
     field :standard_cost_applicable, Boolean, null: true
+    field :system_sorted_category, Boolean, null: true
 
     field(
       :move_in_starts_on,
