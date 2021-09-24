@@ -30,9 +30,9 @@ RSpec.describe Mutations::AdminToolkit::UpdatePenetration do
         expect(response.penetration.penetrationCompetitions.size).to eq(1)
         competition = response.penetration.penetrationCompetitions.dig(0, :competition)
         expect(OpenStruct.new(competition)).to have_attributes(
-                                                         id: competition_b.id,
-                                                         name: competition_b.name
-                                                       )
+          id: competition_b.id,
+          name: competition_b.name
+        )
       end
     end
 
@@ -86,11 +86,11 @@ RSpec.describe Mutations::AdminToolkit::UpdatePenetration do
             }
           }
         )
-        { 
-          penetration { 
-            id zip city rate hfcFootprint type kamRegion { id kam { name } } 
+        {#{' '}
+          penetration {#{' '}
+            id zip city rate hfcFootprint type kamRegion { id kam { name } }#{' '}
             penetrationCompetitions { id competition { id name } }
-          } 
+          }#{' '}
         }
       }
     GQL

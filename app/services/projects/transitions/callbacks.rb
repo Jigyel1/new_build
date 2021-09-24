@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Projects
   module Transitions
     module Callbacks
@@ -10,7 +12,9 @@ module Projects
       end
 
       def after_technical_analysis
-        # byebug
+        with_tracking(activity_id = SecureRandom.uuid) do
+          Activities::ActivityCreator.new(activity_params(activity_id)).call
+        end
       end
 
       def after_technical_analysis_completed
@@ -32,6 +36,16 @@ module Projects
         project_label_group.save!
       rescue StandardError => e
         raise(t('projects.transition.error_while_adding_label', error: e.message))
+      end
+
+      def activity_params(activity_id)
+        {
+          activity_id: activity_id,
+          action: :after_technical_analysis,
+          owner: current_user,
+          trackable: project,
+          parameters: attributes
+        }
       end
     end
   end

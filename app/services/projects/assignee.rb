@@ -32,7 +32,7 @@ module Projects
     end
 
     def investor
-      project.address_books.find{|x| x.type == 'investor'}
+      project.address_books.find { |x| x.type == 'investor' }
     end
 
     def by_kam_region

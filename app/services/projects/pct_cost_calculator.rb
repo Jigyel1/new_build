@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Projects
   class PctCostCalculator < BaseService
     include ActiveModel::Validations
@@ -77,7 +79,7 @@ module Projects
       if divisor.zero?
         raise(t('projects.transition.payback_period_invalid_divisor'))
       else
-       (project_cost / divisor).to_i
+        (project_cost / divisor).to_i
       end
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :projects_pct_cost, class: 'Projects::PctCost' do
     project_cost { 1199 }

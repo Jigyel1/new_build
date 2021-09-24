@@ -40,6 +40,7 @@ end
   ['suraj.sunar@selise.ch', :super_user],
   ['jigyel.dorji@selise.ch', :super_user],
   ['arijit.saha@selise.ch', :super_user],
+  ['jigyel.dorji@selise.ch', :super_user],
   ['lhatul.wangmo@selise.ch', :super_user],
   ['sujata.pradhan@selise.ch', :administrator],
   ['chimi.wangchuk@selise.ch', :administrator],
@@ -51,7 +52,7 @@ end
   ['sujata.pradhan+cm@selise.ch', :presales],
   ['sujata.pradhan+kam@selise.ch', :management],
 
-  # External Users
+  # # External Users
   ['stefan.fitsch@upc.ch', :super_user],
   ['michael.egger@upc.ch', :administrator],
   ['danijela.martinovic@upc.ch', :administrator]

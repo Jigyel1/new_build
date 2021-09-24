@@ -3,7 +3,8 @@
 # This migration comes from telco_uam
 
 class ReAddJtiToUsers < ActiveRecord::Migration[6.1]
-  class User < ApplicationRecord # This makes the migration reversible.
+  # This makes the migration reversible.
+  class User < ApplicationRecord
     self.table_name = 'telco_uam_users'
   end
 

@@ -4,7 +4,7 @@ class ProjectsImporter < EtlBase
   SHEET_INDEX = 0
   SKIP_ROWS = 6
 
-  ATTRIBUTE_MAPPINGS = FileParser.parse { 'etl/projects/attribute_mappings.yml'}.freeze
+  ATTRIBUTE_MAPPINGS = FileParser.parse { 'etl/projects/attribute_mappings.yml' }.freeze
 
   # Imports projects from the excel.
   # When the input is the path to the file, i.e. String, replace the first line with

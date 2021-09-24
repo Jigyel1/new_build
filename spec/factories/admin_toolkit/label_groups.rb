@@ -6,7 +6,7 @@ FactoryBot.define do
     name { 'Technical Analysis' }
     label_list { 'Assign KAM, Offer Needed' }
 
-    Project.statuses.keys.each do |status|
+    Project.statuses.each_key do |status|
       trait status do
         name { status.titleize }
         code { status }

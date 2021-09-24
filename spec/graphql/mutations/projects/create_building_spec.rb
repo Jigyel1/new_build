@@ -15,17 +15,17 @@ RSpec.describe Mutations::Projects::CreateBuilding do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createBuilding)
         expect(errors).to be_nil
         expect(response.building).to have_attributes(
-                                       name: "Construction d'une habitation de quatre logements",
-                                       moveInStartsOn: (Date.current + 3.months).to_s,
-                                       moveInEndsOn: (Date.current + 9.months).to_s
-                                     )
+          name: "Construction d'une habitation de quatre logements",
+          moveInStartsOn: (Date.current + 3.months).to_s,
+          moveInEndsOn: (Date.current + 9.months).to_s
+        )
 
         expect(response.building.address).to have_attributes(
-                                               street: "Turcotte Bridge",
-                                               streetNo: "7361",
-                                               city: "Port Rosemary",
-                                               zip: "31471"
-                                             )
+          street: 'Turcotte Bridge',
+          streetNo: '7361',
+          city: 'Port Rosemary',
+          zip: '31471'
+        )
         expect(response.building.assignee).to have_attributes(id: super_user.id, name: super_user.name)
         expect(project.reload.apartments_count).to eq(52)
       end
@@ -80,9 +80,9 @@ RSpec.describe Mutations::Projects::CreateBuilding do
           }
         )
         {
-          building { 
+          building {#{' '}
             id name apartmentsCount moveInStartsOn moveInEndsOn
-            address { id streetNo street city zip} 
+            address { id streetNo street city zip}#{' '}
             assignee { id name }
           }
         }

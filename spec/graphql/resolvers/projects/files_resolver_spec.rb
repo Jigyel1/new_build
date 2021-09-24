@@ -16,7 +16,7 @@ RSpec.describe Resolvers::Projects::FilesResolver do
   let_it_be(:building) { create(:building, project: project, files: [file_a]) }
 
   before_all do
-    proc = Proc.new do |original_filename, user_id|
+    proc = proc do |original_filename, user_id|
       ActiveStorage::Attachment
         .joins(:blob)
         .find_by(active_storage_blobs: { filename: original_filename })
@@ -91,14 +91,13 @@ RSpec.describe Resolvers::Projects::FilesResolver do
     GQL
   end
 
-
-  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  def query_string(args = {}) # rubocop:disable Metrics/AbcSize
     params = args[:owner_ids] ? ["ownerIds: #{args[:owner_ids]}"] : []
-    if args[:attachable]
-      params += ["attachable: #{args[:attachable]}"]
-    else
-      params +=["attachable: #{[project.id, "Project"]}"]
-    end
+    params += if args[:attachable]
+                ["attachable: #{args[:attachable]}"]
+              else
+                ["attachable: #{[project.id, 'Project']}"]
+              end
 
     params << "first: #{args[:first]}" if args[:first]
     params << "skip: #{args[:skip]}" if args[:skip]

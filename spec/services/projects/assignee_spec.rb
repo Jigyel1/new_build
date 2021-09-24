@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # context 'when the project has more than 50 apartments' do
 #   let!(:params) { { status: 'Technical Analysis', apartments: 51 } }
 #

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateProjectsInstallationDetails < ActiveRecord::Migration[6.1]
   def change
     create_table :projects_installation_details, id: :uuid do |t|

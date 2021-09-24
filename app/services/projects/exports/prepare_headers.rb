@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Projects
   module Exports
     class PrepareHeaders
@@ -38,7 +40,7 @@ module Projects
       def other_role_types_count
         projects
           .joins(:address_books)
-          .where(address_books: { type: :others})
+          .where(address_books: { type: :others })
           .order('projects.id')
           .group('projects.id')
           .count
@@ -47,7 +49,7 @@ module Projects
       end
 
       def other_headers(index, type)
-        gsub_x = ->(headers) { headers.gsub('X', "#{index}") }
+        gsub_x = ->(headers) { headers.gsub('X', index.to_s) }
         csv_headers[type].values.map(&gsub_x)
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EtlHelper
   def to_int(row)
     self.class::TO_INTS.each do |index|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateProjectsPctCosts < ActiveRecord::Migration[6.1]
   def change
     create_table :projects_pct_costs, id: :uuid do |t|

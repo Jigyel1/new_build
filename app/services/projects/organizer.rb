@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Projects
   class Organizer
     BUILDING_ID = 6
@@ -7,8 +9,8 @@ module Projects
     ZIP = 10
     CITY = 11
 
-    attr_accessor :buildings, :rows
-    attr_accessor :idable_buildings, :idable_rows, :addressable_buildings, :addressable_rows, :ordered_buildings, :ordered_rows
+    attr_accessor :buildings, :rows, :idable_buildings, :idable_rows, :addressable_buildings, :addressable_rows,
+                  :ordered_buildings, :ordered_rows
 
     # External ID will always be there.
     def initialize(buildings:, rows:)
@@ -29,7 +31,11 @@ module Projects
 
     def load_matching_ids
       @idable_rows = rows.select { |row| buildings.exists?(external_id: row[BUILDING_ID]) }
-      @idable_buildings = buildings.select { |building| rows.find { |row| row[BUILDING_ID] == building.external_id.to_i } }
+      @idable_buildings = buildings.select do |building|
+        rows.find do |row|
+          row[BUILDING_ID] == building.external_id.to_i
+        end
+      end
     end
 
     def load_matching_addresses
@@ -37,7 +43,7 @@ module Projects
         address_str = stringify_address(row, [STREET, STREET_NO, STREET_NO_SUFFIX, ZIP, CITY])
 
         buildings.joins(:address).each do |building|
-          if stringify_address(building.address.attributes, [:street, :street_no, :zip, :city]) == address_str
+          if stringify_address(building.address.attributes, %i[street street_no zip city]) == address_str
             @addressable_buildings << building
             @addressable_rows << row
           end

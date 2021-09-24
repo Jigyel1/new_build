@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAdminToolkitPenetrationCompetitions < ActiveRecord::Migration[6.1]
   def change
     create_table :admin_toolkit_penetration_competitions, id: :uuid do |t|
@@ -7,6 +9,7 @@ class CreateAdminToolkitPenetrationCompetitions < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :admin_toolkit_penetration_competitions, %i[penetration_id competition_id], unique: true, name: :by_penetration_competition
+    add_index :admin_toolkit_penetration_competitions, %i[penetration_id competition_id], unique: true,
+                                                                                          name: :by_penetration_competition
   end
 end

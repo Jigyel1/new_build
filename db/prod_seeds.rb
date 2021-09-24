@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # To run the seed file for PROD run
-#   :=> `rails db:prod_setup`
+#   :=> `rails db:setup_prod`
 
 require_relative '../permissions/bulk_updater'
 

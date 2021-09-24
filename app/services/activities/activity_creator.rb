@@ -13,7 +13,7 @@ module Activities
     attr_accessor :activity_id, :owner, :recipient, :action, :parameters, :trackable
 
     def call
-      owner.activities.create(
+      owner.activities.create!(
         id: activity_id || SecureRandom.uuid,
         recipient: recipient,
         action: action,
@@ -29,6 +29,7 @@ module Activities
     private
 
     def log_error(activity)
+      byebug
       Rollbar.error(activity.errors.full_messages) if Rails.env.production?
 
       Rails.logger.error(activity.errors.full_messages)

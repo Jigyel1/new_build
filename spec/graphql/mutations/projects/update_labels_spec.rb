@@ -15,33 +15,25 @@ RSpec.describe Mutations::Projects::UpdateLabels do
     )
   end
 
-  let_it_be(:params) { { id: project.id, label_list: 'Prio 3, On Hold' } }
-
   describe '.resolve' do
     context 'for admins' do
+      let!(:params) { { id: project.id, label_list: 'Prio 3, On Hold' } }
+
       it 'updates the label list' do
         response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
-                                              key: :updateProjectLabels)
+                                                             key: :updateProjectLabels)
         expect(errors).to be_nil
-        expect(response.labelGroup.labelList).to match_array(['Prio 3', 'On Hold'])
-      end
-    end
-
-    context 'for system generated label group' do
-      before { projects_label_group.update_column(:system_generated, true) }
-
-      it 'responds with error' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
-                                              key: :updateProjectLabels)
-        expect(response.labelGroup).to be_nil
-        expect(errors).to eq([t('projects.label_group.system_generated')])
+        expect(response.project.labelList).to match_array(['Prio 3', 'On Hold'])
       end
     end
 
     context 'for non admins' do
+      let!(:params) { { id: project.id, label_list: 'Assign kam' } }
+
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :kam), key: :updateProjectLabels)
-        expect(response.labelGroup).to be_nil
+        response, errors = formatted_response(query(params), current_user: create(:user, :kam),
+                                                             key: :updateProjectLabels)
+        expect(response.projet).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
     end
@@ -58,7 +50,7 @@ RSpec.describe Mutations::Projects::UpdateLabels do
             }
           }
         )
-        { labelGroup { id labelList labelGroup { id name } } }
+        { project { id labelList } }
       }
     GQL
   end

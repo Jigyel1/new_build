@@ -63,7 +63,7 @@ module Types
     end
 
     def states
-      ::Projects::StateMachine.new(attributes: { id: object.id } ).states
+      ::Projects::StateMachine.new(attributes: { id: object.id }).states
     end
 
     def current_label_group

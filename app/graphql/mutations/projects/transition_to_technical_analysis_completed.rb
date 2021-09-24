@@ -5,7 +5,7 @@ module Mutations
     class TransitionToTechnicalAnalysisCompleted < BaseMutation
       class PctCostAttributes < Types::BaseInputObject
         argument :project_connection_cost, Float, required: false, description: <<~DESC
-          Required only for complex projects. 
+          Required only for complex projects.#{' '}
           Irrelevant for standard projects.
           Optional for irrelevant and marketing only projects.
         DESC
@@ -39,7 +39,8 @@ module Mutations
         argument :customer_request, Boolean, required: true
 
         argument :in_house_installation, Boolean, required: true
-        argument :installation_detail, InstallationDetailAttributes, required: false, as: :installation_detail_attributes
+        argument :installation_detail, InstallationDetailAttributes, required: false,
+                                                                     as: :installation_detail_attributes
 
         argument :priority, String, required: true
         argument :analysis, String, required: false

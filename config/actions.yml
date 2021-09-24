@@ -41,6 +41,10 @@ admin_toolkit/pct_month:
 
 admin_toolkit/pct_value:
   - pct_value_updated
-  -
+
 admin_toolkit/project_cost:
   - project_cost_updated
+
+project:
+  - project_created
+  - project_updated

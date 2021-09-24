@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Buildings
   module Helper
     def lookup_hash(row)

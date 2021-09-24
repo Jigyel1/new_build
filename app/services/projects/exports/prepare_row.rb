@@ -16,7 +16,7 @@ module Projects
         load_address_books_values
 
         # replace all commas with a space so that it does not screw-up the formatting.
-        gsub_comma = ->(headers) { headers.to_s.gsub(',', ' ') }
+        gsub_comma = ->(headers) { headers.to_s.tr(',', ' ') }
         values.flatten.map(&gsub_comma)
       end
 

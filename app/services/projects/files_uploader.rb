@@ -16,8 +16,8 @@ module Projects
 
     def attachable
       @attachable ||= attributes[:attachable_type]
-                        .constantize
-                        .find(attributes[:attachable_id])
+                      .constantize
+                      .find(attributes[:attachable_id])
     end
 
     private
@@ -29,7 +29,7 @@ module Projects
         filename: file.original_filename,
         type: file.content_type,
         head: file.headers,
-        tempfile: file.tempfile,
+        tempfile: file.tempfile
       )
     end
 

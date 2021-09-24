@@ -8,59 +8,61 @@ en:
     activity: 'Activity'
     admin_toolkit:
       competition_created:
-        owner: "You added new a competition parameter(s) with the name %{name} to the Competition tab in the Admin Toolkit"
-        others: '%{owner_email} added a new competition parameter(s) with the name %{name} to the Competition tab in the Admin Toolkit'
+        owner: 'You have added a new competition with entries %{parameters}'
+        others: '%{owner_email} added a new competition with entries %{parameters}'
       competition_updated:
-        owner: 'Edited a competition parameter(s) with the name %{name} from the Competition tab in the Admin Toolkit'
-        others: 'A competition parameter(s) with the name %{name} from the Competition tab in the Admin Toolkit was edited by %{owner_email}'
+        owner: 'You have updated competition having ID %{trackable_id} with %{parameters}'
+        others: '%{owner_email} updated competition having ID %{trackable_id} with %{parameters}'
       competition_deleted:
-        owner: 'Deleted a competition parameter(s) with the name %{name} from the Competition tab in the Admin Toolkit'
-        others: 'A competition parameter(s) with the name %{name} from the Competition tab in the Admin Toolkit was deleted by %{owner_email}'
+        owner: 'You have deleted competition having ID %{trackable_id} and attributes %{parameters}'
+        others: '%{owner_email} deleted competition having ID %{trackable_id} and attributes %{parameters}'
       kam_investor_created:
-        owner: 'You have assigned a KAM to %{recipient_email} with Investor ID %{investor_id}'
-        recipient: '%{owner_email} has assigned you to an Investor with the ID %{investor_id}'
-        others: '%{owner_email} has assigned a KAM to %{recipient_email} with the Investor ID %{investor_id}'
+        owner: 'You have mapped KAM %{recipient_email} to investor with id %{investor_id}'
+        recipient: '%{owner_email} mapped you to investor with id %{investor_id}'
+        others: '%{owner_email} mapped KAM %{recipient_email} to investor with id %{investor_id}'
       kam_investor_updated:
-        owner: 'You have updated the KAM assigned to %{recipient_email}'
-        recipient: '%{owner_email} has updated the KAM assigned to you'
-        others: '%{owner_email} has updated the KAM assigned to %{recipient_email}'
+        owner: 'You have updated KAM mapping having ID %{trackable_id} with %{parameters}'
+        recipient: '%{owner_email} updated KAM mapping having ID %{trackable_id} with %{parameters}'
+        others: '%{owner_email} updated KAM mapping having ID %{trackable_id} with %{parameters}'
       kam_investor_deleted:
-        owner: 'You have deleted the KAM assigned to %{recipient_email} with the Investor ID %{investor_id}'
-        recipient: '%{owner_email} deleted the KAM assigned to you having the Investor ID %{investor_id}'
-        others: '%{owner_email} deleted the KAM assigned to %{recipient_email} having the Investor ID %{investor_id}'
+        owner: 'You have deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
+        recipient: '%{owner_email} deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
+        others: '%{owner_email} deleted KAM mapping having ID %{trackable_id} and attributes %{parameters}'
+
       kam_region_updated:
-        owner: 'You have updated the parameter(s) in the KAM Region Section.'
-        others: '%{owner_email} has updated the parameter(s) in the KAM Region Section.'
+        owner: 'You have updated KAM region having ID %{trackable_id} with %{parameters}'
+        others: '%{owner_email} updated KAM region having ID %{trackable_id} with %{parameters}'
+
       penetration_created:
-        owner: 'You have added a new penetration rate for the zip value %{zip}'
-        others: '%{owner_email} added a new penetration rate for the zip value %{zip}'
+        owner: 'You have added an entry to the penetration rates with values %{parameters}'
+        others: '%{owner_email} added an entry to the penetration rates with values %{parameters}'
       penetration_updated:
-        owner: 'You have updated the parameter(s) on penetration rate with the zip value %{zip}'
-        others: '%{owner_email} updated the parameter(s) on penetration rate with the zip value %{zip}'
+        owner: 'You have updated penetration rates having ID %{trackable_id} with values %{parameters}'
+        others: '%{owner_email} updated penetration rates having ID %{trackable_id} with values %{parameters}'
       penetration_deleted:
-        owner: 'You have deleted the penetration rate with the zip value %{zip}'
-        others: '%{owner_email} deleted the penetration rate with the zip value %{zip}'
+        owner: 'You have deleted penetration rate having ID %{trackable_id} and attributes %{parameters}'
+        others: '%{owner_email} deleted penetration rates having ID %{trackable_id} and attributes %{parameters}'
       footprint_building_updated:
-        owner: 'You have updated footprint building with max value of %{max}'
-        others: '%{owner_email} updated footprint building with max value of %{max}'
+        owner: 'You have updated footprint building having ID %{trackable_id} with values %{parameters}'
+        others: '%{owner_email} updated footprint building having ID %{trackable_id} with values %{parameters}'
       footprint_value_updated:
-        owner: 'You have updated the footprint values in Footprint tab of the Admin Toolkit'
-        others: '%{owner_email} has updated the footprint values in footprint tab of the Admin Toolkit'
+        owner: 'You have updated footprint values with params %{parameters}'
+        others: '%{owner_email} updated footprint values with params %{parameters}'
       label_group_updated:
-        owner: 'You have updated label for %{trackable_name} with the new sub label %{labelList}'
-        others: '%{owner_email} has updated label for %{trackable_name} with the new sub label %{labelList}'
+        owner: 'You have updated labels for %{trackable_name} with params %{parameters}'
+        others: '%{owner_email} updated labels for %{trackable_name} with params %{parameters}'
       pct_cost_updated:
-        owner: 'You have updated PCT cost with the new cost value %{max}'
-        others: '%{owner_email} has updated PCT cost with the new cost value %{max}'
+        owner: 'You have updated pct cost having ID %{trackable_id} with values %{parameters}'
+        others: '%{owner_email} updated pct cost having ID %{trackable_id} with values %{parameters}'
       pct_month_updated:
-        owner: 'You have updated the PCT month(s) with the new max PCT month value %{max}'
-        others: '%{owner_email} has updated the PCT month(s) with the new PCT month value %{max}'
+        owner: 'You have updated pct month having ID %{trackable_id} with values %{parameters}'
+        others: '%{owner_email} updated pct month having ID %{trackable_id} with values %{parameters}'
       pct_value_updated:
-        owner: 'You have updated the PCT values in the PCT Calculation Tab of the Admin Toolkit.'
-        others: '%{owner_email} has updated the PCT values in the PCT Calculation Tab of the Admin Toolkit.'
+        owner: 'You have updated pct values with params %{parameters}'
+        others: '%{owner_email} updated pct values with params %{parameters}'
       project_cost_updated:
-        owner: 'You have updated the project cost with the standard cost value of %{standard}'
-        others: '%{owner_email} has updated the project cost with the standard cost value of %{standard}'
+        owner: 'You have updated project cost with params %{parameters}'
+        others: '%{owner_email} updated project cost with params %{parameters}'
     telco:
       status_updated:
         owner: 'You have %{status_text} the user %{recipient_email} in the portal'
@@ -90,3 +92,11 @@ en:
         owner: 'Changed the role of the user %{recipient_email} from %{previous_role} to %{role} in the portal'
         recipient: 'Role was changed from %{previous_role} to %{role} by %{owner_email}'
         others: '%{owner_email} changed the role of %{recipient_email} from %{previous_role} to %{role}'
+    project:
+      project_created:
+        owner: 'Created Project.'
+        other: 'project has been created'
+      project_updated:
+        owner: 'project updated'
+        other: 'project updated'
+

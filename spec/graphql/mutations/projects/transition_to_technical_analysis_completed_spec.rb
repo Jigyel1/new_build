@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   let_it_be(:zip) { '1101' }
-  let_it_be(:project_cost) { create(:admin_toolkit_project_cost, standard: 99987) }
+  let_it_be(:project_cost) { create(:admin_toolkit_project_cost, standard: 99_987) }
   let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
   let_it_be(:label_group_a) { create(:admin_toolkit_label_group, :technical_analysis_completed) }
   let_it_be(:label_group_b) { create(:admin_toolkit_label_group, :ready_for_offer) }
@@ -22,7 +24,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       :admin_toolkit_pct_value,
       :prio_two,
       pct_month: create(:admin_toolkit_pct_month, min: 10, max: 17),
-      pct_cost: create(:admin_toolkit_pct_cost, min: 1187, max: 100000)
+      pct_cost: create(:admin_toolkit_pct_cost, min: 1187, max: 100_000)
     )
   end
 
@@ -36,7 +38,8 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     context 'for standard projects' do
       context 'with permissions' do
         it 'updates project status' do
-          response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
+          response, errors = formatted_response(query, current_user: team_expert,
+                                                       key: :transitionToTechnicalAnalysisCompleted)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis_completed')
           expect(response.project.verdicts).to have_attributes(technical_analysis: 'This projects looks feasible with the current resources.')
@@ -58,13 +61,14 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
     context 'for complex projects' do
       before_all { project.update_column(:category, :complex) }
-      let_it_be(:params) { { set_pct_cost: true }}
+      let_it_be(:params) { { set_pct_cost: true } }
 
       context 'with permissions' do
         let_it_be(:management) { create(:user, :management) }
 
         it 'updates project status' do
-          response, errors = formatted_response(query(params), current_user: management, key: :transitionToTechnicalAnalysisCompleted)
+          response, errors = formatted_response(query(params), current_user: management,
+                                                               key: :transitionToTechnicalAnalysisCompleted)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis_completed')
         end
@@ -72,7 +76,8 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       context 'without permissions' do
         it 'forbids action' do
-          response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
+          response, errors = formatted_response(query, current_user: team_expert,
+                                                       key: :transitionToTechnicalAnalysisCompleted)
           expect(response.project).to be_nil
           expect(errors).to eq(['Not Authorized'])
           expect(project.reload.status).to eq('technical_analysis')
@@ -87,7 +92,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           current_user: team_expert,
           key: :transitionToTechnicalAnalysisCompleted
         )
-        
+
         expect(response.project).to be_nil
         expect(errors).to eq([t('projects.transition.ftth_not_supported')])
         expect(project.reload.status).to eq('technical_analysis')
@@ -140,7 +145,8 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.update_column(:status, :prio_one) }
 
       it 'updates the project to ready for offer state' do
-        response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(query, current_user: team_expert,
+                                                     key: :transitionToTechnicalAnalysisCompleted)
         expect(errors).to be_nil
         expect(response.project.status).to eq('ready_for_offer')
 
@@ -154,7 +160,8 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.update_column(:status, :on_hold) }
 
       it 'updates the project to technical analysis completed' do
-        response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(query, current_user: team_expert,
+                                                     key: :transitionToTechnicalAnalysisCompleted)
         expect(errors).to be_nil
         expect(response.project.status).to eq('technical_analysis_completed')
 
@@ -167,9 +174,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { penetration.update_column(:zip, '1198') }
 
       it 'responds with error' do
-        response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(query, current_user: team_expert,
+                                                     key: :transitionToTechnicalAnalysisCompleted)
         expect(response.project).to be_nil
-        expect(errors).to eq(["#{t('projects.transition.error_in_pct_calculation', error: "Penetration can't be blank")}"])
+        expect(errors).to eq([t('projects.transition.error_in_pct_calculation',
+                                error: "Penetration can't be blank").to_s])
       end
     end
 
@@ -177,9 +186,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.pct_month.update_column(:max, 13) }
 
       it 'responds with error' do
-        response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(query, current_user: team_expert,
+                                                     key: :transitionToTechnicalAnalysisCompleted)
         expect(response.project).to be_nil
-        expect(errors).to eq(["#{t('projects.transition.error_while_adding_label', error: "undefined method `status' for nil:NilClass")}"])
+        expect(errors).to eq([t('projects.transition.error_while_adding_label',
+                                error: "undefined method `status' for nil:NilClass").to_s])
       end
     end
   end
@@ -218,7 +229,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     ACCESS_TECH_COST
   end
 
-  def query(args= {})
+  def query(args = {})
     category = args[:category] || :standard
     access_technology = args[:access_technology] || :hfc
     standard_cost_applicable = args[:standard_cost_applicable] || false

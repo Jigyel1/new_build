@@ -1,8 +1,10 @@
-class BuildingImportJob < ActiveJob::Base
+# frozen_string_literal: true
+
+class BuildingImportJob < ApplicationJob
   queue_as :building_import
 
-  def perform(&block)
+  def perform
     # byebug
-    block.call
+    yield
   end
 end

@@ -23,4 +23,3 @@ module Types
     field :kam_region, String, null: true
   end
 end
-

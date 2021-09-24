@@ -29,7 +29,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) { { project_connection_cost: 999876, set_project_connection_cost: true } }
+      let!(:params) { { project_connection_cost: 999_876, set_project_connection_cost: true } }
       let!(:installation_detail) { create(:projects_installation_detail, sockets: 20, project: project) }
 
       before do
@@ -40,14 +40,14 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
         data, errors = formatted_response(query(params), current_user: super_user)
         expect(errors).to be_nil
         expect(data.projectPctCost).to have_attributes(
-                                         projectCost: 1016175.0,
-                                         socketInstallationCost: 16299.0,
-                                         leaseCost: 20930.4,
-                                         arpu: 45.66,
-                                         penetrationRate: 4.56,
-                                         paybackPeriod: 602,
-                                         paybackPeriodFormatted: '50 years and 2 months'
-                                       )
+          projectCost: 1_016_175.0,
+          socketInstallationCost: 16_299.0,
+          leaseCost: 20_930.4,
+          arpu: 45.66,
+          penetrationRate: 4.56,
+          paybackPeriod: 602,
+          paybackPeriodFormatted: '50 years and 2 months'
+        )
       end
     end
 
@@ -67,23 +67,26 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
       it 'calculates the lease price wrt the lease rate for that competition' do
         data, errors = formatted_response(query(params), current_user: super_user)
         expect(errors).to be_nil
-        expect(data.projectPctCost.leaseCost).to eq(20930.4)
+        expect(data.projectPctCost.leaseCost).to eq(20_930.4)
       end
     end
 
     context 'when competition is not set' do
       let!(:penetration_b) { create(:admin_toolkit_penetration, zip: '1102', kam_region: kam_region) }
+      let!(:penetration_competition_b) do
+        create(:penetration_competition, penetration: penetration, competition: competition_b)
+      end
+      let!(:penetration_competition_c) do
+        create(:penetration_competition, penetration: penetration_b, competition: competition_c)
+      end
 
       let_it_be(:competition_b) { create(:admin_toolkit_competition, name: 'FTTH SFN', lease_rate: 9.5) }
       let_it_be(:competition_c) { create(:admin_toolkit_competition, name: 'FTTH', lease_rate: 10.5) }
 
-      let!(:penetration_competition_b) { create(:penetration_competition, penetration: penetration, competition: competition_b) }
-      let!(:penetration_competition_c) { create(:penetration_competition, penetration: penetration_b, competition: competition_c) }
-
       it 'picks the highest lease rate from the admin toolkit for the projects competition' do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
-        expect(data.projectPctCost.leaseCost).to eq(23392.8)
+        expect(data.projectPctCost.leaseCost).to eq(23_392.8)
       end
     end
 
@@ -124,7 +127,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
 
   def query(args = {})
     <<~GQL
-      query { 
+      query {#{' '}
         projectPctCost(
           attributes: {
             projectId: "#{project.id}"
@@ -132,9 +135,9 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
             #{project_connection_cost(args)}
           }
         )
-        { 
+        {#{' '}
           id projectCost socketInstallationCost arpu leaseCost penetrationRate paybackPeriod paybackPeriodFormatted
-        }   
+        }#{'   '}
       }
     GQL
   end

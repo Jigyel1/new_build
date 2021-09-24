@@ -26,9 +26,10 @@ class Activity < ApplicationRecord
   validates(
     :action,
     presence: true,
-    inclusion: { in: proc { |activity| Rails.application.config.activity_actions[activity.trackable_type.underscore] } }
+    inclusion: {
+      in: proc { |activity| Rails.application.config.activity_actions[activity.trackable_type.underscore] }
+    }
   )
-
   validates :log_data, activity_log: true
 
   default_scope { order(created_at: :desc) }

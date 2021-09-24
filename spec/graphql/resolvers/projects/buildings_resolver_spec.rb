@@ -16,7 +16,7 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
     )
   end
 
-  let_it_be(:building) { create(:building, name: 'Media Markt Winterthur', project: project)}
+  let_it_be(:building) { create(:building, name: 'Media Markt Winterthur', project: project) }
 
   describe '.resolve' do
     context 'without filters' do
@@ -29,7 +29,8 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
 
     context 'with search queries' do
       it 'returns projects matching given query' do
-        buildings, errors = paginated_collection(:buildings, query(query: ' ia Markt Winterthur'), current_user: super_user)
+        buildings, errors = paginated_collection(:buildings, query(query: ' ia Markt Winterthur'),
+                                                 current_user: super_user)
         expect(errors).to be_nil
         expect(buildings.pluck(:id)).to eq([building.id])
       end
@@ -42,7 +43,7 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
         buildings#{query_string(args)} {
           totalCount
           edges {
-            node { 
+            node {#{' '}
               id externalId name tasks
             }
           }
@@ -57,7 +58,7 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
     GQL
   end
 
-  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  def query_string(args = {})
     params = ["projectId: \"#{project.id}\""]
     params << "query: \"#{args[:query]}\"" if args[:query]
 

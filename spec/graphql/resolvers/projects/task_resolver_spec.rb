@@ -24,19 +24,18 @@ RSpec.describe Resolvers::Projects::TaskResolver do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(data.task).to have_attributes(
-                                  id: task.id,
-                                  title: task.title,
-                                  status: task.status,
-                                  dueDate: task.due_date.to_s,
-                                  description: task.description
-                                )
+          id: task.id,
+          title: task.title,
+          status: task.status,
+          dueDate: task.due_date.to_s,
+          description: task.description
+        )
 
         expect(data.task.assignee).to have_attributes(
-                                        id: super_user.id,
-                                        name: super_user.name,
-                                        email: super_user.email
-                                        )
-
+          id: super_user.id,
+          name: super_user.name,
+          email: super_user.email
+        )
       end
     end
 
@@ -53,11 +52,11 @@ RSpec.describe Resolvers::Projects::TaskResolver do
 
   def query
     <<~GQL
-      query { task(id: "#{task.id}") 
-        { 
-          id title status dueDate description 
+      query { task(id: "#{task.id}")#{' '}
+        {#{' '}
+          id title status dueDate description#{' '}
           owner { id name email } assignee { id name email }
-        }   
+        }#{'   '}
       }
     GQL
   end
