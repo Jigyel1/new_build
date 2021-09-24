@@ -60,7 +60,7 @@ en:
       invalid_taskable_type: Taskable type is invalid. %{valid_types} are only supported.
       not_archived: You can only unarchive archived tasks.
     transition:
-      event_not_allowed: Event not allowed
+      event_not_allowed: Event not allowed.
       ftth_not_supported: FTTH is not a valid option if standard cost is applicable.
       access_tech_cost_not_supported: Access Tech Cost should not be passed if standard cost is not available.
       missing_inhouse_installation_details: In House Installation details not set

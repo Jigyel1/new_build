@@ -49,6 +49,8 @@ module Types
     field :export_projects, mutation: Mutations::ExportProjects
     field :update_project_category, mutation: Mutations::Projects::UpdateCategory
 
+    field :revert_project_transition, mutation: Mutations::Projects::RevertTransition
+
     field :transition_to_technical_analysis, mutation: Mutations::Projects::TransitionToTechnicalAnalysis
     field(
       :transition_to_technical_analysis_completed,

@@ -28,6 +28,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
   let_it_be(:team_expert) { create(:user, :team_expert) }
   let_it_be(:kam) { create(:user, :kam) }
+  let_it_be(:management) { create(:user, :management) }
   let_it_be(:address) { build(:address, zip: zip) }
   let_it_be(:project) { create(:project, :technical_analysis, address: address) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
@@ -61,8 +62,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       let_it_be(:params) { { set_pct_cost: true }}
 
       context 'with permissions' do
-        let_it_be(:management) { create(:user, :management) }
-
         it 'updates project status' do
           response, errors = formatted_response(query(params), current_user: management, key: :transitionToTechnicalAnalysisCompleted)
           expect(errors).to be_nil
@@ -138,7 +137,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.update_column(:status, :prio_one) }
 
       it 'updates the project to ready for offer state' do
-        response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(query, current_user: management, key: :transitionToTechnicalAnalysisCompleted)
         expect(errors).to be_nil
         expect(response.project.status).to eq('ready_for_offer')
 

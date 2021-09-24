@@ -6,7 +6,7 @@ module Types
       include ActionView::Helpers::TextHelper
 
       # To avoid name conflict with the `PctCostType` defined in the `AdminToolkit`
-      graphql_name 'projects_pct_cost_type'
+      graphql_name 'ProjectsPctCostType'
 
       field :id, ID, null: true
       field :project_cost, Float, null: true
