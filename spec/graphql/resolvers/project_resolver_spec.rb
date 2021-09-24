@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Resolvers::ProjectResolver do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:address) { build(:address) }
-  let_it_be(:project) { create(:project, address: address) }
+  let_it_be(:project) { create(:project, :with_access_tech_cost, :with_installation_detail, address: address) }
   let_it_be(:label_group) { create(:admin_toolkit_label_group, :open, label_list: 'Assign KAM, Offer Needed') }
 
   let_it_be(:projects_label_group) do
@@ -53,6 +53,13 @@ RSpec.describe Resolvers::ProjectResolver do
                                                     systemGenerated: false,
                                                     labelList: ['Prio 1', 'Prio 2']
                                                   )
+
+        expect(data.project.accessTechCost).to have_attributes(
+                                                 hfcOnPremiseCost: 9.99,
+                                                 hfcOffPremiseCost: 9.99,
+                                                 lwlOnPremiseCost: 9.99,
+                                                 lwlOffPremiseCost: 9.99
+                                               )
       end
     end
 
@@ -100,12 +107,15 @@ RSpec.describe Resolvers::ProjectResolver do
     <<~GQL
       query 
         {  
-          project(id: "#{project.id}") 
-          { 
-            id name projectNr entryType states 
+          project(id: "#{project.id}") { 
+            id name projectNr entryType states accessTechnology analysis 
+            competitionId inHouseInstallation standardCostApplicable
             defaultLabelGroup { systemGenerated labelList } 
             currentLabelGroup { systemGenerated labelList } 
-            address { street city zip } } 
+            address { street city zip } 
+            installationDetail { sockets builder } 
+            accessTechCost { hfcOnPremiseCost hfcOffPremiseCost lwlOnPremiseCost  lwlOffPremiseCost comment explanation }
+          }
         }
     GQL
   end

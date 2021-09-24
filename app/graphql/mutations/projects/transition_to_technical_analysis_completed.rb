@@ -28,7 +28,6 @@ module Mutations
 
       class TransitionToTechnicalAnalysisCompletedAttributes < Types::BaseInputObject
         argument :id, ID, required: true
-        argument :category, String, required: true
 
         argument :standard_cost_applicable, Boolean, required: true
         argument :access_technology, String, required: true

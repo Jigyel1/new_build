@@ -239,7 +239,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   end
 
   def query(args= {})
-    category = args[:category] || :standard
     access_technology = args[:access_technology] || :hfc
     standard_cost_applicable = args[:standard_cost_applicable] || false
     in_house_installation = args[:in_house_installation] || false
@@ -250,7 +249,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           input: {
             attributes: {
               id: "#{project.id}"
-              category: "#{category}"
               standardCostApplicable: #{standard_cost_applicable}
               accessTechnology: "#{access_technology}"
               inHouseInstallation: #{in_house_installation}
