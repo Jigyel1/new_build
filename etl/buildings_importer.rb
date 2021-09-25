@@ -6,7 +6,7 @@ class BuildingsImporter < EtlBase
   SHEET_INDEX = 0
   SKIP_ROWS = 7
 
-  ATTRIBUTE_MAPPINGS = FileParser.parse { 'etl/buildings/attribute_mappings.yml'}.freeze
+  ATTRIBUTE_MAPPINGS = FileParser.parse { 'etl/buildings/attribute_mappings.yml' }.freeze
 
   # Imports buildings from the excel.
   # When the input is the path to the file, i.e. String, replace the first line with

@@ -25,9 +25,9 @@ RSpec.describe Mutations::CreateProject do
         )
 
         expect(response.project.assignee).to have_attributes(
-                                               id: kam.id,
-                                               name: kam.name
-                                             )
+          id: kam.id,
+          name: kam.name
+        )
       end
 
       it 'creates the associated address books' do
@@ -37,25 +37,25 @@ RSpec.describe Mutations::CreateProject do
 
         record = address_books.find { |address_book| address_book[:type] == 'Investor' }
         expect(OpenStruct.new(record)).to have_attributes(
-                                            name: 'Philips',
-                                            company: 'Charlotte Hornets',
-                                            phone: '099292922',
-                                            mobile: '03393933',
-                                            language: 'D',
-                                            email: 'philips.jordan@chornets.us',
-                                            website: 'charlotte-hornets.com'
-                                          )
+          name: 'Philips',
+          company: 'Charlotte Hornets',
+          phone: '099292922',
+          mobile: '03393933',
+          language: 'D',
+          email: 'philips.jordan@chornets.us',
+          website: 'charlotte-hornets.com'
+        )
 
         record = address_books.find { |address_book| address_book[:type] == 'Architect' }
         expect(OpenStruct.new(record)).to have_attributes(
-                                            name: 'Isiah',
-                                            company: 'Detroit Pistons',
-                                            language: 'I',
-                                            phone: '049292922',
-                                            mobile: '103393933',
-                                            email: 'isiah.thomas@pistons.us',
-                                            website: 'detroit-pistons.com'
-                                          )
+          name: 'Isiah',
+          company: 'Detroit Pistons',
+          language: 'I',
+          phone: '049292922',
+          mobile: '103393933',
+          email: 'isiah.thomas@pistons.us',
+          website: 'detroit-pistons.com'
+        )
       end
 
       it 'creates associated apartments and buildings' do
@@ -64,7 +64,7 @@ RSpec.describe Mutations::CreateProject do
 
         buildings = Project.find(response.project.id).buildings
         expect(buildings.count).to eq(3)
-        expect(buildings.pluck(:apartments_count)).to match_array([3,3,4])
+        expect(buildings.pluck(:apartments_count)).to match_array([3, 3, 4])
       end
 
       it 'creates a label group for the project itself' do
@@ -74,9 +74,9 @@ RSpec.describe Mutations::CreateProject do
         project = Project.find(response.project.id)
         expect(project.label_groups.size).to eq(1)
         expect(project.label_groups.first).to have_attributes(
-                                                system_generated: true,
-                                                label_list: [Hooks::Project::MANUALLY_CREATED]
-                                              )
+          system_generated: true,
+          label_list: [Hooks::Project::MANUALLY_CREATED]
+        )
       end
     end
 
@@ -106,7 +106,8 @@ RSpec.describe Mutations::CreateProject do
       let!(:params) { { status: 'Technical Analysis' } }
 
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: manager_commercialization, key: :createProject)
+        response, errors = formatted_response(query(params), current_user: manager_commercialization,
+                                                             key: :createProject)
         expect(response.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end

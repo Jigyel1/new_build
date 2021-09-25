@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Projects::LabelGroup, type: :model do
@@ -6,6 +8,7 @@ RSpec.describe Projects::LabelGroup, type: :model do
 
     context "without it's own labels" do
       subject { create(:projects_label_group, project: create(:project), label_group: label_group) }
+
       it { is_expected.to have_attributes(label_list: []) }
     end
 
@@ -20,7 +23,7 @@ RSpec.describe Projects::LabelGroup, type: :model do
       end
 
       it do
-        is_expected.to have_attributes(label_list: ['More Information Requested', 'Management Decision Meeting'])
+        expect(subject).to have_attributes(label_list: ['More Information Requested', 'Management Decision Meeting'])
       end
     end
   end

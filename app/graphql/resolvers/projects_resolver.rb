@@ -24,7 +24,7 @@ module Resolvers
     DESC
 
     option :query, type: String, with: :apply_search, description: <<~DESC
-      Supports searches on project's name, external_id, project_nr, type, 
+      Supports searches on project's name, external_id, project_nr, type,
       construction_type, lot_number, address, assignee, investor, kam_region
     DESC
 

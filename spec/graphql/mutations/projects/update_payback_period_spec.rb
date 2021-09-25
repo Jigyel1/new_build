@@ -15,9 +15,9 @@ RSpec.describe Mutations::Projects::UpdatePaybackPeriod do
         response, errors = formatted_response(query, current_user: super_user, key: :updatePaybackPeriod)
         expect(errors).to be_nil
         expect(response.project.pctCost).to have_attributes(
-                                              paybackPeriod: 450,
-                                              systemGeneratedPaybackPeriod: false
-                                            )
+          paybackPeriod: 450,
+          systemGeneratedPaybackPeriod: false
+        )
       end
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateProjectsLabelGroups < ActiveRecord::Migration[6.1]
   def change
     create_table :projects_label_groups, id: :uuid do |t|

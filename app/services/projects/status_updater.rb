@@ -3,6 +3,7 @@
 module Projects
   class StatusUpdater < BaseService
     attr_accessor :event
+
     delegate :project, to: :state_machine
 
     def call

@@ -6,7 +6,6 @@ module Projects
       authorize! project, to: :update?, with: ProjectPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
-
         project_pct_cost.update!(
           payback_period: attributes[:months],
           system_generated_payback_period: false

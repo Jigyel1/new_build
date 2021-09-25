@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Mutations::Projects::TransitionToTechnicalAnalysis do
@@ -28,7 +30,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysis do
 
     context 'for complex projects' do
       before_all { project.update_column(:category, :complex) }
-      
+
       context 'with permissions' do
         let_it_be(:management) { create(:user, :management) }
 

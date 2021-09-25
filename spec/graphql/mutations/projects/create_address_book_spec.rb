@@ -15,22 +15,22 @@ RSpec.describe Mutations::Projects::CreateAddressBook do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createAddressBook)
         expect(errors).to be_nil
         expect(response.addressBook).to have_attributes(
-                                          name: 'Philips',
-                                          displayName: 'Investor',
-                                          type: 'Investor',
-                                          company: 'Charlotte Hornets',
-                                          phone: '099292922',
-                                          mobile: '03393933',
-                                          email: 'philips.jordan@chornets.us',
-                                          website: 'charlotte-hornets.com'
-                                        )
+          name: 'Philips',
+          displayName: 'Investor',
+          type: 'Investor',
+          company: 'Charlotte Hornets',
+          phone: '099292922',
+          mobile: '03393933',
+          email: 'philips.jordan@chornets.us',
+          website: 'charlotte-hornets.com'
+        )
 
         expect(response.addressBook.address).to have_attributes(
-                                                  street: "Hayes Skyway",
-                                                  streetNo: "6512",
-                                                  city: "Barrowsport",
-                                                  zip: "8008"
-                                                )
+          street: 'Hayes Skyway',
+          streetNo: '6512',
+          city: 'Barrowsport',
+          zip: '8008'
+        )
       end
     end
 
@@ -52,9 +52,9 @@ RSpec.describe Mutations::Projects::CreateAddressBook do
           response, errors = formatted_response(query(params), current_user: super_user, key: :createAddressBook)
           expect(errors).to be_nil
           expect(response.addressBook).to have_attributes(
-                                            displayName: 'Bauingenieur',
-                                            type: 'Others'
-                                          )
+            displayName: 'Bauingenieur',
+            type: 'Others'
+          )
         end
       end
     end
@@ -74,7 +74,8 @@ RSpec.describe Mutations::Projects::CreateAddressBook do
       let!(:params) { { type: :investor } }
 
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: manager_commercialization, key: :createAddressBook)
+        response, errors = formatted_response(query(params), current_user: manager_commercialization,
+                                                             key: :createAddressBook)
         expect(response.address_book).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
@@ -114,9 +115,9 @@ RSpec.describe Mutations::Projects::CreateAddressBook do
           }
         )
         {
-          addressBook { 
+          addressBook {
             id type name company language email website phone mobile displayName
-            address { id streetNo street city zip} 
+            address { id streetNo street city zip}
           }
         }
       }

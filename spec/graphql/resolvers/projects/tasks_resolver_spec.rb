@@ -88,7 +88,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
     end
 
     context 'with status filter' do
-      let!(:params) {{ statuses: %w[todo completed], taskable: [building.id, 'Projects::Building'] }}
+      let!(:params) { { statuses: %w[todo completed], taskable: [building.id, 'Projects::Building'] } }
 
       it 'returns tasks with the given statuses' do
         tasks, errors = paginated_collection(:tasks, query(params), current_user: super_user)
@@ -132,7 +132,6 @@ RSpec.describe Resolvers::Projects::TasksResolver do
       end
 
       context 'with first N & skip M filter' do
-
         it 'returns first N tasks after skipping M records' do
           tasks, errors = paginated_collection(:tasks, query(first: 2, skip: 1), current_user: super_user)
           expect(errors).to be_nil
@@ -172,11 +171,11 @@ RSpec.describe Resolvers::Projects::TasksResolver do
   def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
     params = args[:statuses] ? ["statuses: #{args[:statuses]}"] : []
     params += ["assigneeIds: #{args[:assignee_ids]}"] if args[:assignee_ids]
-    if args[:taskable]
-      params += ["taskable: #{args[:taskable]}"]
-    else
-      params +=["taskable: #{[project.id, "Project"]}"]
-    end
+    params += if args[:taskable]
+                ["taskable: #{args[:taskable]}"]
+              else
+                ["taskable: #{[project.id, 'Project']}"]
+              end
 
     params << "first: #{args[:first]}" if args[:first]
     params << "skip: #{args[:skip]}" if args[:skip]

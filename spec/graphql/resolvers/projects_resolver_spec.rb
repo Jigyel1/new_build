@@ -64,7 +64,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     end
 
     context 'with assignees filter' do
-      let(:assignees) { [kam.id,  team_expert.id] }
+      let(:assignees) { [kam.id, team_expert.id] }
 
       it 'returns projects matching given assignees' do
         projects, errors = paginated_collection(:projects, query(assignees: assignees), current_user: super_user)
@@ -87,7 +87,8 @@ RSpec.describe Resolvers::ProjectsResolver do
       let(:construction_types) { ['Reconstruction'] }
 
       it 'returns projects matching given construction types' do
-        projects, errors = paginated_collection(:projects, query(construction_types: construction_types), current_user: super_user)
+        projects, errors = paginated_collection(:projects, query(construction_types: construction_types),
+                                                current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_a.id, project_b.id])
       end
@@ -138,8 +139,8 @@ RSpec.describe Resolvers::ProjectsResolver do
         projects#{query_string(args)} {
           totalCount
           edges {
-            node { 
-              id externalId projectNr name category priority constructionType labels apartmentsCount 
+            node {
+              id externalId projectNr name category priority constructionType labels apartmentsCount
               moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
             }
           }

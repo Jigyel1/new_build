@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Projects::CategorySetter do
@@ -116,7 +118,7 @@ describe Projects::CategorySetter do
   end
 
   context 'for project with 7 buildings and zip 8006' do
-    let!(:project) { create(:project, buildings: build_list(:building, 7), address: build(:address, zip: '8006'))}
+    let!(:project) { create(:project, buildings: build_list(:building, 7), address: build(:address, zip: '8006')) }
 
     # given - buildings count - 7, zip 8006
     #
@@ -133,7 +135,7 @@ describe Projects::CategorySetter do
   end
 
   context 'for project with 22 buildings and zip 8006' do
-    let!(:project) { create(:project, buildings: build_list(:building, 22), address: build(:address, zip: '8006'))}
+    let!(:project) { create(:project, buildings: build_list(:building, 22), address: build(:address, zip: '8006')) }
 
     # given - buildings count - 22, zip 8006
     #
@@ -150,7 +152,7 @@ describe Projects::CategorySetter do
   end
 
   context 'for project with 10 buildings and zip 8008' do
-    let!(:project) { create(:project, buildings: build_list(:building, 10), address: build(:address, zip: '8008'))}
+    let!(:project) { create(:project, buildings: build_list(:building, 10), address: build(:address, zip: '8008')) }
 
     # given - buildings count - 10, zip 8008
     #
@@ -167,7 +169,7 @@ describe Projects::CategorySetter do
   end
 
   context 'for project with 11 building and zip 8008' do
-    let!(:project) { create(:project, buildings: build_list(:building, 11), address: build(:address, zip: '8008'))}
+    let!(:project) { create(:project, buildings: build_list(:building, 11), address: build(:address, zip: '8008')) }
 
     # given - buildings count - 11, zip 8008
     #
@@ -184,7 +186,7 @@ describe Projects::CategorySetter do
   end
 
   context 'for project with 1 building and zip 8010' do
-    let!(:project) { create(:project, buildings: build_list(:building, 1), address: build(:address, zip: '8010'))}
+    let!(:project) { create(:project, buildings: build_list(:building, 1), address: build(:address, zip: '8010')) }
 
     # given - buildings count - 1, zip 8010
     #
@@ -201,7 +203,7 @@ describe Projects::CategorySetter do
   end
 
   context 'for project with 20 building and zip 8010' do
-    let!(:project) { create(:project, buildings: build_list(:building, 20), address: build(:address, zip: '8010'))}
+    let!(:project) { create(:project, buildings: build_list(:building, 20), address: build(:address, zip: '8010')) }
 
     # given - buildings count - 20, zip 8010
     #
@@ -218,7 +220,7 @@ describe Projects::CategorySetter do
   end
 
   context 'for project with 8 building and zip 8012' do
-    let!(:project) { create(:project, buildings: build_list(:building, 8), address: build(:address, zip: '8012'))}
+    let!(:project) { create(:project, buildings: build_list(:building, 8), address: build(:address, zip: '8012')) }
 
     # given - buildings count - 8, zip 8012
     #
@@ -235,7 +237,7 @@ describe Projects::CategorySetter do
   end
 
   context 'for project with 22 building and zip 8012' do
-    let!(:project) { create(:project, buildings: build_list(:building, 22), address: build(:address, zip: '8012'))}
+    let!(:project) { create(:project, buildings: build_list(:building, 22), address: build(:address, zip: '8012')) }
 
     # given - buildings count - 22, zip 8012
     #

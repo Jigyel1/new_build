@@ -21,9 +21,9 @@ RSpec.describe Mutations::Projects::DeleteBuilding do
         expect(errors).to be_nil
         expect(response.status).to be(true)
         expect(project.reload).to have_attributes(
-                                    buildings_count: 0,
-                                    apartments_count: 0
-                                  )
+          buildings_count: 0,
+          apartments_count: 0
+        )
       end
     end
 

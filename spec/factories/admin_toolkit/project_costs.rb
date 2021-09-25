@@ -6,6 +6,6 @@ FactoryBot.define do
 
     socket_installation_rate { 90.55 }
     standard_connection_cost { 399.40 }
-    arpu { 45.66}
+    arpu { 45.66 }
   end
 end

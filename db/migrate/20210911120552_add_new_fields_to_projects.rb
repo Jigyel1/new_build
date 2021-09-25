@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 class AddNewFieldsToProjects < ActiveRecord::Migration[6.1]
   def change
     safety_assured do
-      add_reference :projects, :competition, null: true, foreign_key: { to_table: :admin_toolkit_competitions }, type: :uuid
+      add_reference :projects, :competition, null: true, foreign_key: { to_table: :admin_toolkit_competitions },
+                                             type: :uuid
       add_reference :projects, :incharge, null: true, foreign_key: { to_table: :telco_uam_users }, type: :uuid
     end
 

@@ -21,7 +21,7 @@ RSpec.describe Mutations::Projects::UpdateLabels do
     context 'for admins' do
       it 'updates the label list' do
         response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
-                                              key: :updateProjectLabels)
+                                                             key: :updateProjectLabels)
         expect(errors).to be_nil
         expect(response.labelGroup.labelList).to match_array(['Prio 3', 'On Hold'])
       end
@@ -32,7 +32,7 @@ RSpec.describe Mutations::Projects::UpdateLabels do
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
-                                              key: :updateProjectLabels)
+                                                             key: :updateProjectLabels)
         expect(response.labelGroup).to be_nil
         expect(errors).to eq([t('projects.label_group.system_generated')])
       end
@@ -40,7 +40,8 @@ RSpec.describe Mutations::Projects::UpdateLabels do
 
     context 'for non admins' do
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :kam), key: :updateProjectLabels)
+        response, errors = formatted_response(query(params), current_user: create(:user, :kam),
+                                                             key: :updateProjectLabels)
         expect(response.labelGroup).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end

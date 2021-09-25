@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Mutations::Projects::UploadFiles, type: :request do
@@ -10,7 +12,7 @@ describe Mutations::Projects::UploadFiles, type: :request do
       operations: {
         query: query,
         variables: {
-          files: [nil],
+          files: [nil]
         }
       }.to_json,
       map: {

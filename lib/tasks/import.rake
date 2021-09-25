@@ -8,13 +8,13 @@ namespace :import do
 
   # To test the import as a rake task, uncomment the below and try it.
   desc 'Import projects from a shared excel'
-  task :projects, [:filepath] => [:environment] do |_task, args|
+  task :projects, [:filepath] => [:environment] do |_task, _args|
     ProjectsImporter.call(input: File.new(Rails.root.join('etl/docs/projects-test.xlsx')), current_user: User.first)
   end
 
   # To test the import as a rake task, uncomment the below and try it.
   desc 'Import buildings from a shared excel'
-  task :buildings, [:filepath] => [:environment] do |_task, args|
+  task :buildings, [:filepath] => [:environment] do |_task, _args|
     BuildingsImporter.call(input: File.new(Rails.root.join('etl/docs/buildings-test.xlsx')), current_user: User.first)
   end
 end

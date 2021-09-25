@@ -2,7 +2,6 @@
 
 module Projects
   class DraftSaver < BaseService
-
     def call
       authorize! project, to: :update?, with: ProjectPolicy
       project.update!(draft_version: attributes[:draft_version])

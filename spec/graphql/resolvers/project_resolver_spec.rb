@@ -24,42 +24,42 @@ RSpec.describe Resolvers::ProjectResolver do
         expect(errors).to be_nil
 
         expect(data.project).to have_attributes(
-                                  id: project.id,
-                                  name: project.name,
-                                  entryType: 'manual'
-                                )
+          id: project.id,
+          name: project.name,
+          entryType: 'manual'
+        )
 
         expect(data.project.address).to have_attributes(
-                                          street: address.street,
-                                          city: address.city,
-                                          zip: address.zip
-                                        )
+          street: address.street,
+          city: address.city,
+          zip: address.zip
+        )
 
         expect(data.project.projectNr).to start_with('2')
 
         expect(OpenStruct.new(data.project.states.to_h)).to have_attributes(
-                                         open: true,
-                                         technical_analysis: false,
-                                         technical_analysis_completed: false,
-                                         ready_for_offer: false
-                                       )
+          open: true,
+          technical_analysis: false,
+          technical_analysis_completed: false,
+          ready_for_offer: false
+        )
 
         expect(data.project.defaultLabelGroup).to have_attributes(
-                                                    systemGenerated: true,
-                                                    labelList: ['Manually Created']
-                                                  )
+          systemGenerated: true,
+          labelList: ['Manually Created']
+        )
 
         expect(data.project.currentLabelGroup).to have_attributes(
-                                                    systemGenerated: false,
-                                                    labelList: ['Prio 1', 'Prio 2']
-                                                  )
+          systemGenerated: false,
+          labelList: ['Prio 1', 'Prio 2']
+        )
 
         expect(data.project.accessTechCost).to have_attributes(
-                                                 hfcOnPremiseCost: 9.99,
-                                                 hfcOffPremiseCost: 9.99,
-                                                 lwlOnPremiseCost: 9.99,
-                                                 lwlOffPremiseCost: 9.99
-                                               )
+          hfcOnPremiseCost: 9.99,
+          hfcOffPremiseCost: 9.99,
+          lwlOnPremiseCost: 9.99,
+          lwlOffPremiseCost: 9.99
+        )
       end
     end
 
@@ -70,10 +70,10 @@ RSpec.describe Resolvers::ProjectResolver do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(OpenStruct.new(data.project.states.to_h)).to have_attributes(
-                                                              open: true,
-                                                              technical_analysis: false,
-                                                              ready_for_offer: false
-                                                            )
+          open: true,
+          technical_analysis: false,
+          ready_for_offer: false
+        )
       end
     end
 
@@ -84,11 +84,11 @@ RSpec.describe Resolvers::ProjectResolver do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(OpenStruct.new(data.project.states.to_h)).to have_attributes(
-                                                              open: true,
-                                                              technical_analysis: true,
-                                                              technical_analysis_completed: true,
-                                                              ready_for_offer: true
-                                                            )
+          open: true,
+          technical_analysis: true,
+          technical_analysis_completed: true,
+          ready_for_offer: true
+        )
       end
     end
 
@@ -105,15 +105,15 @@ RSpec.describe Resolvers::ProjectResolver do
 
   def query
     <<~GQL
-      query 
-        {  
-          project(id: "#{project.id}") { 
-            id name projectNr entryType states accessTechnology analysis 
+      query
+        {
+          project(id: "#{project.id}") {
+            id name projectNr entryType states accessTechnology analysis
             competitionId inHouseInstallation standardCostApplicable
-            defaultLabelGroup { systemGenerated labelList } 
-            currentLabelGroup { systemGenerated labelList } 
-            address { street city zip } 
-            installationDetail { sockets builder } 
+            defaultLabelGroup { systemGenerated labelList }
+            currentLabelGroup { systemGenerated labelList }
+            address { street city zip }
+            installationDetail { sockets builder }
             accessTechCost { hfcOnPremiseCost hfcOffPremiseCost lwlOnPremiseCost  lwlOffPremiseCost comment explanation }
           }
         }

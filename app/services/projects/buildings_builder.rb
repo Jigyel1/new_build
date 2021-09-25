@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Projects
   class BuildingsBuilder < BaseService
     attr_accessor :project, :buildings_count, :apartments_count

@@ -39,14 +39,15 @@ RSpec.describe Mutations::UpdateProject do
       let!(:params) { { status: 'Technical Analysis' } }
 
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :presales), key: :updateProject)
+        response, errors = formatted_response(query(params), current_user: create(:user, :presales),
+                                                             key: :updateProject)
         expect(response.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
     end
   end
 
-  # Pass id as an optional attribute. 
+  # Pass id as an optional attribute.
   def address
     <<~ADDRESS
       address: {

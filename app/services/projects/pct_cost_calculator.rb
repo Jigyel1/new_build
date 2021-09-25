@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Projects
   class PctCostCalculator < BaseService
     include ActiveModel::Validations
@@ -31,18 +33,18 @@ module Projects
 
     def call
       super do
-        if lease_cost_only
-          @pct_cost = Projects::PctCost.new(lease_cost: lease_cost)
-        else
-          @pct_cost = Projects::PctCost.new(
-            project_cost: project_cost,
-            lease_cost: lease_cost,
-            socket_installation_cost: socket_installation_cost,
-            arpu: arpu,
-            penetration_rate: penetration_rate,
-            payback_period: payback_period
-          )
-        end
+        @pct_cost = if lease_cost_only
+                      Projects::PctCost.new(lease_cost: lease_cost)
+                    else
+                      Projects::PctCost.new(
+                        project_cost: project_cost,
+                        lease_cost: lease_cost,
+                        socket_installation_cost: socket_installation_cost,
+                        arpu: arpu,
+                        penetration_rate: penetration_rate,
+                        payback_period: payback_period
+                      )
+                    end
       end
     end
 

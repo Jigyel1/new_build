@@ -16,18 +16,17 @@ RSpec.describe Resolvers::Projects::FileResolver do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(data.file).to have_attributes(
-                                  id: file.id.to_s,
-                                  name: 'matrix.jpeg',
-                                  size: 87.64,
-                                  createdAt: Date.current.in_time_zone.date_str
-                                )
+          id: file.id.to_s,
+          name: 'matrix.jpeg',
+          size: 87.64,
+          createdAt: Date.current.in_time_zone.date_str
+        )
 
         expect(data.file.owner).to have_attributes(
-                                        id: super_user.id,
-                                        name: super_user.name,
-                                        email: super_user.email
-                                        )
-
+          id: super_user.id,
+          name: super_user.name,
+          email: super_user.email
+        )
       end
     end
 
@@ -44,11 +43,11 @@ RSpec.describe Resolvers::Projects::FileResolver do
 
   def query
     <<~GQL
-      query { file(id: "#{file.id}") 
-        { 
+      query { file(id: "#{file.id}")
+        {
           id name size createdAt fileUrl
           owner { id name email }
-        }   
+        }
       }
     GQL
   end

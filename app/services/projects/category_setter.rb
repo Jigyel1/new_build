@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Projects
   class CategorySetter < BaseService
     attr_accessor :project
@@ -23,10 +25,9 @@ module Projects
       sfn = penetration.competitions.exists?(name: 'FTTH SFN')
       hfc = penetration.hfc_footprint
 
-      case
-      when sfn && hfc then :both
-      when sfn then :ftth_sfn
-      when hfc then :ftth_swisscom
+      if sfn && hfc then :both
+      elsif sfn then :ftth_sfn
+      elsif hfc then :ftth_swisscom
       else :neither
       end
     end

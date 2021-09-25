@@ -45,7 +45,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
     end
 
     safety_assured do
-      execute "CREATE SEQUENCE projects_project_nr_seq START 1"
+      execute 'CREATE SEQUENCE projects_project_nr_seq START 1'
       execute "ALTER TABLE projects ALTER COLUMN project_nr SET DEFAULT NEXTVAL('projects_project_nr_seq')"
     end
 
@@ -56,6 +56,6 @@ class CreateProjects < ActiveRecord::Migration[6.1]
   def self.down
     drop_table :projects
 
-    execute "DROP SEQUENCE projects_project_nr_seq"
+    execute 'DROP SEQUENCE projects_project_nr_seq'
   end
 end

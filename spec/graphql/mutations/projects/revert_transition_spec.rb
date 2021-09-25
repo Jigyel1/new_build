@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Mutations::Projects::RevertTransition do
@@ -8,7 +10,7 @@ describe Mutations::Projects::RevertTransition do
       :admin_toolkit_pct_value,
       :prio_two,
       pct_month: create(:admin_toolkit_pct_month, min: 0, max: 507),
-      pct_cost: create(:admin_toolkit_pct_cost, min: 10, max: 100000)
+      pct_cost: create(:admin_toolkit_pct_cost, min: 10, max: 100_000)
     )
   end
 
@@ -95,6 +97,7 @@ describe Mutations::Projects::RevertTransition do
 
       context 'for on hold projects' do
         before { pct_value.update_column(:status, :on_hold) }
+
         let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
 
         it 'reverts to technical analysis completed' do

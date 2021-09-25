@@ -39,8 +39,8 @@ class ProjectPolicy < ApplicationPolicy
       state_admins
     end
   end
-  alias_method :to_open?, :to_technical_analysis?
-  alias_method :to_technical_analysis_completed?, :to_technical_analysis?
+  alias to_open? to_technical_analysis?
+  alias to_technical_analysis_completed? to_technical_analysis?
 
   def to_archived?
     user.management?

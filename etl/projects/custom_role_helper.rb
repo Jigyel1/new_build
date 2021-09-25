@@ -9,7 +9,7 @@ module Projects
     end
 
     def row_mappings(*type)
-      type = type.is_a?(Array) ? type : [type]
+      type = [type] unless type.is_a?(Array)
       ProjectsImporter::ATTRIBUTE_MAPPINGS.dig(*type)
     end
 

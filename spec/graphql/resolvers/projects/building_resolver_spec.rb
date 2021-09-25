@@ -27,17 +27,17 @@ RSpec.describe Resolvers::Projects::BuildingResolver do
         expect(errors).to be_nil
 
         expect(data.building).to have_attributes(
-                                   id: building.id,
-                                   name: building.name,
-                                   tasks: '1/4'
-                                 )
+          id: building.id,
+          name: building.name,
+          tasks: '1/4'
+        )
 
         expect(data.building.address).to have_attributes(
-                                           streetNo: address.street_no,
-                                           street: address.street,
-                                           city: address.city,
-                                           zip: address.zip
-                                         )
+          streetNo: address.street_no,
+          street: address.street,
+          city: address.city,
+          zip: address.zip
+        )
       end
     end
 
@@ -54,9 +54,9 @@ RSpec.describe Resolvers::Projects::BuildingResolver do
 
   def query
     <<~GQL
-      query { 
-        building(id: "#{building.id}") 
-        { id name tasks address { street streetNo zip city } } 
+      query {
+        building(id: "#{building.id}")
+        { id name tasks address { street streetNo zip city } }
       }
     GQL
   end

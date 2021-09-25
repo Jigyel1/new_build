@@ -22,9 +22,9 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
   let_it_be(:penetration_b) do
     create(
       :admin_toolkit_penetration,
-           :hfc_footprint, :land,
-           city: 'Le Grand-Saconnex',
-           kam_region: kam_region,
+      :hfc_footprint, :land,
+      city: 'Le Grand-Saconnex',
+      kam_region: kam_region,
       penetration_competitions: [build(:penetration_competition, competition: competition)]
     )
   end
@@ -128,8 +128,8 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
         adminToolkitPenetrations#{query_string(args)} {
           totalCount
           edges {
-            node { 
-              id zip city rate hfcFootprint type kamRegion { id kam { name } } 
+            node {
+              id zip city rate hfcFootprint type kamRegion { id kam { name } }
               penetrationCompetitions { competition { name } }
             }
           }
