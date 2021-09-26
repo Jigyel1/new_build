@@ -10,7 +10,7 @@ class CreateAdminToolkitKamRegions < ActiveRecord::Migration[6.1]
         null: true
       )
 
-      t.string :name, index: true, null: false, unique: true
+      t.string :name, index: { unique: :case_insensitive_comparison }, null: false
 
       t.timestamps
     end

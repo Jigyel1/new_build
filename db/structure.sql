@@ -1381,17 +1381,24 @@ CREATE INDEX index_addresses_on_addressable ON public.addresses USING btree (add
 
 
 --
+-- Name: index_admin_toolkit_competitions_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_admin_toolkit_competitions_on_name ON public.admin_toolkit_competitions USING btree (name);
+
+
+--
 -- Name: index_admin_toolkit_footprint_buildings_on_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_footprint_buildings_on_index ON public.admin_toolkit_footprint_buildings USING btree (index);
+CREATE UNIQUE INDEX index_admin_toolkit_footprint_buildings_on_index ON public.admin_toolkit_footprint_buildings USING btree (index);
 
 
 --
 -- Name: index_admin_toolkit_footprint_types_on_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_footprint_types_on_index ON public.admin_toolkit_footprint_types USING btree (index);
+CREATE UNIQUE INDEX index_admin_toolkit_footprint_types_on_index ON public.admin_toolkit_footprint_types USING btree (index);
 
 
 --
@@ -1412,7 +1419,7 @@ CREATE INDEX index_admin_toolkit_footprint_values_on_footprint_type_id ON public
 -- Name: index_admin_toolkit_kam_investors_on_investor_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_kam_investors_on_investor_id ON public.admin_toolkit_kam_investors USING btree (investor_id);
+CREATE UNIQUE INDEX index_admin_toolkit_kam_investors_on_investor_id ON public.admin_toolkit_kam_investors USING btree (investor_id);
 
 
 --
@@ -1433,14 +1440,14 @@ CREATE INDEX index_admin_toolkit_kam_regions_on_kam_id ON public.admin_toolkit_k
 -- Name: index_admin_toolkit_kam_regions_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_kam_regions_on_name ON public.admin_toolkit_kam_regions USING btree (name);
+CREATE UNIQUE INDEX index_admin_toolkit_kam_regions_on_name ON public.admin_toolkit_kam_regions USING btree (name);
 
 
 --
 -- Name: index_admin_toolkit_label_groups_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_label_groups_on_code ON public.admin_toolkit_label_groups USING btree (code);
+CREATE UNIQUE INDEX index_admin_toolkit_label_groups_on_code ON public.admin_toolkit_label_groups USING btree (code);
 
 
 --
@@ -1451,17 +1458,24 @@ CREATE INDEX index_admin_toolkit_label_groups_on_label_list ON public.admin_tool
 
 
 --
+-- Name: index_admin_toolkit_label_groups_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_admin_toolkit_label_groups_on_name ON public.admin_toolkit_label_groups USING btree (name);
+
+
+--
 -- Name: index_admin_toolkit_pct_costs_on_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_pct_costs_on_index ON public.admin_toolkit_pct_costs USING btree (index);
+CREATE UNIQUE INDEX index_admin_toolkit_pct_costs_on_index ON public.admin_toolkit_pct_costs USING btree (index);
 
 
 --
 -- Name: index_admin_toolkit_pct_months_on_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_pct_months_on_index ON public.admin_toolkit_pct_months USING btree (index);
+CREATE UNIQUE INDEX index_admin_toolkit_pct_months_on_index ON public.admin_toolkit_pct_months USING btree (index);
 
 
 --
@@ -1503,7 +1517,28 @@ CREATE INDEX index_admin_toolkit_penetrations_on_kam_region_id ON public.admin_t
 -- Name: index_admin_toolkit_penetrations_on_zip; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_penetrations_on_zip ON public.admin_toolkit_penetrations USING btree (zip);
+CREATE UNIQUE INDEX index_admin_toolkit_penetrations_on_zip ON public.admin_toolkit_penetrations USING btree (zip);
+
+
+--
+-- Name: index_admin_toolkit_project_costs_on_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_admin_toolkit_project_costs_on_index ON public.admin_toolkit_project_costs USING btree (index);
+
+
+--
+-- Name: index_footprint_values_on_project_type_and_references; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_footprint_values_on_project_type_and_references ON public.admin_toolkit_footprint_values USING btree (project_type, footprint_type_id, footprint_building_id);
+
+
+--
+-- Name: index_pct_values_on_status_and_references; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pct_values_on_status_and_references ON public.admin_toolkit_pct_values USING btree (status, pct_month_id, pct_cost_id);
 
 
 --
@@ -1518,6 +1553,13 @@ CREATE INDEX index_permissions_on_accessor ON public.permissions USING btree (ac
 --
 
 CREATE INDEX index_permissions_on_actions ON public.permissions USING btree (actions);
+
+
+--
+-- Name: index_permissions_on_resource_and_accessor_id_and_accessor_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_permissions_on_resource_and_accessor_id_and_accessor_type ON public.permissions USING btree (resource, accessor_id, accessor_type);
 
 
 --
@@ -1556,6 +1598,13 @@ CREATE INDEX index_projects_address_books_on_project_id ON public.projects_addre
 
 
 --
+-- Name: index_projects_address_books_on_type_and_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_projects_address_books_on_type_and_project_id ON public.projects_address_books USING btree (type, project_id) WHERE ((type)::text <> 'Others'::text);
+
+
+--
 -- Name: index_projects_buildings_on_additional_details; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1573,7 +1622,7 @@ CREATE INDEX index_projects_buildings_on_assignee_id ON public.projects_building
 -- Name: index_projects_buildings_on_external_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_projects_buildings_on_external_id ON public.projects_buildings USING btree (external_id);
+CREATE UNIQUE INDEX index_projects_buildings_on_external_id ON public.projects_buildings USING btree (external_id);
 
 
 --
@@ -1636,7 +1685,7 @@ CREATE INDEX index_projects_on_competition_id ON public.projects USING btree (co
 -- Name: index_projects_on_external_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_projects_on_external_id ON public.projects USING btree (external_id);
+CREATE UNIQUE INDEX index_projects_on_external_id ON public.projects USING btree (external_id);
 
 
 --

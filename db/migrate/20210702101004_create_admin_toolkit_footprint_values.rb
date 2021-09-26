@@ -21,5 +21,12 @@ class CreateAdminToolkitFootprintValues < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    add_index(
+      :admin_toolkit_footprint_values,
+      %i[project_type footprint_type_id footprint_building_id],
+      name: 'index_footprint_values_on_project_type_and_references',
+      unique: :case_insensitive_comparison
+    )
   end
 end

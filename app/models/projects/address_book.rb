@@ -13,7 +13,7 @@ module Projects
     enum entry_type: { manual: 'Manual', info_manager: 'Info Manager' }
 
     validates :type, :name, :display_name, presence: true
-    validates :type, uniqueness: { unless: ->(record) { record.others? }, scope: :project_id }
+    validates :type, uniqueness: { unless: :others?, scope: :project_id }
 
     before_validation :set_display_name
 
