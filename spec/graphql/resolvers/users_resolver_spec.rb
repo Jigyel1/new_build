@@ -6,24 +6,24 @@ require_relative '../../support/ips_helper'
 RSpec.describe Resolvers::UsersResolver do
   include IpsHelper
 
-  let_it_be(:profile1) { { salutation: :mr, firstname: 'tevor', lastname: 'noah', phone: '0978887272' } }
-  let_it_be(:profile2) { { salutation: :mr, firstname: 'jimmy', lastname: 'fallon', phone: '0978887273' } }
-  let_it_be(:profile3) { { salutation: :mr, firstname: 'jimmy', lastname: 'kimmel', phone: '0979887272' } }
-  let_it_be(:profile4) do
+  let_it_be(:profile_a) { { salutation: :mr, firstname: 'tevor', lastname: 'noah', phone: '0978887272' } }
+  let_it_be(:profile_b) { { salutation: :mr, firstname: 'jimmy', lastname: 'fallon', phone: '0978887273' } }
+  let_it_be(:profile_c) { { salutation: :mr, firstname: 'jimmy', lastname: 'kimmel', phone: '0979887272' } }
+  let_it_be(:profile_d) do
     {
       salutation: :mr, firstname: 'matt', lastname: 'damon', phone: '0979887273', department: :presales
     }
   end
 
   let_it_be(:super_user) do
-    create(:user, :super_user, profile_attributes: profile1, with_permissions: { user: [:read] })
+    create(:user, :super_user, profile_attributes: profile_a, with_permissions: { user: [:read] })
   end
-  let_it_be(:team_standard) { create(:user, :team_standard, profile_attributes: profile2) }
-  let_it_be(:kam) { create(:user, :kam, :inactive, profile_attributes: profile3) }
-  let_it_be(:presales) { create(:user, :presales, :inactive, profile_attributes: profile4) }
+  let_it_be(:team_standard) { create(:user, :team_standard, profile_attributes: profile_b) }
+  let_it_be(:kam) { create(:user, :kam, :inactive, profile_attributes: profile_c) }
+  let_it_be(:presales) { create(:user, :presales, :inactive, profile_attributes: profile_d) }
 
   # this user won't be listed
-  let_it_be(:management) { create(:user, :management, :discarded, profile_attributes: profile4) }
+  let_it_be(:management) { create(:user, :management, :discarded, profile_attributes: profile_d) }
 
   describe '.resolve' do
     context 'without filters' do

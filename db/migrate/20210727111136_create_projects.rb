@@ -13,8 +13,8 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :assignee_type, null: false, default: 'KAM Project'
       t.string :entry_type, null: false, default: 'Manual'
 
-      t.references :assignee, null: true, foreign_key: { to_table: :telco_uam_users }, type: :uuid
-      t.references :kam_region, null: true, foreign_key: { to_table: :admin_toolkit_kam_regions }, type: :uuid
+      t.references :assignee, foreign_key: { to_table: :telco_uam_users }, type: :uuid
+      t.references :kam_region, foreign_key: { to_table: :admin_toolkit_kam_regions }, type: :uuid
 
       t.string :construction_type
       t.date :construction_starts_on
@@ -22,7 +22,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.date :move_in_ends_on
       t.string :lot_number
       t.integer :buildings_count, null: false, default: 0
-      t.integer :apartments_count, null: true
+      t.integer :apartments_count
 
       t.text :description
       t.text :additional_info

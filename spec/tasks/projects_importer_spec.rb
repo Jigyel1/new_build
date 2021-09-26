@@ -4,7 +4,7 @@ require 'rails_helper'
 
 Rails.application.load_tasks
 
-describe 'Projects Import' do
+describe ProjectsImporter do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam_region) { AdminToolkit::KamRegion.create(name: 'Ost ZH') }
   let_it_be(:file) { fixture_file_upload('spec/files/project-create.xlsx') }
@@ -12,7 +12,7 @@ describe 'Projects Import' do
   # This project will be skipped on import but available in the errors as a skipped project.
   let_it_be(:project) { create(:project, external_id: '3068125') }
 
-  before_all { ProjectsImporter.call(current_user: super_user, input: file) }
+  before_all { described_class.call(current_user: super_user, input: file) }
 
   let_it_be(:project) { Project.find_by(external_id: '2826123') }
 
@@ -33,6 +33,11 @@ describe 'Projects Import' do
 
     expect(project.kam_region.name).to eq('Ost ZH')
 
+    expect(project.address_books.find_by(type: :role_type_3)).to be_nil
+    expect(project.address_books.find_by(type: :role_type_4)).to be_nil
+  end
+
+  it "updates project's additional details" do
     additional_details = OpenStruct.new(project.additional_details)
     expect(additional_details).to have_attributes(
       planstage: 'Projekt wird nicht realisiert',
@@ -44,14 +49,16 @@ describe 'Projects Import' do
       cat_text_01: 'Einfamilienhäuser',
       cat_art_01: 'Neubau',
       cat_code_02: 1313,
-      project_text_part_01: ' Neubau eines 5-1/2-6-1/2-Zimmer-Einfamilienhauses in einer Massiv- und Holzkonstruktion mit einem Satteldach und Ziegeleindeckung. Um- und Ausbau Dachgeschoss. Einbau einer Wärmepumpe mit Erdsonde und Fussbodenheizung. Integrierte Garage.',
       proj_extern_id: 2_826_123,
       prod_id: 510_842,
       geocod_sccs: 'Gebäudeeingang'
     )
 
-    expect(project.address_books.find_by(type: :role_type_3)).to be_nil
-    expect(project.address_books.find_by(type: :role_type_4)).to be_nil
+    expect(additional_details.project_text_part_01.squish).to eq(
+      ' Neubau eines 5-1/2-6-1/2-Zimmer-Einfamilienhauses in einer Massiv- und Holzkonstruktion
+        mit einem Satteldach und Ziegeleindeckung. Um- und Ausbau Dachgeschoss. Einbau einer Wärmepumpe mit
+        Erdsonde und Fussbodenheizung. Integrierte Garage.'.squish
+    )
   end
 
   it "updates project's address" do
@@ -159,7 +166,7 @@ describe 'Projects Import' do
 
   it 'sends email with projects that were not imported with well formatted reasons' do
     perform_enqueued_jobs do
-      ProjectsImporter.call(current_user: super_user, input: file)
+      described_class.call(current_user: super_user, input: file)
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       expect(ActionMailer::Base.deliveries.first).to have_attributes(
         subject: 'Notify import',

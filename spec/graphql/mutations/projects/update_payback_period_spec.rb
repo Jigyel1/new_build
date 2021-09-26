@@ -9,8 +9,6 @@ RSpec.describe Mutations::Projects::UpdatePaybackPeriod do
 
   describe '.resolve' do
     context 'with permissions' do
-      let!(:pct_cost) { create(:projects_pct_cost, project: project) }
-
       it 'updates the payback period for the project' do
         response, errors = formatted_response(query, current_user: super_user, key: :updatePaybackPeriod)
         expect(errors).to be_nil

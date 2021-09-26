@@ -4,7 +4,7 @@ module Projects
   class BuildingsBuilder < BaseService
     attr_accessor :project, :buildings_count, :apartments_count
 
-    def call
+    def call # rubocop:disable Metrics/AbcSize
       buildings_count.to_i.times.each do |index|
         project.buildings.build(
           name: "#{project.name} #{index}",

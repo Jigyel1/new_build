@@ -2,8 +2,6 @@
 
 module Projects
   class AddressBookUpdater < BaseService
-    attr_reader :address_book
-
     def call
       authorize! address_book.project, to: :update?, with: ProjectPolicy
 

@@ -65,7 +65,10 @@ describe Mutations::Projects::RevertTransition do
       before_all { project.update_column(:status, :ready_for_offer) }
 
       context 'with permissions' do # prio 1 projects
-        before { allow_any_instance_of(Projects::StateMachine).to receive(:prio_one?).and_return(true) }
+        before do
+          pct_value.update_column(:status, :prio_one)
+          create(:projects_pct_cost, project: project, payback_period: 15)
+        end
 
         it 'reverts to technical analysis' do
           response, errors = formatted_response(query, current_user: management, key: :revertProjectTransition)
@@ -112,13 +115,7 @@ describe Mutations::Projects::RevertTransition do
   def query
     <<~GQL
       mutation {
-        revertProjectTransition(
-          input: {
-            attributes: {
-              id: "#{project.id}"
-            }
-          }
-        )
+        revertProjectTransition( input: { attributes: { id: "#{project.id}" } } )
         { project { id status } }
       }
     GQL

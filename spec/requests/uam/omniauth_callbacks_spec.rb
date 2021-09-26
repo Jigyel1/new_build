@@ -9,7 +9,7 @@ describe 'GET api/v1/users/auth/azure_activedirectory_v2/callback' do # rubocop:
   before do
     valid_azure_login_setup
     Rails.application.env_config['devise.mapping'] = Devise.mappings[:user] # If using Devise
-    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:azure_activedirectory_v2]
+    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:azure_activedirectory_v2] # rubocop:disable Naming/VariableNumber
   end
 
   context 'for a valid user' do

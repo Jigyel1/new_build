@@ -1,17 +1,29 @@
 # frozen_string_literal: true
 
 class AddNewFieldsToProjects < ActiveRecord::Migration[6.1]
-  def change
+  def change # rubocop:disable Metrics/SeliseMethodLength
     safety_assured do
-      add_reference :projects, :competition, null: true, foreign_key: { to_table: :admin_toolkit_competitions },
-                                             type: :uuid
-      add_reference :projects, :incharge, null: true, foreign_key: { to_table: :telco_uam_users }, type: :uuid
-    end
+      add_reference(
+        :projects,
+        :competition,
+        foreign_key: { to_table: :admin_toolkit_competitions },
+        type: :uuid
+      )
 
-    add_column :projects, :analysis, :text
-    add_column :projects, :customer_request, :boolean
-    add_column :projects, :verdicts, :jsonb, default: {}
-    add_column :projects, :draft_version, :jsonb, default: {}
-    add_column :projects, :system_sorted_category, :boolean, default: true
+      add_reference(
+        :projects,
+        :incharge,
+        foreign_key: { to_table: :telco_uam_users },
+        type: :uuid
+      )
+
+      change_table :projects, bulk: true do |t|
+        t.text :analysis
+        t.boolean :customer_request
+        t.jsonb :verdicts, default: {}
+        t.jsonb :draft_version, default: {}
+        t.boolean :system_sorted_category, default: true
+      end
+    end
   end
 end

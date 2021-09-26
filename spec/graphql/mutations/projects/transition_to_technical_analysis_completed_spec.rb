@@ -43,7 +43,9 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
                                                        key: :transitionToTechnicalAnalysisCompleted)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis_completed')
-          expect(response.project.verdicts).to have_attributes(technical_analysis_completed: 'This projects looks feasible with the current resources.')
+          expect(response.project.verdicts).to have_attributes(
+            technical_analysis_completed: 'This projects looks feasible with the current resources.'
+          )
 
           label_group = project.label_groups.find_by!(label_group: label_group_a)
           expect(label_group.label_list).to include('Prio 2')
@@ -192,10 +194,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     end
 
     context 'when payback period is system generated' do
-      before do
-        allow_any_instance_of(Projects::StateMachine).to receive(:project_priority).and_return(AdminToolkit::PctValue.first)
-      end
-
       let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
 
       it 'recalculates payback period' do
@@ -208,10 +206,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
     context 'when payback period is manually set' do
       before do
-        allow_any_instance_of(Projects::StateMachine).to receive(:project_priority).and_return(AdminToolkit::PctValue.first)
-      end
-
-      let_it_be(:project_pct_cost) do
+        pct_value.pct_month.update_column(:max, 498)
         create(:projects_pct_cost, :manually_set_payback_period, project: project, payback_period: 498)
       end
 

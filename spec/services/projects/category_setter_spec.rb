@@ -127,7 +127,8 @@ describe Projects::CategorySetter do
     #
     # So the provider for the AdminToolkit::FootprintType is :ftth_swisscom
     #
-    # buildings(7) -> `footprint_building_a` -> [`footprint_value_a`, `footprint_value_b`, `footprint_value_e`, 'footprint_value_g']
+    # buildings(7)
+    #   -> `footprint_building_a`-> [`footprint_value_a`, `footprint_value_b`, `footprint_value_e`, 'footprint_value_g']
     #   `footprint_value_a` has `ftth_swisscom` so the type is :standard
     it 'sets the category as standard' do
       expect(described_class.new(project: project).call).to eq('standard')
@@ -144,7 +145,8 @@ describe Projects::CategorySetter do
     #
     # So the provider for the AdminToolkit::FootprintType is :ftth_swisscom
     #
-    # buildings(22) -> `footprint_building_b` -> [`footprint_value_c`, `footprint_value_d`, `footprint_value_f`, `footprint_value_h`]
+    # buildings(22)
+    #   -> `footprint_building_b`-> [`footprint_value_c`, `footprint_value_d`, `footprint_value_f`, `footprint_value_h`]
     #   `footprint_value_c` has `ftth_swisscom` so the type is :complex
     it 'sets the category as complex' do
       expect(described_class.new(project: project).call).to eq('complex')
@@ -161,7 +163,8 @@ describe Projects::CategorySetter do
     #
     # So the provider for the AdminToolkit::FootprintType is :ftth_sfn
     #
-    # buildings(10) -> `footprint_building_a` -> [`footprint_value_a`, `footprint_value_b`, `footprint_value_e`, 'footprint_value_g']
+    # buildings(10)
+    #   -> `footprint_building_a`-> [`footprint_value_a`, `footprint_value_b`, `footprint_value_e`, 'footprint_value_g']
     #   `footprint_value_b` has `ftth_sfn` so the type is :complex
     it 'sets the category as complex' do
       expect(described_class.new(project: project).call).to eq('complex')
@@ -178,7 +181,8 @@ describe Projects::CategorySetter do
     #
     # So the provider for the AdminToolkit::FootprintType is :ftth_sfn
     #
-    # buildings(11) -> `footprint_building_b` -> [`footprint_value_c`, `footprint_value_d`, `footprint_value_f`, `footprint_value_h`]
+    # buildings(11)
+    #   -> `footprint_building_b`-> [`footprint_value_c`, `footprint_value_d`, `footprint_value_f`, `footprint_value_h`]
     #   `footprint_value_d` has `ftth_sfn` so the type is :marketing_only
     it 'sets the category as marketing_only' do
       expect(described_class.new(project: project).call).to eq('marketing_only')
@@ -195,7 +199,8 @@ describe Projects::CategorySetter do
     #
     # So the provider for the AdminToolkit::FootprintType is :neither
     #
-    # buildings(1) -> `footprint_building_a` -> [`footprint_value_a`, `footprint_value_b`, `footprint_value_e`, 'footprint_value_g']
+    # buildings(1)
+    #   -> `footprint_building_a`-> [`footprint_value_a`, `footprint_value_b`, `footprint_value_e`, 'footprint_value_g']
     #   `footprint_value_e` has `neither` so the type is :complex
     it 'sets the category as complex' do
       expect(described_class.new(project: project).call).to eq('complex')
@@ -212,7 +217,8 @@ describe Projects::CategorySetter do
     #
     # So the provider for the AdminToolkit::FootprintType is :neither
     #
-    # buildings(20) -> `footprint_building_b` -> [`footprint_value_c`, `footprint_value_d`, `footprint_value_f`, `footprint_value_h`]
+    # buildings(20)
+    #   -> `footprint_building_b`-> [`footprint_value_c`, `footprint_value_d`, `footprint_value_f`, `footprint_value_h`]
     #   `footprint_value_f` has `neither` so the type is :marketing_only
     it 'sets the category as marketing_only' do
       expect(described_class.new(project: project).call).to eq('marketing_only')
@@ -229,7 +235,8 @@ describe Projects::CategorySetter do
     #
     # So the provider for the AdminToolkit::FootprintType is :both
     #
-    # buildings(8) -> `footprint_building_a` -> [`footprint_value_a`, `footprint_value_b`, `footprint_value_e`, 'footprint_value_g']
+    # buildings(8)
+    #   -> `footprint_building_a`-> [`footprint_value_a`, `footprint_value_b`, `footprint_value_e`, 'footprint_value_g']
     #   `footprint_value_g` has `both` so the type is :marketing_only
     it 'sets the category as marketing_only' do
       expect(described_class.new(project: project).call).to eq('marketing_only')
@@ -246,7 +253,8 @@ describe Projects::CategorySetter do
     #
     # So the provider for the AdminToolkit::FootprintType is :both
     #
-    # buildings(22) -> `footprint_building_b` -> [`footprint_value_c`, `footprint_value_d`, `footprint_value_f`, 'footprint_value_h']
+    # buildings(22)
+    #   -> `footprint_building_b`-> [`footprint_value_c`, `footprint_value_d`, `footprint_value_f`, 'footprint_value_h']
     #   `footprint_value_h` has `both` so the type is :irrelevant
     it 'sets the category as irrelevant' do
       expect(described_class.new(project: project).call).to eq('irrelevant')

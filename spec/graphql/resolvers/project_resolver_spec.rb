@@ -29,20 +29,37 @@ RSpec.describe Resolvers::ProjectResolver do
           entryType: 'manual'
         )
 
+        expect(data.project.projectNr).to start_with('2')
+
+        expect(data.project.states.to_h).to eq(
+          open: true,
+          technical_analysis: false,
+          technical_analysis_completed: false,
+          ready_for_offer: false
+        )
+      end
+
+      it 'returns proper associations' do
+        data, errors = formatted_response(query, current_user: super_user)
+        expect(errors).to be_nil
+
         expect(data.project.address).to have_attributes(
           street: address.street,
           city: address.city,
           zip: address.zip
         )
 
-        expect(data.project.projectNr).to start_with('2')
-
-        expect(OpenStruct.new(data.project.states.to_h)).to have_attributes(
-          open: true,
-          technical_analysis: false,
-          technical_analysis_completed: false,
-          ready_for_offer: false
+        expect(data.project.accessTechCost).to have_attributes(
+          hfcOnPremiseCost: 9.99,
+          hfcOffPremiseCost: 9.99,
+          lwlOnPremiseCost: 9.99,
+          lwlOffPremiseCost: 9.99
         )
+      end
+
+      it 'returns proper project labels' do
+        data, errors = formatted_response(query, current_user: super_user)
+        expect(errors).to be_nil
 
         expect(data.project.defaultLabelGroup).to have_attributes(
           systemGenerated: true,
@@ -53,23 +70,25 @@ RSpec.describe Resolvers::ProjectResolver do
           systemGenerated: false,
           labelList: ['Prio 1', 'Prio 2']
         )
-
-        expect(data.project.accessTechCost).to have_attributes(
-          hfcOnPremiseCost: 9.99,
-          hfcOffPremiseCost: 9.99,
-          lwlOnPremiseCost: 9.99,
-          lwlOffPremiseCost: 9.99
-        )
       end
     end
 
     context 'for prio 1 projects' do
-      before { allow_any_instance_of(Projects::StateMachine).to receive(:prio_one?).and_return(true) }
+      before do
+        create(
+          :admin_toolkit_pct_value,
+          :prio_one,
+          pct_month: create(:admin_toolkit_pct_month, min: 10, max: 17),
+          pct_cost: create(:admin_toolkit_pct_cost, min: 1187, max: 100_000)
+        )
+
+        create(:projects_pct_cost, project: project, payback_period: 15)
+      end
 
       it 'returns project states without technical analysis completed state' do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
-        expect(OpenStruct.new(data.project.states.to_h)).to have_attributes(
+        expect(data.project.states.to_h).to eq(
           open: true,
           technical_analysis: false,
           ready_for_offer: false
@@ -83,7 +102,7 @@ RSpec.describe Resolvers::ProjectResolver do
       it 'returns project status accordingly' do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
-        expect(OpenStruct.new(data.project.states.to_h)).to have_attributes(
+        expect(data.project.states.to_h).to eq(
           open: true,
           technical_analysis: true,
           technical_analysis_completed: true,

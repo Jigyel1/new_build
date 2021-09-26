@@ -9,8 +9,7 @@ RSpec.describe Resolvers::AdminToolkit::LabelsResolver do
     create(:admin_toolkit_label_group,
            :technical_analysis_completed,
            name: 'Contract',
-           label_list: 'Prio 1, Prio 2, On Hold'
-    )
+           label_list: 'Prio 1, Prio 2, On Hold')
   end
 
   describe '.resolve' do

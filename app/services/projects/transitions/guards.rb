@@ -14,9 +14,7 @@ module Projects
         # the necessary attributes before assigning those to the project.
         pct_cost = OpenStruct.new(attributes.delete(:pct_cost_attributes))
 
-        verdict = attributes.delete(:verdict)
-        project.verdicts[aasm.to_state] = verdict if verdict.present?
-
+        assign_verdict
         project.assign_attributes(attributes)
 
         Transitions::TechnicalAnalysisCompletionGuard.new(
@@ -28,17 +26,20 @@ module Projects
       end
 
       def to_archived?
-        verdict = attributes.delete(:verdict)
-        project.verdicts[aasm.to_state] = verdict if verdict.present?
+        assign_verdict
 
         true
       end
 
       def to_offer?
-        verdict = attributes.delete(:verdict)
-        project.verdicts[aasm.to_state] = verdict if verdict.present?
+        assign_verdict
 
         true
+      end
+
+      def assign_verdict
+        verdict = attributes.delete(:verdict)
+        project.verdicts[aasm.to_state] = verdict if verdict.present?
       end
     end
   end

@@ -86,7 +86,7 @@ def logidze_fields(klass, id, activity_id: Activity.first.id, unscoped: false)
 end
 
 def load_files(count, file)
-  count.times.map { file }
+  Array.new(count) { file }
 end
 
 def file_upload(name: nil)

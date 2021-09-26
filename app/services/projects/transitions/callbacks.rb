@@ -29,7 +29,6 @@ module Projects
         label_group = AdminToolkit::LabelGroup.find_by!(code: project.status)
 
         project_label_group = project.label_groups.find_or_create_by!(label_group: label_group)
-
         project_label_group.label_list << AdminToolkit::PctValue.statuses[project_priority.status]
         project_label_group.save!
       rescue StandardError => e

@@ -19,6 +19,7 @@ AllCops:
     - 'db/migrate/*.acts_as_taggable_on_engine.rb'
     - 'new-build-fe/**/*'
     - 'tmp/**/*'
+    - 'spec/graphql/mutations/export_projects_spec.rb'
 Metrics/BlockLength:
   IgnoredMethods: ['describe']
   Max: 300
@@ -78,3 +79,8 @@ Naming/MemoizedInstanceVariableName:
 
 Naming/VariableNumber:
   EnforcedStyle: snake_case
+
+# Temporarily disabling to enable support for activity logs in projects before its
+# implementation. Once activities are added for projects, this needs to be removed.
+Lint/UselessAssignment:
+  Enabled: false
