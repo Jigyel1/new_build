@@ -899,10 +899,10 @@ CREATE TABLE public.telco_uam_users (
 
 
 --
--- Name: projects_lists; Type: VIEW; Schema: public; Owner: -
+-- Name: projects_lists; Type: MATERIALIZED VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW public.projects_lists AS
+CREATE MATERIALIZED VIEW public.projects_lists AS
  SELECT projects.id,
     projects.external_id,
     projects.project_nr,
@@ -927,7 +927,8 @@ CREATE VIEW public.projects_lists AS
      LEFT JOIN public.addresses ON (((addresses.addressable_id = projects.id) AND ((addresses.addressable_type)::text = 'Project'::text))))
      LEFT JOIN public.projects_address_books ON (((projects_address_books.project_id = projects.id) AND ((projects_address_books.type)::text = 'Investor'::text))))
      LEFT JOIN public.admin_toolkit_kam_regions ON ((admin_toolkit_kam_regions.id = projects.kam_region_id)))
-  ORDER BY projects.move_in_starts_on;
+  ORDER BY projects.move_in_starts_on
+  WITH NO DATA;
 
 
 --
@@ -992,10 +993,10 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: users_lists; Type: VIEW; Schema: public; Owner: -
+-- Name: users_lists; Type: MATERIALIZED VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW public.users_lists AS
+CREATE MATERIALIZED VIEW public.users_lists AS
  SELECT telco_uam_users.id,
     telco_uam_users.active,
     telco_uam_users.email,
@@ -1009,7 +1010,8 @@ CREATE VIEW public.users_lists AS
      JOIN public.profiles ON ((profiles.user_id = telco_uam_users.id)))
      JOIN public.roles ON ((roles.id = telco_uam_users.role_id)))
   WHERE (telco_uam_users.discarded_at IS NULL)
-  ORDER BY (concat(profiles.firstname, ' ', profiles.lastname));
+  ORDER BY (concat(profiles.firstname, ' ', profiles.lastname))
+  WITH NO DATA;
 
 
 --

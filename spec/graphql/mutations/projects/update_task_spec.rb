@@ -11,12 +11,21 @@ RSpec.describe Mutations::Projects::UpdateTask do
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) { { status: :in_progress } }
+      let!(:params) { { status: :completed } }
 
       it 'updates the task' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateTask)
         expect(errors).to be_nil
-        expect(response.task).to have_attributes(status: 'in_progress')
+        expect(response.task).to have_attributes(status: 'completed')
+      end
+
+      it 'updates counter caches of the parent' do
+        _, errors = formatted_response(query(params), current_user: super_user, key: :updateTask)
+        expect(errors).to be_nil
+        expect(building.reload).to have_attributes(
+          completed_tasks_count: 1,
+          tasks_count: 1
+        )
       end
     end
 

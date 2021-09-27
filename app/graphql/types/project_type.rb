@@ -28,7 +28,7 @@ module Types
     field :installation_detail, Types::Projects::InstallationDetailType, null: true
     field :access_technology, String, null: true
     field :analysis, String, null: true
-    field :competition_id, ID, null: true
+    field :competition, Types::AdminToolkit::CompetitionType, null: true
     field :customer_request, Boolean, null: true
     field :in_house_installation, Boolean, null: true
     field :standard_cost_applicable, Boolean, null: true

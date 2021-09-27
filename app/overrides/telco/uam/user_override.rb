@@ -38,6 +38,8 @@ module Telco
       delegate :permissions, :admin?, :nbo_team?, to: :role
       delegate :name, to: :role, prefix: true
 
+      after_save :update_mat_view
+
       # Updates provider & uid for the user.
       #
       # @param auth [Hash] - which contains uid & provider details
@@ -72,6 +74,13 @@ module Telco
 
       def respond_to_missing?(method, include_private = false)
         role.respond_to?(method) || super
+      end
+
+      private
+
+      def update_mat_view
+        UsersList.refresh
+        ProjectsList.refresh
       end
     end
   end

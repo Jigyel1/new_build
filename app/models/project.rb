@@ -3,7 +3,6 @@
 class Project < ApplicationRecord
   include Hooks::Project
   include Enumable::Project
-  include Taskable
 
   default_scope { where.not(status: :archived) }
 
@@ -39,6 +38,8 @@ class Project < ApplicationRecord
 
   validates :address, presence: true
   validates :external_id, uniqueness: true, allow_nil: true
+
+  after_save :update_projects_list, :update_users_list
 
   ACCESSORS = %i[
     site_area

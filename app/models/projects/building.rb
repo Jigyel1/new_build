@@ -2,8 +2,6 @@
 
 module Projects
   class Building < ApplicationRecord
-    include Taskable
-
     belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
     belongs_to :project, counter_cache: true
 

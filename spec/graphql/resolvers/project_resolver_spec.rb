@@ -128,7 +128,8 @@ RSpec.describe Resolvers::ProjectResolver do
         {
           project(id: "#{project.id}") {
             id name projectNr entryType states accessTechnology analysis
-            competitionId inHouseInstallation standardCostApplicable
+            inHouseInstallation standardCostApplicable
+            competition { id name }
             defaultLabelGroup { systemGenerated labelList }
             currentLabelGroup { systemGenerated labelList }
             address { street city zip }

@@ -467,7 +467,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
   add_foreign_key "projects_tasks", "telco_uam_users", column: "assignee_id"
   add_foreign_key "projects_tasks", "telco_uam_users", column: "owner_id"
 
-  create_view "users_lists", sql_definition: <<-SQL
+  create_view "users_lists", materialized: true, sql_definition: <<-SQL
       SELECT telco_uam_users.id,
       telco_uam_users.active,
       telco_uam_users.email,
@@ -483,7 +483,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     WHERE (telco_uam_users.discarded_at IS NULL)
     ORDER BY (concat(profiles.firstname, ' ', profiles.lastname));
   SQL
-  create_view "projects_lists", sql_definition: <<-SQL
+  create_view "projects_lists", materialized: true, sql_definition: <<-SQL
       SELECT projects.id,
       projects.external_id,
       projects.project_nr,

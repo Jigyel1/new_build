@@ -23,10 +23,19 @@ module Projects
     # In other words, don't use `task.update_column(:status, :completed)`
     before_save :update_previous_state
 
+    after_save :update_counter_caches
+
     private
 
     def update_previous_state
       self.previous_status = status_was
+    end
+
+    def update_counter_caches
+      taskable.update_columns(
+        completed_tasks_count: taskable.tasks.completed.count,
+        tasks_count: taskable.tasks.where.not(status: :archived).count
+      )
     end
   end
 end
