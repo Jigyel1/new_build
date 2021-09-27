@@ -13,9 +13,7 @@ module Mutations
       field :project_cost, Types::AdminToolkit::ProjectCostType, null: true
 
       def resolve(attributes:)
-        resolver = ::AdminToolkit::ProjectCostUpdater.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { project_cost: resolver.project_cost }
+        super(::AdminToolkit::ProjectCostUpdater, :project_cost, attributes: attributes.to_h)
       end
     end
   end

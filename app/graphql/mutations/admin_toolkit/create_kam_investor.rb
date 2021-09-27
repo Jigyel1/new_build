@@ -11,9 +11,7 @@ module Mutations
       field :kam_investor, Types::AdminToolkit::KamInvestorType, null: true
 
       def resolve(attributes:)
-        resolver = ::AdminToolkit::KamInvestorCreator.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { kam_investor: resolver.kam_investor }
+        super(::AdminToolkit::KamInvestorCreator, :kam_investor, attributes: attributes.to_h)
       end
     end
   end

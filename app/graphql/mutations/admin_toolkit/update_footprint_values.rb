@@ -16,6 +16,7 @@ module Mutations
           current_user: current_user,
           attributes: attributes.map(&:to_h)
         ).call
+
         { footprint_values: ::AdminToolkit::FootprintValue.all }
       end
     end

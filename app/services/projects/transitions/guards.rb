@@ -27,20 +27,16 @@ module Projects
 
       def to_archived?
         assign_verdict
-
-        true
       end
 
       def to_offer?
         assign_verdict
-
-        true
       end
 
       def assign_verdict
         verdict = attributes.dig(:verdicts, aasm.to_state)
-
         project.verdicts[aasm.to_state] = verdict if verdict.present?
+        true
       end
     end
   end

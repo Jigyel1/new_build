@@ -19,6 +19,8 @@ AllCops:
     - 'db/migrate/*.acts_as_taggable_on_engine.rb'
     - 'new-build-fe/**/*'
     - 'tmp/**/*'
+    # Commenting out `export_projects_spec.rb` to avoid "Naming/VariableNumber: Use snake_case for symbol numbers"
+    # exception as variables will be saved from the excel as is, i.e - PascalCase
     - 'spec/graphql/mutations/export_projects_spec.rb'
 Metrics/BlockLength:
   IgnoredMethods: ['describe']

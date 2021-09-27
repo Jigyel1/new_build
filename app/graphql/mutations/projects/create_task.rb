@@ -15,7 +15,9 @@ module Mutations
         argument :due_date, String, required: true
         argument :assignee_id, ID, required: true
 
-        argument :copy_to_all_buildings, Boolean, required: false
+        argument :copy_to_all_buildings, Boolean, required: false, description: <<~DESC
+          When true, this task will be cloned for all the buildings belonging to the project.
+        DESC
       end
 
       argument :attributes, CreateTaskAttributes, required: true

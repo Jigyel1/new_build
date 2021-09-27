@@ -12,6 +12,7 @@ module Projects
 
       private
 
+      # FIXME: This logic needs to be fixed.
       def validate_access_technology!
         return unless project.standard_cost_applicable
 

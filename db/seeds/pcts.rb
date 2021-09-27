@@ -13,7 +13,7 @@
 end
 
 [
-  { index: 0, min: 1, max: 11 },
+  { index: 0, min: 0, max: 11 },
   { index: 1, min: 12, max: 17 },
   { index: 2, min: 18, max: 23 },
   { index: 3, min: 24, max: 35 },
