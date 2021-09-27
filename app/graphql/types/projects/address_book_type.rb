@@ -19,10 +19,6 @@ module Types
       field :entry_type, String, null: true
 
       field :address, Types::AddressType, null: true
-
-      def type
-        ::Projects::AddressBook.types[object.type]
-      end
     end
   end
 end

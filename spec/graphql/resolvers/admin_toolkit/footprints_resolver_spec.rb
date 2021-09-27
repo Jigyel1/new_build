@@ -66,7 +66,7 @@ RSpec.describe Resolvers::AdminToolkit::FootprintsResolver do
     <<~GQL
       query {
         adminToolkitFootprints {
-          id projectType
+          id category
           footprintType { index provider }
           footprintBuilding { index min max}
         }

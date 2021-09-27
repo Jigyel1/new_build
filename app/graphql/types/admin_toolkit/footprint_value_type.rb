@@ -4,7 +4,7 @@ module Types
   module AdminToolkit
     class FootprintValueType < BaseObject
       field :id, ID, null: true
-      field :project_type, String, null: true
+      field :category, String, null: true
       field :footprint_building, FootprintBuildingType, null: true
       field :footprint_type, FootprintTypeType, null: true
 

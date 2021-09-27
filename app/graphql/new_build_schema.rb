@@ -2,12 +2,6 @@
 
 class NewBuildSchema < GraphQL::Schema
   default_max_page_size Rails.application.config.default_max_page_size
-
-  GENERIC_ERRORS = [
-    ArgumentError,
-    StandardError
-  ].freeze
-
   use GraphQL::Batch
 
   mutation(Types::MutationType)
@@ -40,15 +34,18 @@ class NewBuildSchema < GraphQL::Schema
     # ...
   end
 
-  rescue_from(*GENERIC_ERRORS) do |err|
-    Rollbar.error(err)
-    raise GraphQL::ExecutionError, err
+  rescue_from(StandardError) do |err|
+    handle_error(err)
   end
 
   rescue_from(ActiveModel::UnknownAttributeError) do |err|
-    err.record.errors.add(:base, err.to_s)
+    handle_error(err) { err.record.errors.add(:base, err.to_s) }
+  end
 
+  def self.handle_error(err)
     Rollbar.error(err)
+    yield if block_given?
+
     raise GraphQL::ExecutionError, err
   end
 end

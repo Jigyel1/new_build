@@ -19,10 +19,9 @@ module ActiveStorageAttachmentExtension
     self.owner_id ||= Current.current_user.try(:id)
   end
 
-  # TODO: Use triggers instead of callbacks.
   # `files_count` is available only for Projects & Buildings.
   def update_files_count
-    return unless [Project, Projects::Building].include?(record.class)
+    return if [Project, Projects::Building].exclude?(record.class)
 
     record = record_type.constantize.find(record_id)
     record.update_column(:files_count, record.files.size)

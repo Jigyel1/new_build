@@ -5,9 +5,7 @@ module Resolvers
     class TasksResolver < SearchObjectBase
       VALID_TASKABLE_TYPES = ['Project', 'Projects::Building'].freeze
 
-      scope do
-        ::Projects::Task
-      end
+      scope { ::Projects::Task }
 
       type Types::Projects::TaskConnectionType, null: false
 

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe AdminToolkit::FootprintValue, type: :model do
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:project_type) }
+    it { is_expected.to validate_presence_of(:category) }
 
     it do
       subject = create(
@@ -13,7 +13,7 @@ RSpec.describe AdminToolkit::FootprintValue, type: :model do
         footprint_type: create(:admin_toolkit_footprint_type)
       )
 
-      expect(subject).to validate_uniqueness_of(:project_type)
+      expect(subject).to validate_uniqueness_of(:category)
         .scoped_to(%i[footprint_building_id footprint_type_id])
         .ignoring_case_sensitivity
     end

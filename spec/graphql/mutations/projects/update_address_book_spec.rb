@@ -18,7 +18,7 @@ RSpec.describe Mutations::Projects::UpdateAddressBook do
         expect(errors).to be_nil
         expect(response.addressBook).to have_attributes(
           displayName: 'Architect',
-          type: 'Architect'
+          type: 'architect'
         )
 
         expect(response.addressBook.address).to have_attributes(
@@ -49,7 +49,7 @@ RSpec.describe Mutations::Projects::UpdateAddressBook do
           expect(errors).to be_nil
           expect(response.addressBook).to have_attributes(
             displayName: 'Bauingenieur',
-            type: 'Others'
+            type: 'others'
           )
         end
       end

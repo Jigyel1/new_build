@@ -3,7 +3,7 @@
 module Mutations
   module Projects
     class UpdateLabels < BaseMutation
-      graphql_name 'ProjectsUpdateLabels'
+      graphql_name 'ProjectsUpdateLabels' # To avoid name conflict with `AdminToolkit::UpdateLabels`
 
       class UpdateProjectLabelsAttributes < Types::BaseInputObject
         argument :id, ID, required: true, description: "ID of the label group of the project. Not the project's ID"

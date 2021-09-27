@@ -5,7 +5,7 @@ module Mutations
     class UpdateFootprintValues < BaseMutation
       class UpdateFootprintValuesAttributes < Types::BaseInputObject
         argument :id, ID, required: true
-        argument :project_type, String, required: true
+        argument :category, String, required: true
       end
 
       argument :attributes, [UpdateFootprintValuesAttributes], required: true

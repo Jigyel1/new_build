@@ -5,9 +5,9 @@ class ProjectPolicy < ApplicationPolicy
     user.admin? || user.kam? || user.manager_nbo_kam?
   end
 
-  # FIXME: Based on project category - access will be different!
   def show?
-    create? || user.manager_nbo_kam?
+    stakeholder? || user.admin? || user.management? || user.nbo_team? ||
+      user.kam? || user.presales? || user.manager_nbo_kam?
   end
 
   def create?
@@ -15,7 +15,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || user == record.assignee
+    user.admin? || stakeholder?
   end
 
   def import?
@@ -39,8 +39,23 @@ class ProjectPolicy < ApplicationPolicy
       state_admins
     end
   end
+
   alias to_open? to_technical_analysis?
   alias to_technical_analysis_completed? to_technical_analysis?
   alias to_archived? to_technical_analysis?
   alias to_ready_for_offer? to_technical_analysis?
+
+  private
+
+  def stakeholder? # rubocop:disable Metrics/AbcSize
+    object = case record
+             when Project then record
+             when ActiveStorage::Attachment then record.record
+             when Projects::Task
+               record.taskable.is_a?(Project) ? record.taskable : record.taskable.project
+             else record.project
+             end
+
+    object && (user == object.assignee || user == object.incharge)
+  end
 end

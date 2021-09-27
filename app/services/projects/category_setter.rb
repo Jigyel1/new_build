@@ -11,7 +11,7 @@ module Projects
           'admin_toolkit_footprint_buildings.min <= :value AND admin_toolkit_footprint_buildings.max >= :value',
           value: project.buildings_count
         ).find_by(admin_toolkit_footprint_types: { provider: provider })
-        .try(:project_type)
+        .try(:category)
     rescue ActiveRecord::RecordNotFound
       nil
     end

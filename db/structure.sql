@@ -526,7 +526,7 @@ CREATE TABLE public.admin_toolkit_footprint_types (
 
 CREATE TABLE public.admin_toolkit_footprint_values (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    project_type character varying NOT NULL,
+    category character varying NOT NULL,
     footprint_building_id uuid NOT NULL,
     footprint_type_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -1530,10 +1530,10 @@ CREATE UNIQUE INDEX index_admin_toolkit_project_costs_on_index ON public.admin_t
 
 
 --
--- Name: index_footprint_values_on_project_type_and_references; Type: INDEX; Schema: public; Owner: -
+-- Name: index_footprint_values_on_category_and_references; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_footprint_values_on_project_type_and_references ON public.admin_toolkit_footprint_values USING btree (project_type, footprint_type_id, footprint_building_id);
+CREATE UNIQUE INDEX index_footprint_values_on_category_and_references ON public.admin_toolkit_footprint_values USING btree (category, footprint_type_id, footprint_building_id);
 
 
 --

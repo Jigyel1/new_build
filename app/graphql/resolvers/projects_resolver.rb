@@ -4,9 +4,7 @@
 
 module Resolvers
   class ProjectsResolver < SearchObjectBase
-    scope do
-      ProjectsList.all
-    end
+    scope { ProjectsList.all }
 
     type Types::ProjectConnectionType, null: false
 

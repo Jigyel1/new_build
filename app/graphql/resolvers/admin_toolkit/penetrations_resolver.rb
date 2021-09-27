@@ -21,12 +21,14 @@ module Resolvers
       option :query, type: String, with: :apply_search
 
       def apply_search(scope, value)
-        scope.left_outer_joins(penetration_competitions: :competition, kam_region: { kam: :profile }).where(
-          "CONCAT_WS(' ', zip, city, rate, type, hfc_footprint,
-          admin_toolkit_competitions.name, admin_toolkit_competitions.description,
-          admin_toolkit_kam_regions.name, firstname, lastname, email)
-          iLIKE ?", "%#{value.squish}%"
-        )
+        scope
+          .left_outer_joins(penetration_competitions: :competition, kam_region: { kam: :profile })
+          .where(
+            "CONCAT_WS(' ', zip, city, rate, type, hfc_footprint,
+            admin_toolkit_competitions.name, admin_toolkit_competitions.description,
+            admin_toolkit_kam_regions.name, firstname, lastname, email)
+            iLIKE ?", "%#{value.squish}%"
+          )
       end
     end
   end

@@ -14,7 +14,7 @@ describe Projects::CategorySetter do
   let_it_be(:footprint_value_a) do # 1-10 buildings, :ftth_swisscom
     create(
       :admin_toolkit_footprint_value,
-      project_type: :standard,
+      category: :standard,
       footprint_type: footprint_type_a,
       footprint_building: footprint_building_a
     )
@@ -23,7 +23,7 @@ describe Projects::CategorySetter do
   let_it_be(:footprint_value_b) do # 1-10 buildings, :ftth_sfn
     create(
       :admin_toolkit_footprint_value,
-      project_type: :complex,
+      category: :complex,
       footprint_type: footprint_type_b,
       footprint_building: footprint_building_a
     )
@@ -32,7 +32,7 @@ describe Projects::CategorySetter do
   let_it_be(:footprint_value_c) do # 11-22 buildings, :ftth_swisscom
     create(
       :admin_toolkit_footprint_value,
-      project_type: :complex,
+      category: :complex,
       footprint_type: footprint_type_a,
       footprint_building: footprint_building_b
     )
@@ -41,7 +41,7 @@ describe Projects::CategorySetter do
   let_it_be(:footprint_value_d) do # 11-22 buildings, :ftth_sfn
     create(
       :admin_toolkit_footprint_value,
-      project_type: :marketing_only,
+      category: :marketing_only,
       footprint_type: footprint_type_b,
       footprint_building: footprint_building_b
     )
@@ -50,7 +50,7 @@ describe Projects::CategorySetter do
   let_it_be(:footprint_value_e) do # 1-10 buildings, :neither
     create(
       :admin_toolkit_footprint_value,
-      project_type: :complex,
+      category: :complex,
       footprint_type: footprint_type_c,
       footprint_building: footprint_building_a
     )
@@ -59,7 +59,7 @@ describe Projects::CategorySetter do
   let_it_be(:footprint_value_f) do # 11-22 buildings, :neither
     create(
       :admin_toolkit_footprint_value,
-      project_type: :marketing_only,
+      category: :marketing_only,
       footprint_type: footprint_type_c,
       footprint_building: footprint_building_b
     )
@@ -68,7 +68,7 @@ describe Projects::CategorySetter do
   let_it_be(:footprint_value_g) do # 1-10 buildings, :both
     create(
       :admin_toolkit_footprint_value,
-      project_type: :marketing_only,
+      category: :marketing_only,
       footprint_type: footprint_type_d,
       footprint_building: footprint_building_a
     )
@@ -77,7 +77,7 @@ describe Projects::CategorySetter do
   let_it_be(:footprint_value_h) do # 11-22 buildings, :both
     create(
       :admin_toolkit_footprint_value,
-      project_type: :irrelevant,
+      category: :irrelevant,
       footprint_type: footprint_type_d,
       footprint_building: footprint_building_b
     )
