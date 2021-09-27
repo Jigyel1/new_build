@@ -41,12 +41,6 @@ class ProjectPolicy < ApplicationPolicy
   end
   alias to_open? to_technical_analysis?
   alias to_technical_analysis_completed? to_technical_analysis?
-
-  def to_archived?
-    user.management?
-  end
-
-  def to_ready_for_offer?
-    user.management?
-  end
+  alias to_archived? to_technical_analysis?
+  alias to_ready_for_offer? to_technical_analysis?
 end
