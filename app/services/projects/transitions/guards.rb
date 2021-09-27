@@ -38,7 +38,8 @@ module Projects
       end
 
       def assign_verdict
-        verdict = attributes.delete(:verdict)
+        verdict = attributes.dig(:verdicts, aasm.to_state)
+
         project.verdicts[aasm.to_state] = verdict if verdict.present?
       end
     end

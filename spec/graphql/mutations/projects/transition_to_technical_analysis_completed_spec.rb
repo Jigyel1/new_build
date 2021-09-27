@@ -271,7 +271,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               constructionType: "b2b_new"
               customerRequest: false
               priority: "proactive"
-              verdict: "This projects looks feasible with the current resources."
+              verdicts: { technical_analysis_completed: "This projects looks feasible with the current resources." }
               #{access_tech_cost(args[:set_access_tech_cost])}
               #{installation_detail(args[:set_installation_detail])}
               #{pct_cost(args[:set_pct_cost])}

@@ -37,7 +37,7 @@ describe Mutations::Projects::TransitionToArchived do
           input: {
             attributes: {
               id: "#{project.id}"
-              verdict: "This project is no longer active"
+              verdicts: { archived: "This project is no longer active" }
             }
           }
         )

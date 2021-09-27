@@ -5,7 +5,7 @@ module Mutations
     class TransitionToReadyForOffer < BaseMutation
       class TransitionToReadyForOfferAttributes < Types::BaseInputObject
         argument :id, ID, required: true
-        argument :verdict, String, required: false
+        argument :verdicts, GraphQL::Types::JSON, required: false
       end
 
       argument :attributes, TransitionToReadyForOfferAttributes, required: true

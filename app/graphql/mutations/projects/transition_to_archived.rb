@@ -5,7 +5,7 @@ module Mutations
     class TransitionToArchived < BaseMutation
       class TransitionToArchivedAttributes < Types::BaseInputObject
         argument :id, ID, required: true
-        argument :verdict, String, required: false
+        argument :verdicts, GraphQL::Types::JSON, required: false
       end
 
       argument :attributes, TransitionToArchivedAttributes, required: true

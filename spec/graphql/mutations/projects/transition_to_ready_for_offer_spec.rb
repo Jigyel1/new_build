@@ -37,7 +37,7 @@ describe Mutations::Projects::TransitionToReadyForOffer do
           input: {
             attributes: {
               id: "#{project.id}"
-              verdict: "Please upload the offer docs."
+              verdicts: { ready_for_offer: "Please upload the offer docs." }
             }
           }
         )
