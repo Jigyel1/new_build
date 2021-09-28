@@ -100,6 +100,12 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
         expect(data.project).to be_nil
         expect(errors).to eq(["Project connection cost #{t('projects.transition.project_connection_cost_missing')}"])
       end
+
+      it 'returns lease cost if lease_cost_only flag is set' do
+        data, errors = formatted_response(query(lease_cost_only: true), current_user: super_user)
+        expect(errors).to be_nil
+        expect(data.projectPctCost.leaseCost).to eq(20930.4)
+      end
     end
 
     context 'for irrelevant projects' do
@@ -128,12 +134,15 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
   end
 
   def query(args = {})
+    lease_cost_only = args[:lease_cost_only] || false
+
     <<~GQL
       query {
         projectPctCost(
           attributes: {
             projectId: "#{project.id}"
             competitionId: "#{args[:competition_id]}"
+            leaseCostOnly: #{lease_cost_only}
             #{project_connection_cost(args)}
           }
         )

@@ -18,6 +18,7 @@ module Projects
       :project_connection_cost,
       presence: {
         if: -> { project.complex? },
+        unless: :lease_cost_only,
         message: I18n.t('projects.transition.project_connection_cost_missing')
       }
     )
