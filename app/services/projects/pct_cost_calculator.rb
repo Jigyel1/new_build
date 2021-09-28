@@ -4,12 +4,11 @@ module Projects
   class PctCostCalculator < BaseService
     include ActiveModel::Validations
 
-    attr_accessor :project_id, :competition_id, :lease_cost_only, :apartments_count,
+    attr_accessor :project_id, :competition_id, :lease_cost_only, :apartments_count, :sockets,
                   :project_connection_cost, :pct_cost, :arpu, :socket_installation_rate, :standard_connection_cost
 
     set_callback :call, :before, :validate!
 
-    delegate :sockets, to: :installation_detail, allow_nil: true
     delegate :installation_detail, :address, to: :project, allow_nil: true
     delegate :arpu, :standard_connection_cost, :socket_installation_rate, to: :project_cost_instance
     delegate :rate, to: :penetration, prefix: true
@@ -43,6 +42,7 @@ module Projects
               lease_cost: lease_cost,
               socket_installation_cost: socket_installation_cost,
               arpu: arpu,
+              project_connection_cost: project_connection_cost,
               penetration_rate: penetration_rate,
               payback_period: payback_period
             }
@@ -64,14 +64,14 @@ module Projects
       competition.lease_rate * apartments_count * penetration_rate * MONTHS_IN_FIVE_YEARS
     end
 
+    def project_cost
+      connection_cost + socket_installation_cost
+    end
+
     # No. of sockets per apartment * No. of Apartments in Project * Socket Installation Rate [from the admin toolkit]
     # Notice the use of `to_i` even for integers. Well that is to convert nils to 0s if any.
     def socket_installation_cost
       sockets.to_i * apartments_count * socket_installation_rate
-    end
-
-    def project_cost
-      connection_cost + socket_installation_cost
     end
 
     # Project Cost  /  ( No. of Homes * ARPU * Penetration rate * Competition factor)

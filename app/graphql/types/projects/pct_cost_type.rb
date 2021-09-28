@@ -13,7 +13,9 @@ module Types
       field :socket_installation_cost, Float, null: true
       field :arpu, Float, null: true
       field :lease_cost, Float, null: true
+      field :project_connection_cost, Float, null: true
       field :penetration_rate, Float, null: true
+
       field :payback_period, Int, null: true, description: 'In months'
       field :payback_period_formatted, String, null: true
       field :system_generated_payback_period, Boolean, null: true

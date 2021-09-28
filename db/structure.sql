@@ -939,6 +939,7 @@ CREATE TABLE public.projects_pct_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     project_cost numeric(15,2),
     socket_installation_cost numeric(15,2) DEFAULT 0.0,
+    project_connection_cost numeric(15,2),
     arpu numeric(15,2),
     lease_cost numeric(15,2),
     penetration_rate double precision,

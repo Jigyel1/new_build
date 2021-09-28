@@ -62,7 +62,6 @@ module Projects
                                     .group(:id)
                                     .reorder('COUNT(projects_tasks.id) DESC', 'files_count DESC')
 
-      # byebug
       @ordered_rows = rows - (idable_rows + addressable_rows.to_a)
     end
 

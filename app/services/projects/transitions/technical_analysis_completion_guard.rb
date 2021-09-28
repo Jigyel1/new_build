@@ -20,7 +20,8 @@ module Projects
         pct_calculator = ::Projects::PctCostCalculator.new(
           project_id: project.id,
           competition_id: project.competition_id,
-          project_connection_cost: project_connection_cost
+          project_connection_cost: project_connection_cost,
+          sockets: project.installation_detail.try(:sockets)
         )
         pct_calculator.call
         project.pct_cost = pct_calculator.pct_cost
