@@ -14,5 +14,12 @@ FactoryBot.define do
     trait :tomorrow do
       created_at { Date.tomorrow }
     end
+
+    after(:build) do |activity|
+      activity.log_data = {
+        owner_email: activity.owner.email,
+        recipient_email: activity.recipient.try(:email)
+      } if activity.log_data.blank?
+    end
   end
 end

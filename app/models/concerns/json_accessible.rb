@@ -3,30 +3,24 @@
 module JsonAccessible
   extend ActiveSupport::Concern
 
-  # TODO: OR change this to store :log_data, accessors: %i[recipient_email owner_email...], coder: JSON
-  %w[recipient_email owner_email parameters].each do |method|
-    define_method method do
-      log_data[method]
-    end
+  included do
+    store :log_data, accessors: %i[recipient_email owner_email parameters], coder: JSON
+
+    store :parameters, accessors: %i[
+      role
+      previous_role
+      name
+      zip
+      labelList
+      standard
+      max
+      min
+      investor_id
+    ], coder: JSON
   end
 
-  PARAMETERS = %w[
-    role
-    previous_role
-    active
-    name
-    zip
-    labelList
-    standard
-    max
-    min
-    investor_id
-  ].freeze
-
-  PARAMETERS.each do |method|
-    define_method method do
-      log_data.dig('parameters', method)
-    end
+  def active
+    log_data.dig('parameters', 'active')
   end
 
   def status_text
