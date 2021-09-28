@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::Projects::TasksResolver do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:administrator) { create(:user, :administrator) }
   let_it_be(:project) { create(:project, assignee: super_user) }
   let_it_be(:building) { create(:building, assignee: administrator, project: project) }

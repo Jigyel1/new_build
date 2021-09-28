@@ -3,7 +3,20 @@
 require 'rails_helper'
 
 describe Mutations::Projects::RevertTransition do
-  let_it_be(:management) { create(:user, :management) }
+  let_it_be(:super_user) do
+    create(
+      :user,
+      :super_user,
+      with_permissions: {
+        project: %i[
+          open_standard
+          technical_analysis_standard
+          technical_analysis_completed_standard
+          ready_for_offer_standard
+        ]
+      }
+    )
+  end
   let_it_be(:project) { create(:project) }
   let_it_be(:pct_value) do
     create(
@@ -20,7 +33,7 @@ describe Mutations::Projects::RevertTransition do
 
       context 'with permissions' do
         it 'reverts to open' do
-          response, errors = formatted_response(query, current_user: management, key: :revertProjectTransition)
+          response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
           expect(errors).to be_nil
           expect(response.project.status).to eq('open')
         end
@@ -43,7 +56,7 @@ describe Mutations::Projects::RevertTransition do
 
       context 'with permissions' do
         it 'reverts to technical analysis' do
-          response, errors = formatted_response(query, current_user: management, key: :revertProjectTransition)
+          response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis')
         end
@@ -64,14 +77,15 @@ describe Mutations::Projects::RevertTransition do
     context 'for projects with status - ready for offer' do
       before_all { project.update_column(:status, :ready_for_offer) }
 
-      context 'with permissions' do # prio 1 projects
+      context 'with permissions' do
+        # prio 1 projects
         before do
           pct_value.update_column(:status, :prio_one)
           create(:projects_pct_cost, project: project, payback_period: 15)
         end
 
         it 'reverts to technical analysis' do
-          response, errors = formatted_response(query, current_user: management, key: :revertProjectTransition)
+          response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis')
         end
@@ -92,7 +106,7 @@ describe Mutations::Projects::RevertTransition do
         let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
 
         it 'reverts to technical analysis completed' do
-          response, errors = formatted_response(query, current_user: management, key: :revertProjectTransition)
+          response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis_completed')
         end
@@ -104,7 +118,7 @@ describe Mutations::Projects::RevertTransition do
         let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
 
         it 'reverts to technical analysis completed' do
-          response, errors = formatted_response(query, current_user: management, key: :revertProjectTransition)
+          response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis_completed')
         end

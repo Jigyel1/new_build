@@ -22,6 +22,8 @@ FactoryBot.define do
 
     after(:create) do |user, evaluator|
       evaluator.with_permissions.each_pair do |resource, actions|
+        actions = [actions] unless actions.is_a?(Array)
+
         create(
           :permission,
           accessor: user.role,

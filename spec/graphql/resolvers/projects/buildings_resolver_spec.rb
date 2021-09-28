@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::Projects::BuildingsResolver do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:address) { build(:address, street: 'Sharell Meadows', city: 'New Murray', zip: '16564') }
 
   let_it_be(:project) do

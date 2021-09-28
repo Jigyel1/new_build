@@ -7,3 +7,29 @@ user:
   - delete
 role:
   - read
+project:
+  - read
+  - create
+  - update
+
+  - open_standard
+  - technical_analysis_standard
+  - technical_analysis_completed_standard
+  - ready_for_offer_standard
+
+  - open_complex
+  - technical_analysis_complex
+  - technical_analysis_completed_complex
+  - ready_for_offer_complex
+
+  - open_irrelevant
+  - technical_analysis_irrelevant
+  - technical_analysis_completed_irrelevant
+  - ready_for_offer_irrelevant
+
+  - open_marketing_only
+  - technical_analysis_marketing_only
+  - technical_analysis_completed_marketing_only
+  - ready_for_offer_marketing_only
+
+  - archive

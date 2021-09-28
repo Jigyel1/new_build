@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 describe Mutations::Projects::TransitionToArchived do
-  let_it_be(:management) { create(:user, :management) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :archive }) }
   let_it_be(:project) { create(:project, :technical_analysis_completed) }
 
   describe '.resolve' do
     context 'for standard projects' do
       context 'with permissions' do
         it 'updates project status' do
-          response, errors = formatted_response(query, current_user: management, key: :transitionToArchived)
+          response, errors = formatted_response(query, current_user: super_user, key: :transitionToArchived)
           expect(errors).to be_nil
           expect(response.project.status).to eq('archived')
           expect(response.project.verdicts).to have_attributes(archived: 'This project is no longer active')

@@ -28,7 +28,20 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     )
   end
 
-  let_it_be(:team_expert) { create(:user, :team_expert) }
+  let_it_be(:super_user) do
+    create(
+      :user,
+      :super_user,
+      with_permissions: {
+        project: %i[
+          technical_analysis_completed_complex
+          technical_analysis_completed_standard
+          ready_for_offer_standard
+        ]
+      }
+    )
+  end
+
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:management) { create(:user, :management) }
   let_it_be(:address) { build(:address, zip: zip) }
@@ -36,53 +49,31 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
 
   describe '.resolve' do
-    context 'for standard projects' do
-      context 'with permissions' do
-        it 'updates project status' do
-          response, errors = formatted_response(query, current_user: team_expert,
-                                                       key: :transitionToTechnicalAnalysisCompleted)
-          expect(errors).to be_nil
-          expect(response.project.status).to eq('technical_analysis_completed')
-          expect(response.project.verdicts).to have_attributes(
-            technical_analysis_completed: 'This projects looks feasible with the current resources.'
-          )
-
-          label_group = project.label_groups.find_by!(label_group: label_group_a)
-          expect(label_group.label_list).to include('Prio 2')
-        end
-      end
-
-      context 'without permissions' do
-        it 'forbids action' do
-          response, errors = formatted_response(query, current_user: kam, key: :transitionToTechnicalAnalysisCompleted)
-          expect(response.project).to be_nil
-          expect(errors).to eq(['Not Authorized'])
-          expect(project.reload.status).to eq('technical_analysis')
-        end
-      end
-    end
-
-    context 'for complex projects' do
+    context 'with permissions' do
       before_all { project.update_column(:category, :complex) }
       let_it_be(:params) { { set_pct_cost: true } }
 
-      context 'with permissions' do
-        it 'updates project status' do
-          response, errors = formatted_response(query(params), current_user: management,
-                                                               key: :transitionToTechnicalAnalysisCompleted)
-          expect(errors).to be_nil
-          expect(response.project.status).to eq('technical_analysis_completed')
-        end
-      end
+      it 'updates project status' do
+        response, errors = formatted_response(query(params), current_user: super_user,
+                                                             key: :transitionToTechnicalAnalysisCompleted)
+        expect(errors).to be_nil
+        expect(response.project.status).to eq('technical_analysis_completed')
+        expect(response.project.verdicts).to have_attributes(
+          technical_analysis_completed: 'This projects looks feasible with the current resources.'
+        )
 
-      context 'without permissions' do
-        it 'forbids action' do
-          response, errors = formatted_response(query, current_user: team_expert,
-                                                       key: :transitionToTechnicalAnalysisCompleted)
-          expect(response.project).to be_nil
-          expect(errors).to eq(['Not Authorized'])
-          expect(project.reload.status).to eq('technical_analysis')
-        end
+        label_group = project.label_groups.find_by!(label_group: label_group_a)
+        expect(label_group.label_list).to include('Prio 2')
+      end
+    end
+
+    context 'without permissions' do
+      it 'forbids action' do
+        response, errors = formatted_response(query, current_user: kam,
+                                                     key: :transitionToTechnicalAnalysisCompleted)
+        expect(response.project).to be_nil
+        expect(errors).to eq(['Not Authorized'])
+        expect(project.reload.status).to eq('technical_analysis')
       end
     end
 
@@ -90,7 +81,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       it 'throws error when preferred access technology is set to FTTH' do
         response, errors = formatted_response(
           query(standard_cost_applicable: true, access_technology: :ftth),
-          current_user: team_expert,
+          current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
 
@@ -102,7 +93,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       it 'throws error when access technology cost is set' do
         response, errors = formatted_response(
           query(standard_cost_applicable: true, set_access_tech_cost: true),
-          current_user: team_expert,
+          current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
 
@@ -116,7 +107,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       it 'throws error if in house details are not set' do
         response, errors = formatted_response(
           query(in_house_installation: true),
-          current_user: team_expert,
+          current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
 
@@ -130,7 +121,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       it 'throws error if in house details are set' do
         response, errors = formatted_response(
           query(set_installation_detail: true),
-          current_user: team_expert,
+          current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
 
@@ -144,7 +135,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.update_column(:status, :prio_one) }
 
       it 'updates the project to ready for offer state' do
-        response, errors = formatted_response(query, current_user: management,
+        response, errors = formatted_response(query, current_user: super_user,
                                                      key: :transitionToTechnicalAnalysisCompleted)
         expect(errors).to be_nil
         expect(response.project.status).to eq('ready_for_offer')
@@ -159,7 +150,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.update_column(:status, :on_hold) }
 
       it 'updates the project to technical analysis completed' do
-        response, errors = formatted_response(query, current_user: team_expert,
+        response, errors = formatted_response(query, current_user: super_user,
                                                      key: :transitionToTechnicalAnalysisCompleted)
         expect(errors).to be_nil
         expect(response.project.status).to eq('technical_analysis_completed')
@@ -173,7 +164,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { penetration.update_column(:zip, '1198') }
 
       it 'responds with error' do
-        response, errors = formatted_response(query, current_user: team_expert,
+        response, errors = formatted_response(query, current_user: super_user,
                                                      key: :transitionToTechnicalAnalysisCompleted)
         expect(response.project).to be_nil
         expect(errors).to eq([t('projects.transition.error_in_pct_calculation',
@@ -185,7 +176,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.pct_month.update_column(:max, 13) }
 
       it 'responds with error' do
-        response, errors = formatted_response(query, current_user: team_expert,
+        response, errors = formatted_response(query, current_user: super_user,
                                                      key: :transitionToTechnicalAnalysisCompleted)
         expect(response.project).to be_nil
         expect(errors).to eq([t('projects.transition.error_while_adding_label',
@@ -197,7 +188,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
 
       it 'recalculates payback period' do
-        _response, errors = formatted_response(query, current_user: team_expert,
+        _response, errors = formatted_response(query, current_user: super_user,
                                                       key: :transitionToTechnicalAnalysisCompleted)
         expect(errors).to be(nil)
         expect(project.reload.pct_cost.payback_period).to be(17)
@@ -211,7 +202,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       end
 
       it 'does not recalculate the payback period' do
-        _response, errors = formatted_response(query, current_user: team_expert,
+        _response, errors = formatted_response(query, current_user: super_user,
                                                       key: :transitionToTechnicalAnalysisCompleted)
         expect(errors).to be(nil)
         expect(project.reload.pct_cost.payback_period).to be(498)

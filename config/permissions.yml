@@ -1,5 +1,5 @@
-super_user: # role
-  user: # module
+super_user:
+  user:
     - read
     - invite
     - update
@@ -8,6 +8,33 @@ super_user: # role
     - delete
   role:
     - read
+  project:
+    - read
+    - create
+    - update
+    - delete
+
+    - open_standard
+    - technical_analysis_standard
+    - technical_analysis_completed_standard
+    - ready_for_offer_standard
+
+    - open_complex
+    - technical_analysis_complex
+    - technical_analysis_completed_complex
+    - ready_for_offer_complex
+
+    - open_irrelevant
+    - technical_analysis_irrelevant
+    - technical_analysis_completed_irrelevant
+    - ready_for_offer_irrelevant
+
+    - open_marketing_only
+    - technical_analysis_marketing_only
+    - technical_analysis_completed_marketing_only
+    - ready_for_offer_marketing_only
+
+    - archive
 
 administrator:
   user:
@@ -18,4 +45,139 @@ administrator:
     - update_status
     - delete
   role:
+    - read
+  project:
+    - read
+    - create
+    - update
+
+    - open_standard
+    - technical_analysis_standard
+    - technical_analysis_completed_standard
+    - ready_for_offer_standard
+
+    - open_complex
+    - technical_analysis_complex
+    - technical_analysis_completed_complex
+    - ready_for_offer_complex
+
+    - open_irrelevant
+    - technical_analysis_irrelevant
+    - technical_analysis_completed_irrelevant
+    - ready_for_offer_irrelevant
+
+    - open_marketing_only
+    - technical_analysis_marketing_only
+    - technical_analysis_completed_marketing_only
+    - ready_for_offer_marketing_only
+
+    - archive
+
+team_expert:
+  project:
+    - read
+    - create
+
+    - open_standard
+    - technical_analysis_standard
+    - technical_analysis_completed_standard
+    - ready_for_offer_standard
+
+team_standard:
+  project:
+    - read
+    - create
+
+management:
+  project:
+    - read
+    - create
+    - update
+
+    - open_standard
+    - technical_analysis_standard
+    - technical_analysis_completed_standard
+    - ready_for_offer_standard
+
+    - open_complex
+    - technical_analysis_complex
+    - technical_analysis_completed_complex
+    - ready_for_offer_complex
+
+    - open_irrelevant
+    - technical_analysis_irrelevant
+    - technical_analysis_completed_irrelevant
+    - ready_for_offer_irrelevant
+
+    - open_marketing_only
+    - technical_analysis_marketing_only
+    - technical_analysis_completed_marketing_only
+    - ready_for_offer_marketing_only
+
+presales:
+  project:
+    - read
+    - create
+
+    - open_standard
+    - technical_analysis_standard
+    - technical_analysis_completed_standard
+    - ready_for_offer_standard
+
+    - open_complex
+    - technical_analysis_complex
+    - technical_analysis_completed_complex
+    - ready_for_offer_complex
+
+    - open_irrelevant
+    - technical_analysis_irrelevant
+    - technical_analysis_completed_irrelevant
+    - ready_for_offer_irrelevant
+
+    - open_marketing_only
+    - technical_analysis_marketing_only
+    - technical_analysis_completed_marketing_only
+    - ready_for_offer_marketing_only
+
+manager_presales:
+  project:
+    - read
+
+    - open_standard
+    - technical_analysis_standard
+    - technical_analysis_completed_standard
+    - ready_for_offer_standard
+
+    - open_complex
+    - technical_analysis_complex
+    - technical_analysis_completed_complex
+    - ready_for_offer_complex
+
+    - open_irrelevant
+    - technical_analysis_irrelevant
+    - technical_analysis_completed_irrelevant
+    - ready_for_offer_irrelevant
+
+    - open_marketing_only
+    - technical_analysis_marketing_only
+    - technical_analysis_completed_marketing_only
+    - ready_for_offer_marketing_only
+
+manager_nbo_kam:
+  project:
+    - read
+    - create
+
+    - open_standard
+    - technical_analysis_standard
+    - technical_analysis_completed_standard
+    - ready_for_offer_standard
+
+kam:
+  project:
+    - read
+    - create
+
+manager_commercialization:
+  project:
     - read

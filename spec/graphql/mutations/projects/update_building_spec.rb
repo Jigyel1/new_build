@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::Projects::UpdateBuilding do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:project) { create(:project) }
   let_it_be(:building) { create(:building, project: project) }
 

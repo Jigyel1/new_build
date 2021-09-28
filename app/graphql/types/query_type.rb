@@ -81,7 +81,8 @@ module Types
       preauthorize: { record: ::Project, with: ::ProjectPolicy, to: :index? }
     )
     field :project, resolver: Resolvers::ProjectResolver, authorize: { with: ProjectPolicy }
-    field :project_pct_cost, resolver: Resolvers::Projects::PctCostResolver, authorize: { with: ProjectPolicy }
+    field :project_pct_cost, resolver: Resolvers::Projects::PctCostResolver,
+                             authorize: { with: ProjectPolicy, record: Project }
     field :project_states, resolver: Resolvers::Projects::StatesResolver, description: <<~DESC
       All possible states that any project may/may not have.
     DESC
@@ -90,14 +91,19 @@ module Types
       :buildings,
       resolver: Resolvers::Projects::BuildingsResolver,
       connection: true,
-      preauthorize: { record: ::Project, with: ::ProjectPolicy, to: :index? }
+      preauthorize: { record: ::Project, with: ::ProjectPolicy }
     )
-    field :building, resolver: Resolvers::Projects::BuildingResolver, authorize: { with: ProjectPolicy }
 
-    field :tasks, resolver: Resolvers::Projects::TasksResolver, authorize: { with: ProjectPolicy, to: :index? }
-    field :task, resolver: Resolvers::Projects::TaskResolver, authorize: { with: ProjectPolicy }
+    field(
+      :building,
+      resolver: Resolvers::Projects::BuildingResolver,
+      authorize: { record: ::Project, with: ProjectPolicy }
+    )
 
-    field :files, resolver: Resolvers::Projects::FilesResolver, authorize: { with: ProjectPolicy, to: :index? }
-    field :file, resolver: Resolvers::Projects::FileResolver, authorize: { with: ProjectPolicy }
+    field :tasks, resolver: Resolvers::Projects::TasksResolver, authorize: { with: ProjectPolicy, record: Project }
+    field :task, resolver: Resolvers::Projects::TaskResolver, authorize: { with: ProjectPolicy, record: Project }
+
+    field :files, resolver: Resolvers::Projects::FilesResolver, authorize: { with: ProjectPolicy, record: Project }
+    field :file, resolver: Resolvers::Projects::FileResolver, authorize: { with: ProjectPolicy, record: Project }
   end
 end

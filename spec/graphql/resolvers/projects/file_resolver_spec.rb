@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Resolvers::Projects::FileResolver do
   using TimeFormatter
 
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:project) { create(:project, files: [file_upload]) }
   let_it_be(:file) { project.files.first }
   before_all { file.update_column(:owner_id, super_user.id) }

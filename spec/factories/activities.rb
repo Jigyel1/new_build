@@ -16,10 +16,12 @@ FactoryBot.define do
     end
 
     after(:build) do |activity|
-      activity.log_data = {
-        owner_email: activity.owner.email,
-        recipient_email: activity.recipient.try(:email)
-      } if activity.log_data.blank?
+      if activity.log_data.blank?
+        activity.log_data = {
+          owner_email: activity.owner.email,
+          recipient_email: activity.recipient.try(:email)
+        }
+      end
     end
   end
 end

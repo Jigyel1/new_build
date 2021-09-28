@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Mutations::CreateProject do
   using TimeFormatter
 
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :create }) }
   let_it_be(:kam) { create(:user, :kam) }
 
   describe '.resolve' do

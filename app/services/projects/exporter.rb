@@ -7,7 +7,7 @@ module Projects
     attr_accessor :ids
 
     def call
-      authorize! Project, to: :export?, with: ProjectPolicy
+      authorize! Project, to: :update?, with: ProjectPolicy
 
       string_io = CSV.generate(headers: true) do |csv|
         csv << Exports::PrepareHeaders.new(csv_headers, projects).call

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Mutations::Projects::TransitionToReadyForOffer do
-  let_it_be(:management) { create(:user, :management) }
+  let_it_be(:management) { create(:user, :management, with_permissions: { project: :ready_for_offer_standard }) }
   let_it_be(:project) { create(:project, :technical_analysis_completed) }
 
   describe '.resolve' do

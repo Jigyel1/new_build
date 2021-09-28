@@ -5,7 +5,7 @@ module Projects
     attr_reader :address_book
 
     def call
-      authorize! project, to: :create?, with: ProjectPolicy
+      authorize! project, to: :update?
 
       with_tracking(activity_id = SecureRandom.uuid) do
         @address_book = project.address_books.build(attributes)

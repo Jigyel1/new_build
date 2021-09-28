@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Mutations::ExportProjects do
   include ProjectsSpecHelper
 
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:team_expert) { create(:user, :team_expert) }
   before_all { create_projects }

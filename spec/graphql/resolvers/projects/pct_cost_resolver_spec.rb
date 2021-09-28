@@ -16,7 +16,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
     )
   end
 
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:address) { build(:address, zip: zip) }
   let_it_be(:project) do
     create(
@@ -104,7 +104,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
       it 'returns lease cost if lease_cost_only flag is set' do
         data, errors = formatted_response(query(lease_cost_only: true), current_user: super_user)
         expect(errors).to be_nil
-        expect(data.projectPctCost.leaseCost).to eq(20930.4)
+        expect(data.projectPctCost.leaseCost).to eq(20_930.4)
       end
     end
 

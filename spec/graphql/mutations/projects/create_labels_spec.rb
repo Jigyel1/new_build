@@ -10,8 +10,11 @@ RSpec.describe Mutations::Projects::CreateLabels do
   describe '.resolve' do
     context 'with permissions' do
       it 'updates the label list' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
-                                                             key: :createProjectLabels)
+        response, errors = formatted_response(
+          query(params),
+          current_user: create(:user, :super_user, with_permissions: { project: :update }),
+          key: :createProjectLabels
+        )
         expect(errors).to be_nil
         expect(response.labelGroup.labelList).to match_array(['Prio 3', 'On Hold'])
       end
@@ -19,8 +22,11 @@ RSpec.describe Mutations::Projects::CreateLabels do
 
     context 'without permissions' do
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :kam),
-                                                             key: :createProjectLabels)
+        response, errors = formatted_response(
+          query(params),
+          current_user: create(:user, :kam),
+          key: :createProjectLabels
+        )
         expect(response.labelGroup).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end

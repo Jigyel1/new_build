@@ -3,7 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::Projects::FilesResolver do
-  let_it_be(:super_user) { create(:user, :super_user, profile: build(:profile, firstname: 'Jack', lastname: 'Ma')) }
+  let_it_be(:super_user) do
+    create(:user,
+           :super_user,
+           with_permissions: { project: :read },
+           profile: build(:profile, firstname: 'Jack', lastname: 'Ma'))
+  end
+
   let_it_be(:kam) { create(:user, :kam, profile: build(:profile, firstname: 'Jack', lastname: 'Dorsey')) }
   let_it_be(:presales) { create(:user, :presales, profile: build(:profile, firstname: 'Jeff', lastname: 'Bezos')) }
 
