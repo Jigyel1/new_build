@@ -7,7 +7,7 @@ module Projects
 
       with_tracking(activity_id = SecureRandom.uuid) do
         address_book.assign_attributes(attributes)
-        address_book.entry_type = :manual # even the ones that were initially frm the `info_manager`
+        address_book.entry_type = :manual # even the ones that were initially from the `info_manager`
         address_book.save!
         # Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
