@@ -34,9 +34,9 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       :super_user,
       with_permissions: {
         project: %i[
-          technical_analysis_completed_complex
-          technical_analysis_completed_standard
-          ready_for_offer_standard
+          complex
+          technical_analysis_completed
+          ready_for_offer
         ]
       }
     )

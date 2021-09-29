@@ -9,10 +9,11 @@ describe Mutations::Projects::RevertTransition do
       :super_user,
       with_permissions: {
         project: %i[
-          open_standard
-          technical_analysis_standard
-          technical_analysis_completed_standard
-          ready_for_offer_standard
+          open
+          technical_analysis
+          technical_analysis_completed
+          ready_for_offer
+          complex
         ]
       }
     )

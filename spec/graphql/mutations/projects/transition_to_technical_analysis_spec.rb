@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Mutations::Projects::TransitionToTechnicalAnalysis do
-  let_it_be(:team_expert) { create(:user, :team_expert, with_permissions: { project: :technical_analysis_standard }) }
+  let_it_be(:team_expert) { create(:user, :team_expert, with_permissions: { project: :technical_analysis }) }
   let_it_be(:project) { create(:project) }
 
   describe '.resolve' do

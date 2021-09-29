@@ -7,6 +7,7 @@ module JsonAccessible
     store :log_data, accessors: %i[recipient_email owner_email parameters], coder: JSON
 
     store :parameters, accessors: %i[
+      active
       role
       previous_role
       name
@@ -17,10 +18,6 @@ module JsonAccessible
       min
       investor_id
     ], coder: JSON
-  end
-
-  def active
-    log_data.dig('parameters', 'active')
   end
 
   def status_text

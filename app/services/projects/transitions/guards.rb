@@ -5,12 +5,10 @@ module Projects
     module Guards
       private
 
-      # FIXME: if category is nil, set category as standard.
-      #   unless if its transitioning to T.A.C
       def authorized?
         authorize! project, to: case aasm.to_state
-                                when :archived then 'archive?'
-                                else "#{aasm.to_state}_#{project.category}?"
+                                when :technical_analysis_completed then :tac_complex?
+                                else "#{aasm.to_state}?"
                                 end
       end
 
