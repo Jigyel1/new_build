@@ -17,6 +17,7 @@ module Projects
 
     before_validation :set_display_name
     after_save :update_projects_list
+    after_destroy :update_projects_list
 
     # If the given address book is a main contact for the project, prefix it with character `c`
     def external_id_with_contact

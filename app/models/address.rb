@@ -7,7 +7,10 @@ class Address < ApplicationRecord
 
   validates :street, :street_no, :city, :zip, presence: true, if: ->(record) { record.addressable.is_a?(User) }
 
-  after_save :update_projects_list, if: ->(record) { record.addressable.is_a?(Project) }
+  with_options if: ->(record) { record.addressable.is_a?(Project) } do
+    after_save :update_projects_list
+    after_destroy :update_projects_list
+  end
 
   def street_with_street_no
     "#{street} #{street_no}".squish

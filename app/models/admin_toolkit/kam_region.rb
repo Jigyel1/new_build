@@ -13,5 +13,6 @@ module AdminToolkit
     )
 
     after_save :update_projects_list
+    after_destroy :update_projects_list
   end
 end

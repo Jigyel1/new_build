@@ -12,6 +12,7 @@ class Profile < ApplicationRecord
   enum salutation: { mr: 'Mr', ms: 'Ms' }
 
   after_save :update_users_list, :update_projects_list
+  after_destroy :update_users_list, :update_projects_list
 
   def name
     [firstname, lastname].join(' ')

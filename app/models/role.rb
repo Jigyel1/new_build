@@ -8,6 +8,7 @@ class Role < ApplicationRecord
   accepts_nested_attributes_for :permissions
 
   after_save :update_users_list
+  after_destroy :update_users_list
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
