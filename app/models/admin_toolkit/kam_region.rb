@@ -12,7 +12,7 @@ module AdminToolkit
       uniqueness: { case_sensitive: false }
     )
 
-    after_save :update_projects_list
     after_destroy :update_projects_list
+    after_save :update_projects_list
   end
 end

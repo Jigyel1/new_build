@@ -41,7 +41,7 @@ RSpec.describe Mutations::CreateProject do
           company: 'Charlotte Hornets',
           phone: '099292922',
           mobile: '03393933',
-          language: 'D',
+          language: 'de',
           email: 'philips.jordan@chornets.us',
           website: 'charlotte-hornets.com'
         )
@@ -50,7 +50,7 @@ RSpec.describe Mutations::CreateProject do
         expect(OpenStruct.new(record)).to have_attributes(
           name: 'Isiah',
           company: 'Detroit Pistons',
-          language: 'I',
+          language: 'it',
           phone: '049292922',
           mobile: '103393933',
           email: 'isiah.thomas@pistons.us',
