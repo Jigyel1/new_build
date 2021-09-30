@@ -14,7 +14,9 @@ RSpec.describe AdminToolkit::LabelGroup, type: :model do
     it 'validates uniqueness of label list' do
       subject = build(:admin_toolkit_label_group, label_list: 'aa, Aa ')
       expect(subject).to be_invalid
-      expect(subject.errors.full_messages).to eq([t('activerecord.errors.models.admin_toolkit/label_group.labels_not_unique')])
+      expect(subject.errors.full_messages).to eq(
+        [t('activerecord.errors.models.admin_toolkit/label_group.labels_not_unique')]
+      )
     end
   end
 end

@@ -12,7 +12,9 @@ RSpec.describe Projects::LabelGroup, type: :model do
     it 'validates uniqueness of label list' do
       subject = build(:projects_label_group, label_list: 'aa, Aa ', project: create(:project))
       expect(subject).to be_invalid
-      expect(subject.errors.full_messages).to eq([t('activerecord.errors.models.admin_toolkit/label_group.labels_not_unique')])
+      expect(subject.errors.full_messages).to eq(
+        [t('activerecord.errors.models.admin_toolkit/label_group.labels_not_unique')]
+      )
     end
   end
 
