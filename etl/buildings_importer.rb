@@ -27,12 +27,20 @@ class BuildingsImporter < EtlBase
   def import(current_user, sheet)
     super do
       Kiba.parse do
-        source Buildings::Source, sheet: sheet
-        errors = []
+        Projects::Building.transaction do
+          source Buildings::Source, sheet: sheet
+          errors = []
 
-        transform Buildings::TransformIdable, errors
-        transform Buildings::TransformAddressable, errors # Excel - Portal
-        transform Buildings::TransformSurplus, errors # Portal - Excel
+          # Update buildings with matching IDs in both excel & portal
+          transform Buildings::TransformIdable, errors
+
+          # Update buildings with matching addresses in both excel & portal
+          transform Buildings::TransformAddressable, errors
+
+          # Delete surplus buildings from the portal if excel has fewer buildings
+          # or create new buildings in the portal if excel has extra buildings.
+          transform Buildings::TransformSurplus, errors
+        end
       end
     end
   end
