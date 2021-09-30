@@ -12,7 +12,7 @@ module JsonAccessible
       previous_role
       name
       zip
-      labelList
+      label_list
       standard
       max
       min

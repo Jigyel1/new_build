@@ -6,6 +6,7 @@ module SetCurrentRequestDetails
   included do
     before_action do
       Current.current_user = current_user
+      Current.time_zone = time_zone
     end
   end
 end

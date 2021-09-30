@@ -13,7 +13,7 @@ module Projects
 
       with_tracking(activity_id = SecureRandom.uuid) do
         super do
-          label_group.label_list = attributes[:labelList]
+          label_group.label_list = attributes[:label_list]
           label_group.save!
         end
 

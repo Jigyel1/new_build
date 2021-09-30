@@ -13,7 +13,7 @@ module Types
     def in_time_zone(method)
       return unless object.send(method)
 
-      object.send(method).in_time_zone(context[:time_zone]).date_str
+      object.send(method).date_str
     end
 
     protected

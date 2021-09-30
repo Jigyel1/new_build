@@ -17,7 +17,7 @@ RSpec.describe Mutations::CreateProject do
         expect(errors).to be_nil
         expect(response.project).to have_attributes(
           internalId: 'e922833',
-          moveInStartsOn: Date.current.in_time_zone.date_str,
+          moveInStartsOn: Date.current.date_str,
           status: 'technical_analysis',
           assigneeType: 'kam',
           apartmentsCount: 10,

@@ -3,6 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe Projects::LabelGroup, type: :model do
+  describe 'associations' do
+    it { is_expected.to belong_to(:project) }
+    it { is_expected.to belong_to(:label_group).optional(true) }
+  end
+
+  describe 'validations' do
+    it 'validates uniqueness of label list' do
+      subject = build(:projects_label_group, label_list: 'aa, Aa ', project: create(:project))
+      expect(subject).to be_invalid
+      expect(subject.errors.full_messages).to eq([t('activerecord.errors.models.admin_toolkit/label_group.labels_not_unique')])
+    end
+  end
+
   describe 'getters' do
     let_it_be(:label_group) { create(:admin_toolkit_label_group, label_list: 'Assign KAM, Offer Needed') }
 

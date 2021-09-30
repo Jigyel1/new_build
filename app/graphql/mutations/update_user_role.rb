@@ -13,6 +13,7 @@ module Mutations
     def resolve(attributes:)
       resolver = ::Users::RoleUpdater.new(current_user: current_user, attributes: attributes)
       resolver.call
+
       { user: resolver.user }
     end
   end

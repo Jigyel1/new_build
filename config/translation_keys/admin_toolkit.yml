@@ -38,7 +38,7 @@ admin_toolkit:
       - trackable_id
     label_group_updated:
       - trackable_name
-      - labelList
+      - label_list
     pct_cost_updated:
       - max
     pct_month_updated:
@@ -88,7 +88,7 @@ admin_toolkit:
     label_group_updated:
       - owner_email
       - trackable_name
-      - labelList
+      - label_list
     pct_cost_updated:
       - owner_email
       - max

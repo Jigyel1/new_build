@@ -23,7 +23,7 @@ RSpec.describe Mutations::Projects::CreateTask do
           title: 'Kitchen Wiring',
           description: '3 Kitchens in the top floor need to be wired before paneling.',
           status: 'todo',
-          dueDate: Date.current.to_s
+          dueDate: Date.current.date_str
         )
 
         expect(task.owner).to have_attributes(email: super_user.email, id: super_user.id)
@@ -71,8 +71,9 @@ RSpec.describe Mutations::Projects::CreateTask do
           _, errors = formatted_response(query(params), current_user: super_user, key: :createTask)
           expect(errors).to be_nil
           expect(Projects::Task.count).to eq(4)
-          expect(Projects::Task.pluck(:taskable_id)).to match_array([building.id, building_b.id, building_c.id,
-                                                                     building_d.id])
+          expect(Projects::Task.pluck(:taskable_id)).to match_array(
+            [building.id, building_b.id, building_c.id, building_d.id]
+          )
         end
       end
 
