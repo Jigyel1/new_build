@@ -7,8 +7,8 @@ module Buildings
 
     ACCESSORS = %i[
       organizer idable_buildings idable_rows addressable_buildings addressable_rows ordered_buildings ordered_rows
-    ]
-    def_delegators *ACCESSORS
+    ].freeze
+    def_delegators(*ACCESSORS)
 
     def initialize(errors)
       @errors = errors

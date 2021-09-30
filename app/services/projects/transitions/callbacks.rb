@@ -3,16 +3,25 @@
 module Projects
   module Transitions
     module Callbacks
-      # TODO: Create a label group - open for a project right after it is created.
-      # TODO: create a label group for the project once the project transitions in to that state.
-      #   After every transition, log activity, clear draft_version
-
-      def after_open
-        # byebug
+      def after_transition_callback
+        callback = "after_#{aasm.current_event}"
+        send(callback) if respond_to?(callback)
       end
 
-      def after_technical_analysis
-        # byebug
+      def before_technical_analysis_completed
+        # Project does not accept nested attribute for PCT Cost. So extract and remove
+        # the necessary attributes before assigning those to the project.
+        pct_cost = OpenStruct.new(attributes.delete(:pct_cost_attributes))
+
+        extract_verdict
+        project.assign_attributes(attributes)
+
+        Transitions::TechnicalAnalysisCompletionGuard.new(
+          project: project,
+          project_connection_cost: pct_cost.project_connection_cost
+        ).call
+
+        true
       end
 
       def after_technical_analysis_completed
