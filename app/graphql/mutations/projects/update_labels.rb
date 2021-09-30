@@ -7,7 +7,7 @@ module Mutations
 
       class UpdateProjectLabelsAttributes < Types::BaseInputObject
         argument :id, ID, required: true, description: "ID of the label group of the project. Not the project's ID"
-        argument :labelList, String, required: true
+        argument :label_list, String, required: true
       end
 
       argument :attributes, UpdateProjectLabelsAttributes, required: true

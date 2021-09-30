@@ -5,7 +5,7 @@ module Mutations
     class UpdateLabels < BaseMutation
       class UpdateLabelAttributes < Types::BaseInputObject
         argument :id, ID, required: true
-        argument :labelList, String, required: true
+        argument :label_list, String, required: true
       end
 
       argument :attributes, UpdateLabelAttributes, required: true

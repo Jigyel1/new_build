@@ -1,5 +1,6 @@
 require:
   - ./rubocop/cop/metrics/selise_method_length.rb
+  - ./rubocop/cop/metrics/argument_name.rb
   - rubocop-performance
   - rubocop-rspec
   - rubocop-rails
