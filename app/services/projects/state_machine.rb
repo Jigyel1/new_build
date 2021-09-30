@@ -70,7 +70,10 @@ module Projects
       end
 
       event :archive, if: %i[authorized? to_archived?] do
+        transitions from: :open, to: :archived
+        transitions from: :technical_analysis, to: :archived
         transitions from: :technical_analysis_completed, to: :archived
+        transitions from: :ready_for_offer, to: :archived
       end
     end
 
