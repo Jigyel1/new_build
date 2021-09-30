@@ -2,13 +2,8 @@
 
 module Buildings
   class TransformSurplus < Transform
-    extend Forwardable
-    attr_reader :organizer, :project
-
-    def_delegators :organizer, :ordered_buildings, :ordered_rows
-
     # If the surplus is in the excel, create new buildings in the portal for the project
-    # If the surplus is in the buildings for the project in the portal, delete those.
+    # If the surplus is in the portal, delete those.
     def process(array)
       @organizer, @project = array
 

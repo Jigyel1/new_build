@@ -4,8 +4,6 @@ module Buildings
   class TransformIdable < Transform
     BUILDING_ID = 6
 
-    attr_reader :rows, :project
-
     def process(array)
       @project, @rows = array
       rows.map(&:pop)
@@ -16,14 +14,14 @@ module Buildings
       [organizer, project]
     end
 
-    private
-
     def organizer
       @organizer ||= Projects::Organizer.new(buildings: project.buildings, rows: rows)
     end
 
+    private
+
     def process_idable_rows
-      organizer.idable_buildings.zip(organizer.idable_rows).each { |array| update_building(*array) }
+      idable_buildings.zip(idable_rows).each { |array| update_building(*array) }
     end
 
     def update_building(building, row)

@@ -3,7 +3,6 @@
 module Buildings
   class TransformAddressable < Transform
     BUILDING_ID = 6
-    attr_reader :organizer
 
     def process(array)
       @organizer, @project = array
@@ -14,7 +13,7 @@ module Buildings
     private
 
     def process_addressable_rows
-      organizer.addressable_buildings.zip(organizer.addressable_rows).each { |array| update_building(*array) }
+      addressable_buildings.zip(addressable_rows).each { |array| update_building(*array) }
     end
 
     def update_building(building, row)
