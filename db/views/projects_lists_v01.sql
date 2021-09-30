@@ -1,6 +1,7 @@
 SELECT projects.id                                        AS id,
        projects.external_id                               AS external_id,
        projects.project_nr                                AS project_nr,
+       projects.status                                  AS status,
        projects.category                                  AS category,
        projects.name                                      AS name,
        projects.priority                                   AS priority,

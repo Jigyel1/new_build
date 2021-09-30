@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
 module Buildings
-  class TransformIdable
-    include Helper
+  class TransformIdable < Transform
     BUILDING_ID = 6
 
     attr_reader :rows, :project
-
-    def initialize(errors)
-      @errors = errors
-    end
 
     def process(array)
       @project, @rows = array

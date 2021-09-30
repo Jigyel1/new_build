@@ -1,17 +1,13 @@
 # frozen_string_literal: true
 
 module Buildings
-  class Source
+  class Source < EtlSource
     include EtlHelper
 
     PROJECT_INTERNAL_ID = 0
     PROJECT_EXTERNAL_ID = 5
     LAST_INDEX = 66
-    TO_INTS = [0, 5, 6, 8, 10, 13, 15, 17, 18, 19, 25, 26, 27, 29, 31, 32, 35, 37, 39, 40, 59, 60, 65].freeze
-
-    def initialize(sheet:)
-      @sheet = sheet
-    end
+    INTEGER_COLS = FileParser.parse { 'etl/buildings/integer_columns.yml' }.keys
 
     def each(&block)
       array = []
@@ -22,14 +18,18 @@ module Buildings
         array << row
       end
 
+      # the integers in excel are reflected here as floats. Hence the conversion.
       array.each { |row| to_int(row) }
 
+      # buildings will be updated with respect a project. i.e. row[LAST_INDEX]
       grouped = array.group_by { |row| row[LAST_INDEX] }
       grouped.each_pair(&block)
     end
 
     private
 
+    # If external id is present then use that for fetching projects.
+    # Else use the internal id for project lookup.
     def lookup_hash(row)
       if row[PROJECT_EXTERNAL_ID]
         { external_id: row[PROJECT_EXTERNAL_ID].to_i }

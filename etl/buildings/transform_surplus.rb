@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
 module Buildings
-  class TransformSurplus
+  class TransformSurplus < Transform
     extend Forwardable
-    include Helper
     attr_reader :organizer, :project
 
     def_delegators :organizer, :ordered_buildings, :ordered_rows
-
-    def initialize(errors)
-      @errors = errors
-    end
 
     # If the surplus is in the excel, create new buildings in the portal for the project
     # If the surplus is in the buildings for the project in the portal, delete those.

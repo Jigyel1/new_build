@@ -2,7 +2,7 @@
 
 Rollbar.configure do |config|
   config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
-  config.enabled = ActiveModel::Type::Boolean.new.cast(ENV['ENABLE_ROLLBAR'])
+  config.enabled = ENV.fetch('ENABLE_ROLLBAR', '').to_b
   config.environment = ENV['ROLLBAR_ENV'].presence || Rails.env
 
   config.use_sidekiq

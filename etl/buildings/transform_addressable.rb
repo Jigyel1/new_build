@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
 module Buildings
-  class TransformAddressable
-    include Helper
+  class TransformAddressable < Transform
     BUILDING_ID = 6
     attr_reader :organizer
-
-    def initialize(errors)
-      @errors = errors
-    end
 
     def process(array)
       @organizer, @project = array

@@ -17,7 +17,7 @@ $stdout.write(warning)
 
 Role.names.each_key do |name|
   role = Role.find_or_create_by!(name: name)
-  next unless ActiveModel::Type::Boolean.new.cast(ENV['RESET_PERMISSIONS'])
+  next unless ENV.fetch('RESET_PERMISSIONS', '').to_b
 
   Permissions::BulkUpdater.new(role: role).call
 rescue NoMethodError

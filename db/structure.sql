@@ -776,10 +776,10 @@ CREATE TABLE public.projects (
 
 CREATE TABLE public.projects_access_tech_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    hfc_on_premise_cost numeric(15,2),
-    hfc_off_premise_cost numeric(15,2),
-    lwl_on_premise_cost numeric(15,2),
-    lwl_off_premise_cost numeric(15,2),
+    hfc_on_premise_cost numeric(15,2) NOT NULL,
+    hfc_off_premise_cost numeric(15,2) NOT NULL,
+    lwl_on_premise_cost numeric(15,2) NOT NULL,
+    lwl_off_premise_cost numeric(15,2) NOT NULL,
     comment text,
     explanation text,
     project_id uuid NOT NULL,
@@ -906,6 +906,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
  SELECT projects.id,
     projects.external_id,
     projects.project_nr,
+    projects.status,
     projects.category,
     projects.name,
     projects.priority,

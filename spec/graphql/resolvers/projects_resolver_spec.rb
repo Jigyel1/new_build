@@ -24,6 +24,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     create(
       :project,
       :complex,
+      :technical_analysis,
       name: "Construction d'une habitation de quatre logements",
       address: address_b,
       assignee: kam,
@@ -37,6 +38,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       :project,
       :reactive,
       :b2b_new,
+      :technical_analysis_completed,
       name: 'Neubau Einfamilienhaus mit Pavillon',
       address: address_c,
       assignee: team_expert,
@@ -50,6 +52,25 @@ RSpec.describe Resolvers::ProjectsResolver do
         projects, errors = paginated_collection(:projects, query, current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_a.id, project_b.id, project_c.id])
+      end
+
+      it 'returns count of each project status' do
+        response = execute(query, current_user: super_user)
+        expect(OpenStruct.new(response.dig(:data, :projects, :countByStatuses))).to have_attributes(
+          Open: 1,
+          'Technical Analysis': 1,
+          'Technical Analysis Completed/On-Hold Meeting': 1
+        )
+      end
+    end
+
+    context 'with statuses filter' do
+      let(:statuses) { ['Technical Analysis', 'Open'] }
+
+      it 'returns projects matching given categories' do
+        projects, errors = paginated_collection(:projects, query(statuses: statuses), current_user: super_user)
+        expect(errors).to be_nil
+        expect(projects.pluck(:id)).to match_array([project_a.id, project_b.id])
       end
     end
 
@@ -138,6 +159,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       query {
         projects#{query_string(args)} {
           totalCount
+          countByStatuses
           edges {
             node {
               id externalId projectNr name category priority constructionType labels apartmentsCount
@@ -159,12 +181,11 @@ RSpec.describe Resolvers::ProjectsResolver do
     params = args[:categories] ? ["categories: #{args[:categories]}"] : []
     params << "assignees: #{args[:assignees]}" if args[:assignees].present?
     params << "priorities: #{args[:priorities]}" if args[:priorities].present?
+    params << "statuses: #{args[:statuses]}" if args[:statuses].present?
     params << "constructionTypes: #{args[:construction_types]}" if args[:construction_types].present?
     params << "buildingsCount: #{args[:buildings]}" if args[:buildings].present?
     params << "apartmentsCount: #{args[:apartments]}" if args[:apartments].present?
     params << "query: \"#{args[:query]}\"" if args[:query]
-    # params << "first: #{args[:first]}" if args[:first]
-    # params << "skip: #{args[:skip]}" if args[:skip]
 
     params.empty? ? nil : "(#{params.join(',')})"
   end
