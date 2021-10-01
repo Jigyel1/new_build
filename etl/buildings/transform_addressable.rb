@@ -2,12 +2,20 @@
 
 module Buildings
   class TransformAddressable < Transform
-    BUILDING_ID = 6
+    EXTERNAL_ID = 6
+    APARTMENTS_COUNT = 15
+    MOVE_IN_STARTS_ON = 22
+    STREET = 7
+    STREET_NO = 8
+    BUILDING_NO = 9
+    ZIP = 10
+    CITY = 11
 
     def process(array)
       @organizer, @project = array
+
       process_addressable_rows
-      [organizer, @project]
+      [organizer, project]
     end
 
     private
@@ -18,15 +26,15 @@ module Buildings
 
     def update_building(building, row)
       building.update!(
-        external_id: row[6].to_i,
-        apartments_count: row[15].to_i,
-        move_in_starts_on: row[22].try(:to_date),
+        external_id: row[EXTERNAL_ID],
+        apartments_count: row[APARTMENTS_COUNT],
+        move_in_starts_on: row[MOVE_IN_STARTS_ON].try(:to_date),
         additional_details: attributes_hash(row, BuildingsImporter::ATTRIBUTE_MAPPINGS[:additional_details]),
         address_attributes: {
-          street: row[7],
-          city: row[11],
-          zip: row[10],
-          street_no: "#{row[8]} #{row[9]}".squish
+          street: row[STREET],
+          city: row[CITY],
+          zip: row[ZIP],
+          street_no: "#{row[STREET_NO]} #{row[BUILDING_NO]}".squish
         }
       )
     end

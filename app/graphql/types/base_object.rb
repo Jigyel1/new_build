@@ -10,10 +10,10 @@ module Types
     include GraphqlHelper
     include Rails.application.routes.url_helpers
 
-    def in_time_zone(method)
+    def in_time_zone(method, format: :date_str)
       return unless object.send(method)
 
-      object.send(method).date_str
+      object.send(method).send(format)
     end
 
     protected
