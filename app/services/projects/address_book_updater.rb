@@ -3,7 +3,7 @@
 module Projects
   class AddressBookUpdater < BaseService
     def call
-      authorize! address_book.project, to: :update?, with: ProjectPolicy
+      authorize! address_book.project, to: :update?
 
       with_tracking(activity_id = SecureRandom.uuid) do
         address_book.assign_attributes(attributes)

@@ -7,7 +7,7 @@ module Buildings
     PROJECT_INTERNAL_ID = 0
     PROJECT_EXTERNAL_ID = 5
     LAST_INDEX = 66
-    INTEGER_COLS = FileParser.parse { 'etl/buildings/integer_columns.yml' }.keys
+    INTEGER_COLS = FileParser.parse { 'etl/buildings/integer_columns.yml' }.keys.freeze
 
     def each(&block)
       array = []

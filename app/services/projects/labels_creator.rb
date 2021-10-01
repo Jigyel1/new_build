@@ -11,7 +11,7 @@ module Projects
     end
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
 
       with_tracking(activity_id = SecureRandom.uuid) do
         label_group.label_list = attributes[:label_list]

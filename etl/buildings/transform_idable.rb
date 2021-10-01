@@ -25,17 +25,7 @@ module Buildings
     end
 
     def update_building(building, row)
-      building.update!(
-        apartments_count: row[15].to_i,
-        move_in_starts_on: row[22].try(:to_date),
-        additional_details: attributes_hash(row, BuildingsImporter::ATTRIBUTE_MAPPINGS[:additional_details]),
-        address_attributes: {
-          street: row[7],
-          city: row[11],
-          zip: row[10],
-          street_no: "#{row[8]} #{row[9]}".squish
-        }
-      )
+      building.update!(building_attributes(row))
     end
   end
 end

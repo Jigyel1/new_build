@@ -3,7 +3,7 @@
 module Projects
   class PaybackPeriodUpdater < BaseService
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
 
       with_tracking(activity_id = SecureRandom.uuid) do
         project_pct_cost.update!(

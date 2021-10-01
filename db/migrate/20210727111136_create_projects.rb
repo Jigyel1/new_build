@@ -9,7 +9,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :project_nr
       t.string :priority
       t.string :category
-      t.string :status, null: false, default: 'Open'
+      t.string :status, null: false, default: 'Open', index: true
       t.string :assignee_type, null: false, default: 'KAM Project'
       t.string :entry_type, null: false, default: 'Manual'
 
@@ -48,9 +48,6 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       execute 'CREATE SEQUENCE projects_project_nr_seq START 1'
       execute "ALTER TABLE projects ALTER COLUMN project_nr SET DEFAULT NEXTVAL('projects_project_nr_seq')"
     end
-
-    # Add a partial index to for non archived projects
-    add_index :projects, :status, where: "status != 'Archived'"
   end
 
   def self.down

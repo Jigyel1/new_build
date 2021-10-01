@@ -54,7 +54,6 @@ module Projects
     # Ordering by count of active storage files doesn't seem to work as expected.
     # `counter_cache` doesn't seem like an option either.
     # Hence, adding hair trigger to sort buildings by the count of files attached.
-    #
     def load_remaining
       @ordered_buildings = buildings.where
                                     .not(id: excluded_buildings_for_ordering)

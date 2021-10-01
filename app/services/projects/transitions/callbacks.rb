@@ -16,7 +16,7 @@ module Projects
         extract_verdict
         project.assign_attributes(attributes)
 
-        Transitions::TechnicalAnalysisCompletionGuard.new(
+        Transitions::TacValidator.new(
           project: project,
           project_connection_cost: pct_cost.project_connection_cost
         ).call

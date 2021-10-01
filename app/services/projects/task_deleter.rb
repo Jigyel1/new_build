@@ -6,7 +6,7 @@ module Projects
     delegate :taskable, to: :task
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
       task.destroy!
     end
   end

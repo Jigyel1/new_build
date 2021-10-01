@@ -7,7 +7,7 @@ module Projects
 
     # values in these indexes need to be converted to integer.
     # Move the zip, etc of other modules to their respective transforms
-    INTEGER_COLS = [1, 8, 23, 39, 55, 66, 76, 77, 82, 85, 90, 91].freeze
+    INTEGER_COLS = FileParser.parse { 'etl/projects/integer_columns.yml' }.keys
     EXTERNAL_ID = 1
 
     def initialize(errors)

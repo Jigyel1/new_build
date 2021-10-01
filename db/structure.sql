@@ -1710,7 +1710,7 @@ CREATE INDEX index_projects_on_kam_region_id ON public.projects USING btree (kam
 -- Name: index_projects_on_status; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_projects_on_status ON public.projects USING btree (status) WHERE ((status)::text <> 'Archived'::text);
+CREATE INDEX index_projects_on_status ON public.projects USING btree (status);
 
 
 --

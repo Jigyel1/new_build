@@ -17,7 +17,7 @@ module Projects
     end
 
     def call
-      authorize! Project, to: :create?, with: ProjectPolicy
+      authorize! Project, to: :create?
 
       with_tracking(activity_id = SecureRandom.uuid) do
         @project = ::Project.new(formatted_attributes)

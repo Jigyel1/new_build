@@ -5,7 +5,7 @@ module Projects
     include FileHelper
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
       file.destroy!
     end
   end

@@ -5,7 +5,7 @@ module Projects
     include BuildingHelper
 
     def call
-      authorize! building.project, to: :update?, with: ProjectPolicy
+      authorize! building.project, to: :update?
       building.destroy!
     end
   end

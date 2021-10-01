@@ -4,8 +4,6 @@ class Project < ApplicationRecord
   include Hooks::Project
   include Enumable::Project
 
-  default_scope { where.not(status: :archived) }
-
   # `assignee` would be the owner of the project.
   belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
 

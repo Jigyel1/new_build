@@ -6,7 +6,7 @@ module Projects
     delegate :taskable, to: :task
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
       validate_status!
       task.update!(status: task.previous_status)
     end

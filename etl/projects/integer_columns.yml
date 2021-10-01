@@ -1,0 +1,12 @@
+1: external_id
+8: investor_zip
+23: architect_zip
+39: role_type_3_zip
+55: role_type_4_zip
+66: project_zip
+76: buildings_count
+77: apartments_count
+82: project_category_1_code
+85: project_category_2_code
+90: project_external_id
+91: project_external_id_2

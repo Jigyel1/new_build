@@ -6,6 +6,7 @@ module Projects
 
     def call
       authorize! Project, to: :update?
+
       with_tracking(activity_id = SecureRandom.uuid) do
         ProjectsImporter.call(current_user: current_user, input: file)
         # Activities::ActivityCreator.new(activity_params(activity_id)).call

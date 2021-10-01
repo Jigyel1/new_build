@@ -5,7 +5,7 @@ module Projects
     attr_reader :building
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
 
       with_tracking(activity_id = SecureRandom.uuid) do
         @building = project.buildings.create!(attributes)

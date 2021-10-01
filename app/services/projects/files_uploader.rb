@@ -7,7 +7,7 @@ module Projects
     delegate :files, to: :attachable
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
 
       attachable.files.attach(
         attributes[:files].map { |file| to_attachables(file) }

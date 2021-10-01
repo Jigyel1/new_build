@@ -2,17 +2,30 @@
 
 module Projects
   module Transitions
-    class TechnicalAnalysisCompletionValidator < BaseService
-      attr_accessor :project
+    class TacValidator < BaseService
+      attr_accessor :project, :project_connection_cost
 
       def call
         validate_access_technology!
         validate_in_house_installation!
+        calculate_pct!
       end
 
       private
 
-      # FIXME: This logic needs to be fixed.
+      def calculate_pct!
+        pct_calculator = ::Projects::PctCostCalculator.new(
+          project_id: project.id,
+          competition_id: project.competition_id,
+          project_connection_cost: project_connection_cost,
+          sockets: project.installation_detail.try(:sockets)
+        )
+        pct_calculator.call
+        project.pct_cost = pct_calculator.pct_cost
+      rescue RuntimeError => e
+        raise(t('projects.transition.error_in_pct_calculation', error: e.message))
+      end
+
       def validate_access_technology!
         return unless project.standard_cost_applicable
 

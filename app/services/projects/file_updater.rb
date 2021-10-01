@@ -6,7 +6,7 @@ module Projects
     set_callback :call, :before, :validate!
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
 
       super { file.blob.update!(filename: attributes[:name]) }
     end
