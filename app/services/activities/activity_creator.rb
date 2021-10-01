@@ -24,9 +24,6 @@ module Activities
           parameters: parameters
         }
       ).then { |activity| activity.persisted? ? activity : log_error(activity) }
-
-      # rescue Exception => e
-      #   byebug
     end
 
     private

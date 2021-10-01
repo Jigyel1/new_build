@@ -12,7 +12,7 @@ class Activity < ApplicationRecord
 
   # `trackable` will be same as the recipient when a user is acting on another user.
   # eg. User A(owner) deactivates User B(recipient)
-  belongs_to :trackable, polymorphic: true
+  belongs_to :trackable, polymorphic: true, optional: true
 
   # A case where all references will be applicable
   # eg. User A(owner) added User B(recipient) to Project X(trackable)
@@ -25,7 +25,10 @@ class Activity < ApplicationRecord
     :action,
     presence: true,
     inclusion: {
-      in: proc { |activity| Rails.application.config.activity_actions[activity.trackable_type.underscore] }
+      in: proc do |activity|
+        type = activity.trackable_type.presence || activity.action
+        Rails.application.config.activity_actions[type.underscore]
+      end
     }
   )
   validates :log_data, activity_log: true

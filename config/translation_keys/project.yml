@@ -95,3 +95,11 @@ active_storage:
       - parameters
     attachment_file_updated:
       - parameters
+
+buildings_imported:
+  owner:
+    buildings_imported:
+      - parameters
+  others:
+    buildings_imported:
+      - parameters

@@ -159,3 +159,8 @@ en:
       attachment_file_updated:
         owner: 'project file updated'
         others: 'project file updated'
+
+    buildings_imported:
+      buildings_imported:
+        owner: 'Building imported'
+        others: 'Building imported'

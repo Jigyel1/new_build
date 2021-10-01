@@ -30,7 +30,8 @@ module Activities
     # eg if the trackable type returns `AdminToolkit::Competition`, it picks `admin_toolkit`
     #    and for users it picks `telco` as the trackable type will be `Telco::Uam::User`
     def translation_module
-      activity.trackable_type.split('::').first.underscore
+      type = activity.trackable_type.presence || activity.action
+      type.split('::').first.underscore
     end
   end
 end

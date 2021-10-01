@@ -4,8 +4,6 @@ module Projects
   class BuildingsImporter < BaseService
     attr_accessor :file
 
-    include FileHelper
-
     def call
       authorize! Project, to: :import?, with: ProjectPolicy
       with_tracking(activity_id = SecureRandom.uuid) do
@@ -17,13 +15,11 @@ module Projects
     private
 
     def activity_params(activity_id)
-      binding.pry
       {
         activity_id: activity_id,
         action: :buildings_imported,
         owner: current_user,
-        trackable: attachable,
-        parameters: file
+        parameters: file.original_filename
       }
     end
   end

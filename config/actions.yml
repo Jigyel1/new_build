@@ -71,3 +71,6 @@ projects/pct_cost:
 active_storage/attachment:
   - attachment_file_deleted
   - attachment_file_updated
+
+buildings_imported:
+  - buildings_imported
