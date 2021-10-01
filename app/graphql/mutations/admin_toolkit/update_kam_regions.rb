@@ -9,11 +9,15 @@ module Mutations
       end
 
       argument :attributes, [UpdateKamRegionsAttributes], required: true
-      field :status, Boolean, null: true
+      field :kam_regions, [Types::AdminToolkit::KamRegionType], null: true
 
       def resolve(attributes:)
-        ::AdminToolkit::KamRegionsUpdater.new(current_user: current_user, attributes: attributes.map(&:to_h)).call
-        { status: true }
+        ::AdminToolkit::KamRegionsUpdater.new(
+          current_user: current_user,
+          attributes: attributes.map(&:to_h)
+        ).call
+
+        { kam_regions: ::AdminToolkit::KamRegion.all }
       end
     end
   end

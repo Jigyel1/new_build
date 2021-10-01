@@ -29,6 +29,14 @@ FactoryBot.define do
       entry_type { :info_manager }
     end
 
+    trait :with_access_tech_cost do
+      access_tech_cost { build(:projects_access_tech_cost) }
+    end
+
+    trait :with_installation_detail do
+      installation_detail { build(:projects_installation_detail) }
+    end
+
     %w[categories priorities construction_types statuses].each do |key|
       Project.send(key).each_key do |name|
         trait name do

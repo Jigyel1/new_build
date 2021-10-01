@@ -128,8 +128,8 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
         adminToolkitPenetrations#{query_string(args)} {
           totalCount
           edges {
-            node {#{' '}
-              id zip city rate hfcFootprint type kamRegion { id kam { name } }#{' '}
+            node {
+              id zip city rate hfcFootprint type kamRegion { id kam { name } }
               penetrationCompetitions { competition { name } }
             }
           }

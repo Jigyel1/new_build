@@ -168,7 +168,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
     GQL
   end
 
-  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  def query_string(args = {}) # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize
     params = args[:statuses] ? ["statuses: #{args[:statuses]}"] : []
     params += ["assigneeIds: #{args[:assignee_ids]}"] if args[:assignee_ids]
     params += if args[:taskable]

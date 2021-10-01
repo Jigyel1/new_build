@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-# require_relative '../../../app/models/admin_toolkit'
-
 module Projects
   class Updater < BaseService
-    attr_reader :project
-
     def call
       authorize! project, to: :update?, with: ProjectPolicy
       with_tracking(activity_id = SecureRandom.uuid) do

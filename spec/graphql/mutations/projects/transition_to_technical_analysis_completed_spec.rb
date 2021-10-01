@@ -30,6 +30,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
   let_it_be(:team_expert) { create(:user, :team_expert) }
   let_it_be(:kam) { create(:user, :kam) }
+  let_it_be(:management) { create(:user, :management) }
   let_it_be(:address) { build(:address, zip: zip) }
   let_it_be(:project) { create(:project, :technical_analysis, address: address) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
@@ -42,7 +43,9 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
                                                        key: :transitionToTechnicalAnalysisCompleted)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis_completed')
-          expect(response.project.verdicts).to have_attributes(technical_analysis: 'This projects looks feasible with the current resources.')
+          expect(response.project.verdicts).to have_attributes(
+            technical_analysis_completed: 'This projects looks feasible with the current resources.'
+          )
 
           label_group = project.label_groups.find_by!(label_group: label_group_a)
           expect(label_group.label_list).to include('Prio 2')
@@ -64,8 +67,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       let_it_be(:params) { { set_pct_cost: true } }
 
       context 'with permissions' do
-        let_it_be(:management) { create(:user, :management) }
-
         it 'updates project status' do
           response, errors = formatted_response(query(params), current_user: management,
                                                                key: :transitionToTechnicalAnalysisCompleted)
@@ -97,12 +98,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         expect(errors).to eq([t('projects.transition.ftth_not_supported')])
         expect(project.reload.status).to eq('technical_analysis')
       end
-    end
 
-    context 'when standard cost is not applicable' do
       it 'throws error when access technology cost is set' do
         response, errors = formatted_response(
-          query(set_access_tech_cost: true),
+          query(standard_cost_applicable: true, set_access_tech_cost: true),
           current_user: team_expert,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -145,7 +144,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.update_column(:status, :prio_one) }
 
       it 'updates the project to ready for offer state' do
-        response, errors = formatted_response(query, current_user: team_expert,
+        response, errors = formatted_response(query, current_user: management,
                                                      key: :transitionToTechnicalAnalysisCompleted)
         expect(errors).to be_nil
         expect(response.project.status).to eq('ready_for_offer')
@@ -178,7 +177,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
                                                      key: :transitionToTechnicalAnalysisCompleted)
         expect(response.project).to be_nil
         expect(errors).to eq([t('projects.transition.error_in_pct_calculation',
-                                error: "Penetration can't be blank").to_s])
+                                error: "Penetration #{t('projects.transition.penetration_missing')}").to_s])
       end
     end
 
@@ -191,6 +190,31 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         expect(response.project).to be_nil
         expect(errors).to eq([t('projects.transition.error_while_adding_label',
                                 error: "undefined method `status' for nil:NilClass").to_s])
+      end
+    end
+
+    context 'when payback period is system generated' do
+      let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
+
+      it 'recalculates payback period' do
+        _response, errors = formatted_response(query, current_user: team_expert,
+                                                      key: :transitionToTechnicalAnalysisCompleted)
+        expect(errors).to be(nil)
+        expect(project.reload.pct_cost.payback_period).to be(17)
+      end
+    end
+
+    context 'when payback period is manually set' do
+      before do
+        pct_value.pct_month.update_column(:max, 498)
+        create(:projects_pct_cost, :manually_set_payback_period, project: project, payback_period: 498)
+      end
+
+      it 'does not recalculate the payback period' do
+        _response, errors = formatted_response(query, current_user: team_expert,
+                                                      key: :transitionToTechnicalAnalysisCompleted)
+        expect(errors).to be(nil)
+        expect(project.reload.pct_cost.payback_period).to be(498)
       end
     end
   end
@@ -230,7 +254,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   end
 
   def query(args = {})
-    category = args[:category] || :standard
     access_technology = args[:access_technology] || :hfc
     standard_cost_applicable = args[:standard_cost_applicable] || false
     in_house_installation = args[:in_house_installation] || false
@@ -241,7 +264,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           input: {
             attributes: {
               id: "#{project.id}"
-              category: "#{category}"
               standardCostApplicable: #{standard_cost_applicable}
               accessTechnology: "#{access_technology}"
               inHouseInstallation: #{in_house_installation}
@@ -249,7 +271,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               constructionType: "b2b_new"
               customerRequest: false
               priority: "proactive"
-              verdict: "This projects looks feasible with the current resources."
+              verdicts: { technical_analysis_completed: "This projects looks feasible with the current resources." }
               #{access_tech_cost(args[:set_access_tech_cost])}
               #{installation_detail(args[:set_installation_detail])}
               #{pct_cost(args[:set_pct_cost])}

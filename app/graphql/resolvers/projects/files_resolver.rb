@@ -3,17 +3,15 @@
 module Resolvers
   module Projects
     class FilesResolver < SearchObjectBase
-      VALID_TASKABLE_TYPES = ['Project', 'Projects::Building'].freeze
+      VALID_ATTACHABLE_TYPES = ['Project', 'Projects::Building'].freeze
 
-      scope do
-        ActiveStorage::Attachment
-      end
+      scope { ActiveStorage::Attachment }
 
       type Types::Projects::FileConnectionType, null: false
 
       option :attachable, type: [String], with: :apply_attachable_filter, required: true, description: <<~DESC
         Takes in two arguments. First, the attachable id(project or the building id).
-        Second, the attachable type(when project then `Project`, when building then `Projects::Building`).#{' '}
+        Second, the attachable type(when project then `Project`, when building then `Projects::Building`).
         Note that this option is mandatory!
       DESC
 
@@ -22,25 +20,28 @@ module Resolvers
 
       def apply_attachable_filter(scope, value)
         attachable_id, attachable_type = value
-        unless VALID_TASKABLE_TYPES.include?(attachable_type)
+
+        unless VALID_ATTACHABLE_TYPES.include?(attachable_type)
           raise I18n.t('projects.file.invalid_attachable_type',
-                       valid_types: VALID_TASKABLE_TYPES.to_sentence)
+                       valid_types: VALID_ATTACHABLE_TYPES.to_sentence)
         end
 
         scope.where(record_id: attachable_id, record_type: attachable_type)
       end
 
       def apply_search(scope, value)
-        scope.joins(:blob, owner: :profile).where(
-          "CONCAT_WS(
-          ' ',
-          profiles.firstname,
-          profiles.lastname,
-          active_storage_blobs.filename,
-          active_storage_attachments.created_at
-        )
-        iLIKE ?", "%#{value.squish}%"
-        )
+        scope
+          .joins(:blob, owner: :profile)
+          .where(
+            "CONCAT_WS(
+            ' ',
+            profiles.firstname,
+            profiles.lastname,
+            active_storage_blobs.filename,
+            active_storage_attachments.created_at
+            )
+            iLIKE ?", "%#{value.squish}%"
+          )
       end
     end
   end

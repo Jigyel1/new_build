@@ -24,5 +24,7 @@ class CreateProjectsAddressBooks < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    add_index :projects_address_books, %i[type project_id], unique: true, where: "type NOT IN ('Others')"
   end
 end

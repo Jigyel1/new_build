@@ -17,7 +17,7 @@ module Projects
         label_group.label_list = attributes[:labelList]
         label_group.save!
 
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -26,7 +26,7 @@ module Projects
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :project_labels_created,
+        action: :label_group_created,
         owner: current_user,
         trackable: label_group,
         parameters: attributes.except(:id)

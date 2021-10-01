@@ -2,9 +2,8 @@
 
 module Mutations
   class UpdateProject < BaseMutation
-    # id is still optional. you can still add an address to an already created project.
-    class AddressAttributes < Types::BaseInputObject
-      graphql_name 'UpdateProjectAddressAtttributes'
+    class UpdateProjectAddressAttributes < Types::BaseInputObject
+      # id is optional. you can still add addresses to an existing project.
       include Concerns::Address
     end
 
@@ -25,16 +24,14 @@ module Mutations
       argument :move_in_ends_on, String, required: false
       argument :construction_starts_on, String, required: false
 
-      argument :address, AddressAttributes, required: false, as: :address_attributes
+      argument :address, UpdateProjectAddressAttributes, required: false, as: :address_attributes
     end
 
     argument :attributes, UpdateProjectAttributes, required: true
     field :project, Types::ProjectType, null: true
 
     def resolve(attributes:)
-      resolver = ::Projects::Updater.new(current_user: current_user, attributes: attributes.to_h)
-      resolver.call
-      { project: resolver.project }
+      super(::Projects::Updater, :project, attributes: attributes)
     end
   end
 end

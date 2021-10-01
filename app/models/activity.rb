@@ -19,9 +19,7 @@ class Activity < ApplicationRecord
 
   delegate :name, to: :trackable, prefix: true, allow_nil: true
 
-  alias actor owner
   alias object recipient
-  alias target trackable
 
   validates(
     :action,

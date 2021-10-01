@@ -9,7 +9,7 @@ module Projects
 
       with_tracking(activity_id = SecureRandom.uuid) do
         @building = project.buildings.create!(attributes)
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 

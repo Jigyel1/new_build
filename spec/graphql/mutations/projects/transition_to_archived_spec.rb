@@ -13,7 +13,7 @@ describe Mutations::Projects::TransitionToArchived do
           response, errors = formatted_response(query, current_user: management, key: :transitionToArchived)
           expect(errors).to be_nil
           expect(response.project.status).to eq('archived')
-          expect(response.project.verdicts).to have_attributes(technical_analysis_completed: 'This project is no longer active')
+          expect(response.project.verdicts).to have_attributes(archived: 'This project is no longer active')
         end
       end
 
@@ -37,7 +37,7 @@ describe Mutations::Projects::TransitionToArchived do
           input: {
             attributes: {
               id: "#{project.id}"
-              verdict: "This project is no longer active"
+              verdicts: { archived: "This project is no longer active" }
             }
           }
         )

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ProjectsSpecHelper
+module ProjectsSpecHelper # rubocop:disable Metrics/ModuleLength
   def create_projects # rubocop:disable Metrics/SeliseMethodLength, Metrics/AbcSize
     address = build(:address, street: 'Sharell Meadows', street_no: '44', city: 'New Murray', zip: '16564')
     investor = build(
@@ -122,8 +122,8 @@ module ProjectsSpecHelper
       cat_art_01: 'Neubau',
       cat_code_02: '1310',
       cat_text_02: 'Parkhäuser und Einstellhallen',
-      project_text_part_01: " Construction de 2 villas contiguës, comprenant chacune 1 appartement de 4 pièces, avec garages souterrains de 4 places et aménagement d'un place de parc extérieur non couvert. Ossature béton/brique, façade crépis gris, toiture tuile gris foncé. Chauffage PAC et pose de 30 m2 panneaux solaires photovoltaïques.",
-      project_text_part_02: ' pavimento, volume interrato di 100 m3 per locale tecnico e cantina, volume fuoriterra di 490 m3 per SRE di 163 m2 di cui 75 m2 al PT e 51 m2 al 1° piano, 2 posteggi in autorimessa esistente di 35 m2, muro di contenimento in calcestruzzo armato e pavimentazione esterna in calcestruzzo prefabbricato, area verde di 147.5 m2.',
+      project_text_part_01: " Construction de 2 villas contiguës, comprenant chacune 1 appartement de 4 pièces, avec garages souterrains de 4 places et aménagement d'un place de parc extérieur non couvert. Ossature béton/brique, façade crépis gris, toiture tuile gris foncé. Chauffage PAC et pose de 30 m2 panneaux solaires photovoltaïques.", # rubocop:disable Layout/LineLength
+      project_text_part_02: ' pavimento, volume interrato di 100 m3 per locale tecnico e cantina, volume fuoriterra di 490 m3 per SRE di 163 m2 di cui 75 m2 al PT e 51 m2 al 1° piano, 2 posteggi in autorimessa esistente di 35 m2, muro di contenimento in calcestruzzo armato e pavimentazione esterna in calcestruzzo prefabbricato, area verde di 147.5 m2.', # rubocop:disable Layout/LineLength
       proj_extern_id: '3073616',
       prod_id: '764282',
       geocod_sccs: 'Gebäudeeingang',

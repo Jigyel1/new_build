@@ -9,12 +9,12 @@ RSpec.describe Resolvers::Projects::StatesResolver do
       expect(errors).to be_nil
 
       expect(OpenStruct.new(response.projectStates).to_h).to eq(
-                                          "0": "open",
-                                          "1": "technical_analysis",
-                                          "2": "technical_analysis_completed",
-                                          "3": "ready_for_offer",
-                                          "4": "archived"
-                                        )
+        '0': 'open',
+        '1': 'technical_analysis',
+        '2': 'technical_analysis_completed',
+        '3': 'ready_for_offer',
+        '4': 'archived'
+      )
     end
   end
 

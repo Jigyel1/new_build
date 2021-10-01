@@ -6,7 +6,21 @@ module Projects
 
     def call
       authorize! project, to: :update?, with: ProjectPolicy
-      file.destroy!
+
+      with_tracking(activity_id = SecureRandom.uuid, transaction: true) do
+        file.destroy!
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
+      end
+    end
+
+    def activity_params(activity_id)
+      {
+        activity_id: activity_id,
+        action: :attachment_file_deleted,
+        owner: current_user,
+        trackable: file,
+        parameters: attributes
+      }
     end
   end
 end

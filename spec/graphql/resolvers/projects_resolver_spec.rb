@@ -139,8 +139,8 @@ RSpec.describe Resolvers::ProjectsResolver do
         projects#{query_string(args)} {
           totalCount
           edges {
-            node {#{' '}
-              id externalId projectNr name category priority constructionType labels apartmentsCount#{' '}
+            node {
+              id externalId projectNr name category priority constructionType labels apartmentsCount
               moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
             }
           }
@@ -155,7 +155,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     GQL
   end
 
-  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     params = args[:categories] ? ["categories: #{args[:categories]}"] : []
     params << "assignees: #{args[:assignees]}" if args[:assignees].present?
     params << "priorities: #{args[:priorities]}" if args[:priorities].present?

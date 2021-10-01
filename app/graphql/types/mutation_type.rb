@@ -47,13 +47,20 @@ module Types
     field :update_project, mutation: Mutations::UpdateProject
     field :import_projects, mutation: Mutations::ImportProjects
     field :export_projects, mutation: Mutations::ExportProjects
+    field :update_project_category, mutation: Mutations::Projects::UpdateCategory
+
+    field :revert_project_transition, mutation: Mutations::Projects::RevertTransition
 
     field :transition_to_technical_analysis, mutation: Mutations::Projects::TransitionToTechnicalAnalysis
     field(
       :transition_to_technical_analysis_completed,
       mutation: Mutations::Projects::TransitionToTechnicalAnalysisCompleted
     )
+    field :transition_to_ready_for_offer, mutation: Mutations::Projects::TransitionToReadyForOffer
     field :transition_to_archived, mutation: Mutations::Projects::TransitionToArchived
+
+    field :update_project_incharge, mutation: Mutations::Projects::UpdateIncharge
+    field :update_payback_period, mutation: Mutations::Projects::UpdatePaybackPeriod
 
     field :save_draft, mutation: Mutations::Projects::SaveDraft
 

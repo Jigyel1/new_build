@@ -18,7 +18,9 @@ describe Mutations::Projects::UploadFiles, type: :request do
       map: {
         files: ['variables.files.0', 'variables.files.1']
       }.to_json,
-      files: file_upload
+      files: file_upload,
+      attachable_id: building.id,
+      attachable_type: 'Projects::Building'
     }
   end
 

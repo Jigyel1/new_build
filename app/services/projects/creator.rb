@@ -18,7 +18,6 @@ module Projects
 
     def call
       authorize! Project, to: :create?, with: ProjectPolicy
-
       with_tracking(activity_id = SecureRandom.uuid) do
         @project = ::Project.new(formatted_attributes)
         project.category = CategorySetter.new(project: project).call

@@ -4,6 +4,7 @@ module Projects
   class StateMachine < BaseService
     include AASM
     include Transitions::Callbacks
+    include Transitions::Guards
 
     attr_accessor :event
     alias user current_user
@@ -16,7 +17,7 @@ module Projects
     def transition
       send(event)
     rescue AASM::InvalidTransition
-      raise t('projects.event_not_allowed')
+      raise t('projects.transition.event_not_allowed')
     end
 
     def states
@@ -48,36 +49,32 @@ module Projects
       after_all_transitions :update_project_state
       after_all_events :after_transition_callback, :reset_draft_version
 
-      event :technical_analysis, if: :to_technical_analysis? do
+      event :revert, if: :authorized? do
+        transitions from: :technical_analysis, to: :open
+        transitions from: :technical_analysis_completed, to: :technical_analysis
+        transitions from: :ready_for_offer, to: :technical_analysis, if: :prio_one?
+        transitions from: :ready_for_offer, to: :technical_analysis_completed, unless: :prio_one?
+      end
+
+      event :technical_analysis, if: :authorized? do
         transitions from: :open, to: :technical_analysis
       end
 
-      event :technical_analysis_completed, if: :post_technical_analysis? do
+      event :technical_analysis_completed, if: %i[authorized? to_technical_analysis_completed?] do
         transitions from: :technical_analysis, to: :technical_analysis_completed, unless: :prio_one?
         transitions from: :technical_analysis, to: :ready_for_offer, if: :prio_one?
       end
 
-      event :offer_ready do
-        transitions from: :technical_analysis_completed, to: :technical_analysis, if: :back_to_technical_analysis?
-        transitions from: :technical_analysis_completed, to: :ready_for_offer, if: :to_offer?
+      event :offer_ready, if: %i[authorized? to_offer?] do
+        transitions from: :technical_analysis_completed, to: :ready_for_offer
       end
 
-      event :archive, if: :to_archived? do
+      event :archive, if: %i[authorized? to_archived?] do
         transitions from: :technical_analysis_completed, to: :archived
       end
     end
 
     private
-
-    def back_to_technical_analysis?
-      # revert status to technical analysis based on a variable sent from FE.
-      false
-    end
-
-    def to_offer?
-      # move to offer state based on the same variable sent from FE.
-      true
-    end
 
     def update_project_state
       project.update!(status: aasm.to_state)
@@ -95,39 +92,6 @@ module Projects
     def before_transition_callback
       callback = "before_#{aasm.current_event}"
       send(callback) if respond_to?(callback)
-    end
-
-    def to_technical_analysis?
-      authorize! project, to: :to_technical_analysis?, with: ProjectPolicy
-    end
-
-    def post_technical_analysis?
-      authorize! project, to: :to_technical_analysis_completed?, with: ProjectPolicy
-
-      # Project does not accept nested attribute for PCT Cost. So extract and remove
-      # the necessary attributes before assigning those to the project.
-      pct_cost = OpenStruct.new(attributes.delete(:pct_cost_attributes))
-
-      verdict = attributes.delete(:verdict)
-      project.verdicts[project.status] = verdict if verdict.present?
-
-      project.assign_attributes(attributes)
-
-      Transitions::TechnicalAnalysisCompletionGuard.new(
-        project: project,
-        project_connection_cost: pct_cost.project_connection_cost
-      ).call
-
-      true
-    end
-
-    def to_archived?
-      authorize! project, to: :to_archived?, with: ProjectPolicy
-
-      verdict = attributes.delete(:verdict)
-      project.verdicts[project.status] = verdict if verdict.present?
-
-      true
     end
 
     def project_priority

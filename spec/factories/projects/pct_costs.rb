@@ -8,5 +8,9 @@ FactoryBot.define do
     penetration_rate { 7.45 }
     lease_cost { 399 }
     payback_period { 'Five Years Three Months' }
+
+    trait :manually_set_payback_period do
+      system_generated_payback_period { false }
+    end
   end
 end

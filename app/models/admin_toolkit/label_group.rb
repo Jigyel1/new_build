@@ -2,8 +2,8 @@
 
 module AdminToolkit
   class LabelGroup < ApplicationRecord
-    validates :name, presence: true, uniqueness: true
-    # validates :name, inclusion: { in: Project.statuses.values }, on: :create
+    validates :name, :code, presence: true, uniqueness: true
+    validates :code, inclusion: { in: Project.statuses.keys }
 
     default_scope { order(code: :asc) }
 

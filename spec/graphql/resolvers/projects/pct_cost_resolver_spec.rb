@@ -30,9 +30,9 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
   describe '.resolve' do
     context 'with valid params' do
       let!(:params) { { project_connection_cost: 999_876, set_project_connection_cost: true } }
-      let!(:installation_detail) { create(:projects_installation_detail, sockets: 20, project: project) }
 
       before do
+        create(:projects_installation_detail, sockets: 20, project: project)
         project.update_column(:category, :complex)
       end
 
@@ -46,7 +46,8 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
           arpu: 45.66,
           penetrationRate: 4.56,
           paybackPeriod: 602,
-          paybackPeriodFormatted: '50 years and 2 months'
+          paybackPeriodFormatted: '50 years and 2 months',
+          systemGeneratedPaybackPeriod: true
         )
       end
     end
@@ -57,7 +58,9 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
       it 'throws error' do
         data, errors = formatted_response(query, current_user: super_user)
         expect(data.projectPctCost).to be_nil
-        expect(errors).to eq(["Penetration can't be blank and Competition can't be blank"])
+        expect(errors).to eq(
+          ["Penetration #{t('projects.transition.penetration_missing')} and Competition can't be blank"]
+        )
       end
     end
 
@@ -73,15 +76,14 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
 
     context 'when competition is not set' do
       let!(:penetration_b) { create(:admin_toolkit_penetration, zip: '1102', kam_region: kam_region) }
-      let!(:penetration_competition_b) do
-        create(:penetration_competition, penetration: penetration, competition: competition_b)
-      end
-      let!(:penetration_competition_c) do
-        create(:penetration_competition, penetration: penetration_b, competition: competition_c)
-      end
 
       let_it_be(:competition_b) { create(:admin_toolkit_competition, name: 'FTTH SFN', lease_rate: 9.5) }
       let_it_be(:competition_c) { create(:admin_toolkit_competition, name: 'FTTH', lease_rate: 10.5) }
+
+      before do
+        create(:penetration_competition, penetration: penetration, competition: competition_b)
+        create(:penetration_competition, penetration: penetration_b, competition: competition_c)
+      end
 
       it 'picks the highest lease rate from the admin toolkit for the projects competition' do
         data, errors = formatted_response(query, current_user: super_user)
@@ -127,7 +129,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
 
   def query(args = {})
     <<~GQL
-      query {#{' '}
+      query {
         projectPctCost(
           attributes: {
             projectId: "#{project.id}"
@@ -135,9 +137,10 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
             #{project_connection_cost(args)}
           }
         )
-        {#{' '}
-          id projectCost socketInstallationCost arpu leaseCost penetrationRate paybackPeriod paybackPeriodFormatted
-        }#{'   '}
+        {
+          id projectCost socketInstallationCost arpu leaseCost penetrationRate
+          paybackPeriod paybackPeriodFormatted systemGeneratedPaybackPeriod
+        }
       }
     GQL
   end

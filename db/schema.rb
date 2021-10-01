@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_admin_toolkit_competitions_on_name"
+    t.index ["name"], name: "index_admin_toolkit_competitions_on_name", unique: true
   end
 
   create_table "admin_toolkit_footprint_buildings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.integer "index", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["index"], name: "index_admin_toolkit_footprint_buildings_on_index"
+    t.index ["index"], name: "index_admin_toolkit_footprint_buildings_on_index", unique: true
   end
 
   create_table "admin_toolkit_footprint_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.integer "index", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["index"], name: "index_admin_toolkit_footprint_types_on_index"
+    t.index ["index"], name: "index_admin_toolkit_footprint_types_on_index", unique: true
   end
 
   create_table "admin_toolkit_footprint_values", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["footprint_building_id"], name: "index_admin_toolkit_footprint_values_on_footprint_building_id"
     t.index ["footprint_type_id"], name: "index_admin_toolkit_footprint_values_on_footprint_type_id"
+    t.index ["project_type", "footprint_type_id", "footprint_building_id"], name: "index_footprint_values_on_project_type_and_references", unique: true
   end
 
   create_table "admin_toolkit_kam_investors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -120,7 +121,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.text "investor_description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["investor_id"], name: "index_admin_toolkit_kam_investors_on_investor_id"
+    t.index ["investor_id"], name: "index_admin_toolkit_kam_investors_on_investor_id", unique: true
     t.index ["kam_id"], name: "index_admin_toolkit_kam_investors_on_kam_id"
   end
 
@@ -130,13 +131,18 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["kam_id"], name: "index_admin_toolkit_kam_regions_on_kam_id"
-    t.index ["name"], name: "index_admin_toolkit_kam_regions_on_name"
+    t.index ["name"], name: "index_admin_toolkit_kam_regions_on_name", unique: true
   end
 
   create_table "admin_toolkit_label_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
+    t.string "code", null: false
+    t.string "label_list", default: [], null: false, array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_admin_toolkit_label_groups_on_code", unique: true
+    t.index ["label_list"], name: "index_admin_toolkit_label_groups_on_label_list"
+    t.index ["name"], name: "index_admin_toolkit_label_groups_on_name", unique: true
   end
 
   create_table "admin_toolkit_pct_costs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -145,7 +151,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.integer "max", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["index"], name: "index_admin_toolkit_pct_costs_on_index"
+    t.index ["index"], name: "index_admin_toolkit_pct_costs_on_index", unique: true
   end
 
   create_table "admin_toolkit_pct_months", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -154,7 +160,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.integer "max", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["index"], name: "index_admin_toolkit_pct_months_on_index"
+    t.index ["index"], name: "index_admin_toolkit_pct_months_on_index", unique: true
   end
 
   create_table "admin_toolkit_pct_values", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -165,6 +171,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["pct_cost_id"], name: "index_admin_toolkit_pct_values_on_pct_cost_id"
     t.index ["pct_month_id"], name: "index_admin_toolkit_pct_values_on_pct_month_id"
+    t.index ["status", "pct_month_id", "pct_cost_id"], name: "index_pct_values_on_status_and_references", unique: true
   end
 
   create_table "admin_toolkit_penetration_competitions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -187,15 +194,17 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["kam_region_id"], name: "index_admin_toolkit_penetrations_on_kam_region_id"
-    t.index ["zip"], name: "index_admin_toolkit_penetrations_on_zip"
+    t.index ["zip"], name: "index_admin_toolkit_penetrations_on_zip", unique: true
   end
 
   create_table "admin_toolkit_project_costs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.decimal "standard", precision: 15, scale: 2
     t.decimal "arpu", precision: 15, scale: 2
+    t.decimal "socket_installation_rate", precision: 15, scale: 2
     t.integer "index", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["index"], name: "index_admin_toolkit_project_costs_on_index", unique: true
   end
 
   create_table "permissions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -207,6 +216,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["accessor_type", "accessor_id"], name: "index_permissions_on_accessor"
     t.index ["actions"], name: "index_permissions_on_actions"
+    t.index ["resource", "accessor_id", "accessor_type"], name: "index_permissions_on_resource_and_accessor_id_and_accessor_type", unique: true
   end
 
   create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -260,14 +270,17 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "competition_id"
+    t.uuid "incharge_id"
     t.text "analysis"
     t.boolean "customer_request"
-    t.jsonb "verdicts", default: {}, null: false
+    t.jsonb "verdicts", default: {}
     t.jsonb "draft_version", default: {}
+    t.boolean "system_sorted_category", default: true
     t.index ["additional_details"], name: "index_projects_on_additional_details"
     t.index ["assignee_id"], name: "index_projects_on_assignee_id"
     t.index ["competition_id"], name: "index_projects_on_competition_id"
-    t.index ["external_id"], name: "index_projects_on_external_id"
+    t.index ["external_id"], name: "index_projects_on_external_id", unique: true
+    t.index ["incharge_id"], name: "index_projects_on_incharge_id"
     t.index ["kam_region_id"], name: "index_projects_on_kam_region_id"
     t.index ["status"], name: "index_projects_on_status", where: "((status)::text <> 'Archived'::text)"
   end
@@ -307,6 +320,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["external_id"], name: "index_projects_address_books_on_external_id"
     t.index ["project_id"], name: "index_projects_address_books_on_project_id"
+    t.index ["type", "project_id"], name: "index_projects_address_books_on_type_and_project_id", unique: true, where: "((type)::text <> 'Others'::text)"
   end
 
   create_table "projects_buildings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -325,7 +339,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["additional_details"], name: "index_projects_buildings_on_additional_details"
     t.index ["assignee_id"], name: "index_projects_buildings_on_assignee_id"
-    t.index ["external_id"], name: "index_projects_buildings_on_external_id"
+    t.index ["external_id"], name: "index_projects_buildings_on_external_id", unique: true
     t.index ["project_id"], name: "index_projects_buildings_on_project_id"
   end
 
@@ -357,6 +371,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.decimal "lease_cost", precision: 15, scale: 2
     t.float "penetration_rate"
     t.integer "payback_period", default: 0, null: false
+    t.boolean "system_generated_payback_period", default: true, null: false
     t.uuid "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -387,33 +402,6 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "users_count", default: 0, null: false
     t.index ["name"], name: "index_roles_on_name", unique: true
-  end
-
-  create_table "taggings", id: :serial, force: :cascade do |t|
-    t.integer "tag_id"
-    t.string "taggable_type"
-    t.integer "taggable_id"
-    t.string "tagger_type"
-    t.integer "tagger_id"
-    t.string "context", limit: 128
-    t.datetime "created_at"
-    t.index ["context"], name: "index_taggings_on_context"
-    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-    t.index ["tag_id"], name: "index_taggings_on_tag_id"
-    t.index ["taggable_id", "taggable_type", "context"], name: "taggings_taggable_context_idx"
-    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
-    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
-    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
-    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
-    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
-  end
-
-  create_table "tags", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "taggings_count", default: 0
-    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "telco_uam_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -467,6 +455,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
   add_foreign_key "projects", "admin_toolkit_competitions", column: "competition_id"
   add_foreign_key "projects", "admin_toolkit_kam_regions", column: "kam_region_id"
   add_foreign_key "projects", "telco_uam_users", column: "assignee_id"
+  add_foreign_key "projects", "telco_uam_users", column: "incharge_id"
   add_foreign_key "projects_access_tech_costs", "projects"
   add_foreign_key "projects_address_books", "projects"
   add_foreign_key "projects_buildings", "projects"
@@ -477,9 +466,8 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
   add_foreign_key "projects_pct_costs", "projects"
   add_foreign_key "projects_tasks", "telco_uam_users", column: "assignee_id"
   add_foreign_key "projects_tasks", "telco_uam_users", column: "owner_id"
-  add_foreign_key "taggings", "tags"
 
-  create_view "users_lists", sql_definition: <<-SQL
+  create_view "users_lists", materialized: true, sql_definition: <<-SQL
       SELECT telco_uam_users.id,
       telco_uam_users.active,
       telco_uam_users.email,
@@ -495,7 +483,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     WHERE (telco_uam_users.discarded_at IS NULL)
     ORDER BY (concat(profiles.firstname, ' ', profiles.lastname));
   SQL
-  create_view "projects_lists", sql_definition: <<-SQL
+  create_view "projects_lists", materialized: true, sql_definition: <<-SQL
       SELECT projects.id,
       projects.external_id,
       projects.project_nr,

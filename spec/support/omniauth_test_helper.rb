@@ -4,7 +4,7 @@ module OmniauthTestHelper
   def valid_azure_login_setup
     OmniAuth.config.test_mode = true
 
-    OmniAuth.config.mock_auth[:azure_activedirectory_v2] = OmniAuth::AuthHash.new(
+    OmniAuth.config.mock_auth[:azure_activedirectory_v2] = OmniAuth::AuthHash.new( # rubocop:disable Naming/VariableNumber
       {
         provider: 'azure_activedirectory_v2',
         uid: '123545',

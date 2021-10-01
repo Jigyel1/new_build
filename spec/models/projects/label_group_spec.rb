@@ -13,7 +13,7 @@ RSpec.describe Projects::LabelGroup, type: :model do
     end
 
     context "with it's own labels" do
-      subject do
+      subject(:project_label_group) do
         create(
           :projects_label_group,
           project: create(:project),
@@ -23,9 +23,8 @@ RSpec.describe Projects::LabelGroup, type: :model do
       end
 
       it do
-        expect(subject).to have_attributes(
-          label_list: ['More Information Requested', 'Management Decision Meeting', 'Manually Created']
-        )
+        expect(project_label_group).to have_attributes(label_list: ['More Information Requested',
+                                                                    'Management Decision Meeting'])
       end
     end
   end

@@ -2,8 +2,6 @@
 
 module Projects
   class AddressBookUpdater < BaseService
-    attr_reader :address_book
-
     def call
       authorize! address_book.project, to: :update?, with: ProjectPolicy
 
@@ -11,7 +9,7 @@ module Projects
         address_book.assign_attributes(attributes)
         address_book.entry_type = :manual # even the ones that were initially frm the `info_manager`
         address_book.save!
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 

@@ -20,8 +20,8 @@ module Types
 
       field :address, Types::AddressType, null: true
 
-      def type
-        ::Projects::AddressBook.types[object.type]
+      def address
+        preload_association(:address)
       end
     end
   end

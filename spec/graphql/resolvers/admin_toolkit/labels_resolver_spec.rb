@@ -4,8 +4,12 @@ require 'rails_helper'
 
 RSpec.describe Resolvers::AdminToolkit::LabelsResolver do
   let_it_be(:label_group) { create(:admin_toolkit_label_group, label_list: 'Prio 1, Prio 2') }
+
   let_it_be(:label_group_b) do
-    create(:admin_toolkit_label_group, name: 'Contract', label_list: 'Prio 1, Prio 2, On Hold')
+    create(:admin_toolkit_label_group,
+           :technical_analysis_completed,
+           name: 'Contract',
+           label_list: 'Prio 1, Prio 2, On Hold')
   end
 
   describe '.resolve' do

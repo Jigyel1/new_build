@@ -54,9 +54,9 @@ RSpec.describe Resolvers::Projects::BuildingResolver do
 
   def query
     <<~GQL
-      query {#{' '}
-        building(id: "#{building.id}")#{' '}
-        { id name tasks address { street streetNo zip city } }#{' '}
+      query {
+        building(id: "#{building.id}")
+        { id name tasks address { street streetNo zip city } }
       }
     GQL
   end

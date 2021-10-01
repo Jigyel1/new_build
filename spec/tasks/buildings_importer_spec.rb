@@ -16,7 +16,7 @@ describe BuildingsImporter do
            project: project,
            external_id: 58_980,
            address_attributes: address_a_attributes,
-           files: 6.times.map { file },
+           files: Array.new(6) { file },
            tasks: build_list(:task, 6, owner: super_user, assignee: super_user))
   end
 
@@ -25,7 +25,7 @@ describe BuildingsImporter do
            project: project,
            external_id: 58_880,
            address_attributes: address_a_attributes,
-           files: 6.times.map { file },
+           files: Array.new(6) { file },
            tasks: build_list(:task, 10, owner: super_user, assignee: super_user))
   end
   let_it_be(:building_c) do
@@ -33,7 +33,7 @@ describe BuildingsImporter do
            project: project,
            external_id: 58_883,
            address_attributes: address_a_attributes,
-           files: 3.times.map { file },
+           files: Array.new(3) { file },
            tasks: build_list(:task, 20, owner: super_user, assignee: super_user))
   end
 
@@ -43,7 +43,7 @@ describe BuildingsImporter do
            project: project,
            external_id: 58_884,
            address_attributes: address_b_attributes,
-           files: 10.times.map { file },
+           files: Array.new(10) { file },
            tasks: build_list(:task, 6, owner: super_user, assignee: super_user))
   end
 
@@ -52,10 +52,11 @@ describe BuildingsImporter do
 
   let_it_be(:file) { fixture_file_upload('spec/files/buildings-update.xlsx') }
 
+  # TODO: Remove rubocop filters and fix these!
   context 'when excel has more buildings than the portal' do
     before_all { described_class.call(current_user: super_user, input: file) }
 
-    it 'updates details for idable buildings' do
+    it 'updates details for idable buildings' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
       building = Projects::Building.find_by(external_id: 58_580)
       expect(building).to have_attributes(
         apartments_count: 1,
@@ -105,7 +106,7 @@ describe BuildingsImporter do
       )
     end
 
-    it 'updates details for addressable buildings' do
+    it 'updates details for addressable buildings' do # rubocop:disable RSpec/MultipleExpectations
       # updates the external id too.
       building = Projects::Building.find_by(external_id: 82_952_250)
       expect(building).to have_attributes(
@@ -166,7 +167,7 @@ describe BuildingsImporter do
              project: project,
              external_id: 58_850,
              address_attributes: address_b_attributes,
-             files: 5.times.map { file },
+             files: Array.new(5) { file },
              tasks: build_list(:task, 10, owner: super_user, assignee: super_user))
     end
 
@@ -178,7 +179,7 @@ describe BuildingsImporter do
              project: project,
              external_id: 58_853,
              address: address_c,
-             files: 11.times.map { file },
+             files: Array.new(11) { file },
              tasks: build_list(:task, 10, owner: super_user, assignee: super_user))
     end
 
@@ -188,7 +189,7 @@ describe BuildingsImporter do
              project: project,
              external_id: 58_840,
              address: address_d,
-             files: 6.times.map { file },
+             files: Array.new(6) { file },
              tasks: build_list(:task, 20, owner: super_user, assignee: super_user))
     end
 

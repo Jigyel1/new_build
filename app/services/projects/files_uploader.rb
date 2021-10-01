@@ -9,9 +9,12 @@ module Projects
     def call
       authorize! project, to: :update?, with: ProjectPolicy
 
-      attachable.files.attach(
-        attributes[:files].map { |file| to_attachables(file) }
-      )
+      with_tracking(activity_id = SecureRandom.uuid, transaction: true) do
+        attachable.files.attach(
+          attributes[:files].map { |file| to_attachables(file) }
+        )
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
+      end
     end
 
     def attachable
@@ -38,6 +41,16 @@ module Projects
     # you return `attachable.project`
     def project
       attachable.is_a?(Project) ? attachable : attachable.project
+    end
+
+    def activity_params(activity_id)
+      {
+        activity_id: activity_id,
+        action: :file_uploaded,
+        owner: current_user,
+        trackable: attachable.project,
+        parameters: attributes
+      }
     end
   end
 end

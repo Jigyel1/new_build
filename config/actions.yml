@@ -48,3 +48,26 @@ admin_toolkit/project_cost:
 project:
   - project_created
   - project_updated
+  - project_draft_version
+  - project_category_updated
+  - incharge_updated
+  - file_uploaded
+projects/address_book:
+  - address_book_created
+  - address_book_updated
+projects/building:
+  - building_created
+  - building_deleted
+  - building_updated
+projects/label_group:
+  - label_group_created
+  - label_group_updated
+projects/task:
+  - task_created
+  - task_deleted
+  - task_updated
+projects/pct_cost:
+  - payback_period_updated
+active_storage/attachment:
+  - attachment_file_deleted
+  - attachment_file_updated

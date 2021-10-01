@@ -86,11 +86,11 @@ RSpec.describe Mutations::AdminToolkit::UpdatePenetration do
             }
           }
         )
-        {#{' '}
-          penetration {#{' '}
-            id zip city rate hfcFootprint type kamRegion { id kam { name } }#{' '}
+        {
+          penetration {
+            id zip city rate hfcFootprint type kamRegion { id kam { name } }
             penetrationCompetitions { id competition { id name } }
-          }#{' '}
+          }
         }
       }
     GQL

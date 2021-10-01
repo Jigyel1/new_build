@@ -13,9 +13,10 @@ module Projects
     enum entry_type: { manual: 'Manual', info_manager: 'Info Manager' }
 
     validates :type, :name, :display_name, presence: true
-    validates :type, uniqueness: { unless: ->(record) { record.others? }, scope: :project_id }
+    validates :type, uniqueness: { unless: :others?, scope: :project_id }
 
     before_validation :set_display_name
+    after_save :update_projects_list
 
     # If the given address book is a main contact for the project, prefix it with character `c`
     def external_id_with_contact

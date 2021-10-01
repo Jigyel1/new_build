@@ -6,7 +6,7 @@ module Types
       include ActionView::Helpers::TextHelper
 
       # To avoid name conflict with the `PctCostType` defined in the `AdminToolkit`
-      graphql_name 'projects_pct_cost_type'
+      graphql_name 'ProjectsPctCostType'
 
       field :id, ID, null: true
       field :project_cost, Float, null: true
@@ -16,6 +16,7 @@ module Types
       field :penetration_rate, Float, null: true
       field :payback_period, Int, null: true, description: 'In months'
       field :payback_period_formatted, String, null: true
+      field :system_generated_payback_period, Boolean, null: true
 
       def payback_period_formatted
         seconds = ActiveSupport::Duration::SECONDS_PER_MONTH * object.payback_period

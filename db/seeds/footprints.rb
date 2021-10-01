@@ -27,7 +27,7 @@ end
 #
 # run from the console:
 #   #=> puts AdminToolkit::FootprintValue.all.map{|x| "building #{x.footprint_building.min} -
-#           #{x.footprint_building.max} || footprint type #{x.footprint_type.provider} || #{x.project_type}" }
+#           #{x.footprint_building.max} || footprint type #{x.footprint_type.provider} || #{x.category}" }
 # to confirm matrix generation.
 [
   [0, 0, :standard], [0, 1, :standard], [0, 2, :irrelevant], [0, 3, :irrelevant],
@@ -36,9 +36,9 @@ end
   [3, 0, :complex], [3, 1, :complex], [3, 2, :marketing_only], [3, 3, :marketing_only],
   [4, 0, :complex], [4, 1, :complex], [4, 2, :complex], [4, 3, :complex]
 ].each do |array|
-  building_index, type_index, project_type = array
+  building_index, type_index, category = array
 
-  create_record(project_type: project_type) do
+  create_record(category: category) do
     AdminToolkit::FootprintValue.find_or_initialize_by(
       footprint_building: AdminToolkit::FootprintBuilding.find_by!(index: building_index),
       footprint_type: AdminToolkit::FootprintType.find_by!(index: type_index)

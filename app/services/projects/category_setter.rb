@@ -7,10 +7,12 @@ module Projects
     def call
       AdminToolkit::FootprintValue
         .joins(:footprint_building, :footprint_type)
-        .where('admin_toolkit_footprint_buildings.min <= :value AND admin_toolkit_footprint_buildings.max >= :value', value: project.buildings_count)
-        .find_by(admin_toolkit_footprint_types: { provider: provider })
-        .try(:project_type)
-    rescue ActiveRecord::RecordNotFound # return nil for projects there is no corresponding zip in penetrations.
+        .where(
+          'admin_toolkit_footprint_buildings.min <= :value AND admin_toolkit_footprint_buildings.max >= :value',
+          value: project.buildings_count
+        ).find_by(admin_toolkit_footprint_types: { provider: provider })
+        .try(:category)
+    rescue ActiveRecord::RecordNotFound
       nil
     end
 

@@ -11,5 +11,7 @@ module AdminToolkit
       inclusion: { in: Rails.application.config.kam_regions },
       uniqueness: { case_sensitive: false }
     )
+
+    after_save :update_projects_list
   end
 end

@@ -7,13 +7,13 @@ module Resolvers
 
     def resolve(id:)
       Project.find(id).tap do |project|
-        set_assignee(project)
+        update_assignee(project)
       end
     end
 
     private
 
-    def set_assignee(project)
+    def update_assignee(project)
       return if skip_assignment?(project)
 
       project.update_column(:assignee_id, current_user.id)

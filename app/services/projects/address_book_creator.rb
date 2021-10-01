@@ -11,7 +11,7 @@ module Projects
         @address_book = project.address_books.build(attributes)
         address_book.entry_type = :manual
         address_book.save!
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 

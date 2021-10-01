@@ -26,7 +26,8 @@ module Buildings
 
     private
 
-    def update_and_create!
+    # TODO: Need to clean this up!
+    def update_and_create! # rubocop:disable Metrics/SeliseMethodLength, Metrics/AbcSize
       ordered_rows.zip(ordered_buildings).each do |array|
         row, building = array
 

@@ -52,11 +52,11 @@ RSpec.describe Resolvers::Projects::TaskResolver do
 
   def query
     <<~GQL
-      query { task(id: "#{task.id}")#{' '}
-        {#{' '}
-          id title status dueDate description#{' '}
+      query { task(id: "#{task.id}")
+        {
+          id title status dueDate description
           owner { id name email } assignee { id name email }
-        }#{'   '}
+        }
       }
     GQL
   end

@@ -43,9 +43,7 @@ module Mutations
     field :project, Types::ProjectType, null: true
 
     def resolve(attributes:)
-      resolver = ::Projects::Creator.new(current_user: current_user, attributes: attributes.to_h)
-      resolver.call
-      { project: resolver.project }
+      super(::Projects::Creator, :project, attributes: attributes)
     end
   end
 end

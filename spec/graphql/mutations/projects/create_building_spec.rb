@@ -80,9 +80,9 @@ RSpec.describe Mutations::Projects::CreateBuilding do
           }
         )
         {
-          building {#{' '}
+          building {
             id name apartmentsCount moveInStartsOn moveInEndsOn
-            address { id streetNo street city zip}#{' '}
+            address { id streetNo street city zip}
             assignee { id name }
           }
         }

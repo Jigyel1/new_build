@@ -15,7 +15,7 @@ describe Projects::Organizer do
            project: project,
            external_id: 58_980,
            address_attributes: address_a_attributes,
-           files: 10.times.map { file },
+           files: Array.new(10) { file },
            tasks: build_list(:task, 6, owner: super_user, assignee: super_user))
   end
 
@@ -24,7 +24,7 @@ describe Projects::Organizer do
            project: project,
            external_id: 58_880,
            address_attributes: address_a_attributes,
-           files: 6.times.map { file },
+           files: Array.new(6) { file },
            tasks: build_list(:task, 6, owner: super_user, assignee: super_user))
   end
   let_it_be(:building_c) do
@@ -32,7 +32,7 @@ describe Projects::Organizer do
            project: project,
            external_id: 58_883,
            address_attributes: address_a_attributes,
-           files: 20.times.map { file },
+           files: Array.new(20) { file },
            tasks: build_list(:task, 3, owner: super_user, assignee: super_user))
   end
 
@@ -42,7 +42,7 @@ describe Projects::Organizer do
            project: project,
            external_id: 58_884,
            address_attributes: address_b_attributes,
-           files: 20.times.map { file },
+           files: Array.new(20) { file },
            tasks: build_list(:task, 6, owner: super_user, assignee: super_user))
   end
 
@@ -51,7 +51,7 @@ describe Projects::Organizer do
            project: project,
            external_id: 58_850,
            address_attributes: address_b_attributes,
-           files: 8.times.map { file },
+           files: Array.new(8) { file },
            tasks: build_list(:task, 8, owner: super_user, assignee: super_user))
   end
 
@@ -63,7 +63,7 @@ describe Projects::Organizer do
            project: project,
            external_id: 58_853,
            address: address_c,
-           files: 16.times.map { file },
+           files: Array.new(16) { file },
            tasks: build_list(:task, 8, owner: super_user, assignee: super_user))
   end
 
@@ -73,7 +73,7 @@ describe Projects::Organizer do
            project: project,
            external_id: 58_845,
            address: address_d,
-           files: 10.times.map { file },
+           files: Array.new(10) { file },
            tasks: build_list(:task, 8, owner: super_user, assignee: super_user))
   end
 
@@ -85,7 +85,7 @@ describe Projects::Organizer do
            project: project,
            external_id: 58_840,
            address: build(:address),
-           files: 5.times.map { file },
+           files: Array.new(5) { file },
            tasks: build_list(:task, 12, owner: super_user, assignee: super_user))
   end
 
@@ -104,21 +104,27 @@ describe Projects::Organizer do
     ]
   end
 
-  subject { described_class.new(buildings: Projects::Building.all, rows: rows) }
+  subject(:organizer) { described_class.new(buildings: Projects::Building.all, rows: rows) }
 
-  it 'sorts the rows as per the priority' do
-    subject.call
+  before { organizer.call }
 
-    expect(subject.idable_buildings.pluck(:id)).to eq([building_h.id, building_i.id])
-    expect(subject.idable_rows.map { |row| row[Projects::Organizer::BUILDING_ID] }).to eq([58_580, 58_581])
+  it 'sorts idable rows as per the priority' do
+    expect(organizer.idable_buildings.pluck(:id)).to eq([building_h.id, building_i.id])
+    expect(organizer.idable_rows.map { |row| row[Projects::Organizer::BUILDING_ID] }).to eq([58_580, 58_581])
+  end
 
-    expect(subject.addressable_buildings.pluck(:id)).to eq([building_b.id, building_c.id, building_a.id])
-    expect(subject.addressable_rows.map { |row| row[Projects::Organizer::BUILDING_ID] }).to eq([58_592, 58_593, 58_594])
+  it 'sorts addressable rows as per priority' do
+    expect(organizer.addressable_buildings.pluck(:id)).to eq([building_b.id, building_c.id, building_a.id])
+    expect(organizer.addressable_rows.map do |row|
+      row[Projects::Organizer::BUILDING_ID]
+    end).to eq([58_592, 58_593, 58_594])
+  end
 
-    expect(subject.ordered_buildings.pluck(:id)).to eq([building_j.id, building_f.id, building_g.id, building_e.id,
-                                                        building_d.id])
-    expect(subject.ordered_rows.map do |row|
-             row[Projects::Organizer::BUILDING_ID]
-           end).to eq([58_586, 58_587, 58_588, 58_590])
+  it 'sorts ordered rows as per priority' do
+    expect(organizer.ordered_buildings.pluck(:id)).to eq([building_j.id, building_f.id, building_g.id, building_e.id,
+                                                          building_d.id])
+    expect(organizer.ordered_rows.map do |row|
+      row[Projects::Organizer::BUILDING_ID]
+    end).to eq([58_586, 58_587, 58_588, 58_590])
   end
 end

@@ -5,15 +5,13 @@ module Resolvers
     class TasksResolver < SearchObjectBase
       VALID_TASKABLE_TYPES = ['Project', 'Projects::Building'].freeze
 
-      scope do
-        ::Projects::Task
-      end
+      scope { ::Projects::Task }
 
       type Types::Projects::TaskConnectionType, null: false
 
       option :taskable, type: [String], with: :apply_taskable_filter, required: true, description: <<~DESC
         Takes in two arguments. First, the taskable id(project or the building id).
-        Second, the taskable type(when project then `Project`, when building then `Projects::Building`).#{' '}
+        Second, the taskable type(when project then `Project`, when building then `Projects::Building`).
         Note that this option is mandatory!
       DESC
 

@@ -6,7 +6,7 @@ class CreateAdminToolkitProjectCosts < ActiveRecord::Migration[6.1]
       t.decimal :standard, precision: 15, scale: 2
       t.decimal :arpu, precision: 15, scale: 2
       t.decimal :socket_installation_rate, precision: 15, scale: 2
-      t.integer :index, default: 0, null: false
+      t.integer :index, default: 0, null: false, index: { unique: :case_insensitive_comparison }
 
       t.timestamps
     end

@@ -81,9 +81,9 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
           }
         )
         {
-          building {#{' '}
+          building {
             id name externalId apartmentsCount moveInStartsOn moveInEndsOn
-            address { id streetNo street city zip}#{' '}
+            address { id streetNo street city zip}
             assignee { id name }
           }
         }

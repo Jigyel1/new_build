@@ -21,7 +21,9 @@ module Projects
         message: I18n.t('projects.transition.project_connection_cost_missing')
       }
     )
-    validates :penetration, :competition, :address, presence: true
+
+    validates_presence_of :penetration, message: I18n.t('projects.transition.penetration_missing')
+    validates :competition, :address, presence: true
     validates :arpu, :socket_installation_rate, :standard_connection_cost, presence: { unless: :lease_cost_only }
 
     def initialize(attributes = {})
@@ -29,20 +31,22 @@ module Projects
       @apartments_count = project.apartments_count.to_i
     end
 
-    def call
-      if lease_cost_only
-        @pct_cost = Projects::PctCost.new(lease_cost: lease_cost)
-      else
-        super do
-          @pct_cost = Projects::PctCost.new(
-            project_cost: project_cost,
-            lease_cost: lease_cost,
-            socket_installation_cost: socket_installation_cost,
-            arpu: arpu,
-            penetration_rate: penetration_rate,
-            payback_period: payback_period
-          )
-        end
+    def call # rubocop:disable Metrics/SeliseMethodLength
+      super do
+        @pct_cost = Projects::PctCost.new(
+          if lease_cost_only
+            { lease_cost: lease_cost }
+          else
+            {
+              project_cost: project_cost,
+              lease_cost: lease_cost,
+              socket_installation_cost: socket_installation_cost,
+              arpu: arpu,
+              penetration_rate: penetration_rate,
+              payback_period: payback_period
+            }
+          end
+        )
       end
     end
 
@@ -52,14 +56,14 @@ module Projects
       raise(errors.full_messages.to_sentence) if invalid?
     end
 
+    MONTHS_IN_FIVE_YEARS = 60
     # calculated for a period of 5 years.
     # Lease Price = Lease rate for that competition  *  No. of Apartment  *  Penetration rate  *  60
-    MONTHS_IN_FIVE_YEARS = 60
     def lease_cost
       competition.lease_rate * apartments_count * penetration_rate * MONTHS_IN_FIVE_YEARS
     end
 
-    # No. of sockets per apartment  *  No. of Apartments in Project  *  Socket Installation Rate [from the admin toolkit]
+    # No. of sockets per apartment * No. of Apartments in Project * Socket Installation Rate [from the admin toolkit]
     # Notice the use of `to_i` even for integers. Well that is to convert nils to 0s if any.
     def socket_installation_cost
       sockets.to_i * apartments_count * socket_installation_rate
@@ -74,13 +78,17 @@ module Projects
     # The value is displayed in Years and Months
     # Values are always Rounded down (13.6 becomes 1 year 1 month)
     def payback_period
-      divisor = apartments_count * arpu * penetration_rate * competition.factor
+      payback_period = project.pct_cost.try(:payback_period)
+      return payback_period if payback_period && !project.pct_cost.system_generated_payback_period?
 
-      if divisor.zero?
-        raise(t('projects.transition.payback_period_invalid_divisor'))
-      else
-        (project_cost / divisor).to_i
-      end
+      calculate_payback_period
+    end
+
+    def calculate_payback_period
+      divisor = apartments_count * arpu * penetration_rate * competition.factor
+      return (project_cost / divisor).to_i unless divisor.zero?
+
+      raise(t('projects.transition.payback_period_invalid_divisor'))
     end
 
     # if marketing only or irrelevant, if project_connection_cost is not given, set it as 0.

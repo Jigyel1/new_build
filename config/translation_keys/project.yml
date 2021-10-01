@@ -1,0 +1,97 @@
+project:
+  recipient:
+  owner:
+    project_created:
+      - parameters
+    project_updated:
+      - parameters
+    project_draft_version:
+      - parameters
+    project_category_updated:
+      - parameters
+    incharge_updated:
+      - parameters
+    project_pct_cost:
+      - parameters
+    file_uploaded:
+      - parameters
+  others:
+    project_created:
+      - parameters
+    project_updated:
+      - parameters
+    project_draft_version:
+      - parameters
+    project_category_updated:
+      - parameters
+    incharge_updated:
+      - parameters
+    file_uploaded:
+      - parameters
+
+projects:
+  recipient:
+    task_created:
+      - parameters
+    task_deleted:
+      - parameters
+    task_updated:
+      - parameters
+  owner:
+    address_book_created:
+      - parameters
+    address_book_updated:
+      - parameters
+    building_created:
+      - parameters
+    building_deleted:
+      - parameters
+    building_updated:
+      - parameters
+    label_group_created:
+      - parameters
+    label_group_updated:
+      - parameters
+    task_created:
+      - parameters
+    task_deleted:
+      - parameters
+    task_updated:
+      - parameters
+    payback_period_updated:
+      - parameters
+  others:
+    address_book_created:
+      - parameters
+    address_book_updated:
+      - parameters
+    building_created:
+      - parameters
+    building_deleted:
+      - parameters
+    building_updated:
+      - parameters
+    label_group_created:
+      - parameters
+    label_group_updated:
+      - parameters
+    task_created:
+      - parameters
+    task_deleted:
+      - parameters
+    task_updated:
+      - parameters
+    payback_period_updated:
+      - parameters
+
+active_storage:
+  owner:
+    attachment_file_deleted:
+      - parameters
+    attachment_file_updated:
+      - parameters
+  others:
+    attachment_file_deleted:
+      - parameters
+    attachment_file_updated:
+      - parameters

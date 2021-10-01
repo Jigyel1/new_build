@@ -43,7 +43,7 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
         buildings#{query_string(args)} {
           totalCount
           edges {
-            node {#{' '}
+            node {
               id externalId name tasks
             }
           }

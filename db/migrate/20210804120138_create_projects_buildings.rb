@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class CreateProjectsBuildings < ActiveRecord::Migration[6.1]
-  def change
+  def change # rubocop:disable Metrics/SeliseMethodLength
     create_table :projects_buildings, id: :uuid do |t|
       t.string :name, null: false
-      t.string :external_id, null: true, index: true
+      t.string :external_id, index: { unique: true }
 
-      t.references :assignee, null: true, foreign_key: { to_table: :telco_uam_users }, type: :uuid
+      t.references :assignee, foreign_key: { to_table: :telco_uam_users }, type: :uuid
       t.references :project, null: false, foreign_key: true, type: :uuid
       t.integer :apartments_count, null: false, default: 0
       t.date :move_in_starts_on

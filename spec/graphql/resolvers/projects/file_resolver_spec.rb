@@ -43,11 +43,11 @@ RSpec.describe Resolvers::Projects::FileResolver do
 
   def query
     <<~GQL
-      query { file(id: "#{file.id}")#{' '}
-        {#{' '}
+      query { file(id: "#{file.id}")
+        {
           id name size createdAt fileUrl
           owner { id name email }
-        }#{'   '}
+        }
       }
     GQL
   end

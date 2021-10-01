@@ -25,9 +25,7 @@ module Mutations
       field :penetration, Types::AdminToolkit::PenetrationType, null: true
 
       def resolve(attributes:)
-        resolver = ::AdminToolkit::PenetrationUpdater.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { penetration: resolver.penetration }
+        super(::AdminToolkit::PenetrationUpdater, :penetration, attributes: attributes.to_h)
       end
     end
   end

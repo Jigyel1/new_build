@@ -12,9 +12,7 @@ module Mutations
       field :footprint_building, Types::AdminToolkit::FootprintBuildingType, null: true
 
       def resolve(attributes:)
-        resolver = ::AdminToolkit::FootprintBuildingUpdater.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { footprint_building: resolver.footprint_building }
+        super(::AdminToolkit::FootprintBuildingUpdater, :footprint_building, attributes: attributes.to_h)
       end
     end
   end

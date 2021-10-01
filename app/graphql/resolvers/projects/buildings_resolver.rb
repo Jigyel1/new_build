@@ -3,9 +3,7 @@
 module Resolvers
   module Projects
     class BuildingsResolver < SearchObjectBase
-      scope do
-        ::Projects::Building
-      end
+      scope { ::Projects::Building }
 
       type Types::Projects::BuildingConnectionType, null: false
 
@@ -16,13 +14,15 @@ module Resolvers
       DESC
 
       def apply_search(scope, value)
-        scope.left_joins(:address, assignee: :profile).where(
-          "CONCAT_WS(
-            ' ', name, external_id, move_in_starts_on, profiles.firstname, profiles.lastname,
+        scope
+          .left_joins(:address, assignee: :profile)
+          .where(
+            "CONCAT_WS(' ', name, external_id, move_in_starts_on,
+            profiles.firstname, profiles.lastname,
             addresses.street, addresses.street_no, addresses.city, addresses.zip
-          ) iLIKE ?",
-          "%#{value.squish}%"
-        )
+            ) iLIKE ?",
+            "%#{value.squish}%"
+          )
       end
     end
   end

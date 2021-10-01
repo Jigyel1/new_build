@@ -36,7 +36,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
           input: {
             attributes: {
               arpu: #{args[:arpu]}
-              standard: #{args[:standard]}#{'    '}
+              standard: #{args[:standard]}
               socketInstallationRate: 75.456
             }
           }

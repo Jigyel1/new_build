@@ -60,7 +60,7 @@ en:
       invalid_taskable_type: Taskable type is invalid. %{valid_types} are only supported.
       not_archived: You can only unarchive archived tasks.
     transition:
-      event_not_allowed: Event not allowed
+      event_not_allowed: Event not allowed.
       ftth_not_supported: FTTH is not a valid option if standard cost is applicable.
       access_tech_cost_not_supported: Access Tech Cost should not be passed if standard cost is not available.
       missing_inhouse_installation_details: In House Installation details not set
@@ -70,9 +70,10 @@ en:
         to calculate the overall socket installation cost of the project.
       standard_connection_cost_missing: Standard Connection cost is not set in the Costs of the Admin Toolkit. You will need this
         to calculate the overall project cost for standard projects.
-      penetration_missing: Penetration rate needs to be available for calculation of lease rate and payback period, which is currently
-        not available for the project's zip.
+      penetration_missing: rate needs to be available for calculation of lease rate and payback period, which is currently
+        not available for the project's zip
       payback_period_invalid_divisor: Unable to calculate payback period. Please check if any one of these values is 0 -
         [apartments count, arpu, penetration rate, competition factor].
       error_in_pct_calculation: Unable to calculate PCT cost for the project. Errors => %{error}
-      error_while_adding_label: Unable to update label after project transition. Errors => %{error}
+      error_while_adding_label: Unable to update label after project transition. Errors => %{error}. Are you able to fetch the
+        project priority from the admin toolkit?

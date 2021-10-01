@@ -16,10 +16,12 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamRegions do
       it 'updates the kam region record' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateKamRegions)
         expect(errors).to be_nil
-        expect(response.status).to be(true)
 
-        expect(kam_region.reload.kam_id).to eq(kam_b.id)
-        expect(kam_region_b.reload.kam_id).to eq(kam_b.id)
+        target_region = response.kamRegions.find { |region| region[:id] == kam_region.id }
+        expect(OpenStruct.new(target_region[:kam])).to have_attributes(id: kam_b.id, name: kam_b.name)
+
+        target_region = response.kamRegions.find { |region| region[:id] == kam_region_b.id }
+        expect(OpenStruct.new(target_region[:kam])).to have_attributes(id: kam_b.id, name: kam_b.name)
       end
     end
 
@@ -31,9 +33,9 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamRegions do
       it 'un assigns the KAM from that region' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateKamRegions)
         expect(errors).to be_nil
-        expect(response.status).to be(true)
 
-        expect(kam_region_b.reload.kam_id).to be_nil
+        target_region = response.kamRegions.find { |region| region[:id] == kam_region_b.id }
+        expect(target_region[:kam]).to be_nil
       end
     end
 
@@ -42,7 +44,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamRegions do
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateKamRegions)
-        expect(response.status).to be_nil
+        expect(response.kamRegions).to be_nil
         expect(errors).to match_array([t('admin_toolkit.invalid_kam')])
       end
     end
@@ -52,7 +54,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamRegions do
 
       it 'forbids action' do
         response, errors = formatted_response(query(params), current_user: kam, key: :updateKamRegions)
-        expect(response.kamRegion).to be_nil
+        expect(response.kamRegions).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
     end
@@ -75,7 +77,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamRegions do
             ]
           }
         )
-        { status }
+        { kamRegions { id kam { id name }} }
       }
     GQL
   end

@@ -3,8 +3,6 @@
 module Mutations
   module Projects
     class CreateLabels < BaseMutation
-      graphql_name 'ProjectsCreateLabels'
-
       class CreateProjectLabelsAttributes < Types::BaseInputObject
         argument :project_id, ID, required: true
         argument :label_group_id, ID, required: true

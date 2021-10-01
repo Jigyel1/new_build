@@ -5,7 +5,7 @@ module Mutations
     class TransitionToTechnicalAnalysisCompleted < BaseMutation
       class PctCostAttributes < Types::BaseInputObject
         argument :project_connection_cost, Float, required: false, description: <<~DESC
-          Required only for complex projects.#{' '}
+          Required only for complex projects.
           Irrelevant for standard projects.
           Optional for irrelevant and marketing only projects.
         DESC
@@ -28,23 +28,34 @@ module Mutations
 
       class TransitionToTechnicalAnalysisCompletedAttributes < Types::BaseInputObject
         argument :id, ID, required: true
-        argument :category, String, required: true
 
-        argument :standard_cost_applicable, Boolean, required: true
         argument :access_technology, String, required: true
-        argument :access_tech_cost, AccessTechCostAttributes, required: false, as: :access_tech_cost_attributes
 
         argument :competition_id, String, required: true
         argument :construction_type, String, required: true
         argument :customer_request, Boolean, required: true
 
-        argument :in_house_installation, Boolean, required: true
-        argument :installation_detail, InstallationDetailAttributes, required: false,
-                                                                     as: :installation_detail_attributes
-
         argument :priority, String, required: true
         argument :analysis, String, required: false
-        argument :verdict, String, required: false
+        argument :verdicts, GraphQL::Types::JSON, required: false
+
+        argument :standard_cost_applicable, Boolean, required: true, description: <<~DESC
+          When true, `access_tech_cost` should not be sent. When false, `access_tech_cost` is needed.
+        DESC
+        argument(
+          :access_tech_cost,
+          AccessTechCostAttributes,
+          required: false,
+          as: :access_tech_cost_attributes
+        )
+
+        argument :in_house_installation, Boolean, required: true
+        argument(
+          :installation_detail,
+          InstallationDetailAttributes,
+          required: false,
+          as: :installation_detail_attributes
+        )
 
         argument :pct_cost, PctCostAttributes, required: false, as: :pct_cost_attributes
       end

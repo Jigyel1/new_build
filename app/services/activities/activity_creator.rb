@@ -24,12 +24,14 @@ module Activities
           parameters: parameters
         }
       ).then { |activity| activity.persisted? ? activity : log_error(activity) }
+
+      # rescue Exception => e
+      #   byebug
     end
 
     private
 
     def log_error(activity)
-      byebug
       Rollbar.error(activity.errors.full_messages) if Rails.env.production?
 
       Rails.logger.error(activity.errors.full_messages)

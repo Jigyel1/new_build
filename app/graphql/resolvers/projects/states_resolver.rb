@@ -5,7 +5,7 @@ module Resolvers
     class StatesResolver < SearchObjectBase
       scope do
         states = ::Projects::StateMachine.aasm.states.map(&:name)
-        Hash[(0...states.size).zip(states)]
+        (0...states.size).zip(states).to_h
       end
 
       type GraphQL::Types::JSON, null: false

@@ -7,6 +7,8 @@ module Enumable
     included do
       enum assignee_type: { kam: 'KAM Project', nbo: 'NBO Project' }
       enum entry_type: { manual: 'Manual', info_manager: 'Info Manager' }
+      enum priority: { proactive: 'Proactive', reactive: 'Reactive' }
+      enum access_technology: { ftth: 'FTTH', hfc: 'HFC', lease: 'Lease' }
 
       enum status: {
         open: 'Open',
@@ -26,23 +28,12 @@ module Enumable
         irrelevant: 'Irrelevant'
       }
 
-      enum priority: {
-        proactive: 'Proactive',
-        reactive: 'Reactive'
-      }
-
       enum construction_type: {
         reconstruction: 'Reconstruction',
         new_construction: 'New Construction',
         b2b_new: 'B2B (New)',
         b2b_reconstruction: 'B2B (Reconstruction)',
         overbuild: 'Overbuild'
-      }
-
-      enum access_technology: {
-        ftth: 'FTTH',
-        hfc: 'HFC',
-        lease: 'Lease'
       }
     end
   end

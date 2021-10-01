@@ -17,7 +17,7 @@ module Projects
           label_group.save!
         end
 
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -32,7 +32,7 @@ module Projects
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :project_labels_updated,
+        action: :label_group_updated,
         owner: current_user,
         trackable: label_group,
         parameters: attributes.except(:id)
