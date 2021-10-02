@@ -13,7 +13,7 @@ module Projects
     private
 
     def assign_kam
-      project_assignee = Projects::Assignee.new(project)
+      project_assignee = Projects::Assignee.new(project: project)
       project_assignee.call
       project.assignee = project_assignee.kam
     end

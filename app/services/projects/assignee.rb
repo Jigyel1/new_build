@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
 module Projects
-  class Assignee
+  class Assignee < BaseService
     extend Forwardable
-    attr_reader :project, :kam, :assignee_type
+    attr_reader :kam, :assignee_type
+    attr_accessor :project
 
     def_delegators :project, :zip, :apartments_count
 
     # No need to assign KAM from Kam Region if apartments is less than 50
     APARTMENTS_COUNT_NOT_REQUIRING_KAM = 50
-
-    def initialize(project)
-      @project = project
-    end
 
     # We will skip KAM lookup by investor for manual project creations as there is no provision to enter
     # investor ID for the users.

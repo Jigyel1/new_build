@@ -18,7 +18,7 @@ module Mutations
       field :address_book, Types::Projects::AddressBookType, null: true
 
       def resolve(attributes:)
-        super(::Projects::AddressBookUpdater, :address_book, attributes: attributes)
+        super(::Projects::AddressBookUpdater, :address_book, attributes: attributes.to_h)
       end
     end
   end

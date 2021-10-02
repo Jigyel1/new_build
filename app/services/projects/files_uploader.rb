@@ -4,6 +4,7 @@ require 'active_storage'
 
 module Projects
   class FilesUploader < BaseService
+    include FileHelper
     delegate :files, to: :attachable
 
     def call
@@ -31,13 +32,6 @@ module Projects
         head: file.headers,
         tempfile: file.tempfile
       )
-    end
-
-    # `Attachable` can either be a `project` or a `building`.
-    # If its a `project`, return that. Else, it will be a building in which case,
-    # you return `attachable.project`
-    def project
-      attachable.is_a?(Project) ? attachable : attachable.project
     end
   end
 end

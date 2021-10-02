@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../../app/models/admin_toolkit'
-
 module Projects
   class Creator < BaseService
     attr_reader :project

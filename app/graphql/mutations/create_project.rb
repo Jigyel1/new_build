@@ -43,7 +43,7 @@ module Mutations
     field :project, Types::ProjectType, null: true
 
     def resolve(attributes:)
-      super(::Projects::Creator, :project, attributes: attributes)
+      super(::Projects::Creator, :project, attributes: attributes.to_h)
     end
   end
 end

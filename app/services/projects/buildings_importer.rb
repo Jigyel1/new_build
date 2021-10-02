@@ -15,7 +15,6 @@ module Projects
 
     private
 
-    # TODO: - trackable - Project?
     def activity_params(activity_id)
       {
         activity_id: activity_id,

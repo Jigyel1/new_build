@@ -4,8 +4,9 @@ module Projects
   class PctCostCalculator < BaseService
     include ActiveModel::Validations
 
-    attr_accessor :project_id, :competition_id, :lease_cost_only, :apartments_count, :sockets,
-                  :project_connection_cost, :pct_cost, :arpu, :socket_installation_rate, :standard_connection_cost
+    attr_accessor(:project_id, :competition_id, :lease_cost_only, :apartments_count,
+                  :sockets, :project_connection_cost, :pct_cost, :arpu,
+                  :socket_installation_rate, :standard_connection_cost)
 
     set_callback :call, :before, :validate!
 
@@ -92,7 +93,7 @@ module Projects
       raise(t('projects.transition.payback_period_invalid_divisor'))
     end
 
-    # if marketing only or irrelevant, if project_connection_cost is not given, set it as 0.
+    # For marketing only or irrelevant, if project_connection_cost is not given, set it as 0.
     def connection_cost
       case project.category
       when 'standard' then standard_connection_cost

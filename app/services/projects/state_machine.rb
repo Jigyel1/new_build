@@ -24,7 +24,7 @@ module Projects
       return { archived: true } if archived?
 
       states = aasm.states.map(&:name)
-      # If the PCT cost for the project is not set, then assume that the project doesn't qualify as a `Prio_` project.
+      # If the PCT cost for the project is not set, then assume that the project doesn't qualify as a `Prio_1` project.
       states.delete(:technical_analysis_completed) if begin
         prio_one?
       rescue NoMethodError

@@ -7,7 +7,6 @@ module Projects
 
     def call
       authorize! project, to: :update?
-
       super { file.blob.update!(filename: attributes[:name]) }
     end
 

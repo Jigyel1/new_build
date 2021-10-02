@@ -7,7 +7,7 @@ module Projects
     BUILDINGS_COUNT_COL = 76
     APARTMENTS_COUNT_COL = 77
 
-    # Note: project category should be called only after assigning the buildings.
+    # NOTE: project category should be called only after assigning the buildings.
     def call
       super do
         %i[

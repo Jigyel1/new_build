@@ -13,6 +13,8 @@ module Resolvers
 
     private
 
+    # If the project is not yet assigned to a user and if the current user is from the
+    # NBO team, set that as the project's assignee.
     def update_assignee(project)
       return if skip_assignment?(project)
 

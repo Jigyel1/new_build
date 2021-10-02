@@ -10,10 +10,10 @@ module Projects
       authorize! Project, to: :update?
 
       string_io = CSV.generate(headers: true) do |csv|
-        csv << Exports::PrepareHeaders.new(csv_headers, projects).call
+        csv << Exports::PrepareHeaders.new(csv_headers: csv_headers, projects: projects).call
 
         projects.each do |project|
-          csv << Exports::PrepareRow.new(csv_headers, project).call
+          csv << Exports::PrepareRow.new(csv_headers: csv_headers, project: project).call
         end
       end
 

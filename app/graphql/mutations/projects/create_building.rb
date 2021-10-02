@@ -27,7 +27,7 @@ module Mutations
       field :building, Types::Projects::BuildingType, null: true
 
       def resolve(attributes:)
-        super(::Projects::BuildingCreator, :building, attributes: attributes)
+        super(::Projects::BuildingCreator, :building, attributes: attributes.to_h)
       end
     end
   end

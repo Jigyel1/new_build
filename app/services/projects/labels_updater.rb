@@ -16,7 +16,6 @@ module Projects
           label_group.label_list = attributes[:label_list]
           label_group.save!
         end
-
         # Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end

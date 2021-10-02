@@ -12,7 +12,7 @@ module Mutations
       field :project, Types::ProjectType, null: true
 
       def resolve(attributes:)
-        super(::Projects::DraftSaver, :project, attributes: attributes)
+        super(::Projects::DraftSaver, :project, attributes: attributes.to_h)
       end
     end
   end
