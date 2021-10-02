@@ -9,7 +9,7 @@ module Projects
         .joins(:footprint_building, :footprint_type)
         .where(
           'admin_toolkit_footprint_buildings.min <= :value AND admin_toolkit_footprint_buildings.max >= :value',
-          value: project.buildings_count
+          value: project.buildings.size # look for size in memory, not from the db.
         ).find_by(admin_toolkit_footprint_types: { provider: provider })
         .try(:category)
     rescue ActiveRecord::RecordNotFound
