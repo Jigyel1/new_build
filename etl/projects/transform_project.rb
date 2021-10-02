@@ -15,14 +15,13 @@ module Projects
     end
 
     def process(row)
+      # the integers in excel are reflected here as floats. Hence the conversion.
       to_int(row)
 
       project = Project.find_or_initialize_by(external_id: row[EXTERNAL_ID])
       return if persisted?(project)
 
-      project.define_singleton_method(:row) do
-        row
-      end
+      project.define_singleton_method(:row) { row }
 
       ProjectPopulator.new(project).call
     end

@@ -4,8 +4,6 @@ require_relative '../../../app/models/admin_toolkit'
 
 module Projects
   class Creator < BaseService
-    include Helper
-
     attr_reader :project
     attr_accessor :buildings_count, :apartments_count
 

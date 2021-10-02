@@ -1,3 +1,5 @@
+# Don't add the address book external ids here as they could be prefixed with `c` character
+# for main contacts which when you convert to integer will return 0. Let `custom_assigner` handle that case.
 1: external_id
 8: investor_zip
 23: architect_zip
