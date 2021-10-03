@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../app/models/projects/address_book'
-
 FactoryBot.define do
-  # by default all projects are `standard`, `proactive`, `reconstruction`
   factory :project do
     name { Faker::Lorem.word }
     external_id { SecureRandom.hex }

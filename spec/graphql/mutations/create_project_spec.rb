@@ -15,6 +15,7 @@ RSpec.describe Mutations::CreateProject do
       it 'creates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
         expect(errors).to be_nil
+
         expect(response.project).to have_attributes(
           internalId: 'e922833',
           moveInStartsOn: Date.current.date_str,
@@ -24,10 +25,7 @@ RSpec.describe Mutations::CreateProject do
           buildingsCount: 3
         )
 
-        expect(response.project.assignee).to have_attributes(
-          id: kam.id,
-          name: kam.name
-        )
+        expect(response.project.assignee).to have_attributes(id: kam.id, name: kam.name)
       end
 
       it 'creates the associated address books' do
@@ -183,8 +181,10 @@ RSpec.describe Mutations::CreateProject do
         )
         {
           project {
-            id status internalId moveInStartsOn assigneeType apartmentsCount buildingsCount assignee { id name }
-            addressBooks { id type name company language email website phone mobile address { id street city zip} }
+            id status internalId moveInStartsOn assigneeType apartmentsCount buildingsCount
+            assignee { id name }
+            addressBooks { id type name company language email website phone mobile
+            address { id street city zip} }
           }
         }
       }

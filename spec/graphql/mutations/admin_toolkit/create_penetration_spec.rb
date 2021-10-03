@@ -54,12 +54,8 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
   def penetration_competitions
     <<~PENETRATION_COMPETITIONS
       penetrationCompetitions: [
-        {
-          competitionId: "#{competition_a.id}"
-        },
-        {
-          competitionId: "#{competition_b.id}"
-        }
+        { competitionId: "#{competition_a.id}" },
+        { competitionId: "#{competition_b.id}" }
       ]
     PENETRATION_COMPETITIONS
   end

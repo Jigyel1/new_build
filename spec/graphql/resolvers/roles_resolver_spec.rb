@@ -9,7 +9,7 @@ RSpec.describe Resolvers::RolesResolver do
   let_it_be(:administrator) { create(:role, :administrator) }
   let_it_be(:management) { create(:role, :management) }
 
-  let_it_be(:admin_manager) { create(:user, :administrator, role: administrator, with_permissions: { role: [:read] }) }
+  let_it_be(:admin_manager) { create(:user, :administrator, role: administrator, with_permissions: { role: :read }) }
 
   describe '.resolve' do
     it 'returns all roles' do

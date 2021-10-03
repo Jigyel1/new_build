@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::ProjectResolver do
-  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: [:read] }) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:address) { build(:address) }
   let_it_be(:project) { create(:project, :with_access_tech_cost, :with_installation_detail, address: address) }
   let_it_be(:label_group) { create(:admin_toolkit_label_group, :open, label_list: 'Assign KAM, Offer Needed') }

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'User Invitation', type: :request do
-  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: [:update_status] }) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: :update_status }) }
   let_it_be(:params) do
     {
       user: {
