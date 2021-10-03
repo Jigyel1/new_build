@@ -2,8 +2,10 @@
 
 module Buildings
   class Transform
+    include Assigner
     extend Forwardable
     attr_reader :project, :organizer, :rows
+    attr_accessor :errors
 
     EXTERNAL_ID = 6
     APARTMENTS_COUNT = 15
@@ -15,12 +17,14 @@ module Buildings
     CITY = 11
 
     ACCESSORS = %i[
-      organizer idable_buildings idable_rows addressable_buildings addressable_rows ordered_buildings ordered_rows
+      organizer idable_buildings idable_rows
+      addressable_buildings addressable_rows
+      ordered_buildings ordered_rows
     ].freeze
     def_delegators(*ACCESSORS)
 
-    def initialize(errors)
-      @errors = errors
+    def initialize(attributes = {})
+      assign_attributes(attributes)
     end
 
     protected

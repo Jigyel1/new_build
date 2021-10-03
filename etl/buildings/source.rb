@@ -21,7 +21,7 @@ module Buildings
       # the integers in excel are reflected here as floats. Hence the conversion.
       array.each { |row| to_int(row) }
 
-      # buildings will be updated with respect a project. i.e. row[LAST_INDEX]
+      # group buildings by projects and update wrt a project(row[LAST_INDEX])
       grouped = array.group_by { |row| row[LAST_INDEX] }
       grouped.each_pair(&block)
     end

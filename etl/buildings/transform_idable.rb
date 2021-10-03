@@ -2,8 +2,6 @@
 
 module Buildings
   class TransformIdable < Transform
-    BUILDING_ID = 6
-
     def process(array)
       @project, @rows = array
       rows.map(&:pop)
