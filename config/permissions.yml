@@ -18,8 +18,8 @@ super_user:
     - technical_analysis
     - technical_analysis_completed
     - ready_for_offer
-    - complex
     - archive
+    - complex
 
 administrator:
   user:
