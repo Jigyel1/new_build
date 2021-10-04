@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Projects::BuildingsImporter, type: :request do
   let_it_be(:super_user) { create(:user, :super_user) }
-  let_it_be(:params) do
+  let(:params) do
     {
       operations: {
         query: query,
@@ -28,7 +28,7 @@ describe Projects::BuildingsImporter, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.buildings_imported.buildings_imported.owner')
+          t('activities.projects.building_imported.owner')
         )
       end
     end
@@ -41,7 +41,7 @@ describe Projects::BuildingsImporter, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-                                                     t('activities.buildings_imported.buildings_imported.others')
+                                                     t('activities.projects.building_imported.others')
                                                    )
       end
     end

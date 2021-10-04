@@ -10,23 +10,33 @@
 #
 module Activities
   class ActivityCreator < BaseActivity
-    attr_accessor :activity_id, :owner, :recipient, :action, :parameters, :trackable
+    attr_accessor :activity_id, :owner, :recipient, :action, :parameters, :trackable,
+                  :trackable_type
 
     def call
-      owner.activities.create!(
+      owner.activities
+           .create!(activity_params.merge(trackable_params))
+           .then { |activity| activity.persisted? ? activity : log_error(activity) }
+    end
+
+    private
+
+    def activity_params
+      {
         id: activity_id || SecureRandom.uuid,
         recipient: recipient,
         action: action,
-        trackable: trackable,
         log_data: {
           owner_email: owner.email,
           recipient_email: recipient.try(:email),
           parameters: parameters
         }
-      ).then { |activity| activity.persisted? ? activity : log_error(activity) }
+      }
     end
 
-    private
+    def trackable_params
+      trackable ? { trackable: trackable } : { trackable_type: trackable_type }
+    end
 
     def log_error(activity)
       Rollbar.error(activity.errors.full_messages) if Rails.env.production?

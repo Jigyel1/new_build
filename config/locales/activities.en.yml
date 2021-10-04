@@ -93,8 +93,8 @@ en:
 
     project:
       project_created:
-        owner: 'Created Project.'
-        others: 'project has been created'
+        owner: 'Project Created.'
+        others: 'A new project was created'
       project_updated:
         owner: 'project updated'
         others: 'project updated'
@@ -115,6 +115,9 @@ en:
         others: 'file uploaded'
 
     projects:
+      project_imported:
+        owner: 'project imported'
+        others: 'project imported'
       address_book_created:
         owner: 'address book created'
         others: 'address book created'
@@ -130,6 +133,9 @@ en:
       building_updated:
         owner: 'building updated'
         others: 'building updated'
+      building_imported:
+        owner: 'building imported'
+        others: 'building imported'
       label_group_created:
         owner: 'labels created'
         others: 'labels created'
@@ -159,8 +165,3 @@ en:
       attachment_file_updated:
         owner: 'project file updated'
         others: 'project file updated'
-
-    buildings_imported:
-      buildings_imported:
-        owner: 'Building imported'
-        others: 'Building imported'

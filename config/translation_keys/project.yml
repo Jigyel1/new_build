@@ -17,7 +17,8 @@ project:
       - parameters
   others:
     project_created:
-      - parameters
+      - owner_email
+      - entry_type
     project_updated:
       - parameters
     project_draft_version:
@@ -48,6 +49,8 @@ projects:
       - parameters
     building_updated:
       - parameters
+    building_imported:
+      - parameters
     label_group_created:
       - parameters
     label_group_updated:
@@ -59,6 +62,8 @@ projects:
     task_updated:
       - parameters
     payback_period_updated:
+      - parameters
+    project_imported:
       - parameters
   others:
     address_book_created:
@@ -71,6 +76,8 @@ projects:
       - parameters
     building_updated:
       - parameters
+    building_imported:
+      - parameters
     label_group_created:
       - parameters
     label_group_updated:
@@ -83,6 +90,8 @@ projects:
       - parameters
     payback_period_updated:
       - parameters
+    project_imported:
+      - parameters
 
 active_storage:
   owner:
@@ -94,12 +103,4 @@ active_storage:
     attachment_file_deleted:
       - parameters
     attachment_file_updated:
-      - parameters
-
-buildings_imported:
-  owner:
-    buildings_imported:
-      - parameters
-  others:
-    buildings_imported:
       - parameters

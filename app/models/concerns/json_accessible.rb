@@ -21,6 +21,7 @@ module JsonAccessible
     max
     min
     investor_id
+    entry_type
   ].freeze
 
   PARAMETERS.each do |method|

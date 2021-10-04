@@ -58,6 +58,7 @@ projects/address_book:
 projects/building:
   - building_created
   - building_deleted
+  - building_imported
   - building_updated
 projects/label_group:
   - label_group_created
@@ -71,6 +72,5 @@ projects/pct_cost:
 active_storage/attachment:
   - attachment_file_deleted
   - attachment_file_updated
-
-buildings_imported:
-  - buildings_imported
+projects:
+  - project_imported

@@ -17,8 +17,9 @@ module Projects
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :buildings_imported,
+        action: :building_imported,
         owner: current_user,
+        trackable_type: 'Projects::Building',
         parameters: file.original_filename
       }
     end
