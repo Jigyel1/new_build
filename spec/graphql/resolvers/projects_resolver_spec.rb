@@ -162,7 +162,7 @@ RSpec.describe Resolvers::ProjectsResolver do
           countByStatuses
           edges {
             node {
-              id externalId projectNr name category priority constructionType labels apartmentsCount
+              id externalId projectNr name status category priority constructionType labels apartmentsCount
               moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
             }
           }

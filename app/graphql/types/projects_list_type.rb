@@ -6,6 +6,7 @@ module Types
     field :external_id, String, null: true
     field :project_nr, String, null: true
     field :name, String, null: true
+    field :status, String, null: true
     field :category, String, null: true
     field :priority, String, null: true
     field :construction_type, String, null: true
