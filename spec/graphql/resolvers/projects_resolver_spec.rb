@@ -57,15 +57,15 @@ RSpec.describe Resolvers::ProjectsResolver do
       it 'returns count of each project status' do
         response = execute(query, current_user: super_user)
         expect(OpenStruct.new(response.dig(:data, :projects, :countByStatuses))).to have_attributes(
-                                                                                      open: 1,
-                                                                                      technical_analysis: 1,
-                                                                                      technical_analysis_completed: 1
+          open: 1,
+          technical_analysis: 1,
+          technical_analysis_completed: 1
         )
       end
     end
 
     context 'with statuses filter' do
-      let(:statuses) { ['technical_analysis', 'open'] }
+      let(:statuses) { %w[technical_analysis open] }
 
       it 'returns projects matching given categories' do
         projects, errors = paginated_collection(:projects, query(statuses: statuses), current_user: super_user)

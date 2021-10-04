@@ -9,7 +9,7 @@ module Types
     def count_by_statuses
       ProjectsList.select(:status)
                   .group(:status).count
-                  .transform_keys { |key| key.downcase.gsub(' ', '_') }
+                  .transform_keys { |key| key.downcase.tr(' ', '_') }
     end
   end
 end
