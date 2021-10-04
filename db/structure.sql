@@ -750,7 +750,6 @@ CREATE TABLE public.projects (
     coordinate_north double precision,
     label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     additional_details jsonb DEFAULT '{}'::jsonb,
-    archived boolean DEFAULT false NOT NULL,
     address_books_count integer DEFAULT 0 NOT NULL,
     files_count integer DEFAULT 0 NOT NULL,
     tasks_count integer DEFAULT 0 NOT NULL,

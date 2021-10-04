@@ -31,7 +31,6 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :label_list, null: false, default: [], array: true
 
       t.jsonb :additional_details, default: {}, index: true
-      t.boolean :archived, null: false, default: false
       t.integer :address_books_count, null: false, default: 0
       t.integer :files_count, null: false, default: 0
       t.integer :tasks_count, null: false, default: 0 # excludes archived ones
