@@ -7,7 +7,7 @@ module Types
     field :count_by_statuses, GraphQL::Types::JSON, null: true
 
     def count_by_statuses
-      ProjectsList.select(:status).group(:status).count
+      ProjectsList.select(:status).group(:status).count.transform_keys { |key| key.downcase.gsub(' ', '_') }
     end
   end
 end
