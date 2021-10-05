@@ -19,7 +19,9 @@ RSpec.describe Mutations::UpdateProject do
         expect(response.project).to have_attributes(
           internalId: 'e922833',
           status: 'technical_analysis',
-          assigneeType: 'kam'
+          assigneeType: 'nbo',
+          gisUrl: 'https://web.upc.ch/web_office/server?project=Access&client=corejs&keyname=PROJ_EXTERN_ID&keyvalue=3045071',
+          infoManagerUrl: 'https://infomanager.bauinfocenter.ch/go/projectext/3045071'
         )
         expect(response.project.assignee).to have_attributes(id: kam.id, name: kam.name)
       end
@@ -73,13 +75,15 @@ RSpec.describe Mutations::UpdateProject do
               assigneeId: "#{args[:assignee_id]}"
               status: "#{args[:status]}"
               lotNumber: "EA0988833"
+              gisUrl: "https://web.upc.ch/web_office/server?project=Access&client=corejs&keyname=PROJ_EXTERN_ID&keyvalue=3045071"
+              infoManagerUrl: "https://infomanager.bauinfocenter.ch/go/projectext/3045071"
               #{address}
             }
           }
         )
         {
           project {
-            id status internalId moveInStartsOn assigneeType assignee { id name }
+            id status internalId moveInStartsOn gisUrl infoManagerUrl assigneeType assignee { id name }
             addressBooks { id type name company language email website phone mobile address { id street city zip} }
           }
         }

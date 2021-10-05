@@ -82,5 +82,8 @@ module Types
         admin_toolkit_label_groups: { code: object.status }
       )
     end
+
+    field :gis_url, String, null: true
+    field :info_manager_url, String, null: true
   end
 end

@@ -733,7 +733,7 @@ CREATE TABLE public.projects (
     priority character varying,
     category character varying,
     status character varying DEFAULT 'Open'::character varying NOT NULL,
-    assignee_type character varying DEFAULT 'KAM Project'::character varying NOT NULL,
+    assignee_type character varying DEFAULT 'NBO Project'::character varying NOT NULL,
     entry_type character varying DEFAULT 'Manual'::character varying NOT NULL,
     assignee_id uuid,
     kam_region_id uuid,
@@ -765,7 +765,9 @@ CREATE TABLE public.projects (
     customer_request boolean,
     verdicts jsonb DEFAULT '{}'::jsonb,
     draft_version jsonb DEFAULT '{}'::jsonb,
-    system_sorted_category boolean DEFAULT true
+    system_sorted_category boolean DEFAULT true,
+    gis_url character varying,
+    info_manager_url character varying
 );
 
 

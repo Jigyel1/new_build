@@ -20,7 +20,7 @@ RSpec.describe Mutations::CreateProject do
           internalId: 'e922833',
           moveInStartsOn: Date.current.date_str,
           status: 'technical_analysis',
-          assigneeType: 'kam',
+          assigneeType: 'nbo',
           apartmentsCount: 10,
           buildingsCount: 3
         )
