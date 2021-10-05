@@ -22,10 +22,7 @@ RSpec.describe Mutations::Projects::UpdateTask do
       it 'updates counter caches of the parent' do
         _, errors = formatted_response(query(params), current_user: super_user, key: :updateTask)
         expect(errors).to be_nil
-        expect(building.reload).to have_attributes(
-          completed_tasks_count: 1,
-          tasks_count: 1
-        )
+        expect(building.reload).to have_attributes(completed_tasks_count: 1, tasks_count: 1)
       end
     end
 

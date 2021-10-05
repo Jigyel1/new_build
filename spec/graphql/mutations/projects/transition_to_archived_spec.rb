@@ -33,10 +33,7 @@ describe Mutations::Projects::TransitionToArchived do
       mutation {
         transitionToArchived(
           input: {
-            attributes: {
-              id: "#{project.id}"
-              verdicts: { archived: "This project is no longer active" }
-            }
+            attributes: { id: "#{project.id}" verdicts: { archived: "This project is no longer active" } }
           }
         )
         { project { id status verdicts } }

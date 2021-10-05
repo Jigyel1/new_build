@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-# require_relative '../../support/ips_helper'
+require_relative '../../support/ips_helper'
 
 RSpec.describe Resolvers::ProjectsResolver do
+  include IpsHelper
+
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:team_expert) { create(:user, :team_expert) }
@@ -150,6 +152,18 @@ RSpec.describe Resolvers::ProjectsResolver do
         projects, errors = paginated_collection(:projects, query(query: 'Neubau'), current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_a.id, project_c.id])
+      end
+    end
+
+    describe 'performance benchmarks' do
+      it 'executes within 30 ms' do
+        expect { paginated_collection(:projects, query, current_user: super_user) }.to perform_under(30).ms
+      end
+
+      it 'executes n iterations in x seconds', ips: true do
+        expect { paginated_collection(:users, query, current_user: super_user) }.to(
+          perform_at_least(perform_atleast).within(perform_within).warmup(warmup_for).ips
+        )
       end
     end
   end

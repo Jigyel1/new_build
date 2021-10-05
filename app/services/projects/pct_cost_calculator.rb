@@ -20,6 +20,10 @@ module Projects
         if: -> { project.complex? },
         unless: :lease_cost_only,
         message: I18n.t('projects.transition.project_connection_cost_missing')
+      },
+      absence: {
+        if: -> { project.standard? },
+        message: I18n.t('projects.transition.project_connection_cost_irrelevant')
       }
     )
 

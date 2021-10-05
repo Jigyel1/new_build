@@ -30,17 +30,10 @@ RSpec.describe Mutations::Projects::SaveDraft do
       mutation {
         saveDraft(
           input: {
-            attributes: {
-              id: "#{project.id}"
-              draftVersion: { category: "complex", lease_cost: 1198.87 }
-            }
+            attributes: { id: "#{project.id}" draftVersion: { category: "complex", lease_cost: 1198.87 } }
           }
         )
-        {
-          project {
-            id draftVersion
-          }
-        }
+        { project { id draftVersion } }
       }
     GQL
   end

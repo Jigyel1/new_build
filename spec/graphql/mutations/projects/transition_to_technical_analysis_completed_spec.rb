@@ -12,11 +12,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   let_it_be(:competition) { create(:admin_toolkit_competition) }
   let_it_be(:penetration) { create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region, rate: 4.56) }
   let_it_be(:penetration_competition) do
-    create(
-      :penetration_competition,
-      penetration: penetration,
-      competition: competition
-    )
+    create(:penetration_competition, penetration: penetration, competition: competition)
   end
 
   let_it_be(:pct_value) do
@@ -54,8 +50,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       let_it_be(:params) { { set_pct_cost: true } }
 
       it 'updates project status' do
-        response, errors = formatted_response(query(params), current_user: super_user,
-                                                             key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(
+          query(params),
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
         expect(errors).to be_nil
         expect(response.project.status).to eq('technical_analysis_completed')
         expect(response.project.verdicts).to have_attributes(
@@ -135,8 +134,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.update_column(:status, :prio_one) }
 
       it 'updates the project to ready for offer state' do
-        response, errors = formatted_response(query, current_user: super_user,
-                                                     key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(
+          query,
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
         expect(errors).to be_nil
         expect(response.project.status).to eq('ready_for_offer')
 
@@ -150,8 +152,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.update_column(:status, :on_hold) }
 
       it 'updates the project to technical analysis completed' do
-        response, errors = formatted_response(query, current_user: super_user,
-                                                     key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(
+          query,
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
         expect(errors).to be_nil
         expect(response.project.status).to eq('technical_analysis_completed')
 
@@ -164,11 +169,18 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { penetration.update_column(:zip, '1198') }
 
       it 'responds with error' do
-        response, errors = formatted_response(query, current_user: super_user,
-                                                     key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(
+          query,
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
         expect(response.project).to be_nil
-        expect(errors).to eq([t('projects.transition.error_in_pct_calculation',
-                                error: "Penetration #{t('projects.transition.penetration_missing')}").to_s])
+        expect(errors).to eq(
+          [
+            t('projects.transition.error_in_pct_calculation',
+              error: "Penetration #{t('projects.transition.penetration_missing')}").to_s
+          ]
+        )
       end
     end
 
@@ -176,11 +188,18 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       before { pct_value.pct_month.update_column(:max, 13) }
 
       it 'responds with error' do
-        response, errors = formatted_response(query, current_user: super_user,
-                                                     key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(
+          query,
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
         expect(response.project).to be_nil
-        expect(errors).to eq([t('projects.transition.error_while_adding_label',
-                                error: "undefined method `status' for nil:NilClass").to_s])
+        expect(errors).to eq(
+          [
+            t('projects.transition.error_while_adding_label',
+              error: "undefined method `status' for nil:NilClass").to_s
+          ]
+        )
       end
     end
 
@@ -188,8 +207,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
 
       it 'recalculates payback period' do
-        _response, errors = formatted_response(query, current_user: super_user,
-                                                      key: :transitionToTechnicalAnalysisCompleted)
+        _response, errors = formatted_response(
+          query,
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
         expect(errors).to be(nil)
         expect(project.reload.pct_cost.payback_period).to be(17)
       end
@@ -202,8 +224,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       end
 
       it 'does not recalculate the payback period' do
-        _response, errors = formatted_response(query, current_user: super_user,
-                                                      key: :transitionToTechnicalAnalysisCompleted)
+        _response, errors = formatted_response(
+          query,
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
         expect(errors).to be(nil)
         expect(project.reload.pct_cost.payback_period).to be(498)
       end
@@ -213,22 +238,13 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   def pct_cost(set_pct_cost)
     return unless set_pct_cost
 
-    <<~PCT_COST
-      pctCost: {
-        projectConnectionCost: 99998.56
-      }
-    PCT_COST
+    'pctCost: { projectConnectionCost: 99998.56 }'
   end
 
   def installation_detail(set_installation_detail)
     return unless set_installation_detail
 
-    <<~INSTALLATION_DETAIL
-      installationDetail: {
-        sockets: 13
-        builder: "ll"
-      }
-    INSTALLATION_DETAIL
+    'installationDetail: { sockets: 13 builder: "ll" }'
   end
 
   def access_tech_cost(set_access_tech_cost)

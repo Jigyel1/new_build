@@ -52,7 +52,7 @@ RSpec.describe Mutations::Projects::CreateTask do
       end
     end
 
-    context 'with copy to all buildings flag' do
+    context 'with copy to all buildings flag set' do
       let_it_be(:building_b) { create(:building, project: project) }
       let_it_be(:building_c) { create(:building, project: project) }
       let_it_be(:building_d) { create(:building, project: project) }
@@ -92,9 +92,7 @@ RSpec.describe Mutations::Projects::CreateTask do
           expect(errors).to be_nil
           expect(Projects::Task.count).to eq(5)
           expect(Projects::Task.pluck(:taskable_id)).to match_array(
-            [
-              project.id, building.id, building_b.id, building_c.id, building_d.id
-            ]
+            [project.id, building.id, building_b.id, building_c.id, building_d.id]
           )
         end
       end

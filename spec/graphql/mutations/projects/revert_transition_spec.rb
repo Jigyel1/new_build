@@ -18,6 +18,7 @@ describe Mutations::Projects::RevertTransition do
       }
     )
   end
+
   let_it_be(:project) { create(:project) }
   let_it_be(:pct_value) do
     create(
@@ -78,8 +79,7 @@ describe Mutations::Projects::RevertTransition do
     context 'for projects with status - ready for offer' do
       before_all { project.update_column(:status, :ready_for_offer) }
 
-      context 'with permissions' do
-        # prio 1 projects
+      context 'with permissions' do # prio 1 projects
         before do
           pct_value.update_column(:status, :prio_one)
           create(:projects_pct_cost, project: project, payback_period: 15)
@@ -89,17 +89,6 @@ describe Mutations::Projects::RevertTransition do
           response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis')
-        end
-      end
-
-      context 'without permissions' do
-        let_it_be(:kam) { create(:user, :kam) }
-
-        it 'forbids action' do
-          response, errors = formatted_response(query, current_user: kam, key: :revertProjectTransition)
-          expect(response.project).to be_nil
-          expect(errors).to eq(['Not Authorized'])
-          expect(project.reload.status).to eq('ready_for_offer')
         end
       end
 
@@ -122,6 +111,17 @@ describe Mutations::Projects::RevertTransition do
           response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis_completed')
+        end
+      end
+
+      context 'without permissions' do
+        let_it_be(:kam) { create(:user, :kam) }
+
+        it 'forbids action' do
+          response, errors = formatted_response(query, current_user: kam, key: :revertProjectTransition)
+          expect(response.project).to be_nil
+          expect(errors).to eq(['Not Authorized'])
+          expect(project.reload.status).to eq('ready_for_offer')
         end
       end
     end

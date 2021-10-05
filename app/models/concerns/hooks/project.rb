@@ -7,7 +7,9 @@ module Hooks
     MANUALLY_CREATED = 'Manually Created'
 
     included do
+      after_save :update_projects_list, :update_users_list
       after_create :create_default_label_group
+      after_destroy :update_projects_list, :update_users_list
     end
 
     private

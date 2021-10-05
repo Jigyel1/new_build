@@ -97,10 +97,13 @@ RSpec.describe Resolvers::Projects::TasksResolver do
       end
     end
 
-    context 'with taskable filter' do # a taskable item can be a project or a building
+    context 'with taskable filter' do # taskable can be a project or a building
       it 'returns tasks for the given taskable item' do
-        tasks, errors = paginated_collection(:tasks, query(taskable: [building.id, 'Projects::Building']),
-                                             current_user: super_user)
+        tasks, errors = paginated_collection(
+          :tasks,
+          query(taskable: [building.id, 'Projects::Building']),
+          current_user: super_user
+        )
         expect(errors).to be_nil
         expect(tasks.pluck(:id)).to eq([task_e.id, task_c.id])
       end

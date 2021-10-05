@@ -30,13 +30,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysis do
   def query
     <<~GQL
       mutation {
-        transitionToTechnicalAnalysis(
-          input: {
-            attributes: {
-              id: "#{project.id}"
-            }
-          }
-        )
+        transitionToTechnicalAnalysis( input: { attributes: { id: "#{project.id}" } } )
         { project { id status } }
       }
     GQL

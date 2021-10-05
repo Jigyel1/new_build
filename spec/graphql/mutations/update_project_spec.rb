@@ -13,7 +13,7 @@ RSpec.describe Mutations::UpdateProject do
     context 'with valid params' do
       let!(:params) { { status: 'Technical Analysis', assignee_id: kam.id } }
 
-      it 'creates the project' do
+      it 'updates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
         expect(errors).to be_nil
         expect(response.project).to have_attributes(
@@ -39,8 +39,11 @@ RSpec.describe Mutations::UpdateProject do
       let!(:params) { { status: 'Technical Analysis' } }
 
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :presales),
-                                                             key: :updateProject)
+        response, errors = formatted_response(
+          query(params),
+          current_user: create(:user, :presales),
+          key: :updateProject
+        )
         expect(response.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end

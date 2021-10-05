@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_relative '../../app/models/admin_toolkit'
 
 describe PenetrationsImporter do
   before_all do
@@ -28,61 +27,61 @@ describe PenetrationsImporter do
       )
       expect(penetration.competitions.take).to eq(AdminToolkit::Competition.find_by(name: 'FTTH Swisscom'))
     end
+  end
 
-    context 'for zip 1007' do
-      it 'seeds penetration properly' do
-        penetration = AdminToolkit::Penetration.find_by!(zip: '1007')
-        expect(penetration).to have_attributes(
-          city: 'Lausanne',
-          rate: 0.593403205918619,
-          kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West Zentralschweiz + Solothurn').id,
-          hfc_footprint: false,
-          type: 'top_city'
-        )
-        expect(penetration.competitions.take).to eq(AdminToolkit::Competition.find_by(name: 'FTTH Swisscom'))
-      end
+  context 'for zip 1007' do
+    it 'seeds penetration properly' do
+      penetration = AdminToolkit::Penetration.find_by!(zip: '1007')
+      expect(penetration).to have_attributes(
+        city: 'Lausanne',
+        rate: 0.593403205918619,
+        kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West Zentralschweiz + Solothurn').id,
+        hfc_footprint: false,
+        type: 'top_city'
+      )
+      expect(penetration.competitions.take).to eq(AdminToolkit::Competition.find_by(name: 'FTTH Swisscom'))
     end
+  end
 
-    context 'for zip 1015' do
-      it 'seeds penetration properly' do
-        penetration = AdminToolkit::Penetration.find_by!(zip: '1015')
-        expect(penetration).to have_attributes(
-          city: 'Chavannes-près-Renens',
-          rate: 0,
-          kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West Zentralschweiz + Solothurn Offnet').id,
-          hfc_footprint: true,
-          type: 'agglo'
-        )
-        expect(penetration.competitions.take).to eq(AdminToolkit::Competition.find_by(name: 'FTTH Swisscom'))
-      end
+  context 'for zip 1015' do
+    it 'seeds penetration properly' do
+      penetration = AdminToolkit::Penetration.find_by!(zip: '1015')
+      expect(penetration).to have_attributes(
+        city: 'Chavannes-près-Renens',
+        rate: 0,
+        kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West Zentralschweiz + Solothurn Offnet').id,
+        hfc_footprint: true,
+        type: 'agglo'
+      )
+      expect(penetration.competitions.take).to eq(AdminToolkit::Competition.find_by(name: 'FTTH Swisscom'))
     end
+  end
 
-    context 'for zip 1022' do
-      it 'seeds penetration properly' do
-        penetration = AdminToolkit::Penetration.find_by!(zip: '1022')
-        expect(penetration).to have_attributes(
-          city: 'Chavannes-près-Renens',
-          rate: 31.05699221692192,
-          kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West AG-BL-BS Offnet').id,
-          hfc_footprint: true,
-          type: 'agglo'
-        )
-        expect(penetration.competitions.take).to eq(AdminToolkit::Competition.find_by(name: 'G.fast'))
-      end
+  context 'for zip 1022' do
+    it 'seeds penetration properly' do
+      penetration = AdminToolkit::Penetration.find_by!(zip: '1022')
+      expect(penetration).to have_attributes(
+        city: 'Chavannes-près-Renens',
+        rate: 31.05699221692192,
+        kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West AG-BL-BS Offnet').id,
+        hfc_footprint: true,
+        type: 'agglo'
+      )
+      expect(penetration.competitions.take).to eq(AdminToolkit::Competition.find_by(name: 'G.fast'))
     end
+  end
 
-    context 'for zip 1135' do
-      it 'seeds penetration properly' do
-        penetration = AdminToolkit::Penetration.find_by!(zip: '1135')
-        expect(penetration).to have_attributes(
-          city: 'Denens',
-          rate: 25.146198830409354,
-          kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'Ost SG-TG-AR-AI').id,
-          hfc_footprint: true,
-          type: 'land'
-        )
-        expect(penetration.competitions.take).to eq(AdminToolkit::Competition.find_by(name: 'FTTH SFN'))
-      end
+  context 'for zip 1135' do
+    it 'seeds penetration properly' do
+      penetration = AdminToolkit::Penetration.find_by!(zip: '1135')
+      expect(penetration).to have_attributes(
+        city: 'Denens',
+        rate: 25.146198830409354,
+        kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'Ost SG-TG-AR-AI').id,
+        hfc_footprint: true,
+        type: 'land'
+      )
+      expect(penetration.competitions.take).to eq(AdminToolkit::Competition.find_by(name: 'FTTH SFN'))
     end
   end
 end

@@ -8,9 +8,6 @@ module Projects
 
     def_delegators :project, :zip, :apartments_count
 
-    # No need to assign KAM from Kam Region if apartments is less than 50
-    APARTMENTS_COUNT_NOT_REQUIRING_KAM = 50
-
     # We will skip KAM lookup by investor for manual project creations as there is no provision to enter
     # investor ID for the users.
     def call
@@ -22,7 +19,7 @@ module Projects
 
     def by_kam_investor
       AdminToolkit::KamInvestor
-        .find_by(investor_id: investor.id)
+        .find_by(investor_id: investor.try(:external_id))
         .try(:kam).tap do |kam|
         @assignee_type = :kam if kam
       end
@@ -38,9 +35,13 @@ module Projects
 
       AdminToolkit::KamRegion
         .find_by(id: penetration.kam_region_id)
-        .try(:kam)
+        .try(:kam).tap do |kam|
+        @assignee_type = :kam if kam
+      end
     end
 
+    # No need to assign KAM from Kam Region if apartments is less than 50
+    APARTMENTS_COUNT_NOT_REQUIRING_KAM = 50
     def kam_region_lookup
       apartments_count && apartments_count > APARTMENTS_COUNT_NOT_REQUIRING_KAM
     end

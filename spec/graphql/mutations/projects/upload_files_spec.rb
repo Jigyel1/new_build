@@ -52,9 +52,8 @@ describe Mutations::Projects::UploadFiles, type: :request do
       mutation($files: [Upload!]!) {
         uploadFiles(
           input: { attributes: { files: $files, attachableId: "#{building.id}", attachableType: "Projects::Building" }}
-        ){
-          files { id name size createdAt owner { name } }
-        }
+        )
+        { files { id name size createdAt owner { name } } }
       }
     QUERY
   end

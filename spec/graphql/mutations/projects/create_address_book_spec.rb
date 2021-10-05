@@ -74,8 +74,11 @@ RSpec.describe Mutations::Projects::CreateAddressBook do
       let!(:params) { { type: :investor } }
 
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: manager_commercialization,
-                                                             key: :createAddressBook)
+        response, errors = formatted_response(
+          query(params),
+          current_user: manager_commercialization,
+          key: :createAddressBook
+        )
         expect(response.address_book).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end

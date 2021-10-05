@@ -33,7 +33,7 @@ RSpec.describe Mutations::CreateProject do
         expect(errors).to be_nil
         address_books = response.project.addressBooks
 
-        record = address_books.find { |address_book| address_book[:type] == 'investor' }
+        record = address_books.find { _1[:type] == 'investor' }
         expect(OpenStruct.new(record)).to have_attributes(
           name: 'Philips',
           company: 'Charlotte Hornets',
@@ -44,7 +44,7 @@ RSpec.describe Mutations::CreateProject do
           website: 'charlotte-hornets.com'
         )
 
-        record = address_books.find { |address_book| address_book[:type] == 'architect' }
+        record = address_books.find { _1[:type] == 'architect' }
         expect(OpenStruct.new(record)).to have_attributes(
           name: 'Isiah',
           company: 'Detroit Pistons',

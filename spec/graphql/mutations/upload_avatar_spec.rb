@@ -35,9 +35,8 @@ describe Mutations::UploadAvatar, type: :request do
   def query
     <<~QUERY
       mutation($avatar: Upload!) {
-        uploadAvatar( input: { avatar: $avatar } ){
-          user { id profile { id avatarUrl } }
-        }
+        uploadAvatar( input: { avatar: $avatar } )
+        { user { id profile { id avatarUrl } } }
       }
     QUERY
   end

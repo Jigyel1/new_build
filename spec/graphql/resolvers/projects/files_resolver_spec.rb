@@ -52,10 +52,13 @@ RSpec.describe Resolvers::Projects::FilesResolver do
       end
     end
 
-    context 'with attachable filter' do # a attachable item can be a project or a building
+    context 'with attachable filter' do # an attachable can be a project or a building
       it 'returns files for the given attachable item' do
-        files, errors = paginated_collection(:files, query(attachable: [building.id, 'Projects::Building']),
-                                             current_user: super_user)
+        files, errors = paginated_collection(
+          :files,
+          query(attachable: [building.id, 'Projects::Building']),
+          current_user: super_user
+        )
         expect(errors).to be_nil
         expect(files.pluck(:name)).to eq([file_a.original_filename])
       end
