@@ -82,22 +82,7 @@ RSpec.describe Resolvers::Projects::FilesResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        files#{query_string(args)} {
-          totalCount
-          edges {
-            node { id name owner { name } }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("files#{query_string(args)}", 'id name owner { name }')
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/AbcSize

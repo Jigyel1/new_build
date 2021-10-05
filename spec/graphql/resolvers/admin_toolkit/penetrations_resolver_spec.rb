@@ -123,25 +123,12 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        adminToolkitPenetrations#{query_string(args)} {
-          totalCount
-          edges {
-            node {
-              id zip city rate hfcFootprint type kamRegion { id kam { name } }
-              penetrationCompetitions { competition { name } }
-            }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    response = <<~RESPONSE
+      id zip city rate hfcFootprint type kamRegion { id kam { name } }#{' '}
+      penetrationCompetitions { competition { name } }
+    RESPONSE
+
+    connection_query("adminToolkitPenetrations#{query_string(args)}", response)
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/AbcSize

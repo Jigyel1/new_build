@@ -101,11 +101,12 @@ def file_upload(name: nil)
   end
 end
 
-def connection_query(request, response)
+def connection_query(request, response, meta: nil)
   <<~GQL
     query {
       #{request} {
         totalCount
+        #{meta}
         edges {
           node {
             #{response}

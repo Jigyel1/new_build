@@ -116,22 +116,7 @@ RSpec.describe Resolvers::UsersResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        users#{query_string(args)} {
-          totalCount
-          edges {
-            node { id email name phone role department }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("users#{query_string(args)}", 'id email name phone role department')
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize

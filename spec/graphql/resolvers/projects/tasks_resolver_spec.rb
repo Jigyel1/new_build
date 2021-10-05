@@ -153,22 +153,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        tasks#{query_string(args)} {
-          totalCount
-          edges {
-            node { id title description assignee { email } }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("tasks#{query_string(args)}", 'id title description assignee { email }')
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize

@@ -40,21 +40,6 @@ RSpec.describe Resolvers::RolesResolver do
   end
 
   def query
-    <<~GQL
-      query {
-        roles {
-          totalCount
-          edges {
-            node { id name users { name avatarUrl } }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query('roles', 'id name users { name avatarUrl }')
   end
 end

@@ -70,22 +70,7 @@ RSpec.describe Resolvers::AdminToolkit::KamRegionsResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        adminToolkitKamRegions#{query_string(args)} {
-          totalCount
-          edges {
-            node { id name kam { id name } }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("adminToolkitKamRegions#{query_string(args)}", 'id name kam { id name }')
   end
 
   def query_string(args = {})

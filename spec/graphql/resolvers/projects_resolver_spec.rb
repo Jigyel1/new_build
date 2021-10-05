@@ -169,29 +169,19 @@ RSpec.describe Resolvers::ProjectsResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        projects#{query_string(args)} {
-          totalCount
-          countByStatuses
-          edges {
-            node {
-              id externalId projectNr name status category priority constructionType labels apartmentsCount
-              moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
-            }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    response = <<~RESPONSE
+      id externalId projectNr name status category priority constructionType labels apartmentsCount
+      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
+    RESPONSE
+
+    connection_query(
+      "projects#{query_string(args)}",
+      response,
+      meta: 'countByStatuses'
+    )
   end
 
-  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+  def query_string(args = {}) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     params = args[:categories] ? ["categories: #{args[:categories]}"] : []
     params << "assignees: #{args[:assignees]}" if args[:assignees].present?
     params << "priorities: #{args[:priorities]}" if args[:priorities].present?
