@@ -66,8 +66,8 @@ module Projects
       end
 
       event :offer_ready, if: %i[authorized? to_offer?] do
-        transitions from: :technical_analysis_completed, to: :ready_for_offer
-      end
+          transitions from: :technical_analysis_completed, to: :ready_for_offer
+        end
 
       event :archive, if: %i[authorized? to_archived?] do
         transitions from: :technical_analysis_completed, to: :archived

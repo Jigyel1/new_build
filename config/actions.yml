@@ -52,6 +52,11 @@ project:
   - project_category_updated
   - incharge_updated
   - file_uploaded
+  - technical_analysis
+  - technical_analysis_completed
+  - ready_for_offer
+  - archived
+  - reverted
 projects/address_book:
   - address_book_created
   - address_book_updated

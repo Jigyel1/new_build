@@ -15,6 +15,16 @@ project:
       - parameters
     file_uploaded:
       - parameters
+    technical_analysis:
+      - parameters
+    technical_analysis_completed:
+      - parameters
+    ready_for_offer:
+      - parameters
+    archived:
+      - parameters
+    reverted:
+      - parameters
   others:
     project_created:
       - owner_email
@@ -29,7 +39,16 @@ project:
       - parameters
     file_uploaded:
       - parameters
-
+    technical_analysis:
+      - parameters
+    technical_analysis_completed:
+      - parameters
+    ready_for_offer:
+      - parameters
+    archived:
+      - parameters
+    reverted:
+      - parameters
 projects:
   recipient:
     task_created:

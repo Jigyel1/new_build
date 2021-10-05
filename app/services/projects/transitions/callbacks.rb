@@ -13,16 +13,34 @@ module Projects
 
       def after_technical_analysis
         with_tracking(activity_id = SecureRandom.uuid) do
-          Activities::ActivityCreator.new(activity_params(activity_id)).call
+          Activities::ActivityCreator.new(analysis_params(activity_id)).call
         end
       end
 
       def after_technical_analysis_completed
-        update_label
+        with_tracking(activity_id = SecureRandom.uuid) do
+          update_label
+          Activities::ActivityCreator.new(analysis_completed_params(activity_id)).call
+        end
       end
 
-      def after_ready_for_offer
-        update_label
+      def after_offer_ready
+        with_tracking(activity_id = SecureRandom.uuid) do
+          update_label
+          Activities::ActivityCreator.new(offer_ready_params(activity_id)).call
+        end
+      end
+
+      def after_archive
+        with_tracking(activity_id = SecureRandom.uuid) do
+          Activities::ActivityCreator.new(archive_params(activity_id)).call
+        end
+      end
+
+      def after_revert
+        with_tracking(activity_id = SecureRandom.uuid) do
+          Activities::ActivityCreator.new(revert_params(activity_id)).call
+        end
       end
 
       private
@@ -37,10 +55,50 @@ module Projects
         raise(t('projects.transition.error_while_adding_label', error: e.message))
       end
 
-      def activity_params(activity_id)
+      def analysis_params(activity_id)
         {
           activity_id: activity_id,
-          action: :after_technical_analysis,
+          action: :technical_analysis,
+          owner: current_user,
+          trackable: project,
+          parameters: attributes
+        }
+      end
+
+      def analysis_completed_params(activity_id)
+        {
+          activity_id: activity_id,
+          action: :technical_analysis_completed,
+          owner: current_user,
+          trackable: project,
+          parameters: attributes
+        }
+      end
+
+      def offer_ready_params(activity_id)
+        {
+          activity_id: activity_id,
+          action: :ready_for_offer,
+          owner: current_user,
+          trackable: project,
+          parameters: attributes
+        }
+      end
+
+      def archive_params(activity_id)
+        {
+          activity_id: activity_id,
+          action: :archived,
+          owner: current_user,
+          trackable: project,
+          parameters: attributes
+        }
+      end
+
+      def revert_params(activity_id)
+        {
+          activity_id: activity_id,
+          action: :reverted,
           owner: current_user,
           trackable: project,
           parameters: attributes
