@@ -22,14 +22,6 @@ describe Mutations::Projects::UnarchiveProject do
   end
 
   let_it_be(:project) { create(:project) }
-  # let_it_be(:pct_value) do
-  #   create(
-  #     :admin_toolkit_pct_value,
-  #     :prio_two,
-  #     pct_month: create(:admin_toolkit_pct_month, min: 0, max: 507),
-  #     pct_cost: create(:admin_toolkit_pct_cost, min: 10, max: 100_000)
-  #   )
-  # end
 
   describe '.resolve' do
     context 'when the previous state was open' do
