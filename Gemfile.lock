@@ -89,13 +89,13 @@ GEM
     ast (2.4.2)
     awesome_print (1.9.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.507.0)
+    aws-partitions (1.510.0)
     aws-sdk-core (3.121.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.48.0)
+    aws-sdk-kms (1.49.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-s3 (1.103.0)
@@ -239,7 +239,7 @@ GEM
     json (2.5.1)
     json-schema (2.8.1)
       addressable (>= 2.4)
-    jwt (2.2.3)
+    jwt (2.3.0)
     kiba (4.0.0)
     kramdown (2.3.1)
       rexml
@@ -277,9 +277,7 @@ GEM
     multipart-post (2.1.1)
     niceql (0.2.0)
     nio4r (2.5.8)
-    nokogiri (1.12.5-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.12.4-x86_64-linux)
+    nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -421,13 +419,13 @@ GEM
     rswag-ui (2.4.0)
       actionpack (>= 3.1, < 7.0)
       railties (>= 3.1, < 7.0)
-    rubocop (1.21.0)
+    rubocop (1.22.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.9.1, < 2.0)
+      rubocop-ast (>= 1.12.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.12.0)
@@ -550,7 +548,6 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
-  arm64-darwin-20
   x86_64-linux
 
 DEPENDENCIES
