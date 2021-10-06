@@ -27,6 +27,7 @@ describe Projects::Organizer do
            files: Array.new(6) { file },
            tasks: build_list(:task, 6, owner: super_user, assignee: super_user))
   end
+
   let_it_be(:building_c) do
     create(:building,
            project: project,
@@ -58,6 +59,7 @@ describe Projects::Organizer do
   let_it_be(:address_c) do
     build(:address, street: 'Schoen Stravenue', street_no: '45', zip: '03278', city: 'Jordanmouth')
   end
+
   let_it_be(:building_f) do
     create(:building,
            project: project,
@@ -99,8 +101,8 @@ describe Projects::Organizer do
       [312_586, 3892.0, 'Neubau', 5061.0, 'Ne', 4, 58_587, 'Sawayn Place', 477, 'P/483P', 87_245, 'Rennerville'],
       [312_587, 3892.0, 'Neubau', 5061.0, 'Ne', 4, 58_588, 'Luciana Turnpike', 482, 'P/483P', 12_653, 'New Francisco'],
       [312_588, 3892.0, 'normaler', 5061.0, '', 1, 58_581, 'Kuhic Park', 6435, nil, 45_675, 'Lucillaton'],
-      [312_589, 3892.0, 'normaler', 5061.0, '', 2, 58_580, 'Wintheiser Junction', 8150, 'P/483P', 94_833,
-       'New Francisco']
+      [312_589, 3892.0, 'normaler', 5061.0, '', 2, 58_580, 'Wintheiser Junction',
+       8150, 'P/483P', 94_833, 'New Francisco']
     ]
   end
 

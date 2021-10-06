@@ -404,22 +404,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        activities#{query_string(args)} {
-          totalCount
-          edges {
-            node { id createdAt displayText }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("activities#{query_string(args)}", 'id createdAt displayText')
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize

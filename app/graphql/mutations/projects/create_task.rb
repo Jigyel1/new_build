@@ -24,7 +24,7 @@ module Mutations
       field :task, Types::Projects::TaskType, null: true
 
       def resolve(attributes:)
-        super(::Projects::TaskCreator, :task, attributes: attributes)
+        super(::Projects::TaskCreator, :task, attributes: attributes.to_h)
       end
     end
   end

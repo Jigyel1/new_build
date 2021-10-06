@@ -9,18 +9,17 @@ module Projects
     ZIP = 10
     CITY = 11
 
-    attr_accessor :buildings, :rows, :idable_buildings, :idable_rows, :addressable_buildings, :addressable_rows,
-                  :ordered_buildings, :ordered_rows
+    attr_accessor(:buildings, :rows, :idable_buildings, :idable_rows, :addressable_buildings,
+                  :addressable_rows, :ordered_buildings, :ordered_rows)
 
-    # External ID will always be there.
     def initialize(buildings:, rows:)
-      @buildings = buildings.order(:external_id)
+      @buildings = buildings.order(:external_id) # External ID will always be present.
       @rows = rows.sort { |row_1, row_2| row_1[BUILDING_ID] <=> row_2[BUILDING_ID] }
       @addressable_rows = Set.new
       @addressable_buildings = Set.new
     end
 
-    # PRIORITY building_id -> address -> tasks -> files
+    # Processing priority building_id -> address -> tasks -> files
     def call
       load_matching_ids
       load_matching_addresses
@@ -31,10 +30,9 @@ module Projects
 
     def load_matching_ids
       @idable_rows = rows.select { |row| buildings.exists?(external_id: row[BUILDING_ID]) }
+
       @idable_buildings = buildings.select do |building|
-        rows.find do |row|
-          row[BUILDING_ID] == building.external_id.to_i
-        end
+        rows.find { |row| row[BUILDING_ID] == building.external_id.to_i }
       end
     end
 
@@ -51,10 +49,6 @@ module Projects
       end
     end
 
-    # Ordering by count of active storage files doesn't seem to work as expected.
-    # `counter_cache` doesn't seem like an option either.
-    # Hence, adding hair trigger to sort buildings by the count of files attached.
-    #
     def load_remaining
       @ordered_buildings = buildings.where
                                     .not(id: excluded_buildings_for_ordering)
@@ -62,7 +56,6 @@ module Projects
                                     .group(:id)
                                     .reorder('COUNT(projects_tasks.id) DESC', 'files_count DESC')
 
-      # byebug
       @ordered_rows = rows - (idable_rows + addressable_rows.to_a)
     end
 

@@ -16,7 +16,7 @@ module Mutations
       field :task, Types::Projects::TaskType, null: true
 
       def resolve(attributes:)
-        super(::Projects::TaskUpdater, :task, attributes: attributes)
+        super(::Projects::TaskUpdater, :task, attributes: attributes.to_h)
       end
     end
   end

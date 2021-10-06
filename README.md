@@ -102,6 +102,10 @@ For example check out - `spec/graphql/resolvers/users_resolver_spec.rb`.
 - [Stories](https://docs.google.com/document/d/1vdkGmwaZxw4uApvr-fqXgd0JG4YNEp2OxjtEfENXvus/edit)
 - [Designs](https://www.figma.com/file/1wn1cKsrkRryY3lv6ATGZm/UPC-New-Build?node-id=2661%3A5365)
 
+### Project
+
+- [Stories](https://docs.google.com/document/d/1Y2CNgTsEwuf48CmSIUKxr1wTXq5Lynwn1PPdhxHzgrE/edit#)
+- [Designs](https://www.figma.com/file/1wn1cKsrkRryY3lv6ATGZm/UPC-New-Build?node-id=511%3A0)
 ---
 
 # Avatar upload

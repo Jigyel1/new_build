@@ -70,22 +70,10 @@ RSpec.describe Resolvers::AdminToolkit::KamInvestorsResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        adminToolkitKamInvestors#{query_string(args)} {
-          totalCount
-          edges {
-            node { id investorId investorDescription kam { id name } }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query(
+      "adminToolkitKamInvestors#{query_string(args)}",
+      'id investorId investorDescription kam { id name }'
+    )
   end
 
   def query_string(args = {})

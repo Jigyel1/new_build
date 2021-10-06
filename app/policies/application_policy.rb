@@ -2,7 +2,7 @@
 
 # Base class for application policies
 class ApplicationPolicy < ActionPolicy::Base
-  POLICY_ACTION_REGEX = /^[a-z]+\D[a-z]+[?]$/
+  POLICY_ACTION_REGEX = /^[a-z_]+[?]+$/
   # Configure additional authorization contexts here
   # (`user` is added by default).
   #
@@ -27,6 +27,10 @@ class ApplicationPolicy < ActionPolicy::Base
     permission('read')
   end
   alias show? index?
+
+  def create?
+    permission('create')
+  end
 
   def permission(key)
     role = user.role

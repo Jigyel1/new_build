@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::Projects::TaskResolver do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  using TimeFormatter
+
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:project) { create(:project, assignee: super_user) }
 
   let_it_be(:task) do
@@ -27,7 +29,7 @@ RSpec.describe Resolvers::Projects::TaskResolver do
           id: task.id,
           title: task.title,
           status: task.status,
-          dueDate: task.due_date.to_s,
+          dueDate: task.due_date.date_str,
           description: task.description
         )
 

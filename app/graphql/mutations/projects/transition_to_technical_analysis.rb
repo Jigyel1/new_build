@@ -11,14 +11,12 @@ module Mutations
       field :project, Types::ProjectType, null: true
 
       def resolve(attributes:)
-        resolver = ::Projects::StatusUpdater.new(
-          current_user: current_user,
+        super(
+          ::Projects::StatusUpdater,
+          :project,
           attributes: attributes.to_h,
           event: :technical_analysis
         )
-
-        resolver.call
-        { project: resolver.project }
       end
     end
   end

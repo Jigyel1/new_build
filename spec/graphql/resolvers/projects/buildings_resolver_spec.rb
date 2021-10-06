@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::Projects::BuildingsResolver do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:address) { build(:address, street: 'Sharell Meadows', city: 'New Murray', zip: '16564') }
 
   let_it_be(:project) do
@@ -16,7 +16,8 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
     )
   end
 
-  let_it_be(:building) { create(:building, name: 'Media Markt Winterthur', project: project) }
+  let_it_be(:building_a) { create(:building, name: 'Media Markt Winterthur', project: project) }
+  let_it_be(:building_b) { create(:building, name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon', project: project) }
 
   describe '.resolve' do
     context 'without filters' do
@@ -28,34 +29,20 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
     end
 
     context 'with search queries' do
-      it 'returns projects matching given query' do
-        buildings, errors = paginated_collection(:buildings, query(query: ' ia Markt Winterthur'),
-                                                 current_user: super_user)
+      it 'returns buildings matching given query' do
+        buildings, errors = paginated_collection(
+          :buildings,
+          query(query: ' ia Markt Winterthur'),
+          current_user: super_user
+        )
         expect(errors).to be_nil
-        expect(buildings.pluck(:id)).to eq([building.id])
+        expect(buildings.pluck(:id)).to eq([building_a.id])
       end
     end
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        buildings#{query_string(args)} {
-          totalCount
-          edges {
-            node {
-              id externalId name tasks
-            }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("buildings#{query_string(args)}", 'id externalId name tasks')
   end
 
   def query_string(args = {})

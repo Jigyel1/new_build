@@ -52,7 +52,6 @@ describe BuildingsImporter do
 
   let_it_be(:file) { fixture_file_upload('spec/files/buildings-update.xlsx') }
 
-  # TODO: Remove rubocop filters and fix these!
   context 'when excel has more buildings than the portal' do
     before_all { described_class.call(current_user: super_user, input: file) }
 
@@ -107,7 +106,6 @@ describe BuildingsImporter do
     end
 
     it 'updates details for addressable buildings' do # rubocop:disable RSpec/MultipleExpectations
-      # updates the external id too.
       building = Projects::Building.find_by(external_id: 82_952_250)
       expect(building).to have_attributes(
         apartments_count: 8,

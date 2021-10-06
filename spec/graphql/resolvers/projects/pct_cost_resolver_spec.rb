@@ -9,14 +9,10 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
   let_it_be(:penetration) { create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region, rate: 4.56) }
   let_it_be(:competition) { create(:admin_toolkit_competition, lease_rate: 8.5) }
   let_it_be(:penetration_competition) do
-    create(
-      :penetration_competition,
-      penetration: penetration,
-      competition: competition
-    )
+    create(:penetration_competition, penetration: penetration, competition: competition)
   end
 
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:address) { build(:address, zip: zip) }
   let_it_be(:project) do
     create(
@@ -28,13 +24,10 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
   end
 
   describe '.resolve' do
-    context 'with valid params' do
-      let!(:params) { { project_connection_cost: 999_876, set_project_connection_cost: true } }
+    context 'with valid params' do # wrt a complex project.
+      let!(:params) { { project_connection_cost: 999_876, set_project_connection_cost: true, sockets: 20 } }
 
-      before do
-        create(:projects_installation_detail, sockets: 20, project: project)
-        project.update_column(:category, :complex)
-      end
+      before { project.update_column(:category, :complex) }
 
       it 'returns properly calculated PCT Cost for the project' do
         data, errors = formatted_response(query(params), current_user: super_user)
@@ -47,8 +40,21 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
           penetrationRate: 4.56,
           paybackPeriod: 602,
           paybackPeriodFormatted: '50 years and 2 months',
-          systemGeneratedPaybackPeriod: true
+          systemGeneratedPaybackPeriod: true,
+          projectConnectionCost: 999_876
         )
+      end
+
+      it 'throws error if project connection cost is not set' do
+        data, errors = formatted_response(query, current_user: super_user)
+        expect(data.project).to be_nil
+        expect(errors).to eq(["Project connection cost #{t('projects.transition.project_connection_cost_missing')}"])
+      end
+
+      it 'returns lease cost if lease_cost_only flag is set' do
+        data, errors = formatted_response(query(lease_cost_only: true), current_user: super_user)
+        expect(errors).to be_nil
+        expect(data.projectPctCost.leaseCost).to eq(20_930.4)
       end
     end
 
@@ -59,7 +65,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
         data, errors = formatted_response(query, current_user: super_user)
         expect(data.projectPctCost).to be_nil
         expect(errors).to eq(
-          ["Penetration #{t('projects.transition.penetration_missing')} and Competition can't be blank"]
+          ["Penetration #{t('projects.transition.penetration_missing')} and Competition #{t('errors.messages.blank')}"]
         )
       end
     end
@@ -92,20 +98,10 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
       end
     end
 
-    context 'for complex projects' do
-      before { project.update_column(:category, :complex) }
-
-      it 'throws error if project connection cost is not set' do
-        data, errors = formatted_response(query, current_user: super_user)
-        expect(data.project).to be_nil
-        expect(errors).to eq(["Project connection cost #{t('projects.transition.project_connection_cost_missing')}"])
-      end
-    end
-
     context 'for irrelevant projects' do
       before { project.update_column(:category, :irrelevant) }
 
-      it 'sets the project connection cost as 0 if not set' do
+      it 'sets the project connection cost as 0 if not set' do # without throwing error
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(data.projectPctCost.projectCost).to eq(0.0)
@@ -115,10 +111,20 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
     context 'for marketing only projects' do
       before { project.update_column(:category, :marketing_only) }
 
-      it 'sets the project connection cost as 0 if not set' do
+      it 'sets the project connection cost as 0 if not set' do # without throwing error
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(data.projectPctCost.projectCost).to eq(0.0)
+      end
+    end
+
+    context 'for standard projects' do
+      let!(:params) { { project_connection_cost: 999_876, set_project_connection_cost: true } }
+
+      it 'throws error if project connection cost is sent in the request' do
+        data, errors = formatted_response(query(params), current_user: super_user)
+        expect(data.projectPctCost).to be_nil
+        expect(errors).to eq(["Project connection cost #{t('projects.transition.project_connection_cost_irrelevant')}"])
       end
     end
   end
@@ -128,18 +134,23 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
   end
 
   def query(args = {})
+    lease_cost_only = args[:lease_cost_only] || false
+    sockets = args[:sockets] || 0
+
     <<~GQL
       query {
         projectPctCost(
           attributes: {
             projectId: "#{project.id}"
             competitionId: "#{args[:competition_id]}"
+            leaseCostOnly: #{lease_cost_only}
+            sockets: #{sockets}
             #{project_connection_cost(args)}
           }
         )
         {
           id projectCost socketInstallationCost arpu leaseCost penetrationRate
-          paybackPeriod paybackPeriodFormatted systemGeneratedPaybackPeriod
+          paybackPeriod paybackPeriodFormatted systemGeneratedPaybackPeriod projectConnectionCost
         }
       }
     GQL

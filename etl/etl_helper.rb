@@ -2,7 +2,7 @@
 
 module EtlHelper
   def to_int(row)
-    self.class::TO_INTS.each do |index|
+    self.class::INTEGER_COLS.each do |index|
       value = row[index]
       next if value.blank?
 

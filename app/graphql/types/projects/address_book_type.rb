@@ -19,10 +19,6 @@ module Types
       field :entry_type, String, null: true
 
       field :address, Types::AddressType, null: true
-
-      def address
-        preload_association(:address)
-      end
     end
   end
 end

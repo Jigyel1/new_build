@@ -12,7 +12,7 @@ exception = <<~MESSAGE
   If you are seeding in test/staging servers, pass a TEST=true flag as an argument.
 MESSAGE
 
-abort(exception) if Rails.env.production? && !ActiveModel::Type::Boolean.new.cast(ENV['TEST'])
+abort(exception) if Rails.env.production? && !ENV.fetch('TEST', '').to_b
 
 def address_attributes
   {

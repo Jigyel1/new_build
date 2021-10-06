@@ -2,8 +2,6 @@
 
 require 'rails_helper'
 
-Rails.application.load_tasks
-
 describe ProjectsImporter do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam_region) { AdminToolkit::KamRegion.create(name: 'Ost ZH') }
@@ -11,6 +9,16 @@ describe ProjectsImporter do
 
   # This project will be skipped on import but available in the errors as a skipped project.
   let_it_be(:project) { create(:project, external_id: '3068125') }
+  let_it_be(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region, zip: '8914') }
+
+  let_it_be(:footprint_type) { create(:admin_toolkit_footprint_type, provider: :neither) }
+  let_it_be(:footprint_building) { create(:admin_toolkit_footprint_building) }
+  let_it_be(:footprint_value) do
+    create(
+      :admin_toolkit_footprint_value,
+      footprint_type: footprint_type, footprint_building: footprint_building
+    )
+  end
 
   before_all { described_class.call(current_user: super_user, input: file) }
 
@@ -28,7 +36,8 @@ describe ProjectsImporter do
       buildings_count: 1,
       apartments_count: 1,
       coordinate_east: 2_680_642.427,
-      coordinate_north: 1_236_913.869
+      coordinate_north: 1_236_913.869,
+      category: 'standard'
     )
 
     expect(project.kam_region.name).to eq('Ost ZH')
@@ -76,7 +85,7 @@ describe ProjectsImporter do
       external_id: '3527154',
       name: 'Marc Hofstetter und Marina Jasmin Ellouzi',
       company: 'c/o ArchStudio Architekten AG',
-      language: 'D',
+      language: 'de',
       phone: '044 482 08 08',
       province: 'ZH'
     )
@@ -94,7 +103,7 @@ describe ProjectsImporter do
       external_id: '168370',
       name: 'ArchStudio Architekten AG',
       company: nil,
-      language: 'D',
+      language: 'de',
       phone: '044 482 08 08',
       email: 'architekten@archstudio.ch',
       website: 'http://www.archstudio.ch',
@@ -118,7 +127,7 @@ describe ProjectsImporter do
       display_name: 'Bauingenieur',
       name: 'Tea Engineering Sagl',
       company: 'Tecniche di sicurezza antincendio',
-      language: 'I',
+      language: 'it',
       phone: '091 606 50 00',
       email: 'info@teasagl.ch',
       website: 'http://www.teasagl.ch',
@@ -142,7 +151,7 @@ describe ProjectsImporter do
       display_name: 'HLK-Planer',
       name: 'PhysArch Sagl - Mirko Galli',
       company: 'Fisica della costruzione e del territorio',
-      language: 'I',
+      language: 'it',
       phone: '091 972 24 68',
       email: 'mgalli@physarch.ch',
       website: nil,

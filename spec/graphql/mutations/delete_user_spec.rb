@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::DeleteUser do
-  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: [:delete] }) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: :delete }) }
   let_it_be(:team_standard) { create(:user, :team_standard) }
 
   describe '.resolve' do

@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-# require_relative '../../support/ips_helper'
+require_relative '../../support/ips_helper'
 
 RSpec.describe Resolvers::ProjectsResolver do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  include IpsHelper
+
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:team_expert) { create(:user, :team_expert) }
 
@@ -24,6 +26,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     create(
       :project,
       :complex,
+      :technical_analysis,
       name: "Construction d'une habitation de quatre logements",
       address: address_b,
       assignee: kam,
@@ -37,6 +40,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       :project,
       :reactive,
       :b2b_new,
+      :technical_analysis_completed,
       name: 'Neubau Einfamilienhaus mit Pavillon',
       address: address_c,
       assignee: team_expert,
@@ -51,10 +55,29 @@ RSpec.describe Resolvers::ProjectsResolver do
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_a.id, project_b.id, project_c.id])
       end
+
+      it 'returns count of each project status' do
+        response = execute(query, current_user: super_user)
+        expect(OpenStruct.new(response.dig(:data, :projects, :countByStatuses))).to have_attributes(
+          open: 1,
+          technical_analysis: 1,
+          technical_analysis_completed: 1
+        )
+      end
+    end
+
+    context 'with statuses filter' do
+      let(:statuses) { %w[technical_analysis open] }
+
+      it 'returns projects matching given categories' do
+        projects, errors = paginated_collection(:projects, query(statuses: statuses), current_user: super_user)
+        expect(errors).to be_nil
+        expect(projects.pluck(:id)).to match_array([project_a.id, project_b.id])
+      end
     end
 
     context 'with categories filter' do
-      let(:categories) { ['Complex'] }
+      let(:categories) { ['complex'] }
 
       it 'returns projects matching given categories' do
         projects, errors = paginated_collection(:projects, query(categories: categories), current_user: super_user)
@@ -131,40 +154,42 @@ RSpec.describe Resolvers::ProjectsResolver do
         expect(projects.pluck(:id)).to match_array([project_a.id, project_c.id])
       end
     end
+
+    describe 'performance benchmarks' do
+      it 'executes within 30 ms' do
+        expect { paginated_collection(:projects, query, current_user: super_user) }.to perform_under(30).ms
+      end
+
+      it 'executes n iterations in x seconds', ips: true do
+        expect { paginated_collection(:users, query, current_user: super_user) }.to(
+          perform_at_least(perform_atleast).within(perform_within).warmup(warmup_for).ips
+        )
+      end
+    end
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        projects#{query_string(args)} {
-          totalCount
-          edges {
-            node {
-              id externalId projectNr name category priority constructionType labels apartmentsCount
-              moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
-            }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    response = <<~RESPONSE
+      id externalId projectNr name status category priority constructionType labels apartmentsCount
+      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
+    RESPONSE
+
+    connection_query(
+      "projects#{query_string(args)}",
+      response,
+      meta: 'countByStatuses'
+    )
   end
 
-  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+  def query_string(args = {}) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     params = args[:categories] ? ["categories: #{args[:categories]}"] : []
     params << "assignees: #{args[:assignees]}" if args[:assignees].present?
     params << "priorities: #{args[:priorities]}" if args[:priorities].present?
+    params << "statuses: #{args[:statuses]}" if args[:statuses].present?
     params << "constructionTypes: #{args[:construction_types]}" if args[:construction_types].present?
     params << "buildingsCount: #{args[:buildings]}" if args[:buildings].present?
     params << "apartmentsCount: #{args[:apartments]}" if args[:apartments].present?
     params << "query: \"#{args[:query]}\"" if args[:query]
-    # params << "first: #{args[:first]}" if args[:first]
-    # params << "skip: #{args[:skip]}" if args[:skip]
 
     params.empty? ? nil : "(#{params.join(',')})"
   end

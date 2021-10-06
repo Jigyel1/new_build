@@ -5,10 +5,11 @@ module Projects
     include TaskHelper
     delegate :taskable, to: :task
 
+    set_callback :call, :before, :validate_status!
+
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
-      validate_status!
-      task.update!(status: task.previous_status)
+      authorize! project, to: :update?
+      super { task.update!(status: task.previous_status) }
     end
 
     private

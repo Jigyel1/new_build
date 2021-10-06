@@ -9,7 +9,7 @@ RSpec.describe Resolvers::RolesResolver do
   let_it_be(:administrator) { create(:role, :administrator) }
   let_it_be(:management) { create(:role, :management) }
 
-  let_it_be(:admin_manager) { create(:user, :administrator, role: administrator, with_permissions: { role: [:read] }) }
+  let_it_be(:admin_manager) { create(:user, :administrator, role: administrator, with_permissions: { role: :read }) }
 
   describe '.resolve' do
     it 'returns all roles' do
@@ -40,21 +40,6 @@ RSpec.describe Resolvers::RolesResolver do
   end
 
   def query
-    <<~GQL
-      query {
-        roles {
-          totalCount
-          edges {
-            node { id name users { name avatarUrl } }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query('roles', 'id name users { name avatarUrl }')
   end
 end

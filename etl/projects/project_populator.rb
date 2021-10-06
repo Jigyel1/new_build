@@ -6,18 +6,18 @@ module Projects
   class ProjectPopulator < BasePopulator
     BUILDINGS_COUNT_COL = 76
     APARTMENTS_COUNT_COL = 77
-    # return <Project>
-    # TODO: Use interactor organizer for this?
-    #   LL have to build buildings for the projects based on the count and not just assign number
-    #   once counter cache is implemented.
+
+    # NOTE: project category should be called only after assigning the buildings.
     def call
       super do
-        assign_project_attributes
-        assign_address_attributes
-        assign_additional_details
-        assign_kam_region
-        assign_project_category
-        assign_buildings
+        %i[
+          project_attributes
+          address_attributes
+          additional_details
+          kam_region
+          buildings
+          project_category
+        ].each { |attributes| send("assign_#{attributes}") }
       end
     end
 

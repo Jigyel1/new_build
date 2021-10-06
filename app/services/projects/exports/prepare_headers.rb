@@ -2,25 +2,19 @@
 
 module Projects
   module Exports
-    class PrepareHeaders
-      attr_reader :csv_headers, :projects
-
-      def initialize(csv_headers, projects)
-        @csv_headers = csv_headers
-        @projects = projects
-      end
+    class PrepareHeaders < BaseService
+      attr_accessor :csv_headers, :projects
 
       def call
-        load_default_headers
-        load_address_book_headers
+        %i[default address_book].each { |type| send("load_#{type}_headers") }
         headers.flatten
       end
 
-      def headers
-        @headers ||= []
-      end
-
       private
+
+      def headers
+        @_headers ||= []
+      end
 
       def load_default_headers
         %i[project investor architect].each do |type|

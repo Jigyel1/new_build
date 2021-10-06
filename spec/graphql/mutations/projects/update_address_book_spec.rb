@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::Projects::UpdateAddressBook do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:project) { create(:project) }
   let_it_be(:address_book) { create(:address_book, project: project) }
@@ -16,10 +16,7 @@ RSpec.describe Mutations::Projects::UpdateAddressBook do
       it 'updates the address book' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateAddressBook)
         expect(errors).to be_nil
-        expect(response.addressBook).to have_attributes(
-          displayName: 'Architect',
-          type: 'architect'
-        )
+        expect(response.addressBook).to have_attributes(displayName: 'Architect', type: 'architect')
 
         expect(response.addressBook.address).to have_attributes(
           street: 'Hayes Skyway',
@@ -47,10 +44,7 @@ RSpec.describe Mutations::Projects::UpdateAddressBook do
         it 'updates the address book' do
           response, errors = formatted_response(query(params), current_user: super_user, key: :updateAddressBook)
           expect(errors).to be_nil
-          expect(response.addressBook).to have_attributes(
-            displayName: 'Bauingenieur',
-            type: 'others'
-          )
+          expect(response.addressBook).to have_attributes(displayName: 'Bauingenieur', type: 'others')
         end
       end
     end
@@ -69,8 +63,11 @@ RSpec.describe Mutations::Projects::UpdateAddressBook do
       let!(:params) { { type: :investor } }
 
       it 'forbids action' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :presales),
-                                                             key: :updateAddressBook)
+        response, errors = formatted_response(
+          query(params),
+          current_user: create(:user, :presales),
+          key: :updateAddressBook
+        )
         expect(response.address_book).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end

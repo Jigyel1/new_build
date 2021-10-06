@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
 module TimeFormatter
-  refine ActiveSupport::TimeWithZone do
-    def date_str
-      strftime('%d.%m.%Y')
-    end
+  [ActiveSupport::TimeWithZone, Date].each do |klass|
+    refine klass do
+      def time_str
+        in_time_zone('%H:%M:%S')
+      end
 
-    def time_str
-      strftime('%H:%M:%S')
-    end
+      def date_str
+        in_time_zone('%Y-%m-%d')
+      end
 
-    def datetime_str
-      strftime('%d %B %Y at %H:%M:%S')
+      def in_time_zone(format)
+        super(Current.time_zone).strftime(format)
+      end
     end
   end
 end

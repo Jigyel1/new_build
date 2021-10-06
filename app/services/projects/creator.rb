@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../../../app/models/admin_toolkit'
-
 module Projects
   class Creator < BaseService
-    include Helper
-
     attr_reader :project
     attr_accessor :buildings_count, :apartments_count
 
@@ -17,7 +13,8 @@ module Projects
     end
 
     def call
-      authorize! Project, to: :create?, with: ProjectPolicy
+      authorize! Project, to: :create?
+
       with_tracking(activity_id = SecureRandom.uuid) do
         @project = ::Project.new(formatted_attributes)
         project.category = CategorySetter.new(project: project).call

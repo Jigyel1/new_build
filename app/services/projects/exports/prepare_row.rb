@@ -2,14 +2,8 @@
 
 module Projects
   module Exports
-    class PrepareRow
-      attr_reader :project, :csv_headers, :values
-
-      def initialize(csv_headers, project)
-        @project = project
-        @csv_headers = csv_headers
-        @values = []
-      end
+    class PrepareRow < BaseService
+      attr_accessor :project, :csv_headers
 
       def call
         load_default_values
@@ -21,6 +15,10 @@ module Projects
       end
 
       private
+
+      def values
+        @_values ||= []
+      end
 
       def load_default_values # rubocop:disable Metrics/AbcSize
         %i[project investor architect].each do |type|

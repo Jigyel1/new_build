@@ -13,7 +13,7 @@ module Enumable
       enum status: {
         open: 'Open',
         technical_analysis: 'Technical Analysis',
-        technical_analysis_completed: 'Technical Analysis Completed/On-Hold Meeting',
+        technical_analysis_completed: 'Technical Analysis Completed',
         ready_for_offer: 'Ready for Offer',
         contract: 'Contract',
         contract_accepted: 'Contract Accepted',

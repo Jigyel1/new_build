@@ -7,7 +7,7 @@ module Projects
 
     # values in these indexes need to be converted to integer.
     # Move the zip, etc of other modules to their respective transforms
-    TO_INTS = [1, 8, 23, 39, 55, 66, 76, 77, 82, 85, 90, 91].freeze
+    INTEGER_COLS = FileParser.parse { 'etl/projects/integer_columns.yml' }.keys
     EXTERNAL_ID = 1
 
     def initialize(errors)
@@ -15,14 +15,13 @@ module Projects
     end
 
     def process(row)
+      # the integers in excel are reflected here as floats. Hence the conversion.
       to_int(row)
 
       project = Project.find_or_initialize_by(external_id: row[EXTERNAL_ID])
       return if persisted?(project)
 
-      project.define_singleton_method(:row) do
-        row
-      end
+      project.define_singleton_method(:row) { row }
 
       ProjectPopulator.new(project).call
     end

@@ -4,10 +4,11 @@ require 'active_storage'
 
 module Projects
   class FilesUploader < BaseService
+    include FileHelper
     delegate :files, to: :attachable
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
 
       with_tracking(activity_id = SecureRandom.uuid, transaction: true) do
         attachable.files.attach(

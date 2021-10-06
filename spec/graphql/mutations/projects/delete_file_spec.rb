@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::Projects::DeleteFile do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:project) { create(:project, files: [file_upload]) }
-  let_it_be(:file) { project.files.first }
+  let_it_be(:file) { project.files.take }
 
   describe '.resolve' do
     context 'with permissions' do

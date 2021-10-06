@@ -8,7 +8,7 @@ module Projects
     set_callback :call, :before, :extract_param!
 
     def call
-      authorize! project, to: :create?, with: ProjectPolicy
+      authorize! project, to: :update?
 
       with_tracking(activity_id = SecureRandom.uuid, transaction: true) do
         super do

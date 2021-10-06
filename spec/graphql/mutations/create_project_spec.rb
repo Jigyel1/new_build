@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Mutations::CreateProject do
   using TimeFormatter
 
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :create }) }
   let_it_be(:kam) { create(:user, :kam) }
 
   describe '.resolve' do
@@ -15,19 +15,17 @@ RSpec.describe Mutations::CreateProject do
       it 'creates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
         expect(errors).to be_nil
+
         expect(response.project).to have_attributes(
           internalId: 'e922833',
-          moveInStartsOn: Date.current.in_time_zone.date_str,
+          moveInStartsOn: Date.current.date_str,
           status: 'technical_analysis',
-          assigneeType: 'kam',
+          assigneeType: 'nbo',
           apartmentsCount: 10,
           buildingsCount: 3
         )
 
-        expect(response.project.assignee).to have_attributes(
-          id: kam.id,
-          name: kam.name
-        )
+        expect(response.project.assignee).to have_attributes(id: kam.id, name: kam.name)
       end
 
       it 'creates the associated address books' do
@@ -35,22 +33,22 @@ RSpec.describe Mutations::CreateProject do
         expect(errors).to be_nil
         address_books = response.project.addressBooks
 
-        record = address_books.find { |address_book| address_book[:type] == 'investor' }
+        record = address_books.find { _1[:type] == 'investor' }
         expect(OpenStruct.new(record)).to have_attributes(
           name: 'Philips',
           company: 'Charlotte Hornets',
           phone: '099292922',
           mobile: '03393933',
-          language: 'D',
+          language: 'de',
           email: 'philips.jordan@chornets.us',
           website: 'charlotte-hornets.com'
         )
 
-        record = address_books.find { |address_book| address_book[:type] == 'architect' }
+        record = address_books.find { _1[:type] == 'architect' }
         expect(OpenStruct.new(record)).to have_attributes(
           name: 'Isiah',
           company: 'Detroit Pistons',
-          language: 'I',
+          language: 'it',
           phone: '049292922',
           mobile: '103393933',
           email: 'isiah.thomas@pistons.us',
@@ -183,8 +181,10 @@ RSpec.describe Mutations::CreateProject do
         )
         {
           project {
-            id status internalId moveInStartsOn assigneeType apartmentsCount buildingsCount assignee { id name }
-            addressBooks { id type name company language email website phone mobile address { id street city zip} }
+            id status internalId moveInStartsOn assigneeType apartmentsCount buildingsCount
+            assignee { id name }
+            addressBooks { id type name company language email website phone mobile
+            address { id street city zip} }
           }
         }
       }

@@ -17,10 +17,10 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamRegions do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateKamRegions)
         expect(errors).to be_nil
 
-        target_region = response.kamRegions.find { |region| region[:id] == kam_region.id }
+        target_region = response.kamRegions.find { _1[:id] == kam_region.id }
         expect(OpenStruct.new(target_region[:kam])).to have_attributes(id: kam_b.id, name: kam_b.name)
 
-        target_region = response.kamRegions.find { |region| region[:id] == kam_region_b.id }
+        target_region = response.kamRegions.find { _1[:id] == kam_region_b.id }
         expect(OpenStruct.new(target_region[:kam])).to have_attributes(id: kam_b.id, name: kam_b.name)
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamRegions do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateKamRegions)
         expect(errors).to be_nil
 
-        target_region = response.kamRegions.find { |region| region[:id] == kam_region_b.id }
+        target_region = response.kamRegions.find { _1[:id] == kam_region_b.id }
         expect(target_region[:kam]).to be_nil
       end
     end

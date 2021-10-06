@@ -6,6 +6,11 @@ module Resolvers
       class ProjectsPctCostAttributes < Types::BaseInputObject
         argument :project_id, ID, required: true
         argument :competition_id, ID, required: false
+        argument :sockets, Int, required: false, description: <<~DESC
+          If not set, sockets value will be taken as 0. So your project cost will be equal
+          to the connection cost(connection_cost + socket_installation_cost(0))
+        DESC
+
         argument :lease_cost_only, Boolean, required: false, description: <<~DESC
           To calculate overall project's PCT costs, there are additional dependencies on the admin toolkit
           where if some of the parameters are not set will throw errors or return in-accurate calculations.

@@ -16,7 +16,7 @@ RSpec.describe Resolvers::UsersResolver do
   end
 
   let_it_be(:super_user) do
-    create(:user, :super_user, profile_attributes: profile_a, with_permissions: { user: [:read] })
+    create(:user, :super_user, profile_attributes: profile_a, with_permissions: { user: :read })
   end
   let_it_be(:team_standard) { create(:user, :team_standard, profile_attributes: profile_b) }
   let_it_be(:kam) { create(:user, :kam, :inactive, profile_attributes: profile_c) }
@@ -116,22 +116,7 @@ RSpec.describe Resolvers::UsersResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        users#{query_string(args)} {
-          totalCount
-          edges {
-            node { id email name phone role department }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("users#{query_string(args)}", 'id email name phone role department')
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize

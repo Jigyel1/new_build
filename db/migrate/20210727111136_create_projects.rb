@@ -9,8 +9,8 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :project_nr
       t.string :priority
       t.string :category
-      t.string :status, null: false, default: 'Open'
-      t.string :assignee_type, null: false, default: 'KAM Project'
+      t.string :status, null: false, default: 'Open', index: true
+      t.string :assignee_type, null: false, default: 'NBO Project'
       t.string :entry_type, null: false, default: 'Manual'
 
       t.references :assignee, foreign_key: { to_table: :telco_uam_users }, type: :uuid
@@ -31,7 +31,6 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :label_list, null: false, default: [], array: true
 
       t.jsonb :additional_details, default: {}, index: true
-      t.boolean :archived, null: false, default: false
       t.integer :address_books_count, null: false, default: 0
       t.integer :files_count, null: false, default: 0
       t.integer :tasks_count, null: false, default: 0 # excludes archived ones
@@ -48,9 +47,6 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       execute 'CREATE SEQUENCE projects_project_nr_seq START 1'
       execute "ALTER TABLE projects ALTER COLUMN project_nr SET DEFAULT NEXTVAL('projects_project_nr_seq')"
     end
-
-    # Add a partial index to for non archived projects
-    add_index :projects, :status, where: "status != 'Archived'"
   end
 
   def self.down

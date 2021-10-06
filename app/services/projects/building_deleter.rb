@@ -5,22 +5,8 @@ module Projects
     include BuildingHelper
 
     def call
-      authorize! building.project, to: :update?, with: ProjectPolicy
-
-      with_tracking(activity_id = SecureRandom.uuid) do
-        building.destroy!
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
-      end
-    end
-
-    def activity_params(activity_id)
-      {
-        activity_id: activity_id,
-        action: :building_deleted,
-        owner: current_user,
-        trackable: building,
-        parameters: attributes
-      }
+      authorize! building.project, to: :update?
+      building.destroy!
     end
   end
 end

@@ -6,7 +6,7 @@ module Mutations
       class CreateProjectLabelsAttributes < Types::BaseInputObject
         argument :project_id, ID, required: true
         argument :label_group_id, ID, required: true
-        argument :labelList, String, required: true
+        argument :label_list, String, required: true
       end
 
       argument :attributes, CreateProjectLabelsAttributes, required: true

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PenetrationImporter < EtlBase
+class PenetrationsImporter < EtlBase
   SHEET_INDEX = 0
   SKIP_ROWS = 1
 

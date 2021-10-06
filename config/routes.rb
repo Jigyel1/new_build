@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   end
 
   scope 'api/v1', defaults: { format: :json } do
+    skip_routes = %i[sessions passwords registrations] unless Rails.application.config.test_server
+
     devise_for(
       :users,
       class_name: 'Telco::Uam::User',
@@ -35,7 +37,8 @@ Rails.application.routes.draw do
       controllers: {
         invitations: 'telco/uam/api/v1/invitations',
         omniauth_callbacks: 'telco/uam/api/v1/omniauth_callbacks'
-      }
+      },
+      skip: skip_routes
     )
   end
 

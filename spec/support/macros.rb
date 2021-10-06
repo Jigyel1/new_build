@@ -100,3 +100,25 @@ def file_upload(name: nil)
     fixture_file_upload(Rails.root.join('spec/files/matrix.jpeg'), 'images/jpeg')
   end
 end
+
+def connection_query(request, response, meta: nil)
+  <<~GQL
+    query {
+      #{request} {
+        totalCount
+        #{meta}
+        edges {
+          node {
+            #{response}
+          }
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
+          hasPreviousPage
+        }
+      }
+    }
+  GQL
+end

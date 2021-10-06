@@ -51,4 +51,44 @@ RSpec.describe ProjectsList, type: :model do
       end
     end
   end
+
+  describe 'enums' do
+    it do
+      expect(subject).to define_enum_for(:priority).with_values( # rubocop:disable RSpec/NamedSubject
+        proactive: 'Proactive', reactive: 'Reactive'
+      ).backed_by_column_of_type(:string)
+    end
+
+    it do
+      expect(subject).to define_enum_for(:category).with_values( # rubocop:disable RSpec/NamedSubject
+        standard: 'Standard',
+        complex: 'Complex',
+        marketing_only: 'Marketing Only',
+        irrelevant: 'Irrelevant'
+      ).backed_by_column_of_type(:string)
+    end
+
+    it do
+      expect(subject).to define_enum_for(:construction_type).with_values( # rubocop:disable RSpec/NamedSubject
+        reconstruction: 'Reconstruction',
+        new_construction: 'New Construction',
+        b2b_new: 'B2B (New)',
+        b2b_reconstruction: 'B2B (Reconstruction)',
+        overbuild: 'Overbuild'
+      ).backed_by_column_of_type(:string)
+    end
+
+    it do
+      expect(subject).to define_enum_for(:status).with_values( # rubocop:disable RSpec/NamedSubject
+        open: 'Open',
+        technical_analysis: 'Technical Analysis',
+        technical_analysis_completed: 'Technical Analysis Completed',
+        ready_for_offer: 'Ready for Offer',
+        contract: 'Contract',
+        contract_accepted: 'Contract Accepted',
+        under_construction: 'Under Construction',
+        archived: 'Archived'
+      ).backed_by_column_of_type(:string)
+    end
+  end
 end

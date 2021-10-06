@@ -16,15 +16,12 @@ module Projects
     validates :type, uniqueness: { unless: :others?, scope: :project_id }
 
     before_validation :set_display_name
+    after_destroy :update_projects_list
     after_save :update_projects_list
 
     # If the given address book is a main contact for the project, prefix it with character `c`
     def external_id_with_contact
       main_contact? ? "c#{external_id}" : external_id
-    end
-
-    def language
-      Projects::AddressBook.languages[super]
     end
 
     private

@@ -8,9 +8,9 @@ module Projects
       # For address books where external_ids start with 'c', set those as the main contact for
       # the project and remove 'c' and save the `external_id`.
       main_contact, external_id = if address_book.external_id.starts_with?('c')
-                                    Array.wrap([true, address_book.external_id[1..]])
+                                    [true, address_book.external_id[1..]]
                                   else
-                                    Array.wrap([false, address_book.external_id])
+                                    [false, address_book.external_id]
                                   end
 
       # `to_i` otherwise the value will be saved with a decimal.

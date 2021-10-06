@@ -454,7 +454,7 @@ CREATE TABLE public.activities (
     trackable_id uuid,
     recipient_id uuid,
     action character varying NOT NULL,
-    log_data jsonb DEFAULT '{}'::jsonb NOT NULL,
+    log_data text DEFAULT ''::text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -733,7 +733,7 @@ CREATE TABLE public.projects (
     priority character varying,
     category character varying,
     status character varying DEFAULT 'Open'::character varying NOT NULL,
-    assignee_type character varying DEFAULT 'KAM Project'::character varying NOT NULL,
+    assignee_type character varying DEFAULT 'NBO Project'::character varying NOT NULL,
     entry_type character varying DEFAULT 'Manual'::character varying NOT NULL,
     assignee_id uuid,
     kam_region_id uuid,
@@ -750,7 +750,6 @@ CREATE TABLE public.projects (
     coordinate_north double precision,
     label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     additional_details jsonb DEFAULT '{}'::jsonb,
-    archived boolean DEFAULT false NOT NULL,
     address_books_count integer DEFAULT 0 NOT NULL,
     files_count integer DEFAULT 0 NOT NULL,
     tasks_count integer DEFAULT 0 NOT NULL,
@@ -766,7 +765,9 @@ CREATE TABLE public.projects (
     customer_request boolean,
     verdicts jsonb DEFAULT '{}'::jsonb,
     draft_version jsonb DEFAULT '{}'::jsonb,
-    system_sorted_category boolean DEFAULT true
+    system_sorted_category boolean DEFAULT true,
+    gis_url character varying,
+    info_manager_url character varying
 );
 
 
@@ -776,10 +777,10 @@ CREATE TABLE public.projects (
 
 CREATE TABLE public.projects_access_tech_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    hfc_on_premise_cost numeric(15,2),
-    hfc_off_premise_cost numeric(15,2),
-    lwl_on_premise_cost numeric(15,2),
-    lwl_off_premise_cost numeric(15,2),
+    hfc_on_premise_cost numeric(15,2) NOT NULL,
+    hfc_off_premise_cost numeric(15,2) NOT NULL,
+    lwl_on_premise_cost numeric(15,2) NOT NULL,
+    lwl_off_premise_cost numeric(15,2) NOT NULL,
     comment text,
     explanation text,
     project_id uuid NOT NULL,
@@ -906,6 +907,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
  SELECT projects.id,
     projects.external_id,
     projects.project_nr,
+    projects.status,
     projects.category,
     projects.name,
     projects.priority,
@@ -939,6 +941,7 @@ CREATE TABLE public.projects_pct_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     project_cost numeric(15,2),
     socket_installation_cost numeric(15,2) DEFAULT 0.0,
+    project_connection_cost numeric(15,2),
     arpu numeric(15,2),
     lease_cost numeric(15,2),
     penetration_rate double precision,
@@ -1708,7 +1711,7 @@ CREATE INDEX index_projects_on_kam_region_id ON public.projects USING btree (kam
 -- Name: index_projects_on_status; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_projects_on_status ON public.projects USING btree (status) WHERE ((status)::text <> 'Archived'::text);
+CREATE INDEX index_projects_on_status ON public.projects USING btree (status);
 
 
 --

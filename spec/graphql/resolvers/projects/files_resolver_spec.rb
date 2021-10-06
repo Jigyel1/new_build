@@ -3,7 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::Projects::FilesResolver do
-  let_it_be(:super_user) { create(:user, :super_user, profile: build(:profile, firstname: 'Jack', lastname: 'Ma')) }
+  let_it_be(:super_user) do
+    create(:user,
+           :super_user,
+           with_permissions: { project: :read },
+           profile: build(:profile, firstname: 'Jack', lastname: 'Ma'))
+  end
+
   let_it_be(:kam) { create(:user, :kam, profile: build(:profile, firstname: 'Jack', lastname: 'Dorsey')) }
   let_it_be(:presales) { create(:user, :presales, profile: build(:profile, firstname: 'Jeff', lastname: 'Bezos')) }
 
@@ -46,10 +52,13 @@ RSpec.describe Resolvers::Projects::FilesResolver do
       end
     end
 
-    context 'with attachable filter' do # a attachable item can be a project or a building
+    context 'with attachable filter' do # an attachable can be a project or a building
       it 'returns files for the given attachable item' do
-        files, errors = paginated_collection(:files, query(attachable: [building.id, 'Projects::Building']),
-                                             current_user: super_user)
+        files, errors = paginated_collection(
+          :files,
+          query(attachable: [building.id, 'Projects::Building']),
+          current_user: super_user
+        )
         expect(errors).to be_nil
         expect(files.pluck(:name)).to eq([file_a.original_filename])
       end
@@ -73,22 +82,7 @@ RSpec.describe Resolvers::Projects::FilesResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        files#{query_string(args)} {
-          totalCount
-          edges {
-            node { id name owner { name } }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("files#{query_string(args)}", 'id name owner { name }')
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/AbcSize

@@ -8,6 +8,7 @@ module Resolvers
 
     type Types::ProjectConnectionType, null: false
 
+    option(:statuses, type: [String]) { |scope, value| scope.where(status: value) }
     option(:categories, type: [String]) { |scope, value| scope.where(category: value) }
     option(:assignees, type: [String]) { |scope, value| scope.where(assignee_id: value) }
     option(:priorities, type: [String]) { |scope, value| scope.where(priority: value) }

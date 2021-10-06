@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::Projects::TasksResolver do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:administrator) { create(:user, :administrator) }
   let_it_be(:project) { create(:project, assignee: super_user) }
   let_it_be(:building) { create(:building, assignee: administrator, project: project) }
@@ -97,10 +97,13 @@ RSpec.describe Resolvers::Projects::TasksResolver do
       end
     end
 
-    context 'with taskable filter' do # a taskable item can be a project or a building
+    context 'with taskable filter' do # taskable can be a project or a building
       it 'returns tasks for the given taskable item' do
-        tasks, errors = paginated_collection(:tasks, query(taskable: [building.id, 'Projects::Building']),
-                                             current_user: super_user)
+        tasks, errors = paginated_collection(
+          :tasks,
+          query(taskable: [building.id, 'Projects::Building']),
+          current_user: super_user
+        )
         expect(errors).to be_nil
         expect(tasks.pluck(:id)).to eq([task_e.id, task_c.id])
       end
@@ -150,22 +153,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        tasks#{query_string(args)} {
-          totalCount
-          edges {
-            node { id title description assignee { email } }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("tasks#{query_string(args)}", 'id title description assignee { email }')
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize

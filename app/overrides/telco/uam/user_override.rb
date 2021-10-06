@@ -39,6 +39,7 @@ module Telco
       delegate :name, to: :role, prefix: true
 
       after_save :update_mat_view
+      after_destroy :update_mat_view
 
       # Updates provider & uid for the user.
       #

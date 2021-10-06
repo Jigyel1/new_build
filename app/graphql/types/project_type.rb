@@ -62,11 +62,6 @@ module Types
     field :draft_version, GraphQL::Types::JSON, null: true
 
     field :default_label_group, Types::Projects::LabelGroupType, null: true
-    field :current_label_group, Types::Projects::LabelGroupType, null: true
-
-    field :states, GraphQL::Types::JSON, null: true, description: <<~DESC
-      This will be a list statuses that the given project supports.
-    DESC
 
     %i[move_in_starts_on move_in_ends_on construction_starts_on].each do |method_name|
       define_method method_name do
@@ -74,14 +69,21 @@ module Types
       end
     end
 
+    field :states, GraphQL::Types::JSON, null: true, description: <<~DESC
+      This will be a list statuses that the given project supports.
+    DESC
     def states
       ::Projects::StateMachine.new(attributes: { id: object.id }).states
     end
 
+    field :current_label_group, Types::Projects::LabelGroupType, null: true
     def current_label_group
       object.label_groups.joins(:label_group).find_by(
         admin_toolkit_label_groups: { code: object.status }
       )
     end
+
+    field :gis_url, String, null: true
+    field :info_manager_url, String, null: true
   end
 end

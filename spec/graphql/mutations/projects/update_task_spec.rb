@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::Projects::UpdateTask do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:project) { create(:project) }
   let_it_be(:building) { create(:building, project: project) }
@@ -22,10 +22,7 @@ RSpec.describe Mutations::Projects::UpdateTask do
       it 'updates counter caches of the parent' do
         _, errors = formatted_response(query(params), current_user: super_user, key: :updateTask)
         expect(errors).to be_nil
-        expect(building.reload).to have_attributes(
-          completed_tasks_count: 1,
-          tasks_count: 1
-        )
+        expect(building.reload).to have_attributes(completed_tasks_count: 1, tasks_count: 1)
       end
     end
 
