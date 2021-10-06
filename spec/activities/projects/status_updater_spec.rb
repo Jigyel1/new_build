@@ -34,14 +34,16 @@ describe Projects::StatusUpdater do
   let_it_be(:address) { build(:address, zip: zip) }
   let_it_be(:project) { create(:project, :technical_analysis, address: address) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
-  let_it_be(:params) {{ id: project.id }}
+  let_it_be(:params) { { id: project.id } }
 
   describe 'Transitions' do
     describe 'Transition to Technical Analysis' do
       let_it_be(:project_b) { create(:project) }
-      let_it_be(:params_b) {{ id: project_b.id }}
+      let_it_be(:params_b) { { id: project_b.id } }
 
-      before_all { described_class.new(current_user: team_expert, attributes: params_b, event: :technical_analysis).call }
+      before_all do
+        described_class.new(current_user: team_expert, attributes: params_b, event: :technical_analysis).call
+      end
       describe '.activities' do
         context 'as an owner' do
           it 'returns activities in terms of first person' do
@@ -49,8 +51,8 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-                                                         t('activities.project.technical_analysis.owner')
-                                                       )
+              t('activities.project.technical_analysis.owner')
+            )
           end
         end
 
@@ -62,8 +64,8 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-                                                         t('activities.project.technical_analysis.others')
-                                                       )
+              t('activities.project.technical_analysis.others')
+            )
           end
         end
       end
@@ -81,8 +83,8 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-                                                         t('activities.project.technical_analysis_completed.owner')
-                                                       )
+              t('activities.project.technical_analysis_completed.owner')
+            )
           end
         end
 
@@ -94,8 +96,8 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-                                                         t('activities.project.technical_analysis_completed.others')
-                                                       )
+              t('activities.project.technical_analysis_completed.others')
+            )
           end
         end
       end
@@ -103,7 +105,7 @@ describe Projects::StatusUpdater do
 
     describe 'Transition to Ready for offer' do
       let(:project_c) { create(:project, :technical_analysis_completed) }
-      let(:params_c) {{ id: project_c.id }}
+      let(:params_c) { { id: project_c.id } }
 
       before do
         pct_value.pct_month.update_column(:max, 498)
@@ -118,8 +120,8 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-                                                         t('activities.project.ready_for_offer.owner')
-                                                       )
+              t('activities.project.ready_for_offer.owner')
+            )
           end
         end
 
@@ -131,8 +133,8 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-                                                         t('activities.project.ready_for_offer.others')
-                                                       )
+              t('activities.project.ready_for_offer.others')
+            )
           end
         end
       end
@@ -140,7 +142,7 @@ describe Projects::StatusUpdater do
 
     describe 'Transition to Archived' do
       let(:project_d) { create(:project, :technical_analysis_completed) }
-      let(:params_d) {{ id: project_d.id }}
+      let(:params_d) { { id: project_d.id } }
 
       before do
         described_class.new(current_user: management, attributes: params_d, event: :archive).call
@@ -153,8 +155,8 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-                                                         t('activities.project.archived.owner')
-                                                       )
+              t('activities.project.archived.owner')
+            )
           end
         end
 
@@ -166,8 +168,8 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-                                                         t('activities.project.archived.others')
-                                                       )
+              t('activities.project.archived.others')
+            )
           end
         end
       end
@@ -175,7 +177,7 @@ describe Projects::StatusUpdater do
 
     describe 'Revert Transition' do
       let(:project_d) { create(:project, :technical_analysis_completed) }
-      let(:params_d) {{ id: project_d.id }}
+      let(:params_d) { { id: project_d.id } }
 
       before do
         described_class.new(current_user: management, attributes: params_d, event: :revert).call
@@ -188,8 +190,8 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-                                                         t('activities.project.reverted.owner')
-                                                       )
+              t('activities.project.reverted.owner')
+            )
           end
         end
 
@@ -201,12 +203,11 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-                                                         t('activities.project.reverted.others')
-                                                       )
+              t('activities.project.reverted.others')
+            )
           end
         end
       end
     end
   end
 end
-

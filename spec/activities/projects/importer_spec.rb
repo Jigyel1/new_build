@@ -28,8 +28,8 @@ describe Projects::Importer, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-                                                     t('activities.projects.project_imported.owner')
-                                                   )
+          t('activities.projects.project_imported.owner')
+        )
       end
     end
 
@@ -41,8 +41,8 @@ describe Projects::Importer, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-                                                     t('activities.projects.project_imported.others')
-                                                   )
+          t('activities.projects.project_imported.others')
+        )
       end
     end
   end
