@@ -31,7 +31,9 @@ module Projects
 
       def authorized?
         authorize! project, to: case aasm.to_state
-                                when :technical_analysis_completed then :tac_complex?
+                                when :technical_analysis_completed
+                                  project.complex? ? :tac_complex? : 'technical_analysis_completed?'
+                                when :unarchive then :archive?
                                 else "#{aasm.to_state}?"
                                 end
       end

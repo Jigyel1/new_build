@@ -10,6 +10,7 @@ module Mutations
     class UpdateProjectAttributes < Types::BaseInputObject
       argument :id, ID, required: true
       argument :internal_id, ID, required: false
+      argument :os_id, ID, required: false
       argument :name, String, required: false
       argument :status, String, required: false
       argument :description, String, required: false

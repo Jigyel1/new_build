@@ -68,7 +68,9 @@ RSpec.describe Resolvers::Projects::FilesResolver do
       it 'returns files matching the query' do
         files, errors = paginated_collection(:files, query(query: 'jack'), current_user: super_user)
         expect(errors).to be_nil
-        expect(files.pluck(:name)).to eq([file_a.original_filename, file_b.original_filename, file_c.original_filename])
+        expect(files.pluck(:name)).to match_array(
+          [file_a.original_filename, file_b.original_filename, file_c.original_filename]
+        )
       end
     end
 
