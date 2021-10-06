@@ -34,12 +34,23 @@ module Projects
 
       private
 
-      def update_label
-        label_group = AdminToolkit::LabelGroup.find_by!(code: project.status)
+      delegate :default_label_group, to: :project
 
-        project_label_group = project.label_groups.find_or_create_by!(label_group: label_group)
-        project_label_group.label_list << AdminToolkit::PctValue.statuses[project_priority.status]
-        project_label_group.save!
+      # Remove any of the existing project priority status that is there in the default label group.
+      # then add the current project priority status.
+      # This is done so that the default label for the project only includes the priority status
+      # that is relevant to the project based on its current status.
+      #
+      # Eg. Project A, qualified as a `Prio 1` project when it was initially moved to Technical Analysis Completed(TAC)
+      # state. But it was reverted back to Technical Analysis, and before it was moved back to TAC, cost were
+      # updated such that the project now is an `On Hold` project. The project should no longer have `Prio 1` as a
+      # label in it's default label group.
+      #
+      def update_label # rubocop:disable Metrics/AbcSize
+        default_label_group.label_list.delete_if { |label| AdminToolkit::PctValue.statuses.value?(label) }
+
+        default_label_group.label_list << AdminToolkit::PctValue.statuses[project_priority.status]
+        default_label_group.save!
       rescue StandardError => e
         raise(t('projects.transition.error_while_adding_label', error: e.message))
       end
