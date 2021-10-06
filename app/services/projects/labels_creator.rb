@@ -29,7 +29,7 @@ module Projects
         action: :label_group_created,
         owner: current_user,
         trackable: label_group,
-        parameters: attributes.except(:id)
+        parameters: attributes
       }
     end
   end

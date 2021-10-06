@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Projects::LabelsUpdater do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:label_group) { create(:admin_toolkit_label_group, label_list: 'Assign KAM, Offer Needed') }
   let_it_be(:project) { create(:project, :from_info_manager) }
 

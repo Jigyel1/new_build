@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Projects::AddressBookCreator do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:project) { create(:project) }
   let_it_be(:params) { { project_id: project.id, name: 'Test', type: :investor } }
 

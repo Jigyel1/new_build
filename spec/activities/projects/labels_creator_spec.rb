@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Projects::LabelsCreator do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:project) { create(:project, :from_info_manager) }
   let_it_be(:params) { { project_id: project.id, label_list: 'Prio 3, On Hold' } }
 

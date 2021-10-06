@@ -28,7 +28,6 @@ project:
   others:
     project_created:
       - owner_email
-      - entry_type
     project_updated:
       - parameters
     project_draft_version:

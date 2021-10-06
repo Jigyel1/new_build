@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Projects::StatusUpdater do
-  let_it_be(:team_expert) { create(:user, :team_expert) }
+  let_it_be(:team_expert) { create(:user, :team_expert, with_permissions: { project: :technical_analysis }) }
   let_it_be(:zip) { '1101' }
   let_it_be(:project_cost) { create(:admin_toolkit_project_cost, standard: 99_987) }
   let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
@@ -28,9 +28,8 @@ describe Projects::StatusUpdater do
     )
   end
 
-  let_it_be(:team_expert) { create(:user, :team_expert) }
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:management) { create(:user, :management) }
+  let_it_be(:management) { create(:user, :management, with_permissions: { project: :ready_for_offer }) }
   let_it_be(:address) { build(:address, zip: zip) }
   let_it_be(:project) { create(:project, :technical_analysis, address: address) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
@@ -72,14 +71,28 @@ describe Projects::StatusUpdater do
     end
 
     describe 'Transition to technical analysis completed' do
+      let!(:super_user_b) do
+        create(
+          :user,
+          :super_user,
+          with_permissions: {
+            project: %i[
+              complex
+              technical_analysis_completed
+              ready_for_offer
+            ]
+          }
+        )
+      end
+
       before do
-        described_class.new(current_user: team_expert, attributes: params, event: :technical_analysis_completed).call
+        described_class.new(current_user: super_user_b, attributes: params, event: :technical_analysis_completed).call
       end
 
       describe '.activities' do
         context 'as an owner' do
           it 'returns activities in terms of first person' do
-            activities, errors = paginated_collection(:activities, activities_query, current_user: team_expert)
+            activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
@@ -141,17 +154,18 @@ describe Projects::StatusUpdater do
     end
 
     describe 'Transition to Archived' do
+      let!(:super_user_c) { create(:user, :super_user, with_permissions: { project: :archive }) }
       let(:project_d) { create(:project, :technical_analysis_completed) }
       let(:params_d) { { id: project_d.id } }
 
       before do
-        described_class.new(current_user: management, attributes: params_d, event: :archive).call
+        described_class.new(current_user: super_user_c, attributes: params_d, event: :archive).call
       end
 
       describe '.activities' do
         context 'as an owner' do
           it 'returns activities in terms of first person' do
-            activities, errors = paginated_collection(:activities, activities_query, current_user: management)
+            activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_c)
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
@@ -176,17 +190,32 @@ describe Projects::StatusUpdater do
     end
 
     describe 'Revert Transition' do
+      let(:super_user) do
+        create(
+          :user,
+          :super_user,
+          with_permissions: {
+            project: %i[
+              open
+              technical_analysis
+              technical_analysis_completed
+              ready_for_offer
+              complex
+            ]
+          }
+        )
+      end
       let(:project_d) { create(:project, :technical_analysis_completed) }
       let(:params_d) { { id: project_d.id } }
 
       before do
-        described_class.new(current_user: management, attributes: params_d, event: :revert).call
+        described_class.new(current_user: super_user, attributes: params_d, event: :revert).call
       end
 
       describe '.activities' do
         context 'as an owner' do
           it 'returns activities in terms of first person' do
-            activities, errors = paginated_collection(:activities, activities_query, current_user: management)
+            activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
@@ -196,7 +225,21 @@ describe Projects::StatusUpdater do
         end
 
         context 'as an general user' do
-          let!(:super_user) { create(:user, :super_user) }
+          let(:super_user) do
+            create(
+              :user,
+              :super_user,
+              with_permissions: {
+                project: %i[
+                  open
+                  technical_analysis
+                  technical_analysis_completed
+                  ready_for_offer
+                  complex
+                ]
+              }
+            )
+          end
 
           it 'returns activities in terms of third person' do
             activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)

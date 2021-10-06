@@ -24,6 +24,12 @@ module Projects
         true
       end
 
+      def after_technical_analysis
+        with_tracking(activity_id = SecureRandom.uuid) do
+          Activities::ActivityCreator.new(analysis_params(activity_id)).call
+        end
+      end
+
       def after_technical_analysis_completed
         with_tracking(activity_id = SecureRandom.uuid) do
           update_label
@@ -33,7 +39,6 @@ module Projects
 
       def after_offer_ready
         with_tracking(activity_id = SecureRandom.uuid) do
-          update_label
           Activities::ActivityCreator.new(offer_ready_params(activity_id)).call
         end
       end

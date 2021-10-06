@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Projects::BuildingsImporter, type: :request do
-  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let(:params) do
     {
       operations: {
