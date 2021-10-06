@@ -30,7 +30,8 @@ module Projects
       if sfn && hfc then :both
       elsif sfn then :ftth_sfn
       elsif hfc then :ftth_swisscom
-      else :neither
+      else
+        :neither
       end
     end
   end
