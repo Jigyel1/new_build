@@ -38,6 +38,10 @@ module Projects
                                 end
       end
 
+      def unarchive?
+        project.previous_status.to_sym == aasm.to_state
+      end
+
       def extract_verdict
         verdict = attributes.dig(:verdicts, aasm.to_state)
         project.verdicts[aasm.to_state] = verdict if verdict.present?

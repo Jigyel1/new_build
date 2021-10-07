@@ -494,10 +494,10 @@ CREATE TABLE public.admin_toolkit_competitions (
 
 
 --
--- Name: admin_toolkit_footprint_buildings; Type: TABLE; Schema: public; Owner: -
+-- Name: admin_toolkit_footprint_apartments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.admin_toolkit_footprint_buildings (
+CREATE TABLE public.admin_toolkit_footprint_apartments (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     min integer NOT NULL,
     max integer NOT NULL,
@@ -527,7 +527,7 @@ CREATE TABLE public.admin_toolkit_footprint_types (
 CREATE TABLE public.admin_toolkit_footprint_values (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     category character varying NOT NULL,
-    footprint_building_id uuid NOT NULL,
+    footprint_apartment_id uuid NOT NULL,
     footprint_type_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -1089,11 +1089,11 @@ ALTER TABLE ONLY public.admin_toolkit_competitions
 
 
 --
--- Name: admin_toolkit_footprint_buildings admin_toolkit_footprint_buildings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_toolkit_footprint_apartments admin_toolkit_footprint_apartments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.admin_toolkit_footprint_buildings
-    ADD CONSTRAINT admin_toolkit_footprint_buildings_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.admin_toolkit_footprint_apartments
+    ADD CONSTRAINT admin_toolkit_footprint_apartments_pkey PRIMARY KEY (id);
 
 
 --
@@ -1395,10 +1395,10 @@ CREATE UNIQUE INDEX index_admin_toolkit_competitions_on_name ON public.admin_too
 
 
 --
--- Name: index_admin_toolkit_footprint_buildings_on_index; Type: INDEX; Schema: public; Owner: -
+-- Name: index_admin_toolkit_footprint_apartments_on_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_admin_toolkit_footprint_buildings_on_index ON public.admin_toolkit_footprint_buildings USING btree (index);
+CREATE UNIQUE INDEX index_admin_toolkit_footprint_apartments_on_index ON public.admin_toolkit_footprint_apartments USING btree (index);
 
 
 --
@@ -1409,10 +1409,10 @@ CREATE UNIQUE INDEX index_admin_toolkit_footprint_types_on_index ON public.admin
 
 
 --
--- Name: index_admin_toolkit_footprint_values_on_footprint_building_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_admin_toolkit_footprint_values_on_footprint_apartment_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_footprint_values_on_footprint_building_id ON public.admin_toolkit_footprint_values USING btree (footprint_building_id);
+CREATE INDEX index_admin_toolkit_footprint_values_on_footprint_apartment_id ON public.admin_toolkit_footprint_values USING btree (footprint_apartment_id);
 
 
 --
@@ -1538,7 +1538,7 @@ CREATE UNIQUE INDEX index_admin_toolkit_project_costs_on_index ON public.admin_t
 -- Name: index_footprint_values_on_category_and_references; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_footprint_values_on_category_and_references ON public.admin_toolkit_footprint_values USING btree (category, footprint_type_id, footprint_building_id);
+CREATE UNIQUE INDEX index_footprint_values_on_category_and_references ON public.admin_toolkit_footprint_values USING btree (category, footprint_type_id, footprint_apartment_id);
 
 
 --
@@ -1852,14 +1852,6 @@ ALTER TABLE ONLY public.admin_toolkit_kam_investors
 
 
 --
--- Name: admin_toolkit_footprint_values fk_rails_18d8a3b570; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.admin_toolkit_footprint_values
-    ADD CONSTRAINT fk_rails_18d8a3b570 FOREIGN KEY (footprint_building_id) REFERENCES public.admin_toolkit_footprint_buildings(id);
-
-
---
 -- Name: admin_toolkit_penetration_competitions fk_rails_23e3df12e1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2025,6 +2017,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 ALTER TABLE ONLY public.admin_toolkit_footprint_values
     ADD CONSTRAINT fk_rails_c5fec1ddda FOREIGN KEY (footprint_type_id) REFERENCES public.admin_toolkit_footprint_types(id);
+
+
+--
+-- Name: admin_toolkit_footprint_values fk_rails_d2d68aa044; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_footprint_values
+    ADD CONSTRAINT fk_rails_d2d68aa044 FOREIGN KEY (footprint_apartment_id) REFERENCES public.admin_toolkit_footprint_apartments(id);
 
 
 --

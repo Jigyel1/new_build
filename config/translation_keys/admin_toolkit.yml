@@ -32,7 +32,7 @@ admin_toolkit:
       - zip
     penetration_deleted:
       - zip
-    footprint_building_updated:
+    footprint_apartment_updated:
       - max
     footprint_value_updated:
       - trackable_id
@@ -80,7 +80,7 @@ admin_toolkit:
     penetration_deleted:
       - owner_email
       - zip
-    footprint_building_updated:
+    footprint_apartment_updated:
       - owner_email
       - max
     footprint_value_updated:

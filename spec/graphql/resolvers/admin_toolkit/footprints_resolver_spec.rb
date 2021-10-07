@@ -5,34 +5,34 @@ require 'rails_helper'
 RSpec.describe Resolvers::AdminToolkit::FootprintsResolver do
   let_it_be(:footprint_type) { create(:admin_toolkit_footprint_type) }
   let_it_be(:footprint_type_b) { create(:admin_toolkit_footprint_type, index: 1, provider: :both) }
-  let_it_be(:footprint_building) { create(:admin_toolkit_footprint_building) }
-  let_it_be(:footprint_building_b) { create(:admin_toolkit_footprint_building, index: 1, min: 6, max: 12) }
+  let_it_be(:footprint_apartment) { create(:admin_toolkit_footprint_apartment) }
+  let_it_be(:footprint_apartment_b) { create(:admin_toolkit_footprint_apartment, index: 1, min: 6, max: 12) }
 
   let_it_be(:footprint_value) do
     create(
       :admin_toolkit_footprint_value,
-      footprint_type: footprint_type, footprint_building: footprint_building
+      footprint_type: footprint_type, footprint_apartment: footprint_apartment
     )
   end
 
   let_it_be(:footprint_value_b) do
     create(
       :admin_toolkit_footprint_value,
-      footprint_type: footprint_type, footprint_building: footprint_building_b
+      footprint_type: footprint_type, footprint_apartment: footprint_apartment_b
     )
   end
 
   let_it_be(:footprint_value_c) do
     create(
       :admin_toolkit_footprint_value,
-      footprint_type: footprint_type_b, footprint_building: footprint_building
+      footprint_type: footprint_type_b, footprint_apartment: footprint_apartment
     )
   end
 
   let_it_be(:footprint_value_d) do
     create(
       :admin_toolkit_footprint_value,
-      footprint_type: footprint_type_b, footprint_building: footprint_building_b
+      footprint_type: footprint_type_b, footprint_apartment: footprint_apartment_b
     )
   end
 
@@ -68,7 +68,7 @@ RSpec.describe Resolvers::AdminToolkit::FootprintsResolver do
         adminToolkitFootprints {
           id category
           footprintType { index provider }
-          footprintBuilding { index min max}
+          footprintApartment { index min max}
         }
       }
     GQL

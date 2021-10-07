@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Footprint Building
+# footprint apartment
 [
   { index: 0, min: 1, max: 2 },
   { index: 1, min: 3, max: 9 },
@@ -9,7 +9,7 @@
   { index: 4, min: 50, max: MAX_SIGNED }
 ].each do |attributes|
   index = attributes.delete(:index)
-  create_record(attributes) { AdminToolkit::FootprintBuilding.find_or_initialize_by(index: index) }
+  create_record(attributes) { AdminToolkit::FootprintApartment.find_or_initialize_by(index: index) }
 end
 
 # Footprint Type
@@ -26,8 +26,8 @@ end
 # Footprint Value
 #
 # run from the console:
-#   #=> puts AdminToolkit::FootprintValue.all.map{|x| "building #{x.footprint_building.min} -
-#           #{x.footprint_building.max} || footprint type #{x.footprint_type.provider} || #{x.category}" }
+#   #=> puts AdminToolkit::FootprintValue.all.map{|x| "building #{x.footprint_apartment.min} -
+#           #{x.footprint_apartment.max} || footprint type #{x.footprint_type.provider} || #{x.category}" }
 # to confirm matrix generation.
 [
   [0, 0, :standard], [0, 1, :standard], [0, 2, :irrelevant], [0, 3, :irrelevant],
@@ -40,7 +40,7 @@ end
 
   create_record(category: category) do
     AdminToolkit::FootprintValue.find_or_initialize_by(
-      footprint_building: AdminToolkit::FootprintBuilding.find_by!(index: building_index),
+      footprint_apartment: AdminToolkit::FootprintApartment.find_by!(index: building_index),
       footprint_type: AdminToolkit::FootprintType.find_by!(index: type_index)
     )
   end
