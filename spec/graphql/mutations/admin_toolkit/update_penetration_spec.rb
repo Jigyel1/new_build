@@ -7,7 +7,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePenetration do
   let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
 
   let_it_be(:competition_a) { create(:admin_toolkit_competition) }
-  let_it_be(:competition_b) { create(:admin_toolkit_competition, :g_fast) }
+  let_it_be(:competition_b) { create(:admin_toolkit_competition, :swisscom_dsl) }
   let_it_be(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region) }
 
   let_it_be(:penetration_competition_a) do
