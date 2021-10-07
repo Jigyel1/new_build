@@ -24,6 +24,8 @@ class ProjectsImporter < EtlBase
     super do
       Kiba.parse do
         Project.transaction do
+          # TODO: pre_process to confirm excel format and raise if not valid!
+
           source EtlSource, sheet: sheet
 
           errors = []
