@@ -30,7 +30,7 @@ describe Projects::FileDeleter do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.active_storage.attachment_file_deleted.others')
+          t('activities.active_storage.attachment_file_deleted.others', owner_email: super_user.email)
         )
       end
     end

@@ -50,7 +50,9 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-              t('activities.project.technical_analysis.owner')
+              t('activities.project.technical_analysis.owner',
+                project_name: project_b.name,
+                status: 'technical_analysis')
             )
           end
         end
@@ -63,7 +65,9 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-              t('activities.project.technical_analysis.others')
+              t('activities.project.technical_analysis.others', owner_email: team_expert.email,
+                project_name: project_b.name,
+                status: 'technical_analysis')
             )
           end
         end
@@ -96,7 +100,9 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-              t('activities.project.technical_analysis_completed.owner')
+              t('activities.project.technical_analysis_completed.owner', project_name: project.name,
+                status: 'technical_analysis_completed'
+                )
             )
           end
         end
@@ -109,7 +115,8 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-              t('activities.project.technical_analysis_completed.others')
+              t('activities.project.technical_analysis_completed.others', project_name: project.name,
+                status: 'technical_analysis_completed', owner_email: super_user_b.email)
             )
           end
         end
@@ -133,7 +140,7 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-              t('activities.project.ready_for_offer.owner')
+              t('activities.project.ready_for_offer.owner', project_name: project_c.name, previous_status: project_c.status, status: 'ready_for_offer')
             )
           end
         end
@@ -146,7 +153,10 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-              t('activities.project.ready_for_offer.others')
+              t('activities.project.ready_for_offer.others',project_name: project_c.name,
+                previous_status: project_c.status,
+                status: 'ready_for_offer',
+                owner_email: management.email)
             )
           end
         end
@@ -169,7 +179,7 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-              t('activities.project.archived.owner')
+              t('activities.project.archived.owner', previous_status: project_d.status, project_name: project_d.name)
             )
           end
         end
@@ -182,7 +192,7 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-              t('activities.project.archived.others')
+              t('activities.project.archived.others', owner_email: super_user_c.email, previous_status: project_d.status, project_name: project_d.name)
             )
           end
         end
@@ -219,34 +229,20 @@ describe Projects::StatusUpdater do
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-              t('activities.project.reverted.owner')
+              t('activities.project.reverted.owner', previous_status: project_d.status, status: 'technical_analysis', project_name: project_d.name)
             )
           end
         end
 
         context 'as an general user' do
-          let(:super_user) do
-            create(
-              :user,
-              :super_user,
-              with_permissions: {
-                project: %i[
-                  open
-                  technical_analysis
-                  technical_analysis_completed
-                  ready_for_offer
-                  complex
-                ]
-              }
-            )
-          end
+          let!(:super_user_z) { create(:user, :super_user) }
 
           it 'returns activities in terms of third person' do
-            activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
+            activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_z)
             expect(errors).to be_nil
             expect(activities.size).to eq(1)
             expect(activities.dig(0, :displayText)).to eq(
-              t('activities.project.reverted.others')
+              t('activities.project.reverted.others', previous_status: project_d.status, status: 'technical_analysis', project_name: project_d.name, owner_email: super_user.email)
             )
           end
         end

@@ -25,7 +25,10 @@ module Projects
         action: :building_created,
         owner: current_user,
         trackable: building,
-        parameters: attributes
+        parameters: {
+          name: building.name,
+          project_name: building.project.name
+        }
       }
     end
   end

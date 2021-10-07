@@ -49,8 +49,8 @@ module Projects
         activity_id: activity_id,
         action: :file_uploaded,
         owner: current_user,
-        trackable: attachable.project,
-        parameters: attributes
+        trackable: attachable,
+        parameters: project.slice('buildings')
       }
     end
   end

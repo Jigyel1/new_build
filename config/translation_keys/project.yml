@@ -2,11 +2,12 @@ project:
   recipient:
   owner:
     project_created:
-      - parameters
+      - project_name
     project_updated:
-      - parameters
+      - project_name
+      - status
     project_draft_version:
-      - parameters
+      - project_name
     project_category_updated:
       - parameters
     incharge_updated:
@@ -14,42 +15,74 @@ project:
     project_pct_cost:
       - parameters
     file_uploaded:
-      - parameters
+      - name
     technical_analysis:
-      - parameters
+      - project_name
+      - status
     technical_analysis_completed:
-      - parameters
+      - project_name
+      - status
     ready_for_offer:
-      - parameters
+      - previous_status
+      - project_name
+      - status
     archived:
-      - parameters
+      - previous_status
+      - project_name
     reverted:
-      - parameters
+      - owner_email
+      - previous_status
+      - project_name
+      - status
   others:
     project_created:
+      - project_name
       - owner_email
+      - entry_type
     project_updated:
-      - parameters
+      - project_name
+      - status
+      - owner_email
     project_draft_version:
-      - parameters
-    project_category_updated:
-      - parameters
+      - project_name
+      - owner_email
     incharge_updated:
       - parameters
     file_uploaded:
-      - parameters
+      - owner_email
+      - name
     technical_analysis:
-      - parameters
+      - owner_email
+      - project_name
+      - status
     technical_analysis_completed:
-      - parameters
+      - owner_email
+      - project_name
+      - status
     ready_for_offer:
-      - parameters
+      - owner_email
+      - previous_status
+      - project_name
+      - status
     archived:
-      - parameters
+      - owner_email
+      - previous_status
+      - project_name
     reverted:
-      - parameters
+      - owner_email
+      - previous_status
+      - project_name
+      - status
 projects:
   recipient:
+    project_task_created:
+      - project_name
+      - owner_email
+      - title
+    project_task_deleted:
+      - parameters
+    project_task_updated:
+      - parameters
     task_created:
       - parameters
     task_deleted:
@@ -58,58 +91,79 @@ projects:
       - parameters
   owner:
     address_book_created:
-      - parameters
+      - project_name
+      - role_type
     address_book_updated:
-      - parameters
+      - project_name
+      - role_type
     building_created:
-      - parameters
+      - project_name
+      - name
     building_deleted:
-      - parameters
+      - project_name
+      - name
     building_updated:
-      - parameters
+      - project_name
+      - name
     building_imported:
+      - filename
+    labels_created:
       - parameters
-    label_group_created:
-      - parameters
-    label_group_updated:
+    labels_updated:
       - parameters
     task_created:
-      - parameters
+      - recipient_email
+      - title
     task_deleted:
       - parameters
     task_updated:
       - parameters
     payback_period_updated:
-      - parameters
+      - project_name
     project_imported:
-      - parameters
+      - filename
   others:
     address_book_created:
-      - parameters
+      - project_name
+      - role_type
+      - owner_email
     address_book_updated:
-      - parameters
+      - project_name
+      - role_type
+      - owner_email
     building_created:
-      - parameters
+      - project_name
+      - name
+      - owner_email
     building_deleted:
-      - parameters
+      - project_name
+      - name
+      - owner_email
     building_updated:
-      - parameters
+      - project_name
+      - name
+      - owner_email
     building_imported:
+      - filename
+      - owner_email
+    labels_created:
       - parameters
-    label_group_created:
-      - parameters
-    label_group_updated:
+    labels_updated:
       - parameters
     task_created:
-      - parameters
+      - owner_email
+      - recipient_email
+      - title
     task_deleted:
       - parameters
     task_updated:
       - parameters
     payback_period_updated:
-      - parameters
+      - project_name
+      - owner_email
     project_imported:
-      - parameters
+      - filename
+      - owner_email
 
 active_storage:
   owner:
@@ -119,6 +173,6 @@ active_storage:
       - parameters
   others:
     attachment_file_deleted:
-      - parameters
+      - owner_email
     attachment_file_updated:
       - parameters

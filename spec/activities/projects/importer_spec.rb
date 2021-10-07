@@ -22,13 +22,15 @@ describe Projects::Importer, type: :request do
   end
 
   describe '.activities' do
+    let(:param) { params[:file]}
+
     context 'as an owner' do
       it 'returns activity in terms of first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.project_imported.owner')
+          t('activities.projects.project_imported.owner', filename: param.original_filename)
         )
       end
     end
@@ -41,7 +43,7 @@ describe Projects::Importer, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.project_imported.others')
+          t('activities.projects.project_imported.others', filename: param.original_filename, owner_email: super_user.email)
         )
       end
     end

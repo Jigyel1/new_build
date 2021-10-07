@@ -73,7 +73,10 @@ module Projects
           action: :technical_analysis,
           owner: current_user,
           trackable: project,
-          parameters: attributes
+          parameters: {
+            status: project.status,
+            project_name: project.name
+          }
         }
       end
 
@@ -83,7 +86,10 @@ module Projects
           action: :technical_analysis_completed,
           owner: current_user,
           trackable: project,
-          parameters: attributes
+          parameters: {
+            status: project.status,
+            project_name: project.name
+          }
         }
       end
 
@@ -93,7 +99,11 @@ module Projects
           action: :ready_for_offer,
           owner: current_user,
           trackable: project,
-          parameters: attributes
+          parameters: {
+            previous_status: project.previous_changes.dig('status', 0),
+            status: project.status,
+            project_name: project.name
+          }
         }
       end
 
@@ -103,7 +113,10 @@ module Projects
           action: :archived,
           owner: current_user,
           trackable: project,
-          parameters: attributes
+          parameters: {
+            previous_status: project.previous_changes.dig('status', 0),
+            project_name: project.name
+          }
         }
       end
 
@@ -113,7 +126,11 @@ module Projects
           action: :reverted,
           owner: current_user,
           trackable: project,
-          parameters: attributes
+          parameters: {
+            previous_status: project.previous_changes.dig('status', 0),
+            status: project.status,
+            project_name: project.name
+          }
         }
       end
     end

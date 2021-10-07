@@ -25,7 +25,10 @@ module Projects
         action: :address_book_updated,
         owner: current_user,
         trackable: address_book,
-        parameters: attributes
+        parameters: {
+          project_name: address_book.project.name,
+          role_type: address_book.type
+        }
       }
     end
   end

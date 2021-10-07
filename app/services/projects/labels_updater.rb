@@ -32,7 +32,7 @@ module Projects
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :label_group_updated,
+        action: :labels_updated,
         owner: current_user,
         trackable: label_group,
         parameters: attributes

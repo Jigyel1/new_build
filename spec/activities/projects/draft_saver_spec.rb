@@ -17,7 +17,7 @@ describe Projects::DraftSaver do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.project_draft_version.owner')
+          t('activities.project.project_draft_version.owner', project_name: project.name)
         )
       end
     end
@@ -30,7 +30,7 @@ describe Projects::DraftSaver do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.project_draft_version.others')
+          t('activities.project.project_draft_version.others', project_name: project.name, owner_email: super_user.email)
         )
       end
     end

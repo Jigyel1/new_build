@@ -16,7 +16,14 @@ module JsonAccessible
       standard
       max
       min
+      previous_status
       investor_id
+      status
+      role_type
+      filename
+      project_name
+      title
+      entry_type
     ], coder: JSON
   end
 

@@ -27,7 +27,7 @@ describe Projects::BuildingCreator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.building_created.owner')
+          t('activities.projects.building_created.owner', name: params[:name], project_name: project.name)
         )
       end
     end
@@ -40,7 +40,7 @@ describe Projects::BuildingCreator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.building_created.others')
+          t('activities.projects.building_created.others', name: params[:name], project_name: project.name, owner_email: super_user.email)
         )
       end
     end

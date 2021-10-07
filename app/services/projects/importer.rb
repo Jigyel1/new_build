@@ -22,7 +22,9 @@ module Projects
         action: :project_imported,
         owner: current_user,
         trackable_type: 'Projects',
-        parameters: attributes
+        parameters: {
+          filename: file.original_filename
+        }
       }
     end
   end

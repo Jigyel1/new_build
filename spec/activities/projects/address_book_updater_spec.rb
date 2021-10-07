@@ -17,7 +17,7 @@ describe Projects::AddressBookUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.address_book_updated.owner')
+          t('activities.projects.address_book_updated.owner', project_name: project.name, role_type: params[:type])
         )
       end
     end
@@ -30,7 +30,9 @@ describe Projects::AddressBookUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.address_book_updated.others')
+          t('activities.projects.address_book_updated.others', project_name: project.name, role_type: params[:type],
+            owner_email: super_user.email
+            )
         )
       end
     end

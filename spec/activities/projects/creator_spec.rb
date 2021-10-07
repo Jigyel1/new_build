@@ -25,7 +25,8 @@ describe Projects::Creator do
         mobile: '03393933',
         email: 'philips.jordan@chornets.us',
         website: 'charlotte-hornets.com'
-      }]
+      }],
+      entry_type: :manual
     }
   end
   before_all { ::Projects::Creator.new(current_user: super_user, attributes: params).call }
@@ -37,7 +38,7 @@ describe Projects::Creator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.project_created.owner')
+          t('activities.project.project_created.owner', project_name: params[:name])
         )
       end
     end
@@ -50,7 +51,7 @@ describe Projects::Creator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.project_created.others')
+          t('activities.project.project_created.others', project_name: params[:name], entry_type: params[:entry_type], owner_email: super_user.email)
         )
       end
     end

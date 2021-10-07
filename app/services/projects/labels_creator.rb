@@ -26,7 +26,7 @@ module Projects
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :label_group_created,
+        action: :labels_created,
         owner: current_user,
         trackable: label_group,
         parameters: attributes

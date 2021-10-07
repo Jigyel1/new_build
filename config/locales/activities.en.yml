@@ -93,90 +93,81 @@ en:
 
     project:
       project_created:
-        owner: 'Project Created.'
-        others: 'A new project was created'
+        owner: 'Project `%{project_name}` created by you'
+        others: 'A new project `%{project_name}` was created %{entry_type} by %{owner_email}'
       project_updated:
-        owner: 'project updated'
-        others: 'project updated'
+        owner: 'Edited the project `%{project_name}` information in the %{status} phase by you'
+        others: 'The project `%{project_name}` information was edited by %{owner_email} in %{status} phase'
       project_draft_version:
-        owner: 'saved as draft'
-        others: 'saved as draft'
+        owner: 'Project `%{project_name}` saved as draft by you'
+        others: 'Project `%{project_name}` is saved as draft by %{owner_email}'
       technical_analysis:
-        owner: 'state to technical analysis'
-        others: 'state to technical analysis'
+        owner: 'Project `%{project_name}` moved from new project to %{status} stage by you'
+        others: 'Project `%{project_name}` was moved from new project to %{status} by %{owner_email}'
       technical_analysis_completed:
-        owner: 'state to technical analysis completed'
-        others: 'state to technical analysis completed'
+        owner: 'Project `%{project_name}` moved from  Technical Analysis stage to %{status} by you'
+        others: 'Project `%{project_name}` was moved from Technical Analysis to %{status} stage by %{owner_email}'
       ready_for_offer:
-        owner: 'offer ready'
-        others: 'offer ready'
+        owner: 'Project `%{project_name}` moved from  %{previous_status} to %{status} by you'
+        others: 'Project `%{project_name}` was moved from %{previous_status} to %{status} by %{owner_email}'
       archived:
-        owner: 'project archived'
-        others: 'project archived'
+        owner: 'Project `%{project_name}` has been archived from %{previous_status} by you'
+        others: 'Project `%{project_name}` has been archived from %{previous_status} by %{owner_email}'
       reverted:
-        owner: 'project reverted'
-        others: 'project reverted'
-      labels_created:
-        owner: 'labels created'
-        others: 'labels created'
-      project_category_updated:
-        owner: 'project category updated'
-        others: 'project category updated'
+        owner: 'Project `%{project_name}` reverted from  %{previous_status} to %{status} by you '
+        others: 'Project `%{project_name}` reverted from  %{previous_status} to %{status} by %{owner_email}'
       incharge_updated:
-        owner: 'project incharge updated'
-        others: 'project incharge updated'
+        owner: 'Assigned [assignee_email] as Technical Incharge for project [name]'
+        others: 'Assigned [assignee_email] as Technical Incharge for project [name] by [owner_email]'
       file_uploaded:
-        owner: 'file uploaded'
-        others: 'file uploaded'
+        owner: 'Uploaded the file %{name}'
+        others: 'A new file %{name} under Building tab was uploaded by %{owner_email}'
 
     projects:
       project_imported:
-        owner: 'project imported'
-        others: 'project imported'
+        owner: 'Project file `%{filename}` has been imported by you'
+        others: 'Project file `%{filename}` has been imported by %{owner_email}'
       address_book_created:
-        owner: 'address book created'
-        others: 'address book created'
+        owner: 'For project `%{project_name}`, a new role type `%{role_type}` has been added by you'
+        others: 'For project `%{project_name}`, a new role type `%{role_type}` has been added by %{owner_email}'
       address_book_updated:
-        owner: 'address book updated'
-        others: 'address book updated'
+        owner: 'For project `%{project_name}`, Address book information for role type `%{role_type}` has been updated by you'
+        others: 'For project `%{project_name}`, Address book information for role type `%{role_type}` has been updated by %{owner_email}'
       building_created:
-        owner: 'building created'
-        others: 'building created'
+        owner: 'For Project `%{project_name}`, a new building `%{name}` has been added by you'
+        others: 'For Project `%{project_name}`, a new building `%{name}` has been added by %{owner_email}'
       building_deleted:
-        owner: 'building deleted'
-        others: 'building deleted'
+        owner: 'For Project `%{project_name}`, a building `%{name}` has been deleted by you'
+        others: 'For Project `%{project_name}`, a building `%{name}` has been deleted by %{owner_email}'
       building_updated:
-        owner: 'building updated'
-        others: 'building updated'
+        owner: 'For Project `%{project_name}`, a building `%{name}` has been updated by you'
+        others: 'For Project `%{project_name}`, a building `%{name}` has been updated by %{owner_email}'
       building_imported:
-        owner: 'building imported'
-        others: 'building imported'
-      label_group_created:
-        owner: 'labels created'
-        others: 'labels created'
-      label_group_updated:
-        owner: 'labels updated'
-        others: 'labels updated'
-      task_created:
-        owner: 'task created'
-        others: 'task created'
-        recipient: 'task created'
-      task_deleted:
-        owner: 'task deleted'
-        others: 'task deleted'
-        recipient: 'task deleted'
-      task_updated:
-        owner: 'task updated'
-        others: 'task updated'
-        recipient: 'task updated'
+        owner: 'Building file `%{filename}` has been imported for project(s) by you'
+        others: 'Building file `%{filename}` has been imported for project(s) by %{owner_email}'
+#      labels_created:
+#        owner: 'Added label [label name] in [stage] for project [name]'
+#        others: 'Added label [label name] in [stage] for project [name] by [email]'
+#      task_created:
+#        owner: 'Assigned building task %{title} to %{recipient_email}'
+#        others: 'Building task %{title} was assigned to %{recipient_email} by %{owner_email}'
+#        recipient: 'Was assigned the building task %{title} by %{owner_email}'
+#      task_deleted:
+#        owner: 'task deleted'
+#        others: 'task deleted'
+#        recipient: 'task deleted'
+#      task_updated:
+#        owner: 'task updated'
+#        others: 'task updated'
+#        recipient: 'task updated'
       payback_period_updated:
-        owner: 'project payback period updated'
-        others: 'project payback period updated'
+        owner: 'For Project `%{project_name}` the payback period has been recalculated by you'
+        others: 'For Project `%{project_name}` the payback period has been recalculated by %{owner_email}'
 
-    active_storage:
-      attachment_file_deleted:
-        owner: 'project file deleted'
-        others: 'project file deleted'
-      attachment_file_updated:
-        owner: 'project file updated'
-        others: 'project file updated'
+#    active_storage:
+#      attachment_file_deleted:
+#        owner: 'For project [name], a file [file_name]'
+#        others: 'A file from the Files tab under project was Deleted by %{owner_email}'
+#      attachment_file_updated:
+#        owner: 'project file updated'
+#        others: 'project file updated'

@@ -44,7 +44,10 @@ module Projects
         action: :project_created,
         owner: current_user,
         trackable: project,
-        parameters: attributes
+        parameters: {
+          entry_type: project.entry_type,
+          project_name: project.name
+        }
       }
     end
   end

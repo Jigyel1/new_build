@@ -22,7 +22,10 @@ module Projects
         action: :project_draft_version,
         owner: current_user,
         trackable: project,
-        parameters: attributes
+        parameters: {
+          project_name: project.name,
+
+        }
       }
     end
   end
