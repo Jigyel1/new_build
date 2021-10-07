@@ -24,8 +24,8 @@ admin_toolkit/penetration:
   - penetration_updated
   - penetration_deleted
 
-admin_toolkit/footprint_building:
-  - footprint_building_updated
+admin_toolkit/footprint_apartment:
+  - footprint_apartment_updated
 
 admin_toolkit/footprint_value:
   - footprint_value_updated

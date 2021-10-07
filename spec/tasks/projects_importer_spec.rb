@@ -12,11 +12,11 @@ describe ProjectsImporter do
   let_it_be(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region, zip: '8914') }
 
   let_it_be(:footprint_type) { create(:admin_toolkit_footprint_type, provider: :neither) }
-  let_it_be(:footprint_building) { create(:admin_toolkit_footprint_building) }
+  let_it_be(:footprint_apartment) { create(:admin_toolkit_footprint_apartment) }
   let_it_be(:footprint_value) do
     create(
       :admin_toolkit_footprint_value,
-      footprint_type: footprint_type, footprint_building: footprint_building
+      footprint_type: footprint_type, footprint_apartment: footprint_apartment
     )
   end
 

@@ -24,7 +24,7 @@ module Types
     field :update_pct_month, mutation: Mutations::AdminToolkit::UpdatePctMonth
     field :update_pct_values, mutation: Mutations::AdminToolkit::UpdatePctValues
 
-    field :update_footprint_building, mutation: Mutations::AdminToolkit::UpdateFootprintBuilding
+    field :update_footprint_apartment, mutation: Mutations::AdminToolkit::UpdateFootprintApartment
     field :update_footprint_values, mutation: Mutations::AdminToolkit::UpdateFootprintValues
 
     field :update_labels, mutation: Mutations::AdminToolkit::UpdateLabels

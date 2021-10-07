@@ -5,11 +5,11 @@ module Types
     class FootprintValueType < BaseObject
       field :id, ID, null: true
       field :category, String, null: true
-      field :footprint_building, FootprintBuildingType, null: true
+      field :footprint_apartment, FootprintApartmentType, null: true
       field :footprint_type, FootprintTypeType, null: true
 
-      def footprint_building
-        preload_association(:footprint_building)
+      def footprint_apartment
+        preload_association(:footprint_apartment)
       end
 
       def footprint_type

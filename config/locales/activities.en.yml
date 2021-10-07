@@ -40,9 +40,9 @@ en:
       penetration_deleted:
         owner: 'You have deleted the penetration rate with the zip value %{zip}'
         others: '%{owner_email} deleted the penetration rate with the zip value %{zip}'
-      footprint_building_updated:
-        owner: 'You have updated footprint building with max value of %{max}'
-        others: '%{owner_email} updated footprint building with max value of %{max}'
+      footprint_apartment_updated:
+        owner: 'You have updated footprint apartment with max value of %{max}'
+        others: '%{owner_email} updated footprint apartment with max value of %{max}'
       footprint_value_updated:
         owner: 'You have updated the footprint values in Footprint tab of the Admin Toolkit'
         others: '%{owner_email} has updated the footprint values in footprint tab of the Admin Toolkit'

@@ -6,9 +6,9 @@ class CreateAdminToolkitFootprintValues < ActiveRecord::Migration[6.1]
       t.string :category, null: false
 
       t.references(
-        :footprint_building,
+        :footprint_apartment,
         null: false,
-        foreign_key: { to_table: :admin_toolkit_footprint_buildings },
+        foreign_key: { to_table: :admin_toolkit_footprint_apartments },
         type: :uuid
       )
 
@@ -24,7 +24,7 @@ class CreateAdminToolkitFootprintValues < ActiveRecord::Migration[6.1]
 
     add_index(
       :admin_toolkit_footprint_values,
-      %i[category footprint_type_id footprint_building_id],
+      %i[category footprint_type_id footprint_apartment_id],
       name: 'index_footprint_values_on_category_and_references',
       unique: :case_insensitive_comparison
     )

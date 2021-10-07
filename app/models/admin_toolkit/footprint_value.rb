@@ -2,7 +2,7 @@
 
 module AdminToolkit
   class FootprintValue < ApplicationRecord
-    belongs_to :footprint_building
+    belongs_to :footprint_apartment
     belongs_to :footprint_type
 
     enum category: {
@@ -15,12 +15,12 @@ module AdminToolkit
     validates(
       :category,
       presence: true,
-      uniqueness: { scope: %i[footprint_building_id footprint_type_id], case_sensitive: false }
+      uniqueness: { scope: %i[footprint_apartment_id footprint_type_id], case_sensitive: false }
     )
 
     default_scope do
-      joins(:footprint_building, :footprint_type).order(
-        'admin_toolkit_footprint_buildings.index, admin_toolkit_footprint_types.index'
+      joins(:footprint_apartment, :footprint_type).order(
+        'admin_toolkit_footprint_apartments.index, admin_toolkit_footprint_types.index'
       )
     end
   end

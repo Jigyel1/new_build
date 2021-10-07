@@ -75,16 +75,12 @@ module Projects
         transitions from: :ready_for_offer, to: :archived
       end
 
-      event :unarchive, if: %i[authorized? unarchive?], after: :extract_verdict do
+      event :unarchive, if: %i[authorized? unarchive?] do
         transitions from: :archived, to: :open
         transitions from: :archived, to: :technical_analysis
         transitions from: :archived, to: :technical_analysis_completed
         transitions from: :archived, to: :ready_for_offer
       end
-    end
-
-    def unarchive?
-      project.previous_status.to_sym == aasm.to_state
     end
   end
 end
