@@ -17,8 +17,6 @@ module Activities
       owner.activities
            .create!(activity_params.merge(trackable_params))
            .then { |activity| activity.persisted? ? activity : log_error(activity) }
-      # rescue Exception => e
-      #   byebug
     end
 
     private

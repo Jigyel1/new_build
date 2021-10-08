@@ -57,6 +57,7 @@ project:
   - ready_for_offer
   - archived
   - reverted
+  - task_created
 projects/address_book:
   - address_book_created
   - address_book_updated

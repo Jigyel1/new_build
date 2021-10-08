@@ -37,7 +37,8 @@ describe Projects::FileDeleter do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.active_storage.attachment_file_deleted.others', filename: file.blob[:filename],
-                                                                          type: file.record_type.split('::').last, owner_email: super_user.email)
+                                                                          type: file.record_type.split('::').last,
+                                                                          owner_email: super_user.email)
           )
         end
       end
@@ -71,7 +72,8 @@ describe Projects::FileDeleter do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.active_storage.attachment_file_deleted.others', filename: file_b.blob[:filename],
-                                                                          type: file_b.record_type.split('::').last, owner_email: super_user.email)
+                                                                          type: file_b.record_type.split('::').last,
+                                                                          owner_email: super_user.email)
           )
         end
       end

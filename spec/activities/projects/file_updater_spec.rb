@@ -37,7 +37,8 @@ describe Projects::FileUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.active_storage.attachment_file_updated.others', filename: params[:name],
-                                                                          type: file.record_type.split('::').last, owner_email: super_user.email)
+                                                                          type: file.record_type.split('::').last,
+                                                                          owner_email: super_user.email)
           )
         end
       end
@@ -71,7 +72,8 @@ describe Projects::FileUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.active_storage.attachment_file_updated.others', filename: params_b[:name],
-                                                                          type: file_b.record_type.split('::').last, owner_email: super_user.email)
+                                                                          type: file_b.record_type.split('::').last,
+                                                                          owner_email: super_user.email)
           )
         end
       end

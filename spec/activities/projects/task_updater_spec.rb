@@ -27,7 +27,11 @@ describe Projects::TaskUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.owner',
-              previous_status: task.status, status: params[:status], type: task.taskable_type.split('::').last, title: task.title, recipient_email: kam.email)
+              previous_status: task.status,
+              status: params[:status],
+              type: task.taskable_type.split('::').last,
+              title: task.title,
+              recipient_email: kam.email)
           )
         end
       end
@@ -38,7 +42,11 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.recipient',
-              previous_status: task.status, status: params[:status], type: task.taskable_type.split('::').last, title: task.title, owner_email: super_user.email)
+              previous_status: task.status,
+              status: params[:status],
+              type: task.taskable_type.split('::').last,
+              title: task.title,
+              owner_email: super_user.email)
           )
         end
       end
@@ -51,7 +59,12 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.others',
-              previous_status: task.status, status: params[:status], type: task.taskable_type.split('::').last, title: task.title, owner_email: super_user.email, recipient_email: kam.email)
+              previous_status: task.status,
+              status: params[:status],
+              type: task.taskable_type.split('::').last,
+              title: task.title,
+              owner_email: super_user.email,
+              recipient_email: kam.email)
           )
         end
       end
@@ -71,7 +84,11 @@ describe Projects::TaskUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.owner',
-              previous_status: task_b.status, status: params_b[:status], type: task_b.taskable_type, title: task_b.title, recipient_email: kam.email)
+              previous_status: task_b.status,
+              status: params_b[:status],
+              type: task_b.taskable_type,
+              title: task_b.title,
+              recipient_email: kam.email)
           )
         end
       end
@@ -82,7 +99,11 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.recipient',
-              previous_status: task_b.status, status: params_b[:status], type: task_b.taskable_type, title: task_b.title, owner_email: super_user.email)
+              previous_status: task_b.status,
+              status: params_b[:status],
+              type: task_b.taskable_type,
+              title: task_b.title,
+              owner_email: super_user.email)
           )
         end
       end
@@ -95,7 +116,12 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.others',
-              previous_status: task_b.status, status: params_b[:status], type: task_b.taskable_type, title: task_b.title, owner_email: super_user.email, recipient_email: kam.email)
+              previous_status: task_b.status,
+              status: params_b[:status],
+              type: task_b.taskable_type,
+              title: task_b.title,
+              owner_email: super_user.email,
+              recipient_email: kam.email)
           )
         end
       end

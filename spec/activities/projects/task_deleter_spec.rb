@@ -27,7 +27,9 @@ describe Projects::TaskDeleter do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.owner',
-              type: task.taskable_type.split('::').last, title: task.title, recipient_email: kam.email)
+              type: task.taskable_type.split('::').last,
+              title: task.title,
+              recipient_email: kam.email)
           )
         end
       end
@@ -38,7 +40,9 @@ describe Projects::TaskDeleter do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.recipient',
-              type: task.taskable_type.split('::').last, title: task.title, owner_email: super_user.email)
+              type: task.taskable_type.split('::').last,
+              title: task.title,
+              owner_email: super_user.email)
           )
         end
       end
@@ -51,7 +55,10 @@ describe Projects::TaskDeleter do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.others',
-              type: task.taskable_type.split('::').last, title: task.title, owner_email: super_user.email, recipient_email: kam.email)
+              type: task.taskable_type.split('::').last,
+              title: task.title,
+              owner_email: super_user.email,
+              recipient_email: kam.email)
           )
         end
       end
@@ -71,7 +78,9 @@ describe Projects::TaskDeleter do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.owner',
-              type: task_b.taskable_type.split('::').last, title: task_b.title, recipient_email: kam.email)
+              type: task_b.taskable_type.split('::').last,
+              title: task_b.title,
+              recipient_email: kam.email)
           )
         end
       end
@@ -82,7 +91,9 @@ describe Projects::TaskDeleter do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.recipient',
-              type: task_b.taskable_type.split('::').last, title: task_b.title, owner_email: super_user.email)
+              type: task_b.taskable_type.split('::').last,
+              title: task_b.title,
+              owner_email: super_user.email)
           )
         end
       end
@@ -95,7 +106,10 @@ describe Projects::TaskDeleter do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.others',
-              type: task_b.taskable_type.split('::').last, title: task_b.title, owner_email: super_user.email, recipient_email: kam.email)
+              type: task_b.taskable_type.split('::').last,
+              title: task_b.title,
+              owner_email: super_user.email,
+              recipient_email: kam.email)
           )
         end
       end
