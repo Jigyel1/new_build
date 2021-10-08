@@ -14,15 +14,20 @@ module Types
       field :arpu, Float, null: true
       field :lease_cost, Float, null: true
       field :project_connection_cost, Float, null: true
-      field :penetration_rate, Float, null: true
 
       field :payback_period, Int, null: true, description: 'In months'
       field :system_generated_payback_period, Boolean, null: true
 
       field :payback_period_formatted, String, null: true
+
       def payback_period_formatted
         seconds = ActiveSupport::Duration::SECONDS_PER_MONTH * object.payback_period
         to_text(ActiveSupport::Duration.build(seconds).parts)
+      end
+
+      field :penetration_rate, Float, null: true
+      def penetration_rate
+        object.penetration_rate.try(:rounded)
       end
 
       private
