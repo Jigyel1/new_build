@@ -36,27 +36,27 @@ module Projects
       @apartments_count = project.apartments_count.to_i
     end
 
-    def call # rubocop:disable Metrics/SeliseMethodLength
+    def call # rubocop:disable Metrics/AbcSize, Metrics/SeliseMethodLength
       super do
         pct_cost.lease_cost = lease_cost
         return pct_cost if lease_cost_only
 
         pct_cost.assign_attributes(
-              project_cost: project_cost,
-              lease_cost: lease_cost,
-              socket_installation_cost: socket_installation_cost,
-              arpu: arpu,
-              project_connection_cost: project_connection_cost,
-              penetration_rate: penetration_rate,
-              payback_period: payback_period
+          project_cost: project_cost,
+          socket_installation_cost: socket_installation_cost,
+          arpu: arpu,
+          project_connection_cost: project_connection_cost,
+          penetration_rate: penetration_rate,
+          payback_period: payback_period
         )
+
         system_generated_payback_period && pct_cost.system_generated_payback_period = system_generated_payback_period
         pct_cost.save!
       end
     end
 
     def pct_cost
-      @pct_cost ||= project.pct_cost.presence || Projects::PctCost.new
+      @pct_cost ||= project.pct_cost.presence || project.build_pct_cost
     end
 
     private
