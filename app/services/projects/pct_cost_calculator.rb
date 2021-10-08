@@ -5,7 +5,7 @@ module Projects
     include ActiveModel::Validations
 
     attr_accessor(:project_id, :competition_id, :lease_cost_only, :apartments_count,
-                  :sockets, :project_connection_cost, :pct_cost, :arpu,
+                  :sockets, :project_connection_cost, :arpu, :system_generated_payback_period,
                   :socket_installation_rate, :standard_connection_cost)
 
     set_callback :call, :before, :validate!
@@ -38,11 +38,10 @@ module Projects
 
     def call # rubocop:disable Metrics/SeliseMethodLength
       super do
-        @pct_cost = Projects::PctCost.new(
-          if lease_cost_only
-            { lease_cost: lease_cost }
-          else
-            {
+        pct_cost.lease_cost = lease_cost
+        return pct_cost if lease_cost_only
+
+        pct_cost.assign_attributes(
               project_cost: project_cost,
               lease_cost: lease_cost,
               socket_installation_cost: socket_installation_cost,
@@ -50,10 +49,14 @@ module Projects
               project_connection_cost: project_connection_cost,
               penetration_rate: penetration_rate,
               payback_period: payback_period
-            }
-          end
         )
+        system_generated_payback_period && pct_cost.system_generated_payback_period = system_generated_payback_period
+        pct_cost.save!
       end
+    end
+
+    def pct_cost
+      @pct_cost ||= project.pct_cost.presence || Projects::PctCost.new
     end
 
     private
@@ -84,8 +87,8 @@ module Projects
     # The value is displayed in Years and Months
     # Values are always Rounded down (13.6 becomes 1 year 1 month)
     def payback_period
-      payback_period = project.pct_cost.try(:payback_period)
-      return payback_period if payback_period && !project.pct_cost.system_generated_payback_period?
+      payback_period = pct_cost.try(:payback_period)
+      return payback_period if payback_period && !pct_cost.system_generated_payback_period?
 
       calculate_payback_period
     end

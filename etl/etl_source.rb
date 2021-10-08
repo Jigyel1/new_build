@@ -6,6 +6,8 @@ class EtlSource
   end
 
   def each(&block)
-    @sheet.each_row(&block)
+    ActiveRecord::Base.transaction do
+      @sheet.each_row(&block)
+    end
   end
 end
