@@ -2,7 +2,7 @@
 
 # Base class for application policies
 class ApplicationPolicy < ActionPolicy::Base
-  POLICY_ACTION_REGEX = /^[a-z_]+[?]+$/
+  POLICY_ACTION_REGEX = /^[a-z0-9_]+[?]+$/
   # Configure additional authorization contexts here
   # (`user` is added by default).
   #
