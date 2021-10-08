@@ -10,41 +10,94 @@ describe Projects::TaskDeleter do
   let_it_be(:project) { create(:project) }
   let_it_be(:building) { create(:building, project: project) }
   let_it_be(:task) { create(:task, taskable: building, assignee: kam, owner: super_user) }
+  let_it_be(:task_b) { create(:task, taskable: project, assignee: kam, owner: super_user) }
   let_it_be(:params) { { id: task.id } }
+  let_it_be(:params_b) { { id: task_b.id } }
 
-  before_all { described_class.new(current_user: super_user, attributes: params).call }
-
-  describe '.activities' do
-    context 'as an owner' do
-      it 'returns activity in terms of first person' do
-        activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
-        expect(errors).to be_nil
-        expect(activities.size).to eq(1)
-        expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.task_deleted.owner')
-        )
-      end
+  describe 'Project' do
+    before do
+      described_class.new(current_user: super_user, attributes: params).call
     end
 
-    context 'as a recipient' do
-      it 'returns activity text in terms of a third person' do
-        activities, errors = paginated_collection(:activities, activities_query, current_user: kam)
-        expect(errors).to be_nil
-        expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.task_deleted.recipient')
-        )
+    describe '.activities' do
+      context 'as an owner' do
+        it 'returns activity in terms of first person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.size).to eq(1)
+          expect(activities.dig(0, :displayText)).to eq(
+            t('activities.projects.task_deleted.owner',
+              type: task.taskable_type.split('::').last, title: task.title, recipient_email: kam.email)
+          )
+        end
+      end
+
+      context 'as a recipient' do
+        it 'returns activity text in terms of a third person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: kam)
+          expect(errors).to be_nil
+          expect(activities.dig(0, :displayText)).to eq(
+            t('activities.projects.task_deleted.recipient',
+              type: task.taskable_type.split('::').last, title: task.title, owner_email: super_user.email)
+          )
+        end
+      end
+
+      context 'as a general user' do
+        let!(:super_user_b) { create(:user, :super_user) }
+
+        it 'returns activity text in terms of a third person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
+          expect(errors).to be_nil
+          expect(activities.dig(0, :displayText)).to eq(
+            t('activities.projects.task_deleted.others',
+              type: task.taskable_type.split('::').last, title: task.title, owner_email: super_user.email, recipient_email: kam.email)
+          )
+        end
       end
     end
+  end
 
-    context 'as a general user' do
-      let!(:super_user_b) { create(:user, :super_user) }
+  describe 'Building' do
+    before do
+      described_class.new(current_user: super_user, attributes: params_b).call
+    end
 
-      it 'returns activity text in terms of a third person' do
-        activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
-        expect(errors).to be_nil
-        expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.task_deleted.others')
-        )
+    describe '.activities' do
+      context 'as an owner' do
+        it 'returns activity in terms of first person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.size).to eq(1)
+          expect(activities.dig(0, :displayText)).to eq(
+            t('activities.projects.task_deleted.owner',
+              type: task_b.taskable_type.split('::').last, title: task_b.title, recipient_email: kam.email)
+          )
+        end
+      end
+
+      context 'as a recipient' do
+        it 'returns activity text in terms of a third person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: kam)
+          expect(errors).to be_nil
+          expect(activities.dig(0, :displayText)).to eq(
+            t('activities.projects.task_deleted.recipient',
+              type: task_b.taskable_type.split('::').last, title: task_b.title, owner_email: super_user.email)
+          )
+        end
+      end
+
+      context 'as a general user' do
+        let!(:super_user_b) { create(:user, :super_user) }
+
+        it 'returns activity text in terms of a third person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
+          expect(errors).to be_nil
+          expect(activities.dig(0, :displayText)).to eq(
+            t('activities.projects.task_deleted.others',
+              type: task_b.taskable_type.split('::').last, title: task_b.title, owner_email: super_user.email, recipient_email: kam.email)
+          )
+        end
       end
     end
   end

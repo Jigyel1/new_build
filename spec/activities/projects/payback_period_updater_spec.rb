@@ -36,7 +36,8 @@ describe Projects::PaybackPeriodUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.payback_period_updated.others', project_name: project.name, owner_email: super_user.email)
+          t('activities.projects.payback_period_updated.others', project_name: project.name,
+                                                                 owner_email: super_user.email)
         )
       end
     end

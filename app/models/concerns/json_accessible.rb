@@ -17,6 +17,8 @@ module JsonAccessible
       max
       min
       previous_status
+      incharge_email
+      label_list
       investor_id
       status
       role_type
@@ -24,6 +26,8 @@ module JsonAccessible
       project_name
       title
       entry_type
+      type
+      copy
     ], coder: JSON
   end
 

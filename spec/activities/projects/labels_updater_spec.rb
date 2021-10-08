@@ -25,7 +25,8 @@ describe Projects::LabelsUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.label_group_updated.owner')
+          t('activities.projects.labels_updated.owner', project_name: project.name, status: project.status,
+                                                        label_list: projects_label_group.label_list.join(', '))
         )
       end
     end
@@ -38,7 +39,8 @@ describe Projects::LabelsUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.label_group_updated.others')
+          t('activities.projects.labels_updated.others', project_name: project.name, status: project.status,
+                                                         label_list: projects_label_group.label_list.join(', '), owner_email: super_user.email)
         )
       end
     end

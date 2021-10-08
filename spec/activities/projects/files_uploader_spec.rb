@@ -10,7 +10,7 @@ describe Projects::FilesUploader, type: :request do
   let_it_be(:params) do
     {
       operations: {
-        query: query,
+        query: query_project,
         variables: {
           files: [nil]
         }
@@ -24,39 +24,105 @@ describe Projects::FilesUploader, type: :request do
     }
   end
 
+  let_it_be(:params_b) do
+    {
+      operations: {
+        query: query_project_building,
+        variables: {
+          files: [nil]
+        }
+      }.to_json,
+      map: {
+        files: ['variables.files.0', 'variables.files.1']
+      }.to_json,
+      files: file_upload,
+      attachable_id: project.id,
+      attachable_type: 'Project'
+    }
+  end
+  let_it_be(:filename) { params[:files].original_filename }
+
   before do
     sign_in(super_user)
-    post api_v1_graphql_path, params: params
   end
 
-  describe '.activities' do
-    context 'as an owner' do
-      it 'returns activity in terms of first person' do
-        activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
-        expect(errors).to be_nil
-        expect(activities.size).to eq(1)
-        expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.file_uploaded.owner')
-        )
-      end
+  describe 'Project::Building' do
+    before do
+      post api_v1_graphql_path, params: params
     end
 
-    context 'as a general user' do
-      let!(:super_user_b) { create(:user, :super_user) }
+    describe '.activities' do
+      context 'as an owner' do
+        it 'returns activity in terms of first person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.size).to eq(1)
+          expect(activities.dig(0, :displayText)).to eq(
+            t('activities.project.file_uploaded.owner', filename: filename)
+          )
+        end
+      end
 
-      it 'returns activity text in terms of a third person' do
-        activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
+      context 'as a general user' do
+        let!(:super_user_b) { create(:user, :super_user) }
 
-        expect(errors).to be_nil
-        expect(activities.size).to eq(1)
-        expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.file_uploaded.others')
-        )
+        it 'returns activity text in terms of a third person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
+          expect(errors).to be_nil
+          expect(activities.size).to eq(1)
+          expect(activities.dig(0, :displayText)).to eq(
+            t('activities.project.file_uploaded.others', filename: filename, owner_email: super_user.email)
+          )
+        end
       end
     end
   end
 
-  def query
+  describe 'Project' do
+    before do
+      post api_v1_graphql_path, params: params_b
+    end
+
+    describe '.activities' do
+      context 'as an owner' do
+        it 'returns activity in terms of first person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.size).to eq(1)
+          expect(activities.dig(0, :displayText)).to eq(
+            t('activities.projects.file_uploaded.owner', filename: filename)
+          )
+        end
+      end
+
+      context 'as a general user' do
+        let!(:super_user_b) { create(:user, :super_user) }
+
+        it 'returns activity text in terms of a third person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
+          expect(errors).to be_nil
+          expect(activities.size).to eq(1)
+          expect(activities.dig(0, :displayText)).to eq(
+            t('activities.projects.file_uploaded.others', filename: filename, owner_email: super_user.email)
+          )
+        end
+      end
+    end
+  end
+
+  def query_project
+    <<~QUERY
+      mutation($files: [Upload!]!) {
+        uploadFiles(
+          input: { attributes: { files: $files, attachableId: "#{project.id}", attachableType: "Project" }}
+        ){
+          files { id name size createdAt owner { name } }
+        }
+      }
+    QUERY
+  end
+
+  def query_project_building
     <<~QUERY
       mutation($files: [Upload!]!) {
         uploadFiles(

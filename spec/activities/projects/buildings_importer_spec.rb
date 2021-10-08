@@ -26,7 +26,6 @@ describe Projects::BuildingsImporter, type: :request do
     context 'as an owner' do
       it 'returns activity in terms of first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
-        binding.pry
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
@@ -41,12 +40,11 @@ describe Projects::BuildingsImporter, type: :request do
 
       it 'returns activity in terms of third person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
-        binding.pry
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.projects.building_imported.others', owner_email: super_user.email,
-            filename: file.original_filename)
+                                                            filename: file.original_filename)
         )
       end
     end

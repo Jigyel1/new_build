@@ -22,7 +22,12 @@ module Projects
         owner: current_user,
         recipient: task.assignee,
         trackable: task,
-        parameters: attributes
+        parameters: {
+          previous_status: task.previous_changes.dig('status', 0),
+          type: task.taskable_type.split('::').last,
+          status: task.status,
+          title: task.title
+        }
       }
     end
   end

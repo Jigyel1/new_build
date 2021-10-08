@@ -21,7 +21,10 @@ module Projects
         owner: current_user,
         recipient: task.assignee,
         trackable: task,
-        parameters: attributes
+        parameters: {
+          type: task.taskable_type.split('::').last,
+          title: task.title
+        }
       }
     end
   end

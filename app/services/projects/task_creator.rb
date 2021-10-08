@@ -48,9 +48,16 @@ module Projects
         action: :task_created,
         owner: current_user,
         recipient: task.assignee,
-        trackable: task,
-        parameters: attributes
+        trackable: taskable,
+        parameters: {
+          copy: display_text,
+          title: attributes['title']
+        }
       }
+    end
+
+    def display_text
+      'and copied to all the buildings' if @copy_to_all_buildings
     end
   end
 end

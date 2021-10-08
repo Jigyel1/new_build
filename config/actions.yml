@@ -65,13 +65,14 @@ projects/building:
   - building_deleted
   - building_imported
   - building_updated
-projects/label_group:
-  - label_group_created
-  - label_group_updated
-projects/task:
+  - file_uploaded
   - task_created
-  - task_deleted
+projects/task:
   - task_updated
+  - task_deleted
+projects/label_group:
+  - labels_created
+  - labels_updated
 projects/pct_cost:
   - payback_period_updated
 active_storage/attachment:

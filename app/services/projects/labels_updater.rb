@@ -35,7 +35,11 @@ module Projects
         action: :labels_updated,
         owner: current_user,
         trackable: label_group,
-        parameters: attributes
+        parameters: {
+          label_list: label_group.label_list.join(', '),
+          project_name: project.name,
+          status: label_group.project.status
+        }
       }
     end
 

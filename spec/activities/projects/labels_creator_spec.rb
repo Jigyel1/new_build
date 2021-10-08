@@ -16,7 +16,8 @@ describe Projects::LabelsCreator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.label_group_created.owner')
+          t('activities.projects.labels_created.owner', label_list: params[:label_list], project_name: project.name,
+                                                        status: project.status)
         )
       end
     end
@@ -29,7 +30,8 @@ describe Projects::LabelsCreator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.label_group_created.others')
+          t('activities.projects.labels_created.others', label_list: params[:label_list], project_name: project.name,
+                                                         status: project.status, owner_email: super_user.email)
         )
       end
     end

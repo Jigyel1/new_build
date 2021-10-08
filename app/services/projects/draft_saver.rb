@@ -23,7 +23,7 @@ module Projects
         owner: current_user,
         trackable: project,
         parameters: {
-          project_name: project.name,
+          project_name: project.name
 
         }
       }

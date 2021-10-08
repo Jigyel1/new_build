@@ -19,7 +19,10 @@ module Projects
         action: :attachment_file_deleted,
         owner: current_user,
         trackable: file,
-        parameters: attributes
+        parameters: {
+          type: file.record_type.split('::').last,
+          filename: file.blob[:filename]
+        }
       }
     end
   end

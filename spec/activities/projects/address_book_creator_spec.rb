@@ -29,7 +29,8 @@ describe Projects::AddressBookCreator do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.address_book_created.others', project_name: project.name, role_type: params[:type], owner_email: super_user.email)
+          t('activities.projects.address_book_created.others', project_name: project.name, role_type: params[:type],
+                                                               owner_email: super_user.email)
         )
       end
     end

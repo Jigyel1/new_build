@@ -8,14 +8,13 @@ project:
       - status
     project_draft_version:
       - project_name
-    project_category_updated:
-      - parameters
     incharge_updated:
-      - parameters
+      - incharge_email
+      - project_name
     project_pct_cost:
       - parameters
     file_uploaded:
-      - name
+      - filename
     technical_analysis:
       - project_name
       - status
@@ -47,10 +46,12 @@ project:
       - project_name
       - owner_email
     incharge_updated:
-      - parameters
+      - owner_email
+      - incharge_email
+      - project_name
     file_uploaded:
       - owner_email
-      - name
+      - filename
     technical_analysis:
       - owner_email
       - project_name
@@ -75,20 +76,20 @@ project:
       - status
 projects:
   recipient:
-    project_task_created:
-      - project_name
+    task_created:
       - owner_email
       - title
-    project_task_deleted:
-      - parameters
-    project_task_updated:
-      - parameters
-    task_created:
-      - parameters
+      - copy
     task_deleted:
-      - parameters
+      - owner_email
+      - type
+      - title
     task_updated:
-      - parameters
+      - owner_email
+      - previous_status
+      - status
+      - type
+      - title
   owner:
     address_book_created:
       - project_name
@@ -108,19 +109,32 @@ projects:
     building_imported:
       - filename
     labels_created:
-      - parameters
+      - label_list
+      - project_name
+      - status
     labels_updated:
-      - parameters
+      - label_list
+      - project_name
+      - status
     task_created:
       - recipient_email
       - title
+      - copy
     task_deleted:
-      - parameters
+      - recipient_email
+      - type
+      - title
     task_updated:
-      - parameters
+      - recipient_email
+      - previous_status
+      - status
+      - type
+      - title
     payback_period_updated:
       - project_name
     project_imported:
+      - filename
+    file_uploaded:
       - filename
   others:
     address_book_created:
@@ -147,32 +161,57 @@ projects:
       - filename
       - owner_email
     labels_created:
-      - parameters
+      - label_list
+      - project_name
+      - status
+      - owner_email
     labels_updated:
-      - parameters
+      - label_list
+      - project_name
+      - status
+      - owner_email
     task_created:
+      - title
+      - copy
       - owner_email
       - recipient_email
-      - title
     task_deleted:
-      - parameters
+      - owner_email
+      - type
+      - title
+      - recipient_email
     task_updated:
-      - parameters
+      - recipient_email
+      - owner_email
+      - previous_status
+      - status
+      - type
+      - title
     payback_period_updated:
       - project_name
       - owner_email
     project_imported:
       - filename
       - owner_email
+    file_uploaded:
+      - owner_email
+      - filename
 
 active_storage:
   owner:
     attachment_file_deleted:
-      - parameters
+      - filename
+      - type
     attachment_file_updated:
-      - parameters
+      - filename
+      - type
+      - owner_email
   others:
     attachment_file_deleted:
+      - filename
+      - type
       - owner_email
     attachment_file_updated:
-      - parameters
+      - filename
+      - type
+      - owner_email
