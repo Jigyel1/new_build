@@ -39,7 +39,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   end
 
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:management) { create(:user, :management) }
   let_it_be(:address) { build(:address, zip: zip) }
   let_it_be(:project) { create(:project, :technical_analysis, address: address) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
@@ -67,8 +66,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
     context 'without permissions' do
       it 'forbids action' do
-        response, errors = formatted_response(query, current_user: kam,
-                                                     key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(
+          query,
+          current_user: kam,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
         expect(response.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
         expect(project.reload.status).to eq('technical_analysis')
@@ -228,6 +230,45 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         )
         expect(errors).to be(nil)
         expect(project.reload.pct_cost.payback_period).to be(498)
+      end
+    end
+
+    context 'when the project cost exceeds 10K CHF' do
+      let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, project_cost: 10_000.29) }
+
+      context 'with permissions' do
+        let(:management) do
+          create(
+            :user,
+            :management, with_permissions: { project: %i[gt_10_000 technical_analysis_completed] }
+          )
+        end
+
+        it 'allows action' do
+          response, errors = formatted_response(
+            query,
+            current_user: management,
+            key: :transitionToTechnicalAnalysisCompleted
+          )
+          expect(errors).to be_nil
+          expect(response.project.status).to eq('technical_analysis_completed')
+        end
+      end
+
+      context 'without permissions' do
+        let(:management) { create(:user, :management) }
+
+        it 'forbids action' do
+          response, errors = formatted_response(
+            query,
+            current_user: management,
+            key: :transitionToTechnicalAnalysisCompleted
+          )
+
+          expect(response.project).to be_nil
+          expect(errors).to eq(['Not Authorized'])
+          expect(project.reload.status).to eq('technical_analysis')
+        end
       end
     end
   end

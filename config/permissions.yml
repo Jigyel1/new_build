@@ -20,6 +20,7 @@ super_user:
     - ready_for_offer
     - archive
     - complex
+    - gt_10_000
 
 administrator:
   user:
@@ -38,7 +39,6 @@ administrator:
 
     - open
     - technical_analysis
-    - technical_analysis_completed
     - ready_for_offer
     - complex
     - archive
@@ -50,7 +50,6 @@ team_expert:
 
     - open
     - technical_analysis
-    - technical_analysis_completed
     - ready_for_offer
 
 team_standard:
@@ -68,6 +67,7 @@ management:
     - technical_analysis
     - technical_analysis_completed
     - ready_for_offer
+    - gt_10_000
 
 presales:
   project:
@@ -76,7 +76,6 @@ presales:
 
     - open
     - technical_analysis
-    - technical_analysis_completed
     - ready_for_offer
     - complex
 
@@ -86,7 +85,6 @@ manager_presales:
 
     - open
     - technical_analysis
-    - technical_analysis_completed
     - ready_for_offer
     - complex
 
@@ -104,6 +102,7 @@ kam:
   project:
     - read
     - create
+    - technical_analysis_completed
 
 manager_commercialization:
   project:
