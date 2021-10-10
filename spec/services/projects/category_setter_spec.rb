@@ -87,7 +87,7 @@ describe Projects::CategorySetter do
   let_it_be(:competition_b) { create(:admin_toolkit_competition, name: 'FTTH Swisscom') }
   let_it_be(:competition_c) { create(:admin_toolkit_competition, name: 'VDSL') }
 
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
+  let_it_be(:kam_region) { create(:kam_region) }
   let_it_be(:penetration_a) { create(:admin_toolkit_penetration, :hfc_footprint, zip: '8006', kam_region: kam_region) }
   let_it_be(:penetration_b) { create(:admin_toolkit_penetration, zip: '8008', kam_region: kam_region) }
   let_it_be(:penetration_c) { create(:admin_toolkit_penetration, zip: '8010', kam_region: kam_region) }

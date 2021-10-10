@@ -20,8 +20,16 @@ module Telco
 
       has_many :activities, foreign_key: :owner_id, dependent: :destroy
       has_many :involvements, foreign_key: :recipient_id, class_name: 'Activity', dependent: :destroy
-      has_many :tasks, foreign_key: :owner_id, dependent: :nullify, class_name: 'Projects::Task'
-      has_many :assigned_tasks, foreign_key: :assignee_id, dependent: :restrict_with_error, class_name: 'Projects::Task'
+      has_many :tasks, foreign_key: :owner_id, dependent: :restrict_with_exception, class_name: 'Projects::Task'
+      has_many :assigned_tasks, foreign_key: :assignee_id, dependent: :restrict_with_exception,
+                                class_name: 'Projects::Task'
+
+      has_many :projects, foreign_key: :incharge_id, dependent: :restrict_with_exception
+      has_many :assigned_projects, foreign_key: :assignee_id, dependent: :restrict_with_exception, class_name: 'Project'
+      has_many :kam_investors, foreign_key: :kam_id, dependent: :restrict_with_exception,
+                               class_name: 'AdminToolkit::KamInvestor'
+      has_many :kam_regions, foreign_key: :kam_id, dependent: :restrict_with_exception,
+                             class_name: 'AdminToolkit::KamRegion'
 
       has_one_attached :activity_download
       has_one_attached :projects_download
@@ -40,6 +48,9 @@ module Telco
 
       after_save :update_mat_view
       after_destroy :update_mat_view
+
+      # This shouldn't be necessary with the form/service-object validations?
+      after_discard :check_associations
 
       # Updates provider & uid for the user.
       #
@@ -82,6 +93,12 @@ module Telco
       def update_mat_view
         UsersList.refresh
         ProjectsList.refresh
+      end
+
+      def check_associations
+        return if kam_regions.empty?
+
+        raise "KAM Region still present!. Can't delete"
       end
     end
   end

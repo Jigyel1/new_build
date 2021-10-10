@@ -5,7 +5,7 @@ require 'rails_helper'
 describe AdminToolkit::KamInvestorDeleter do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:kam_investor) { create(:admin_toolkit_kam_investor, kam: kam) }
+  let_it_be(:kam_investor) { create(:kam_investor, kam: kam) }
   let_it_be(:params) { { id: kam_investor.id } }
 
   before_all { ::AdminToolkit::KamInvestorDeleter.new(current_user: super_user, attributes: params).call }

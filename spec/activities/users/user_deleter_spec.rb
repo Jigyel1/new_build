@@ -66,11 +66,7 @@ RSpec.describe Users::UserDeleter do
   def delete_query
     <<~GQL
       mutation {
-        deleteUser(
-          input: {
-            id: "#{team_standard.id}"
-          }
-        )
+        deleteUser( input: { attributes: { id: "#{team_standard.id}" } } )
         { status }
       }
     GQL

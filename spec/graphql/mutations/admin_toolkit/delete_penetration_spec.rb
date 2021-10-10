@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::AdminToolkit::DeletePenetration do
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
+  let_it_be(:kam_region) { create(:kam_region) }
   let_it_be(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region) }
 
   describe '.resolve' do

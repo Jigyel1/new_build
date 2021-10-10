@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Mutations::AdminToolkit::UpdateKamInvestor do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:kam_investor) { create(:admin_toolkit_kam_investor, kam: kam) }
+  let_it_be(:kam_investor) { create(:kam_investor, kam: kam) }
 
   describe '.resolve' do
     context 'with valid params' do

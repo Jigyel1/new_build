@@ -5,6 +5,8 @@ module AdminToolkit
     belongs_to :kam, class_name: 'Telco::Uam::User', optional: true
     has_many :penetrations, class_name: 'AdminToolkit::Penetration', dependent: :restrict_with_error
 
+    default_scope { order(:name) }
+
     validates(
       :name,
       presence: true,

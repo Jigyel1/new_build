@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   let_it_be(:zip) { '1101' }
   let_it_be(:project_cost) { create(:admin_toolkit_project_cost, standard: 99_987) }
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
+  let_it_be(:kam_region) { create(:kam_region) }
   let_it_be(:label_group_a) { create(:admin_toolkit_label_group, :technical_analysis_completed) }
   let_it_be(:label_group_b) { create(:admin_toolkit_label_group, :ready_for_offer) }
 
