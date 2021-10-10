@@ -9,7 +9,7 @@ describe PenetrationsImporter do
     end
 
     Rails.application.config.kam_regions.each do |name|
-      create(:admin_toolkit_kam_region, name: name)
+      create(:kam_region, name: name)
     end
 
     described_class.call(input: Rails.root.join('spec/files/penetrations.xlsx'))

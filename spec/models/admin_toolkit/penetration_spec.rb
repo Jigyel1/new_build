@@ -6,7 +6,7 @@ RSpec.describe AdminToolkit::Penetration, type: :model do
   describe 'validations' do
     subject(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region) }
 
-    let(:kam_region) { create(:admin_toolkit_kam_region) }
+    let(:kam_region) { create(:kam_region) }
 
     it { is_expected.to validate_presence_of(:city) }
     it { is_expected.to validate_presence_of(:zip) }

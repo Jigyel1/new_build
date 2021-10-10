@@ -6,8 +6,8 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:competition) { create(:admin_toolkit_competition) }
   let_it_be(:competition_b) { create(:admin_toolkit_competition, name: 'FTTH SVN') }
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
-  let_it_be(:kam_region_b) { create(:admin_toolkit_kam_region, name: 'Ticino') }
+  let_it_be(:kam_region) { create(:kam_region) }
+  let_it_be(:kam_region_b) { create(:kam_region, name: 'Ticino') }
 
   let_it_be(:penetration) do
     create(

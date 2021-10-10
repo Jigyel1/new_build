@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe AdminToolkit::PenetrationCreator do
   let_it_be(:super_user) { create(:user, :super_user) }
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region, name: 'Ost ZH') }
+  let_it_be(:kam_region) { create(:kam_region, name: 'Ost ZH') }
 
   let_it_be(:params) do
     {

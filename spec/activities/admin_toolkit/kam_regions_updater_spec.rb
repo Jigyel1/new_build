@@ -7,7 +7,7 @@ describe AdminToolkit::KamRegionsUpdater do
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:kam_b) { create(:user, :kam) }
 
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region, kam: kam) }
+  let_it_be(:kam_region) { create(:kam_region, kam: kam) }
   let_it_be(:params) { [{ id: kam_region.id, kam_id: kam_b.id }] }
 
   before_all { ::AdminToolkit::KamRegionsUpdater.new(current_user: super_user, attributes: params).call }

@@ -7,9 +7,9 @@ RSpec.describe Resolvers::AdminToolkit::KamRegionsResolver do
   let_it_be(:kam_b) { create(:user, :kam, profile: build(:profile, firstname: 'Jrue', lastname: 'Holiday')) }
   let_it_be(:kam_c) { create(:user, :kam, profile: build(:profile, firstname: 'Chris ', lastname: 'Middleton')) }
 
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region, name: 'Romandie', kam: kam) }
-  let_it_be(:kam_region_b) { create(:admin_toolkit_kam_region, name: 'Ticino', kam: kam_b) }
-  let_it_be(:kam_region_c) { create(:admin_toolkit_kam_region, name: 'Ost ZH', kam: kam_c) }
+  let_it_be(:kam_region) { create(:kam_region, name: 'Romandie', kam: kam) }
+  let_it_be(:kam_region_b) { create(:kam_region, name: 'Ticino', kam: kam_b) }
+  let_it_be(:kam_region_c) { create(:kam_region, name: 'Ost ZH', kam: kam_c) }
 
   let_it_be(:super_user) { create(:user, :super_user) }
 

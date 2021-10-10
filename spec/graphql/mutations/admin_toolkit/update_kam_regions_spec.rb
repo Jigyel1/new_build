@@ -6,8 +6,8 @@ RSpec.describe Mutations::AdminToolkit::UpdateKamRegions do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:kam_b) { create(:user, :kam) }
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region, kam: kam) }
-  let_it_be(:kam_region_b) { create(:admin_toolkit_kam_region, name: 'Romandie') }
+  let_it_be(:kam_region) { create(:kam_region, kam: kam) }
+  let_it_be(:kam_region_b) { create(:kam_region, name: 'Romandie') }
 
   describe '.resolve' do
     context 'with valid params' do

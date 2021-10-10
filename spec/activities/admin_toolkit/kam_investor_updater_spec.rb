@@ -8,7 +8,7 @@ describe AdminToolkit::KamInvestorUpdater do
   let_it_be(:kam_b) { create(:user, :kam) }
 
   let_it_be(:investor_id) { '8741a6d80de7f8d70c1a027c1fa1eab2' }
-  let_it_be(:kam_investor) { create(:admin_toolkit_kam_investor, kam: kam) }
+  let_it_be(:kam_investor) { create(:kam_investor, kam: kam) }
   let_it_be(:params) { { id: kam_investor.id, kam_id: kam_b.id, investor_id: investor_id } }
 
   before_all { ::AdminToolkit::KamInvestorUpdater.new(current_user: super_user, attributes: params).call }

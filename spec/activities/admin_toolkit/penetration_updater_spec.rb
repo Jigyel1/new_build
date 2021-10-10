@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe AdminToolkit::PenetrationUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
+  let_it_be(:kam_region) { create(:kam_region) }
   let_it_be(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region) }
   let_it_be(:params) { { id: penetration.id, zip: '1009', city: 'Pully' } }
 
