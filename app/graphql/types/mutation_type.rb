@@ -60,7 +60,8 @@ module Types
     field :archive_project, mutation: Mutations::Projects::ArchiveProject
     field :unarchive_project, mutation: Mutations::Projects::UnarchiveProject
 
-    field :update_project_incharge, mutation: Mutations::Projects::UpdateIncharge
+    field :assign_project_incharge, mutation: Mutations::Projects::AssignIncharge
+    field :unassign_project_incharge, mutation: Mutations::Projects::UnassignIncharge
     field :update_payback_period, mutation: Mutations::Projects::UpdatePaybackPeriod
 
     field :save_draft, mutation: Mutations::Projects::SaveDraft

@@ -17,11 +17,11 @@ describe Mutations::Projects::UnarchiveProject do
     create(
       :user,
       :super_user,
-      with_permissions: { project: %i[open technical_analysis technical_analysis_completed ready_for_offer] }
+      with_permissions: { project: %i[open technical_analysis ready_for_offer] }
     )
   end
 
-  let_it_be(:project) { create(:project) }
+  let_it_be(:project) { create(:project, incharge: super_user) }
 
   describe '.resolve' do
     context 'when the previous state was open' do

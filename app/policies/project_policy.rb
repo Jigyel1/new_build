@@ -6,12 +6,28 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def technical_analysis_completed?
-    gt_10_000? if record.project_cost && record.project_cost > 10_000
-    complex? if record.complex?
-    super
+    return unless incharge?
+
+    record.complex? ? complex? : true
+  end
+
+  def ready_for_offer?
+    return unless super
+
+    record.project_cost && record.project_cost > 10_000 ? gt_10_000? : true
   end
 
   def archived?
     archive?
+  end
+
+  def unassign_incharge?
+    incharge?
+  end
+
+  private
+
+  def incharge?
+    user == record.incharge
   end
 end

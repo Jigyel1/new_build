@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Mutations::Projects::UpdateIncharge do
+RSpec.describe Mutations::Projects::AssignIncharge do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:project) { create(:project) }
@@ -10,7 +10,7 @@ RSpec.describe Mutations::Projects::UpdateIncharge do
   describe '.resolve' do
     context 'with permissions' do
       it "updates project's incharge" do
-        response, errors = formatted_response(query, current_user: super_user, key: :updateProjectIncharge)
+        response, errors = formatted_response(query, current_user: super_user, key: :assignProjectIncharge)
         expect(errors).to be_nil
         expect(response.project.incharge).to have_attributes(id: kam.id, email: kam.email, name: kam.name)
       end
@@ -18,7 +18,7 @@ RSpec.describe Mutations::Projects::UpdateIncharge do
 
     context 'without permissions' do
       it 'forbids action' do
-        response, errors = formatted_response(query, current_user: kam, key: :updateProjectIncharge)
+        response, errors = formatted_response(query, current_user: kam, key: :assignProjectIncharge)
         expect(response.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
       end
@@ -28,7 +28,7 @@ RSpec.describe Mutations::Projects::UpdateIncharge do
   def query
     <<~GQL
       mutation {
-        updateProjectIncharge( input: { attributes: { projectId: "#{project.id}" inchargeId: "#{kam.id}" } } )
+        assignProjectIncharge( input: { attributes: { projectId: "#{project.id}" inchargeId: "#{kam.id}" } } )
         { project { incharge { id name email } } }
       }
     GQL

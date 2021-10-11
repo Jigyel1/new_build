@@ -31,16 +31,14 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       with_permissions: {
         project: %i[
           complex
-          technical_analysis_completed
           ready_for_offer
         ]
       }
     )
   end
 
-  let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:address) { build(:address, zip: zip) }
-  let_it_be(:project) { create(:project, :technical_analysis, address: address) }
+  let_it_be(:project) { create(:project, :technical_analysis, address: address, incharge: super_user) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
 
   describe '.resolve' do
@@ -65,10 +63,28 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     end
 
     context 'without permissions' do
+      let_it_be(:admin) { create(:user, :administrator) }
+      before { project.update_columns(incharge_id: admin.id, category: :complex) }
+
       it 'forbids action' do
         response, errors = formatted_response(
           query,
-          current_user: kam,
+          current_user: admin,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
+        expect(response.project).to be_nil
+        expect(errors).to eq(['Not Authorized'])
+        expect(project.reload.status).to eq('technical_analysis')
+      end
+    end
+
+    context 'when user is not the project incharge' do
+      let_it_be(:admin) { create(:user, :administrator, with_permissions: { project: :complex }) }
+
+      it 'forbids action' do
+        response, errors = formatted_response(
+          query,
+          current_user: admin,
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(response.project).to be_nil
@@ -132,7 +148,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     end
 
     context 'for Prio 1 projects' do
-      before { pct_value.update_column(:status, :prio_one) }
+      before do
+        pct_value.update_column(:status, :prio_one)
+        allow_any_instance_of(Projects::PctCost).to receive(:project_cost).and_return(9000) # rubocop:disable RSpec/AnyInstance
+      end
 
       it 'updates the project to ready for offer state' do
         response, errors = formatted_response(
@@ -230,45 +249,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         )
         expect(errors).to be(nil)
         expect(project.reload.pct_cost.payback_period).to be(498)
-      end
-    end
-
-    context 'when the project cost exceeds 10K CHF' do
-      let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, project_cost: 10_000.29) }
-
-      context 'with permissions' do
-        let(:management) do
-          create(
-            :user,
-            :management, with_permissions: { project: %i[gt_10_000 technical_analysis_completed] }
-          )
-        end
-
-        it 'allows action' do
-          response, errors = formatted_response(
-            query,
-            current_user: management,
-            key: :transitionToTechnicalAnalysisCompleted
-          )
-          expect(errors).to be_nil
-          expect(response.project.status).to eq('technical_analysis_completed')
-        end
-      end
-
-      context 'without permissions' do
-        let(:management) { create(:user, :management) }
-
-        it 'forbids action' do
-          response, errors = formatted_response(
-            query,
-            current_user: management,
-            key: :transitionToTechnicalAnalysisCompleted
-          )
-
-          expect(response.project).to be_nil
-          expect(errors).to eq(['Not Authorized'])
-          expect(project.reload.status).to eq('technical_analysis')
-        end
       end
     end
   end

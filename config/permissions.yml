@@ -16,7 +16,6 @@ super_user:
 
     - open
     - technical_analysis
-    - technical_analysis_completed
     - ready_for_offer
     - archive
     - complex
@@ -65,7 +64,6 @@ management:
 
     - open
     - technical_analysis
-    - technical_analysis_completed
     - ready_for_offer
     - gt_10_000
 
@@ -95,14 +93,12 @@ manager_nbo_kam:
 
     - open
     - technical_analysis
-    - technical_analysis_completed
     - ready_for_offer
 
 kam:
   project:
     - read
     - create
-    - technical_analysis_completed
 
 manager_commercialization:
   project:

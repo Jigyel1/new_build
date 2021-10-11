@@ -11,7 +11,6 @@ describe Mutations::Projects::RevertTransition do
         project: %i[
           open
           technical_analysis
-          technical_analysis_completed
           ready_for_offer
           complex
         ]
@@ -19,7 +18,7 @@ describe Mutations::Projects::RevertTransition do
     )
   end
 
-  let_it_be(:project) { create(:project) }
+  let_it_be(:project) { create(:project, incharge: super_user) }
   let_it_be(:pct_value) do
     create(
       :admin_toolkit_pct_value,
