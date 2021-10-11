@@ -23,7 +23,8 @@ module Buildings
 
       # group buildings by projects and update wrt a project(row[LAST_INDEX])
       grouped = array.group_by { |row| row[LAST_INDEX] }
-      grouped.each_pair(&block)
+
+      ActiveRecord::Base.transaction { grouped.each_pair(&block) }
     end
 
     private
