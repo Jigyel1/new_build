@@ -49,7 +49,6 @@ module Projects
           penetration_rate: penetration_rate,
           payback_period: payback_period
         )
-
         system_generated_payback_period && pct_cost.system_generated_payback_period = system_generated_payback_period
         pct_cost.save!
       end

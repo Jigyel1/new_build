@@ -38,6 +38,8 @@ module Users
 
     ASSOCIATIONS = %i[assigned_tasks projects assigned_projects].freeze
 
+    # validates <tt>attributes[:assignee_id]</tt> is present when the user to be
+    # deleted has assigned tasks or projects.
     def validate!
       return if attributes[:assignee_id].present?
       return if ASSOCIATIONS.flat_map { |association| user.send(association) }.empty?
@@ -51,8 +53,9 @@ module Users
       ASSOCIATIONS.each do |association|
         user.send(association).update_all(
           # based on the attribute available for the association the generated attribute can be either
-          # { :assignee_id => nil/assignee_id } for `:assigned_tasks`
-          # { :assignee_id => nil/assignee_id, :incharge_id=>nil } for `:projects` and `:assigned_projects`
+          # <tt>{ :assignee_id => nil/assignee_id }<tt> for <tt>assigned_tasks</tt>
+          # <tt>{ :assignee_id => nil/assignee_id, :incharge_id=>nil }</tt> for <tt>projects</tt> and
+          # <tt>assigned_projects</tt>
           attrs.each_with_object({}) do |key, hash|
             hash[key] = attributes[:assignee_id] if user.send(association).attribute_method?(key)
           end
