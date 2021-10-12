@@ -22,17 +22,6 @@ module Accessors
       coord_e
       coord_n
       regi_keyaccountmanager_name
-      previous_status
-      incharge_email
-      label_list
-      status
-      role_type
-      filename
-      project_name
-      title
-      entry_type
-      type
-      copy
     ].freeze
 
     included do

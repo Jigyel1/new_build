@@ -18,6 +18,17 @@ module Accessors
         max
         min
         investor_id
+        previous_status
+        incharge_email
+        label_list
+        status
+        role_type
+        filename
+        project_name
+        title
+        entry_type
+        type
+        copy
       ], coder: JSON
     end
 
