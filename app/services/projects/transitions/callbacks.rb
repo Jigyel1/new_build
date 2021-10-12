@@ -3,8 +3,6 @@
 module Projects
   module Transitions
     module Callbacks
-      include Activities::CallbackActivityParams
-
       def after_transition_callback
         callback = "after_#{aasm.current_event}"
         send(callback) if respond_to?(callback)
@@ -26,36 +24,14 @@ module Projects
         true
       end
 
-      def after_technical_analysis
-        with_tracking(activity_id = SecureRandom.uuid) do
-          Activities::ActivityCreator.new(analysis_params(activity_id)).call
-        end
-      end
-
       def after_technical_analysis_completed
-        with_tracking(activity_id = SecureRandom.uuid) do
-          update_label
-          Activities::ActivityCreator.new(analysis_completed_params(activity_id)).call
-        end
+        update_label
       end
 
-      def after_offer_ready
-        with_tracking(activity_id = SecureRandom.uuid) do
-          Activities::ActivityCreator.new(offer_ready_params(activity_id)).call
-        end
-      end
-
-      def after_archive
-        with_tracking(activity_id = SecureRandom.uuid) do
-          Activities::ActivityCreator.new(archive_params(activity_id)).call
-        end
-      end
-
-      def after_revert
-        with_tracking(activity_id = SecureRandom.uuid) do
-          Activities::ActivityCreator.new(revert_params(activity_id)).call
-        end
-      end
+      # FIXME: <tt>update_label</tt> is necessary.
+      # def after_offer_ready
+      #   update_label
+      # end
 
       private
 

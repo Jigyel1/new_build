@@ -21,14 +21,14 @@ project:
     technical_analysis_completed:
       - project_name
       - status
-    ready_for_offer:
+    offer_ready:
       - previous_status
       - project_name
       - status
-    archived:
+    archive:
       - previous_status
       - project_name
-    reverted:
+    revert:
       - owner_email
       - previous_status
       - project_name
@@ -60,20 +60,21 @@ project:
       - owner_email
       - project_name
       - status
-    ready_for_offer:
+    offer_ready:
       - owner_email
       - previous_status
       - project_name
       - status
-    archived:
+    archive:
       - owner_email
       - previous_status
       - project_name
-    reverted:
+    revert:
       - owner_email
       - previous_status
       - project_name
       - status
+
 projects:
   recipient:
     task_created:

@@ -54,10 +54,11 @@ project:
   - file_uploaded
   - technical_analysis
   - technical_analysis_completed
-  - ready_for_offer
-  - archived
-  - reverted
+  - offer_ready
+  - archive
+  - revert
   - task_created
+
 projects/address_book:
   - address_book_created
   - address_book_updated
