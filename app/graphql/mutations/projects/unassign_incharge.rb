@@ -7,7 +7,7 @@ module Mutations
       field :project, Types::ProjectType, null: true
 
       def resolve(id:)
-        super(::Projects::InchargeUnassigner, :project, attributes: { id: id } )
+        super(::Projects::InchargeUnassigner, :project, attributes: { id: id })
       end
     end
   end
