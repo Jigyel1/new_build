@@ -19,7 +19,7 @@ module Projects
     private
 
     def penetration
-      AdminToolkit::Penetration.find_by!(zip: project.zip)
+      @_penetration ||= AdminToolkit::Penetration.find_by!(zip: project.zip)
     end
 
     # TODO: add a code to the competition to make checks like this more concrete.

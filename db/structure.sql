@@ -761,13 +761,15 @@ CREATE TABLE public.projects (
     updated_at timestamp(6) without time zone NOT NULL,
     competition_id uuid,
     incharge_id uuid,
+    os_id character varying,
     analysis text,
     customer_request boolean,
     verdicts jsonb DEFAULT '{}'::jsonb,
     draft_version jsonb DEFAULT '{}'::jsonb,
     system_sorted_category boolean DEFAULT true,
     gis_url character varying,
-    info_manager_url character varying
+    info_manager_url character varying,
+    previous_status character varying
 );
 
 

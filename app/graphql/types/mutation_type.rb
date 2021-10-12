@@ -57,7 +57,8 @@ module Types
       mutation: Mutations::Projects::TransitionToTechnicalAnalysisCompleted
     )
     field :transition_to_ready_for_offer, mutation: Mutations::Projects::TransitionToReadyForOffer
-    field :transition_to_archived, mutation: Mutations::Projects::TransitionToArchived
+    field :archive_project, mutation: Mutations::Projects::ArchiveProject
+    field :unarchive_project, mutation: Mutations::Projects::UnarchiveProject
 
     field :update_project_incharge, mutation: Mutations::Projects::UpdateIncharge
     field :update_payback_period, mutation: Mutations::Projects::UpdatePaybackPeriod

@@ -11,10 +11,7 @@ module Mutations
     field :user, Types::UserType, null: true
 
     def resolve(attributes:)
-      resolver = ::Users::RoleUpdater.new(current_user: current_user, attributes: attributes)
-      resolver.call
-
-      { user: resolver.user }
+      super(::Users::RoleUpdater, :user, attributes: attributes.to_h)
     end
   end
 end

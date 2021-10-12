@@ -61,8 +61,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           technical_analysis_completed: 'This projects looks feasible with the current resources.'
         )
 
-        label_group = project.label_groups.find_by!(label_group: label_group_a)
-        expect(label_group.label_list).to include('Prio 2')
+        expect(project.default_label_group.reload.label_list).to include('Prio 2')
       end
     end
 
@@ -142,8 +141,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         expect(errors).to be_nil
         expect(response.project.status).to eq('ready_for_offer')
 
-        label_group = project.label_groups.find_by!(label_group: label_group_b)
-        expect(label_group.label_list).to include('Prio 1')
+        expect(project.default_label_group.reload.label_list).to include('Prio 1')
       end
     end
 
@@ -160,8 +158,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         expect(errors).to be_nil
         expect(response.project.status).to eq('technical_analysis_completed')
 
-        label_group = project.label_groups.find_by!(label_group: label_group_a)
-        expect(label_group.label_list).to include('On Hold')
+        expect(project.default_label_group.reload.label_list).to include('On Hold')
       end
     end
 

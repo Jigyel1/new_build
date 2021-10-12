@@ -6,6 +6,7 @@ class AddNewFieldsToProjects < ActiveRecord::Migration[6.1]
       change_table :projects, bulk: true do |t|
         t.references :competition, foreign_key: { to_table: :admin_toolkit_competitions }, type: :uuid
         t.references :incharge, foreign_key: { to_table: :telco_uam_users }, type: :uuid
+        t.string :os_id
         t.text :analysis
         t.boolean :customer_request
         t.jsonb :verdicts, default: {}
@@ -13,6 +14,7 @@ class AddNewFieldsToProjects < ActiveRecord::Migration[6.1]
         t.boolean :system_sorted_category, default: true
         t.string :gis_url
         t.string :info_manager_url
+        t.string :previous_status
       end
     end
   end

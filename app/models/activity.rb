@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Activity < ApplicationRecord
-  include JsonAccessible
+  include Accessors::Activity
 
   # Activity `owner` is the one who creates the activity.
   belongs_to :owner, class_name: 'Telco::Uam::User'

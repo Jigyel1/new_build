@@ -6,6 +6,7 @@ module Types
     field :name, String, null: true
     field :external_id, String, null: true
     field :internal_id, String, null: true
+    field :os_id, String, null: true
 
     field :project_nr, String, null: true
     field :status, String, null: true

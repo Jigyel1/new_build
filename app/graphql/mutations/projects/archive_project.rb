@@ -2,13 +2,13 @@
 
 module Mutations
   module Projects
-    class TransitionToArchived < BaseMutation
-      class TransitionToArchivedAttributes < Types::BaseInputObject
+    class ArchiveProject < BaseMutation
+      class ArchiveProjectAttributes < Types::BaseInputObject
         argument :id, ID, required: true
         argument :verdicts, GraphQL::Types::JSON, required: false
       end
 
-      argument :attributes, TransitionToArchivedAttributes, required: true
+      argument :attributes, ArchiveProjectAttributes, required: true
       field :project, Types::ProjectType, null: true
 
       def resolve(attributes:)
