@@ -34,6 +34,7 @@ module Activities
       }
     end
 
+    # checks whether the activity has trackable, if not returns the trackable_type.
     def trackable_params
       trackable ? { trackable: trackable } : { trackable_type: trackable_type }
     end

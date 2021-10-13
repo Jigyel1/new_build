@@ -23,8 +23,9 @@ describe Projects::FileDeleter do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.active_storage.attachment_file_deleted.owner', filename: file.blob[:filename],
-                                                                         type: file.record_type.split('::').last)
+            t('activities.active_storage.attachment_file_deleted.owner',
+              filename: file.blob[:filename],
+              type: file.record_type.split('::').last)
           )
         end
       end
@@ -36,9 +37,10 @@ describe Projects::FileDeleter do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.active_storage.attachment_file_deleted.others', filename: file.blob[:filename],
-                                                                          type: file.record_type.split('::').last,
-                                                                          owner_email: super_user.email)
+            t('activities.active_storage.attachment_file_deleted.others',
+              filename: file.blob[:filename],
+              type: file.record_type.split('::').last,
+              owner_email: super_user.email)
           )
         end
       end
@@ -57,8 +59,9 @@ describe Projects::FileDeleter do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.active_storage.attachment_file_deleted.owner', filename: file_b.blob[:filename],
-                                                                         type: file_b.record_type.split('::').last)
+            t('activities.active_storage.attachment_file_deleted.owner',
+              filename: file_b.blob[:filename],
+              type: file_b.record_type.split('::').last)
           )
         end
       end
@@ -71,9 +74,10 @@ describe Projects::FileDeleter do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.active_storage.attachment_file_deleted.others', filename: file_b.blob[:filename],
-                                                                          type: file_b.record_type.split('::').last,
-                                                                          owner_email: super_user.email)
+            t('activities.active_storage.attachment_file_deleted.others',
+              filename: file_b.blob[:filename],
+              type: file_b.record_type.split('::').last,
+              owner_email: super_user.email)
           )
         end
       end

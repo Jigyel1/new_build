@@ -45,7 +45,7 @@ module Projects
       state :open, initial: true
       state :technical_analysis, :technical_analysis_completed, :ready_for_offer, :archived
 
-      after_all_transitions :update_project_state
+      after_all_transitions :update_project_state, :record_activity
       after_all_events :after_transition_callback, :reset_draft_version
 
       event :revert, if: :authorized? do

@@ -55,9 +55,10 @@ describe Projects::TaskCreator do
               expect(errors).to be_nil
               expect(activities.size).to eq(1)
               expect(activities.dig(0, :displayText)).to eq(
-                t('activities.projects.task_created.recipient', owner_email: super_user.email,
-                                                                title: params[:title],
-                                                                copy: params[:copy_to_all_buildings])
+                t('activities.projects.task_created.recipient',
+                  owner_email: super_user.email,
+                  title: params[:title],
+                  copy: params[:copy_to_all_buildings])
               )
             end
           end
@@ -70,10 +71,11 @@ describe Projects::TaskCreator do
               expect(errors).to be_nil
               expect(activities.size).to eq(1)
               expect(activities.dig(0, :displayText)).to eq(
-                t('activities.projects.task_created.others', recipient_email: kam.email,
-                                                             owner_email: super_user.email,
-                                                             title: params[:title],
-                                                             copy: params[:copy_to_all_buildings])
+                t('activities.projects.task_created.others',
+                  recipient_email: kam.email,
+                  owner_email: super_user.email,
+                  title: params[:title],
+                  copy: params[:copy_to_all_buildings])
               )
             end
           end
@@ -110,9 +112,10 @@ describe Projects::TaskCreator do
               expect(errors).to be_nil
               expect(activities.size).to eq(1)
               expect(activities.dig(0, :displayText)).to eq(
-                t('activities.projects.task_created.recipient', owner_email: super_user.email,
-                                                                title: params[:title],
-                                                                copy: 'and copied to all the buildings')
+                t('activities.projects.task_created.recipient',
+                  owner_email: super_user.email,
+                  title: params[:title],
+                  copy: 'and copied to all the buildings')
               )
             end
           end
@@ -125,10 +128,11 @@ describe Projects::TaskCreator do
               expect(errors).to be_nil
               expect(activities.size).to eq(1)
               expect(activities.dig(0, :displayText)).to eq(
-                t('activities.projects.task_created.others', recipient_email: kam.email,
-                                                             owner_email: super_user.email,
-                                                             title: params[:title],
-                                                             copy: 'and copied to all the buildings')
+                t('activities.projects.task_created.others',
+                  recipient_email: kam.email,
+                  owner_email: super_user.email,
+                  title: params[:title],
+                  copy: 'and copied to all the buildings')
               )
             end
           end

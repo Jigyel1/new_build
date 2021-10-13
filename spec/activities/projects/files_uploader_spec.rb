@@ -58,7 +58,8 @@ describe Projects::FilesUploader, type: :request do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.project.file_uploaded.owner', filename: filename)
+            t('activities.project.file_uploaded.owner',
+              filename: filename)
           )
         end
       end
@@ -71,7 +72,9 @@ describe Projects::FilesUploader, type: :request do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.project.file_uploaded.others', filename: filename, owner_email: super_user.email)
+            t('activities.project.file_uploaded.others',
+              filename: filename,
+              owner_email: super_user.email)
           )
         end
       end
@@ -90,7 +93,8 @@ describe Projects::FilesUploader, type: :request do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.projects.file_uploaded.owner', filename: filename)
+            t('activities.projects.file_uploaded.owner',
+              filename: filename)
           )
         end
       end
@@ -103,7 +107,9 @@ describe Projects::FilesUploader, type: :request do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.projects.file_uploaded.others', filename: filename, owner_email: super_user.email)
+            t('activities.projects.file_uploaded.others',
+              filename: filename,
+              owner_email: super_user.email)
           )
         end
       end

@@ -34,7 +34,8 @@ module Projects
                                 when :technical_analysis_completed
                                   project.complex? ? :tac_complex? : 'technical_analysis_completed?'
                                 when :unarchive then :archive?
-                                else "#{aasm.to_state}?"
+                                else
+                                  "#{aasm.to_state}?"
                                 end
       end
 
@@ -43,6 +44,22 @@ module Projects
         project.verdicts[aasm.to_state] = verdict if verdict.present?
 
         true
+      end
+
+      def record_activity # rubocop:disable Metrics/SeliseMethodLength
+        with_tracking(activity_id = SecureRandom.uuid) do
+          Activities::ActivityCreator.new(
+            activity_id: activity_id,
+            action: aasm.current_event,
+            owner: current_user,
+            trackable: project,
+            parameters: {
+              previous_status: project.previous_status,
+              status: project.status,
+              project_name: project.name
+            }
+          ).call
+        end
       end
     end
   end

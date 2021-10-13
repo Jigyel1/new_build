@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Activity < ApplicationRecord
-  include Accessors::Activity
+  include Accessors::AdminToolkitActivity
+  include Accessors::ProjectActivity
+  include Accessors::UserActivity
 
   # Activity `owner` is the one who creates the activity.
   belongs_to :owner, class_name: 'Telco::Uam::User'

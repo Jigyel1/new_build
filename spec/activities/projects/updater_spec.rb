@@ -17,7 +17,9 @@ describe Projects::Updater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.project_updated.owner', project_name: project.name, status: params[:status])
+          t('activities.project.project_updated.owner',
+            project_name: project.name,
+            status: params[:status])
         )
       end
     end
@@ -30,8 +32,10 @@ describe Projects::Updater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.project_updated.others', project_name: project.name, status: params[:status],
-                                                         owner_email: super_user.email)
+          t('activities.project.project_updated.others',
+            project_name: project.name,
+            status: params[:status],
+            owner_email: super_user.email)
         )
       end
     end

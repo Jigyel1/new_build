@@ -18,7 +18,9 @@ describe Projects::InchargeUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.incharge_updated.owner', incharge_email: kam.email, project_name: project.name)
+          t('activities.project.incharge_updated.owner',
+            incharge_email: kam.email,
+            project_name: project.name)
         )
       end
     end

@@ -17,7 +17,9 @@ describe Projects::BuildingDeleter do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.building_deleted.owner', project_name: project.name, name: building.name)
+          t('activities.projects.building_deleted.owner',
+            project_name: project.name,
+            name: building.name)
         )
       end
     end
@@ -30,8 +32,10 @@ describe Projects::BuildingDeleter do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.building_deleted.others', project_name: project.name, name: building.name,
-                                                           owner_email: super_user.email)
+          t('activities.projects.building_deleted.others',
+            project_name: project.name,
+            name: building.name,
+            owner_email: super_user.email)
         )
       end
     end

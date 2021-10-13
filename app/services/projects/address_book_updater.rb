@@ -26,8 +26,8 @@ module Projects
         owner: current_user,
         trackable: address_book,
         parameters: {
-          project_name: address_book.project.name,
-          role_type: address_book.type
+          project_name: address_book.project_name,
+          address_book_type: address_book.type
         }
       }
     end

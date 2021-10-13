@@ -107,13 +107,16 @@ en:
       technical_analysis_completed:
         owner: 'Project `%{project_name}` moved from  Technical Analysis stage to %{status} by you'
         others: 'Project `%{project_name}` was moved from Technical Analysis to %{status} stage by %{owner_email}'
-      ready_for_offer:
+      offer_ready:
         owner: 'Project `%{project_name}` moved from  %{previous_status} to %{status} by you'
         others: 'Project `%{project_name}` was moved from %{previous_status} to %{status} by %{owner_email}'
-      archived:
+      archive:
         owner: 'Project `%{project_name}` has been archived from %{previous_status} by you'
         others: 'Project `%{project_name}` has been archived from %{previous_status} by %{owner_email}'
-      reverted:
+      unarchive:
+        owner: 'Project `%{project_name}` has been unarchived back to %{status} stage by you'
+        others: 'Project `%{project_name}` has been unarchived back to %{status} stage by %{owner_email}'
+      revert:
         owner: 'Project `%{project_name}` reverted from  %{previous_status} to %{status} by you '
         others: 'Project `%{project_name}` reverted from  %{previous_status} to %{status} by %{owner_email}'
       incharge_updated:
@@ -127,11 +130,11 @@ en:
         owner: 'Project file `%{filename}` has been imported by you'
         others: 'Project file `%{filename}` has been imported by %{owner_email}'
       address_book_created:
-        owner: 'For project `%{project_name}`, a new role type `%{role_type}` has been added by you'
-        others: 'For project `%{project_name}`, a new role type `%{role_type}` has been added by %{owner_email}'
+        owner: 'For project `%{project_name}`, a new role type `%{address_book_type}` has been added by you'
+        others: 'For project `%{project_name}`, a new role type `%{address_book_type}` has been added by %{owner_email}'
       address_book_updated:
-        owner: 'For project `%{project_name}`, Address book information for role type `%{role_type}` has been updated by you'
-        others: 'For project `%{project_name}`, Address book information for role type `%{role_type}` has been updated by %{owner_email}'
+        owner: 'For project `%{project_name}`, Address book information for role type `%{address_book_type}` has been updated by you'
+        others: 'For project `%{project_name}`, Address book information for role type `%{address_book_type}` has been updated by %{owner_email}'
       building_created:
         owner: 'For Project `%{project_name}`, a new building `%{name}` has been added by you'
         others: 'For Project `%{project_name}`, a new building `%{name}` has been added by %{owner_email}'

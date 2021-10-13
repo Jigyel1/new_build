@@ -29,7 +29,8 @@ describe Projects::BuildingsImporter, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.building_imported.owner', filename: file.original_filename)
+          t('activities.projects.building_imported.owner',
+            filename: file.original_filename)
         )
       end
     end
@@ -43,8 +44,9 @@ describe Projects::BuildingsImporter, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.projects.building_imported.others', owner_email: super_user.email,
-                                                            filename: file.original_filename)
+          t('activities.projects.building_imported.others',
+            owner_email: super_user.email,
+            filename: file.original_filename)
         )
       end
     end

@@ -21,14 +21,17 @@ project:
     technical_analysis_completed:
       - project_name
       - status
-    ready_for_offer:
+    offer_ready:
       - previous_status
       - project_name
       - status
-    archived:
+    archive:
       - previous_status
       - project_name
-    reverted:
+    unarchive:
+      - status
+      - project_name
+    revert:
       - owner_email
       - previous_status
       - project_name
@@ -60,16 +63,20 @@ project:
       - owner_email
       - project_name
       - status
-    ready_for_offer:
+    offer_ready:
       - owner_email
       - previous_status
       - project_name
       - status
-    archived:
+    archive:
       - owner_email
       - previous_status
       - project_name
-    reverted:
+    unarchive:
+      - owner_email
+      - status
+      - project_name
+    revert:
       - owner_email
       - previous_status
       - project_name
@@ -93,10 +100,10 @@ projects:
   owner:
     address_book_created:
       - project_name
-      - role_type
+      - address_book_type
     address_book_updated:
       - project_name
-      - role_type
+      - address_book_type
     building_created:
       - project_name
       - name
@@ -139,11 +146,11 @@ projects:
   others:
     address_book_created:
       - project_name
-      - role_type
+      - address_book_type
       - owner_email
     address_book_updated:
       - project_name
-      - role_type
+      - address_book_type
       - owner_email
     building_created:
       - project_name

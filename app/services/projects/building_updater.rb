@@ -23,7 +23,7 @@ module Projects
         trackable: building,
         parameters: {
           name: building.name,
-          project_name: building.project.name
+          project_name: building.project_name
         }
       }
     end
