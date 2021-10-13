@@ -81,6 +81,7 @@ project:
       - previous_status
       - project_name
       - status
+
 projects:
   recipient:
     task_created:
