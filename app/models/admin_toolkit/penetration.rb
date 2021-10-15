@@ -5,7 +5,10 @@ module AdminToolkit
     self.inheritance_column = nil
 
     belongs_to :kam_region, class_name: 'AdminToolkit::KamRegion'
-    belongs_to :competition, class_name: 'AdminToolkit::Competition'
+    has_many :penetration_competitions, class_name: 'AdminToolkit::PenetrationCompetition', dependent: :destroy
+    has_many :competitions, through: :penetration_competitions
+
+    accepts_nested_attributes_for :penetration_competitions, allow_destroy: true
 
     validates :city, :zip, :rate, :type, presence: true
     validates :hfc_footprint, inclusion: { in: [true, false] }

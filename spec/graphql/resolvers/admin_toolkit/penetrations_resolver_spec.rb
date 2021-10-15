@@ -15,24 +15,38 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
       :hfc_footprint,
       city: 'Chêne-Bougeries',
       kam_region: kam_region,
-      competition: competition_b
+      penetration_competitions: [build(:penetration_competition, competition: competition_b)]
     )
   end
 
   let_it_be(:penetration_b) do
-    create(:admin_toolkit_penetration,
-           :hfc_footprint, :land,
-           city: 'Le Grand-Saconnex',
-           kam_region: kam_region,
-           competition: competition)
+    create(
+      :admin_toolkit_penetration,
+      :hfc_footprint, :land,
+      city: 'Le Grand-Saconnex',
+      kam_region: kam_region,
+      penetration_competitions: [build(:penetration_competition, competition: competition)]
+    )
   end
 
   let_it_be(:penetration_c) do
-    create(:admin_toolkit_penetration, :agglo, city: 'Meinier', kam_region: kam_region_b, competition: competition_b)
+    create(
+      :admin_toolkit_penetration,
+      :agglo,
+      city: 'Meinier',
+      kam_region: kam_region_b,
+      penetration_competitions: [build(:penetration_competition, competition: competition_b)]
+    )
   end
 
   let_it_be(:penetration_d) do
-    create(:admin_toolkit_penetration, :med_city, city: 'Troinex', kam_region: kam_region_b, competition: competition)
+    create(
+      :admin_toolkit_penetration,
+      :med_city,
+      city: 'Troinex',
+      kam_region: kam_region_b,
+      penetration_competitions: [build(:penetration_competition, competition: competition)]
+    )
   end
 
   describe '.resolve' do
@@ -109,22 +123,12 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        adminToolkitPenetrations#{query_string(args)} {
-          totalCount
-          edges {
-            node { id zip city rate competition { name } hfcFootprint type kamRegion { id kam { name } } }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    response = <<~RESPONSE
+      id zip city rate hfcFootprint type kamRegion { id kam { name } }#{' '}
+      penetrationCompetitions { competition { name } }
+    RESPONSE
+
+    connection_query("adminToolkitPenetrations#{query_string(args)}", response)
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/AbcSize

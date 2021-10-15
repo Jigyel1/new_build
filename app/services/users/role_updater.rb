@@ -12,7 +12,7 @@ module Users
       authorize! user, to: :update_role?, with: UserPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
-        user.assign_attributes(role_id: attributes[:roleId])
+        user.assign_attributes(role_id: attributes[:role_id])
         previous_role = role_name(Role.find(user.role_id_was).name)
         super { user.save! }
 

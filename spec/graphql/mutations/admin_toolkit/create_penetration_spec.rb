@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Mutations::AdminToolkit::CreatePenetration do
   let_it_be(:super_user) { create(:user, :super_user) }
-  let_it_be(:competition) { create(:admin_toolkit_competition) }
+  let_it_be(:competition_a) { create(:admin_toolkit_competition) }
+  let_it_be(:competition_b) { create(:admin_toolkit_competition, :g_fast) }
   let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
 
   describe '.resolve' do
@@ -23,7 +24,8 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
         )
 
         expect(response.penetration.kamRegion.name).to eq(kam_region.name)
-        expect(response.penetration.competition.name).to eq(competition.name)
+        competitions = response.penetration.penetrationCompetitions.pluck(:competition).pluck(:name)
+        expect(competitions).to match_array([competition_a.name, competition_b.name])
       end
     end
 
@@ -49,6 +51,15 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
     end
   end
 
+  def penetration_competitions
+    <<~PENETRATION_COMPETITIONS
+      penetrationCompetitions: [
+        { competitionId: "#{competition_a.id}" },
+        { competitionId: "#{competition_b.id}" }
+      ]
+    PENETRATION_COMPETITIONS
+  end
+
   def query(args = {})
     <<~GQL
       mutation {
@@ -60,12 +71,17 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
               rate: "19.22"
               kamRegionId: "#{kam_region.id}"
               type: "Land"
-              competitionId: "#{competition.id}"
               hfcFootprint: false
+              #{penetration_competitions}
             }
           }
         )
-        { penetration { id zip city rate competition { name } hfcFootprint type kamRegion { name kam { name }} } }
+        {
+          penetration {
+            id zip city rate hfcFootprint type kamRegion { name kam { name }}
+            penetrationCompetitions { id competition { name } }
+          }
+        }
       }
     GQL
   end

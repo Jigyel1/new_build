@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::RoleResolver do
-  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { role: [:read] }) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { role: :read }) }
   let_it_be(:user_role) { super_user.role }
 
   describe '.resolve' do

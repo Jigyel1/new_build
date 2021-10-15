@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Activity < ApplicationRecord
-  include JsonAccessible
+  include Accessors::Activity
 
   # Activity `owner` is the one who creates the activity.
   belongs_to :owner, class_name: 'Telco::Uam::User'
@@ -19,9 +19,7 @@ class Activity < ApplicationRecord
 
   delegate :name, to: :trackable, prefix: true, allow_nil: true
 
-  alias actor owner
   alias object recipient
-  alias target trackable
 
   validates(
     :action,
@@ -29,7 +27,7 @@ class Activity < ApplicationRecord
     inclusion: { in: proc { |activity| Rails.application.config.activity_actions[activity.trackable_type.underscore] } }
   )
 
-  validates :log_data, activity_log: true
+  validates :log_data, presence: true, activity_log: true
 
   default_scope { order(created_at: :desc) }
 end

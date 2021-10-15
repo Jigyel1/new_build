@@ -5,3 +5,10 @@ en:
         activity:
           active_flag_blank: active flag can't be blank
           role_blank: role can't be blank
+        project:
+          exists: Project %{id} => already exists. It will not be imported.
+          kam_region_missing: with name %{region_name} is not available. Project will be saved without the region.
+        admin_toolkit/label_group:
+          labels_not_unique: Labels are not unique
+        projects/label_group:
+          labels_not_unique: Labels are not unique

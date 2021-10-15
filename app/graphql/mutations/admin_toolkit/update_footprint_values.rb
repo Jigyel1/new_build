@@ -5,7 +5,7 @@ module Mutations
     class UpdateFootprintValues < BaseMutation
       class UpdateFootprintValuesAttributes < Types::BaseInputObject
         argument :id, ID, required: true
-        argument :project_type, String, required: true
+        argument :category, String, required: true
       end
 
       argument :attributes, [UpdateFootprintValuesAttributes], required: true
@@ -16,6 +16,7 @@ module Mutations
           current_user: current_user,
           attributes: attributes.map(&:to_h)
         ).call
+
         { footprint_values: ::AdminToolkit::FootprintValue.all }
       end
     end

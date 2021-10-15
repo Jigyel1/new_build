@@ -2,12 +2,12 @@
 
 module Mutations
   class UpdateUserStatus < BaseMutation
-    class UpdateStatusAttributes < Types::BaseInputObject
+    class UpdateUserStatusAttributes < Types::BaseInputObject
       argument :id, ID, required: true
       argument :active, Boolean, required: true
     end
 
-    argument :attributes, UpdateStatusAttributes, required: true
+    argument :attributes, UpdateUserStatusAttributes, required: true
     field :user, Types::UserType, null: true
 
     def resolve(attributes:)

@@ -15,5 +15,6 @@ RSpec.describe AdminToolkit::KamRegion, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:kam).optional(true) }
+    it { is_expected.to have_many(:penetrations).dependent(:restrict_with_error) }
   end
 end

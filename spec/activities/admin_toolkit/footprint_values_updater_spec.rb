@@ -17,15 +17,15 @@ describe AdminToolkit::FootprintValuesUpdater do
   let_it_be(:footprint_value_b) do
     create(
       :admin_toolkit_footprint_value,
-      project_type: :marketing_only,
+      category: :marketing_only,
       footprint_type: footprint_type, footprint_building: footprint_building
     )
   end
 
   let_it_be(:params) do
     [
-      { id: footprint_value.id, project_type: 'irrelevant' },
-      { id: footprint_value_b.id, project_type: 'complex' }
+      { id: footprint_value.id, category: 'irrelevant' },
+      { id: footprint_value_b.id, category: 'complex' }
     ]
   end
 

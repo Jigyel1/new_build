@@ -1,0 +1,117 @@
+project:
+  external_id: 1
+  name: 64
+  lot_number: 68
+  description: 69
+  move_in_starts_on: 74
+  move_in_ends_on: 75
+  coordinate_east: 93
+  coordinate_north: 94
+
+project_address:
+  street: 65
+  zip: 66
+  city: 67
+
+additional_details:
+  planstage: 70
+  planstage_date: 71
+  contract_year: 72
+  project_value: 73
+  base_area: 78
+  site_area: 79
+  purpose: 80
+  main_category: 81
+  cat_code_01: 82
+  cat_text_01: 83
+  cat_art_01: 84
+  cat_code_02: 85
+  cat_text_02: 86
+  project_text_part_01: 87
+  project_text_part_02: 88
+  project_text_part_03: 89
+  proj_extern_id: 90
+  prod_id: 91
+  geocod_sccs: 92
+
+kam_region_name: 95
+
+investor:
+  external_id: 2
+  additional_name: 3
+  name: 4
+  company: 5
+  po_box: 7
+  language: 10
+  province: 11
+  phone: 12
+  mobile: 13
+  email: 14
+  website: 15
+  contact: 16
+
+investor_address:
+  street: 6
+  zip: 8
+  city: 9
+
+architect:
+  external_id: 17
+  additional_name: 18
+  name: 19
+  company: 20
+  po_box: 22
+  language: 25
+  province: 26
+  phone: 27
+  mobile: 28
+  email: 29
+  website: 30
+  contact: 31
+
+architect_address:
+  street: 21
+  zip: 23
+  city: 24
+
+
+role_type_3:
+  type: 32
+  external_id: 33
+  additional_name: 34
+  name: 35
+  company: 36
+  po_box: 38
+  language: 41
+  province: 42
+  phone: 43
+  mobile: 44
+  email: 45
+  website: 46
+  contact: 47
+
+role_type_3_address:
+  street: 37
+  zip: 39
+  city: 40
+
+
+role_type_4:
+  type: 48
+  external_id: 49
+  additional_name: 50
+  name: 51
+  company: 52
+  po_box: 54
+  language: 57
+  province: 58
+  phone: 59
+  mobile: 60
+  email: 61
+  website: 62
+  contact: 63
+
+role_type_4_address:
+  street: 53
+  zip: 55
+  city: 56

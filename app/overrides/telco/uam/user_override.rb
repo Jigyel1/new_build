@@ -20,8 +20,11 @@ module Telco
 
       has_many :activities, foreign_key: :owner_id, dependent: :destroy
       has_many :involvements, foreign_key: :recipient_id, class_name: 'Activity', dependent: :destroy
+      has_many :tasks, foreign_key: :owner_id, dependent: :nullify, class_name: 'Projects::Task'
+      has_many :assigned_tasks, foreign_key: :assignee_id, dependent: :restrict_with_error, class_name: 'Projects::Task'
 
       has_one_attached :activity_download
+      has_one_attached :projects_download
 
       validates :profile, presence: true
 
@@ -32,8 +35,11 @@ module Telco
       delegate :salutation, :name, :lastname, :firstname, to: :profile
       delegate :id, to: :profile, prefix: true
       delegate :id, to: :address, prefix: true, allow_nil: true
-      delegate :permissions, :admin?, to: :role
+      delegate :permissions, :admin?, :nbo_team?, to: :role
       delegate :name, to: :role, prefix: true
+
+      after_save :update_mat_view
+      after_destroy :update_mat_view
 
       # Updates provider & uid for the user.
       #
@@ -69,6 +75,13 @@ module Telco
 
       def respond_to_missing?(method, include_private = false)
         role.respond_to?(method) || super
+      end
+
+      private
+
+      def update_mat_view
+        UsersList.refresh
+        ProjectsList.refresh
       end
     end
   end

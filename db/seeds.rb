@@ -12,7 +12,7 @@ exception = <<~MESSAGE
   If you are seeding in test/staging servers, pass a TEST=true flag as an argument.
 MESSAGE
 
-abort(exception) if Rails.env.production? && !ActiveModel::Type::Boolean.new.cast(ENV['TEST'])
+abort(exception) if Rails.env.production? && !ENV.fetch('TEST', '').to_b
 
 def address_attributes
   {
@@ -37,6 +37,7 @@ end
 [
   # Internal Users
   ['ym@selise.ch', :super_user],
+  ['suraj.sunar@selise.ch', :super_user],
   ['jigyel.dorji@selise.ch', :super_user],
   ['arijit.saha@selise.ch', :super_user],
   ['lhatul.wangmo@selise.ch', :super_user],
@@ -63,7 +64,7 @@ end
     address_attributes: address_attributes,
     profile_attributes: profile_attributes(email.split('@').first),
     invitation_token: SecureRandom.hex
-  )
+  ).then(&:accept_invitation!)
 rescue ActiveRecord::RecordInvalid => e
   puts "#{e} for user with email(#{email})"
 end

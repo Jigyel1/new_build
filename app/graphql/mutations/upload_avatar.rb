@@ -2,7 +2,7 @@
 
 module Mutations
   class UploadAvatar < BaseMutation
-    argument :avatar, ApolloUploadServer::Upload, required: false
+    argument :avatar, ApolloUploadServer::Upload, required: true
 
     field :user, Types::UserType, null: true
 

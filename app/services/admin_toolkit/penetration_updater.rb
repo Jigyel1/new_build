@@ -8,8 +8,10 @@ module AdminToolkit
       authorize! penetration, to: :update?, with: AdminToolkitPolicy
 
       with_tracking(activity_id = SecureRandom.uuid) do
-        penetration.update!(attributes)
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
+        with_uniqueness_check(:competition) do
+          penetration.update!(attributes)
+          Activities::ActivityCreator.new(activity_params(activity_id)).call
+        end
       end
     end
 

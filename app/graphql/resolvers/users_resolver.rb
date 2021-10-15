@@ -8,26 +8,13 @@ module Resolvers
 
     type Types::UserConnectionType, null: false
 
-    option :role_ids, type: [String], with: :apply_role_filter
-    option :departments, type: [String], with: :apply_department_filter
-    option :active, type: Boolean, with: :apply_status_filter
+    option(:role_ids, type: [String]) { |scope, value| scope.where(role_id: value) }
+    option(:departments, type: [String]) { |scope, value| scope.where(department: value) }
+    option(:active, type: Boolean) { |scope, value| scope.where(active: value) }
+
     option :query, type: String, with: :apply_search, description: <<~DESC
       Supports searches on user's email, firstname, lastname, phone and role
     DESC
-
-    option :skip, type: Int, with: :apply_skip
-
-    def apply_role_filter(scope, value)
-      scope.where(role_id: value)
-    end
-
-    def apply_department_filter(scope, value)
-      scope.where(department: value)
-    end
-
-    def apply_status_filter(scope, value)
-      scope.where(active: value)
-    end
 
     def apply_search(scope, value)
       scope.where(

@@ -1,5 +1,5 @@
-super_user: # role
-  user: # module
+super_user:
+  user:
     - read
     - invite
     - update
@@ -8,6 +8,18 @@ super_user: # role
     - delete
   role:
     - read
+  project:
+    - read
+    - create
+    - update
+    - delete
+
+    - open
+    - technical_analysis
+    - technical_analysis_completed
+    - ready_for_offer
+    - archive
+    - complex
 
 administrator:
   user:
@@ -18,4 +30,81 @@ administrator:
     - update_status
     - delete
   role:
+    - read
+  project:
+    - read
+    - create
+    - update
+
+    - open
+    - technical_analysis
+    - technical_analysis_completed
+    - ready_for_offer
+    - complex
+    - archive
+
+team_expert:
+  project:
+    - read
+    - create
+
+    - open
+    - technical_analysis
+    - technical_analysis_completed
+    - ready_for_offer
+
+team_standard:
+  project:
+    - read
+    - create
+
+management:
+  project:
+    - read
+    - create
+    - update
+
+    - open
+    - technical_analysis
+    - technical_analysis_completed
+    - ready_for_offer
+
+presales:
+  project:
+    - read
+    - create
+
+    - open
+    - technical_analysis
+    - technical_analysis_completed
+    - ready_for_offer
+    - complex
+
+manager_presales:
+  project:
+    - read
+
+    - open
+    - technical_analysis
+    - technical_analysis_completed
+    - ready_for_offer
+    - complex
+
+manager_nbo_kam:
+  project:
+    - read
+    - create
+
+    - open
+    - technical_analysis
+    - technical_analysis_completed
+    - ready_for_offer
+
+kam:
+  project:
+    - read
+    - create
+
+manager_commercialization:
+  project:
     - read

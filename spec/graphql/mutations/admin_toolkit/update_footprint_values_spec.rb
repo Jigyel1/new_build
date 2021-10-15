@@ -41,26 +41,26 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintValues do
     context 'with valid params' do
       it 'updates footprint values' do
         response, errors = formatted_response(
-          query(project_type: :irrelevant), current_user: super_user, key: :updateFootprintValues
+          query(category: :irrelevant), current_user: super_user, key: :updateFootprintValues
         )
         expect(errors).to be_nil
 
         value = response.footprintValues.find { _1[:id] == footprint_value_b.id }
-        expect(value[:projectType]).to eq('standard')
+        expect(value[:category]).to eq('standard')
         value = response.footprintValues.find { _1[:id] == footprint_value_c.id }
-        expect(value[:projectType]).to eq('irrelevant')
+        expect(value[:category]).to eq('irrelevant')
         value = response.footprintValues.find { _1[:id] == footprint_value_d.id }
-        expect(value[:projectType]).to eq('irrelevant')
+        expect(value[:category]).to eq('irrelevant')
       end
     end
 
     context 'with invalid params' do
       it 'responds with error' do
         response, errors = formatted_response(
-          query(project_type: :invalid), current_user: super_user, key: :updateFootprintValues
+          query(category: :invalid), current_user: super_user, key: :updateFootprintValues
         )
         expect(response.footprintValues).to be_nil
-        expect(errors).to eq(["'invalid' is not a valid project_type"])
+        expect(errors).to eq(["'invalid' is not a valid category"])
       end
     end
   end
@@ -73,20 +73,20 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintValues do
             attributes: [
               {
                 id: "#{footprint_value_b.id}"
-                projectType: "standard"
+                category: "standard"
               },
               {
                 id: "#{footprint_value_c.id}"
-                projectType: "irrelevant"
+                category: "irrelevant"
               },
               {
                 id: "#{footprint_value_d.id}"
-                projectType: "#{args[:project_type]}"
+                category: "#{args[:category]}"
               }
             ]
           }
         )
-        { footprintValues { id projectType } }
+        { footprintValues { id category } }
       }
     GQL
   end

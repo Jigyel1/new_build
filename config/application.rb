@@ -14,11 +14,11 @@ require 'action_mailbox/engine'
 require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
+
 # For GraphiQL
 require 'sprockets/railtie' if Rails.env.development?
-require_relative '../lib/float'
 
-# require "rails/test_unit/railtie"
+%w[array float string].each { |klass| require_relative "../lib/#{klass}" }
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -33,6 +33,8 @@ module NewBuild
     overrides = Rails.root.join('app/overrides')
     Rails.autoloaders.main.ignore(overrides)
     config.to_prepare do
+      ActiveStorage::Attachment.include ActiveStorageAttachmentExtension
+
       Dir.glob("#{overrides}/**/*_override.rb").each do |override|
         load override
       end

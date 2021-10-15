@@ -5,7 +5,7 @@ module AdminToolkit
     belongs_to :footprint_building
     belongs_to :footprint_type
 
-    enum project_type: {
+    enum category: {
       standard: 'Standard',
       complex: 'Complex',
       marketing_only: 'Marketing Only',
@@ -13,9 +13,15 @@ module AdminToolkit
     }
 
     validates(
-      :project_type,
+      :category,
       presence: true,
       uniqueness: { scope: %i[footprint_building_id footprint_type_id], case_sensitive: false }
     )
+
+    default_scope do
+      joins(:footprint_building, :footprint_type).order(
+        'admin_toolkit_footprint_buildings.index, admin_toolkit_footprint_types.index'
+      )
+    end
   end
 end

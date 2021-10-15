@@ -240,7 +240,7 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
 
-  config.omniauth :azure_activedirectory_v2,
+  config.omniauth :azure_activedirectory_v2, # rubocop:disable Naming/VariableNumber
                   client_id: ENV['AZURE_CLIENT_ID'],
                   client_secret: ENV['AZURE_SECRET'],
                   tenant_id: ENV['AZURE_TENANT_ID']

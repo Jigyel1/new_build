@@ -7,6 +7,9 @@ class Role < ApplicationRecord
 
   accepts_nested_attributes_for :permissions
 
+  after_destroy :update_users_list
+  after_save :update_users_list
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   default_scope { order(:name) }
@@ -27,6 +30,10 @@ class Role < ApplicationRecord
 
   def admin?
     %w[administrator super_user].any?(name)
+  end
+
+  def nbo_team?
+    team_expert? || team_standard?
   end
 
   # Overriding the default enum behaviour to return the first role when called with

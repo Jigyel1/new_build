@@ -12,9 +12,7 @@ module Mutations
       field :pct_month, Types::AdminToolkit::PctMonthType, null: true
 
       def resolve(attributes:)
-        resolver = ::AdminToolkit::PctMonthUpdater.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { pct_month: resolver.pct_month }
+        super(::AdminToolkit::PctMonthUpdater, :pct_month, attributes: attributes.to_h)
       end
     end
   end

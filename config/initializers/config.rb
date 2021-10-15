@@ -5,6 +5,7 @@ require_relative '../../lib/file_parser'
 # Reading from ENV within the application code can lead to runtime errors due to
 # misconfiguration. To avoid that, we are loading it at boot time to application's configuration.
 Rails.application.configure do
+  config.test_server = ENV.fetch('TEST_SERVER', '').to_b
   config.default_max_page_size = ENV.fetch('MAX_PAGE_SIZE', 100).to_i
   config.users_per_role = ENV.fetch('USERS_PER_ROLE', 10).to_i
   config.allowed_domains = ENV['ALLOWED_DOMAINS'].delete(' ').split(',').freeze
@@ -17,8 +18,8 @@ Rails.application.configure do
 
   config.mail_sender = ENV['MAIL_SENDER']
 
-  config.available_permissions = FileParser.parse { 'config/available_permissions.yml' }.with_indifferent_access
-  config.role_permissions = FileParser.parse { 'config/permissions.yml' }.with_indifferent_access
+  config.available_permissions = FileParser.parse { 'config/available_permissions.yml' }
+  config.role_permissions = FileParser.parse { 'config/permissions.yml' }
   config.activity_actions = FileParser.parse { 'config/actions.yml' }
   config.user_departments = FileParser.parse { 'config/departments.yml' }
 

@@ -12,13 +12,12 @@
   create_record(attributes) { AdminToolkit::PctCost.find_or_initialize_by(index: index) }
 end
 
-MAX_MONTH = 60
 [
-  { index: 0, min: 1, max: 12 },
-  { index: 1, min: 12, max: 18 },
-  { index: 2, min: 18, max: 24 },
-  { index: 3, min: 24, max: 36 },
-  { index: 4, min: 36, max: MAX_MONTH }
+  { index: 0, min: 0, max: 11 },
+  { index: 1, min: 12, max: 17 },
+  { index: 2, min: 18, max: 23 },
+  { index: 3, min: 24, max: 35 },
+  { index: 4, min: 36, max: MAX_SIGNED }
 ].each do |attributes|
   index = attributes.delete(:index)
   create_record(attributes) { AdminToolkit::PctMonth.find_or_initialize_by(index: index) }

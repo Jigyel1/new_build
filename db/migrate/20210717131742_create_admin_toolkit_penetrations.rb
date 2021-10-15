@@ -3,7 +3,7 @@
 class CreateAdminToolkitPenetrations < ActiveRecord::Migration[6.1]
   def change # rubocop:disable Metrics/SeliseMethodLength
     create_table :admin_toolkit_penetrations, id: :uuid do |t|
-      t.string :zip, null: false, index: true, unique: true
+      t.string :zip, null: false, index: { unique: :case_insensitive_comparison }
       t.string :city, null: false
       t.float :rate, null: false
 

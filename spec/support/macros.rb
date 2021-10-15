@@ -35,6 +35,7 @@ end
 def formatted_response(query, current_user: nil, key: nil)
   response = execute(query, current_user: current_user)
   data = response[:data]
+
   [
     RecursiveOpenStruct.new(key ? data[key] : data),
     response[:errors]
@@ -82,4 +83,42 @@ def logidze_fields(klass, id, activity_id: Activity.first.id, unscoped: false)
     .log_data.data['h']
     .find { |history| history.dig('m', 'activity_id') == activity_id }
     .then { |version| OpenStruct.new(version['c']) }
+end
+
+def load_files(count, file)
+  Array.new(count) { file }
+end
+
+def file_upload(name: nil)
+  if name
+    Rack::Test::UploadedFile.new(
+      Rails.root.join('spec/files/matrix.jpeg'),
+      content_type = 'images/jpeg',
+      original_filename: name
+    )
+  else
+    fixture_file_upload(Rails.root.join('spec/files/matrix.jpeg'), 'images/jpeg')
+  end
+end
+
+def connection_query(request, response, meta: nil)
+  <<~GQL
+    query {
+      #{request} {
+        totalCount
+        #{meta}
+        edges {
+          node {
+            #{response}
+          }
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
+          hasPreviousPage
+        }
+      }
+    }
+  GQL
 end

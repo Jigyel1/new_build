@@ -54,22 +54,7 @@ RSpec.describe Resolvers::AdminToolkit::CompetitionsResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        adminToolkitCompetitions#{query_string(args)} {
-          totalCount
-          edges {
-            node { id factor leaseRate name description }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("adminToolkitCompetitions#{query_string(args)}", 'id factor leaseRate name description')
   end
 
   def query_string(args = {})

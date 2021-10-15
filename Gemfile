@@ -9,7 +9,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.4'
+gem 'rails', '~> 6.1.4.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
@@ -71,8 +71,8 @@ group :development do
   gem 'sprockets', '~> 3'
 end
 
+gem 'aasm'
 gem 'action_policy-graphql'
-gem 'acts-as-taggable-on'
 gem 'apollo_upload_server', '2.0.5'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'discard', '~> 1.2'
@@ -87,6 +87,7 @@ gem 'lograge'
 gem 'premailer-rails'
 gem 'rack-cors'
 gem 'recursive-open-struct'
+gem 'redis-namespace'
 gem 'rollbar'
 gem 'sass-rails'
 

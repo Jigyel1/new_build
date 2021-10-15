@@ -2,8 +2,16 @@
 
 module AdminToolkit
   class LabelGroup < ApplicationRecord
-    acts_as_taggable_on :labels
+    validates :name, :code, presence: true, uniqueness: true
+    validates :code, inclusion: { in: Project.statuses.keys }
+    validates :label_list, label_list: true
 
-    validates :name, presence: true, uniqueness: true # inclusion: { in: Project.statuses } => Once project is ready!
+    default_scope { order(code: :asc) }
+
+    def label_list=(value)
+      return unless value
+
+      super(value.to_a_uniq)
+    end
   end
 end

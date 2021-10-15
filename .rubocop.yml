@@ -1,5 +1,6 @@
 require:
   - ./rubocop/cop/metrics/selise_method_length.rb
+  - ./rubocop/cop/metrics/argument_name.rb
   - rubocop-performance
   - rubocop-rspec
   - rubocop-rails
@@ -17,11 +18,15 @@ AllCops:
     - 'db/migrate/*_logidze*.rb'
     - 'db/migrate/*create_active_storage_tables.active_storage.rb'
     - 'db/migrate/*.acts_as_taggable_on_engine.rb'
-    - 'fe/**/*'
+    - 'new-build-fe/**/*'
+    - 'tmp/**/*'
+    # Commenting out `export_projects_spec.rb` to avoid "Naming/VariableNumber: Use snake_case for symbol numbers"
+    # exception as variables will be saved from the excel as is, i.e - PascalCase
+    - 'spec/graphql/mutations/export_projects_spec.rb'
 Metrics/BlockLength:
   IgnoredMethods: ['describe']
   Max: 300
-Documentation:
+Style/Documentation:
   Enabled: false
 
 Metrics/MethodLength:
@@ -70,4 +75,15 @@ RSpec/ExampleLength:
   Max: 30
 
 Rails/Output:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: optional
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+# Temporarily disabling to enable support for activity logs in projects before its
+# implementation. Once activities are added for projects, this needs to be removed.
+Lint/UselessAssignment:
   Enabled: false

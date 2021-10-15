@@ -1,0 +1,56 @@
+0:
+  - PRONUM
+  - external_id
+5:
+  - PROFKE
+  - internal_id
+6:
+  - LIENUM
+  - building number
+8:
+  - LIEHNR
+  - street number
+10:
+  - LIEPLZ
+  - building house number
+13:
+  - LIESTA
+  - building status
+15:
+  - LIEANZ
+  - apartments
+17:
+  - LIECD1
+18:
+  - LIENOD
+19:
+  - LIEHMV
+25:
+  - VERNUM
+  - contact number
+26:
+  - VERVNU
+27:
+  - VERSTA
+29:
+  - VERSTA_ORIG
+31:
+  - VERSTA_RANK
+32:
+  - VERABA
+35:
+  - VERNEG
+37:
+  - VERSAL
+39:
+  - VERPRO
+40:
+  - VERLIE
+59:
+  - PROJ_EXTERN_ID
+  - links infomanager project to GIS data
+60:
+  - PROJ_ID
+  - links OS data to GIS data
+65:
+  - RNK

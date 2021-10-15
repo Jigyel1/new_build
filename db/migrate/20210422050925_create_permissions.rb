@@ -9,5 +9,7 @@ class CreatePermissions < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    add_index :permissions, %i[resource accessor_id accessor_type], unique: :case_insensitive_comparision
   end
 end

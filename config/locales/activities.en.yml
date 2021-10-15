@@ -47,8 +47,8 @@ en:
         owner: 'You have updated the footprint values in Footprint tab of the Admin Toolkit'
         others: '%{owner_email} has updated the footprint values in footprint tab of the Admin Toolkit'
       label_group_updated:
-        owner: 'You have updated label for %{trackable_name} with the new sub label %{labelList}'
-        others: '%{owner_email} has updated label for %{trackable_name} with the new sub label %{labelList}'
+        owner: 'You have updated label for %{trackable_name} with the new sub label %{label_list}'
+        others: '%{owner_email} has updated label for %{trackable_name} with the new sub label %{label_list}'
       pct_cost_updated:
         owner: 'You have updated PCT cost with the new cost value %{max}'
         others: '%{owner_email} has updated PCT cost with the new cost value %{max}'

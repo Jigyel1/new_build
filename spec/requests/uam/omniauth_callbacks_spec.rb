@@ -3,13 +3,13 @@
 require 'rails_helper'
 require_relative '../../support/omniauth_test_helper'
 
-describe 'GET api/v1/users/auth/azure_activedirectory_v2/callback' do # rubocop:disable RSpec/MultipleDescribes, RSpec/DescribeClass
+describe 'GET api/v1/users/auth/azure_activedirectory_v2/callback' do # rubocop:disable RSpec/MultipleDescribes
   include OmniauthTestHelper
 
   before do
     valid_azure_login_setup
     Rails.application.env_config['devise.mapping'] = Devise.mappings[:user] # If using Devise
-    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:azure_activedirectory_v2]
+    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:azure_activedirectory_v2] # rubocop:disable Naming/VariableNumber
   end
 
   context 'for a valid user' do
@@ -36,7 +36,7 @@ describe 'GET api/v1/users/auth/azure_activedirectory_v2/callback' do # rubocop:
   end
 end
 
-describe "GET '/api/v1/users/auth/failure'" do # rubocop:disable RSpec/DescribeClass
+describe "GET '/api/v1/users/auth/failure'" do
   after { Rails.application.reload_routes! }
 
   before do

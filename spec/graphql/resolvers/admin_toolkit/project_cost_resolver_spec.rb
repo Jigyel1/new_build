@@ -12,7 +12,7 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
       it 'returns the project cost' do
         response, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
-        expect(response.adminToolkitProjectCost).to have_attributes(arpu: '50.0', standard: '10500.0')
+        expect(response.adminToolkitProjectCost).to have_attributes(arpu: 50.0, standard: 10_500.0)
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
     <<~GQL
       query {
         adminToolkitProjectCost {
-          id arpu standard
+          id arpu standard socketInstallationRate
         }
       }
     GQL

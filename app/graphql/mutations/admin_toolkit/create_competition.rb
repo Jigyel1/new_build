@@ -11,9 +11,7 @@ module Mutations
       field :competition, Types::AdminToolkit::CompetitionType, null: true
 
       def resolve(attributes:)
-        resolver = ::AdminToolkit::CompetitionCreator.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { competition: resolver.competition }
+        super(::AdminToolkit::CompetitionCreator, :competition, attributes: attributes.to_h)
       end
     end
   end

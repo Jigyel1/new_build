@@ -34,16 +34,7 @@ module Activities
     end
 
     def apply_search(scope, value)
-      query = <<~QUERY.squish
-        action iLIKE :value OR
-        log_data ->> 'recipient_email' iLIKE :value OR
-        log_data ->> 'owner_email' iLIKE :value OR
-        log_data -> 'parameters' ->> 'role' iLIKE :value OR
-        log_data -> 'parameters' ->> 'active' iLIKE :value OR
-        log_data -> 'parameters' ? :key
-      QUERY
-
-      scope.where(query, key: value, value: "%#{value}%")
+      scope.where('action iLIKE :value OR log_data iLIKE :value', value: "%#{value}%")
     end
 
     def display_text

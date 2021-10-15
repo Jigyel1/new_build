@@ -140,8 +140,12 @@ RSpec.describe Resolvers::ActivitiesResolver do
 
     context 'with multiple user ids in filter' do
       it 'returns logs for given user ids' do
-        activities, errors = paginated_collection(:activities, query(user_ids: [management.id, kam.id]),
-                                                  current_user: super_user)
+        activities, errors = paginated_collection(
+          :activities,
+          query(user_ids: [management.id, kam.id]),
+          current_user: super_user
+        )
+
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
@@ -160,8 +164,12 @@ RSpec.describe Resolvers::ActivitiesResolver do
 
     context 'with dates filter' do
       it 'returns logs created in the given date range' do
-        activities, errors = paginated_collection(:activities, query(dates: [1.day.ago.to_s, Time.current.to_s]),
-                                                  current_user: super_user)
+        activities, errors = paginated_collection(
+          :activities,
+          query(dates: [1.day.ago.to_s, Time.current.to_s]),
+          current_user: super_user
+        )
+
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
@@ -180,8 +188,12 @@ RSpec.describe Resolvers::ActivitiesResolver do
 
     context 'with date filter' do
       it 'returns logs created in the given date' do
-        activities, errors = paginated_collection(:activities, query(dates: [1.day.from_now.to_s]),
-                                                  current_user: super_user)
+        activities, errors = paginated_collection(
+          :activities,
+          query(dates: [1.day.from_now.to_s]),
+          current_user: super_user
+        )
+
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
@@ -193,8 +205,12 @@ RSpec.describe Resolvers::ActivitiesResolver do
 
     context 'with actions filter' do
       it 'returns logs matching actions' do
-        activities, errors = paginated_collection(:activities, query(actions: %w[role_updated status_updated]),
-                                                  current_user: super_user)
+        activities, errors = paginated_collection(
+          :activities,
+          query(actions: %w[role_updated status_updated]),
+          current_user: super_user
+        )
+
         expect(errors).to be_nil
         expect(activities.pluck('displayText')).to eq(
           [
@@ -210,8 +226,12 @@ RSpec.describe Resolvers::ActivitiesResolver do
     context 'with search queries' do
       context 'when queried by recipient email' do
         it 'returns logs matching recipient email' do
-          activities, errors = paginated_collection(:activities, query(query: management.email),
-                                                    current_user: super_user)
+          activities, errors = paginated_collection(
+            :activities,
+            query(query: management.email),
+            current_user: super_user
+          )
+
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
@@ -226,8 +246,12 @@ RSpec.describe Resolvers::ActivitiesResolver do
 
       context 'when queried by owner email' do
         it 'returns logs matching owner email' do
-          activities, errors = paginated_collection(:activities, query(query: super_user.email),
-                                                    current_user: super_user)
+          activities, errors = paginated_collection(
+            :activities,
+            query(query: super_user.email),
+            current_user: super_user
+          )
+
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
@@ -248,8 +272,12 @@ RSpec.describe Resolvers::ActivitiesResolver do
 
       context 'when queried by action' do
         it 'returns logs matching the action' do
-          activities, errors = paginated_collection(:activities, query(query: 'updated'),
-                                                    current_user: super_user)
+          activities, errors = paginated_collection(
+            :activities,
+            query(query: 'updated'),
+            current_user: super_user
+          )
+
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
@@ -266,8 +294,12 @@ RSpec.describe Resolvers::ActivitiesResolver do
 
       context 'when queried by role' do
         it 'returns logs matching the role' do
-          activities, errors = paginated_collection(:activities, query(query: 'super_use'), # typo intentional
-                                                    current_user: super_user)
+          activities, errors = paginated_collection(
+            :activities,
+            query(query: 'super_use'), # typo intentional
+            current_user: super_user
+          )
+
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
@@ -372,22 +404,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
   end
 
   def query(args = {})
-    <<~GQL
-      query {
-        activities#{query_string(args)} {
-          totalCount
-          edges {
-            node { id createdAt displayText }
-          }
-          pageInfo {
-            endCursor
-            startCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    GQL
+    connection_query("activities#{query_string(args)}", 'id createdAt displayText')
   end
 
   def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize

@@ -27,7 +27,7 @@ module Types
     field :update_footprint_building, mutation: Mutations::AdminToolkit::UpdateFootprintBuilding
     field :update_footprint_values, mutation: Mutations::AdminToolkit::UpdateFootprintValues
 
-    field :update_label, mutation: Mutations::AdminToolkit::UpdateLabels
+    field :update_labels, mutation: Mutations::AdminToolkit::UpdateLabels
     field :update_project_cost, mutation: Mutations::AdminToolkit::UpdateProjectCost
 
     field :create_penetration, mutation: Mutations::AdminToolkit::CreatePenetration
@@ -42,5 +42,47 @@ module Types
     field :create_kam_investor, mutation: Mutations::AdminToolkit::CreateKamInvestor
     field :update_kam_investor, mutation: Mutations::AdminToolkit::UpdateKamInvestor
     field :delete_kam_investor, mutation: Mutations::AdminToolkit::DeleteKamInvestor
+
+    field :create_project, mutation: Mutations::CreateProject
+    field :update_project, mutation: Mutations::UpdateProject
+    field :import_projects, mutation: Mutations::ImportProjects
+    field :export_projects, mutation: Mutations::ExportProjects
+    field :update_project_category, mutation: Mutations::Projects::UpdateCategory
+
+    field :revert_project_transition, mutation: Mutations::Projects::RevertTransition
+
+    field :transition_to_technical_analysis, mutation: Mutations::Projects::TransitionToTechnicalAnalysis
+    field(
+      :transition_to_technical_analysis_completed,
+      mutation: Mutations::Projects::TransitionToTechnicalAnalysisCompleted
+    )
+    field :transition_to_ready_for_offer, mutation: Mutations::Projects::TransitionToReadyForOffer
+    field :archive_project, mutation: Mutations::Projects::ArchiveProject
+    field :unarchive_project, mutation: Mutations::Projects::UnarchiveProject
+
+    field :update_project_incharge, mutation: Mutations::Projects::UpdateIncharge
+    field :update_payback_period, mutation: Mutations::Projects::UpdatePaybackPeriod
+
+    field :save_draft, mutation: Mutations::Projects::SaveDraft
+
+    field :create_address_book, mutation: Mutations::Projects::CreateAddressBook
+    field :update_address_book, mutation: Mutations::Projects::UpdateAddressBook
+
+    field :create_building, mutation: Mutations::Projects::CreateBuilding
+    field :update_building, mutation: Mutations::Projects::UpdateBuilding
+    field :import_buildings, mutation: Mutations::Projects::ImportBuildings
+    field :delete_building, mutation: Mutations::Projects::DeleteBuilding
+
+    field :create_task, mutation: Mutations::Projects::CreateTask
+    field :delete_task, mutation: Mutations::Projects::DeleteTask
+    field :update_task, mutation: Mutations::Projects::UpdateTask
+    field :unarchive_task, mutation: Mutations::Projects::UnarchiveTask
+
+    field :create_project_labels, mutation: Mutations::Projects::CreateLabels
+    field :update_project_labels, mutation: Mutations::Projects::UpdateLabels
+
+    field :upload_files, mutation: Mutations::Projects::UploadFiles
+    field :update_file, mutation: Mutations::Projects::UpdateFile
+    field :delete_file, mutation: Mutations::Projects::DeleteFile
   end
 end

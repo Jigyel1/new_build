@@ -12,10 +12,6 @@ module Types
       Get the first N(as set in the ENV or 10) users' avatar_url with names for each role.
     DESC
 
-    def name
-      Role.names[object.name]
-    end
-
     def users
       BatchLoaders::WindowKeyLoader
         .for(

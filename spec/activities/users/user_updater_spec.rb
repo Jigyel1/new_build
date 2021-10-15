@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Users::UserUpdater do
-  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: [:update] }) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { user: :update }) }
   let_it_be(:team_standard) { create(:user, :team_standard) }
   let_it_be(:address) { create(:address, addressable: team_standard) }
 

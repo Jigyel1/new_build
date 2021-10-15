@@ -12,9 +12,7 @@ module Mutations
       field :pct_cost, Types::AdminToolkit::PctCostType, null: true
 
       def resolve(attributes:)
-        resolver = ::AdminToolkit::PctCostUpdater.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { pct_cost: resolver.pct_cost }
+        super(::AdminToolkit::PctCostUpdater, :pct_cost, attributes: attributes.to_h)
       end
     end
   end

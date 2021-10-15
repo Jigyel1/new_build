@@ -5,16 +5,14 @@ module Mutations
     class UpdateLabels < BaseMutation
       class UpdateLabelAttributes < Types::BaseInputObject
         argument :id, ID, required: true
-        argument :labelList, String, required: true
+        argument :label_list, String, required: true
       end
 
       argument :attributes, UpdateLabelAttributes, required: true
       field :label_group, Types::AdminToolkit::LabelGroupType, null: true
 
       def resolve(attributes:)
-        resolver = ::AdminToolkit::LabelsUpdater.new(current_user: current_user, attributes: attributes.to_h)
-        resolver.call
-        { label_group: resolver.label_group }
+        super(::AdminToolkit::LabelsUpdater, :label_group, attributes: attributes.to_h)
       end
     end
   end
