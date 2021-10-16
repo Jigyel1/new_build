@@ -6,9 +6,9 @@ module Projects
     delegate :taskable, to: :task
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
 
-      with_tracking(activity_id = SecureRandom.uuid, transaction: true) do
+      with_tracking(activity_id = SecureRandom.uuid) do
         task.destroy!
         Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
@@ -22,7 +22,7 @@ module Projects
         recipient: task.assignee,
         trackable: task,
         parameters: {
-          type: task.taskable_type.split('::').last,
+          type: task.taskable_type.demodulize,
           title: task.title
         }
       }

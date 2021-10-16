@@ -10,7 +10,7 @@ module Projects
     def call
       authorize! project, to: :update?
 
-      with_tracking(activity_id = SecureRandom.uuid, transaction: true) do
+      with_tracking(activity_id = SecureRandom.uuid) do
         attachable.files.attach(
           attributes[:files].map { |file| to_attachables(file) }
         )

@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class Activity < ApplicationRecord
-  include Accessors::AdminToolkitActivity
-  include Accessors::ProjectActivity
-  include Accessors::UserActivity
+  include Accessors::Activity
 
   # Activity `owner` is the one who creates the activity.
   belongs_to :owner, class_name: 'Telco::Uam::User'
@@ -29,6 +27,7 @@ class Activity < ApplicationRecord
     inclusion: { in: proc { |activity| Rails.application.config.activity_actions[activity.trackable_type.underscore] } }
   )
 
+  validates :trackable_type, presence: true
   validates :log_data, presence: true, activity_log: true
 
   default_scope { order(created_at: :desc) }

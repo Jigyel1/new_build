@@ -34,7 +34,9 @@ module Activities
       }
     end
 
-    # checks whether the activity has trackable, if not returns the trackable_type.
+    # <tt>trackable</tt> can be nil for bulk actions, like <tt>buildings_import</tt>
+    # or <tt>projects_import</tt>. In such cases just select the <tt>trackable_type</tt>
+    # for logging the activity. <tt>trackable_type</tt> will always be present.
     def trackable_params
       trackable ? { trackable: trackable } : { trackable_type: trackable_type }
     end

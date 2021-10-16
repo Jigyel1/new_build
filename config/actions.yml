@@ -48,6 +48,7 @@ admin_toolkit/project_cost:
 project:
   - project_created
   - project_updated
+  - project_imported
   - project_draft_version
   - project_category_updated
   - incharge_updated
@@ -59,6 +60,7 @@ project:
   - unarchive
   - revert
   - task_created
+  - task_created_and_copied
 
 projects/address_book:
   - address_book_created
@@ -70,6 +72,7 @@ projects/building:
   - building_updated
   - file_uploaded
   - task_created
+  - task_created_and_copied
 projects/task:
   - task_updated
   - task_deleted
@@ -81,5 +84,3 @@ projects/pct_cost:
 active_storage/attachment:
   - attachment_file_deleted
   - attachment_file_updated
-projects:
-  - project_imported

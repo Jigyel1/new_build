@@ -45,19 +45,12 @@ module Projects
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :task_created,
+        action: @copy_to_all_buildings ? :task_created_and_copied : :task_created,
         owner: current_user,
         recipient: task.assignee,
         trackable: taskable,
-        parameters: {
-          copy: display_text,
-          title: attributes['title']
-        }
+        parameters: { title: task.title }
       }
-    end
-
-    def display_text
-      'and copied to all the buildings' if @copy_to_all_buildings
     end
   end
 end

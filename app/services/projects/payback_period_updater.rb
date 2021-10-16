@@ -31,7 +31,7 @@ module Projects
         owner: current_user,
         trackable: project_pct_cost,
         parameters: {
-          project_name: project_pct_cost.name
+          project_name: project_pct_cost.project_name
         }
       }
     end

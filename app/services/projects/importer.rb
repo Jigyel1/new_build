@@ -9,7 +9,6 @@ module Projects
 
       with_tracking(activity_id = SecureRandom.uuid) do
         ProjectsImporter.call(current_user: current_user, input: file)
-
         Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
@@ -21,7 +20,7 @@ module Projects
         activity_id: activity_id,
         action: :project_imported,
         owner: current_user,
-        trackable_type: 'Projects',
+        trackable_type: 'Project',
         parameters: {
           filename: file.original_filename
         }
