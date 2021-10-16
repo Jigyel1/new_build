@@ -28,7 +28,7 @@ module Activities
 
     # picks the top level namespace
     # eg if the trackable type returns `AdminToolkit::Competition`, it picks `admin_toolkit`
-    #    and for users it picks `telco` as the trackable type will be `Telco::Uam::User`
+    # and for users it picks `telco` as the trackable type will be `Telco::Uam::User`
     def translation_module
       activity.trackable_type.split('::').first.underscore
     end
