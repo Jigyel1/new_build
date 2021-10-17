@@ -30,7 +30,7 @@ describe Projects::Importer, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.project_imported.owner',
+          t('activities.projects.project_imported.owner',
             filename: param.original_filename)
         )
       end
@@ -44,7 +44,7 @@ describe Projects::Importer, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.project_imported.others',
+          t('activities.projects.project_imported.others',
             filename: param.original_filename,
             owner_email: super_user.email)
         )

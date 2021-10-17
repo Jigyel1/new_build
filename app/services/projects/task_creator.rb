@@ -49,7 +49,7 @@ module Projects
         owner: current_user,
         recipient: task.assignee,
         trackable: taskable,
-        parameters: { copy: display_text, title: attributes['title'] }
+        parameters: { title: attributes['title'] }
       }
     end
   end

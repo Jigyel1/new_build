@@ -48,7 +48,6 @@ admin_toolkit/project_cost:
 project:
   - project_created
   - project_updated
-  - project_imported
   - project_draft_version
   - project_category_updated
   - incharge_updated
@@ -61,7 +60,8 @@ project:
   - revert
   - task_created
   - task_created_and_copied
-
+projects:
+  - project_imported
 projects/address_book:
   - address_book_created
   - address_book_updated
