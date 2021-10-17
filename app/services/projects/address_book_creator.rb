@@ -27,10 +27,7 @@ module Projects
         action: :address_book_created,
         owner: current_user,
         trackable: address_book,
-        parameters: {
-          project_name: address_book.project_name,
-          address_book_type: address_book.type
-        }
+        parameters: { project_name: address_book.project_name, address_book_type: address_book.type }
       }
     end
   end

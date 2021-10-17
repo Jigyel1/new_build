@@ -23,10 +23,7 @@ module Projects
         action: :incharge_updated,
         owner: current_user,
         trackable: project,
-        parameters: {
-          incharge_email: project.email,
-          project_name: project.name
-        }
+        parameters: { incharge_email: project.email, project_name: project.name }
       }
     end
   end

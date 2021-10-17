@@ -50,9 +50,7 @@ module Projects
         action: :file_uploaded,
         owner: current_user,
         trackable: attachable,
-        parameters: {
-          filename: attributes[:files][0].original_filename
-        }
+        parameters: { filename: attributes[:files][0].original_filename }
       }
     end
   end

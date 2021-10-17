@@ -19,10 +19,7 @@ module Projects
         action: :building_deleted,
         owner: current_user,
         trackable: building,
-        parameters: {
-          name: building.name,
-          project_name: building.project_name
-        }
+        parameters: { name: building.name, project_name: building.project_name }
       }
     end
   end

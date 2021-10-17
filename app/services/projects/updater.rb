@@ -23,10 +23,7 @@ module Projects
         action: :project_updated,
         owner: current_user,
         trackable: project,
-        parameters: {
-          status: attributes['status'],
-          project_name: project.name
-        }
+        parameters: { status: attributes['status'], project_name: project.name }
       }
     end
   end
