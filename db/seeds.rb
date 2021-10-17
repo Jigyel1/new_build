@@ -52,7 +52,7 @@ end
   ['sujata.pradhan+cm@selise.ch', :presales],
   ['sujata.pradhan+kam@selise.ch', :management],
 
-  # # External Users
+  # External Users
   ['stefan.fitsch@upc.ch', :super_user],
   ['michael.egger@upc.ch', :administrator],
   ['danijela.martinovic@upc.ch', :administrator]

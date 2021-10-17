@@ -1,0 +1,125 @@
+projects:
+  recipient:
+    task_created:
+      - owner_email
+      - title
+    task_created_and_copied:
+      - owner_email
+      - title
+    task_deleted:
+      - owner_email
+      - type
+      - title
+    task_updated:
+      - owner_email
+      - previous_status
+      - status
+      - type
+      - title
+  owner:
+    address_book_created:
+      - project_name
+      - address_book_type
+    address_book_updated:
+      - project_name
+      - address_book_type
+    building_created:
+      - project_name
+      - name
+    building_deleted:
+      - project_name
+      - name
+    building_updated:
+      - project_name
+      - name
+    building_imported:
+      - filename
+    labels_created:
+      - label_list
+      - project_name
+      - status
+    labels_updated:
+      - label_list
+      - project_name
+      - status
+    task_created:
+      - recipient_email
+      - title
+    task_created_and_copied:
+      - recipient_email
+      - title
+    task_deleted:
+      - recipient_email
+      - type
+      - title
+    task_updated:
+      - recipient_email
+      - previous_status
+      - status
+      - type
+      - title
+    payback_period_updated:
+      - project_name
+    file_uploaded:
+      - filename
+  others:
+    address_book_created:
+      - project_name
+      - address_book_type
+      - owner_email
+    address_book_updated:
+      - project_name
+      - address_book_type
+      - owner_email
+    building_created:
+      - project_name
+      - name
+      - owner_email
+    building_deleted:
+      - project_name
+      - name
+      - owner_email
+    building_updated:
+      - project_name
+      - name
+      - owner_email
+    building_imported:
+      - filename
+      - owner_email
+    labels_created:
+      - label_list
+      - project_name
+      - status
+      - owner_email
+    labels_updated:
+      - label_list
+      - project_name
+      - status
+      - owner_email
+    task_created:
+      - title
+      - owner_email
+      - recipient_email
+    task_created_and_copied:
+      - title
+      - owner_email
+      - recipient_email
+    task_deleted:
+      - owner_email
+      - type
+      - title
+      - recipient_email
+    task_updated:
+      - recipient_email
+      - owner_email
+      - previous_status
+      - status
+      - type
+      - title
+    payback_period_updated:
+      - project_name
+      - owner_email
+    file_uploaded:
+      - owner_email
+      - filename
+

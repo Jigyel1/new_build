@@ -98,6 +98,9 @@ en:
       project_updated:
         owner: 'Edited the project `%{project_name}` information in the %{status} phase by you'
         others: 'The project `%{project_name}` information was edited by %{owner_email} in %{status} phase'
+      project_imported:
+        owner: 'Project file `%{filename}` has been imported by you'
+        others: 'Project file `%{filename}` has been imported by %{owner_email}'
       project_draft_version:
         owner: 'Project `%{project_name}` saved as draft by you'
         others: 'Project `%{project_name}` is saved as draft by %{owner_email}'
@@ -126,9 +129,6 @@ en:
         owner: 'Uploaded the file `%{filename}` under Project file Tab by you.'
         others: 'A new file `%{filename}` under Project file tab was uploaded by %{owner_email}'
     projects:
-      project_imported:
-        owner: 'Project file `%{filename}` has been imported by you'
-        others: 'Project file `%{filename}` has been imported by %{owner_email}'
       address_book_created:
         owner: 'For project `%{project_name}`, a new role type `%{address_book_type}` has been added by you'
         others: 'For project `%{project_name}`, a new role type `%{address_book_type}` has been added by %{owner_email}'
@@ -160,9 +160,13 @@ en:
         owner: 'Uploaded the file `%{filename}` under Building file Tab by you.'
         others: 'A new file `%{filename}` under Building file tab was uploaded by %{owner_email}'
       task_created:
-        owner: 'Assigned project task `%{title}` to %{recipient_email} %{copy} by you'
-        others: 'Was assigned the project task `%{title}` was assigned to %{recipient_email} by %{owner_email} %{copy}'
-        recipient: 'Project task `%{title}` was assigned to you by %{owner_email} %{copy}'
+        owner: 'Assigned project task `%{title}` to %{recipient_email} by you'
+        others: 'Was assigned the project task `%{title}` was assigned to %{recipient_email} by %{owner_email}'
+        recipient: 'Project task `%{title}` was assigned to you by %{owner_email}'
+      task_created_and_copied:
+        owner: 'Assigned project task `%{title}` to %{recipient_email} and copied to all the buildings by you'
+        others: 'Was assigned the project task `%{title}` was assigned to %{recipient_email} by %{owner_email} and copied to all the buildings'
+        recipient: 'Project task `%{title}` was assigned to you by %{owner_email} and copied to all the buildings'
       task_deleted:
         owner: 'Deleted the %{type} name task `%{title}` assigned to %{recipient_email} by you'
         others: 'Deleted the %{type} name task `%{title}` assigned to %{recipient_email} by %{owner_email}'

@@ -5,9 +5,9 @@ module Projects
     include FileHelper
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
 
-      with_tracking(activity_id = SecureRandom.uuid, transaction: true) do
+      with_tracking(activity_id = SecureRandom.uuid) do
         file.destroy!
         Activities::ActivityCreator.new(activity_params(activity_id)).call
       end

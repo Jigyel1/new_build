@@ -6,8 +6,9 @@ module Projects
     set_callback :call, :before, :validate!
 
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
-      with_tracking(activity_id = SecureRandom.uuid, transaction: true) do
+      authorize! project, to: :update?
+
+      with_tracking(activity_id = SecureRandom.uuid) do
         super { file.blob.update!(filename: attributes[:name]) }
 
         Activities::ActivityCreator.new(activity_params(activity_id)).call

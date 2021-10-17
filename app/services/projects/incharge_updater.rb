@@ -3,7 +3,7 @@
 module Projects
   class InchargeUpdater < BaseService
     def call
-      authorize! project, to: :update?, with: ProjectPolicy
+      authorize! project, to: :update?
 
       with_tracking(activity_id = SecureRandom.uuid) do
         project.update!(incharge_id: attributes[:incharge_id])
@@ -23,7 +23,10 @@ module Projects
         action: :incharge_updated,
         owner: current_user,
         trackable: project,
-        parameters: { incharge_email: project.email, project_name: project.name }
+        parameters: {
+          incharge_email: project.email,
+          project_name: project.name
+        }
       }
     end
   end
