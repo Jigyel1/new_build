@@ -83,9 +83,5 @@ Naming/MemoizedInstanceVariableName:
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
-# still needs to be disabled since, it is required in macros => content_type = 'images/jpeg'
-Lint/UselessAssignment:
-  Enabled: false
-
 Lint/ElseLayout:
   Enabled: false
