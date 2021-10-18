@@ -30,7 +30,7 @@ module Projects
         action: :payback_period_updated,
         owner: current_user,
         trackable: project_pct_cost,
-        parameters: { project_name: project_pct_cost.name }
+        parameters: { project_name: project_pct_cost.project_name }
       }
     end
   end

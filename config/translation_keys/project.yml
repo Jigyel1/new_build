@@ -6,6 +6,8 @@ project:
     project_updated:
       - project_name
       - status
+    project_imported:
+      - filename
     project_draft_version:
       - project_name
     incharge_updated:
@@ -44,6 +46,9 @@ project:
     project_updated:
       - project_name
       - status
+      - owner_email
+    project_imported:
+      - filename
       - owner_email
     project_draft_version:
       - project_name

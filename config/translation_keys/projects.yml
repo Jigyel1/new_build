@@ -34,8 +34,6 @@ projects:
       - name
     building_imported:
       - filename
-    project_imported:
-      - filename
     labels_created:
       - label_list
       - project_name
@@ -76,9 +74,6 @@ projects:
     building_created:
       - project_name
       - name
-      - owner_email
-    project_imported:
-      - filename
       - owner_email
     building_deleted:
       - project_name

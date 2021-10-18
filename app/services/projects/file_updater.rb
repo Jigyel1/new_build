@@ -21,7 +21,7 @@ module Projects
         action: :attachment_file_updated,
         owner: current_user,
         trackable: file,
-        parameters: { type: file.record_type.split('::').last, filename: file.blob[:filename] }
+        parameters: { type: file.record_type.demodulize, filename: file.blob[:filename] }
       }
     end
 
