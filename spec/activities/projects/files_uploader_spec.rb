@@ -8,50 +8,34 @@ describe Projects::FilesUploader, type: :request do
   let_it_be(:building) { create(:building, project: project) }
 
   let_it_be(:params) do
-    {
-      operations: {
-        query: query_project,
-        variables: {
-          files: [nil]
-        }
-      }.to_json,
-      map: {
-        files: ['variables.files.0', 'variables.files.1']
-      }.to_json,
-      files: file_upload,
-      attachable_id: building.id,
-      attachable_type: 'Projects::Building'
-    }
-  end
-
-  let_it_be(:params_b) do
-    {
-      operations: {
-        query: query_project_building,
-        variables: {
-          files: [nil]
-        }
-      }.to_json,
-      map: {
-        files: ['variables.files.0', 'variables.files.1']
-      }.to_json,
-      files: file_upload,
-      attachable_id: project.id,
-      attachable_type: 'Project'
-    }
-  end
-  let_it_be(:filename) { params[:files].original_filename }
-
-  before do
-    sign_in(super_user)
-  end
-
-  describe 'Project::Building' do
-    before do
-      post api_v1_graphql_path, params: params
+    proc do |attachable_id, attachable_type, query|
+      {
+        operations: {
+          query: query,
+          variables: {
+            files: [nil]
+          }
+        }.to_json,
+        map: {
+          files: ['variables.files.0', 'variables.files.1']
+        }.to_json,
+        files: file_upload,
+        attachable_id: attachable_id,
+        attachable_type: attachable_type
+      }
     end
+  end
 
-    describe '.activities' do
+  let_it_be(:filename) { 'matrix.jpeg' }
+  let_it_be(:project_params) { [project.id, 'Project'] }
+  let_it_be(:building_params) { [building.id, 'Projects::Building'] }
+
+  before { sign_in(super_user) }
+
+  describe '.activities' do
+    context 'with projects' do
+      before { post api_v1_graphql_path, params: params.call(*project_params, query(*project_params)) }
+
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
@@ -79,14 +63,10 @@ describe Projects::FilesUploader, type: :request do
         end
       end
     end
-  end
 
-  describe 'Project' do
-    before do
-      post api_v1_graphql_path, params: params_b
-    end
+    context 'with buildings' do
+      before { post api_v1_graphql_path, params: params.call(*building_params, query(*building_params)) }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
@@ -116,23 +96,11 @@ describe Projects::FilesUploader, type: :request do
     end
   end
 
-  def query_project
+  def query(attachable_id, attachable_type)
     <<~QUERY
       mutation($files: [Upload!]!) {
         uploadFiles(
-          input: { attributes: { files: $files, attachableId: "#{project.id}", attachableType: "Project" }}
-        ){
-          files { id name size createdAt owner { name } }
-        }
-      }
-    QUERY
-  end
-
-  def query_project_building
-    <<~QUERY
-      mutation($files: [Upload!]!) {
-        uploadFiles(
-          input: { attributes: { files: $files, attachableId: "#{building.id}", attachableType: "Projects::Building" }}
+          input: { attributes: { files: $files, attachableId: "#{attachable_id}", attachableType: "#{attachable_type}" }}
         ){
           files { id name size createdAt owner { name } }
         }
