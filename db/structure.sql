@@ -919,6 +919,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.move_in_ends_on,
     projects.buildings_count,
     projects.lot_number,
+    projects.internal_id,
     cardinality(projects.label_list) AS labels,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     concat(profiles.firstname, ' ', profiles.lastname) AS assignee,

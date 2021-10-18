@@ -11,6 +11,7 @@ SELECT projects.id                                              AS id,
        projects.move_in_ends_on                                 AS move_in_ends_on,
        projects.buildings_count                                 AS buildings_count,
        projects.lot_number                                      AS lot_number,
+       projects.internal_id                                     AS internal_id,
        cardinality(projects.label_list)                         AS labels,
 
        CONCAT(

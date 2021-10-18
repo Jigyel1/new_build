@@ -14,6 +14,7 @@ RSpec.describe Resolvers::ProjectsResolver do
   let_it_be(:project_a) do
     create(
       :project,
+      internal_id: '312590',
       name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
       address: address_a,
       buildings: build_list(:building, 5, apartments_count: 3),
@@ -27,6 +28,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       :project,
       :complex,
       :technical_analysis,
+      internal_id: '312591',
       name: "Construction d'une habitation de quatre logements",
       address: address_b,
       assignee: kam,
@@ -117,6 +119,16 @@ RSpec.describe Resolvers::ProjectsResolver do
       end
     end
 
+    context 'with internal ids filter' do
+      let(:internal_ids) { %w[312590 312591] }
+
+      it 'returns projects matching given internal ids' do
+        projects, errors = paginated_collection(:projects, query(internal_ids: internal_ids), current_user: super_user)
+        expect(errors).to be_nil
+        expect(projects.pluck(:id)).to eq([project_a.id, project_b.id])
+      end
+    end
+
     context 'with buildings filter' do
       let(:buildings) { [15, 25] }
 
@@ -185,6 +197,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     params = args[:categories] ? ["categories: #{args[:categories]}"] : []
     params << "assignees: #{args[:assignees]}" if args[:assignees].present?
     params << "priorities: #{args[:priorities]}" if args[:priorities].present?
+    params << "internalIds: #{args[:internal_ids]}" if args[:internal_ids].present?
     params << "statuses: #{args[:statuses]}" if args[:statuses].present?
     params << "constructionTypes: #{args[:construction_types]}" if args[:construction_types].present?
     params << "buildingsCount: #{args[:buildings]}" if args[:buildings].present?
