@@ -37,7 +37,9 @@ describe ProjectsImporter do
       apartments_count: 1,
       coordinate_east: 2_680_642.427,
       coordinate_north: 1_236_913.869,
-      category: 'standard'
+      category: 'standard',
+      gis_url: "#{Rails.application.config.gis_url}#{project.external_id}",
+      info_manager_url: "#{Rails.application.config.info_manager_url}#{project.external_id}"
     )
 
     expect(project.kam_region.name).to eq('Ost ZH')

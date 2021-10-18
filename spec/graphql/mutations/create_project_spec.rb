@@ -26,6 +26,12 @@ RSpec.describe Mutations::CreateProject do
         )
 
         expect(response.project.assignee).to have_attributes(id: kam.id, name: kam.name)
+
+        project = Project.find(response.project.id)
+        expect(project).to have_attributes(
+          gis_url: "#{Rails.application.config.gis_url}#{project.external_id}",
+          info_manager_url: "#{Rails.application.config.info_manager_url}#{project.external_id}"
+        )
       end
 
       it 'creates the associated address books' do
