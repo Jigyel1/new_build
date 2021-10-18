@@ -6,6 +6,7 @@ describe Projects::FilesUploader, type: :request do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:project) { create(:project) }
   let_it_be(:building) { create(:building, project: project) }
+  let_it_be(:super_user_b) { create(:user, :super_user) }
 
   let_it_be(:params) do
     proc do |attachable_id, attachable_type, query|
@@ -48,8 +49,6 @@ describe Projects::FilesUploader, type: :request do
       end
 
       context 'as a general user' do
-        let!(:super_user_b) { create(:user, :super_user) }
-
         it 'returns activity text in terms of a third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
           expect(errors).to be_nil
@@ -77,8 +76,6 @@ describe Projects::FilesUploader, type: :request do
       end
 
       context 'as a general user' do
-        let!(:super_user_b) { create(:user, :super_user) }
-
         it 'returns activity text in terms of a third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
           expect(errors).to be_nil

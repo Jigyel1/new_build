@@ -19,7 +19,7 @@ describe Projects::Updater do
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.project.project_updated.owner',
             project_name: project.name,
-            status: params[:status])
+            status: 'Technical Analysis')
         )
       end
     end
@@ -34,7 +34,7 @@ describe Projects::Updater do
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.project.project_updated.others',
             project_name: project.name,
-            status: params[:status],
+            status: 'Technical Analysis',
             owner_email: super_user.email)
         )
       end

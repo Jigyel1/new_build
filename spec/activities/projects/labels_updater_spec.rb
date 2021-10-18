@@ -15,6 +15,7 @@ describe Projects::LabelsUpdater do
       label_list: 'Prio 1, Prio 2'
     )
   end
+
   let_it_be(:params) { { id: projects_label_group.id } }
   before_all { described_class.new(current_user: super_user, attributes: params).call }
 

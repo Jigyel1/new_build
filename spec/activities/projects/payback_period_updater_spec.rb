@@ -6,13 +6,7 @@ describe Projects::PaybackPeriodUpdater do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:project) { create(:project) }
-
-  let_it_be(:params) do
-    {
-      project_id: project.id,
-      months: '1234'
-    }
-  end
+  let_it_be(:params) { { project_id: project.id, months: '1234' } }
 
   before_all { described_class.new(current_user: super_user, attributes: params).call }
 

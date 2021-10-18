@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Mutations::Projects::UnarchiveProject do
-  include Projects::UnarchiveSpecHelper
+  include ProjectsTransitionSpecHelper
 
   let_it_be(:super_user) do
     create(

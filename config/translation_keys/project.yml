@@ -1,5 +1,4 @@
 project:
-  recipient:
   owner:
     project_created:
       - project_name
