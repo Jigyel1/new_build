@@ -60,7 +60,7 @@ projects:
       - title
     payback_period_updated:
       - project_name
-    file_uploaded:
+    files_uploaded:
       - filename
   others:
     address_book_created:
@@ -119,7 +119,7 @@ projects:
     payback_period_updated:
       - project_name
       - owner_email
-    file_uploaded:
+    files_uploaded:
       - owner_email
       - filename
 

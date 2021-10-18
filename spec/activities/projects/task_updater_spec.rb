@@ -14,12 +14,10 @@ describe Projects::TaskUpdater do
   let_it_be(:params) { { id: task.id, status: :completed } }
   let_it_be(:params_b) { { id: task_b.id, status: :completed } }
 
-  describe 'Update status for building' do
-    before do
-      described_class.new(current_user: super_user, attributes: params).call
-    end
+  describe '.activities' do
+    context 'with buildings' do
+      before { described_class.new(current_user: super_user, attributes: params).call }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
@@ -29,7 +27,7 @@ describe Projects::TaskUpdater do
             t('activities.projects.task_updated.owner',
               previous_status: task.status,
               status: params[:status],
-              type: task.taskable_type.split('::').last,
+              type: task.taskable_type.demodulize,
               title: task.title,
               recipient_email: kam.email)
           )
@@ -44,7 +42,7 @@ describe Projects::TaskUpdater do
             t('activities.projects.task_updated.recipient',
               previous_status: task.status,
               status: params[:status],
-              type: task.taskable_type.split('::').last,
+              type: task.taskable_type.demodulize,
               title: task.title,
               owner_email: super_user.email)
           )
@@ -61,7 +59,7 @@ describe Projects::TaskUpdater do
             t('activities.projects.task_updated.others',
               previous_status: task.status,
               status: params[:status],
-              type: task.taskable_type.split('::').last,
+              type: task.taskable_type.demodulize,
               title: task.title,
               owner_email: super_user.email,
               recipient_email: kam.email)
@@ -69,14 +67,10 @@ describe Projects::TaskUpdater do
         end
       end
     end
-  end
 
-  describe 'update status for project' do
-    before do
-      described_class.new(current_user: super_user, attributes: params_b).call
-    end
+    context 'with projects' do
+      before { described_class.new(current_user: super_user, attributes: params_b).call }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)

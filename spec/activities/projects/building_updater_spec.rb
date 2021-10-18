@@ -15,7 +15,6 @@ describe Projects::BuildingUpdater do
       it 'returns activity in terms of first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
-
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.projects.building_updated.owner',

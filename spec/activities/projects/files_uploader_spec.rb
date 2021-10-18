@@ -42,24 +42,19 @@ describe Projects::FilesUploader, type: :request do
   end
   let_it_be(:filename) { params[:files].original_filename }
 
-  before do
-    sign_in(super_user)
-  end
+  before { sign_in(super_user) }
 
-  describe 'Project::Building' do
-    before do
-      post api_v1_graphql_path, params: params
-    end
+  describe '.activities' do
+    context 'with building' do
+      before { post api_v1_graphql_path, params: params }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.project.file_uploaded.owner',
-              filename: filename)
+            t('activities.project.files_uploaded.owner')
           )
         end
       end
@@ -72,29 +67,23 @@ describe Projects::FilesUploader, type: :request do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.project.file_uploaded.others',
-              filename: filename,
+            t('activities.project.files_uploaded.others',
               owner_email: super_user.email)
           )
         end
       end
     end
-  end
 
-  describe 'Project' do
-    before do
-      post api_v1_graphql_path, params: params_b
-    end
+    context 'with Project' do
+      before { post api_v1_graphql_path, params: params_b }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.projects.file_uploaded.owner',
-              filename: filename)
+            t('activities.projects.files_uploaded.owner')
           )
         end
       end
@@ -107,8 +96,7 @@ describe Projects::FilesUploader, type: :request do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-            t('activities.projects.file_uploaded.others',
-              filename: filename,
+            t('activities.projects.files_uploaded.others',
               owner_email: super_user.email)
           )
         end

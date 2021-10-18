@@ -52,7 +52,7 @@ project:
   - project_draft_version
   - project_category_updated
   - incharge_updated
-  - file_uploaded
+  - files_uploaded
   - technical_analysis
   - technical_analysis_completed
   - offer_ready
@@ -70,7 +70,7 @@ projects/building:
   - building_deleted
   - building_imported
   - building_updated
-  - file_uploaded
+  - files_uploaded
   - task_created
   - task_created_and_copied
 projects/task:

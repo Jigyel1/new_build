@@ -125,9 +125,9 @@ en:
       incharge_updated:
         owner: 'Assigned `%{incharge_email}` as Technical Incharge for project `%{project_name}` by you'
         others: 'Assigned `%{incharge_email}` as Technical Incharge for project `%{project_name}` by %{owner_email}'
-      file_uploaded:
-        owner: 'Uploaded the file `%{filename}` under Project file Tab by you.'
-        others: 'A new file `%{filename}` under Project file tab was uploaded by %{owner_email}'
+      files_uploaded:
+        owner: 'Uploaded the file(s) under Project file Tab by you.'
+        others: 'A new file(s) under Project file tab was uploaded by %{owner_email}'
     projects:
       address_book_created:
         owner: 'For project `%{project_name}`, a new role type `%{address_book_type}` has been added by you'
@@ -156,9 +156,9 @@ en:
       payback_period_updated:
         owner: 'For Project `%{project_name}` the payback period has been recalculated by you'
         others: 'For Project `%{project_name}` the payback period has been recalculated by %{owner_email}'
-      file_uploaded:
-        owner: 'Uploaded the file `%{filename}` under Building file Tab by you.'
-        others: 'A new file `%{filename}` under Building file tab was uploaded by %{owner_email}'
+      files_uploaded:
+        owner: 'Uploaded the file(s) under Building file Tab by you.'
+        others: 'A new file(s) under Building file tab was uploaded by %{owner_email}'
       task_created:
         owner: 'Assigned project task `%{title}` to %{recipient_email} by you'
         others: 'Was assigned the project task `%{title}` was assigned to %{recipient_email} by %{owner_email}'

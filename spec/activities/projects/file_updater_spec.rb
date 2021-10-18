@@ -11,12 +11,10 @@ describe Projects::FileUpdater do
   let_it_be(:params) { { id: file.id, name: 'test' } }
   let_it_be(:params_b) { { id: file_b.id, name: 'test 2' } }
 
-  describe 'Project File Updated' do
-    before do
-      described_class.new(current_user: super_user, attributes: params).call
-    end
+  describe '.activities' do
+    context 'with Project' do
+      before { described_class.new(current_user: super_user, attributes: params).call }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
@@ -45,14 +43,10 @@ describe Projects::FileUpdater do
         end
       end
     end
-  end
 
-  describe 'Building File Updated' do
-    before do
-      described_class.new(current_user: super_user, attributes: params_b).call
-    end
+    context 'with Building' do
+      before { described_class.new(current_user: super_user, attributes: params_b).call }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)

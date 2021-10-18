@@ -14,12 +14,10 @@ describe Projects::TaskDeleter do
   let_it_be(:params) { { id: task.id } }
   let_it_be(:params_b) { { id: task_b.id } }
 
-  describe 'Project' do
-    before do
-      described_class.new(current_user: super_user, attributes: params).call
-    end
+  describe '.activities' do
+    context 'with Projects' do
+      before { described_class.new(current_user: super_user, attributes: params).call }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
@@ -27,7 +25,7 @@ describe Projects::TaskDeleter do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.owner',
-              type: task.taskable_type.split('::').last,
+              type: task.taskable_type.demodulize,
               title: task.title,
               recipient_email: kam.email)
           )
@@ -40,7 +38,7 @@ describe Projects::TaskDeleter do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.recipient',
-              type: task.taskable_type.split('::').last,
+              type: task.taskable_type.demodulize,
               title: task.title,
               owner_email: super_user.email)
           )
@@ -55,7 +53,7 @@ describe Projects::TaskDeleter do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.others',
-              type: task.taskable_type.split('::').last,
+              type: task.taskable_type.demodulize,
               title: task.title,
               owner_email: super_user.email,
               recipient_email: kam.email)
@@ -63,14 +61,10 @@ describe Projects::TaskDeleter do
         end
       end
     end
-  end
 
-  describe 'Building' do
-    before do
-      described_class.new(current_user: super_user, attributes: params_b).call
-    end
+    context 'with Buildings' do
+      before { described_class.new(current_user: super_user, attributes: params_b).call }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
@@ -78,7 +72,7 @@ describe Projects::TaskDeleter do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.owner',
-              type: task_b.taskable_type.split('::').last,
+              type: task_b.taskable_type.demodulize,
               title: task_b.title,
               recipient_email: kam.email)
           )
@@ -91,7 +85,7 @@ describe Projects::TaskDeleter do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.recipient',
-              type: task_b.taskable_type.split('::').last,
+              type: task_b.taskable_type.demodulize,
               title: task_b.title,
               owner_email: super_user.email)
           )
@@ -106,7 +100,7 @@ describe Projects::TaskDeleter do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_deleted.others',
-              type: task_b.taskable_type.split('::').last,
+              type: task_b.taskable_type.demodulize,
               title: task_b.title,
               owner_email: super_user.email,
               recipient_email: kam.email)

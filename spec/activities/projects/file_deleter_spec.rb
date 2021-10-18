@@ -11,12 +11,10 @@ describe Projects::FileDeleter do
   let_it_be(:params) { { id: file.id } }
   let_it_be(:params_b) { { id: file_b.id } }
 
-  describe 'Project File Deleted' do
-    before do
-      described_class.new(current_user: super_user, attributes: params).call
-    end
+  describe '.activities' do
+    context 'with Project' do
+      before { described_class.new(current_user: super_user, attributes: params).call }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
@@ -25,7 +23,7 @@ describe Projects::FileDeleter do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.active_storage.attachment_file_deleted.owner',
               filename: file.blob[:filename],
-              type: file.record_type.split('::').last)
+              type: file.record_type.demodulize)
           )
         end
       end
@@ -39,20 +37,16 @@ describe Projects::FileDeleter do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.active_storage.attachment_file_deleted.others',
               filename: file.blob[:filename],
-              type: file.record_type.split('::').last,
+              type: file.record_type.demodulize,
               owner_email: super_user.email)
           )
         end
       end
     end
-  end
 
-  describe 'Building File Deleted' do
-    before do
-      described_class.new(current_user: super_user, attributes: params_b).call
-    end
+    context 'with Building' do
+      before { described_class.new(current_user: super_user, attributes: params_b).call }
 
-    describe '.activities' do
       context 'as an owner' do
         it 'returns activity in terms of first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
@@ -61,7 +55,7 @@ describe Projects::FileDeleter do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.active_storage.attachment_file_deleted.owner',
               filename: file_b.blob[:filename],
-              type: file_b.record_type.split('::').last)
+              type: file_b.record_type.demodulize)
           )
         end
       end
@@ -76,7 +70,7 @@ describe Projects::FileDeleter do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.active_storage.attachment_file_deleted.others',
               filename: file_b.blob[:filename],
-              type: file_b.record_type.split('::').last,
+              type: file_b.record_type.demodulize,
               owner_email: super_user.email)
           )
         end

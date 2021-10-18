@@ -37,20 +37,13 @@ module Projects
       )
     end
 
-    # `Attachable` can either be a `project` or a `building`.
-    # If its a `project`, return that. Else, it will be a building in which case,
-    # you return `attachable.project`
-    def project
-      attachable.is_a?(Project) ? attachable : attachable.project
-    end
-
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :file_uploaded,
+        action: :files_uploaded,
         owner: current_user,
         trackable: attachable,
-        parameters: { filename: attributes[:files][0].original_filename }
+        parameters: attributes
       }
     end
   end

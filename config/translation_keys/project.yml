@@ -15,8 +15,8 @@ project:
       - project_name
     project_pct_cost:
       - parameters
-    file_uploaded:
-      - filename
+    files_uploaded:
+      - parameters
     technical_analysis:
       - project_name
       - status
@@ -57,9 +57,9 @@ project:
       - owner_email
       - incharge_email
       - project_name
-    file_uploaded:
+    files_uploaded:
       - owner_email
-      - filename
+      - parameters
     technical_analysis:
       - owner_email
       - project_name
