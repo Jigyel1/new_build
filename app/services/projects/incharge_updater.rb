@@ -24,7 +24,7 @@ module Projects
         owner: current_user,
         trackable: project,
         parameters: {
-          incharge_email: project.email,
+          incharge_email: project.incharge_email,
           project_name: project.name
         }
       }

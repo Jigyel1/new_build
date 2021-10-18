@@ -21,7 +21,7 @@ module Projects
         activity_id: activity_id,
         action: :project_imported,
         owner: current_user,
-        trackable_type: 'Projects',
+        trackable_type: 'Project',
         parameters: { filename: file.original_filename }
       }
     end

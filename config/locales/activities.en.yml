@@ -98,6 +98,9 @@ en:
       project_updated:
         owner: 'Edited the project `%{project_name}` information in the %{status} phase by you'
         others: 'The project `%{project_name}` information was edited by %{owner_email} in %{status} phase'
+      project_imported:
+        owner: 'Project file `%{filename}` has been imported by you'
+        others: 'Project file `%{filename}` has been imported by %{owner_email}'
       project_draft_version:
         owner: 'Project `%{project_name}` saved as draft by you'
         others: 'Project `%{project_name}` is saved as draft by %{owner_email}'
@@ -132,9 +135,6 @@ en:
       address_book_updated:
         owner: 'For project `%{project_name}`, Address book information for role type `%{address_book_type}` has been updated by you'
         others: 'For project `%{project_name}`, Address book information for role type `%{address_book_type}` has been updated by %{owner_email}'
-      project_imported:
-        owner: 'Project file `%{filename}` has been imported by you'
-        others: 'Project file `%{filename}` has been imported by %{owner_email}'
       building_created:
         owner: 'For Project `%{project_name}`, a new building `%{name}` has been added by you'
         others: 'For Project `%{project_name}`, a new building `%{name}` has been added by %{owner_email}'
