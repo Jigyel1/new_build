@@ -1,0 +1,87 @@
+project:
+  owner:
+    project_created:
+      - project_name
+    project_updated:
+      - project_name
+      - status
+    project_imported:
+      - filename
+    project_draft_version:
+      - project_name
+    incharge_updated:
+      - incharge_email
+      - project_name
+    project_pct_cost:
+      - parameters
+    files_uploaded:
+      - parameters
+    technical_analysis:
+      - project_name
+      - status
+    technical_analysis_completed:
+      - project_name
+      - status
+    offer_ready:
+      - previous_status
+      - project_name
+      - status
+    archive:
+      - previous_status
+      - project_name
+    unarchive:
+      - status
+      - project_name
+    revert:
+      - owner_email
+      - previous_status
+      - project_name
+      - status
+  others:
+    project_created:
+      - project_name
+      - owner_email
+      - entry_type
+    project_updated:
+      - project_name
+      - status
+      - owner_email
+    project_imported:
+      - filename
+      - owner_email
+    project_draft_version:
+      - project_name
+      - owner_email
+    incharge_updated:
+      - owner_email
+      - incharge_email
+      - project_name
+    files_uploaded:
+      - owner_email
+      - parameters
+    technical_analysis:
+      - owner_email
+      - project_name
+      - status
+    technical_analysis_completed:
+      - owner_email
+      - project_name
+      - status
+    offer_ready:
+      - owner_email
+      - previous_status
+      - project_name
+      - status
+    archive:
+      - owner_email
+      - previous_status
+      - project_name
+    unarchive:
+      - owner_email
+      - status
+      - project_name
+    revert:
+      - owner_email
+      - previous_status
+      - project_name
+      - status

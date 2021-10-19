@@ -83,7 +83,5 @@ Naming/MemoizedInstanceVariableName:
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
-# Temporarily disabling to enable support for activity logs in projects before its
-# implementation. Once activities are added for projects, this needs to be removed.
-Lint/UselessAssignment:
+Lint/ElseLayout:
   Enabled: false

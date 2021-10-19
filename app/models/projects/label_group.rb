@@ -10,6 +10,8 @@ module Projects
 
     validates :label_list, label_list: true
 
+    delegate :status, to: :project, prefix: true
+
     after_save :update_project
 
     def label_list=(value)

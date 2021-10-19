@@ -44,6 +44,22 @@ module Projects
 
         true
       end
+
+      def record_activity # rubocop:disable Metrics/SeliseMethodLength
+        with_tracking(activity_id = SecureRandom.uuid) do
+          Activities::ActivityCreator.new(
+            activity_id: activity_id,
+            action: aasm.current_event,
+            owner: current_user,
+            trackable: project,
+            parameters: {
+              previous_status: project.previous_status,
+              status: project.status,
+              project_name: project.name
+            }
+          ).call
+        end
+      end
     end
   end
 end

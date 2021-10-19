@@ -41,6 +41,7 @@ class Project < ApplicationRecord
 
   delegate :zip, to: :address
   delegate :project_cost, to: :pct_cost, allow_nil: true
+  delegate :email, to: :incharge, prefix: true, allow_nil: true
 
   # Project Nr - To be created by SELISE for manually created projects and imported projects.
   # This ID should start from the number '2' and in the format: eg: '2826123'

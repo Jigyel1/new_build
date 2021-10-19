@@ -10,6 +10,8 @@ module Projects
     has_many_attached :files, dependent: :destroy
     accepts_nested_attributes_for :address, allow_destroy: true
 
+    delegate :name, to: :project, prefix: true
+
     validates :name, :address, presence: true
     validates :external_id, uniqueness: true, allow_nil: true
 

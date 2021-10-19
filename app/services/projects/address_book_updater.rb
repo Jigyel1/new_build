@@ -9,7 +9,7 @@ module Projects
         address_book.assign_attributes(attributes)
         address_book.entry_type = :manual # even the ones that were initially from the `info_manager`
         address_book.save!
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -25,7 +25,7 @@ module Projects
         action: :address_book_updated,
         owner: current_user,
         trackable: address_book,
-        parameters: attributes
+        parameters: { project_name: address_book.project_name, address_book_type: address_book.type }
       }
     end
   end
