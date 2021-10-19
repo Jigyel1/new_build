@@ -25,6 +25,9 @@ module Penetrations
 
       penetration.kam_region = ::AdminToolkit::KamRegion.find_by!(name: row[KAM_REGION])
       penetration.penetration_competitions.find_or_initialize_by(competition: competition)
+    rescue ActiveRecord::RecordNotFound => e
+      $stdout.write("#{e.to_s} for penetration with zip #{penetration.zip}\n")
+      raise
     end
 
     private
