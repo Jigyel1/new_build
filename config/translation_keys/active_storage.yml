@@ -1,0 +1,18 @@
+active_storage:
+  owner:
+    attachment_file_deleted:
+      - filename
+      - type
+    attachment_file_updated:
+      - filename
+      - type
+      - owner_email
+  others:
+    attachment_file_deleted:
+      - filename
+      - type
+      - owner_email
+    attachment_file_updated:
+      - filename
+      - type
+      - owner_email

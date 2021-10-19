@@ -11,7 +11,7 @@ module Projects
         @address_book = project.address_books.build(attributes)
         address_book.entry_type = :manual
         address_book.save!
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -27,7 +27,7 @@ module Projects
         action: :address_book_created,
         owner: current_user,
         trackable: address_book,
-        parameters: attributes
+        parameters: { project_name: address_book.project_name, address_book_type: address_book.type }
       }
     end
   end

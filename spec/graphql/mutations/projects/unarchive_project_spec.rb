@@ -2,16 +2,8 @@
 
 require 'rails_helper'
 
-module Projects
-  module UnarchiveSpecHelper
-    def transitions(project, states)
-      states.each { |state| project.update!(status: state) }
-    end
-  end
-end
-
 describe Mutations::Projects::UnarchiveProject do
-  include Projects::UnarchiveSpecHelper
+  include ProjectsTransitionSpecHelper
 
   let_it_be(:super_user) do
     create(

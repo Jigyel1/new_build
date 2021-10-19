@@ -7,7 +7,7 @@ module Projects
 
       with_tracking(activity_id = SecureRandom.uuid) do
         project.update!(attributes)
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -23,7 +23,7 @@ module Projects
         action: :project_updated,
         owner: current_user,
         trackable: project,
-        parameters: attributes
+        parameters: { status: Project.statuses[project.status], project_name: project.name }
       }
     end
   end

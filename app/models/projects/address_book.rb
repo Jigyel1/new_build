@@ -15,6 +15,8 @@ module Projects
     validates :type, :name, :display_name, presence: true
     validates :type, uniqueness: { unless: :others?, scope: :project_id }
 
+    delegate :name, to: :project, prefix: true
+
     before_validation :set_display_name
     after_destroy :update_projects_list
     after_save :update_projects_list

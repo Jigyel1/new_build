@@ -10,7 +10,7 @@ module Projects
           payback_period: attributes[:months],
           system_generated_payback_period: false
         )
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -30,7 +30,7 @@ module Projects
         action: :payback_period_updated,
         owner: current_user,
         trackable: project_pct_cost,
-        parameters: attributes
+        parameters: { project_name: project_pct_cost.project_name }
       }
     end
   end

@@ -41,6 +41,46 @@ admin_toolkit/pct_month:
 
 admin_toolkit/pct_value:
   - pct_value_updated
-  -
+
 admin_toolkit/project_cost:
   - project_cost_updated
+
+project:
+  - project_created
+  - project_updated
+  - project_imported
+  - project_draft_version
+  - project_category_updated
+  - incharge_updated
+  - files_uploaded
+  - technical_analysis
+  - technical_analysis_completed
+  - offer_ready
+  - archive
+  - unarchive
+  - revert
+  - task_created
+  - task_created_and_copied
+
+projects/address_book:
+  - address_book_created
+  - address_book_updated
+projects/building:
+  - building_created
+  - building_deleted
+  - building_imported
+  - building_updated
+  - files_uploaded
+  - task_created
+  - task_created_and_copied
+projects/task:
+  - task_updated
+  - task_deleted
+projects/label_group:
+  - labels_created
+  - labels_updated
+projects/pct_cost:
+  - payback_period_updated
+active_storage/attachment:
+  - attachment_file_deleted
+  - attachment_file_updated

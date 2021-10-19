@@ -20,7 +20,8 @@ module Projects
         project.category = CategorySetter.new(project: project).call
         build_associations
         project.save!
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -32,7 +33,7 @@ module Projects
     end
 
     def build_associations
-      project.assignee_type = :nbo if project.assignee.nbo_team?
+      project.assignee_type = :nbo if project.assignee.try(:nbo_team?)
 
       BuildingsBuilder.new(project: project, buildings_count: buildings_count, apartments_count: apartments_count).call
     end
@@ -43,7 +44,7 @@ module Projects
         action: :project_created,
         owner: current_user,
         trackable: project,
-        parameters: attributes
+        parameters: { entry_type: project.entry_type, project_name: project.name }
       }
     end
   end
