@@ -9,7 +9,7 @@ project:
       - filename
     project_draft_version:
       - project_name
-    incharge_updated:
+    incharge_assigned:
       - incharge_email
       - project_name
     project_pct_cost:
@@ -52,7 +52,7 @@ project:
     project_draft_version:
       - project_name
       - owner_email
-    incharge_updated:
+    incharge_assigned:
       - owner_email
       - incharge_email
       - project_name

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Projects::InchargeUpdater do
+describe Projects::InchargeAssigner do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:project) { create(:project) }
@@ -18,7 +18,7 @@ describe Projects::InchargeUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.incharge_updated.owner',
+          t('activities.project.incharge_assigned.owner',
             incharge_email: kam.email,
             project_name: project.name)
         )
@@ -33,7 +33,7 @@ describe Projects::InchargeUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.incharge_updated.others',
+          t('activities.project.incharge_assigned.others',
             incharge_email: kam.email,
             project_name: project.name,
             owner_email: super_user.email)

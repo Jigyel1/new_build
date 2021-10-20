@@ -122,7 +122,7 @@ en:
       revert:
         owner: 'Project `%{project_name}` reverted from  %{previous_status} to %{status} by you '
         others: 'Project `%{project_name}` reverted from  %{previous_status} to %{status} by %{owner_email}'
-      incharge_updated:
+      incharge_assigned:
         owner: 'Assigned `%{incharge_email}` as Technical Incharge for project `%{project_name}` by you'
         others: 'Assigned `%{incharge_email}` as Technical Incharge for project `%{project_name}` by %{owner_email}'
       files_uploaded:
