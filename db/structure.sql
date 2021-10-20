@@ -920,6 +920,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.buildings_count,
     projects.lot_number,
     projects.internal_id,
+    projects.draft_version,
     cardinality(projects.label_list) AS labels,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     concat(profiles.firstname, ' ', profiles.lastname) AS assignee,
@@ -2124,6 +2125,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210908121800'),
 ('20210908121948'),
 ('20210908122833'),
-('20210911120552');
+('20210911120552'),
+('20211020080514');
 
 
