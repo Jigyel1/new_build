@@ -11,7 +11,7 @@ RSpec.describe Mutations::CreateProject do
   before_all do
     create(
       :admin_toolkit_footprint_value,
-      footprint_type:  create(:admin_toolkit_footprint_type) ,
+      footprint_type: create(:admin_toolkit_footprint_type),
       footprint_apartment: create(:admin_toolkit_footprint_apartment, index: 1, min: 6, max: 10)
     )
 
