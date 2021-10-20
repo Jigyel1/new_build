@@ -83,7 +83,7 @@ describe Projects::CategorySetter do
     )
   end
 
-  let_it_be(:competition_a) { create(:admin_toolkit_competition, name: 'FTTH SFN') }
+  let_it_be(:competition_a) { create(:admin_toolkit_competition, name: 'FTTH SFN', sfn: true) }
   let_it_be(:competition_b) { create(:admin_toolkit_competition, name: 'FTTH Swisscom') }
   let_it_be(:competition_c) { create(:admin_toolkit_competition, name: 'VDSL') }
 

@@ -489,7 +489,8 @@ CREATE TABLE public.admin_toolkit_competitions (
     lease_rate numeric NOT NULL,
     description text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    sfn boolean DEFAULT false
 );
 
 
@@ -2126,6 +2127,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210908121948'),
 ('20210908122833'),
 ('20210911120552'),
-('20211020080514');
+('20211020080514'),
+('20211020111623');
 
 

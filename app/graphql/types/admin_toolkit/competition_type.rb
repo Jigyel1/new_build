@@ -5,6 +5,7 @@ module Types
     class CompetitionType < BaseObject
       field :id, ID, null: true
       field :name, String, null: true
+      field :sfn, Boolean, null: true
       field :factor, Float, null: true
       field :lease_rate, String, null: true
       field :description, String, null: true
