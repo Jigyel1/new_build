@@ -1398,6 +1398,13 @@ CREATE UNIQUE INDEX index_admin_toolkit_competitions_on_name ON public.admin_too
 
 
 --
+-- Name: index_admin_toolkit_competitions_on_sfn; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_toolkit_competitions_on_sfn ON public.admin_toolkit_competitions USING btree (sfn);
+
+
+--
 -- Name: index_admin_toolkit_footprint_apartments_on_index; Type: INDEX; Schema: public; Owner: -
 --
 
