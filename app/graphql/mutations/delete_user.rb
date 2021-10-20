@@ -9,13 +9,21 @@ module Mutations
       DESC
 
       argument :region_mappings, [GraphQL::Types::JSON], required: false, description: <<~DESC
-        Send request in this format - [{ kam_region_id: :kam_id }, { ... } ]
+        Send request in this format -
+        [
+          { kamRegionId: "b9371473-4259-4180-8d4d-c4906c0d6e7f", :kamId: "063ba163-2446-4198-9b3d-90133c163db0" },
+          { ... }
+        ]
         Only applicable for KAMs.
       DESC
 
       argument :investor_mappings, [GraphQL::Types::JSON], required: false, description: <<~DESC
-        Send request in this format - [{ kam_investor_id: :kam_id }, { ... } ]
-        Only applicable for KAMs.
+        Send request in this format -
+         [
+           { kamInvestorId: "b9371473-4259-4180-8d4d-c4906c0d6e7f", :kamId: "063ba163-2446-4198-9b3d-90133c163db0" },
+           { ... }
+         ]
+         Only applicable for KAMs.
       DESC
     end
 

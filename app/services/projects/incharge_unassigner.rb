@@ -7,6 +7,8 @@ module Projects
 
       with_tracking(activity_id = SecureRandom.uuid) do # rubocop:disable Lint/UselessAssignment
         project.update!(incharge_id: nil)
+
+        # TODO: @Jigyel - FYA
         # Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end

@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.1.4] - 2021-08-26
+
+### Features
+- Filter projects with `internal_ids`.
+- `draft_version` attribute available to `ProjectsList` table.
+
+### Fixes
+- Admin toolkit to use apartments count for project categorization instead of buildings count. `AdminToolkit::Building` renamed as `AdminToolkit::Apartment`
+- Re-assign user projects and tasks to another user before deleting the user.
+- For KAMs, KAM Regions & KAM Investors need to be reassigned as well if they have any.
+- Mutation changes => `UpdateIncharge` to `AssignIncharge` as this made more sense after introducing `UnassignIncharge` mutation.
+- Set `gis_url` and `info_manager_url` for projects on creation.
+- Technical Analysis Completed to be performed only by project incharge. And if it's a complex project, they should additionally have permission for complex project transitions.
+- Move cost based authorization to `ready_for_offer` stage from `technical_analysis_completed` stage.
+
+
+
 ## [0.1.3] - 2021-10-19
 
 ### Feature

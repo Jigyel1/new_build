@@ -49,9 +49,6 @@ module Telco
       after_save :update_mat_view
       after_destroy :update_mat_view
 
-      # This shouldn't be necessary with the form/service-object validations?
-      after_discard :check_associations
-
       # Updates provider & uid for the user.
       #
       # @param auth [Hash] - which contains uid & provider details
@@ -93,12 +90,6 @@ module Telco
       def update_mat_view
         UsersList.refresh
         ProjectsList.refresh
-      end
-
-      def check_associations
-        return if kam_regions.empty?
-
-        raise "KAM Region still present!. Can't delete"
       end
     end
   end
