@@ -36,7 +36,7 @@ module Users
 
     private
 
-    ASSOCIATIONS = %i[assigned_tasks projects assigned_projects].freeze
+    ASSOCIATIONS = %i[buildings assigned_tasks projects assigned_projects].freeze
 
     # validates <tt>attributes[:assignee_id]</tt> is present when the user to be
     # deleted has assigned tasks or projects.

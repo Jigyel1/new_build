@@ -5,6 +5,7 @@ User = Telco::Uam::User
 module Telco
   module Uam
     class User
+      include Associations::User
       include Discard::Model
       include LogidzeWrapper
 
@@ -14,37 +15,9 @@ module Telco
       # which I feel is not worth the slight benefit achieved.
       self.strict_loading_by_default = false
 
-      belongs_to :role, counter_cache: true
-      has_one :profile, inverse_of: :user, dependent: :destroy
-      has_one :address, as: :addressable, inverse_of: :addressable, dependent: :destroy
-
-      has_many :activities, foreign_key: :owner_id, dependent: :destroy
-      has_many :involvements, foreign_key: :recipient_id, class_name: 'Activity', dependent: :destroy
-      has_many :tasks, foreign_key: :owner_id, dependent: :restrict_with_exception, class_name: 'Projects::Task'
-      has_many :assigned_tasks, foreign_key: :assignee_id, dependent: :restrict_with_exception,
-                                class_name: 'Projects::Task'
-
-      has_many :projects, foreign_key: :incharge_id, dependent: :restrict_with_exception
-      has_many :assigned_projects, foreign_key: :assignee_id, dependent: :restrict_with_exception, class_name: 'Project'
-      has_many :kam_investors, foreign_key: :kam_id, dependent: :restrict_with_exception,
-                               class_name: 'AdminToolkit::KamInvestor'
-      has_many :kam_regions, foreign_key: :kam_id, dependent: :restrict_with_exception,
-                             class_name: 'AdminToolkit::KamRegion'
-
-      has_one_attached :activity_download
-      has_one_attached :projects_download
-
       validates :profile, presence: true
 
       default_scope { kept }
-
-      accepts_nested_attributes_for :profile, :address, allow_destroy: true
-
-      delegate :salutation, :name, :lastname, :firstname, to: :profile
-      delegate :id, to: :profile, prefix: true
-      delegate :id, to: :address, prefix: true, allow_nil: true
-      delegate :permissions, :admin?, :nbo_team?, to: :role
-      delegate :name, to: :role, prefix: true
 
       after_save :update_mat_view
       after_destroy :update_mat_view
@@ -63,8 +36,6 @@ module Telco
       def password_required?
         false
       end
-
-      has_logidze
 
       def invite!(invited_by = nil, options = {})
         Users::UserInviter.new(current_user: Current.current_user, user: self).call { super }

@@ -79,7 +79,7 @@ en:
       error_while_adding_label: Unable to update label after project transition. Errors => %{error}. Are you able to fetch the
         project priority from the admin toolkit?
   user:
-    assignee_missing: User has associated records(projects/tasks). You need to set an assignee before deleting this user.
+    assignee_missing: User has associated records(projects/buildings/tasks). You need to set an assignee before deleting this user.
     kam_with_regions: User is a KAM for these regions - %{references}. You need to reassign another KAM if you want
       delete this user.
     kam_with_investors: User is a KAM for investors with ids - %{references}. You need to reassign another KAM if you want
