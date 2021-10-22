@@ -115,6 +115,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(data.projectPctCost.projectCost).to eq(0.0)
+        expect(data.projectPctCost.projectConnectionCost).to eq(0.0)
       end
     end
 

@@ -8,9 +8,10 @@ module Hooks
 
     included do
       after_save :update_projects_list, :update_users_list
+      after_destroy :update_projects_list, :update_users_list
+
       before_create :set_external_urls
       after_create :create_default_label_group
-      after_destroy :update_projects_list, :update_users_list
     end
 
     private
