@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Fixes
 - Admin toolkit to use apartments count for project categorization instead of buildings count. `AdminToolkit::Building` renamed as `AdminToolkit::Apartment`
-- Re-assign user projects and tasks to another user before deleting the user.
+- Re-assign user projects, buildings and tasks to another user before deleting the user.
 - For KAMs, KAM Regions & KAM Investors need to be reassigned as well if they have any.
 - Mutation changes => `UpdateIncharge` to `AssignIncharge` as this made more sense after introducing `UnassignIncharge` mutation.
 - Set `gis_url` and `info_manager_url` for projects on creation.

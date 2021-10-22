@@ -5,7 +5,7 @@ module Mutations
     class DeleteUserAttributes <  Types::BaseInputObject
       argument :id, ID, required: true
       argument :assignee_id, ID, required: false, description: <<~DESC
-        All projects & tasks belonging to the user being deleted will be re assigned to this user.
+        All projects, buildings & tasks belonging to the user being deleted will be re assigned to this user.
       DESC
 
       argument :region_mappings, [GraphQL::Types::JSON], required: false, description: <<~DESC
