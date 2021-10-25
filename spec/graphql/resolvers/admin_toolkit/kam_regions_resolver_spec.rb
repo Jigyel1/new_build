@@ -72,10 +72,4 @@ RSpec.describe Resolvers::AdminToolkit::KamRegionsResolver do
   def query(args = {})
     connection_query("adminToolkitKamRegions#{query_string(args)}", 'id name kam { id name }')
   end
-
-  def query_string(args = {})
-    params = args[:kam_ids] ? ["kamIds: #{args[:kam_ids]}"] : []
-    params << "query: \"#{args[:query]}\"" if args[:query]
-    params.empty? ? nil : "(#{params.join(',')})"
-  end
 end

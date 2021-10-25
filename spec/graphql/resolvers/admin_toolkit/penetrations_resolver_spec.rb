@@ -142,14 +142,4 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
 
     connection_query("adminToolkitPenetrations#{query_string(args)}", response)
   end
-
-  def query_string(args = {}) # rubocop:disable Metrics/AbcSize
-    params = args[:competitions] ? ["competitions: #{args[:competitions]}"] : []
-    params << "types: #{args[:types]}" if args[:types].present?
-    params << "hfcFootprint: #{args[:hfc_footprint]}" if args[:hfc_footprint]
-    params << "kamRegions: #{args[:kam_regions]}" if args[:kam_regions]
-    params << "query: \"#{args[:query]}\"" if args[:query]
-
-    params.empty? ? nil : "(#{params.join(',')})"
-  end
 end

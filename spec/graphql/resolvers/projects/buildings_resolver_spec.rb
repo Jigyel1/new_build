@@ -42,13 +42,13 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
   end
 
   def query(args = {})
-    connection_query("buildings#{query_string(args)}", 'id externalId name tasks')
+    connection_query(
+      "buildings#{query_string(args)}",
+      'id externalId name tasks'
+    )
   end
 
   def query_string(args = {})
-    params = ["projectId: \"#{project.id}\""]
-    params << "query: \"#{args[:query]}\"" if args[:query]
-
-    params.empty? ? nil : "(#{params.join(',')})"
+    super { { projectId: project.id } }
   end
 end

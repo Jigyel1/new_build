@@ -156,18 +156,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
     connection_query("tasks#{query_string(args)}", 'id title description assignee { email }')
   end
 
-  def query_string(args = {}) # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/AbcSize
-    params = args[:statuses] ? ["statuses: #{args[:statuses]}"] : []
-    params += ["assigneeIds: #{args[:assignee_ids]}"] if args[:assignee_ids]
-    params += if args[:taskable]
-                ["taskable: #{args[:taskable]}"]
-              else
-                ["taskable: #{[project.id, 'Project']}"]
-              end
-
-    params << "first: #{args[:first]}" if args[:first]
-    params << "skip: #{args[:skip]}" if args[:skip]
-    params << "query: \"#{args[:query]}\"" if args[:query]
-    params.empty? ? nil : "(#{params.join(',')})"
+  def query_string(args = {})
+    super { { taskable: args[:taskable].presence || [project.id, 'Project'] } }
   end
 end

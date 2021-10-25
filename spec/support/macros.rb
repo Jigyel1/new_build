@@ -122,3 +122,20 @@ def connection_query(request, response, meta: nil)
     }
   GQL
 end
+
+def query_string(kwargs)
+  kwargs.merge! yield if block_given?
+  return if kwargs.blank?
+
+  params = kwargs.reduce([]) do |arr, key_value|
+    key, value = key_value
+    formatted = case value
+                when String then "\"#{value}\""
+                else value # covers TrueClass, FalseClass, String
+                end
+
+    arr << "#{key.to_s.camelize(:lower)}:#{formatted}"
+  end
+
+  params.try { |result| "(#{result.join(',')})" }
+end

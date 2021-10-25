@@ -56,8 +56,4 @@ RSpec.describe Resolvers::AdminToolkit::CompetitionsResolver do
   def query(args = {})
     connection_query("adminToolkitCompetitions#{query_string(args)}", 'id factor leaseRate name description')
   end
-
-  def query_string(args = {})
-    args[:query] ? "(query: \"#{args[:query]}\")" : nil
-  end
 end

@@ -44,8 +44,4 @@ RSpec.describe Resolvers::RoleResolver do
       query { role#{query_string(args)} { id name usersCount } }
     GQL
   end
-
-  def query_string(args = {})
-    args[:id].present? ? "(id: \"#{args[:id]}\")" : nil
-  end
 end

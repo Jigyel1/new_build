@@ -87,17 +87,7 @@ RSpec.describe Resolvers::Projects::FilesResolver do
     connection_query("files#{query_string(args)}", 'id name owner { name }')
   end
 
-  def query_string(args = {}) # rubocop:disable Metrics/AbcSize
-    params = args[:owner_ids] ? ["ownerIds: #{args[:owner_ids]}"] : []
-    params += if args[:attachable]
-                ["attachable: #{args[:attachable]}"]
-              else
-                ["attachable: #{[project.id, 'Project']}"]
-              end
-
-    params << "first: #{args[:first]}" if args[:first]
-    params << "skip: #{args[:skip]}" if args[:skip]
-    params << "query: \"#{args[:query]}\"" if args[:query]
-    params.empty? ? nil : "(#{params.join(',')})"
+  def query_string(args = {})
+    super { { attachable: args[:attachable].presence || [project.id, 'Project'] } }
   end
 end
