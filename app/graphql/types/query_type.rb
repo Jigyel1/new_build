@@ -79,8 +79,7 @@ module Types
       preauthorize: { record: ::Project, with: ::ProjectPolicy, to: :index? })
 
     field :project, resolver: Resolvers::ProjectResolver, authorize: { with: ProjectPolicy }
-    field :project_pct_cost, resolver: Resolvers::Projects::PctCostResolver,
-                             authorize: { with: ProjectPolicy, record: Project }
+    field :project_pct_cost, resolver: Resolvers::Projects::PctCostResolver
     field :project_states, resolver: Resolvers::Projects::StatesResolver, description: <<~DESC
       All possible states that any project may/may not have.
     DESC
