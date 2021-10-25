@@ -123,11 +123,18 @@ def connection_query(request, response, meta: nil)
   GQL
 end
 
-def query_string(kwargs)
-  kwargs.merge! yield if block_given?
-  return if kwargs.blank?
+# Formats the given input hash to a GraphQL string.
+# Pass the default required key values for a given spec file in a block to avoid
+# passing it in every query param. eg.
+#   super { { projectId: project.id } }
+#
+# @param [Hash] params Keyword arguments
+# @param [String]
+def query_string(params)
+  params.merge! yield if block_given?
+  return if params.blank?
 
-  params = kwargs.reduce([]) do |arr, key_value|
+  params.reduce([]) do |arr, key_value|
     key, value = key_value
     formatted = case value
                 when String then "\"#{value}\""
@@ -136,6 +143,5 @@ def query_string(kwargs)
 
     arr << "#{key.to_s.camelize(:lower)}:#{formatted}"
   end
-
-  params.try { |result| "(#{result.join(',')})" }
+    .try { |result| "(#{result.join(',')})" }
 end

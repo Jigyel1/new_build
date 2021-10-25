@@ -4,7 +4,7 @@ class Project < ApplicationRecord
   include Accessors::Project
   include Hooks::Project
   include Enumable::Project
-  include Taskable
+  include Trackable
 
   # `assignee` would be the owner of the project.
   belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
