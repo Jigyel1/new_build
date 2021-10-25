@@ -22,6 +22,14 @@ from the jump server - `su mvm`, then `ssh nginx`
 
 nginx_config: `//etc/nginx/conf.d/telco/new-build-thor.conf`
 
+And for `pg`, `ssh pg` from the jump server
+
+```ruby
+# to create a db dump
+sudo -su postgres
+pg_dump database_name > file_name.sql
+```
+
 ---
 
 sidekiq-ui: `new-build-thor.selise.dev/sidekiq`

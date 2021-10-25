@@ -44,9 +44,7 @@ module Types
           resolver: Resolvers::AdminToolkit::PctsResolver,
           preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
-    field(:admin_toolkit_labels,
-          resolver: Resolvers::AdminToolkit::LabelsResolver,
-          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+    field(:admin_toolkit_labels, resolver: Resolvers::AdminToolkit::LabelsResolver)
 
     field(:admin_toolkit_project_cost,
           resolver: Resolvers::AdminToolkit::ProjectCostResolver,
@@ -78,8 +76,8 @@ module Types
       :projects,
       resolver: Resolvers::ProjectsResolver,
       connection: true,
-      preauthorize: { record: ::Project, with: ::ProjectPolicy, to: :index? }
-    )
+      preauthorize: { record: ::Project, with: ::ProjectPolicy, to: :index? })
+
     field :project, resolver: Resolvers::ProjectResolver, authorize: { with: ProjectPolicy }
     field :project_pct_cost, resolver: Resolvers::Projects::PctCostResolver,
                              authorize: { with: ProjectPolicy, record: Project }

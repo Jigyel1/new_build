@@ -28,7 +28,7 @@ module Resolvers
             admin_toolkit_competitions.name, admin_toolkit_competitions.description,
             admin_toolkit_kam_regions.name, firstname, lastname, email)
             iLIKE ?", "%#{value.squish}%"
-          )
+          ).distinct
       end
     end
   end

@@ -134,8 +134,8 @@ def query_string(params)
   params.merge! yield if block_given?
   return if params.blank?
 
-  params.reduce([]) do |arr, key_value|
-    key, value = key_value
+  array = params.reduce([]) do |arr, param|
+    key, value = param
     formatted = case value
                 when String then "\"#{value}\""
                 else value # covers TrueClass, FalseClass, String
@@ -143,5 +143,6 @@ def query_string(params)
 
     arr << "#{key.to_s.camelize(:lower)}:#{formatted}"
   end
-    .try { |result| "(#{result.join(',')})" }
+
+  array.try { |item| "(#{item.join(',')})" }
 end

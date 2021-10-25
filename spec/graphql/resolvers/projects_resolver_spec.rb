@@ -180,6 +180,14 @@ RSpec.describe Resolvers::ProjectsResolver do
         )
       end
     end
+
+    context 'without read permission' do
+      it 'forbids action' do
+        projects, errors = paginated_collection(:projects, query, current_user: kam)
+        expect(projects).to be_nil
+        expect(errors).to eq(['Not Authorized'])
+      end
+    end
   end
 
   def query(args = {})
