@@ -22,5 +22,7 @@ module Types
     field :investor, String, null: true
     field :assignee, String, null: true
     field :kam_region, String, null: true
+
+    field :draft_version, GraphQL::Types::JSON, null: true
   end
 end

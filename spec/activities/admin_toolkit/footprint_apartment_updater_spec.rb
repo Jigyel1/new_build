@@ -2,25 +2,22 @@
 
 require 'rails_helper'
 
-describe Projects::InchargeUpdater do
-  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
-  let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:project) { create(:project) }
+describe AdminToolkit::FootprintApartmentUpdater do
+  let_it_be(:super_user) { create(:user, :super_user) }
+  let_it_be(:footprint_apartment) { create(:admin_toolkit_footprint_apartment) }
+  let_it_be(:params) { { id: footprint_apartment.id, max: 10 } }
 
-  let_it_be(:params) { { project_id: project.id, incharge_id: kam.id } }
-
-  before_all { described_class.new(current_user: super_user, attributes: params).call }
+  before_all { ::AdminToolkit::FootprintApartmentUpdater.new(current_user: super_user, attributes: params).call }
 
   describe '.activities' do
     context 'as an owner' do
-      it 'returns activity in terms of first person' do
+      it 'returns activity text in terms of a first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.incharge_updated.owner',
-            incharge_email: kam.email,
-            project_name: project.name)
+          t('activities.admin_toolkit.footprint_apartment_updated.owner',
+            max: params[:max])
         )
       end
     end
@@ -33,10 +30,9 @@ describe Projects::InchargeUpdater do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.incharge_updated.others',
-            incharge_email: kam.email,
-            project_name: project.name,
-            owner_email: super_user.email)
+          t('activities.admin_toolkit.footprint_apartment_updated.others',
+            owner_email: super_user.email,
+            max: params[:max])
         )
       end
     end

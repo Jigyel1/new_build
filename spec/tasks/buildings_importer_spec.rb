@@ -55,7 +55,7 @@ describe BuildingsImporter do
   context 'when excel has more buildings than the portal' do
     before_all { described_class.call(current_user: super_user, input: file) }
 
-    it 'updates details for idable buildings' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+    it 'updates details for idable buildings' do # rubocop:disable RSpec/ExampleLength
       building = Projects::Building.find_by(external_id: 58_580)
       expect(building).to have_attributes(
         apartments_count: 1,

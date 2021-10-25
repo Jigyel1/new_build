@@ -12,11 +12,11 @@ describe ProjectsImporter do
   let_it_be(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region, zip: '8914') }
 
   let_it_be(:footprint_type) { create(:admin_toolkit_footprint_type, provider: :neither) }
-  let_it_be(:footprint_building) { create(:admin_toolkit_footprint_building) }
+  let_it_be(:footprint_apartment) { create(:admin_toolkit_footprint_apartment) }
   let_it_be(:footprint_value) do
     create(
       :admin_toolkit_footprint_value,
-      footprint_type: footprint_type, footprint_building: footprint_building
+      footprint_type: footprint_type, footprint_apartment: footprint_apartment
     )
   end
 
@@ -37,7 +37,9 @@ describe ProjectsImporter do
       apartments_count: 1,
       coordinate_east: 2_680_642.427,
       coordinate_north: 1_236_913.869,
-      category: 'standard'
+      category: 'standard',
+      gis_url: "#{Rails.application.config.gis_url}#{project.external_id}",
+      info_manager_url: "#{Rails.application.config.info_manager_url}#{project.external_id}"
     )
 
     expect(project.kam_region.name).to eq('Ost ZH')

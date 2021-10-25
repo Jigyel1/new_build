@@ -24,7 +24,7 @@ module Types
     field :update_pct_month, mutation: Mutations::AdminToolkit::UpdatePctMonth
     field :update_pct_values, mutation: Mutations::AdminToolkit::UpdatePctValues
 
-    field :update_footprint_building, mutation: Mutations::AdminToolkit::UpdateFootprintBuilding
+    field :update_footprint_apartment, mutation: Mutations::AdminToolkit::UpdateFootprintApartment
     field :update_footprint_values, mutation: Mutations::AdminToolkit::UpdateFootprintValues
 
     field :update_labels, mutation: Mutations::AdminToolkit::UpdateLabels
@@ -60,7 +60,8 @@ module Types
     field :archive_project, mutation: Mutations::Projects::ArchiveProject
     field :unarchive_project, mutation: Mutations::Projects::UnarchiveProject
 
-    field :update_project_incharge, mutation: Mutations::Projects::UpdateIncharge
+    field :assign_project_incharge, mutation: Mutations::Projects::AssignIncharge
+    field :unassign_project_incharge, mutation: Mutations::Projects::UnassignIncharge
     field :update_payback_period, mutation: Mutations::Projects::UpdatePaybackPeriod
 
     field :save_draft, mutation: Mutations::Projects::SaveDraft

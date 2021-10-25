@@ -16,6 +16,9 @@ Rails.application.configure do
   config.azure_client_id = ENV['AZURE_CLIENT_ID']
   config.azure_secret = ENV['AZURE_SECRET']
 
+  config.gis_url = ENV['GIS_URL']
+  config.info_manager_url = ENV['INFO_MANAGER_URL']
+
   config.mail_sender = ENV['MAIL_SENDER']
 
   config.available_permissions = FileParser.parse { 'config/available_permissions.yml' }

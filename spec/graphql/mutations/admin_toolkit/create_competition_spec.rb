@@ -14,6 +14,7 @@ RSpec.describe Mutations::AdminToolkit::CreateCompetition do
         expect(errors).to be_nil
         expect(response.competition).to have_attributes(
           factor: 1.3,
+          sfn: true,
           leaseRate: '119.9834',
           name: 'FTTH SC & EVU',
           description: 'Very high competition (fiber areas such as Zurich, Bern, Lucerne, etc.)'
@@ -50,13 +51,14 @@ RSpec.describe Mutations::AdminToolkit::CreateCompetition do
           input: {
             attributes: {
               factor: #{args[:factor]}
+              sfn: true
               leaseRate: "119.9834"
               name: "FTTH SC & EVU"
               description: "Very high competition (fiber areas such as Zurich, Bern, Lucerne, etc.)"
             }
           }
         )
-        { competition { id factor leaseRate name description } }
+        { competition { id sfn factor leaseRate name description } }
       }
     GQL
   end

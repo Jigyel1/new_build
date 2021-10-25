@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# For enum values - check out - https://bitbucket.org/selise07/shopper-on/pull-requests/36
-
 module Resolvers
   class ProjectsResolver < SearchObjectBase
     scope { ProjectsList.all }
@@ -13,6 +11,7 @@ module Resolvers
     option(:assignees, type: [String]) { |scope, value| scope.where(assignee_id: value) }
     option(:priorities, type: [String]) { |scope, value| scope.where(priority: value) }
     option(:construction_types, type: [String]) { |scope, value| scope.where(construction_type: value) }
+    option(:internal_ids, type: [String]) { |scope, value| scope.where(internal_id: value) }
 
     option :buildings_count, type: [Int], with: :apply_buildings_filter, description: <<~DESC
       Send min and max values in the array. eg. [2, 10]. Only the first two values will be picked.

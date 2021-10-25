@@ -8,6 +8,22 @@ RSpec.describe Mutations::CreateProject do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :create }) }
   let_it_be(:kam) { create(:user, :kam) }
 
+  before_all do
+    create(
+      :admin_toolkit_footprint_value,
+      footprint_type: create(:admin_toolkit_footprint_type),
+      footprint_apartment: create(:admin_toolkit_footprint_apartment, index: 1, min: 6, max: 10)
+    )
+
+    create(
+      :admin_toolkit_penetration,
+      :hfc_footprint,
+      zip: '8008',
+      kam_region: create(:kam_region),
+      penetration_competitions: [build(:penetration_competition, competition: create(:admin_toolkit_competition))]
+    )
+  end
+
   describe '.resolve' do
     context 'with valid params' do
       let!(:params) { { status: 'Technical Analysis', move_in_starts_on: Date.current } }
@@ -22,10 +38,17 @@ RSpec.describe Mutations::CreateProject do
           status: 'technical_analysis',
           assigneeType: 'nbo',
           apartmentsCount: 10,
-          buildingsCount: 3
+          buildingsCount: 3,
+          category: 'standard'
         )
 
         expect(response.project.assignee).to have_attributes(id: kam.id, name: kam.name)
+
+        project = Project.find(response.project.id)
+        expect(project).to have_attributes(
+          gis_url: "#{Rails.application.config.gis_url}#{project.external_id}",
+          info_manager_url: "#{Rails.application.config.info_manager_url}#{project.external_id}"
+        )
       end
 
       it 'creates the associated address books' do
@@ -181,7 +204,7 @@ RSpec.describe Mutations::CreateProject do
         )
         {
           project {
-            id status internalId moveInStartsOn assigneeType apartmentsCount buildingsCount
+            id status category internalId moveInStartsOn assigneeType apartmentsCount buildingsCount
             assignee { id name }
             addressBooks { id type name company language email website phone mobile
             address { id street city zip} }

@@ -6,10 +6,10 @@ module Projects
 
     def call
       AdminToolkit::FootprintValue
-        .joins(:footprint_building, :footprint_type)
+        .joins(:footprint_apartment, :footprint_type)
         .where(
-          'admin_toolkit_footprint_buildings.min <= :value AND admin_toolkit_footprint_buildings.max >= :value',
-          value: project.buildings.size # look for size in memory, not from the db.
+          'admin_toolkit_footprint_apartments.min <= :value AND admin_toolkit_footprint_apartments.max >= :value',
+          value: project.buildings.sum(&:apartments_count) # look for size in memory, not from the db.
         ).find_by(admin_toolkit_footprint_types: { provider: provider })
         .try(:category)
     rescue ActiveRecord::RecordNotFound
@@ -22,9 +22,8 @@ module Projects
       @_penetration ||= AdminToolkit::Penetration.find_by!(zip: project.zip)
     end
 
-    # TODO: add a code to the competition to make checks like this more concrete.
     def provider
-      sfn = penetration.competitions.exists?(name: 'FTTH SFN')
+      sfn = penetration.competitions.exists?(sfn: true)
       hfc = penetration.hfc_footprint
 
       if sfn && hfc then :both

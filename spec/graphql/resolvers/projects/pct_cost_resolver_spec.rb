@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Resolvers::Projects::PctCostResolver do
   let_it_be(:project_cost) { create(:admin_toolkit_project_cost) }
   let_it_be(:zip) { '1101' }
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
+  let_it_be(:kam_region) { create(:kam_region) }
   let_it_be(:penetration) { create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region, rate: 4.56) }
   let_it_be(:competition) { create(:admin_toolkit_competition, lease_rate: 8.5) }
   let_it_be(:penetration_competition) do
@@ -115,6 +115,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(data.projectPctCost.projectCost).to eq(0.0)
+        expect(data.projectPctCost.projectConnectionCost).to eq(0.0)
       end
     end
 

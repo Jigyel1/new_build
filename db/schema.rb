@@ -87,13 +87,13 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.index ["name"], name: "index_admin_toolkit_competitions_on_name", unique: true
   end
 
-  create_table "admin_toolkit_footprint_buildings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "admin_toolkit_footprint_apartments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "min", null: false
     t.integer "max", null: false
     t.integer "index", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["index"], name: "index_admin_toolkit_footprint_buildings_on_index", unique: true
+    t.index ["index"], name: "index_admin_toolkit_footprint_apartments_on_index", unique: true
   end
 
   create_table "admin_toolkit_footprint_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -106,13 +106,13 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
 
   create_table "admin_toolkit_footprint_values", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "project_type", null: false
-    t.uuid "footprint_building_id", null: false
+    t.uuid "footprint_apartment_id", null: false
     t.uuid "footprint_type_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["footprint_building_id"], name: "index_admin_toolkit_footprint_values_on_footprint_building_id"
+    t.index ["footprint_apartment_id"], name: "index_admin_toolkit_footprint_values_on_footprint_apartment_id"
     t.index ["footprint_type_id"], name: "index_admin_toolkit_footprint_values_on_footprint_type_id"
-    t.index ["project_type", "footprint_type_id", "footprint_building_id"], name: "index_footprint_values_on_project_type_and_references", unique: true
+    t.index ["project_type", "footprint_type_id", "footprint_apartment_id"], name: "index_footprint_values_on_project_type_and_references", unique: true
   end
 
   create_table "admin_toolkit_kam_investors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -442,7 +442,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activities", "telco_uam_users", column: "owner_id"
   add_foreign_key "activities", "telco_uam_users", column: "recipient_id"
-  add_foreign_key "admin_toolkit_footprint_values", "admin_toolkit_footprint_buildings", column: "footprint_building_id"
+  add_foreign_key "admin_toolkit_footprint_values", "admin_toolkit_footprint_apartments", column: "footprint_apartment_id"
   add_foreign_key "admin_toolkit_footprint_values", "admin_toolkit_footprint_types", column: "footprint_type_id"
   add_foreign_key "admin_toolkit_kam_investors", "telco_uam_users", column: "kam_id"
   add_foreign_key "admin_toolkit_kam_regions", "telco_uam_users", column: "kam_id"

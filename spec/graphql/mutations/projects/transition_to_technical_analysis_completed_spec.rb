@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   let_it_be(:zip) { '1101' }
   let_it_be(:project_cost) { create(:admin_toolkit_project_cost, standard: 99_987) }
-  let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
+  let_it_be(:kam_region) { create(:kam_region) }
   let_it_be(:label_group_a) { create(:admin_toolkit_label_group, :technical_analysis_completed) }
   let_it_be(:label_group_b) { create(:admin_toolkit_label_group, :ready_for_offer) }
 
@@ -31,17 +31,14 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       with_permissions: {
         project: %i[
           complex
-          technical_analysis_completed
           ready_for_offer
         ]
       }
     )
   end
 
-  let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:management) { create(:user, :management) }
   let_it_be(:address) { build(:address, zip: zip) }
-  let_it_be(:project) { create(:project, :technical_analysis, address: address) }
+  let_it_be(:project) { create(:project, :technical_analysis, address: address, incharge: super_user) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
 
   describe '.resolve' do
@@ -66,9 +63,30 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     end
 
     context 'without permissions' do
+      let_it_be(:admin) { create(:user, :administrator) }
+      before { project.update_columns(incharge_id: admin.id, category: :complex) }
+
       it 'forbids action' do
-        response, errors = formatted_response(query, current_user: kam,
-                                                     key: :transitionToTechnicalAnalysisCompleted)
+        response, errors = formatted_response(
+          query,
+          current_user: admin,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
+        expect(response.project).to be_nil
+        expect(errors).to eq(['Not Authorized'])
+        expect(project.reload.status).to eq('technical_analysis')
+      end
+    end
+
+    context 'when user is not the project incharge' do
+      let_it_be(:admin) { create(:user, :administrator, with_permissions: { project: :complex }) }
+
+      it 'forbids action' do
+        response, errors = formatted_response(
+          query,
+          current_user: admin,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
         expect(response.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
         expect(project.reload.status).to eq('technical_analysis')
@@ -130,7 +148,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     end
 
     context 'for Prio 1 projects' do
-      before { pct_value.update_column(:status, :prio_one) }
+      before do
+        pct_value.update_column(:status, :prio_one)
+        allow_any_instance_of(Projects::PctCost).to receive(:project_cost).and_return(9000) # rubocop:disable RSpec/AnyInstance
+      end
 
       it 'updates the project to ready for offer state' do
         response, errors = formatted_response(

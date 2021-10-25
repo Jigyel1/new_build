@@ -13,7 +13,7 @@ describe ::Projects::Assignee do
   context 'with landlord' do
     before do
       create(:address_book, project: project, external_id: investor_id)
-      create(:admin_toolkit_kam_investor, kam: super_user, investor_id: investor_id)
+      create(:kam_investor, kam: super_user, investor_id: investor_id)
     end
 
     it 'assigns the kam mapped to the landlord and updates assignee type to KAM' do
@@ -24,7 +24,7 @@ describe ::Projects::Assignee do
   end
 
   context 'with kam region' do # without landlord
-    let(:kam_region) { create(:admin_toolkit_kam_region, kam: super_user) }
+    let(:kam_region) { create(:kam_region, kam: super_user) }
 
     before { create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region) }
 

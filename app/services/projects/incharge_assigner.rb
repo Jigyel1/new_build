@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Projects
-  class InchargeUpdater < BaseService
+  class InchargeAssigner < BaseService
     def call
       authorize! project, to: :update?
 
@@ -20,7 +20,7 @@ module Projects
     def activity_params(activity_id)
       {
         activity_id: activity_id,
-        action: :incharge_updated,
+        action: :incharge_assigned,
         owner: current_user,
         trackable: project,
         parameters: {

@@ -9,7 +9,7 @@ module Mutations
     input_object_class Types::BaseInputObject
     object_class Types::BaseObject
 
-    def resolve(klass, key, **kwargs)
+    def resolve(klass, key, kwargs)
       resolver = klass.new(current_user: current_user, **kwargs)
       resolver.call
       { "#{key}": resolver.public_send(key) }

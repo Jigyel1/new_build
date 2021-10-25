@@ -5,11 +5,15 @@ module Projects
     attr_accessor :project, :buildings_count, :apartments_count
 
     def call # rubocop:disable Metrics/AbcSize
-      buildings_count.to_i.times.each do |index|
+      1.upto(buildings_count) do |index|
         project.buildings.build(
           name: "#{project.name} #{index}",
           assignee: project.assignee,
-          apartments_count: apartments_count ? grouped_apartments[index].size : 0,
+
+          # index starts with 1 instead of 0, so to pick the proper item from the <tt>grouped_apartments</tt>
+          # use <tt>index - 1</tt>
+          apartments_count: apartments_count ? grouped_apartments[index - 1].size : 0,
+
           move_in_starts_on: project.move_in_starts_on,
           move_in_ends_on: project.move_in_ends_on,
           address_attributes: project.address.attributes.except('addressable_type')

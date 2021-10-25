@@ -40,6 +40,7 @@ class Project < ApplicationRecord
   validates :external_id, uniqueness: true, allow_nil: true
 
   delegate :zip, to: :address
+  delegate :project_cost, to: :pct_cost, allow_nil: true
   delegate :email, to: :incharge, prefix: true, allow_nil: true
 
   # Project Nr - To be created by SELISE for manually created projects and imported projects.

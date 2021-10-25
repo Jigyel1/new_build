@@ -5,12 +5,12 @@ require 'rails_helper'
 describe AdminToolkit::FootprintValuesUpdater do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:footprint_type) { create(:admin_toolkit_footprint_type) }
-  let_it_be(:footprint_building) { create(:admin_toolkit_footprint_building) }
+  let_it_be(:footprint_apartment) { create(:admin_toolkit_footprint_apartment) }
 
   let_it_be(:footprint_value) do
     create(
       :admin_toolkit_footprint_value,
-      footprint_type: footprint_type, footprint_building: footprint_building
+      footprint_type: footprint_type, footprint_apartment: footprint_apartment
     )
   end
 
@@ -18,7 +18,7 @@ describe AdminToolkit::FootprintValuesUpdater do
     create(
       :admin_toolkit_footprint_value,
       category: :marketing_only,
-      footprint_type: footprint_type, footprint_building: footprint_building
+      footprint_type: footprint_type, footprint_apartment: footprint_apartment
     )
   end
 

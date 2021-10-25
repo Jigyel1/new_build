@@ -7,9 +7,9 @@ RSpec.describe Resolvers::AdminToolkit::KamInvestorsResolver do
   let_it_be(:kam_b) { create(:user, :kam, profile: build(:profile, firstname: 'Jrue', lastname: 'Holiday')) }
   let_it_be(:kam_c) { create(:user, :kam, profile: build(:profile, firstname: 'Chris ', lastname: 'Middleton')) }
 
-  let_it_be(:kam_investor) { create(:admin_toolkit_kam_investor, investor_id: 'JICA873', kam: kam) }
-  let_it_be(:kam_investor_b) { create(:admin_toolkit_kam_investor, investor_id: 'WBA879', kam: kam_b) }
-  let_it_be(:kam_investor_c) { create(:admin_toolkit_kam_investor, investor_id: 'UNICEF98', kam: kam_c) }
+  let_it_be(:kam_investor) { create(:kam_investor, investor_id: 'JICA873', kam: kam) }
+  let_it_be(:kam_investor_b) { create(:kam_investor, investor_id: 'WBA879', kam: kam_b) }
+  let_it_be(:kam_investor_c) { create(:kam_investor, investor_id: 'UNICEF98', kam: kam_c) }
 
   let_it_be(:super_user) { create(:user, :super_user) }
 

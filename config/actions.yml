@@ -24,8 +24,8 @@ admin_toolkit/penetration:
   - penetration_updated
   - penetration_deleted
 
-admin_toolkit/footprint_building:
-  - footprint_building_updated
+admin_toolkit/footprint_apartment:
+  - footprint_apartment_updated
 
 admin_toolkit/footprint_value:
   - footprint_value_updated
@@ -51,7 +51,7 @@ project:
   - project_imported
   - project_draft_version
   - project_category_updated
-  - incharge_updated
+  - incharge_assigned
   - files_uploaded
   - technical_analysis
   - technical_analysis_completed

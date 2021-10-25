@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AdminToolkit
-  class FootprintBuilding < ApplicationRecord
+  class FootprintApartment < ApplicationRecord
     has_many(
       :footprint_values,
       class_name: 'AdminToolkit::FootprintValue',

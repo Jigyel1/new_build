@@ -23,13 +23,13 @@ describe Projects::StatusUpdater do
       :user,
       :super_user,
       with_permissions: {
-        project: %i[archive complex open technical_analysis technical_analysis_completed ready_for_offer]
+        project: %i[archive complex open technical_analysis ready_for_offer]
       }
     )
   end
 
   let_it_be(:address) { build(:address, zip: zip) }
-  let_it_be(:project) { create(:project, :open, address: address) }
+  let_it_be(:project) { create(:project, :open, address: address, incharge: super_user) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
   let_it_be(:params) { { id: project.id } }
 
@@ -68,7 +68,7 @@ describe Projects::StatusUpdater do
     end
 
     context 'when it transitions to technical analysis completed' do
-      let_it_be(:kam_region) { create(:admin_toolkit_kam_region) }
+      let_it_be(:kam_region) { create(:kam_region) }
       let_it_be(:penetration_competition) do
         create(
           :penetration_competition,
