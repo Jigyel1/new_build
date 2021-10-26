@@ -59,8 +59,6 @@ project:
   - archive
   - unarchive
   - revert
-  - task_created
-  - task_created_and_copied
 
 projects/address_book:
   - address_book_created
@@ -74,8 +72,11 @@ projects/building:
   - task_created
   - task_created_and_copied
 projects/task:
+  - task_created
+  - task_created_and_copied
   - task_updated
   - task_deleted
+
 projects/label_group:
   - labels_created
   - labels_updated
