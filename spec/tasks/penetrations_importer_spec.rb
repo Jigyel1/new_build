@@ -20,7 +20,7 @@ describe PenetrationsImporter do
       penetration = AdminToolkit::Penetration.find_by!(zip: '1000')
       expect(penetration).to have_attributes(
         city: 'Lausanne',
-        rate: 0.8136094674556213,
+        rate: 0.008136094674556213,
         kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West Bern-Seeland').id,
         hfc_footprint: false,
         type: 'top_city'
@@ -34,7 +34,7 @@ describe PenetrationsImporter do
       penetration = AdminToolkit::Penetration.find_by!(zip: '1007')
       expect(penetration).to have_attributes(
         city: 'Lausanne',
-        rate: 0.593403205918619,
+        rate: 0.0059340320591861895,
         kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West Zentralschweiz + Solothurn').id,
         hfc_footprint: false,
         type: 'top_city'
@@ -62,7 +62,7 @@ describe PenetrationsImporter do
       penetration = AdminToolkit::Penetration.find_by!(zip: '1022')
       expect(penetration).to have_attributes(
         city: 'Chavannes-près-Renens',
-        rate: 31.05699221692192,
+        rate: 0.3105699221692192,
         kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West AG-BL-BS Offnet').id,
         hfc_footprint: true,
         type: 'agglo'
@@ -76,7 +76,7 @@ describe PenetrationsImporter do
       penetration = AdminToolkit::Penetration.find_by!(zip: '1135')
       expect(penetration).to have_attributes(
         city: 'Denens',
-        rate: 25.146198830409354,
+        rate: 0.25146198830409354,
         kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'Ost SG-TG-AR-AI').id,
         hfc_footprint: true,
         type: 'land'

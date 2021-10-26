@@ -31,18 +31,8 @@ module Penetrations
     private
 
     def format_each(row)
-      format(row, ZIP, { action: [:to_i] })
-      format(row, RATE, { action: [:*, 100] })
-      format(row, FOOTPRINT, { action: [:to_boolean] })
-    end
-
-    def format(*args)
-      options = args.extract_options!
-      row, index = args
-      return if row[index].blank?
-
-      row[index] = row[index].send(*options[:action])
-      row
+      row[ZIP] = row[ZIP].try(:to_i)
+      row[FOOTPRINT] = row[FOOTPRINT].to_boolean
     end
   end
 end
