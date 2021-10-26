@@ -7,6 +7,7 @@ RSpec.describe Mutations::CreateProject do
 
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :create }) }
   let_it_be(:kam) { create(:user, :kam) }
+  let_it_be(:kam_region) { create(:kam_region) }
 
   before_all do
     create(
@@ -19,7 +20,7 @@ RSpec.describe Mutations::CreateProject do
       :admin_toolkit_penetration,
       :hfc_footprint,
       zip: '8008',
-      kam_region: create(:kam_region),
+      kam_region: kam_region,
       penetration_competitions: [build(:penetration_competition, competition: create(:admin_toolkit_competition))]
     )
   end
@@ -42,6 +43,7 @@ RSpec.describe Mutations::CreateProject do
           category: 'standard'
         )
 
+        expect(response.project.kamRegion).to have_attributes(id: kam_region.id, name: kam_region.name)
         expect(response.project.assignee).to have_attributes(id: kam.id, name: kam.name)
 
         project = Project.find(response.project.id)
@@ -197,6 +199,7 @@ RSpec.describe Mutations::CreateProject do
               lotNumber: "EA0988833"
               buildingsCount: 3
               apartmentsCount: #{apartments}
+              kamRegionId: "#{kam_region.id}"
               #{address}
               #{address_books}
             }
@@ -208,6 +211,7 @@ RSpec.describe Mutations::CreateProject do
             assignee { id name }
             addressBooks { id type name company language email website phone mobile
             address { id street city zip} }
+            kamRegion { id name }
           }
         }
       }

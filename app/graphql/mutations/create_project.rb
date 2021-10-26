@@ -31,6 +31,7 @@ module Mutations
       argument :lot_number, String, required: false
       argument :buildings_count, Int, required: true
       argument :apartments_count, Int, required: true
+      argument :kam_region_id, ID, required: false
 
       argument :move_in_starts_on, GraphQL::Types::ISO8601DateTime, required: false
       argument :move_in_ends_on, GraphQL::Types::ISO8601DateTime, required: false
