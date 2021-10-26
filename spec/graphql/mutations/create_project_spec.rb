@@ -179,7 +179,7 @@ RSpec.describe Mutations::CreateProject do
     ADDRESS_BOOKS
   end
 
-  def query(args = {})
+  def query(args = {}) # rubocop:disable Metrics/AbcSize
     apartments = args[:apartments] || 10
     move_in_starts_on = args[:move_in_starts_on] || Date.current
     assignee_id = args[:assignee_id] || kam.id

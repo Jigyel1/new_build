@@ -11,6 +11,7 @@ module Projects
     accepts_nested_attributes_for :address, allow_destroy: true
 
     delegate :name, to: :project, prefix: true
+    delegate :buildings, to: :project
 
     validates :name, :address, presence: true
     validates :external_id, uniqueness: true, allow_nil: true
@@ -21,7 +22,14 @@ module Projects
     private
 
     def update_project
-      project.update_column(:apartments_count, project.buildings.sum(:apartments_count))
+      starts_on = buildings.minimum(:move_in_starts_on) || project.move_in_starts_on
+      ends_on = buildings.maximum(:move_in_ends_on) || project.move_in_ends_on
+
+      project.update_columns(
+        apartments_count: buildings.sum(:apartments_count),
+        move_in_starts_on: starts_on,
+        move_in_ends_on: ends_on
+      )
     end
   end
 end
