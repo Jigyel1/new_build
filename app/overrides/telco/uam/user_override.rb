@@ -21,6 +21,7 @@ module Telco
 
       after_save :update_mat_view
       after_destroy :update_mat_view
+      after_discard :validate_associations
 
       # Updates provider & uid for the user.
       #
@@ -61,6 +62,14 @@ module Telco
       def update_mat_view
         UsersList.refresh
         ProjectsList.refresh
+      end
+
+      def validate_associations
+        raise I18n.t('user.kam_with_regions', references: kam_regions.pluck(:name).to_sentence) if kam_regions.present?
+
+        return if kam_investors.empty?
+
+        raise I18n.t('user.kam_with_investors', references: kam_investors.pluck(:investor_id).to_sentence)
       end
     end
   end

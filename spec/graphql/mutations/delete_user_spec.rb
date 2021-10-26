@@ -158,6 +158,19 @@ RSpec.describe Mutations::DeleteUser do
           expect(kam_b.kam_regions.pluck(:id)).to match_array([kam_region_b.id, kam_region_c.id])
         end
       end
+
+      context 'with same user as the kam for the region' do
+        it 'throws error' do
+          response, errors = formatted_response(
+            query(id: kam_a.id, set_region_mapping: true, region_id: kam_region_a.id),
+            current_user: super_user,
+            key: :deleteUser
+          )
+
+          expect(response.status).to be_nil
+          expect(errors).to eq([t('user.kam_with_regions', references: kam_a.kam_regions.pluck(:name).to_sentence)])
+        end
+      end
     end
 
     context 'with associated kam investors' do
@@ -209,6 +222,24 @@ RSpec.describe Mutations::DeleteUser do
 
           # rollback check
           expect(kam_b.kam_investors.pluck(:id)).to match_array([kam_investor_b.id, kam_investor_c.id])
+        end
+      end
+
+      context 'with same user as the kam for the investor' do
+        it 'throws error' do
+          response, errors = formatted_response(
+            query(id: kam_a.id, set_investor_mapping: true, investor_id: kam_investor_a.id),
+            current_user: super_user,
+            key: :deleteUser
+          )
+
+          expect(response.status).to be_nil
+          expect(errors).to eq(
+            [
+              t('user.kam_with_investors',
+                references: kam_a.kam_investors.pluck(:investor_id).to_sentence)
+            ]
+          )
         end
       end
     end
