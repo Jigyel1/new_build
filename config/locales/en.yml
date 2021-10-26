@@ -30,6 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  date:
+    errors:
+      messages:
+        must_be_after: must be after %{date}
   devise:
     sign_in:
       not_found: You need to be invited to the portal before you can log in. Please contact admin for support.
