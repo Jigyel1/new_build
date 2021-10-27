@@ -9,7 +9,7 @@ class Project < ApplicationRecord
 
   validates :address, presence: true
   validates :external_id, uniqueness: true, allow_nil: true
-  validate :move_in_dates
+  validates :move_in_ends_on, end_date: true, allow_nil: true
 
   delegate :zip, to: :address
   delegate :project_cost, to: :pct_cost, allow_nil: true

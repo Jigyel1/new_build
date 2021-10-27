@@ -31,26 +31,28 @@ RSpec.describe Project, type: :model do
     it { is_expected.to validate_uniqueness_of(:external_id).allow_nil }
 
     context 'when move in end date is before the start date' do
+      subject(:project) { build(:project, move_in_starts_on: Date.current, move_in_ends_on: Date.current.yesterday) }
+
       it 'invalidates record' do
-        subject = build(:project, move_in_starts_on: Date.current, move_in_ends_on: Date.current.yesterday)
-        expect(subject).not_to be_valid
-        expect(subject.errors.full_messages).to eq(
+        expect(project).not_to be_valid
+        expect(project.errors.full_messages).to eq(
           [
             "Move in ends on #{t('date.errors.messages.must_be_after',
-                                 date: subject.move_in_starts_on)}"
+                                 date: project.move_in_starts_on)}"
           ]
         )
       end
     end
 
     context 'when move in end date equal to the start date' do
+      subject(:project) { build(:project, move_in_starts_on: Date.current, move_in_ends_on: Date.current) }
+
       it 'invalidates record' do
-        subject = build(:project, move_in_starts_on: Date.current, move_in_ends_on: Date.current)
-        expect(subject).not_to be_valid
-        expect(subject.errors.full_messages).to eq(
+        expect(project).not_to be_valid
+        expect(project.errors.full_messages).to eq(
           [
             "Move in ends on #{t('date.errors.messages.must_be_after',
-                                 date: subject.move_in_starts_on)}"
+                                 date: project.move_in_starts_on)}"
           ]
         )
       end
