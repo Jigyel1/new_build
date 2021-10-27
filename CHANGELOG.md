@@ -9,8 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Fixes
 - Query upto only 2 decimal places for the rate in penetrations.
 - Save`rate` as decimal(without converting to percent)
-  - use the `rate` as is for calculations
-  - but show it as a percentage in the admin toolkit
+    - use the `rate` as is for calculations
+    - but show it as a percentage in the admin toolkit
 - Don't allow project move in date changes on project update.
 - Project move in dates to be changed as per buildings move in dates.
 - Move in date validation for projects and buildings.
@@ -18,7 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Extract out concerns for `Project` and `User`.
 - Validate user has no `kam_regions` and `kam_investors` before a soft delete.
 - Module renaming from `Taskable` to `Trackable`.
-- 
+
 
 ## [0.1.4] - 2021-08-25
 
