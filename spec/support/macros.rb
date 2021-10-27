@@ -131,16 +131,12 @@ end
 # @param [Hash] params Keyword arguments
 # @param [String]
 def query_string(params)
-  params.merge! yield if block_given?
+  params.merge!(yield) if block_given?
   return if params.blank?
 
   array = params.reduce([]) do |arr, param|
     key, value = param
-    formatted = case value
-                when String then "\"#{value}\""
-                else value # covers TrueClass, FalseClass, String
-                end
-
+    formatted = value.is_a?(String) ? "\"#{value}\"" : value
     arr << "#{key.to_s.camelize(:lower)}:#{formatted}"
   end
 

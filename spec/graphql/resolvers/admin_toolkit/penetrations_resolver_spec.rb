@@ -84,6 +84,8 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
         expect(penetrations.dig(0, :id)).to eq(penetration.id)
       end
 
+      # Doesn't return `project_c` with rate `0.8136094674556666` and `project_d`
+      # with rate `0.813609466666213` although they still match the query string('66')
       it 'fetches records with decimals columns after rounding off the values' do
         penetrations, errors = paginated_collection(
           :adminToolkitPenetrations, query(query: '66'), current_user: super_user

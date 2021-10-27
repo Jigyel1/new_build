@@ -33,11 +33,7 @@ RSpec.describe Resolvers::AdminToolkit::LabelsResolver do
       it 'returns all label groups' do
         response, errors = formatted_response(query, current_user: kam)
         expect(errors).to be_nil
-        expect(response.adminToolkitLabels.pluck(:id)).to match_array(
-          [
-            label_group.id, label_group_b.id
-          ]
-        )
+        expect(response.adminToolkitLabels.pluck(:id)).to match_array([label_group.id, label_group_b.id])
       end
     end
   end

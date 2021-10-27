@@ -42,10 +42,7 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
   end
 
   def query(args = {})
-    connection_query(
-      "buildings#{query_string(args)}",
-      'id externalId name tasks'
-    )
+    connection_query("buildings#{query_string(args)}", 'id externalId name tasks')
   end
 
   def query_string(args = {})

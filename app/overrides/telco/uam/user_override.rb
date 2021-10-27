@@ -7,6 +7,7 @@ module Telco
     class User
       include Associations::User
       include Discard::Model
+      include Hooks::User
       include LogidzeWrapper
 
       # Since user is derived from the engine(telco-uam), it has no knowledge
@@ -18,10 +19,6 @@ module Telco
       validates :profile, presence: true
 
       default_scope { kept }
-
-      after_save :update_mat_view
-      after_destroy :update_mat_view
-      after_discard :validate_associations
 
       # Updates provider & uid for the user.
       #
@@ -55,21 +52,6 @@ module Telco
 
       def respond_to_missing?(method, include_private = false)
         role.respond_to?(method) || super
-      end
-
-      private
-
-      def update_mat_view
-        UsersList.refresh
-        ProjectsList.refresh
-      end
-
-      def validate_associations
-        raise I18n.t('user.kam_with_regions', references: kam_regions.pluck(:name).to_sentence) if kam_regions.present?
-
-        return if kam_investors.empty?
-
-        raise I18n.t('user.kam_with_investors', references: kam_investors.pluck(:investor_id).to_sentence)
       end
     end
   end

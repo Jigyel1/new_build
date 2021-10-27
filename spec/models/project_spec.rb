@@ -57,9 +57,8 @@ RSpec.describe Project, type: :model do
     end
 
     context 'when move in end date is after the start date' do
-      it 'validates record' do
-        subject = build(:project, move_in_starts_on: Date.current, move_in_ends_on: Date.current.tomorrow)
-        expect(subject).to be_valid
+      it do
+        expect(build(:project, move_in_starts_on: Date.current, move_in_ends_on: Date.current.tomorrow)).to be_valid
       end
     end
   end

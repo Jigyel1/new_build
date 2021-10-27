@@ -22,13 +22,13 @@ module Projects
     private
 
     def update_project
-      starts_on = buildings.minimum(:move_in_starts_on) || project.move_in_starts_on
-      ends_on = buildings.maximum(:move_in_ends_on) || project.move_in_ends_on
+      move_in_starts_on = buildings.minimum(:move_in_starts_on) || project.move_in_starts_on
+      move_in_ends_on = buildings.maximum(:move_in_ends_on) || project.move_in_ends_on
 
       project.update_columns(
         apartments_count: buildings.sum(:apartments_count),
-        move_in_starts_on: starts_on,
-        move_in_ends_on: ends_on
+        move_in_starts_on: move_in_starts_on,
+        move_in_ends_on: move_in_ends_on
       )
     end
   end
