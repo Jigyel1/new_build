@@ -20,13 +20,4 @@ class Project < ApplicationRecord
   def project_nr
     "2#{super}"
   end
-
-  private
-
-  def move_in_dates
-    return unless move_in_starts_on && move_in_ends_on
-    return if move_in_ends_on.after?(move_in_starts_on)
-
-    errors.add(:move_in_ends_on, I18n.t('date.errors.messages.must_be_after', date: move_in_starts_on))
-  end
 end
