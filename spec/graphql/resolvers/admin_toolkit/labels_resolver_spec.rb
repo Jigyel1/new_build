@@ -30,6 +30,16 @@ RSpec.describe Resolvers::AdminToolkit::LabelsResolver do
     context 'for non admins' do
       let_it_be(:kam) { create(:user, :kam) }
 
+      it 'forbids action' do
+        response, errors = formatted_response(query, current_user: kam)
+        expect(response.adminToolkitLabels).to be_nil
+        expect(errors).to match_array(['Not Authorized'])
+      end
+    end
+
+    context 'with project read permission' do
+      let_it_be(:kam) { create(:user, :kam, with_permissions: { project: :read }) }
+
       it 'returns all label groups' do
         response, errors = formatted_response(query, current_user: kam)
         expect(errors).to be_nil
