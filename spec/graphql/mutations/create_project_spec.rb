@@ -179,7 +179,7 @@ RSpec.describe Mutations::CreateProject do
     ADDRESS_BOOKS
   end
 
-  def query(args = {}) # rubocop:disable Metrics/AbcSize
+  def query(args = {})
     apartments = args[:apartments] || 10
     move_in_starts_on = args[:move_in_starts_on] || Date.current
     assignee_id = args[:assignee_id] || kam.id
@@ -199,7 +199,6 @@ RSpec.describe Mutations::CreateProject do
               lotNumber: "EA0988833"
               buildingsCount: 3
               apartmentsCount: #{apartments}
-              kamRegionId: "#{kam_region.id}"
               #{address}
               #{address_books}
             }

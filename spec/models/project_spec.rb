@@ -27,6 +27,8 @@ RSpec.describe Project, type: :model do
   end
 
   describe 'validations' do
+    subject(:project) { build(:project) }
+
     it { is_expected.to validate_presence_of(:address) }
     it { is_expected.to validate_uniqueness_of(:external_id).allow_nil }
 

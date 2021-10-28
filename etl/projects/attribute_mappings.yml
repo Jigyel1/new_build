@@ -34,8 +34,6 @@ additional_details:
   prod_id: 91
   geocod_sccs: 92
 
-kam_region_name: 95
-
 investor:
   external_id: 2
   additional_name: 3

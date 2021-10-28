@@ -14,7 +14,6 @@ module Projects
           project_attributes
           address_attributes
           additional_details
-          kam_region
           buildings
           project_category
         ].each { |attributes| send("assign_#{attributes}") }
@@ -49,21 +48,6 @@ module Projects
     def assign_additional_details
       attributes = row_mappings(:additional_details)
       project.additional_details = attributes_hash(attributes)
-    end
-
-    def assign_kam_region
-      region_name = row[row_mappings(:kam_region_name)]
-      return if region_name.blank?
-
-      kam_region = AdminToolkit::KamRegion.find_by(name: region_name)
-      if kam_region
-        project.kam_region = kam_region
-      else
-        project.errors.add(
-          :kam_region,
-          I18n.t('activerecord.errors.models.project.kam_region_missing', region_name: region_name)
-        )
-      end
     end
 
     def assign_project_category
