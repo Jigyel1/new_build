@@ -37,7 +37,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
           socketInstallationCost: 16_299.0,
           leaseCost: 20_930.4,
           arpu: 45.66,
-          penetrationRate: 4.56,
+          penetrationRate: 456,
           paybackPeriod: 602,
           paybackPeriodFormatted: '50 years and 2 months',
           systemGeneratedPaybackPeriod: true,
