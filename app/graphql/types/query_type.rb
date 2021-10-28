@@ -82,7 +82,8 @@ module Types
     )
 
     field :project, resolver: Resolvers::ProjectResolver, authorize: { with: ProjectPolicy }
-    field(:project_pct_cost, resolver: Resolvers::Projects::PctCostResolver,
+    field(:project_pct_cost,
+          resolver: Resolvers::Projects::PctCostResolver,
           preauthorize: { with: ::AdminToolkitPolicy, to: :project_read? })
 
     field :project_states, resolver: Resolvers::Projects::StatesResolver, description: <<~DESC

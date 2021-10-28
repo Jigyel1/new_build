@@ -15,7 +15,7 @@ module Projects
 
     validates :name, :address, presence: true
     validates :external_id, uniqueness: true, allow_nil: true
-    validates :move_in_ends_on, end_date: true, allow_nil: true
+    validates :move_in_ends_on, succeeding_date: { preceding_date_key: :move_in_starts_on }, allow_nil: true
 
     after_destroy :update_project
     after_save :update_project
