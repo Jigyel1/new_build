@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Extract out concerns for `Project` and `User`.
 - Validate user has no `kam_regions` and `kam_investors` before a soft delete.
 - Module renaming from `Taskable` to `Trackable`.
+- Auto update kam region for projects on `create/update/import`.
 
 
 ## [0.1.4] - 2021-08-25
