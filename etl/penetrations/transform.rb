@@ -33,9 +33,6 @@ module Penetrations
     def format_each(row)
       row[ZIP] = row[ZIP].try(:to_i)
       row[FOOTPRINT] = row[FOOTPRINT].to_boolean
-
-      # <tt>rate</tt> in excel is available as a percentage. Convert that to decimal before saving
-      row[RATE] = row[RATE].to_f / 100
     end
   end
 end
