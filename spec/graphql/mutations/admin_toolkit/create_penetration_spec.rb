@@ -18,7 +18,7 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
         expect(response.penetration).to have_attributes(
           zip: '8602',
           city: 'Wangen-Brüttisellen',
-          rate: '19.22',
+          rate: '0.19',
           type: 'land',
           hfcFootprint: false
         )
