@@ -29,6 +29,15 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
         )
         expect(response.building.assignee).to have_attributes(id: super_user.id, name: super_user.name)
       end
+
+      it 'propagates move in date changes to the project' do
+        _, errors = formatted_response(query(params), current_user: super_user, key: :updateBuilding)
+        expect(errors).to be(nil)
+        expect(project.reload).to have_attributes(
+          move_in_starts_on: Date.current + 1.month,
+          move_in_ends_on: Date.current + 3.months
+        )
+      end
     end
 
     context 'with invalid params' do

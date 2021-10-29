@@ -122,8 +122,4 @@ RSpec.describe Resolvers::UserResolver do
       }
     GQL
   end
-
-  def query_string(args = {})
-    args[:id].present? ? "(id: \"#{args[:id]}\")" : nil
-  end
 end

@@ -48,7 +48,7 @@ module Projects
         action: @copy_to_all_buildings ? :task_created_and_copied : :task_created,
         owner: current_user,
         recipient: task.assignee,
-        trackable: taskable,
+        trackable: task,
         parameters: { title: task.title }
       }
     end

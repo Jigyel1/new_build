@@ -22,6 +22,14 @@ from the jump server - `su mvm`, then `ssh nginx`
 
 nginx_config: `//etc/nginx/conf.d/telco/new-build-thor.conf`
 
+And for `pg`, `ssh pg` from the jump server
+
+```ruby
+# to create a db dump
+sudo -su postgres
+pg_dump database_name > file_name.sql
+```
+
 ---
 
 sidekiq-ui: `new-build-thor.selise.dev/sidekiq`
@@ -178,7 +186,11 @@ SIDEKIQ_USERNAME, SIDEKIQ_PASSWORD
 USERS_PER_ROLE
 > Users you want to show for each role. Only in the listing page. Details will call a different endpoint.
 
+GIS_URL 
+> https://webgis.upc.ch/web_office/synserver?project=AccessPlanningSales&language=DE&client=corejs&query=bauprojekte&keyname=PROJ_EXTERN_ID&keyvalue=
 
+INFO_MANAGER_URL 
+> https://infomanager.bauinfocenter.ch/go/projectext/
 
 ```ruby
 # A project will be assigned to NBO/KAM in the following different ways:

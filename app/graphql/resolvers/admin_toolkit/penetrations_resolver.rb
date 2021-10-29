@@ -24,11 +24,11 @@ module Resolvers
         scope
           .left_outer_joins(penetration_competitions: :competition, kam_region: { kam: :profile })
           .where(
-            "CONCAT_WS(' ', zip, city, rate, type, hfc_footprint,
+            "CONCAT_WS(' ', zip, city, ROUND(CAST(rate as numeric), 2), type, hfc_footprint,
             admin_toolkit_competitions.name, admin_toolkit_competitions.description,
             admin_toolkit_kam_regions.name, firstname, lastname, email)
             iLIKE ?", "%#{value.squish}%"
-          )
+          ).distinct
       end
     end
   end

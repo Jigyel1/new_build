@@ -46,7 +46,7 @@ module Projects
           socket_installation_cost: socket_installation_cost,
           arpu: arpu,
           project_connection_cost: connection_cost,
-          penetration_rate: penetration_rate,
+          penetration_rate: penetration_rate.percentage,
           payback_period: payback_period
         )
         system_generated_payback_period && pct_cost.system_generated_payback_period = system_generated_payback_period

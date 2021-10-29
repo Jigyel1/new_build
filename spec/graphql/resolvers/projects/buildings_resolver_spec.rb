@@ -46,9 +46,6 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
   end
 
   def query_string(args = {})
-    params = ["projectId: \"#{project.id}\""]
-    params << "query: \"#{args[:query]}\"" if args[:query]
-
-    params.empty? ? nil : "(#{params.join(',')})"
+    super { { projectId: project.id } }
   end
 end

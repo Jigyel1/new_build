@@ -18,9 +18,6 @@ module Projects
       with_tracking(activity_id = SecureRandom.uuid) do
         @project = ::Project.new(formatted_attributes)
         build_associations
-
-        # set category only after building associations for the project.
-        project.category = CategorySetter.new(project: project).call
         project.save!
 
         Activities::ActivityCreator.new(activity_params(activity_id)).call
@@ -35,9 +32,13 @@ module Projects
     end
 
     def build_associations
+      BuildingsBuilder
+        .new(project: project, buildings_count: buildings_count, apartments_count: apartments_count)
+        .call
       project.assignee_type = :nbo if project.assignee.try(:nbo_team?)
 
-      BuildingsBuilder.new(project: project, buildings_count: buildings_count, apartments_count: apartments_count).call
+      # set category only after assigning buildings to the project.
+      project.category = CategorySetter.new(project: project).call
     end
 
     def activity_params(activity_id)

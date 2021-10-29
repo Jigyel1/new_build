@@ -7,6 +7,7 @@ module Telco
     class User
       include Associations::User
       include Discard::Model
+      include Hooks::User
       include LogidzeWrapper
 
       # Since user is derived from the engine(telco-uam), it has no knowledge
@@ -18,9 +19,6 @@ module Telco
       validates :profile, presence: true
 
       default_scope { kept }
-
-      after_save :update_mat_view
-      after_destroy :update_mat_view
 
       # Updates provider & uid for the user.
       #
@@ -54,13 +52,6 @@ module Telco
 
       def respond_to_missing?(method, include_private = false)
         role.respond_to?(method) || super
-      end
-
-      private
-
-      def update_mat_view
-        UsersList.refresh
-        ProjectsList.refresh
       end
     end
   end

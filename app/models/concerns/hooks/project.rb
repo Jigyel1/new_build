@@ -7,14 +7,18 @@ module Hooks
     MANUALLY_CREATED = 'Manually Created'
 
     included do
-      after_save :update_projects_list, :update_users_list
-      after_destroy :update_projects_list, :update_users_list
-
+      before_save :set_kam_region
       before_create :set_external_urls
+      after_save :update_projects_list, :update_users_list
       after_create :create_default_label_group
+      after_destroy :update_projects_list, :update_users_list
     end
 
     private
+
+    def set_kam_region
+      self.kam_region = AdminToolkit::Penetration.find_by(zip: zip).try(:kam_region)
+    end
 
     def create_default_label_group
       label_group = label_groups.create!(system_generated: true)
