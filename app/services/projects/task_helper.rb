@@ -30,11 +30,13 @@ module Projects
     end
 
     def before_due_date
-      TaskReminderBeforeDueDateJob.set(wait: 1.hour).perform_later(task.assignee.id)
+      scheduled_time = ((task.due_date.to_time - 1.day) + 9.hours)
+      TaskReminderBeforeDueDateJob.set(wait_until: scheduled_time).perform_later(task.assignee.id)
     end
 
     def on_due_date
-      TaskReminderOnDueDateJob.set(wait: 1.hour).perform_later(task.assignee.id)
+      scheduled_time = task.due_date.to_time + 17.hours
+      TaskReminderOnDueDateJob.set(wait_until: scheduled_time).perform_later(task.assignee.id)
     end
 
     def before_due_date_job_scheduled

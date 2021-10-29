@@ -8,7 +8,7 @@ module TimeFormatter
       end
 
       def date_str
-        in_time_zone('%Y-%m-%d')
+        in_time_zone('%d.%m.%Y')
       end
 
       def in_time_zone(format)
