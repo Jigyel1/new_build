@@ -5,6 +5,6 @@ class TaskReminderOnDueDateJob < ApplicationJob
 
   def perform(user_id)
     user = User.find(user_id)
-    TaskMailer.notify_on_due_date(user)
+    TaskMailer.notify_on_due_date(user).deliver_now
   end
 end
