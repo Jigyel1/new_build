@@ -974,7 +974,8 @@ CREATE TABLE public.projects_tasks (
     assignee_id uuid NOT NULL,
     owner_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    job_ids character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -2135,6 +2136,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210908122833'),
 ('20210911120552'),
 ('20211020080514'),
-('20211020111623');
+('20211020111623'),
+('20211026105234');
 
 

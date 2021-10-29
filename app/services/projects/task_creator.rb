@@ -14,6 +14,7 @@ module Projects
         super do
           @task = current_user.tasks.create!(attributes)
           copy_task_to_all_buildings if @copy_to_all_buildings
+          create_job
 
           Activities::ActivityCreator.new(activity_params(activity_id)).call
         end

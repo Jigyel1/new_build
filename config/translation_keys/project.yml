@@ -12,6 +12,8 @@ project:
     incharge_assigned:
       - incharge_email
       - project_name
+    incharge_unassigned:
+      - project_name
     project_pct_cost:
       - parameters
     files_uploaded:
@@ -55,6 +57,9 @@ project:
     incharge_assigned:
       - owner_email
       - incharge_email
+      - project_name
+    incharge_unassigned:
+      - owner_email
       - project_name
     files_uploaded:
       - owner_email

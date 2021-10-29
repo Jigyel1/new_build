@@ -5,11 +5,9 @@ module Projects
     def call
       authorize! project, to: :unassign_incharge?
 
-      with_tracking(activity_id = SecureRandom.uuid) do # rubocop:disable Lint/UselessAssignment
+      with_tracking(activity_id = SecureRandom.uuid) do
         project.update!(incharge_id: nil)
-
-        # TODO: @Jigyel - FYA
-        # Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -25,7 +23,9 @@ module Projects
         action: :incharge_unassigned,
         owner: current_user,
         trackable: project,
-        parameters: attributes
+        parameters: {
+          project_name: project.name
+        }
       }
     end
   end

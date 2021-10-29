@@ -63,7 +63,7 @@ module NewBuild
       expire_after: 30.days,
       serializer: :json
     )
-
+    config.active_job.queue_adapter = :sidekiq
     # https://andycroll.com/ruby/opt-out-of-google-floc-tracking-in-rails
     config.action_dispatch.default_headers['Permissions-Policy'] = 'interest-cohort=()'
   end

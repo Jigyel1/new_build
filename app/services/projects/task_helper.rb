@@ -23,5 +23,27 @@ module Projects
     def project
       @project ||= taskable.is_a?(Project) ? taskable : taskable.project
     end
+
+    def create_job
+      before_due_date = TaskReminderBeforeDueDateJob.set(wait: 1.hour).perform_later(task.assignee.id)
+      on_due_date = TaskReminderOnDueDateJob.set(wait: 1.hour).perform_later(task.assignee.id)
+      task.job_ids = [before_due_date.job_id, on_due_date.job_id]
+      task.save!
+    end
+
+    def on_due_date_job_scheduled
+      binding.pry
+      queue_a = Sidekiq::Queue.new('on_due_date')
+      queue_a.each do |job|
+        return job if job.args.pluck('job_id').present?
+      end
+    end
+
+    def before_due_date_job_scheduled
+      queue_b = Sidekiq::Scheduled.new('before_due_date')
+      queue_b.each do |job|
+        return job if job.args.pluck('job_id').present?
+      end
+    end
   end
 end
