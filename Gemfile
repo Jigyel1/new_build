@@ -59,7 +59,6 @@ group :development, :test do
   gem 'test-prof'
   gem 'webmock'
   gem 'webrick'
-  gem 'whenever', require: false
 end
 
 group :development do
