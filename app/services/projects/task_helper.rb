@@ -31,18 +31,19 @@ module Projects
       task.save!
     end
 
-    def on_due_date_job_scheduled
-      binding.pry
-      queue_a = Sidekiq::Queue.new('on_due_date')
-      queue_a.each do |job|
-        return job if job.args.pluck('job_id').present?
+    def before_due_date_job_scheduled
+      scheduler = Sidekiq::ScheduledSet.new
+      jobs = scheduler.select { |s| s.queue == 'before_due_date' }
+      jobs.each do |job|
+        return job if job.args.dig(0, 'job_id') == task.job_ids[0]
       end
     end
 
-    def before_due_date_job_scheduled
-      queue_b = Sidekiq::Scheduled.new('before_due_date')
-      queue_b.each do |job|
-        return job if job.args.pluck('job_id').present?
+    def on_due_date_job_scheduled
+      scheduler = Sidekiq::ScheduledSet.new
+      jobs = scheduler.select { |s| s.queue == 'on_due_date' }
+      jobs.each do |job|
+        return job if job.args.dig(0, 'job_id') == task.job_ids[1]
       end
     end
   end
