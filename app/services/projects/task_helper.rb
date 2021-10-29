@@ -25,10 +25,16 @@ module Projects
     end
 
     def create_job
-      before_due_date = TaskReminderBeforeDueDateJob.set(wait: 1.hour).perform_later(task.assignee.id)
-      on_due_date = TaskReminderOnDueDateJob.set(wait: 1.hour).perform_later(task.assignee.id)
       task.job_ids = [before_due_date.job_id, on_due_date.job_id]
       task.save!
+    end
+
+    def before_due_date
+      TaskReminderBeforeDueDateJob.set(wait: 1.hour).perform_later(task.assignee.id)
+    end
+
+    def on_due_date
+      TaskReminderOnDueDateJob.set(wait: 1.hour).perform_later(task.assignee.id)
     end
 
     def before_due_date_job_scheduled
