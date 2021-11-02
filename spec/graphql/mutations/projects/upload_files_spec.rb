@@ -53,7 +53,7 @@ describe Mutations::Projects::UploadFiles, type: :request do
 
   context 'with attachable as project' do
     before { sign_in(super_user) }
-    
+
     it 'uploads files for the project' do
       post api_v1_graphql_path, params: params.call(project)
 
