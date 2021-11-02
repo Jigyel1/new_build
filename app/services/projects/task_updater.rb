@@ -22,10 +22,12 @@ module Projects
     private
 
     def delete_enqueued_jobs
-      return unless on_due_date_job_scheduled.present? && before_due_date_job_scheduled.present?
+      before_due_date_job = job_scheduled('before_due_date')
+      on_due_date_job = job_scheduled('on_due_date')
+      return unless before_due_date_job.present? && on_due_date_job.present?
 
-      before_due_date_job_scheduled.delete
-      on_due_date_job_scheduled.delete
+      before_due_date_job.delete
+      on_due_date_job.delete
       task.job_ids.clear
       create_job
     end

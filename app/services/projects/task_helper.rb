@@ -39,19 +39,11 @@ module Projects
       TaskReminderOnDueDateJob.set(wait_until: scheduled_time).perform_later(task.assignee.id, task.id)
     end
 
-    def before_due_date_job_scheduled
+    def job_scheduled(queue_name)
       scheduler = Sidekiq::ScheduledSet.new
-      jobs = scheduler.select { |s| s.queue == 'before_due_date' }
+      jobs = scheduler.select { |selected| selected.queue == queue_name }
       jobs.each do |job|
-        return job if job.args.dig(0, 'job_id') == task.job_ids[0]
-      end
-    end
-
-    def on_due_date_job_scheduled
-      scheduler = Sidekiq::ScheduledSet.new
-      jobs = scheduler.select { |s| s.queue == 'on_due_date' }
-      jobs.each do |job|
-        return job if job.args.dig(0, 'job_id') == task.job_ids[1]
+        return job if task.job_ids.include?(job.args.dig(0, 'job_id'))
       end
     end
   end

@@ -89,10 +89,10 @@ GEM
     ast (2.4.2)
     awesome_print (1.9.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.516.0)
-    aws-sdk-core (3.121.2)
+    aws-partitions (1.522.0)
+    aws-sdk-core (3.121.5)
       aws-eventstream (~> 1, >= 1.0.2)
-      aws-partitions (~> 1, >= 1.239.0)
+      aws-partitions (~> 1, >= 1.520.1)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
     aws-sdk-kms (1.50.0)
@@ -116,7 +116,7 @@ GEM
     benchmark-trend (0.4.0)
     bootsnap (1.9.1)
       msgpack (~> 1.0)
-    brakeman (5.1.1)
+    brakeman (5.1.2)
     builder (3.2.4)
     bullet (6.1.5)
       activesupport (>= 3.0.0)
@@ -125,9 +125,6 @@ GEM
       bundler (>= 1.2.0, < 3)
       thor (~> 1.0)
     byebug (11.1.3)
-    clockwork (2.0.4)
-      activesupport
-      tzinfo
     code_analyzer (0.5.2)
       sexp_processor
     coderay (1.1.3)
@@ -239,7 +236,7 @@ GEM
     ice_nine (0.11.2)
     jaro_winkler (1.5.4)
     jmespath (1.4.0)
-    json (2.6.0)
+    json (2.6.1)
     json-schema (2.8.1)
       addressable (>= 2.4)
     jwt (2.3.0)
@@ -278,7 +275,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    niceql (0.3.1)
+    niceql (0.4.0)
     nio4r (2.5.8)
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
@@ -320,7 +317,7 @@ GEM
     public_suffix (4.0.6)
     puma (5.5.2)
       nio4r (~> 2.0)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
@@ -348,7 +345,7 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
-    rails_best_practices (1.21.0)
+    rails_best_practices (1.22.1)
       activesupport
       code_analyzer (>= 0.5.2)
       erubis
@@ -383,10 +380,10 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    reverse_markdown (2.0.0)
+    reverse_markdown (2.1.1)
       nokogiri
     rexml (3.2.5)
-    rollbar (3.2.0)
+    rollbar (3.3.0)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -422,7 +419,7 @@ GEM
     rswag-ui (2.4.0)
       actionpack (>= 3.1, < 7.0)
       railties (>= 3.1, < 7.0)
-    rubocop (1.22.1)
+    rubocop (1.22.3)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -433,7 +430,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.12.0)
       parser (>= 3.0.1.1)
-    rubocop-performance (1.11.5)
+    rubocop-performance (1.12.0)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     rubocop-rails (2.12.4)
@@ -447,8 +444,8 @@ GEM
     ruby-next-core (0.13.1)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    ruby_parser (3.17.0)
-      sexp_processor (~> 4.15, >= 4.15.1)
+    ruby_parser (3.18.0)
+      sexp_processor (~> 4.16)
     rubycritic (4.6.1)
       flay (~> 2.8)
       flog (~> 4.4)
@@ -475,10 +472,10 @@ GEM
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
     search_object (1.2.4)
-    search_object_graphql (1.0.1)
+    search_object_graphql (1.0.2)
       graphql (~> 1.8)
       search_object (~> 1.2.2)
-    sexp_processor (4.15.3)
+    sexp_processor (4.16.0)
     shoulda-matchers (5.0.0)
       activesupport (>= 5.2.0)
     sidekiq (6.2.2)
@@ -551,10 +548,9 @@ GEM
     xsv (1.0.4)
       rubyzip (>= 1.3, < 3)
     yard (0.9.26)
-    zeitwerk (2.4.2)
+    zeitwerk (2.5.1)
 
 PLATFORMS
-  arm64-darwin-20
   x86_64-linux
 
 DEPENDENCIES
@@ -568,7 +564,6 @@ DEPENDENCIES
   bullet
   bundler-audit
   byebug
-  clockwork
   database_cleaner-active_record
   diffend-monitor
   discard (~> 1.2)

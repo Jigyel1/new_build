@@ -75,7 +75,6 @@ gem 'aasm'
 gem 'action_policy-graphql'
 gem 'apollo_upload_server', '2.0.5'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'clockwork', require: false
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
 gem 'faraday'
