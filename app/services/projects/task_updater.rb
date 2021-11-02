@@ -4,16 +4,13 @@ module Projects
   class TaskUpdater < BaseService
     include TaskHelper
     delegate :taskable, to: :task
-    attr_reader :due_date_changed
 
     def call
       authorize! project, to: :update?
 
       with_tracking(activity_id = SecureRandom.uuid) do
-        task.assign_attributes(attributes)
-        @due_date_changed = task.due_date_changed?
-        task.save!
-        delete_enqueued_jobs if @due_date_changed
+        task.update!(attributes)
+        delete_enqueued_jobs if task.due_date_previously_changed?
 
         Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
@@ -22,12 +19,8 @@ module Projects
     private
 
     def delete_enqueued_jobs
-      before_due_date_job = job_scheduled('before_due_date')
-      on_due_date_job = job_scheduled('on_due_date')
-      return unless before_due_date_job.present? && on_due_date_job.present?
-
-      before_due_date_job.delete
-      on_due_date_job.delete
+      job_scheduled('before_due_date').delete
+      job_scheduled('on_due_date').delete
       task.job_ids.clear
       create_job
     end

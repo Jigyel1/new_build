@@ -23,9 +23,7 @@ module Projects
         action: :incharge_unassigned,
         owner: current_user,
         trackable: project,
-        parameters: {
-          project_name: project.name
-        }
+        parameters: { project_name: project.name }
       }
     end
   end

@@ -18,8 +18,7 @@ describe Projects::InchargeUnassigner do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.incharge_unassigned.owner',
-            project_name: project.name)
+          t('activities.project.incharge_unassigned.owner', project_name: project.name)
         )
       end
     end
@@ -32,9 +31,7 @@ describe Projects::InchargeUnassigner do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.incharge_unassigned.others',
-            project_name: project.name,
-            owner_email: kam.email)
+          t('activities.project.incharge_unassigned.others', project_name: project.name, owner_email: kam.email)
         )
       end
     end
