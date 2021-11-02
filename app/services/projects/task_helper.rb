@@ -39,7 +39,7 @@ module Projects
       TaskReminderOnDueDateJob.set(wait_until: scheduled_time).perform_later(task.assignee.id, task.id)
     end
 
-  def job_scheduled(queue_name)
+    def job_scheduled(queue_name)
       scheduler = Sidekiq::ScheduledSet.new
       jobs = scheduler.select { |selected| selected.queue == queue_name }
       jobs.each do |job|
