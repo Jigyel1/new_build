@@ -2,7 +2,7 @@
 
 module Projects
   class Task < ApplicationRecord
-    include Taskable
+    include Trackable
 
     # taskable can be a building or a project.
     belongs_to :taskable, polymorphic: true

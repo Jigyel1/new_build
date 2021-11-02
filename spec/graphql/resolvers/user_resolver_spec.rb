@@ -51,6 +51,36 @@ RSpec.describe Resolvers::UserResolver do
       end
     end
 
+    context 'with associations' do
+      let_it_be(:kam) { create(:user, :kam) }
+      let_it_be(:project_a) { create(:project, incharge: super_user, assignee: kam) }
+      let_it_be(:project_b) { create(:project, incharge: kam, assignee: kam) }
+
+      let_it_be(:building_a) { create(:building, project: project_a, assignee: kam) }
+      let_it_be(:building_b) { create(:building, project: project_a, assignee: super_user) }
+
+      let_it_be(:task_a) { create(:task, taskable: building_a, owner: super_user, assignee: kam) }
+      let_it_be(:task_b) { create(:task, taskable: building_a, owner: kam, assignee: super_user) }
+      let_it_be(:task_c) { create(:task, taskable: building_a, owner: kam, assignee: kam) }
+
+      let_it_be(:kam_region) { create(:kam_region, kam: kam) }
+      let_it_be(:kam_investor) { create(:kam_investor, kam: kam) }
+
+      it 'returns association details' do
+        user, errors = formatted_response(query(id: kam.id), current_user: super_user, key: :user)
+        expect(errors).to be_nil
+        expect(user).to have_attributes(
+          buildingsCount: 1,
+          projectsCount: 1,
+          assignedProjectsCount: 2,
+          assignedTasksCount: 2
+        )
+
+        expect(user.kamRegions.first[:id]).to eq(kam_region.id)
+        expect(user.kamInvestors.first[:id]).to eq(kam_investor.id)
+      end
+    end
+
     context "when record doesn't exist" do
       it 'responds with error' do
         data, errors = formatted_response(
@@ -80,25 +110,16 @@ RSpec.describe Resolvers::UserResolver do
           id
           email
           name
-          profile {
-            firstname
-            lastname
-            salutation
-            phone
-            department
-          }
-          address {
-            streetNo
-            street
-            city
-            zip
-          }
+          projectsCount
+          assignedProjectsCount
+          buildingsCount
+          assignedTasksCount
+          profile { firstname lastname salutation phone department }
+          address { streetNo street city zip }
+          kamRegions { id name kam { id name } }
+          kamInvestors { id investorId kam { id name } }
         }
       }
     GQL
-  end
-
-  def query_string(args = {})
-    args[:id].present? ? "(id: \"#{args[:id]}\")" : nil
   end
 end

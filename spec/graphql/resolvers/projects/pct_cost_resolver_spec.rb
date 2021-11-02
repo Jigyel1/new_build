@@ -37,7 +37,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
           socketInstallationCost: 16_299.0,
           leaseCost: 20_930.4,
           arpu: 45.66,
-          penetrationRate: 4.56,
+          penetrationRate: 456,
           paybackPeriod: 602,
           paybackPeriodFormatted: '50 years and 2 months',
           systemGeneratedPaybackPeriod: true,
@@ -115,6 +115,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(data.projectPctCost.projectCost).to eq(0.0)
+        expect(data.projectPctCost.projectConnectionCost).to eq(0.0)
       end
     end
 

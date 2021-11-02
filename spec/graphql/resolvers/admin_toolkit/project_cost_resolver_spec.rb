@@ -25,6 +25,16 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
         expect(errors).to eq(['Not Authorized'])
       end
     end
+
+    context 'with project read permission' do
+      let_it_be(:kam) { create(:user, :kam, with_permissions: { project: :read }) }
+
+      it 'returns the project cost' do
+        response, errors = formatted_response(query, current_user: kam)
+        expect(errors).to be_nil
+        expect(response.adminToolkitProjectCost).to have_attributes(arpu: 50.0, standard: 10_500.0)
+      end
+    end
   end
 
   def query

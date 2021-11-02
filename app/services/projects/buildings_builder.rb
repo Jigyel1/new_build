@@ -5,7 +5,7 @@ module Projects
     attr_accessor :project, :buildings_count, :apartments_count
 
     def call # rubocop:disable Metrics/AbcSize
-      1.upto(buildings_count.to_i) do |index|
+      1.upto(buildings_count) do |index|
         project.buildings.build(
           name: "#{project.name} #{index}",
           assignee: project.assignee,

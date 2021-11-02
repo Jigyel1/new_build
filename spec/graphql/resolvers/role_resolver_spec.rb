@@ -12,7 +12,8 @@ RSpec.describe Resolvers::RoleResolver do
       expect(errors).to be_nil
       expect(role).to have_attributes(
         id: role.id,
-        name: role.name
+        name: role.name,
+        usersCount: 1
       )
     end
 
@@ -40,16 +41,7 @@ RSpec.describe Resolvers::RoleResolver do
 
   def query(args = {})
     <<~GQL
-      query {
-        role#{query_string(args)} {
-          id
-          name
-        }
-      }
+      query { role#{query_string(args)} { id name usersCount } }
     GQL
-  end
-
-  def query_string(args = {})
-    args[:id].present? ? "(id: \"#{args[:id]}\")" : nil
   end
 end

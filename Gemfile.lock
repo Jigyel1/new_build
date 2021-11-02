@@ -486,6 +486,9 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
+    sidekiq-statistic (1.4.0)
+      sidekiq (>= 5.0)
+      tilt (~> 2.0)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -615,6 +618,7 @@ DEPENDENCIES
   search_object_graphql
   shoulda-matchers
   sidekiq
+  sidekiq-statistic
   simplecov
   solargraph
   spring

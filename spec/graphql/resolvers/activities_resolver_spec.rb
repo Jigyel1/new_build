@@ -406,16 +406,4 @@ RSpec.describe Resolvers::ActivitiesResolver do
   def query(args = {})
     connection_query("activities#{query_string(args)}", 'id createdAt displayText')
   end
-
-  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
-    params = args[:user_ids] ? ["userIds: #{args[:user_ids]}"] : []
-    params += ["dates: #{args[:dates]}"] if args[:dates]
-    params += ["actions: #{args[:actions]}"] if args[:actions]
-
-    params << "first: #{args[:first]}" if args[:first]
-    params << "skip: #{args[:skip]}" if args[:skip]
-    params << "query: \"#{args[:query]}\"" if args[:query]
-
-    params.empty? ? nil : "(#{params.join(',')})"
-  end
 end

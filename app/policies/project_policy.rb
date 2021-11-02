@@ -20,6 +20,7 @@ class ProjectPolicy < ApplicationPolicy
   def archived?
     archive?
   end
+  alias unarchive? archived?
 
   def unassign_incharge?
     incharge?

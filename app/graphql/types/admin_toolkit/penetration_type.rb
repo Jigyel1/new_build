@@ -18,7 +18,7 @@ module Types
       )
 
       def rate
-        object.rate.rounded
+        object.rate.percentage
       end
     end
   end

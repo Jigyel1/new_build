@@ -3,7 +3,7 @@
 # This module keeps track of the records previous status.
 # In order to include this module in your Active Record class, do ensure that
 # your class has an attribute `status`.
-module Taskable
+module Trackable
   extend ActiveSupport::Concern
 
   included do

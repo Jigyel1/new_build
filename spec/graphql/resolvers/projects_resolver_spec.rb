@@ -133,7 +133,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       let(:buildings) { [15, 25] }
 
       it 'returns projects with buildings in the given range' do
-        projects, errors = paginated_collection(:projects, query(buildings: buildings), current_user: super_user)
+        projects, errors = paginated_collection(:projects, query(buildings_count: buildings), current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_b.id, project_c.id])
       end
@@ -142,7 +142,8 @@ RSpec.describe Resolvers::ProjectsResolver do
         let(:buildings) { [15] }
 
         it 'fetches all buildings greater than or equal to the min' do
-          projects, errors = paginated_collection(:projects, query(buildings: buildings), current_user: super_user)
+          projects, errors = paginated_collection(:projects, query(buildings_count: buildings),
+                                                  current_user: super_user)
           expect(errors).to be_nil
           expect(projects.pluck(:id)).to match_array([project_b.id, project_c.id])
         end
@@ -153,7 +154,8 @@ RSpec.describe Resolvers::ProjectsResolver do
       let(:apartments) { [16, 90] }
 
       it 'returns projects with apartments in the given range' do
-        projects, errors = paginated_collection(:projects, query(apartments: apartments), current_user: super_user)
+        projects, errors = paginated_collection(:projects, query(apartments_count: apartments),
+                                                current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_b.id])
       end
@@ -178,6 +180,14 @@ RSpec.describe Resolvers::ProjectsResolver do
         )
       end
     end
+
+    context 'without read permission' do
+      it 'forbids action' do
+        projects, errors = paginated_collection(:projects, query, current_user: kam)
+        expect(projects).to be_nil
+        expect(errors).to eq(['Not Authorized'])
+      end
+    end
   end
 
   def query(args = {})
@@ -191,19 +201,5 @@ RSpec.describe Resolvers::ProjectsResolver do
       response,
       meta: 'countByStatuses'
     )
-  end
-
-  def query_string(args = {}) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    params = args[:categories] ? ["categories: #{args[:categories]}"] : []
-    params << "assignees: #{args[:assignees]}" if args[:assignees].present?
-    params << "priorities: #{args[:priorities]}" if args[:priorities].present?
-    params << "internalIds: #{args[:internal_ids]}" if args[:internal_ids].present?
-    params << "statuses: #{args[:statuses]}" if args[:statuses].present?
-    params << "constructionTypes: #{args[:construction_types]}" if args[:construction_types].present?
-    params << "buildingsCount: #{args[:buildings]}" if args[:buildings].present?
-    params << "apartmentsCount: #{args[:apartments]}" if args[:apartments].present?
-    params << "query: \"#{args[:query]}\"" if args[:query]
-
-    params.empty? ? nil : "(#{params.join(',')})"
   end
 end

@@ -122,3 +122,23 @@ def connection_query(request, response, meta: nil)
     }
   GQL
 end
+
+# Formats the given input hash to a GraphQL string.
+# Pass the default required key values for a given spec file in a block to avoid
+# passing it in every query param. eg.
+#   super { { projectId: project.id } }
+#
+# @param [Hash] params Keyword arguments
+# @param [String]
+def query_string(params)
+  params.merge!(yield) if block_given?
+  return if params.blank?
+
+  array = params.reduce([]) do |arr, param|
+    key, value = param
+    formatted = value.is_a?(String) ? "\"#{value}\"" : value
+    arr << "#{key.to_s.camelize(:lower)}:#{formatted}"
+  end
+
+  array.try { |item| "(#{item.join(',')})" }
+end

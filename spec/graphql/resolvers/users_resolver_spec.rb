@@ -48,7 +48,7 @@ RSpec.describe Resolvers::UsersResolver do
 
     context 'with status filter' do
       it 'returns users matching the given status' do
-        users, errors = paginated_collection(:users, query(active: false, name: true), current_user: super_user)
+        users, errors = paginated_collection(:users, query(active: false), current_user: super_user)
         expect(errors).to be_nil
         expect(users.pluck(:id)).to match_array([kam.id, presales.id])
       end
@@ -117,16 +117,5 @@ RSpec.describe Resolvers::UsersResolver do
 
   def query(args = {})
     connection_query("users#{query_string(args)}", 'id email name phone role department')
-  end
-
-  def query_string(args = {}) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
-    params = args[:role_ids] ? ["roleIds: #{args[:role_ids]}"] : []
-    params << "departments: #{args[:departments]}" if args[:departments].present?
-    params << "active: #{args[:active]}" unless args[:active].nil?
-    params << "query: \"#{args[:query]}\"" if args[:query]
-    params << "first: #{args[:first]}" if args[:first]
-    params << "skip: #{args[:skip]}" if args[:skip]
-
-    params.empty? ? nil : "(#{params.join(',')})"
   end
 end

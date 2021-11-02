@@ -99,6 +99,7 @@ gem 'scenic'
 gem 'search_object'
 gem 'search_object_graphql'
 gem 'sidekiq'
+gem 'sidekiq-statistic'
 gem 'strong_migrations'
 gem 'xsv'
 

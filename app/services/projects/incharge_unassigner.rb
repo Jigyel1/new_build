@@ -12,7 +12,7 @@ module Projects
     end
 
     def project
-      @_project ||= Project.find(attributes[:id])
+      @project ||= Project.find(attributes[:id])
     end
 
     private

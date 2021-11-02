@@ -30,8 +30,7 @@ module Projects
       end
 
       def authorized?
-        action = aasm.to_state == :unarchive ? :archive? : "#{aasm.to_state}?"
-        authorize! project, to: action
+        authorize! project, to: "#{aasm.to_state}?"
       end
 
       def unarchive?

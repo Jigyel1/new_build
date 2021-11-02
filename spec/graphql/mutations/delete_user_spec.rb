@@ -56,8 +56,9 @@ RSpec.describe Mutations::DeleteUser do
       end
     end
 
-    context 'when user has associated projects & tasks' do
+    context 'when user has associated projects, buildings & tasks' do
       let_it_be(:project_a) { create(:project, assignee: team_standard) }
+      let_it_be(:building_a) { create(:building, project: project_a, assignee: team_standard) }
       let_it_be(:project_b) { create(:project, assignee: team_standard, incharge: team_standard) }
       let_it_be(:project_c) { create(:project, incharge: team_standard) }
 
@@ -86,6 +87,7 @@ RSpec.describe Mutations::DeleteUser do
           expect(errors).to be_nil
 
           expect(project_a.reload.assignee_id).to eq(super_user.id)
+          expect(building_a.reload.assignee_id).to eq(super_user.id)
           expect(project_b.reload).to have_attributes(assignee_id: super_user.id, incharge_id: super_user.id)
           expect(project_c.reload.incharge_id).to eq(super_user.id)
 
@@ -156,6 +158,19 @@ RSpec.describe Mutations::DeleteUser do
           expect(kam_b.kam_regions.pluck(:id)).to match_array([kam_region_b.id, kam_region_c.id])
         end
       end
+
+      context 'with same user as the kam for the region' do
+        it 'throws error' do
+          response, errors = formatted_response(
+            query(id: kam_a.id, set_region_mapping: true, region_id: kam_region_a.id),
+            current_user: super_user,
+            key: :deleteUser
+          )
+
+          expect(response.status).to be_nil
+          expect(errors).to eq([t('user.kam_with_regions', references: kam_a.kam_regions.pluck(:name).to_sentence)])
+        end
+      end
     end
 
     context 'with associated kam investors' do
@@ -207,6 +222,24 @@ RSpec.describe Mutations::DeleteUser do
 
           # rollback check
           expect(kam_b.kam_investors.pluck(:id)).to match_array([kam_investor_b.id, kam_investor_c.id])
+        end
+      end
+
+      context 'with same user as the kam for the investor' do
+        it 'throws error' do
+          response, errors = formatted_response(
+            query(id: kam_a.id, set_investor_mapping: true, investor_id: kam_investor_a.id),
+            current_user: super_user,
+            key: :deleteUser
+          )
+
+          expect(response.status).to be_nil
+          expect(errors).to eq(
+            [
+              t('user.kam_with_investors',
+                references: kam_a.kam_investors.pluck(:investor_id).to_sentence)
+            ]
+          )
         end
       end
     end

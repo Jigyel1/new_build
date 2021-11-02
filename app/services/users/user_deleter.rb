@@ -3,6 +3,8 @@
 module Users
   class UserDeleter < BaseService
     TIME_FORMAT = '%Y_%m_%d_%H_%M'
+    ASSOCIATIONS = %i[buildings assigned_tasks projects assigned_projects].freeze
+
     include ActivityHelper
     include UserFinder
 
@@ -35,8 +37,6 @@ module Users
     end
 
     private
-
-    ASSOCIATIONS = %i[assigned_tasks projects assigned_projects].freeze
 
     # validates <tt>attributes[:assignee_id]</tt> is present when the user to be
     # deleted has assigned tasks or projects.

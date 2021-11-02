@@ -15,6 +15,7 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
       :hfc_footprint,
       city: 'Chêne-Bougeries',
       kam_region: kam_region,
+      rate: 0.6636094674556213,
       penetration_competitions: [build(:penetration_competition, competition: competition_b)]
     )
   end
@@ -25,6 +26,7 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
       :hfc_footprint, :land,
       city: 'Le Grand-Saconnex',
       kam_region: kam_region,
+      rate: 66.8136666674556213,
       penetration_competitions: [build(:penetration_competition, competition: competition)]
     )
   end
@@ -35,6 +37,7 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
       :agglo,
       city: 'Meinier',
       kam_region: kam_region_b,
+      rate: 0.8136094674556666,
       penetration_competitions: [build(:penetration_competition, competition: competition_b)]
     )
   end
@@ -45,6 +48,7 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
       :med_city,
       city: 'Troinex',
       kam_region: kam_region_b,
+      rate: 0.813609466666213,
       penetration_competitions: [build(:penetration_competition, competition: competition)]
     )
   end
@@ -78,6 +82,16 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
         expect(errors).to be_nil
         expect(penetrations.size).to eq(1)
         expect(penetrations.dig(0, :id)).to eq(penetration.id)
+      end
+
+      # Doesn't return `project_c` with rate `0.8136094674556666` and `project_d`
+      # with rate `0.813609466666213` although they still match the query string('66')
+      it 'fetches records with decimals columns after rounding off the values' do
+        penetrations, errors = paginated_collection(
+          :adminToolkitPenetrations, query(query: '66'), current_user: super_user
+        )
+        expect(errors).to be_nil
+        expect(penetrations.pluck(:id)).to match_array([penetration.id, penetration_b.id])
       end
     end
 
@@ -124,20 +138,10 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
 
   def query(args = {})
     response = <<~RESPONSE
-      id zip city rate hfcFootprint type kamRegion { id kam { name } }#{' '}
+      id zip city rate hfcFootprint type kamRegion { id kam { name } }
       penetrationCompetitions { competition { name } }
     RESPONSE
 
     connection_query("adminToolkitPenetrations#{query_string(args)}", response)
-  end
-
-  def query_string(args = {}) # rubocop:disable Metrics/AbcSize
-    params = args[:competitions] ? ["competitions: #{args[:competitions]}"] : []
-    params << "types: #{args[:types]}" if args[:types].present?
-    params << "hfcFootprint: #{args[:hfc_footprint]}" if args[:hfc_footprint]
-    params << "kamRegions: #{args[:kam_regions]}" if args[:kam_regions]
-    params << "query: \"#{args[:query]}\"" if args[:query]
-
-    params.empty? ? nil : "(#{params.join(',')})"
   end
 end

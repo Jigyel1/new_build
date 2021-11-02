@@ -6,8 +6,9 @@ module AdminToolkit
     validates :name, uniqueness: { case_sensitive: false }
     validates :factor, numericality: { greater_than_or_equal_to: 0 }
 
-    has_many :penetration_competitions, class_name: 'AdminToolkit::PenetrationCompetition', dependent: :destroy
-    has_many :penetrations, through: :penetration_competitions
+    has_many :projects, dependent: :restrict_with_error
+    has_many :penetration_competitions, class_name: 'AdminToolkit::PenetrationCompetition' # rubocop:disable Rails/HasManyOrHasOneDependent
+    has_many :penetrations, through: :penetration_competitions, dependent: :restrict_with_error
 
     default_scope { order(created_at: :desc) }
   end
