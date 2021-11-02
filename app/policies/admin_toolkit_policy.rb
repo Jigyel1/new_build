@@ -1,29 +1,25 @@
 # frozen_string_literal: true
 
 class AdminToolkitPolicy < ApplicationPolicy
-  # FE needs to internally call some endpoints like <tt>label_groups, project_cost, pcts</tt>
-  # for project based calculations. Keep these endpoints accessible to admins and users with
-  # project read permission.
-  def project_read?
+  # FE needs to internally call most AdminToolkit endpoints during project state transitions.
+  # To prevent server from throwing <tt>Not Authorized</tt> exception, allow access to
+  # admins and users with project read permission.
+  def index?
     user.admin? || begin
       permission = user.permissions.find_by(resource: :project)
       permission && permission.actions['read']
     end
   end
 
-  def index?
+  def create?
     user.admin?
   end
 
-  def create?
-    index?
-  end
-
   def update?
-    index?
+    create?
   end
 
   def destroy?
-    index?
+    create?
   end
 end
