@@ -1,10 +1,9 @@
-<%= image_tag(attachments['logo.png'].url) %>
-
 New Build - Tasks Due Date Tomorrow
-Hello <%= @user %>
+Hello <%= @user.firstname.capitalize! %>
 
-The following task(s) are due soon, on <%= @task.due_date %>
+The following task(s) are due soon, on <%= @task.due_date.strftime('%d.%m.%Y')  %>
 "<%= @task.title %>"
 Please login to the portal to update task information.
+https://new-build-loki.selise.dev/
 
 

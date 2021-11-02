@@ -4,6 +4,7 @@ class TaskMailer < ApplicationMailer
   def notify_before_due_date(user_id, task_id)
     user = User.find(user_id)
     @task = Projects::Task.find(task_id)
+    @user = user
 
     mail(to: email_address_with_name(user.email, user.name))
   end
@@ -11,6 +12,7 @@ class TaskMailer < ApplicationMailer
   def notify_on_due_date(user_id, task_id)
     user = User.find(user_id)
     @task = Projects::Task.find(task_id)
+    @user = user
 
     mail(to: email_address_with_name(user.email, user.name))
   end

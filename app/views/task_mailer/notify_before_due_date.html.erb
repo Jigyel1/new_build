@@ -1,13 +1,10 @@
 <div class="email-container">
   <div class="email-content p-24">
-    <div class="logo">
-      <%= image_tag(attachments['logo.png'].url) %>
-    </div>
     <h1 class="font-size--50">New Build - Tasks Due Date Tomorrow</h1>
-    <p class="color--primary">Hello <%= @user %></p>
+    <p class="color--primary">Hello <%= @user.firstname.capitalize! %></p>
 
     <p class="line-height--22">
-      The following task(s) are due soon, on <%= @task.due_date %>
+      The following task(s) are due soon, on <%= @task.due_date.strftime('%d.%m.%Y') %>
     </p>
     <p class="line-height--22">
       "<%= @task.title %>"
@@ -15,7 +12,8 @@
     <p class="line-height--22">
       Please login to the portal to update task information.
     </p>
-
-    <p><%= t('devise.mailer.signature') %></p>
+    <a class="line-height--22" href="https://new-build-loki.selise.dev/">
+      https://new-build-loki.selise.dev/
+    </a>
   </div>
 </div>
