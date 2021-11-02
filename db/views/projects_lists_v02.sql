@@ -13,6 +13,7 @@ SELECT projects.id                                              AS id,
        projects.lot_number                                      AS lot_number,
        projects.internal_id                                     AS internal_id,
        projects.draft_version                                   AS draft_version,
+       projects.assignee_type                                   AS assignee_type,
        cardinality(projects.label_list)                         AS labels,
 
        CONCAT(
