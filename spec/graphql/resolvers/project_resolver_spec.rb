@@ -98,6 +98,20 @@ RSpec.describe Resolvers::ProjectResolver do
       end
     end
 
+    context 'for marketing_only projects' do
+      before { project.update_column(:category, :marketing_only) }
+
+      it 'returns project states without TAC & ready for offer state' do
+        data, errors = formatted_response(query, current_user: super_user)
+        expect(errors).to be_nil
+        expect(data.project.states.to_h).to eq(
+          open: true,
+          technical_analysis: false,
+          commercialization: false
+        )
+      end
+    end
+
     context 'when project has reached ready for offer' do
       before { project.update_column(:status, :ready_for_offer) }
 
