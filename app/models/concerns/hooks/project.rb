@@ -10,7 +10,7 @@ module Hooks
       before_save :set_kam_region
       before_create :set_external_urls
       after_save :update_projects_list, :update_users_list
-      after_create :create_default_label_group
+      after_create :create_default_label_group, :update_status
       after_destroy :update_projects_list, :update_users_list
     end
 
@@ -24,6 +24,10 @@ module Hooks
       label_group = label_groups.create!(system_generated: true)
       label_group.label_list << MANUALLY_CREATED if manual?
       label_group.save!
+    end
+
+    def update_status
+      update_column(:status, :archived) if irrelevant?
     end
 
     def set_external_urls

@@ -104,6 +104,16 @@ RSpec.describe Project, type: :model do
     end
   end
 
+  describe 'hooks' do
+    context 'for irrelevant projects' do
+      subject(:project) { create(:project, :irrelevant) }
+
+      it 'auto archives project on create' do
+        expect(project.archived?).to be(true)
+      end
+    end
+  end
+
   describe 'enums' do
     it do
       expect(subject).to define_enum_for(:assignee_type).with_values( # rubocop:disable RSpec/NamedSubject
