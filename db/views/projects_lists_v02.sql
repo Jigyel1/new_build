@@ -25,7 +25,7 @@ SELECT projects.id                                              AS id,
 
        CONCAT(profiles.firstname, ' ', profiles.lastname)       AS assignee,
        projects.assignee_id                                     AS assignee_id,
-       projects_address_books.display_name                      AS investor,
+       projects_address_books.name                              AS investor,
        admin_toolkit_kam_regions.name                           AS kam_region
 
 FROM projects
