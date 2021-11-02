@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe TaskReminderBeforeDueDateJob, type: :job do
-  include ActiveJob::TestHelper
-
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:project) { create(:project) }
@@ -13,7 +11,6 @@ RSpec.describe TaskReminderBeforeDueDateJob, type: :job do
 
   describe '#perform_later' do
     it 'sends a reminder before due date' do
-      ActiveJob::Base.queue_adapter = :test
       before_due_date = described_class.set(wait_until: task.due_date.yesterday.to_time + 9.hours)
                                        .perform_later(kam.id, task.id)
       expect(before_due_date.arguments[0]).to eq(kam.id)
@@ -22,8 +19,6 @@ RSpec.describe TaskReminderBeforeDueDateJob, type: :job do
         described_class.set(wait_until: task.due_date.yesterday.to_time + 9.hours)
                        .perform_later(kam.id, task.id)
       end.to have_enqueued_job
-
-      perform_enqueued_jobs
     end
   end
 end
