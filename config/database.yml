@@ -10,7 +10,7 @@ test:
   <<: *default
   database: new_build_test
   host: localhost
-
+  
 production:
   adapter: postgresql
   encoding: unicode
