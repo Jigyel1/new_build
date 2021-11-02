@@ -5,7 +5,10 @@ class AdminToolkitPolicy < ApplicationPolicy
   # for project based calculations. Keep these endpoints accessible to admins and users with
   # project read permission.
   def project_read?
-    user.admin? || user.permissions.find_by(actions: { read: true })
+    user.admin? || begin
+      permission = user.permissions.find_by(resource: :project)
+      permission && permission.actions['read']
+    end
   end
 
   def index?
