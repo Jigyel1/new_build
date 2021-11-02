@@ -35,7 +35,8 @@ RSpec.describe Resolvers::ProjectResolver do
           open: true,
           technical_analysis: false,
           technical_analysis_completed: false,
-          ready_for_offer: false
+          ready_for_offer: false,
+          commercialization: false
         )
       end
 
@@ -91,7 +92,8 @@ RSpec.describe Resolvers::ProjectResolver do
         expect(data.project.states.to_h).to eq(
           open: true,
           technical_analysis: false,
-          ready_for_offer: false
+          ready_for_offer: false,
+          commercialization: false
         )
       end
     end
@@ -106,7 +108,8 @@ RSpec.describe Resolvers::ProjectResolver do
           open: true,
           technical_analysis: true,
           technical_analysis_completed: true,
-          ready_for_offer: true
+          ready_for_offer: true,
+          commercialization: false
         )
       end
     end

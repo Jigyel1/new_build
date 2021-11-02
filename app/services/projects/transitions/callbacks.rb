@@ -9,23 +9,22 @@ module Projects
       end
 
       def before_technical_analysis_completed
-        # Project does not accept nested attribute for PCT Cost. So extract and remove
-        # the necessary attributes before assigning those to the project.
-        pct_cost = OpenStruct.new(attributes.delete(:pct_cost_attributes))
-
         extract_verdict
-        project.assign_attributes(attributes)
+
+        # Project does not accept nested attribute for PCT Cost. So build the project
+        # excluding the <tt>pct_cost_attributes</tt>
+        project.assign_attributes(attributes.except(:pct_cost_attributes))
 
         Transitions::TacValidator.new(
           project: project,
-          project_connection_cost: pct_cost.project_connection_cost
+          project_connection_cost: OpenStruct.new(attributes[:pct_cost_attributes]).project_connection_cost
         ).call
 
         true
       end
 
       def after_technical_analysis_completed
-        update_label
+        update_label unless marketing_only?
       end
 
       def after_ready_for_offer

@@ -18,6 +18,7 @@ module Enumable
         contract: 'Contract',
         contract_accepted: 'Contract Accepted',
         under_construction: 'Under Construction',
+        commercialization: 'Commercialization',
         archived: 'Archived'
       }
 
