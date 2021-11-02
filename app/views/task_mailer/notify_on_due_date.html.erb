@@ -1,1 +1,21 @@
-Done
+<div class="email-container">
+  <div class="email-content p-24">
+    <div class="logo">
+      <%= image_tag(attachments['logo.png'].url) %>
+    </div>
+    <h1 class="font-size--50">New Build - Tasks Due Date Today</h1>
+    <p class="color--primary">Hello <%= @user %></p>
+
+    <p class="line-height--22">
+      The due date for the following task(s) are are about to end, on <%= @task.due_date %>
+    </p>
+    <p class="line-height--22">
+      "<%= @task.title %>"
+    </p>
+    <p class="line-height--22">
+      Please login to the portal to update task information.
+    </p>
+
+    <p><%= t('devise.mailer.signature') %></p>
+  </div>
+</div>
