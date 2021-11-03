@@ -17,17 +17,17 @@ describe 'Reminder' do
 
   context 'with task reminder:due_date_tomorrow' do
     it 'triggers mail before due date' do
-      ActionMailer::Base.deliveries.clear
-      Rake::Task['reminder:due_date_tomorrow'].invoke
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      expect do
+        Rake::Task['reminder:due_date_tomorrow'].invoke
+      end.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
   end
 
   context 'with task reminder:due_date_today' do
     it 'triggers mail on due date' do
-      ActionMailer::Base.deliveries.clear
-      Rake::Task['reminder:due_date_today'].invoke
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      expect do
+        Rake::Task['reminder:due_date_today'].invoke
+      end.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
   end
 end
