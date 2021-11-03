@@ -16,18 +16,20 @@ module Buildings
 
     private
 
-    def update_and_create! # rubocop:disable Metrics/AbcSize
+    def update_and_create! # rubocop:disable Metrics/AbcSize, Metrics/SeliseMethodLength
       ordered_rows.zip(ordered_buildings).each do |array|
         row, building = array
 
-        if building
-          update_building!(building, row)
-        else
-          project.buildings.create!(
-            name: "#{project.name} #{project.buildings.size + 1}",
-            external_id: row[EXTERNAL_ID].to_i,
-            **building_attributes(row)
-          )
+        with_error_formatting(row) do
+          if building
+            update_building!(building, row)
+          else
+            project.buildings.create!(
+              name: "#{project.name} #{project.buildings.size + 1}",
+              external_id: row[EXTERNAL_ID].try(:to_i),
+              **building_attributes(row)
+            )
+          end
         end
       end
     end
@@ -35,12 +37,18 @@ module Buildings
     def update_and_delete!
       ordered_buildings.zip(ordered_rows).each do |array|
         building, row = array
-        row ? update_building!(building, row) : building.destroy!
+        with_error_formatting(row) { row ? update_building!(building, row) : building.destroy! }
       end
     end
 
     def update_building!(building, row)
       building.update!(external_id: row[EXTERNAL_ID].to_i, **building_attributes(row))
+    end
+
+    def with_error_formatting(row)
+      yield if block_given?
+    rescue ActiveRecord::RecordInvalid => e
+      raise "Import failed for Project with PRONUM `#{row[0]}` and PROFKE `#{row[5]}` with error #{e}"
     end
   end
 end
