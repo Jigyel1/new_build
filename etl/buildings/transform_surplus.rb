@@ -42,13 +42,13 @@ module Buildings
     end
 
     def update_building!(building, row)
-      building.update!(external_id: row[EXTERNAL_ID].to_i, **building_attributes(row))
+      building.update!(external_id: row[EXTERNAL_ID].try(:to_i), **building_attributes(row))
     end
 
     def with_error_formatting(row)
       yield if block_given?
     rescue ActiveRecord::RecordInvalid => e
-      raise "Import failed for Project with PRONUM `#{row[0]}` and PROFKE `#{row[5]}` with error #{e}"
+      raise "Import failed for row with PRONUM `#{row[0]}` and PROFKE `#{row[5]}` with error #{e}"
     end
   end
 end

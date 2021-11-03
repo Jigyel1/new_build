@@ -65,8 +65,7 @@ module Projects
         if marketing_only? then %i[technical_analysis_completed ready_for_offer]
         elsif prio_one? then :technical_analysis_completed
         end
-        # if the PCT cost for the project is not set, it will raise a <tt>NoMethodError</tt>
-      rescue NoMethodError
+      rescue NoMethodError # raised if the PCT cost for the project is not set
         nil
       end
     end
