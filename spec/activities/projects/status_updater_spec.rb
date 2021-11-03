@@ -40,7 +40,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -53,7 +53,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -83,7 +83,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -96,7 +96,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -120,7 +120,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -134,7 +134,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -156,7 +156,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -169,7 +169,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -190,7 +190,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -203,7 +203,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -224,7 +224,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -238,7 +238,7 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)

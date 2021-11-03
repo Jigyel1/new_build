@@ -4,22 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
-
-## [0.1.6] - 2021-11-05
-
-### Features
-- `Commercialization` as the final project state with state transitions.
-
-### Fixes
-- Admin Toolkit read access for all admins and users with project read permission.
-- Allow 0 as min of apartment in `AdminToolkit::Apartment`. 
-- Auto-archive irrelevant projects.
-- Display `assignee_type` in projects list if assignee is not set.
-- Extract out header and footer template for emails.
-- Display investor's name in projects list and not investor type.
-- Building import - use column 0 for external id and column 5 for internal id.
-
-## [0.1.5] - 2021-10-29
+## [0.1.5] - 2021-08-29
 
 ### Fixes
 - Query upto only 2 decimal places for the rate in penetrations.
@@ -36,7 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Auto update kam region for projects on `create/update/import`.
 
 
-## [0.1.4] - 2021-10-25
+## [0.1.4] - 2021-08-25
 
 ### Features
 - Filter projects with `internal_ids`.

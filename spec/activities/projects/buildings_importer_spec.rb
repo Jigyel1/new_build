@@ -24,7 +24,7 @@ describe Projects::BuildingsImporter, type: :request do
     let!(:file) { params[:file] }
 
     context 'as an owner' do
-      it 'returns activities in the first person' do
+      it 'returns activities in first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
@@ -39,7 +39,7 @@ describe Projects::BuildingsImporter, type: :request do
       let!(:super_user_b) { create(:user, :super_user) }
       let!(:file) { params[:file] }
 
-      it 'returns activity in terms of third person' do
+      it 'returns activities in third person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
