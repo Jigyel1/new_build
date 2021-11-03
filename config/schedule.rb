@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-set :output, 'log/cron_log.log'
+set :output, 'log/cron.log'
 
 every 1.day, at: '9:00 am' do
   rake 'reminder:due_date_tomorrow'
