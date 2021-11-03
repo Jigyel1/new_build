@@ -25,12 +25,12 @@ RSpec.describe Mutations::AdminToolkit::UpdateFootprintApartment do
     end
 
     context 'with invalid params' do
-      let!(:params) { { id: footprint_apartment.id, max: 0 } }
+      let!(:params) { { id: footprint_apartment.id, max: -1 } }
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateFootprintApartment)
         expect(response.footprintApartment).to be_nil
-        expect(errors).to match_array(['Max must be greater than 0 and Max must be greater than or equal to 1'])
+        expect(errors).to match_array(['Max must be greater than or equal to 0 and Max must be greater than or equal to 1'])
       end
     end
 
