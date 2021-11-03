@@ -59,6 +59,7 @@ group :development, :test do
   gem 'test-prof'
   gem 'webmock'
   gem 'webrick'
+  gem 'whenever-test'
 end
 
 group :development do
@@ -100,6 +101,7 @@ gem 'search_object_graphql'
 gem 'sidekiq'
 gem 'sidekiq-statistic'
 gem 'strong_migrations'
+gem 'whenever', require: false
 gem 'xsv'
 
 source 'https://gems.selise.tech' do

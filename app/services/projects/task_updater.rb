@@ -10,20 +10,12 @@ module Projects
 
       with_tracking(activity_id = SecureRandom.uuid) do
         task.update!(attributes)
-        delete_enqueued_jobs if task.due_date_previously_changed?
 
         Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
     private
-
-    def delete_enqueued_jobs
-      job_scheduled('before_due_date').delete
-      job_scheduled('on_due_date').delete
-      task.job_ids.clear
-      create_job
-    end
 
     def activity_params(activity_id)
       {

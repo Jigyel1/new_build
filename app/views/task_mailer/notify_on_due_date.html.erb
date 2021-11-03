@@ -4,11 +4,13 @@
     <p class="color--primary">Hello <%=@user.firstname.capitalize!%></p>
 
     <p class="line-height--22">
-      The due date for the following task(s) are about to end, on <%= @task.due_date.strftime('%d.%m.%Y')  %>
+      The due date for the following task(s) are about to end, on <%= @tasks.first.due_date.strftime('%d.%m.%Y')  %>
     </p>
-    <p class="line-height--22">
-      "<%= @task.title %>"
-    </p>
+    <ul>
+      <% @tasks.each do |task|%>
+        <li class="line-height--22"><%= task.title %></li>
+      <% end %>
+    </ul>
     <p class="line-height--22">
       Please login to the portal to update task information.
     </p>

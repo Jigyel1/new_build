@@ -38,7 +38,7 @@ describe Projects::FilesUploader, type: :request do
       before { post api_v1_graphql_path, params: params.call(*project_params, query(*project_params)) }
 
       context 'as an owner' do
-        it 'returns activity in terms of first person' do
+        it 'returns activities in the first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -65,7 +65,7 @@ describe Projects::FilesUploader, type: :request do
       before { post api_v1_graphql_path, params: params.call(*building_params, query(*building_params)) }
 
       context 'as an owner' do
-        it 'returns activity in terms of first person' do
+        it 'returns activities in the first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)

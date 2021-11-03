@@ -14,7 +14,7 @@ describe AdminToolkit::KamRegionsUpdater do
 
   describe '.activities' do
     context 'as an owner' do
-      it 'returns activity text in terms of a first person' do
+      it 'returns activities in the first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
         expect(activities.size).to eq(1)

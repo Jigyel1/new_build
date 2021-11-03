@@ -10,7 +10,7 @@ RSpec.describe Users::RoleUpdater do
     before { execute(update_query, current_user: super_user) }
 
     context 'as an owner' do
-      it 'returns activity text in terms of a first person' do
+      it 'returns activities in the first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
         activity = activities.first

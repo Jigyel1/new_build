@@ -1,7 +1,9 @@
 New Build - Tasks Due Date Today
 Hello <%=@user.firstname.capitalize! %>
 
-The due date for the following task(s) are about to end, on <%= @task.due_date.strftime('%d.%m.%Y')  %>
-"<%= @task.title %>"
+The due date for the following task(s) are about to end, on <%= @tasks.first.due_date.strftime('%d.%m.%Y')  %>
+<% @tasks.each do |task|%>
+  <%= task.title %>
+<% end %>
 Please login to the portal to update task information.
 https://new-build-loki.selise.dev/

@@ -1,8 +1,10 @@
 New Build - Tasks Due Date Tomorrow
 Hello <%= @user.firstname.capitalize! %>
 
-The following task(s) are due soon, on <%= @task.due_date.strftime('%d.%m.%Y')  %>
-"<%= @task.title %>"
+The following task(s) are due soon, on <%= @tasks.first.due_date.strftime('%d.%m.%Y')  %>
+<% @tasks.each do |task|%>
+<%= task.title %>
+<% end %>
 Please login to the portal to update task information.
 https://new-build-loki.selise.dev/
 

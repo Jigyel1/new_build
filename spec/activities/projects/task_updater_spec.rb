@@ -18,7 +18,7 @@ describe Projects::TaskUpdater do
       before_all { described_class.new(current_user: super_user, attributes: params).call }
 
       context 'as an owner' do
-        it 'returns activity in terms of first person' do
+        it 'returns activities in the first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -71,7 +71,7 @@ describe Projects::TaskUpdater do
       before_all { described_class.new(current_user: super_user, attributes: params).call }
 
       context 'as an owner' do
-        it 'returns activity in terms of first person' do
+        it 'returns activities in the first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
