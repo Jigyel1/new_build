@@ -1,6 +1,6 @@
 Hello <%= @user.profile.salutation %> <%= @user.lastname.capitalize! %>
 
-The due date for the following task(s) are about to end, on <%= @tasks.first.due_date.strftime('%d.%m.%Y')  %>
+The due date for the following task(s) are about to end, on <%= Date.current.strftime('%d.%m.%Y') %>
 <% @tasks.each do |task|%>
   <%= task.title %>
 <% end %>
