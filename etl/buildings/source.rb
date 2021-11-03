@@ -4,8 +4,8 @@ module Buildings
   class Source < EtlSource
     include EtlHelper
 
-    PROJECT_INTERNAL_ID = 0
-    PROJECT_EXTERNAL_ID = 5
+    PROJECT_INTERNAL_ID = 5
+    PROJECT_EXTERNAL_ID = 0
     LAST_INDEX = 66
     INTEGER_COLS = FileParser.parse { 'etl/buildings/integer_columns.yml' }.keys.freeze
 

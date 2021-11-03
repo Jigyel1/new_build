@@ -8,7 +8,7 @@ RSpec.describe AdminToolkit::FootprintApartment, type: :model do
     it { is_expected.to validate_presence_of(:max) }
     it { is_expected.to validate_presence_of(:index) }
 
-    it { is_expected.to validate_numericality_of(:min).is_greater_than(0) }
+    it { is_expected.to validate_numericality_of(:min).is_greater_than_or_equal_to(0) }
 
     it do
       subject = create(:admin_toolkit_footprint_apartment)

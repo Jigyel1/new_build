@@ -59,6 +59,15 @@ module Projects
           ).call
         end
       end
+
+      # returns a list of states not relevant for the given project
+      def irrelevant_states
+        if marketing_only? then %i[technical_analysis_completed ready_for_offer]
+        elsif prio_one? then :technical_analysis_completed
+        end
+      rescue NoMethodError # raised if the PCT cost for the project is not set
+        nil
+      end
     end
   end
 end

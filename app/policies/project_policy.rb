@@ -22,6 +22,12 @@ class ProjectPolicy < ApplicationPolicy
   end
   alias unarchive? archived?
 
+  # <tt>marketing_only</tt> projects can directly transition to commercialization without the need
+  # for authorization
+  def commercialization?
+    true
+  end
+
   def unassign_incharge?
     incharge?
   end
