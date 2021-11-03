@@ -20,6 +20,7 @@ describe 'Reminder' do
       Rake::Task['reminder:due_date_tomorrow'].invoke
       mail = ActionMailer::Base.deliveries.last
       expect(mail.to[0]).to eq(kam.email)
+      expect(mail.subject).to eq(I18n.t('mailer.task.notify_before_due_date'))
     end
   end
 
@@ -28,6 +29,7 @@ describe 'Reminder' do
       Rake::Task['reminder:due_date_today'].invoke
       mail = ActionMailer::Base.deliveries.last
       expect(mail.to[0]).to eq(kam.email)
+      expect(mail.subject).to eq(I18n.t('mailer.task.notify_on_due_date'))
     end
   end
 end
