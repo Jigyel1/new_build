@@ -47,7 +47,7 @@ describe Projects::StatusUpdater do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.technical_analysis.owner',
               project_name: project.name,
-              status: 'technical_analysis')
+              status: 'technical analysis')
           )
         end
       end
@@ -61,7 +61,7 @@ describe Projects::StatusUpdater do
             t('activities.project.technical_analysis.others',
               owner_email: super_user.email,
               project_name: project.name,
-              status: 'technical_analysis')
+              status: 'technical analysis')
           )
         end
       end
@@ -90,7 +90,7 @@ describe Projects::StatusUpdater do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.technical_analysis_completed.owner',
               project_name: project.name,
-              status: 'technical_analysis_completed')
+              status: 'technical analysis completed')
           )
         end
       end
@@ -103,7 +103,7 @@ describe Projects::StatusUpdater do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.technical_analysis_completed.others',
               project_name: project.name,
-              status: 'technical_analysis_completed',
+              status: 'technical analysis completed',
               owner_email: super_user.email)
           )
         end
@@ -127,8 +127,8 @@ describe Projects::StatusUpdater do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.offer_ready.owner',
               project_name: project.name,
-              previous_status: project.status,
-              status: 'ready_for_offer')
+              previous_status: project.status.split('_').join(' '),
+              status: 'ready for offer')
           )
         end
       end
@@ -141,8 +141,8 @@ describe Projects::StatusUpdater do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.offer_ready.others',
               project_name: project.name,
-              previous_status: project.status,
-              status: 'ready_for_offer',
+              previous_status: project.status.split('_').join(' '),
+              status: 'ready for offer',
               owner_email: super_user.email)
           )
         end
@@ -162,7 +162,7 @@ describe Projects::StatusUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.archive.owner',
-              previous_status: project.status,
+              previous_status: project.status.split('_').join(' '),
               project_name: project.name)
           )
         end
@@ -176,7 +176,7 @@ describe Projects::StatusUpdater do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.archive.others',
               owner_email: super_user.email,
-              previous_status: project.status,
+              previous_status: project.status.split('_').join(' '),
               project_name: project.name)
           )
         end
@@ -196,7 +196,7 @@ describe Projects::StatusUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.unarchive.owner',
-              status: project.previous_status,
+              status: project.previous_status.split('_').join(' '),
               project_name: project.name)
           )
         end
@@ -210,7 +210,7 @@ describe Projects::StatusUpdater do
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.unarchive.others',
               owner_email: super_user.email,
-              status: project.previous_status,
+              status: project.previous_status.split('_').join(' '),
               project_name: project.name)
           )
         end
@@ -230,8 +230,8 @@ describe Projects::StatusUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.revert.owner',
-              previous_status: project.status,
-              status: 'technical_analysis',
+              previous_status: project.status.split('_').join(' '),
+              status: 'technical analysis',
               project_name: project.name)
           )
         end
@@ -244,8 +244,8 @@ describe Projects::StatusUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.revert.others',
-              previous_status: project.status,
-              status: 'technical_analysis',
+              previous_status: project.status.split('_').join(' '),
+              status: 'technical analysis',
               project_name: project.name,
               owner_email: super_user.email)
           )

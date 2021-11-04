@@ -1,4 +1,4 @@
-Hello <%= @user.profile.salutation %> <%= @user.lastname.capitalize! %>
+Hello <%= @user.profile.salutation %> <%= @user.lastname %>
 
 The following task(s) are due soon, on <%= Date.tomorrow.strftime('%d.%m.%Y') %>
 <%= render('text_content', tasks: @tasks) %>

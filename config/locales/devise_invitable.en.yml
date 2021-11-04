@@ -8,6 +8,6 @@ en:
         hello_user: "Hello %{lastname}"
         description: 'You have been invited to New Build Tool. In order for you to start
           using the portal you have to sign in to your Sunrise-UPC account.'
-      trouble_text: 'If you are having trouble visiting the page from this button,
-        please copy paste the link below in your browser.'
-      signature: 'UPC Sunrise'
+      trouble_text: 'If you are having trouble visiting the page from the button above,
+        please copy paste the link in your browser.'
+      signature: 'Sunrise UPC GmbH'
