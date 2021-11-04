@@ -1,6 +1,6 @@
 Hello <%= @user.profile.salutation %> <%= @user.lastname.capitalize! %>
 
 The following task(s) are due soon, on <%= Date.tomorrow.strftime('%d.%m.%Y') %>
-<%= render partial: 'task_mailer/text_content' %>
+<%= render('text_content', tasks: @tasks) %>
 
 
