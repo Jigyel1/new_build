@@ -7,7 +7,7 @@ module Projects
 
       with_tracking(activity_id = SecureRandom.uuid) do
         project.update!(incharge_id: nil)
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
+        Activities::ActivityCreator.new(activity_id: activity_id, **activity_params).call
       end
     end
 
@@ -17,9 +17,8 @@ module Projects
 
     private
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :incharge_unassigned,
         owner: current_user,
         trackable: project,

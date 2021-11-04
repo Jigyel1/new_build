@@ -11,13 +11,7 @@ module Types
     field :action, String, null: true
 
     def created_at
-      in_datetime_zone(:created_at)
-    end
-
-    def in_datetime_zone(method, format: :datetime_str)
-      return unless object.send(method)
-
-      object.send(method).send(format)
+      object.created_at.datetime_str
     end
   end
 end
