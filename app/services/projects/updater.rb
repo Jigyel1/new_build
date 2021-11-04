@@ -5,10 +5,7 @@ module Projects
     def call
       authorize! project, to: :update?
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        project.update!(attributes)
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
-      end
+      with_tracking { project.update!(attributes) }
     end
 
     def project
@@ -17,9 +14,8 @@ module Projects
 
     private
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :project_updated,
         owner: current_user,
         trackable: project,

@@ -5,11 +5,10 @@ module Projects
     def call
       authorize! address_book.project, to: :update?
 
-      with_tracking(activity_id = SecureRandom.uuid) do
+      with_tracking do
         address_book.assign_attributes(attributes)
         address_book.entry_type = :manual # even the ones that were initially from the `info_manager`
         address_book.save!
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -19,9 +18,8 @@ module Projects
 
     private
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :address_book_updated,
         owner: current_user,
         trackable: address_book,

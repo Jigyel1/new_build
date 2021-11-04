@@ -7,17 +7,13 @@ module AdminToolkit
     def call
       authorize! competition, to: :destroy?, with: AdminToolkitPolicy
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        competition.destroy!
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
-      end
+      with_tracking { competition.destroy! }
     end
 
     private
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :competition_deleted,
         owner: current_user,
         trackable: competition,

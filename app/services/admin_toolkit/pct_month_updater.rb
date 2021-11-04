@@ -9,14 +9,10 @@ module AdminToolkit
     def call
       authorize! pct_month, to: :update?, with: AdminToolkitPolicy
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        ::AdminToolkit::PctMonth.transaction do
-          pct_month.assign_attributes(attributes)
-          propagate_changes!
-          pct_month.save!
-        end
-
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
+      with_tracking(transaction: true) do
+        pct_month.assign_attributes(attributes)
+        propagate_changes!
+        pct_month.save!
       end
     end
 
@@ -42,9 +38,8 @@ module AdminToolkit
       )
     end
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :pct_month_updated,
         owner: current_user,
         trackable: pct_month,

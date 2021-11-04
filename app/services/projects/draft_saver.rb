@@ -3,10 +3,7 @@
 module Projects
   class DraftSaver < BaseService
     def call
-      with_tracking(activity_id = SecureRandom.uuid) do
-        project.update!(draft_version: attributes[:draft_version])
-        Activities::ActivityCreator.new(activity_id: activity_id, **activity_params).call
-      end
+      with_tracking { project.update!(draft_version: attributes[:draft_version]) }
     end
 
     def project
