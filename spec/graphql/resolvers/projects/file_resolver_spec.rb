@@ -18,7 +18,8 @@ RSpec.describe Resolvers::Projects::FileResolver do
         expect(data.file).to have_attributes(
           id: file.id.to_s,
           name: 'matrix.jpeg',
-          size: 87.64
+          size: 87.64,
+          createdAt: Date.current.date_str
         )
 
         expect(data.file.owner).to have_attributes(
