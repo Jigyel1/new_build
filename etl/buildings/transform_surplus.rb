@@ -37,7 +37,7 @@ module Buildings
     def update_and_delete!
       ordered_buildings.zip(ordered_rows).each do |array|
         building, row = array
-        with_error_formatting(row) { row ? update_building!(building, row) : building.destroy! }
+        with_error_formatting(building) { row ? update_building!(building, row) : building.destroy! }
       end
     end
 
@@ -45,10 +45,17 @@ module Buildings
       building.update!(external_id: row[EXTERNAL_ID].try(:to_i), **building_attributes(row))
     end
 
-    def with_error_formatting(row)
+    def with_error_formatting(record)
       yield if block_given?
     rescue ActiveRecord::RecordInvalid => e
-      raise "Import failed for row with PRONUM `#{row[0]}` and PROFKE `#{row[5]}` with error #{e}"
+      raise case record.class
+            when Array
+              "Import failed for row with PRONUM `COLUMN 0(#{row[0]})` and PROJ_EXTERN_ID `COLUMN 59(#{row[59]})`"\
+              "with error #{e}"
+            when Projects::Building
+              "Import failed for building with id `#{building.id}` and name `#{building.name}` with error #{e}"
+            else e.to_s
+            end
     end
   end
 end
