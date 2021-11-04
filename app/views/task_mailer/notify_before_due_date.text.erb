@@ -1,10 +1,6 @@
 Hello <%= @user.profile.salutation %> <%= @user.lastname.capitalize! %>
 
 The following task(s) are due soon, on <%= Date.tomorrow.strftime('%d.%m.%Y') %>
-<% @tasks.each do |task|%>
-<%= task.title %>
-<% end %>
-Please login to the portal to update task information.
-<%= root_url %>
+<%= render partial: 'task_mailer/text_content' %>
 
 

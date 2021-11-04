@@ -3,14 +3,4 @@
 <p class="line-height--22">
    The following task(s) are due soon, on <%= Date.tomorrow.strftime('%d.%m.%Y') %>
 </p>
-<ul>
-  <% @tasks.each do |task|%>
-    <li class="line-height--22"><%= task.title %></li>
-   <% end %>
-</ul>
-<p class="line-height--22">
-   Please login to the portal to update task information.
-</p>
-<a class="line-height--22" href="<% root_url %>">
-   <%= root_url %>
-</a>
+<%= render partial: 'task_mailer/content' %>
