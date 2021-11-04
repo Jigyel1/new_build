@@ -19,4 +19,8 @@ class Address < ApplicationRecord
   def street_with_street_no
     "#{street} #{street_no}".squish
   end
+
+  def to_s
+    "#{street_with_street_no} #{zip} #{city}"
+  end
 end
