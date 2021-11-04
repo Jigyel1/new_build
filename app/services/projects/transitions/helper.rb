@@ -39,9 +39,9 @@ module Projects
 
       def extract_verdict
         verdict = attributes.dig(:verdicts, aasm.to_state)
-        project.verdicts[aasm.to_state] = verdict if verdict.present?
+        project.verdicts[aasm.from_state] = verdict if verdict.present?
 
-        true
+        project.save!
       end
 
       def record_activity # rubocop:disable Metrics/SeliseMethodLength
