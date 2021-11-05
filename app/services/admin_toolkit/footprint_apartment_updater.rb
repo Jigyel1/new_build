@@ -9,14 +9,10 @@ module AdminToolkit
     def call
       authorize! footprint_apartment, to: :update?, with: AdminToolkitPolicy
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        ::AdminToolkit::FootprintApartment.transaction do
-          footprint_apartment.assign_attributes(attributes)
-          propagate_changes!
-          footprint_apartment.save!
-        end
-
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
+      with_tracking(transaction: true) do
+        footprint_apartment.assign_attributes(attributes)
+        propagate_changes!
+        footprint_apartment.save!
       end
     end
 
@@ -42,9 +38,8 @@ module AdminToolkit
       )
     end
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :footprint_apartment_updated,
         owner: current_user,
         trackable: footprint_apartment,

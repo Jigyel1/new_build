@@ -5,11 +5,9 @@ module Projects
     def call
       authorize! project, to: :update?
 
-      with_tracking(activity_id = SecureRandom.uuid) do
+      with_tracking do
         label_group.label_list = attributes[:label_list]
         label_group.save!
-
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -23,9 +21,8 @@ module Projects
       @project ||= Project.find(attributes[:project_id])
     end
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :labels_created,
         owner: current_user,
         trackable: label_group,

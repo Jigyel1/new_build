@@ -2,9 +2,8 @@
 
 module Users
   module ActivityHelper
-    def activity_params(activity_id, action, parameters = {})
+    def activity_params(action, parameters = {})
       {
-        activity_id: activity_id,
         action: action,
         owner: current_user,
         recipient: user,

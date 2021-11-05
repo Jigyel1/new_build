@@ -10,19 +10,17 @@ module Users
     def call
       authorize! user, to: :update_status?, with: UserPolicy
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        user.assign_attributes(active: attributes[:active])
+      user.assign_attributes(active: attributes[:active])
+      with_tracking(create_activity: status_changed?) do
         super { user.save! }
-
-        if status_changed?
-          Activities::ActivityCreator.new(
-            activity_params(activity_id, :status_updated, { active: attributes[:active] })
-          ).call
-        end
       end
     end
 
     private
+
+    def activity_params
+      super(:status_updated, { active: attributes[:active] })
+    end
 
     def status_changed?
       @status_changed ||= user.active_changed?

@@ -15,8 +15,8 @@ module Projects
     def initialize(buildings:, rows:)
       @buildings = buildings.order(:external_id) # External ID will always be present.
       @rows = rows.sort { |row_1, row_2| row_1[BUILDING_ID] <=> row_2[BUILDING_ID] }
-      @addressable_rows = Set.new
-      @addressable_buildings = Set.new
+      @addressable_rows = []
+      @addressable_buildings = []
     end
 
     # Processing priority building_id -> address -> tasks -> files
@@ -28,6 +28,7 @@ module Projects
 
     private
 
+    # Loads all buildings that have a matching ID in the rows.
     def load_matching_ids
       @idable_rows = rows.select { |row| buildings.exists?(external_id: row[BUILDING_ID]) }
 
@@ -36,16 +37,26 @@ module Projects
       end
     end
 
+    # TODO: This could be refactored further. Let's make it workable first.
+    # Loads all buildings that have a matching address in the rows.
     def load_matching_addresses
-      rows.each do |row|
-        address_str = stringify_address(row, [STREET, STREET_NO, STREET_NO_SUFFIX, ZIP, CITY])
+      remaining_buildings = buildings.where.not(id: idable_buildings)
+      (rows - idable_rows).each do |row|
+        building = building_matching_address(
+          remaining_buildings,
+          stringify_address(row, [STREET, STREET_NO, STREET_NO_SUFFIX, ZIP, CITY])
+        )
+        next unless building
 
-        buildings.joins(:address).each do |building|
-          if stringify_address(building.address.attributes, %i[street street_no zip city]) == address_str
-            @addressable_buildings << building
-            @addressable_rows << row
-          end
-        end
+        @addressable_buildings << building
+        @addressable_rows << row
+        remaining_buildings = remaining_buildings.where.not(id: building)
+      end
+    end
+
+    def building_matching_address(buildings, address)
+      buildings.joins(:address).find do |building|
+        stringify_address(building.address.attributes, %i[street street_no zip city]) == address
       end
     end
 
@@ -56,11 +67,11 @@ module Projects
                                     .group(:id)
                                     .reorder('COUNT(projects_tasks.id) DESC', 'files_count DESC')
 
-      @ordered_rows = rows - (idable_rows + addressable_rows.to_a)
+      @ordered_rows = rows - (idable_rows + addressable_rows)
     end
 
     def excluded_buildings_for_ordering
-      (idable_buildings + addressable_buildings.to_a).pluck(:id)
+      (idable_buildings + addressable_buildings).pluck(:id)
     end
 
     def stringify_address(collection, keys)

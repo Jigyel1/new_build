@@ -9,10 +9,7 @@ module AdminToolkit
       authorize! kam_investor, to: :update?, with: AdminToolkitPolicy
 
       super do
-        with_tracking(activity_id = SecureRandom.uuid) do
-          kam_investor.update!(attributes)
-          Activities::ActivityCreator.new(activity_params(activity_id)).call
-        end
+        with_tracking { kam_investor.update!(attributes) }
       end
     end
 
@@ -25,9 +22,8 @@ module AdminToolkit
       raise t('admin_toolkit.invalid_kam')
     end
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :kam_investor_updated,
         owner: current_user,
         recipient: kam_investor.kam,

@@ -9,17 +9,13 @@ module AdminToolkit
     def call
       authorize! project_cost, to: :update?, with: AdminToolkitPolicy
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        project_cost.update!(attributes)
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
-      end
+      with_tracking { project_cost.update!(attributes) }
     end
 
     private
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :project_cost_updated,
         owner: current_user,
         trackable: project_cost,

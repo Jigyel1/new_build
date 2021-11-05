@@ -7,11 +7,10 @@ module Projects
     def call
       authorize! project, to: :update?
 
-      with_tracking(activity_id = SecureRandom.uuid) do
+      with_tracking do
         @address_book = project.address_books.build(attributes)
         address_book.entry_type = :manual
         address_book.save!
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -21,9 +20,8 @@ module Projects
       @_project ||= Project.find(attributes[:project_id])
     end
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :address_book_created,
         owner: current_user,
         trackable: address_book,

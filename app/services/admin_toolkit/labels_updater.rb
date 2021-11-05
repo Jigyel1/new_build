@@ -9,19 +9,16 @@ module AdminToolkit
     def call
       authorize! label_group, to: :update?, with: AdminToolkitPolicy
 
-      with_tracking(activity_id = SecureRandom.uuid) do
+      with_tracking do
         label_group.label_list = attributes[:label_list]
         label_group.save!
-
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
     private
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :label_group_updated,
         owner: current_user,
         trackable: label_group,
