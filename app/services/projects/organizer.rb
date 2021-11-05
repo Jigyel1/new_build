@@ -1,5 +1,22 @@
 # frozen_string_literal: true
 
+#
+# This class facilitates the update of buildings from an excel.
+#
+# Buildings are grouped as follows:
+#
+# - idable_buildings: buildings with matching ids in the rows of the excel.
+#
+# - addressable_buildings: buildings with matching addresses in the rows of the excel excluding
+# the <tt>idable_buildings</tt>.
+#
+# - ordered_buildings: buildings excluding the <tt>idable_buildings</tt> and <tt>addressable_buildings</tt>
+# in descending order of count tasks and files count.
+#
+# Rows are grouped as <tt>idable_rows, addressable_rows, ordered_rows</tt> in a similar fashion.
+#
+# @param [buildings] buildings for a given project
+# @param [rows] rows grouped by project
 module Projects
   class Organizer
     BUILDING_ID = 6
@@ -9,8 +26,14 @@ module Projects
     ZIP = 10
     CITY = 11
 
-    attr_accessor(:buildings, :rows, :idable_buildings, :idable_rows, :addressable_buildings,
-                  :addressable_rows, :ordered_buildings, :ordered_rows)
+    ATTRS = %i[
+      buildings rows
+      idable_buildings idable_rows
+      addressable_buildings addressable_rows
+      ordered_buildings ordered_rows
+    ].freeze
+
+    attr_accessor(*ATTRS)
 
     def initialize(buildings:, rows:)
       @buildings = buildings.order(:external_id) # External ID will always be present.
@@ -19,17 +42,16 @@ module Projects
       @addressable_buildings = []
     end
 
-    # Processing priority building_id -> address -> tasks -> files
     def call
-      load_matching_ids
-      load_matching_addresses
-      load_remaining
+      load_idable
+      load_addressable
+      load_orderable
     end
 
     private
 
     # Loads all buildings that have a matching ID in the rows.
-    def load_matching_ids
+    def load_idable
       @idable_rows = rows.select { |row| buildings.exists?(external_id: row[BUILDING_ID]) }
 
       @idable_buildings = buildings.select do |building|
@@ -37,10 +59,10 @@ module Projects
       end
     end
 
-    # TODO: This could be refactored further. Let's make it workable first.
     # Loads all buildings that have a matching address in the rows.
-    def load_matching_addresses
-      remaining_buildings = buildings.where.not(id: idable_buildings)
+    def load_addressable
+      remaining_buildings = buildings - idable_buildings
+
       (rows - idable_rows).each do |row|
         building = building_matching_address(
           remaining_buildings,
@@ -50,28 +72,26 @@ module Projects
 
         @addressable_buildings << building
         @addressable_rows << row
-        remaining_buildings = remaining_buildings.where.not(id: building)
+
+        # after an address match, remove that building from the remaining buildings so that it is not loaded again.
+        remaining_buildings -= [building]
       end
     end
 
     def building_matching_address(buildings, address)
-      buildings.joins(:address).find do |building|
+      Projects::Building.where(id: buildings).joins(:address).find do |building|
         stringify_address(building.address.attributes, %i[street street_no zip city]) == address
       end
     end
 
-    def load_remaining
+    def load_orderable
       @ordered_buildings = buildings.where
-                                    .not(id: excluded_buildings_for_ordering)
+                                    .not(id: (idable_buildings + addressable_buildings))
                                     .left_joins(:tasks)
                                     .group(:id)
                                     .reorder('COUNT(projects_tasks.id) DESC', 'files_count DESC')
 
       @ordered_rows = rows - (idable_rows + addressable_rows)
-    end
-
-    def excluded_buildings_for_ordering
-      (idable_buildings + addressable_buildings).pluck(:id)
     end
 
     def stringify_address(collection, keys)
