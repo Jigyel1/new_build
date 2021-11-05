@@ -5,10 +5,7 @@ module Projects
     def call
       authorize! project, to: :unassign_incharge?
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        project.update!(incharge_id: nil)
-        Activities::ActivityCreator.new(activity_id: activity_id, **activity_params).call
-      end
+      with_tracking(create_activity: false) { project.update!(incharge_id: nil) }
     end
 
     def project

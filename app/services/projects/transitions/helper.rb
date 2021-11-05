@@ -54,8 +54,8 @@ module Projects
           owner: current_user,
           trackable: project,
           parameters: {
-            previous_status: project.previous_status,
-            status: project.status,
+            previous_status: project.previous_status.split('_').join(' '),
+            status: project.status.split('_').join(' '),
             project_name: project.name
           }
         }
