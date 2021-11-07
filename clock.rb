@@ -9,10 +9,10 @@ module Clockwork
   end
 
   every(1.minute, 'Before due Date') do
-    `rake reminder:due_date_tomorrow`
+    rake 'reminder:due_date_tomorrow'
   end
 
-  every(1.minute, 'on due Date') do
-    `rake reminder:due_date_today`
-  end
+  # every(1.minute, 'on due Date') do
+  #   `rake reminder:due_date_today`
+  # end
 end
