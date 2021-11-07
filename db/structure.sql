@@ -922,11 +922,12 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.lot_number,
     projects.internal_id,
     projects.draft_version,
+    projects.assignee_type,
     cardinality(projects.label_list) AS labels,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     concat(profiles.firstname, ' ', profiles.lastname) AS assignee,
     projects.assignee_id,
-    projects_address_books.display_name AS investor,
+    projects_address_books.name AS investor,
     admin_toolkit_kam_regions.name AS kam_region
    FROM (((((public.projects
      LEFT JOIN public.telco_uam_users ON ((telco_uam_users.id = projects.assignee_id)))

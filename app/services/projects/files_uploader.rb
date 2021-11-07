@@ -10,11 +10,10 @@ module Projects
     def call
       authorize! project, to: :update?
 
-      with_tracking(activity_id = SecureRandom.uuid) do
+      with_tracking do
         attachable.files.attach(
           attributes[:files].map { |file| to_attachables(file) }
         )
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -37,9 +36,8 @@ module Projects
       )
     end
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :files_uploaded,
         owner: current_user,
         trackable: attachable,

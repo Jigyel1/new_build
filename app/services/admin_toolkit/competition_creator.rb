@@ -7,17 +7,13 @@ module AdminToolkit
     def call
       authorize! ::AdminToolkit::Competition, to: :create?, with: AdminToolkitPolicy
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        @competition = ::AdminToolkit::Competition.create!(attributes)
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
-      end
+      with_tracking { @competition = ::AdminToolkit::Competition.create!(attributes) }
     end
 
     private
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :competition_created,
         owner: current_user,
         trackable: competition,

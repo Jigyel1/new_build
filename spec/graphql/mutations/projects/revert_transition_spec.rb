@@ -124,6 +124,21 @@ describe Mutations::Projects::RevertTransition do
         end
       end
     end
+
+    # TODO: Please note that at this point the following are yet to be covered.
+    #   - In-between state transitions - <tt>contract, contract_accepted, under_construction</tt>
+    #   - Specs are covered with the assumption that a <tt>marketing_only</tt> project
+    #     can transition to <tt>commercialization</tt> from <tt>technical_analysis</tt>
+    #     and vice versa without the need for user authorization.
+    context 'for projects with status - commercialization' do
+      before_all { project.update_columns(category: :marketing_only, status: :commercialization) }
+
+      it 'reverts to technical analysis' do
+        response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
+        expect(errors).to be_nil
+        expect(response.project.status).to eq('technical_analysis')
+      end
+    end
   end
 
   def query

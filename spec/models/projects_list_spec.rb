@@ -87,6 +87,7 @@ RSpec.describe ProjectsList, type: :model do
         contract: 'Contract',
         contract_accepted: 'Contract Accepted',
         under_construction: 'Under Construction',
+        commercialization: 'Commercialization',
         archived: 'Archived'
       ).backed_by_column_of_type(:string)
     end

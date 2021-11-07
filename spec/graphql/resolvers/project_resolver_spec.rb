@@ -35,7 +35,8 @@ RSpec.describe Resolvers::ProjectResolver do
           open: true,
           technical_analysis: false,
           technical_analysis_completed: false,
-          ready_for_offer: false
+          ready_for_offer: false,
+          commercialization: false
         )
       end
 
@@ -91,7 +92,22 @@ RSpec.describe Resolvers::ProjectResolver do
         expect(data.project.states.to_h).to eq(
           open: true,
           technical_analysis: false,
-          ready_for_offer: false
+          ready_for_offer: false,
+          commercialization: false
+        )
+      end
+    end
+
+    context 'for marketing_only projects' do
+      before { project.update_column(:category, :marketing_only) }
+
+      it 'returns project states without TAC & ready for offer state' do
+        data, errors = formatted_response(query, current_user: super_user)
+        expect(errors).to be_nil
+        expect(data.project.states.to_h).to eq(
+          open: true,
+          technical_analysis: false,
+          commercialization: false
         )
       end
     end
@@ -106,7 +122,8 @@ RSpec.describe Resolvers::ProjectResolver do
           open: true,
           technical_analysis: true,
           technical_analysis_completed: true,
-          ready_for_offer: true
+          ready_for_offer: true,
+          commercialization: false
         )
       end
     end

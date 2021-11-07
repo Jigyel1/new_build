@@ -13,6 +13,7 @@ SELECT projects.id                                              AS id,
        projects.lot_number                                      AS lot_number,
        projects.internal_id                                     AS internal_id,
        projects.draft_version                                   AS draft_version,
+       projects.assignee_type                                   AS assignee_type,
        cardinality(projects.label_list)                         AS labels,
 
        CONCAT(
@@ -24,7 +25,7 @@ SELECT projects.id                                              AS id,
 
        CONCAT(profiles.firstname, ' ', profiles.lastname)       AS assignee,
        projects.assignee_id                                     AS assignee_id,
-       projects_address_books.display_name                      AS investor,
+       projects_address_books.name                              AS investor,
        admin_toolkit_kam_regions.name                           AS kam_region
 
 FROM projects
@@ -34,4 +35,4 @@ FROM projects
     LEFT JOIN projects_address_books ON projects_address_books.project_id = projects.id AND projects_address_books.type = 'Investor'
     LEFT JOIN admin_toolkit_kam_regions ON admin_toolkit_kam_regions.id = projects.kam_region_id
 
-ORDER BY projects.move_in_starts_on ASC NULLS LAST
+ORDER BY projects.created_at DESC NULLS LAST

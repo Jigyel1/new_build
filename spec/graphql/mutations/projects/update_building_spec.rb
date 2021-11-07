@@ -38,6 +38,12 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
           move_in_ends_on: Date.current + 3.months
         )
       end
+
+      it 'propagates apartments count to projects list' do
+        _, errors = formatted_response(query(params), current_user: super_user, key: :updateBuilding)
+        expect(errors).to be(nil)
+        expect(ProjectsList.find(project.id).apartments_count).to eq(55)
+      end
     end
 
     context 'with invalid params' do
@@ -82,6 +88,7 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
               id: "#{building.id}"
               name: "#{args[:name]}"
               assigneeId: "#{super_user.id}"
+              apartmentsCount: 55
               externalId: "100202"
               moveInStartsOn: "#{Date.current + 1.month}"
               moveInEndsOn: "#{Date.current + 3.months}"

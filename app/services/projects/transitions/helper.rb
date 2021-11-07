@@ -39,25 +39,37 @@ module Projects
 
       def extract_verdict
         verdict = attributes.dig(:verdicts, aasm.to_state)
-        project.verdicts[aasm.to_state] = verdict if verdict.present?
+        project.verdicts[aasm.from_state] = verdict if verdict.present?
 
-        true
+        project.save!
       end
 
-      def record_activity # rubocop:disable Metrics/SeliseMethodLength
-        with_tracking(activity_id = SecureRandom.uuid) do
-          Activities::ActivityCreator.new(
-            activity_id: activity_id,
-            action: aasm.current_event,
-            owner: current_user,
-            trackable: project,
-            parameters: {
-              previous_status: project.previous_status,
-              status: project.status,
-              project_name: project.name
-            }
-          ).call
+      def record_activity(&block)
+        with_tracking(&block)
+      end
+
+      def activity_params
+        {
+          action: aasm.current_event,
+          owner: current_user,
+          trackable: project,
+          parameters: {
+            previous_status: project.previous_status,
+            status: project.status,
+            project_name: project.name
+          }
+        }
+      end
+
+      # returns a list of states not relevant for the given project
+      def irrelevant_states
+        if marketing_only?
+          %i[technical_analysis_completed ready_for_offer]
+        elsif prio_one?
+          :technical_analysis_completed
         end
+      rescue NoMethodError # raised if the PCT cost for the project is not set
+        nil
       end
     end
   end

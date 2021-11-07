@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class ProjectPolicy < ApplicationPolicy
-  def tac_complex?
-    technical_analysis_completed? && complex?
-  end
-
   def technical_analysis_completed?
     return unless incharge?
 
@@ -21,6 +17,12 @@ class ProjectPolicy < ApplicationPolicy
     archive?
   end
   alias unarchive? archived?
+
+  # <tt>marketing_only</tt> projects can directly transition to commercialization without the need
+  # for authorization
+  def commercialization?
+    true
+  end
 
   def unassign_incharge?
     incharge?

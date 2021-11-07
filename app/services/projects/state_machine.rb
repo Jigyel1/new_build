@@ -6,12 +6,14 @@ module Projects
     include Transitions::Callbacks
     include Transitions::Helper
 
+    delegate :status, :marketing_only?, to: :project
+
     attr_accessor :event
     alias user current_user
 
     def initialize(attributes = {})
       super
-      aasm_write_state_without_persistence(project.status.to_sym)
+      aasm_write_state_without_persistence(status.to_sym)
     end
 
     def transition
@@ -24,13 +26,8 @@ module Projects
       return { archived: true } if archived?
 
       states = aasm.states.map(&:name)
-      # If the PCT cost for the project is not set, then assume that the project doesn't qualify as a `Prio_1` project.
-      states.delete(:technical_analysis_completed) if begin
-        prio_one?
-      rescue NoMethodError
-        false
-      end
 
+      states = states.except(*irrelevant_states)
       states = states.reject { |state| state == :archived }
       current = states.index(aasm.current_state)
 
@@ -43,7 +40,7 @@ module Projects
 
     aasm whiny_transitions: true, column: :status, enum: true do
       state :open, initial: true
-      state :technical_analysis, :technical_analysis_completed, :ready_for_offer, :archived
+      state :technical_analysis, :technical_analysis_completed, :ready_for_offer, :commercialization, :archived
 
       after_all_transitions :update_project_state, :record_activity
       after_all_events :after_transition_callback, :reset_draft_version
@@ -53,6 +50,7 @@ module Projects
         transitions from: :technical_analysis_completed, to: :technical_analysis
         transitions from: :ready_for_offer, to: :technical_analysis, if: :prio_one?
         transitions from: :ready_for_offer, to: :technical_analysis_completed, unless: :prio_one?
+        transitions from: :commercialization, to: :technical_analysis, if: :marketing_only?
       end
 
       event :technical_analysis, if: :authorized? do
@@ -60,8 +58,9 @@ module Projects
       end
 
       event :technical_analysis_completed, if: %i[authorized? before_technical_analysis_completed] do
-        transitions from: :technical_analysis, to: :technical_analysis_completed, unless: :prio_one?
-        transitions from: :technical_analysis, to: :ready_for_offer, if: :prio_one?
+        transitions from: :technical_analysis, to: :commercialization, if: :marketing_only?
+        transitions from: :technical_analysis, to: :technical_analysis_completed, unless: %i[marketing_only? prio_one?]
+        transitions from: :technical_analysis, to: :ready_for_offer, if: :prio_one?, unless: :marketing_only?
       end
 
       event :offer_ready, if: :authorized?, after: :extract_verdict do

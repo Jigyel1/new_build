@@ -31,8 +31,9 @@ class BaseService
   # and if you have uniqueness validations in the model, you won't be able to delete an existing association and
   # update another with the current association in one call.
   #
-  # @example(a case where penetration needs unique competition)
-  #   {
+  # example(a case where penetration needs unique competition)
+  #
+  #  {
   #     penetration: {
   #       penetrationCompetitions: [
   #         {

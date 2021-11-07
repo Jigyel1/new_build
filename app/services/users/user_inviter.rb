@@ -20,12 +20,9 @@ module Users
       end
     end
 
-    def call
+    def call(&block)
       run_callbacks :call do
-        with_tracking(activity_id = SecureRandom.uuid) do
-          yield
-          create_activity(activity_id)
-        end
+        with_tracking(&block)
       end
     end
 
@@ -46,10 +43,8 @@ module Users
       user.role_id_changed? && (raise StandardError, t('devise.failure.role_change_on_invite'))
     end
 
-    def create_activity(activity_id)
-      Activities::ActivityCreator.new(
-        activity_params(activity_id, @activity_action, { role: Role.names[user.role_name] })
-      ).call
+    def activity_params
+      super(@activity_action, { role: Role.names[user.role_name] })
     end
 
     def set_action

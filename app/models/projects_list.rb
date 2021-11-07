@@ -5,4 +5,8 @@ class ProjectsList < ScenicRecord
   self.primary_key = :id
 
   include Enumable::Project
+
+  def assignee
+    super.presence || Project.assignee_types[assignee_type]
+  end
 end

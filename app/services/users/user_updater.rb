@@ -10,19 +10,17 @@ module Users
     def call
       authorize! user, to: :update?, with: UserPolicy
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        user.assign_attributes(attributes)
+      user.assign_attributes(attributes)
+      with_tracking(create_activity: association_changed?) do
         super { user.save! }
-
-        if association_changed?
-          Activities::ActivityCreator.new(
-            activity_params(activity_id, :profile_updated, attributes)
-          ).call
-        end
       end
     end
 
     private
+
+    def activity_params
+      super(:profile_updated)
+    end
 
     def association_changed?
       @association_changed ||= user.profile.changed? || user.address.changed?

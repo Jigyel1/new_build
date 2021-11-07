@@ -7,18 +7,13 @@ module Projects
     def call
       authorize! Project, to: :update?
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        ProjectsImporter.call(current_user: current_user, input: file)
-
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
-      end
+      with_tracking { ProjectsImporter.call(current_user: current_user, input: file) }
     end
 
     private
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :project_imported,
         owner: current_user,
         trackable_type: 'Project',

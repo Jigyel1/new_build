@@ -111,12 +111,12 @@ describe Projects::Organizer do
   before { organizer.call }
 
   it 'sorts idable rows as per the priority' do
-    expect(organizer.idable_buildings.pluck(:id)).to eq([building_h.id, building_i.id])
+    expect(organizer.idable_buildings.pluck(:id)).to match_array([building_h.id, building_i.id])
     expect(organizer.idable_rows.map { |row| row[Projects::Organizer::BUILDING_ID] }).to eq([58_580, 58_581])
   end
 
   it 'sorts addressable rows as per priority' do
-    expect(organizer.addressable_buildings.pluck(:id)).to eq([building_b.id, building_c.id, building_a.id])
+    expect(organizer.addressable_buildings.pluck(:id)).to match_array([building_b.id, building_c.id, building_a.id])
     expect(organizer.addressable_rows.map do |row|
       row[Projects::Organizer::BUILDING_ID]
     end).to eq([58_592, 58_593, 58_594])

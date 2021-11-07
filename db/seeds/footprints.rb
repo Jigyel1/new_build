@@ -2,7 +2,7 @@
 
 # footprint apartment
 [
-  { index: 0, min: 1, max: 2 },
+  { index: 0, min: 0, max: 2 },
   { index: 1, min: 3, max: 9 },
   { index: 2, min: 10, max: 19 },
   { index: 3, min: 20, max: 49 },

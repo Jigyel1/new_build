@@ -3,21 +3,15 @@
 module Projects
   class DraftSaver < BaseService
     def call
-      authorize! project, to: :update?
-
-      with_tracking(activity_id = SecureRandom.uuid) do
-        project.update!(draft_version: attributes[:draft_version])
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
-      end
+      with_tracking { project.update!(draft_version: attributes[:draft_version]) }
     end
 
     def project
       @_project ||= Project.find(attributes.delete(:id))
     end
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :project_draft_version,
         owner: current_user,
         trackable: project,

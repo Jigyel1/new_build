@@ -8,20 +8,10 @@ RSpec.describe Mutations::Projects::SaveDraft do
   let_it_be(:project) { create(:project) }
 
   describe '.resolve' do
-    context 'with permissions' do
-      it "updates project's draft version" do
-        response, errors = formatted_response(query, current_user: super_user, key: :saveDraft)
-        expect(errors).to be_nil
-        expect(response.project.draftVersion).to have_attributes(category: 'complex', lease_cost: 1198.87)
-      end
-    end
-
-    context 'without permissions' do
-      it 'forbids action' do
-        response, errors = formatted_response(query, current_user: create(:user, :presales), key: :saveDraft)
-        expect(response.project).to be_nil
-        expect(errors).to eq(['Not Authorized'])
-      end
+    it "updates project's draft version" do
+      response, errors = formatted_response(query, current_user: super_user, key: :saveDraft)
+      expect(errors).to be_nil
+      expect(response.project.draftVersion).to have_attributes(category: 'complex', lease_cost: 1198.87)
     end
   end
 

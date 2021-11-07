@@ -15,12 +15,10 @@ module Projects
     def call
       authorize! Project, to: :create?
 
-      with_tracking(activity_id = SecureRandom.uuid) do
+      with_tracking do
         @project = ::Project.new(formatted_attributes)
         build_associations
         project.save!
-
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
       end
     end
 
@@ -41,9 +39,8 @@ module Projects
       project.category = CategorySetter.new(project: project).call
     end
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :project_created,
         owner: current_user,
         trackable: project,
