@@ -6,7 +6,7 @@ module Types
       field :id, ID, null: true
       field :zip, String, null: true
       field :city, String, null: true
-      field :rate, String, null: true
+      field :rate, Float, null: true
       field :kam_region, KamRegionType, null: true
       field :hfc_footprint, Boolean, null: true
       field :type, String, null: true

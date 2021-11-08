@@ -25,7 +25,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePenetration do
       it 'updates the penetration record' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePenetration)
         expect(errors).to be_nil
-        expect(response.penetration).to have_attributes(zip: '8602', city: 'Wangen-Brüttisellen')
+        expect(response.penetration).to have_attributes(zip: '8602', city: 'Wangen-Brüttisellen', rate: 4.5)
 
         expect(response.penetration.penetrationCompetitions.size).to eq(1)
         competition = response.penetration.penetrationCompetitions.dig(0, :competition)
@@ -82,6 +82,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePenetration do
               id: "#{args[:id]}"
               zip: "#{args[:zip]}"
               city: "Wangen-Brüttisellen"
+              rate: #{args[:rate] || 4.5}
               #{penetration_competitions}
             }
           }
