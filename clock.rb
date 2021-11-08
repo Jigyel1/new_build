@@ -6,10 +6,10 @@ require 'clockwork'
 
 module Clockwork
   every(1.minute, 'Before due Date') do
-    ::Projects::Reminders::DueDateTomorrow.call
+    BeforeDueDateJob.perform_now
   end
 
   every(1.minute, 'on due Date') do
-    ::Projects::Reminders::DueDateToday.call
+    OnDueDateJob.perform_now
   end
 end
