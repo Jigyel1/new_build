@@ -39,7 +39,7 @@ module Projects
       end
 
       def architect
-        project.address_books.find_by!(type: :architect)
+        project.address_books.find_by(type: :architect)
       end
 
       def setter
