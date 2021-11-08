@@ -12,6 +12,7 @@ require 'action_policy/rspec'
 require 'database_cleaner/active_record'
 require 'webmock/rspec'
 require 'simplecov'
+require 'rake'
 
 Dir[Rails.root.join('spec/support/*.rb')].each { |f| require f }
 

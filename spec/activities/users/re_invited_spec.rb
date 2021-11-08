@@ -30,7 +30,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
     let(:invitee) { User.find_by!(email: 'ym@selise.ch') }
 
     context 'as an owner' do
-      it 'returns activity text in terms of a first person' do
+      it 'returns activities in first person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
         expect(errors).to be_nil
         activity = activities.first
@@ -63,7 +63,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
     end
 
     context 'as a recipient' do
-      it 'returns activity text in terms of a second person' do
+      it 'returns activities in second person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: invitee)
         expect(errors).to be_nil
 
@@ -89,7 +89,7 @@ RSpec.describe 'User Re-Invitation', type: :request do
     context 'as a general user' do
       let!(:super_user_b) { create(:user, :super_user) }
 
-      it 'returns activity text in terms of a third person' do
+      it 'returns activities in third person' do
         activities, errors = paginated_collection(:activities, activities_query, current_user: super_user_b)
         expect(errors).to be_nil
 
