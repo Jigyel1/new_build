@@ -34,6 +34,8 @@ module Projects
       end
 
       def unarchive?
+        authorize! project, to: :unarchive?
+
         project.previous_status.to_sym == aasm.to_state
       end
 

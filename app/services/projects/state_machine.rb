@@ -74,7 +74,7 @@ module Projects
         transitions from: :ready_for_offer, to: :archived
       end
 
-      event :unarchive, if: %i[authorized? unarchive?] do
+      event :unarchive, if: :unarchive? do
         transitions from: :archived, to: :open
         transitions from: :archived, to: :technical_analysis
         transitions from: :archived, to: :technical_analysis_completed
