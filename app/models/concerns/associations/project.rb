@@ -33,8 +33,13 @@ module Associations
 
       has_many_attached :files, dependent: :destroy
 
-      accepts_nested_attributes_for :address, :address_books, :access_tech_cost, :installation_detail,
-                                    allow_destroy: true
+      accepts_nested_attributes_for(
+        :address,
+        :address_books,
+        :access_tech_cost,
+        :installation_detail,
+        allow_destroy: true
+      )
     end
   end
 end
