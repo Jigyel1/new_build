@@ -8,7 +8,7 @@ module Clockwork
     `rake reminder:due_date_tomorrow`
   end
 
-  every(2.minutes, 'on due Date', at: '17:00') do
+  every(2.minutes, 'on due Date') do
     `rake reminder:due_date_today`
   end
 end
