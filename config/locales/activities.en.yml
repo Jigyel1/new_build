@@ -125,6 +125,9 @@ en:
       incharge_assigned:
         owner: 'Assigned `%{incharge_email}` as Technical Incharge for project `%{project_name}` by you'
         others: 'Assigned `%{incharge_email}` as Technical Incharge for project `%{project_name}` by %{owner_email}'
+      incharge_unassigned:
+        owner: 'Technical Incharge assigned for project `%{project_name}` was unassigned by you'
+        others: 'Technical Incharge assigned for project `%{project_name}` was unassigned by %{owner_email}'
       files_uploaded:
         owner: 'Uploaded the file(s) under Project file Tab by you.'
         others: 'A new file(s) under Project file tab was uploaded by %{owner_email}'

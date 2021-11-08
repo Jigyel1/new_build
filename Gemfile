@@ -91,10 +91,10 @@ gem 'recursive-open-struct'
 gem 'redis-namespace'
 gem 'rollbar'
 gem 'sass-rails'
-
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'aws-sdk-s3', require: false
+gem 'clockwork', require: false
 gem 'dry-configurable', '0.12.1'
 gem 'scenic'
 gem 'search_object'

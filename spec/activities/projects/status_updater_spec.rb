@@ -38,20 +38,20 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.technical_analysis.owner',
               project_name: project.name,
-              status: 'technical_analysis')
+              status: 'technical analysis')
           )
         end
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
@@ -59,7 +59,7 @@ describe Projects::StatusUpdater do
             t('activities.project.technical_analysis.others',
               owner_email: super_user.email,
               project_name: project.name,
-              status: 'technical_analysis')
+              status: 'technical analysis')
           )
         end
       end
@@ -81,27 +81,27 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.technical_analysis_completed.owner',
               project_name: project.name,
-              status: 'technical_analysis_completed')
+              status: 'technical analysis completed')
           )
         end
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.technical_analysis_completed.others',
               project_name: project.name,
-              status: 'technical_analysis_completed',
+              status: 'technical analysis completed',
               owner_email: super_user.email)
           )
         end
@@ -118,29 +118,29 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.offer_ready.owner',
               project_name: project.name,
-              previous_status: project.status,
-              status: 'ready_for_offer')
+              previous_status: project.status.split('_').join(' '),
+              status: 'ready for offer')
           )
         end
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.offer_ready.others',
               project_name: project.name,
-              previous_status: project.status,
-              status: 'ready_for_offer',
+              previous_status: project.status.split('_').join(' '),
+              status: 'ready for offer',
               owner_email: super_user.email)
           )
         end
@@ -154,27 +154,27 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.archive.owner',
-              previous_status: project.status,
+              previous_status: project.status.split('_').join(' '),
               project_name: project.name)
           )
         end
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.archive.others',
               owner_email: super_user.email,
-              previous_status: project.status,
+              previous_status: project.status.split('_').join(' '),
               project_name: project.name)
           )
         end
@@ -188,27 +188,27 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.unarchive.owner',
-              status: project.previous_status,
+              status: project.previous_status.split('_').join(' '),
               project_name: project.name)
           )
         end
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.unarchive.others',
               owner_email: super_user.email,
-              status: project.previous_status,
+              status: project.previous_status.split('_').join(' '),
               project_name: project.name)
           )
         end
@@ -222,28 +222,28 @@ describe Projects::StatusUpdater do
       end
 
       context 'as an owner' do
-        it 'returns activities in terms of first person' do
+        it 'returns activities in first person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.revert.owner',
-              previous_status: project.status,
-              status: 'technical_analysis',
+              previous_status: project.status.split('_').join(' '),
+              status: 'technical analysis',
               project_name: project.name)
           )
         end
       end
 
       context 'as an general user' do
-        it 'returns activities in terms of third person' do
+        it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.project.revert.others',
-              previous_status: project.status,
-              status: 'technical_analysis',
+              previous_status: project.status.split('_').join(' '),
+              status: 'technical analysis',
               project_name: project.name,
               owner_email: super_user.email)
           )

@@ -1,0 +1,7 @@
+<p class="color--primary">
+  Hello <%= @user.profile.salutation %> <%= @user.lastname.capitalize! %>
+</p>
+<p class="line-height--22">
+   The due date for the following task(s) are about to end, on <%= Date.current.strftime('%d.%m.%Y') %>
+</p>
+<%= render('task_mailer/content', tasks: @tasks) %>
