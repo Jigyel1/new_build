@@ -5,7 +5,7 @@ module Projects
     def call
       authorize! project, to: :unassign_incharge?
 
-      with_tracking(create_activity: true) { project.update!(incharge_id: nil) }
+      with_tracking { project.update!(incharge_id: nil) }
     end
 
     def project

@@ -1,4 +1,4 @@
 Hello <%= @user.profile.salutation %> <%= @user.lastname %>
 
 The due date for the following task(s) are about to end, on <%= Date.current.strftime('%d.%m.%Y') %>
-<%= render('text_content', tasks: @tasks) %>
+<%= render('content', tasks: @tasks) %>
