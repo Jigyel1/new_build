@@ -2,7 +2,7 @@
 
 module Projects
   class InvestorPopulator < BasePopulator
-    include AddressBookHelper
+    include AddressBookAssigner
     include DefaultRoleHelper
 
     def assign_attributes
