@@ -39,6 +39,10 @@ module Projects
         project.previous_status.to_sym == aasm.to_state
       end
 
+      def revert?
+        authorize! project, to: "#{aasm.from_state}?"
+      end
+
       def extract_verdict
         verdict = attributes.dig(:verdicts, aasm.to_state)
         project.verdicts[aasm.from_state] = verdict if verdict.present?
