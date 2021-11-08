@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.1.7] - 2021-11-08
+
+### Features
+- Email notification for tasks with respect to due dates.
+    - One to be sent a day before the due date at 9:00 AM.
+    - Other to be sent on the day of the due date at 5:00 PM.
+
 
 ## [0.1.6] - 2021-11-05
 
