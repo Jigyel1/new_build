@@ -8,9 +8,8 @@ module AdminToolkit
       authorize! ::AdminToolkit::KamRegion, to: :update?, with: AdminToolkitPolicy
 
       super do
-        with_tracking(activity_id = SecureRandom.uuid, transaction: true) do
+        with_tracking(transaction: true) do
           attributes.each { |hash| ::AdminToolkit::KamRegion.find(hash[:id]).update!(hash) }
-          Activities::ActivityCreator.new(activity_params(activity_id)).call
         end
       end
     end
@@ -27,9 +26,8 @@ module AdminToolkit
       raise t('admin_toolkit.invalid_kam')
     end
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :kam_region_updated,
         owner: current_user,
         trackable: ::AdminToolkit::KamRegion.find(attributes.dig(0, :id))

@@ -42,15 +42,15 @@ module Types
 
     field(:admin_toolkit_pcts,
           resolver: Resolvers::AdminToolkit::PctsResolver,
-          preauthorize: { with: ::AdminToolkitPolicy, to: :project_read? })
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field(:admin_toolkit_labels,
           resolver: Resolvers::AdminToolkit::LabelsResolver,
-          preauthorize: { with: ::AdminToolkitPolicy, to: :project_read? })
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field(:admin_toolkit_project_cost,
           resolver: Resolvers::AdminToolkit::ProjectCostResolver,
-          preauthorize: { with: ::AdminToolkitPolicy, to: :project_read? })
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field(:admin_toolkit_penetrations,
           resolver: Resolvers::AdminToolkit::PenetrationsResolver,
@@ -84,7 +84,7 @@ module Types
     field :project, resolver: Resolvers::ProjectResolver, authorize: { with: ProjectPolicy }
     field(:project_pct_cost,
           resolver: Resolvers::Projects::PctCostResolver,
-          preauthorize: { with: ::AdminToolkitPolicy, to: :project_read? })
+          preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field :project_states, resolver: Resolvers::Projects::StatesResolver, description: <<~DESC
       All possible states that any project may/may not have.

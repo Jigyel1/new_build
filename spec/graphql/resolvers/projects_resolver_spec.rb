@@ -188,6 +188,16 @@ RSpec.describe Resolvers::ProjectsResolver do
         expect(errors).to eq(['Not Authorized'])
       end
     end
+
+    context 'when assignee is not set' do
+      it 'returns assignee type instead of assignee' do
+        projects, errors = paginated_collection(:projects, query, current_user: super_user)
+        expect(errors).to be_nil
+
+        project = OpenStruct.new(projects.find{ _1[:id] == project_a.id })
+        expect(project.assignee).to eq('NBO Project')
+      end
+    end
   end
 
   def query(args = {})

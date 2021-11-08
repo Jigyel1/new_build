@@ -7,17 +7,13 @@ module AdminToolkit
     def call
       authorize! penetration, to: :destroy?, with: AdminToolkitPolicy
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        penetration.destroy!
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
-      end
+      with_tracking { penetration.destroy! }
     end
 
     private
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :penetration_deleted,
         owner: current_user,
         trackable: penetration,

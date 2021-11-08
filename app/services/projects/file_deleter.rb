@@ -7,15 +7,11 @@ module Projects
     def call
       authorize! project, to: :update?
 
-      with_tracking(activity_id = SecureRandom.uuid) do
-        file.destroy!
-        Activities::ActivityCreator.new(activity_params(activity_id)).call
-      end
+      with_tracking { file.destroy! }
     end
 
-    def activity_params(activity_id)
+    def activity_params
       {
-        activity_id: activity_id,
         action: :attachment_file_deleted,
         owner: current_user,
         trackable: file,

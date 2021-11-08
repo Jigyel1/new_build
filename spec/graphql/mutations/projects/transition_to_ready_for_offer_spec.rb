@@ -12,7 +12,9 @@ describe Mutations::Projects::TransitionToReadyForOffer do
         response, errors = formatted_response(query, current_user: management, key: :transitionToReadyForOffer)
         expect(errors).to be_nil
         expect(response.project.status).to eq('ready_for_offer')
-        expect(response.project.verdicts).to have_attributes(ready_for_offer: 'Please upload the offer docs.')
+        expect(response.project.verdicts).to have_attributes(
+          technical_analysis_completed: 'Please upload the offer docs.'
+        )
       end
     end
 

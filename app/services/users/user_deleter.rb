@@ -22,21 +22,23 @@ module Users
       authorize! user, to: :delete?, with: UserPolicy
 
       super do
-        with_tracking(activity_id = SecureRandom.uuid, transaction: true) do
+        with_tracking(transaction: true) do
           update_associations!
           update_kam_regions!
           update_kam_investors!
           user.discard!
-
-          # Can there be a possibility of a duplicate activity log if the user is already discarded?
-          # Short answer - No. By virtue of the default scope where we don't show discarded users,
-          # `UserFinder` will throw NotFound error at the very beginning.
-          Activities::ActivityCreator.new(activity_params(activity_id, :profile_deleted)).call
         end
       end
     end
 
     private
+
+    # Can there be a possibility of a duplicate activity log if the user is already discarded?
+    # Short answer - No. By virtue of the default scope where we don't show discarded users,
+    # `UserFinder` will throw NotFound error at the very beginning.
+    def activity_params
+      super(:profile_deleted)
+    end
 
     # validates <tt>attributes[:assignee_id]</tt> is present when the user to be
     # deleted has assigned tasks or projects.

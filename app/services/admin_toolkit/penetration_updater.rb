@@ -3,23 +3,27 @@
 module AdminToolkit
   class PenetrationUpdater < BaseService
     include PenetrationFinder
+    set_callback :call, :before, :format_attributes
 
     def call
       authorize! penetration, to: :update?, with: AdminToolkitPolicy
 
-      with_tracking(activity_id = SecureRandom.uuid) do
+      with_tracking do
         with_uniqueness_check(:competition) do
-          penetration.update!(attributes)
-          Activities::ActivityCreator.new(activity_params(activity_id)).call
+          super { penetration.update!(attributes) }
         end
       end
     end
 
     private
 
-    def activity_params(activity_id)
+    def format_attributes
+      attributes[:rate] = attributes[:rate] / 100 if attributes[:rate]
+      attributes
+    end
+
+    def activity_params
       {
-        activity_id: activity_id,
         action: :penetration_updated,
         owner: current_user,
         trackable: penetration,
