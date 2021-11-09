@@ -8,7 +8,7 @@ en:
     activity: 'Activity'
     admin_toolkit:
       competition_created:
-        owner: "You added new a competition parameter(s) with the name %{name} to the Competition tab in the Admin Toolkit"
+        owner: 'You added new a competition parameter(s) with the name %{name} to the Competition tab in the Admin Toolkit'
         others: '%{owner_email} added a new competition parameter(s) with the name %{name} to the Competition tab in the Admin Toolkit'
       competition_updated:
         owner: 'Edited a competition parameter(s) with the name %{name} from the Competition tab in the Admin Toolkit'
@@ -93,95 +93,95 @@ en:
 
     project:
       project_created:
-        owner: 'Project `%{project_name}` created by you'
-        others: 'A new project `%{project_name}` was created %{entry_type} by %{owner_email}'
+        owner: "Project '%{project_name}' created by you"
+        others: "A new project '%{project_name}' was created %{entry_type} by %{owner_email}"
       project_updated:
-        owner: 'Edited the project `%{project_name}` information in the %{status} phase by you'
-        others: 'The project `%{project_name}` information was edited by %{owner_email} in %{status} phase'
+        owner: "Edited the project '%{project_name}' information in the %{status} phase by you"
+        others: "The project '%{project_name}' information was edited by %{owner_email} in %{status} phase"
       project_imported:
-        owner: 'Project file `%{filename}` has been imported by you'
-        others: 'Project file `%{filename}` has been imported by %{owner_email}'
+        owner: "Project file '%{filename}' has been imported by you"
+        others: "Project file '%{filename}' has been imported by %{owner_email}"
       project_draft_version:
-        owner: 'Project `%{project_name}` saved as draft by you'
-        others: 'Project `%{project_name}` is saved as draft by %{owner_email}'
+        owner: "Project '%{project_name}' saved as draft by you"
+        others: "Project '%{project_name}' is saved as draft by %{owner_email}"
       technical_analysis:
-        owner: 'Project `%{project_name}` moved from new project to %{status} stage by you'
-        others: 'Project `%{project_name}` was moved from new project to %{status} by %{owner_email}'
+        owner: "Project '%{project_name}' moved from new project to %{status} stage by you"
+        others: "Project '%{project_name}' was moved from new project to %{status} by %{owner_email}"
       technical_analysis_completed:
-        owner: 'Project `%{project_name}` moved from  Technical Analysis stage to %{status} by you'
-        others: 'Project `%{project_name}` was moved from Technical Analysis to %{status} stage by %{owner_email}'
+        owner: "Project '%{project_name}' moved from  Technical Analysis stage to %{status} by you"
+        others: "Project '%{project_name}' was moved from Technical Analysis to %{status} stage by %{owner_email}"
       offer_ready:
-        owner: 'Project `%{project_name}` moved from  %{previous_status} to %{status} by you'
-        others: 'Project `%{project_name}` was moved from %{previous_status} to %{status} by %{owner_email}'
+        owner: "Project '%{project_name}' moved from  %{previous_status} to %{status} by you"
+        others: "Project '%{project_name}' was moved from %{previous_status} to %{status} by %{owner_email}"
       archive:
-        owner: 'Project `%{project_name}` has been archived from %{previous_status} by you'
-        others: 'Project `%{project_name}` has been archived from %{previous_status} by %{owner_email}'
+        owner: "Project '%{project_name}' has been archived from %{previous_status} by you"
+        others: "Project '%{project_name}' has been archived from %{previous_status} by %{owner_email}"
       unarchive:
-        owner: 'Project `%{project_name}` has been unarchived back to %{status} stage by you'
-        others: 'Project `%{project_name}` has been unarchived back to %{status} stage by %{owner_email}'
+        owner: "Project '%{project_name}' has been unarchived back to %{status} stage by you"
+        others: "Project '%{project_name}' has been unarchived back to %{status} stage by %{owner_email}"
       revert:
-        owner: 'Project `%{project_name}` reverted from  %{previous_status} to %{status} by you '
-        others: 'Project `%{project_name}` reverted from  %{previous_status} to %{status} by %{owner_email}'
+        owner: "Project '%{project_name}' reverted from  %{previous_status} to %{status} by you "
+        others: "Project '%{project_name}' reverted from  %{previous_status} to %{status} by %{owner_email}"
       incharge_assigned:
-        owner: 'Assigned `%{incharge_email}` as Technical Incharge for project `%{project_name}` by you'
-        others: 'Assigned `%{incharge_email}` as Technical Incharge for project `%{project_name}` by %{owner_email}'
+        owner: "Assigned '%{incharge_email}' as Technical Incharge for project '%{project_name}' by you"
+        others: "Assigned '%{incharge_email}' as Technical Incharge for project '%{project_name}' by %{owner_email}"
       incharge_unassigned:
-        owner: 'Technical Incharge assigned for project `%{project_name}` was unassigned by you'
-        others: 'Technical Incharge assigned for project `%{project_name}` was unassigned by %{owner_email}'
+        owner: "Technical Incharge assigned for project '%{project_name}' was unassigned by you"
+        others: "Technical Incharge assigned for project '%{project_name}' was unassigned by %{owner_email}"
       files_uploaded:
-        owner: 'Uploaded the file(s) under Project file Tab by you.'
-        others: 'A new file(s) under Project file tab was uploaded by %{owner_email}'
+        owner: "Uploaded the file(s) under Project file Tab by you."
+        others: "A new file(s) under Project file tab was uploaded by %{owner_email}"
     projects:
       address_book_created:
-        owner: 'For project `%{project_name}`, a new role type `%{address_book_type}` has been added by you'
-        others: 'For project `%{project_name}`, a new role type `%{address_book_type}` has been added by %{owner_email}'
+        owner: "For project %{project_name}', a new role type '%{address_book_type}' has been added by you"
+        others: "For project '%{project_name}', a new role type '%{address_book_type}' has been added by %{owner_email}"
       address_book_updated:
-        owner: 'For project `%{project_name}`, Address book information for role type `%{address_book_type}` has been updated by you'
-        others: 'For project `%{project_name}`, Address book information for role type `%{address_book_type}` has been updated by %{owner_email}'
+        owner: "For project '%{project_name}', Address book information for role type '%{address_book_type}' has been updated by you"
+        others: "For project '%{project_name}', Address book information for role type '%{address_book_type}' has been updated by %{owner_email}"
       building_created:
-        owner: 'For Project `%{project_name}`, a new building `%{name}` has been added by you'
-        others: 'For Project `%{project_name}`, a new building `%{name}` has been added by %{owner_email}'
+        owner: "For Project '%{project_name}', a new building '%{name}' has been added by you"
+        others: "For Project '%{project_name}', a new building '%{name}' has been added by %{owner_email}"
       building_deleted:
-        owner: 'For Project `%{project_name}`, a building `%{name}` has been deleted by you'
-        others: 'For Project `%{project_name}`, a building `%{name}` has been deleted by %{owner_email}'
+        owner: "For Project '%{project_name}', a building '%{name}' has been deleted by you"
+        others: "For Project '%{project_name}', a building '%{name}' has been deleted by %{owner_email}"
       building_updated:
-        owner: 'For Project `%{project_name}`, a building `%{name}` has been updated by you'
-        others: 'For Project `%{project_name}`, a building `%{name}` has been updated by %{owner_email}'
+        owner: "For Project '%{project_name}', a building '%{name}' has been updated by you"
+        others: "For Project '%{project_name}', a building '%{name}' has been updated by %{owner_email}"
       building_imported:
-        owner: 'Building file `%{filename}` has been imported for project(s) by you'
-        others: 'Building file `%{filename}` has been imported for project(s) by %{owner_email}'
+        owner: "Building file '%{filename}' has been imported for project(s) by you"
+        others: "Building file '%{filename}' has been imported for project(s) by %{owner_email}"
       labels_created:
-        owner: 'Added label `%{label_list}` in %{status} stage for project %{project_name} by you'
-        others: 'Added label `%{label_list}` in %{status} stage for project %{project_name}  by %{owner_email}'
+        owner: "Added label '%{label_list}' in %{status} stage for project %{project_name} by you"
+        others: "Added label '%{label_list}' in %{status} stage for project %{project_name}  by %{owner_email}"
       labels_updated:
-        owner: 'Updated label `%{label_list}` in %{status} stage for project %{project_name} by you'
-        others: 'Updated label `%{label_list}` in %{status} stage for project %{project_name} by %{owner_email}'
+        owner: "Updated label '%{label_list}' in %{status} stage for project %{project_name} by you"
+        others: "Updated label '%{label_list}' in %{status} stage for project %{project_name} by %{owner_email}"
       payback_period_updated:
-        owner: 'For Project `%{project_name}` the payback period has been recalculated by you'
-        others: 'For Project `%{project_name}` the payback period has been recalculated by %{owner_email}'
+        owner: "For Project '%{project_name}' the payback period has been recalculated by you"
+        others: "For Project '%{project_name}' the payback period has been recalculated by %{owner_email}"
       files_uploaded:
-        owner: 'Uploaded the file(s) under Building file Tab by you.'
-        others: 'A new file(s) under Building file tab was uploaded by %{owner_email}'
+        owner: "Uploaded the file(s) under Building file Tab by you."
+        others: "A new file(s) under Building file tab was uploaded by %{owner_email}"
       task_created:
-        owner: 'Assigned project task `%{title}` to %{recipient_email} by you'
-        others: 'Was assigned the project task `%{title}` was assigned to %{recipient_email} by %{owner_email}'
-        recipient: 'Project task `%{title}` was assigned to you by %{owner_email}'
+        owner: "Assigned project task '%{title}' to %{recipient_email} by you"
+        others: "Was assigned the project task '%{title}' was assigned to %{recipient_email} by %{owner_email}"
+        recipient: "Project task '%{title}' was assigned to you by %{owner_email}"
       task_created_and_copied:
-        owner: 'Assigned project task `%{title}` to %{recipient_email} and copied to all the buildings by you'
-        others: 'Was assigned the project task `%{title}` was assigned to %{recipient_email} by %{owner_email} and copied to all the buildings'
-        recipient: 'Project task `%{title}` was assigned to you by %{owner_email} and copied to all the buildings'
+        owner: "Assigned project task '%{title}' to %{recipient_email} and copied to all the buildings by you"
+        others: "Was assigned the project task '%{title}' was assigned to %{recipient_email} by %{owner_email} and copied to all the buildings"
+        recipient: "Project task '%{title}' was assigned to you by %{owner_email} and copied to all the buildings"
       task_deleted:
-        owner: 'Deleted the %{type} name task `%{title}` assigned to %{recipient_email} by you'
-        others: 'Deleted the %{type} name task `%{title}` assigned to %{recipient_email} by %{owner_email}'
-        recipient: '%{type} task name `%{title}` assigned to you was deleted by %{owner_email}'
+        owner: "Deleted the %{type} name task '%{title}' assigned to %{recipient_email} by you"
+        others: "Deleted the %{type} name task '%{title}' assigned to %{recipient_email} by %{owner_email}"
+        recipient: "%{type} task name '%{title}' assigned to you was deleted by %{owner_email}"
       task_updated:
-        owner: '%{type} task `%{title}` moved from %{previous_status} to %{status} board by you'
-        others: '%{type} task `%{title}` assigned to %{recipient_email} was moved from %{previous_status} to %{status} board by %{owner_email}'
-        recipient: '%{type} task `%{title}` assigned to you was moved from %{previous_status} to %{status} board by %{owner_email}'
+        owner: "%{type} task '%{title}' moved from %{previous_status} to %{status} board by you"
+        others: "%{type} task '%{title}' assigned to %{recipient_email} was moved from %{previous_status} to %{status} board by %{owner_email}"
+        recipient: "%{type} task '%{title}' assigned to you was moved from %{previous_status} to %{status} board by %{owner_email}"
     active_storage:
       attachment_file_deleted:
-        owner: 'Deleted a file `%{filename}` from %{type} files Tab by you'
-        others: 'A file `%{filename}` from the %{type} files tab was Deleted by %{owner_email}'
+        owner: "Deleted a file '%{filename}' from %{type} files Tab by you"
+        others: "A file '%{filename}' from the %{type} files tab was Deleted by %{owner_email}"
       attachment_file_updated:
-        owner: 'Updated a file `%{filename}` from %{type} files Tab by you'
-        others: 'A file `%{filename}` from the %{type} files tab was updated by %{owner_email}'
+        owner: "Updated a file '%{filename}' from %{type} files Tab by you"
+        others: "A file '%{filename}' from the %{type} files tab was updated by %{owner_email}"
