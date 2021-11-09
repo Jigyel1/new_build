@@ -28,6 +28,10 @@ class ProjectPolicy < ApplicationPolicy
     incharge?
   end
 
+  def update_category?
+    update? || incharge?
+  end
+
   private
 
   def incharge?
