@@ -6,9 +6,11 @@
 </p>
 
 <div class="text-align--center my-32">
-  <a href="<%= root_url %>">
-    <button type="button" class="button button__primary"><%= t('devise.mailer.invitation_instructions.button_text') %></button>
-  </a>
+    <button type="button" class="button button__primary">
+      <a href="<%= root_url %>" class="white-text">
+        <%= t('devise.mailer.invitation_instructions.button_text') %>
+      </a>
+    </button>
 </div>
 
 <p class="line-height--22">
