@@ -3,4 +3,7 @@ Hello <%= @user.profile.salutation %>. <%= @user.lastname %>
 The following task(s) are due soon, on <%= Date.tomorrow.strftime('%d.%m.%Y') %>
 <%= render('content', tasks: @tasks) %>
 
+<%= t('devise.mailer.trouble_text') %>
+
+<p><%= t('devise.mailer.signature') %></p>
 

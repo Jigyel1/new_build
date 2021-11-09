@@ -2,3 +2,7 @@ Hello <%= @user.profile.salutation %>. <%= @user.lastname %>
 
 The due date for the following task(s) are about to end, on <%= Date.current.strftime('%d.%m.%Y') %>
 <%= render('content', tasks: @tasks) %>
+
+<%= t('devise.mailer.trouble_text') %>
+
+<p><%= t('devise.mailer.signature') %></p>
