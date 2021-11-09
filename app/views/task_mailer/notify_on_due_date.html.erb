@@ -1,6 +1,6 @@
 <h3 class="font-size--50">New Build - Tasks Today</h3>
 <p class="color--primary titleCase">
-  Hello <%= @user.profile.salutation %> <%= @user.lastname.capitalize! %>
+  Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %>
 </p>
 <p class="line-height--22">
    The due date for the following task(s) are about to end, on <%= Date.current.strftime('%d.%m.%Y') %>
