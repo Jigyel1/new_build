@@ -93,7 +93,27 @@ module Projects
                                     .group(:id)
                                     .reorder('COUNT(projects_tasks.id) DESC', 'files_count DESC')
 
-      @ordered_rows = rows - (idable_rows + addressable_rows)
+      @ordered_rows = ordered_rows
+    end
+
+    # Rows that aren't idable or addressable.
+    # Note: rows - (idable_rows + addressable_rows) won't work if there are duplicates.
+    #
+    # Example
+    #   [[1, 2], [1, 2]] - [[1, 2]]
+    #   #=> [] instead of [[1, 2]]
+    # Hence the workaround.
+    def ordered_rows
+      rows_taken = idable_rows + addressable_rows
+
+      rows.select do |row|
+        if rows_taken.include?(row)
+          rows_taken -= [row]
+          next
+        else
+          row
+        end
+      end
     end
 
     def stringify_address(collection, keys)
