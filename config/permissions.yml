@@ -36,7 +36,6 @@ administrator:
     - update
 
     - technical_analysis
-    - ready_for_offer
     - complex
     - archive
 
@@ -48,7 +47,6 @@ team_expert:
     - create
 
     - technical_analysis
-    - ready_for_offer
 
 team_standard:
   user:
@@ -77,7 +75,6 @@ presales:
     - create
 
     - technical_analysis
-    - ready_for_offer
     - complex
 
 manager_presales:

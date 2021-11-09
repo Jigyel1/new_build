@@ -53,7 +53,7 @@ module Projects
         transitions from: :commercialization, to: :technical_analysis, if: :marketing_only?
       end
 
-      event :technical_analysis, if: :authorized? do
+      event :technical_analysis, if: :authorized?, after: :assign_incharge do
         transitions from: :open, to: :technical_analysis
       end
 

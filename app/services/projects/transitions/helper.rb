@@ -77,6 +77,10 @@ module Projects
       rescue NoMethodError # raised if the PCT cost for the project is not set
         nil
       end
+
+      def assign_incharge
+        project.incharge || project.update!(incharge: current_user)
+      end
     end
   end
 end
