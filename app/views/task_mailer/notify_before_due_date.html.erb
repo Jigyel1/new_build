@@ -1,4 +1,5 @@
-<p class="color--primary">Hello <%= @user.profile.salutation %> <%= @user.lastname.capitalize! %></p>
+<h3 class="font--bold">New Build - Tasks Due Tomorrow</h3>
+<p class="color--primary titleCase">Hello <%= @user.profile.salutation %> <%= @user.lastname.capitalize! %></p>
 
 <p class="line-height--22">
    The following task(s) are due soon, on <%= Date.tomorrow.strftime('%d.%m.%Y') %>

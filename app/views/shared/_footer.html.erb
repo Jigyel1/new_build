@@ -1,4 +1,5 @@
 <!--TODO: This file still has dummy content. To be updated after getting proper text from BA-->
+<div class="p-24 br-8">
 <p class="line-height--22">
   <%= t('devise.mailer.trouble_text') %>
 </p>
@@ -6,8 +7,12 @@
   <%= root_url %>
 </p>
 <p><%= t('devise.mailer.signature') %></p>
+  <div class="logo">
+    <%= image_tag(attachments['logo.png'].url) %>
+  </div>
 </div>
-<div class="email-footer line-height--22 p-24">
+
+<div class="email-footer line-height--22 p-24 sf-full-width">
   <p>
     This message was sent to
     <span class="color--primary">Test User</span>.
@@ -19,7 +24,6 @@
     <a href="" class="color--primary font-size--18">Contact Us</a>
   </div>
   <p class="line-height--22 mt-24 color--dove-gray">
-
     ©<%= Date.current.year %> UPC. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis odio proin sagittis
     pha tra dui vitae.
   </p>

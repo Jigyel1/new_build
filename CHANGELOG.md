@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.2.0] - 2021-11-08
+
+## Features
+- `First Task Reminder` The first reminder is to be sent 1 day before the due date at 9:00 AM.
+- `Second Task Reminder` The second reminder is to be sent on the day of the due date at 5:00 PM.
 
 ## [0.1.6] - 2021-11-05
 

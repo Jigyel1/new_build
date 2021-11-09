@@ -1,19 +1,21 @@
 @import 'variable';
 
 .email-container {
-  background-color: $mercury;
-
   .email-content {
     background-color: $white;
     border-radius: 0 0 $radius $radius;
 
-    .logo {
-      margin: 0;
-
-      img {
-        width: auto;
-        height: 128px;
-      }
     }
+}
+
+.logo {
+  margin: 0;
+
+  img {
+    width: auto;
+    height: 62px;
   }
+}
+.email-footer {
+  background-color: $mercury;
 }
