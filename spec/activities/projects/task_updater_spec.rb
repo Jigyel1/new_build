@@ -24,7 +24,7 @@ describe Projects::TaskUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.owner',
-              previous_status: task.status,
+              previous_status: task.status.humanize(capitalize: false),
               status: 'completed',
               type: 'Building',
               title: task.title,
@@ -39,7 +39,7 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.recipient',
-              previous_status: task.status,
+              previous_status: task.status.humanize(capitalize: false),
               status: 'completed',
               type: 'Building',
               title: task.title,
@@ -54,7 +54,7 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.others',
-              previous_status: task.status,
+              previous_status: task.status.humanize(capitalize: false),
               status: 'completed',
               type: 'Building',
               title: task.title,
@@ -77,7 +77,7 @@ describe Projects::TaskUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.owner',
-              previous_status: task.status,
+              previous_status: task.status.humanize(capitalize: false),
               status: 'completed',
               type: 'Project',
               title: task.title,
@@ -92,7 +92,7 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.recipient',
-              previous_status: task.status,
+              previous_status: task.status.humanize(capitalize: false),
               status: 'completed',
               type: 'Project',
               title: task.title,
@@ -107,7 +107,7 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.others',
-              previous_status: task.status,
+              previous_status: task.status.humanize(capitalize: false),
               status: 'completed',
               type: 'Project',
               title: task.title,

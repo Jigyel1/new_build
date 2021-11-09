@@ -18,9 +18,9 @@ module Projects
         recipient: task.assignee,
         trackable: task,
         parameters: {
-          previous_status: task.previous_status,
+          previous_status: task.previous_status.humanize(capitalize: false),
           type: task.taskable_type.demodulize,
-          status: task.status,
+          status: task.status.humanize(capitalize: false),
           title: task.title
         }
       }
