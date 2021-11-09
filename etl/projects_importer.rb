@@ -3,6 +3,7 @@
 class ProjectsImporter < EtlBase
   SHEET_INDEX = 0
   SKIP_ROWS = 6
+  EXTERNAL_ID = 1
 
   ATTRIBUTE_MAPPINGS = FileParser.parse { 'etl/projects/attribute_mappings.yml' }.freeze
 
@@ -25,7 +26,7 @@ class ProjectsImporter < EtlBase
       Kiba.parse do
         # TODO: pre_process to confirm excel format and raise if not valid!
 
-        source EtlSource, sheet: sheet
+        source Projects::Source, sheet: sheet
 
         errors = []
         transform Projects::TransformProject, errors

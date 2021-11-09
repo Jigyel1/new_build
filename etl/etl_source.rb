@@ -5,9 +5,9 @@ class EtlSource
     @sheet = sheet
   end
 
-  def each(&block)
+  def each
     ActiveRecord::Base.transaction do
-      @sheet.each_row(&block)
+      yield if block_given?
     end
   end
 end

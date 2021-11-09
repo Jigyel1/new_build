@@ -8,7 +8,6 @@ module Projects
     # values in these indexes need to be converted to integer.
     # Move the zip, etc of other modules to their respective transforms
     INTEGER_COLS = FileParser.parse { 'etl/projects/integer_columns.yml' }.keys
-    EXTERNAL_ID = 1
 
     def initialize(errors)
       @errors = errors
@@ -18,7 +17,7 @@ module Projects
       # the integers in excel are reflected here as floats. Hence the conversion.
       to_int(row)
 
-      project = Project.find_or_initialize_by(external_id: row[EXTERNAL_ID])
+      project = Project.find_or_initialize_by(external_id: row[ProjectsImporter::EXTERNAL_ID])
       return if persisted?(project)
 
       project.define_singleton_method(:row) { row }

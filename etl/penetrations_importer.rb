@@ -3,6 +3,7 @@
 class PenetrationsImporter < EtlBase
   SHEET_INDEX = 0
   SKIP_ROWS = 1
+  ZIP = 0
 
   # Imports penetration details from the excel.
   #
@@ -21,7 +22,7 @@ class PenetrationsImporter < EtlBase
   def import(_current_user, sheet)
     super do
       Kiba.parse do
-        source EtlSource, sheet: sheet
+        source Penetrations::Source, sheet: sheet
         transform Penetrations::Transform
         destination Penetrations::Destination
       end
