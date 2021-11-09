@@ -52,7 +52,9 @@ module Projects
 
     # Loads all buildings that have a matching ID in the rows.
     def load_idable
-      @idable_rows = rows.select { |row| buildings.exists?(external_id: row[BUILDING_ID]) }
+      @idable_rows = rows.select do |row|
+        row[BUILDING_ID].present? && buildings.exists?(external_id: row[BUILDING_ID])
+      end
 
       @idable_buildings = buildings.select do |building|
         rows.find { |row| row[BUILDING_ID] == building.external_id.to_i }
