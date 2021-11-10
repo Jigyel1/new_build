@@ -28,7 +28,7 @@ class ProjectPolicy < ApplicationPolicy
     incharge?
   end
 
-  def update_category?
+  def configure_technical_analysis?
     update? || incharge?
   end
 

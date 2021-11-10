@@ -3,7 +3,7 @@
 module Projects
   class CategoryUpdater < BaseService
     def call
-      authorize! project, to: :update_category?
+      authorize! project, to: :configure_technical_analysis?
 
       project.update!(
         category: attributes[:category],
