@@ -29,6 +29,10 @@ module Projects
         project_priority.try(:prio_one?)
       end
 
+      # Special check for <tt>Prio 1</tt> projects - those that can be transitioned from <tt>technical_analysis</tt>
+      # to <tt>ready_for_offer</tt> where instead of checking if user has the permission to transition to
+      # <tt>ready_for_offer</tt>, we check if the user has the permission to transition to
+      # <tt>technical_analysis_completed</tt>
       def authorized?
         if technical_analysis_to_offer?
           authorize! project, to: 'technical_analysis_completed?'

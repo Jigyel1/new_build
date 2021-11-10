@@ -93,7 +93,7 @@ module Projects
                                     .group(:id)
                                     .reorder('COUNT(projects_tasks.id) DESC', 'files_count DESC')
 
-      @ordered_rows = order_rows
+      @ordered_rows = remaining_rows
     end
 
     # Rows that aren't idable or addressable.
@@ -103,7 +103,7 @@ module Projects
     #   [[1, 2], [1, 2]] - [[1, 2]]
     #   #=> [] instead of [[1, 2]]
     # Hence the workaround.
-    def order_rows
+    def remaining_rows
       rows_taken = idable_rows + addressable_rows
 
       rows.select do |row|

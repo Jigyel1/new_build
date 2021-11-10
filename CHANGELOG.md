@@ -4,7 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [0.1.7] - 2021-11-08
+
+
+## [0.2.1] - 2021-11-15
+### Features
+- Support for address book deletion
+- Auto assign `current_user` as the project incharge if not specified.
+
+### Fixes
+- Fix loading of `IdableRows` and `OrderedRows` in `app/services/projects/organizer.rb`
+- Use `technical_analysis_completed` permission when transitioning a project from `technical_analysis` to `ready_for_offer` insetad of `ready_for_offer` permission.
+- Project status revert to use `from_state` permission instead of `to_state` permission. This means if a user can move the project from `technical_analysis` to `ready_for_offer` then he can also move the project from `ready_for_offer` back to `technical_analysis`.
+- Use attributes sent from FE for project transition validation with `TacValidator` and not the with the ones assigned to the project.
+- Permission changes for roles in `permissions.yml`.
+- ETL jobs to selectively pick rows to be passed further to the ETL pipeline.
+- `OnDueDateJob` to be run every day instead of every minute
+
+
+## [0.2.0] - 2021-11-08
 
 ### Features
 - Email notification for tasks with respect to due dates.

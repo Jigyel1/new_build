@@ -5,7 +5,7 @@ module Penetrations
     def each(&block)
       super do
         @sheet.to_a
-              .select { |row| row[PenetrationsImporter::ZIP] && row }
+              .select { |row| row[PenetrationsImporter::ZIP].presence }
               .each(&block)
       end
     end

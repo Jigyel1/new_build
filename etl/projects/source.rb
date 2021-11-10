@@ -5,7 +5,7 @@ module Projects
     def each(&block)
       super do
         @sheet.to_a
-              .select { |row| row[ProjectsImporter::EXTERNAL_ID] && row }
+              .select { |row| row[ProjectsImporter::EXTERNAL_ID].presence }
               .each(&block)
       end
     end
