@@ -17,7 +17,7 @@ module Projects
 
         Transitions::TacValidator.new(
           project: project,
-          project_connection_cost: OpenStruct.new(attributes[:pct_cost_attributes]).project_connection_cost
+          attributes: attributes
         ).call
 
         true
