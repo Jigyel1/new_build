@@ -30,7 +30,15 @@ module Projects
       end
 
       def authorized?
-        authorize! project, to: "#{aasm.to_state}?"
+        if technical_analysis_to_offer?
+          authorize! project, to: 'technical_analysis_completed?'
+        else
+          authorize! project, to: "#{aasm.to_state}?"
+        end
+      end
+
+      def technical_analysis_to_offer?
+        aasm.from_state == :technical_analysis && aasm.to_state == :ready_for_offer
       end
 
       def unarchive?
