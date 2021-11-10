@@ -9,7 +9,7 @@ RSpec.describe Mutations::Projects::DeleteAddressBook do
 
   describe '.resolve' do
     context 'with permissions' do
-      it 'deletes the task' do
+      it 'deletes the address book' do
         response, errors = formatted_response(query, current_user: super_user, key: :deleteAddressBook)
         expect(errors).to be_nil
         expect(response.status).to be(true)
