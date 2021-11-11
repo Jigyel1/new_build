@@ -3,7 +3,7 @@
 class ProjectsImporter < EtlBase
   SHEET_INDEX = 0
   SKIP_ROWS = 1
-  EXTERNAL_ID = 1
+  EXTERNAL_ID = 0
 
   ATTRIBUTE_MAPPINGS = FileParser.parse { 'etl/projects/attribute_mappings.yml' }.freeze
 
