@@ -1,14 +1,14 @@
 # Don't add the address book external ids here as they could be prefixed with `c` character
 # for main contacts which when you convert to integer will return 0. Let `custom_assigner` handle that case.
-1: external_id
-8: investor_zip
-23: architect_zip
-39: role_type_3_zip
-55: role_type_4_zip
-66: project_zip
-76: buildings_count
-77: apartments_count
-82: project_category_1_code
-85: project_category_2_code
-90: project_external_id
-91: project_external_id_2
+0: external_id
+7: investor_zip
+22: architect_zip
+38: role_type_3_zip
+54: role_type_4_zip
+65: project_zip
+75: buildings_count
+76: apartments_count
+81: project_category_1_code
+84: project_category_2_code
+89: project_external_id
+90: project_external_id_2

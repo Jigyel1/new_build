@@ -52,6 +52,9 @@ end
 
   # External Users
   ['stefan.fitsch@upc.ch', :super_user],
+  ['gabi.bonfanti@upc.ch', :super_user],
+  ['Daniela.volpe@upc.ch', :super_user],
+  ['angela.maechler@upc.ch', :super_user],
   ['michael.egger@upc.ch', :administrator],
   ['danijela.martinovic@upc.ch', :administrator]
 ].each do |array|

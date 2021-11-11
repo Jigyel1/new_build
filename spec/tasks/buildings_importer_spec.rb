@@ -50,7 +50,7 @@ describe BuildingsImporter do
   let_it_be(:building_h) { create(:building, project: project, external_id: 58_580, address: build(:address)) }
   let_it_be(:building_i) { create(:building, project: project, external_id: 58_581, address: build(:address)) }
 
-  let_it_be(:file) { fixture_file_upload('spec/files/buildings-update.xlsx') }
+  let_it_be(:file) { fixture_file_upload('spec/files/buildings.xlsx') }
 
   context 'when excel has more buildings than the portal' do
     before_all { described_class.call(current_user: super_user, input: file) }

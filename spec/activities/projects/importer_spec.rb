@@ -12,7 +12,7 @@ describe Projects::Importer, type: :request do
         variables: { file: nil }
       }.to_json,
       map: { file: ['variables.file'] }.to_json,
-      file: fixture_file_upload(Rails.root.join('spec/files/project-create.xlsx'), 'application/xlsx')
+      file: fixture_file_upload(Rails.root.join('spec/files/projects.xlsx'), 'application/xlsx')
     }
   end
 
@@ -29,7 +29,7 @@ describe Projects::Importer, type: :request do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.project.project_imported.owner',
-            filename: 'project-create.xlsx')
+            filename: 'projects.xlsx')
         )
       end
     end
@@ -43,7 +43,7 @@ describe Projects::Importer, type: :request do
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
           t('activities.project.project_imported.others',
-            filename: 'project-create.xlsx',
+            filename: 'projects.xlsx',
             owner_email: super_user.email)
         )
       end

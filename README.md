@@ -60,6 +60,12 @@ run `bundle; rails db:migrate; sudo service puma_new_build restart, sudo service
 
 ---
 
+## Preprod Server
+
+- Azure Tenant - https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Overview/appId/1c8e12e3-83a8-41d4-8528-09c6c15a7420/isMSAApp/
+
+---
+
 ## Project setup locally(or in test servers)
 
 `rails db:setup_dev` to seed fake data.
