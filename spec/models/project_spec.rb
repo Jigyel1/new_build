@@ -109,7 +109,7 @@ RSpec.describe Project, type: :model do
       subject(:project) { create(:project, :irrelevant) }
 
       it 'auto archives project on create' do
-        expect(project.archived?).to be(true)
+        expect(project).to have_attributes(status: 'archived', previous_status: 'open')
       end
     end
   end

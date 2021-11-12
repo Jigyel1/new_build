@@ -10,15 +10,17 @@ module Buildings
     INTEGER_COLS = FileParser.parse { 'etl/buildings/integer_columns.yml' }.keys.freeze
 
     def each(&block)
-      load_collection
+      super do
+        load_collection
 
-      # the integers in excel are reflected here as floats. Hence the conversion.
-      collection.each { |row| to_int(row) }
+        # the integers in excel are reflected here as floats. Hence the conversion.
+        collection.each { |row| to_int(row) }
 
-      # group buildings by projects and update wrt a project(row[LAST_INDEX])
-      grouped = collection.group_by { |row| row[LAST_INDEX] }
+        # group buildings by projects and update wrt a project(row[LAST_INDEX])
+        grouped = collection.group_by { |row| row[LAST_INDEX] }
 
-      ActiveRecord::Base.transaction { grouped.each_pair(&block) }
+        grouped.each_pair(&block)
+      end
     end
 
     private
@@ -39,8 +41,8 @@ module Buildings
       end
     end
 
-    # If external id is present then use that for fetching projects.
-    # Else use the internal id for project lookup.
+    # If external id is present then use that for fetching projects/
+    # Else if internal id is present, use that for fetching projects.
     def lookup_hash(row)
       if row[PROJECT_EXTERNAL_ID]
         { external_id: row[PROJECT_EXTERNAL_ID].to_i }

@@ -3,22 +3,8 @@
 require 'rails_helper'
 
 describe Mutations::Projects::RevertTransition do
-  let_it_be(:super_user) do
-    create(
-      :user,
-      :super_user,
-      with_permissions: {
-        project: %i[
-          open
-          technical_analysis
-          ready_for_offer
-          complex
-        ]
-      }
-    )
-  end
-
-  let_it_be(:project) { create(:project, incharge: super_user) }
+  let_it_be(:incharge) { create(:user, :super_user) }
+  let_it_be(:project) { create(:project, incharge: incharge) }
   let_it_be(:pct_value) do
     create(
       :admin_toolkit_pct_value,
@@ -33,6 +19,8 @@ describe Mutations::Projects::RevertTransition do
       before_all { project.update_column(:status, :technical_analysis) }
 
       context 'with permissions' do
+        let(:super_user) { create(:user, :super_user, with_permissions: { project: :technical_analysis }) }
+
         it 'reverts to open' do
           response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
           expect(errors).to be_nil
@@ -41,10 +29,10 @@ describe Mutations::Projects::RevertTransition do
       end
 
       context 'without permissions' do
-        let_it_be(:kam) { create(:user, :kam) }
+        let(:super_user) { create(:user, :super_user) }
 
         it 'forbids action' do
-          response, errors = formatted_response(query, current_user: kam, key: :revertProjectTransition)
+          response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
           expect(response.project).to be_nil
           expect(errors).to eq(['Not Authorized'])
           expect(project.reload.status).to eq('technical_analysis')
@@ -55,19 +43,19 @@ describe Mutations::Projects::RevertTransition do
     context 'for projects with status - technical analysis completed' do
       before_all { project.update_column(:status, :technical_analysis_completed) }
 
-      context 'with permissions' do
+      context 'with permissions' do # as an incharge
         it 'reverts to technical analysis' do
-          response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
+          response, errors = formatted_response(query, current_user: incharge, key: :revertProjectTransition)
           expect(errors).to be_nil
           expect(response.project.status).to eq('technical_analysis')
         end
       end
 
       context 'without permissions' do
-        let_it_be(:kam) { create(:user, :kam) }
+        let(:super_user) { create(:user, :super_user) }
 
         it 'forbids action' do
-          response, errors = formatted_response(query, current_user: kam, key: :revertProjectTransition)
+          response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
           expect(response.project).to be_nil
           expect(errors).to eq(['Not Authorized'])
           expect(project.reload.status).to eq('technical_analysis_completed')
@@ -77,6 +65,7 @@ describe Mutations::Projects::RevertTransition do
 
     context 'for projects with status - ready for offer' do
       before_all { project.update_column(:status, :ready_for_offer) }
+      let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :ready_for_offer }) }
 
       context 'with permissions' do # prio 1 projects
         before do
@@ -134,7 +123,7 @@ describe Mutations::Projects::RevertTransition do
       before_all { project.update_columns(category: :marketing_only, status: :commercialization) }
 
       it 'reverts to technical analysis' do
-        response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
+        response, errors = formatted_response(query, current_user: incharge, key: :revertProjectTransition)
         expect(errors).to be_nil
         expect(response.project.status).to eq('technical_analysis')
       end

@@ -15,6 +15,11 @@ describe Mutations::Projects::ArchiveProject do
         expect(response.project.verdicts).to have_attributes(
           technical_analysis_completed: 'This project is no longer active'
         )
+
+        expect(project.reload).to have_attributes(
+          status: 'archived',
+          previous_status: 'technical_analysis_completed'
+        )
       end
     end
 

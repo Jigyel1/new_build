@@ -2,7 +2,7 @@
 
 module Projects
   class RoleType4Populator < BasePopulator
-    include AddressBookHelper
+    include AddressBookAssigner
     include CustomRoleHelper
   end
 end

@@ -29,12 +29,30 @@ module Projects
         project_priority.try(:prio_one?)
       end
 
+      # Special check for <tt>Prio 1</tt> projects - those that can be transitioned from <tt>technical_analysis</tt>
+      # to <tt>ready_for_offer</tt> where instead of checking if user has the permission to transition to
+      # <tt>ready_for_offer</tt>, we check if the user has the permission to transition to
+      # <tt>technical_analysis_completed</tt>
       def authorized?
-        authorize! project, to: "#{aasm.to_state}?"
+        if technical_analysis_to_offer?
+          authorize! project, to: 'technical_analysis_completed?'
+        else
+          authorize! project, to: "#{aasm.to_state}?"
+        end
+      end
+
+      def technical_analysis_to_offer?
+        aasm.from_state == :technical_analysis && aasm.to_state == :ready_for_offer
       end
 
       def unarchive?
+        authorize! project, to: :unarchive?
+
         project.previous_status.to_sym == aasm.to_state
+      end
+
+      def revert?
+        authorize! project, to: "#{aasm.from_state}?"
       end
 
       def extract_verdict
@@ -70,6 +88,10 @@ module Projects
         end
       rescue NoMethodError # raised if the PCT cost for the project is not set
         nil
+      end
+
+      def assign_incharge
+        project.incharge || project.update!(incharge: current_user)
       end
     end
   end

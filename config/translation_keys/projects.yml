@@ -20,6 +20,9 @@ projects:
     address_book_created:
       - project_name
       - address_book_type
+    address_book_deleted:
+      - project_name
+      - address_book_type
     address_book_updated:
       - project_name
       - address_book_type
@@ -64,6 +67,10 @@ projects:
       - filename
   others:
     address_book_created:
+      - project_name
+      - address_book_type
+      - owner_email
+    address_book_deleted:
       - project_name
       - address_book_type
       - owner_email

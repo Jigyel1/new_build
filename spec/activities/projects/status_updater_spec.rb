@@ -22,9 +22,7 @@ describe Projects::StatusUpdater do
     create(
       :user,
       :super_user,
-      with_permissions: {
-        project: %i[archive complex open technical_analysis ready_for_offer]
-      }
+      with_permissions: { project: %i[archive complex technical_analysis ready_for_offer] }
     )
   end
 

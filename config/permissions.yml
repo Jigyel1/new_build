@@ -14,7 +14,6 @@ super_user:
     - update
     - delete
 
-    - open
     - technical_analysis
     - ready_for_offer
     - archive
@@ -36,9 +35,7 @@ administrator:
     - create
     - update
 
-    - open
     - technical_analysis
-    - ready_for_offer
     - complex
     - archive
 
@@ -49,9 +46,7 @@ team_expert:
     - read
     - create
 
-    - open
     - technical_analysis
-    - ready_for_offer
 
 team_standard:
   user:
@@ -68,7 +63,6 @@ management:
     - create
     - update
 
-    - open
     - technical_analysis
     - ready_for_offer
     - gt_10_000
@@ -80,9 +74,7 @@ presales:
     - read
     - create
 
-    - open
     - technical_analysis
-    - ready_for_offer
     - complex
 
 manager_presales:
@@ -91,7 +83,6 @@ manager_presales:
   project:
     - read
 
-    - open
     - technical_analysis
     - ready_for_offer
     - complex
@@ -102,7 +93,6 @@ manager_nbo_kam:
   project:
     - read
     - create
-    - open
     - technical_analysis
     - ready_for_offer
 

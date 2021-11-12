@@ -15,6 +15,6 @@ module Trackable
   private
 
   def update_previous_state
-    self.previous_status = status_was
+    self.previous_status = status_was if status_changed?
   end
 end

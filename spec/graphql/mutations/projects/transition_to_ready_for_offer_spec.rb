@@ -45,12 +45,12 @@ describe Mutations::Projects::TransitionToReadyForOffer do
       end
 
       context 'without permissions' do
-        let_it_be(:admin) { create(:user, :administrator, with_permissions: { project: %i[ready_for_offer] }) }
+        let_it_be(:manager) { create(:user, :manager_nbo_kam, with_permissions: { project: %i[ready_for_offer] }) }
 
         it 'forbids action' do
           response, errors = formatted_response(
             query,
-            current_user: admin,
+            current_user: manager,
             key: :transitionToReadyForOffer
           )
 

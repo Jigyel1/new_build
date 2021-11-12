@@ -2,7 +2,7 @@
 
 module Projects
   class ArchitectPopulator < BasePopulator
-    include AddressBookHelper
+    include AddressBookAssigner
     include DefaultRoleHelper
   end
 end

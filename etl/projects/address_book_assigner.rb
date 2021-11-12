@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Projects
-  module AddressBookHelper
+  module AddressBookAssigner
     prepend CustomAssigner
 
     def call

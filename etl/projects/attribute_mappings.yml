@@ -1,115 +1,116 @@
 project:
-  external_id: 1
-  name: 64
-  lot_number: 68
-  description: 69
-  move_in_starts_on: 74
-  move_in_ends_on: 75
-  coordinate_east: 93
-  coordinate_north: 94
+  external_id: 0
+  name: 63
+  lot_number: 67
+  description: 68
+  move_in_starts_on: 73
+  move_in_ends_on: 74
+  coordinate_east: 92
+  coordinate_north: 93
 
 project_address:
-  street: 65
-  zip: 66
-  city: 67
+  street: 64
+  zip: 65
+  city: 66
 
 additional_details:
-  planstage: 70
-  planstage_date: 71
-  contract_year: 72
-  project_value: 73
-  base_area: 78
-  site_area: 79
-  purpose: 80
-  main_category: 81
-  cat_code_01: 82
-  cat_text_01: 83
-  cat_art_01: 84
-  cat_code_02: 85
-  cat_text_02: 86
-  project_text_part_01: 87
-  project_text_part_02: 88
-  project_text_part_03: 89
-  proj_extern_id: 90
-  prod_id: 91
-  geocod_sccs: 92
+  planstage: 69
+  planstage_date: 70
+  contract_year: 71
+  project_value: 72
+  base_area: 77
+  site_area: 78
+  purpose: 79
+  main_category: 80
+  cat_code_01: 81
+  cat_text_01: 82
+  cat_art_01: 83
+  cat_code_02: 84
+  cat_text_02: 85
+  project_text_part_01: 86
+  project_text_part_02: 87
+  project_text_part_03: 88
+  proj_extern_id: 89
+  prod_id: 90
+  geocod_sccs: 91
 
 investor:
-  external_id: 2
-  additional_name: 3
-  name: 4
-  company: 5
-  po_box: 7
-  language: 10
-  province: 11
-  phone: 12
-  mobile: 13
-  email: 14
-  website: 15
-  contact: 16
+  external_id: 1
+  additional_name: 2
+  name: 3
+  company: 4
+  po_box: 6
+  language: 9
+  province: 10
+  phone: 11
+  mobile: 12
+  email: 13
+  website: 14
+  contact: 15
 
 investor_address:
-  street: 6
-  zip: 8
-  city: 9
+  street: 5
+  zip: 7
+  city: 8
 
 architect:
-  external_id: 17
-  additional_name: 18
-  name: 19
-  company: 20
-  po_box: 22
-  language: 25
-  province: 26
-  phone: 27
-  mobile: 28
-  email: 29
-  website: 30
-  contact: 31
+  external_id: 16
+  additional_name: 17
+  name: 18
+  company: 19
+  po_box: 21
+  language: 24
+  province: 25
+  phone: 26
+  mobile: 27
+  email: 28
+  website: 29
+  contact: 30
 
 architect_address:
-  street: 21
-  zip: 23
-  city: 24
+  street: 20
+  zip: 22
+  city: 23
 
 
 role_type_3:
-  type: 32
-  external_id: 33
-  additional_name: 34
-  name: 35
-  company: 36
-  po_box: 38
-  language: 41
-  province: 42
-  phone: 43
-  mobile: 44
-  email: 45
-  website: 46
-  contact: 47
+  type: 31
+  external_id: 32
+  additional_name: 33
+  name: 34
+  company: 35
+  po_box: 37
+  language: 40
+  province: 41
+  phone: 42
+  mobile: 43
+  email: 44
+  website: 45
+  contact: 46
 
 role_type_3_address:
-  street: 37
-  zip: 39
-  city: 40
+  street: 36
+  zip: 38
+  city: 39
 
 
 role_type_4:
-  type: 48
-  external_id: 49
-  additional_name: 50
-  name: 51
-  company: 52
-  po_box: 54
-  language: 57
-  province: 58
-  phone: 59
-  mobile: 60
-  email: 61
-  website: 62
-  contact: 63
+  type: 47
+  external_id: 48
+  additional_name: 49
+  name: 50
+  company: 51
+  po_box: 53
+  language: 56
+  province: 57
+  phone: 58
+  mobile: 59
+  email: 60
+  website: 61
+  contact: 62
 
 role_type_4_address:
-  street: 53
-  zip: 55
-  city: 56
+  street: 52
+  zip: 54
+  city: 55
+

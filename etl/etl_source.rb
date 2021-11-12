@@ -7,7 +7,7 @@ class EtlSource
 
   def each(&block)
     ActiveRecord::Base.transaction do
-      @sheet.each_row(&block)
+      block&.call
     end
   end
 end

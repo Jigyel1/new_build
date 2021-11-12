@@ -5,7 +5,7 @@ require 'rails_helper'
 describe ProjectsImporter do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam_region) { AdminToolkit::KamRegion.create(name: 'Ost ZH') }
-  let_it_be(:file) { fixture_file_upload('spec/files/project-create.xlsx') }
+  let_it_be(:file) { fixture_file_upload('spec/files/projects.xlsx') }
 
   # This project will be skipped on import but available in the errors as a skipped project.
   let_it_be(:project) { create(:project, external_id: '3068125') }

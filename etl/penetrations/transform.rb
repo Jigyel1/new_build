@@ -2,7 +2,6 @@
 
 module Penetrations
   class Transform
-    ZIP = 0
     RATE = 2
     COMPETITION = 3
     KAM_REGION = 3
@@ -16,7 +15,7 @@ module Penetrations
     def process(row)
       format_each(row)
 
-      penetration = AdminToolkit::Penetration.find_or_initialize_by(zip: row[ZIP])
+      penetration = AdminToolkit::Penetration.find_or_initialize_by(zip: row[PenetrationsImporter::ZIP])
       competition = ::AdminToolkit::Competition.find_by!(name: row.delete_at(COMPETITION))
 
       penetration.assign_attributes(HEADERS.zip(row).to_h)
@@ -31,7 +30,7 @@ module Penetrations
     private
 
     def format_each(row)
-      row[ZIP] = row[ZIP].try(:to_i)
+      row[PenetrationsImporter::ZIP] = row[PenetrationsImporter::ZIP].try(:to_i)
       row[FOOTPRINT] = row[FOOTPRINT].to_boolean
     end
   end

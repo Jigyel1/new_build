@@ -27,7 +27,7 @@ module Hooks
     end
 
     def update_status
-      update_column(:status, :archived) if irrelevant?
+      update(status: :archived) if irrelevant?
     end
 
     def set_external_urls

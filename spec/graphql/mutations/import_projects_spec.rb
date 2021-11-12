@@ -12,7 +12,7 @@ describe Mutations::ImportProjects, type: :request do
         variables: { file: nil }
       }.to_json,
       map: { file: ['variables.file'] }.to_json,
-      file: fixture_file_upload(Rails.root.join('spec/files/project-create.xlsx'), 'application/xlsx')
+      file: fixture_file_upload(Rails.root.join('spec/files/projects.xlsx'), 'application/xlsx')
     }
   end
 
