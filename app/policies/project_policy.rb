@@ -28,6 +28,10 @@ class ProjectPolicy < ApplicationPolicy
     incharge?
   end
 
+  def configure_technical_analysis?
+    update? || incharge?
+  end
+
   private
 
   def incharge?

@@ -3,7 +3,7 @@
 module Projects
   class PaybackPeriodUpdater < BaseService
     def call
-      authorize! project, to: :update?
+      authorize! project, to: :configure_technical_analysis?
 
       with_tracking do
         project_pct_cost.update!(

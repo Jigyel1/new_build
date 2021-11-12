@@ -12,6 +12,8 @@ describe Mutations::Projects::TransitionToTechnicalAnalysis do
         response, errors = formatted_response(query, current_user: team_expert, key: :transitionToTechnicalAnalysis)
         expect(errors).to be_nil
         expect(response.project.status).to eq('technical_analysis')
+
+        expect(project.reload.incharge).to eq(team_expert)
       end
     end
 

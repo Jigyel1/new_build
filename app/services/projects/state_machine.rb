@@ -45,7 +45,7 @@ module Projects
       after_all_transitions :update_project_state, :record_activity
       after_all_events :after_transition_callback, :reset_draft_version
 
-      event :revert, if: :authorized? do
+      event :revert, if: :revert? do
         transitions from: :technical_analysis, to: :open
         transitions from: :technical_analysis_completed, to: :technical_analysis
         transitions from: :ready_for_offer, to: :technical_analysis, if: :prio_one?
@@ -53,7 +53,7 @@ module Projects
         transitions from: :commercialization, to: :technical_analysis, if: :marketing_only?
       end
 
-      event :technical_analysis, if: :authorized? do
+      event :technical_analysis, if: :authorized?, after: :assign_incharge do
         transitions from: :open, to: :technical_analysis
       end
 
@@ -74,7 +74,7 @@ module Projects
         transitions from: :ready_for_offer, to: :archived
       end
 
-      event :unarchive, if: %i[authorized? unarchive?] do
+      event :unarchive, if: :unarchive? do
         transitions from: :archived, to: :open
         transitions from: :archived, to: :technical_analysis
         transitions from: :archived, to: :technical_analysis_completed

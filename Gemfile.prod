@@ -18,7 +18,9 @@ gem 'action_policy-graphql'
 gem 'apollo_upload_server', '2.0.5'
 gem 'aws-sdk-s3', require: false
 gem 'batch-loader'
+gem 'clockwork', require: false
 gem 'discard', '~> 1.2'
+gem 'dry-configurable', '0.12.1'
 gem 'dotenv-rails'
 gem 'faraday'
 gem 'graphql', '1.12.10'
@@ -37,6 +39,7 @@ gem 'scenic'
 gem 'search_object'
 gem 'search_object_graphql'
 gem 'sidekiq'
+gem 'sidekiq-statistic'
 gem 'strong_migrations'
 gem 'xsv'
 

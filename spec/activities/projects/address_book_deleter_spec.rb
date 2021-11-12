@@ -2,24 +2,12 @@
 
 require 'rails_helper'
 
-describe Projects::Importer, type: :request do
+describe Projects::AddressBookDeleter do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
+  let_it_be(:project) { create(:project) }
+  let_it_be(:address_book) { create(:address_book, project: project) }
 
-  let!(:params) do
-    {
-      operations: {
-        query: query,
-        variables: { file: nil }
-      }.to_json,
-      map: { file: ['variables.file'] }.to_json,
-      file: fixture_file_upload(Rails.root.join('spec/files/projects.xlsx'))
-    }
-  end
-
-  before do
-    sign_in(super_user)
-    post api_v1_graphql_path, params: params
-  end
+  before_all { described_class.new(current_user: super_user, attributes: { id: address_book.id }).call }
 
   describe '.activities' do
     context 'as an owner' do
@@ -28,8 +16,9 @@ describe Projects::Importer, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.project_imported.owner',
-            filename: 'projects.xlsx')
+          t('activities.projects.address_book_deleted.owner',
+            project_name: project.name,
+            address_book_type: address_book.type)
         )
       end
     end
@@ -42,21 +31,12 @@ describe Projects::Importer, type: :request do
         expect(errors).to be_nil
         expect(activities.size).to eq(1)
         expect(activities.dig(0, :displayText)).to eq(
-          t('activities.project.project_imported.others',
-            filename: 'projects.xlsx',
+          t('activities.projects.address_book_deleted.others',
+            project_name: project.name,
+            address_book_type: address_book.type,
             owner_email: super_user.email)
         )
       end
     end
-  end
-
-  def query
-    <<~QUERY
-      mutation($file: Upload!) {
-        importProjects( input: { file: $file } ){
-          status
-        }
-      }
-    QUERY
   end
 end

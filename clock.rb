@@ -9,7 +9,7 @@ module Clockwork
     BeforeDueDateJob.perform_now
   end
 
-  every(1.minute, 'on due Date', at: '17:00') do
+  every(1.day, 'on due Date', at: '17:00') do
     OnDueDateJob.perform_now
   end
 end

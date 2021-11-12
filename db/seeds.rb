@@ -4,8 +4,6 @@
 #   :=> `rails db:seed` or
 #   :=> `rails db:dev_setup`
 
-require 'faker' unless Rails.env.production?
-
 exception = <<~MESSAGE
   The Rails environment is running in production mode!
   Seeds available only for development or test.
@@ -16,10 +14,10 @@ abort(exception) if Rails.env.production? && !ENV.fetch('TEST', '').to_b
 
 def address_attributes
   {
-    street: Faker::Address.street_name,
-    street_no: Faker::Address.building_number,
-    zip: Faker::Address.zip,
-    city: Faker::Address.city
+    street: 'Hettinger Alley',
+    street_no: '2009',
+    zip: '94060-2758',
+    city: 'North Devinport'
   }
 end
 
@@ -29,7 +27,7 @@ def profile_attributes(name)
     firstname: firstname,
     lastname: lastname || firstname.reverse,
     salutation: Profile.salutations.keys.sample,
-    phone: Faker::PhoneNumber.phone_number,
+    phone: '(825) 996-7348 x267',
     department: Rails.application.config.user_departments.sample
   }
 end
@@ -54,6 +52,9 @@ end
 
   # External Users
   ['stefan.fitsch@upc.ch', :super_user],
+  ['gabi.bonfanti@upc.ch', :super_user],
+  ['Daniela.volpe@upc.ch', :super_user],
+  ['angela.maechler@upc.ch', :super_user],
   ['michael.egger@upc.ch', :administrator],
   ['danijela.martinovic@upc.ch', :administrator]
 ].each do |array|

@@ -4,8 +4,8 @@ require_relative '../../app/models/admin_toolkit'
 
 module Projects
   class ProjectPopulator < BasePopulator
-    BUILDINGS_COUNT_COL = 76
-    APARTMENTS_COUNT_COL = 77
+    BUILDINGS_COUNT_COL = 75
+    APARTMENTS_COUNT_COL = 76
 
     # NOTE: project category should be called only after assigning the buildings.
     def call

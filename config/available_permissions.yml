@@ -12,7 +12,6 @@ project:
   - create
   - update
 
-  - open
   - technical_analysis
   - ready_for_offer
   - complex

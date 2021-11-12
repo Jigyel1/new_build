@@ -10,7 +10,7 @@ module AdminToolkit
     alias_attribute :standard_connection_cost, :standard
 
     def self.instance
-      @instance ||= find_or_create_by!(index: 0)
+      find_or_create_by!(index: 0)
     end
   end
 end

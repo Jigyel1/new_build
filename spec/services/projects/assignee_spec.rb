@@ -6,9 +6,10 @@ describe ::Projects::Assignee do
   let_it_be(:zip) { '8008' }
   let_it_be(:investor_id) { '9488423' }
 
-  let_it_be(:super_user) { create(:user, :super_user) }
-  let_it_be(:project) { create(:project, address: build(:address, zip: zip)) }
   subject(:assignee) { described_class.new(project: project) }
+
+  let!(:super_user) { create(:user, :super_user) }
+  let!(:project) { create(:project, address: build(:address, zip: zip)) }
 
   context 'with landlord' do
     before do

@@ -3,7 +3,12 @@
 module Projects
   module Transitions
     class TacValidator < BaseService
-      attr_accessor :project, :project_connection_cost
+      attr_accessor :project
+
+      def initialize(args = {})
+        super
+        @attributes = OpenStruct.new(args[:attributes])
+      end
 
       def call
         validate_access_technology!
@@ -27,22 +32,30 @@ module Projects
       end
 
       def validate_access_technology!
-        return unless project.standard_cost_applicable
+        return unless attributes.standard_cost_applicable
 
-        project.ftth? && raise(t('projects.transition.ftth_not_supported'))
-        project.access_tech_cost && raise(t('projects.transition.access_tech_cost_not_supported'))
+        attributes.access_technology == 'ftth' && raise(t('projects.transition.ftth_not_supported'))
+        attributes.access_tech_cost_attributes && raise(t('projects.transition.access_tech_cost_not_supported'))
       end
 
       def validate_in_house_installation!
-        if project.in_house_installation
-          return if project.installation_detail
+        if attributes.in_house_installation
+          return if installation_details?
 
           raise(t('projects.transition.missing_inhouse_installation_details'))
         else
-          return unless project.installation_detail
+          return unless installation_details?
 
           raise(t('projects.transition.inhouse_installation_details_not_supported'))
         end
+      end
+
+      def installation_details?
+        @_installation_details ||= attributes.installation_detail_attributes.present?
+      end
+
+      def project_connection_cost
+        @_project_connection_cost ||= attributes.pct_cost_attributes.try(:[], :project_connection_cost)
       end
     end
   end

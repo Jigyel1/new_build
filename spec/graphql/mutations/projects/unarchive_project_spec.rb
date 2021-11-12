@@ -9,7 +9,7 @@ describe Mutations::Projects::UnarchiveProject do
     create(
       :user,
       :super_user,
-      with_permissions: { project: %i[open technical_analysis ready_for_offer] }
+      with_permissions: { project: :archive }
     )
   end
 
@@ -17,94 +17,54 @@ describe Mutations::Projects::UnarchiveProject do
 
   describe '.resolve' do
     context 'when the previous state was open' do
-      before_all { transitions(project, %i[archived]) }
+      before_all { transitions(project, %i[open archived]) }
 
-      context 'with permissions' do
-        it 'reverts to open' do
-          response, errors = formatted_response(query, current_user: super_user, key: :unarchiveProject)
-          expect(errors).to be_nil
-          expect(response.project.status).to eq('open')
-        end
-      end
-
-      context 'without permissions' do
-        let_it_be(:kam) { create(:user, :kam) }
-
-        it 'forbids action' do
-          response, errors = formatted_response(query, current_user: kam, key: :unarchiveProject)
-          expect(response.project).to be_nil
-          expect(errors).to eq(['Not Authorized'])
-          expect(project.reload.status).to eq('archived')
-        end
+      it 'reverts to open' do
+        response, errors = formatted_response(query, current_user: super_user, key: :unarchiveProject)
+        expect(errors).to be_nil
+        expect(response.project.status).to eq('open')
       end
     end
 
     context 'when the previous state was technical analysis' do
       before_all { transitions(project, %i[technical_analysis archived]) }
 
-      context 'with permissions' do
-        it 'reverts to technical analysis' do
-          response, errors = formatted_response(query, current_user: super_user, key: :unarchiveProject)
-          expect(errors).to be_nil
-          expect(response.project.status).to eq('technical_analysis')
-        end
-      end
-
-      context 'without permissions' do
-        let_it_be(:kam) { create(:user, :kam) }
-
-        it 'forbids action' do
-          response, errors = formatted_response(query, current_user: kam, key: :unarchiveProject)
-          expect(response.project).to be_nil
-          expect(errors).to eq(['Not Authorized'])
-          expect(project.reload.status).to eq('archived')
-        end
+      it 'reverts to technical analysis' do
+        response, errors = formatted_response(query, current_user: super_user, key: :unarchiveProject)
+        expect(errors).to be_nil
+        expect(response.project.status).to eq('technical_analysis')
       end
     end
 
     context 'when the previous state was technical analysis completed' do
       before_all { transitions(project, %i[technical_analysis_completed archived]) }
 
-      context 'with permissions' do
-        it 'reverts to technical analysis completed' do
-          response, errors = formatted_response(query, current_user: super_user, key: :unarchiveProject)
-          expect(errors).to be_nil
-          expect(response.project.status).to eq('technical_analysis_completed')
-        end
-      end
-
-      context 'without permissions' do
-        let_it_be(:kam) { create(:user, :kam) }
-
-        it 'forbids action' do
-          response, errors = formatted_response(query, current_user: kam, key: :unarchiveProject)
-          expect(response.project).to be_nil
-          expect(errors).to eq(['Not Authorized'])
-          expect(project.reload.status).to eq('archived')
-        end
+      it 'reverts to technical analysis completed' do
+        response, errors = formatted_response(query, current_user: super_user, key: :unarchiveProject)
+        expect(errors).to be_nil
+        expect(response.project.status).to eq('technical_analysis_completed')
       end
     end
 
     context 'when the previous state was ready for offer' do
       before_all { transitions(project, %i[ready_for_offer archived]) }
 
-      context 'with permissions' do
-        it 'reverts to technical analysis completed' do
-          response, errors = formatted_response(query, current_user: super_user, key: :unarchiveProject)
-          expect(errors).to be_nil
-          expect(response.project.status).to eq('ready_for_offer')
-        end
+      it 'reverts to technical analysis completed' do
+        response, errors = formatted_response(query, current_user: super_user, key: :unarchiveProject)
+        expect(errors).to be_nil
+        expect(response.project.status).to eq('ready_for_offer')
       end
+    end
 
-      context 'without permissions' do
-        let_it_be(:kam) { create(:user, :kam) }
+    context 'without permissions' do
+      let_it_be(:kam) { create(:user, :kam) }
+      before_all { transitions(project, %i[ready_for_offer archived]) }
 
-        it 'forbids action' do
-          response, errors = formatted_response(query, current_user: kam, key: :unarchiveProject)
-          expect(response.project).to be_nil
-          expect(errors).to eq(['Not Authorized'])
-          expect(project.reload.status).to eq('archived')
-        end
+      it 'forbids action' do
+        response, errors = formatted_response(query, current_user: kam, key: :unarchiveProject)
+        expect(response.project).to be_nil
+        expect(errors).to eq(['Not Authorized'])
+        expect(project.reload.status).to eq('archived')
       end
     end
   end

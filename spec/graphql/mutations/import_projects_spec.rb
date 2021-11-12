@@ -5,14 +5,14 @@ require 'rails_helper'
 describe Mutations::ImportProjects, type: :request do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
 
-  let_it_be(:params) do
+  let(:params) do
     {
       operations: {
         query: query,
         variables: { file: nil }
       }.to_json,
       map: { file: ['variables.file'] }.to_json,
-      file: fixture_file_upload(Rails.root.join('spec/files/project-create.xlsx'), 'application/xlsx')
+      file: fixture_file_upload(Rails.root.join('spec/files/projects.xlsx'))
     }
   end
 
