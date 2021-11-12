@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Mutations::ImportProjects, type: :request do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
 
-  let_it_be(:params) do
+  let(:params) do
     {
       operations: {
         query: query,

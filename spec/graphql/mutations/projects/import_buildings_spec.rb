@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Mutations::Projects::ImportBuildings, type: :request do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
 
-  let_it_be(:params) do
+  let(:params) do
     {
       operations: {
         query: query,
@@ -23,6 +23,7 @@ describe Mutations::Projects::ImportBuildings, type: :request do
     # Details of the buildings import will be tested in `spec/tasks/import_buildings_spec.rb`
     it 'executes successfully' do
       post api_v1_graphql_path, params: params
+      expect(status).to eq(200)
       expect(status).to eq(200)
       expect(json.data.importBuildings.status).to be(true)
     end
