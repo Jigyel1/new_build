@@ -14,6 +14,7 @@ SELECT projects.id                                              AS id,
        projects.internal_id                                     AS internal_id,
        projects.draft_version                                   AS draft_version,
        projects.assignee_type                                   AS assignee_type,
+       projects.customer_request                                AS customer_request,
        cardinality(projects.label_list)                         AS labels,
 
        CONCAT(

@@ -923,6 +923,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.internal_id,
     projects.draft_version,
     projects.assignee_type,
+    projects.customer_request,
     cardinality(projects.label_list) AS labels,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     concat(profiles.firstname, ' ', profiles.lastname) AS assignee,
@@ -935,7 +936,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
      LEFT JOIN public.addresses ON (((addresses.addressable_id = projects.id) AND ((addresses.addressable_type)::text = 'Project'::text))))
      LEFT JOIN public.projects_address_books ON (((projects_address_books.project_id = projects.id) AND ((projects_address_books.type)::text = 'Investor'::text))))
      LEFT JOIN public.admin_toolkit_kam_regions ON ((admin_toolkit_kam_regions.id = projects.kam_region_id)))
-  ORDER BY projects.move_in_starts_on
+  ORDER BY projects.created_at DESC NULLS LAST
   WITH NO DATA;
 
 
