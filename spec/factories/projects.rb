@@ -34,6 +34,10 @@ FactoryBot.define do
       installation_detail { build(:installation_detail) }
     end
 
+    trait :customer_request do
+      customer_request { true }
+    end
+
     %w[categories priorities construction_types statuses].each do |key|
       Project.send(key).each_key do |name|
         trait name do

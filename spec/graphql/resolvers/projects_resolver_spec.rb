@@ -10,10 +10,16 @@ RSpec.describe Resolvers::ProjectsResolver do
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:team_expert) { create(:user, :team_expert) }
 
+  let_it_be(:kam_region_a) { create(:kam_region, name: 'Romandie') }
+  let_it_be(:kam_region_b) { create(:kam_region, name: 'West Bern-Seeland') }
+  let_it_be(:penetration_a) { create(:admin_toolkit_penetration, zip: '16564', kam_region: kam_region_a) }
+  let_it_be(:penetration_b) { create(:admin_toolkit_penetration, zip: '47736', kam_region: kam_region_b) }
+
   let_it_be(:address_a) { build(:address, street: 'Sharell Meadows', city: 'New Murray', zip: '16564') }
   let_it_be(:project_a) do
     create(
       :project,
+      :customer_request,
       internal_id: '312590',
       name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
       address: address_a,
@@ -28,6 +34,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       :project,
       :complex,
       :technical_analysis,
+      customer_request: false,
       internal_id: '312591',
       name: "Construction d'une habitation de quatre logements",
       address: address_b,
@@ -194,8 +201,32 @@ RSpec.describe Resolvers::ProjectsResolver do
         projects, errors = paginated_collection(:projects, query, current_user: super_user)
         expect(errors).to be_nil
 
-        project = OpenStruct.new(projects.find{ _1[:id] == project_a.id })
+        project = OpenStruct.new(projects.find { _1[:id] == project_a.id })
         expect(project.assignee).to eq('NBO Project')
+      end
+    end
+
+    context 'with customer_request filter' do
+      let(:customer_requests) { [true] }
+
+      it 'returns projects matching customer request filter' do
+        projects, errors = paginated_collection(
+          :projects,
+          query(customerRequests: customer_requests),
+          current_user: super_user
+        )
+        expect(errors).to be_nil
+        expect(projects.pluck(:id)).to match_array([project_a.id])
+      end
+    end
+
+    context 'with kam_regions filter' do
+      let(:kam_regions) { [kam_region_a.name, kam_region_b.name] }
+
+      it 'returns projects matching kam_regions filter' do
+        projects, errors = paginated_collection(:projects, query(kamRegions: kam_regions), current_user: super_user)
+        expect(errors).to be_nil
+        expect(projects.pluck(:id)).to match_array([project_a.id, project_c.id])
       end
     end
   end
