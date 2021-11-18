@@ -45,7 +45,7 @@ team_expert:
   project:
     - read
     - create
-
+    - update
     - technical_analysis
 
 team_standard:
@@ -54,7 +54,7 @@ team_standard:
   project:
     - read
     - create
-
+    - update
 management:
   user:
     - read
@@ -73,7 +73,7 @@ presales:
   project:
     - read
     - create
-
+    - update
     - technical_analysis
     - complex
 
@@ -82,7 +82,8 @@ manager_presales:
     - read
   project:
     - read
-
+    - create
+    - update
     - technical_analysis
     - ready_for_offer
     - complex
@@ -93,6 +94,7 @@ manager_nbo_kam:
   project:
     - read
     - create
+    - update
     - technical_analysis
     - ready_for_offer
 
@@ -102,6 +104,7 @@ kam:
   project:
     - read
     - create
+    - update
 
 manager_commercialization:
   user:
