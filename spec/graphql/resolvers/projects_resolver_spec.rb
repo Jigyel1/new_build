@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+  # frozen_string_literal: true
 
 require 'rails_helper'
 require_relative '../../support/ips_helper'
@@ -18,7 +18,8 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
       address: address_a,
       buildings: build_list(:building, 5, apartments_count: 3),
-      label_list: 'Assign KAM, Offer Needed'
+      label_list: 'Assign KAM, Offer Needed',
+      move_in_starts_on: Date.current + 5.weeks
     )
   end
 
@@ -32,7 +33,8 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: "Construction d'une habitation de quatre logements",
       address: address_b,
       assignee: kam,
-      buildings: build_list(:building, 15, apartments_count: 6)
+      buildings: build_list(:building, 15, apartments_count: 6),
+      move_in_starts_on: Date.current + 2.weeks
     )
   end
 
@@ -46,7 +48,8 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: 'Neubau Einfamilienhaus mit Pavillon',
       address: address_c,
       assignee: team_expert,
-      buildings: build_list(:building, 25, apartments_count: 8)
+      buildings: build_list(:building, 25, apartments_count: 8),
+      move_in_starts_on: Date.current
     )
   end
 
