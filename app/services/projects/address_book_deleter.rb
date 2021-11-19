@@ -7,7 +7,10 @@ module Projects
     def call
       authorize! address_book.project, to: :update?
 
-      with_tracking { address_book.destroy! }
+      with_tracking do
+        binding.pry
+        address_book.destroy!
+      end
     end
 
     def activity_params

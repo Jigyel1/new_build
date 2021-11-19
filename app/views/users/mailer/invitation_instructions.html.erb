@@ -1,27 +1,53 @@
-<h1 class="font-size--50">New Build Invitation</h1>
-<p class="color--primary titleCase"><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></p>
-
-<p class="line-height--22">
-  <%= t('devise.mailer.invitation_instructions.description') %>
-</p>
-
-<div class="text-align--center my-32">
-    <button type="button" class="button button__primary">
-      <a href="<%= root_url %>" class="white-text">
-        <%= t('devise.mailer.invitation_instructions.button_text') %>
-      </a>
-    </button>
-</div>
-
-<p class="line-height--22">
-  <% if @resource.invitation_due_at %>
-    <%= t(
-          "devise.mailer.invitation_instructions.accept_until",
-          due_date: l(
-            @resource.invitation_due_at,
-            format: :'devise.mailer.invitation_instructions.accept_until_format'
-          )
-        ) %>
-  <% end %>
-</p>
-<%= render('users/mailer/footer') %>
+<table class="sf-full-width p-32">
+  <tr>
+    <td>
+      <div class="logo mb-32">
+        <%= image_tag(attachments['logo.png'].url) %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h1 class="m-0">New Build Invitation</h1>
+    </td>
+  </tr>
+  <tr>
+    <td><p class="color--primary mb-16 font--bold titleCase"><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></p></td>
+  </tr>
+  <tr>
+    <td>
+      <p class="m-0"><%= t('devise.mailer.invitation_instructions.description') %></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="text-align--center my-32">
+        <button type="button" class="button button__primary">
+          <a href="<%= root_url %>" class="white-text">
+            <%= t('devise.mailer.invitation_instructions.button_text') %>
+          </a>
+        </button>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="mt-0">
+        <% if @resource.invitation_due_at %>
+          <%= t(
+                "devise.mailer.invitation_instructions.accept_until",
+                due_date: l(
+                  @resource.invitation_due_at,
+                  format: :'devise.mailer.invitation_instructions.accept_until_format'
+                )
+              ) %>
+        <% end %></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="m-0">If you are having trouble visiting the page from this button, please copy paste the link
+        below in your browser: <a href="">https://www.w3.org/Provider/Style</a></p>
+    </td>
+  </tr>
+</table>

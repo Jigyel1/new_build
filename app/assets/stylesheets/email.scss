@@ -1,6 +1,8 @@
 @import 'variable';
 
 .email-container {
+  width: 800px;
+  margin: 0 auto;
   .email-content {
     background-color: $white;
     border-radius: 0 0 $radius $radius;
@@ -16,6 +18,4 @@
     height: 62px;
   }
 }
-.email-footer {
-  background-color: $mercury;
-}
+
