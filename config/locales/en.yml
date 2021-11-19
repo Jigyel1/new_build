@@ -92,3 +92,5 @@ en:
     task:
       notify_before_due_date: New Build - Tasks Due Tomorrow
       notify_on_due_date: New Build - Tasks Due Today
+    assignee_assigned: New Build - Project Assignee
+    assignee_unassigned: New Build - Project Assignee

@@ -19,6 +19,8 @@ module Projects
         @project = ::Project.new(formatted_attributes)
         build_associations
         project.save!
+
+        AssigneeMailer.notify_on_assigned(project.assignee.id, project.id).deliver
       end
     end
 

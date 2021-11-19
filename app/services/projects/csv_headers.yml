@@ -89,5 +89,3 @@ others_address:
   street_with_street_no: AddressXStreet
   zip: AddressXPostcode
   city: AddressXTown
-
-building:
