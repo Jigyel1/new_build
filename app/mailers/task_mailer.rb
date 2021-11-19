@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class TaskMailer < ApplicationMailer
+  def notify_task_created(user_id, task)
+    notify(user_id, task, :assignee_assigned)
+  end
+
   def notify_before_due_date(user_id, tasks)
     notify(user_id, tasks, :notify_before_due_date)
   end

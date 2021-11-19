@@ -7,7 +7,7 @@ module Projects
 
       with_tracking do
         project.update!(incharge_id: attributes[:incharge_id])
-        InchargeMailer.notify_on_incharge_assigned(project.incharge_id, project.id).deliver
+        InchargeMailer.notify_on_incharge_assigned(project.incharge_id, project.id).deliver_later
       end
     end
 

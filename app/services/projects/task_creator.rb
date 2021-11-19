@@ -14,8 +14,11 @@ module Projects
         super do
           @task = current_user.tasks.create!(attributes)
           copy_task_to_all_buildings if @copy_to_all_buildings
+
+          TaskMailer.notify_task_created(task.assignee_id, task.id).deliver_later
         end
       end
+
     end
 
     private
