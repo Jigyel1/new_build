@@ -5,11 +5,18 @@ module Projects
     def call
       authorize! project, to: :unassign_incharge?
 
-      with_tracking { project.update!(incharge_id: nil) }
+      with_tracking do
+        project.update!(incharge_id: nil)
+        InchargeMailer.notify_on_incharge_unassigned(incharge, project.id).deliver
+      end
     end
 
     def project
       @project ||= Project.find(attributes[:id])
+    end
+
+    def incharge
+      @incharge ||= project.previous_changes.dig('incharge_id', 0)
     end
 
     private

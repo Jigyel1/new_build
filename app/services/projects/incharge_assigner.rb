@@ -5,7 +5,10 @@ module Projects
     def call
       authorize! project, to: :update?
 
-      with_tracking { project.update!(incharge_id: attributes[:incharge_id]) }
+      with_tracking do
+        project.update!(incharge_id: attributes[:incharge_id])
+        InchargeMailer.notify_on_incharge_assigned(project.incharge_id, project.id).deliver
+      end
     end
 
     def project
