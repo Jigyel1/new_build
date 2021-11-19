@@ -17,7 +17,7 @@ describe Mutations::Projects::UnarchiveProject do
 
   describe '.resolve' do
     context 'when the previous state was open' do
-      before_all { transitions(project, %i[archived]) }
+      before_all { transitions(project, %i[open archived]) }
 
       it 'reverts to open' do
         response, errors = formatted_response(query, current_user: super_user, key: :unarchiveProject)
