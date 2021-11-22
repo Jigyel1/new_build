@@ -39,7 +39,6 @@ module Projects
 
       # set category only after assigning buildings to the project.
       project.category = CategorySetter.new(project: project).call
-      project.competition = CompetitionSetter.new(project: project).call
     end
 
     def activity_params

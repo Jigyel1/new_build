@@ -3,21 +3,14 @@
 module Projects
   class AddressBookDeleter < BaseService
     include AddressBookHelper
-    set_callback :call, :before, :validate!
 
     def call
       authorize! address_book.project, to: :update?
 
-      with_tracking do
-        address_book.destroy!
-      end
+      with_tracking { address_book.investor? ? raise('Cannot Delete for type Investor') : address_book.destroy! }
     end
 
     private
-
-    def validate!
-      address_book.investor? && raise('Cnannnd')
-    end
 
     def activity_params
       {
