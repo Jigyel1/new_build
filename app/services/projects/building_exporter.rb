@@ -7,12 +7,27 @@ module Projects
     include BuildingExportHelper
     attr_accessor :id
 
-    def call
+    def call # rubocop:disable Metrics/AbcSize
       authorize! Project, to: :update?
 
       string_io = CSV.generate(headers: true) do |csv|
         csv << CSV_HEADERS
-        csv << values
+        csv << [
+          project.external_id,
+          building.external_id,
+          address.street,
+          address.street_no,
+          address.street_no.last,
+          address.zip,
+          address.city,
+          building.apartments_count,
+          project.lot_number,
+          building.move_in_starts_on,
+          project.internal_id,
+          project.coordinate_north,
+          project.coordinate_east,
+          project.kam_region.name
+        ]
       end
 
       url(string_io)

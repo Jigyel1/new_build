@@ -53,5 +53,9 @@ module Projects
     def assign_project_category
       project.category = Projects::CategorySetter.new(project: project).call
     end
+
+    def assign_project_competition
+      project.competition = CompetitionSetter.new(project: project).call
+    end
   end
 end
