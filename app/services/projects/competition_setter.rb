@@ -5,7 +5,7 @@ module Projects
     attr_accessor :project
 
     def call
-      competitions.first unless competitions.count == 1
+      competitions.first if competitions.count == 1
     end
 
     private
