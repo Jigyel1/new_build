@@ -31,7 +31,7 @@ module Projects
       attributes
     end
 
-    def build_associations
+    def build_associations # rubocop:disable Metrics/AbcSize
       BuildingsBuilder
         .new(project: project, buildings_count: buildings_count, apartments_count: apartments_count)
         .call

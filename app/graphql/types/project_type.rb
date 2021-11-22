@@ -13,7 +13,6 @@ module Types
     field :priority, String, null: true
     field :category, String, null: true
     field :construction_type, String, null: true
-    field :construction_type, String, null: true
     field :assignee_type, String, null: true
     field :entry_type, String, null: true
 

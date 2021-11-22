@@ -18,7 +18,6 @@ module Projects
           TaskMailer.notify_task_created(task.assignee_id, task.id).deliver_later
         end
       end
-
     end
 
     private
