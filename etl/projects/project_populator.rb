@@ -16,6 +16,7 @@ module Projects
           additional_details
           buildings
           project_category
+          project_competition
         ].each { |attributes| send("assign_#{attributes}") }
       end
     end
