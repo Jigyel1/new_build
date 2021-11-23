@@ -26,7 +26,7 @@ module Projects
           project.internal_id,
           project.coordinate_north,
           project.coordinate_east,
-          project.kam_region.name
+          project.kam_region.try(:name)
         ]
       end
 

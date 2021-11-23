@@ -20,7 +20,7 @@ module Projects
         build_associations
         project.save!
 
-        AssigneeMailer.notify_on_assigned(project.assignee.id, project.id).deliver_later
+        AssigneeMailer.notify_on_assigned(project.assignee_id, project.id).deliver_later
       end
     end
 
@@ -31,7 +31,7 @@ module Projects
       attributes
     end
 
-    def build_associations # rubocop:disable Metrics/AbcSize
+    def build_associations
       BuildingsBuilder
         .new(project: project, buildings_count: buildings_count, apartments_count: apartments_count)
         .call
