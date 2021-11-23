@@ -1,11 +1,14 @@
 @import 'variable';
-
+body {
+  background: $mercury;
+}
 .email-container {
+  width: 800px;
+  margin: 0 auto;
   .email-content {
     background-color: $white;
-    border-radius: 0 0 $radius $radius;
-
-    }
+    border-radius: $radius;
+  }
 }
 
 .logo {
@@ -13,7 +16,7 @@
 
   img {
     width: auto;
-    height: 62px;
+    height: 70px;
   }
 }
 .email-footer {

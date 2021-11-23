@@ -1,8 +1,28 @@
-<h3 class="font-size--50">New Build - Tasks Today</h3>
-<p class="color--primary titleCase">
-  Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %>
-</p>
-<p class="line-height--22">
-   The due date for the following task(s) are about to end, on <%= Date.current.strftime('%d.%m.%Y') %>
-</p>
-<%= render('task_mailer/content', tasks: @tasks) %>
+<table class="full--width">
+  <tr>
+    <td>
+      <div class="logo mb-32">
+        <%= image_tag(attachments['logo.png'].url) %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h2 class="helo">New Build - Tasks Today</h2>
+    </td>
+  </tr>
+  <tr>
+    <td><p class="color--primary mb-16 font--bold titleCase">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p></td>
+  </tr>
+  <tr>
+    <td>
+      <p class="m-0">The due date for the following task(s) are about to end, on <%= Date.current.strftime('%d.%m.%Y') %>
+      </p>
+    </td>
+  </tr>
+<!--  <tr>
+    <td>
+      <p class="m-0"><%#= render('task_mailer/content', tasks: @tasks) %></p>
+    </td>
+  </tr>-->
+</table>

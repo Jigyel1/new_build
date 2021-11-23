@@ -1,7 +1,28 @@
-<h3 class="font--bold">New Build - Tasks Due Tomorrow</h3>
-<p class="color--primary titleCase">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p>
-
-<p class="line-height--22">
-   The following task(s) are due soon, on <%= Date.tomorrow.strftime('%d.%m.%Y') %>
-</p>
-<%= render('content', tasks: @tasks) %>
+<table class="full--width p-32">
+  <tr>
+    <td>
+      <div class="logo mb-32">
+        <%= image_tag(attachments['logo.png'].url) %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h1 class="m-0">New Build - Tasks Due Tomorrow</h1>
+    </td>
+  </tr>
+  <tr>
+    <td><p class="color--primary mb-16 font--bold titleCase">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p></td>
+  </tr>
+  <tr>
+    <td>
+      <p class="m-0">The following task(s) are due soon, on <%= Date.tomorrow.strftime('%d.%m.%Y') %>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="m-0"><%= render('content', tasks: @tasks) %></p>
+    </td>
+  </tr>
+</table>
