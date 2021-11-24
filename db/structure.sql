@@ -988,7 +988,8 @@ CREATE TABLE public.roles (
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    users_count integer DEFAULT 0 NOT NULL
+    users_count integer DEFAULT 0 NOT NULL,
+    description character varying
 );
 
 
@@ -2136,6 +2137,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210908122833'),
 ('20210911120552'),
 ('20211020080514'),
-('20211020111623');
+('20211020111623'),
+('20211124085124');
 
 
