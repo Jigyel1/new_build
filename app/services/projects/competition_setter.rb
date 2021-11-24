@@ -5,13 +5,17 @@ module Projects
     attr_accessor :project
 
     def call
-      competitions.first unless competitions.count == 1
+      competitions.first if penetration.present? && competitions.count == 1
     end
 
     private
 
     def competitions
-      @_competitions ||= AdminToolkit::Penetration.find_by!(zip: project.zip).competitions
+      @_competitions ||= penetration.competitions
+    end
+
+    def penetration
+      @_penetration ||= AdminToolkit::Penetration.find_by(zip: project.zip)
     end
   end
 end

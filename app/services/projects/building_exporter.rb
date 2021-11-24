@@ -4,49 +4,43 @@ require 'csv'
 
 module Projects
   class BuildingExporter < BaseService
+    include BuildingExportHelper
     attr_accessor :id
 
-    def call
+    def call # rubocop:disable Metrics/AbcSize
       authorize! Project, to: :update?
 
       string_io = CSV.generate(headers: true) do |csv|
-        csv << Exports::PrepareBuildingHeaders.new(csv_headers: csv_headers,
-                                                   building: building,
-                                                   building_project: building_project).call
-        csv << Exports::PrepareBuildingRow.new(csv_headers: csv_headers,
-                                               building: building,
-                                               building_project: building_project).call
+        csv << CSV_HEADERS
+        csv << [
+          project.external_id,
+          building.external_id,
+          address.street,
+          address.street_no,
+          address.street_no.last,
+          address.zip,
+          address.city,
+          building.apartments_count,
+          project.lot_number,
+          building.move_in_starts_on,
+          project.internal_id,
+          project.coordinate_north,
+          project.coordinate_east,
+          project.kam_region.try(:name)
+        ]
       end
 
       url(string_io)
     end
 
-    private
-
-    def building
-      @_building ||= Projects::Building.find(id).include(:project, :address)
-    end
-
-    def building_project
-      @building_project ||= building.project
-    end
-
-    def building_address
-      @building_address ||= building.address
-    end
-
     def url(csv)
       current_user.building_download.attach(
         io: StringIO.new(csv),
-        filename: 'projects.csv',
+        filename: 'building.csv',
         content_type: 'application/csv'
       ).then do |attached|
         attached && url_for(current_user.building_download)
       end
-    end
-
-    def csv_headers
-      @_csv_headers ||= FileParser.parse { 'app/services/projects/csv_headers.yml' }
     end
   end
 end

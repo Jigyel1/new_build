@@ -10,6 +10,8 @@ module Projects
       with_tracking { address_book.destroy! }
     end
 
+    private
+
     def activity_params
       {
         action: :address_book_deleted,

@@ -55,7 +55,7 @@ module Projects
       end
 
       def project_connection_cost
-        @_project_connection_cost ||= attributes.pct_cost_attributes&.try(:[], :project_connection_cost)
+        @_project_connection_cost ||= attributes.pct_cost_attributes.try(:[], :project_connection_cost)
       end
     end
   end

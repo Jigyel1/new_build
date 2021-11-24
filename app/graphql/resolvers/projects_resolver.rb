@@ -2,7 +2,7 @@
 
 module Resolvers
   class ProjectsResolver < SearchObjectBase
-    scope { ProjectsList.order('move_in_starts_on ASC') }
+    scope { ProjectsList.order('move_in_starts_on ASC NULLS LAST') }
 
     type Types::ProjectConnectionType, null: false
 

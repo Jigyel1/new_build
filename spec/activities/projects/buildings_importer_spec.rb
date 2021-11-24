@@ -11,7 +11,7 @@ describe Projects::BuildingsImporter, type: :request do
         variables: { file: nil }
       }.to_json,
       map: { file: ['variables.file'] }.to_json,
-      file: fixture_file_upload(Rails.root.join('spec/files/buildings.xlsx'), 'application/xlsx')
+      file: fixture_file_upload(Rails.root.join('spec/files/buildings.xlsx'))
     }
   end
 

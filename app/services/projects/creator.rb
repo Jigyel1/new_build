@@ -20,7 +20,7 @@ module Projects
         build_associations
         project.save!
 
-        AssigneeMailer.notify_on_assigned(project.assignee.id, project.id).deliver_later
+        AssigneeMailer.notify_on_assigned(project.assignee_id, project.id).deliver_later
       end
     end
 
@@ -39,7 +39,6 @@ module Projects
 
       # set category only after assigning buildings to the project.
       project.category = CategorySetter.new(project: project).call
-      project.competition = CompetitionSetter.new(project: project).call
     end
 
     def activity_params
