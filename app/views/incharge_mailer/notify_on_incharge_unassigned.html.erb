@@ -1,1 +1,23 @@
-asdasd
+<table class="full--width p-32">
+  <tr>
+    <td>
+      <div class="logo mb-32">
+        <%= image_tag(attachments['logo.png'].url) %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h1 class="m-0">New Build - Project Assignee</h1>
+    </td>
+  </tr>
+  <tr>
+    <td><p class="color--primary mb-16 font--bold titleCase">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p></td>
+  </tr>
+  <tr>
+    <td>
+      <p class="m-0">You have been unassigned as the Technical Incharge for {{project name}} project by {{the name of the person who unassigned them from a project}}.
+      </p>
+    </td>
+  </tr>
+</table>asdasd
