@@ -16,8 +16,9 @@
   </tr>
   <tr>
     <td>
-      <p class="m-0">You have been unassigned as the Assigned Person for <%= @project.name %> project by <% @project..incharge.name%>.
+      <p class="m-0">You have been unassigned as the Assigned Person for <%= @project.name %> project by <%= @current_user.name %>.
       </p>
     </td>
   </tr>
 </table>
+<%= render('shared/footer') %>
