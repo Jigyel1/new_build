@@ -986,6 +986,7 @@ CREATE TABLE public.projects_tasks (
 CREATE TABLE public.roles (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying NOT NULL,
+    description character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     users_count integer DEFAULT 0 NOT NULL

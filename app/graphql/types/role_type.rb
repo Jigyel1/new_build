@@ -4,6 +4,7 @@ module Types
   class RoleType < BaseObject
     field :id, ID, null: false
     field :name, String, null: true
+    field :description, String, null: true
     field :users_count, Integer, null: true
 
     field :permissions, [Types::PermissionType], null: true

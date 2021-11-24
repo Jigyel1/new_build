@@ -35,6 +35,11 @@ def create_record(attributes)
   record.save!
 end
 
+FileParser.parse { 'db/description.yml' }['role_descriptions'].each do |key, value|
+  role = Role.find_by!(name: key)
+  role.update(description: value)
+end
+
 %w[pcts footprints label_groups competitions kam_regions].each do |file|
   puts "Loading #{file.camelize}"
   load(Rails.root.join("db/seeds/#{file}.rb"))
