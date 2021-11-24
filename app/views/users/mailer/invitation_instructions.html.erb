@@ -1,4 +1,5 @@
-<table class="full--width bg--white p-32">
+<div class="email-content px-32 pt-32">
+  <table class="full--width">
   <tr>
     <td>
       <div class="upc-logo mb-32">
@@ -8,7 +9,7 @@
   </tr>
   <tr>
     <td>
-      <h1 class="m-0" titleCase><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></h1>
+      <h2 class="m-0" titleCase><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></h2>
     </td>
   </tr>
   <tr>
@@ -51,4 +52,6 @@
     </td>
   </tr>
 </table>
+<%= render('shared/disclaimer') %>
+</div>
 <%= render('shared/invitation_footer') %>

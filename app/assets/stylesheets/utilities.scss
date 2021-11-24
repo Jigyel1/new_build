@@ -5,15 +5,6 @@ a {
   text-decoration: none;
 }
 
-/* Font size */
-@include fontSize($font-size);
-
-/* Padding  */
-@include padding($values, $directions);
-
-/* Margin */
-@include margin($values, $directions);
-
 /* Colors */
 .color--primary {
   color: $primary;
