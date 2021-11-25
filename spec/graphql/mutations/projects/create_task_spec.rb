@@ -22,7 +22,7 @@ RSpec.describe Mutations::Projects::CreateTask do
         expect(task).to have_attributes(
           title: 'Kitchen Wiring',
           description: '3 Kitchens in the top floor need to be wired before paneling.',
-          status: 'todo',
+          status: 'to_do',
           dueDate: Date.current.date_str
         )
 
