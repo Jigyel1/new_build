@@ -175,9 +175,9 @@ en:
         others: "Deleted the %{type} name task '%{title}' assigned to %{recipient_email} by %{owner_email}"
         recipient: "%{type} task name '%{title}' assigned to you was deleted by %{owner_email}"
       task_updated:
-        owner: "%{type} task '%{title}' moved from %{previous_status} to %{status} board by you"
-        others: "%{type} task '%{title}' assigned to %{recipient_email} was moved from %{previous_status} to %{status} board by %{owner_email}"
-        recipient: "%{type} task '%{title}' assigned to you was moved from %{previous_status} to %{status} board by %{owner_email}"
+        owner: "%{type} task '%{title}' moved from '%{previous_status}' to '%{status}' board by you"
+        others: "%{type} task '%{title}' assigned to %{recipient_email} was moved from '%{previous_status}' to '%{status}' board by %{owner_email}"
+        recipient: "%{type} task '%{title}' assigned to you was moved from '%{previous_status}' to '%{status}' board by %{owner_email}"
     active_storage:
       attachment_file_deleted:
         owner: "Deleted a file '%{filename}' from %{type} files Tab by you"
