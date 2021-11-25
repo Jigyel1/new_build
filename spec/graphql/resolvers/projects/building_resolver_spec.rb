@@ -11,8 +11,8 @@ RSpec.describe Resolvers::Projects::BuildingResolver do
       :building,
       project: project,
       tasks: [
-        build(:task, :todo, owner: super_user, assignee: super_user),
-        build(:task, :todo, owner: super_user, assignee: super_user),
+        build(:task, :to_do, owner: super_user, assignee: super_user),
+        build(:task, :to_do, owner: super_user, assignee: super_user),
         build(:task, :in_progress, owner: super_user, assignee: super_user),
         build(:task, :completed, owner: super_user, assignee: super_user),
         build(:task, :archived, owner: super_user, assignee: super_user)

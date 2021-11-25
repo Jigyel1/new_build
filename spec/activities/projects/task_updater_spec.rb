@@ -14,7 +14,7 @@ describe Projects::TaskUpdater do
   describe '.activities' do
     context 'with buildings' do
       let_it_be(:task) { create(:task, taskable: building, assignee: kam, owner: super_user) }
-      let_it_be(:params) { { id: task.id, status: :completed } }
+      let_it_be(:params) { { id: task.id, status: :in_progress } }
       before_all { described_class.new(current_user: super_user, attributes: params).call }
 
       context 'as an owner' do
@@ -24,8 +24,8 @@ describe Projects::TaskUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.owner',
-              previous_status: task.status.humanize(capitalize: false),
-              status: 'completed',
+              previous_status: task.status.titleize.tr(' ', '-'),
+              status: 'In-Progress',
               type: 'Building',
               title: task.title,
               recipient_email: kam.email)
@@ -39,8 +39,8 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.recipient',
-              previous_status: task.status.humanize(capitalize: false),
-              status: 'completed',
+              previous_status: task.status.titleize.tr(' ', '-'),
+              status: 'In-Progress',
               type: 'Building',
               title: task.title,
               owner_email: super_user.email)
@@ -54,8 +54,8 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.others',
-              previous_status: task.status.humanize(capitalize: false),
-              status: 'completed',
+              previous_status: task.status.titleize.tr(' ', '-'),
+              status: 'In-Progress',
               type: 'Building',
               title: task.title,
               owner_email: super_user.email,
@@ -77,8 +77,8 @@ describe Projects::TaskUpdater do
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.owner',
-              previous_status: task.status.humanize(capitalize: false),
-              status: 'completed',
+              previous_status: task.status.titleize.tr(' ', '-'),
+              status: 'Completed',
               type: 'Project',
               title: task.title,
               recipient_email: kam.email)
@@ -92,8 +92,8 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.recipient',
-              previous_status: task.status.humanize(capitalize: false),
-              status: 'completed',
+              previous_status: task.status.titleize.tr(' ', '-'),
+              status: 'Completed',
               type: 'Project',
               title: task.title,
               owner_email: super_user.email)
@@ -107,8 +107,8 @@ describe Projects::TaskUpdater do
           expect(errors).to be_nil
           expect(activities.dig(0, :displayText)).to eq(
             t('activities.projects.task_updated.others',
-              previous_status: task.status.humanize(capitalize: false),
-              status: 'completed',
+              previous_status: task.status.titleize.tr(' ', '-'),
+              status: 'Completed',
               type: 'Project',
               title: task.title,
               owner_email: super_user.email,

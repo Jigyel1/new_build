@@ -88,7 +88,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
     end
 
     context 'with status filter' do
-      let!(:params) { { statuses: %w[todo completed], taskable: [building.id, 'Projects::Building'] } }
+      let!(:params) { { statuses: %w[to_do completed], taskable: [building.id, 'Projects::Building'] } }
 
       it 'returns tasks with the given statuses' do
         tasks, errors = paginated_collection(:tasks, query(params), current_user: super_user)
