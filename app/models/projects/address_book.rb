@@ -2,6 +2,8 @@
 
 module Projects
   class AddressBook < ApplicationRecord
+    include Discard::Model
+
     self.inheritance_column = nil
 
     belongs_to :project, counter_cache: true
@@ -21,6 +23,8 @@ module Projects
     before_validation :set_display_name
     after_destroy :update_projects_list
     after_save :update_projects_list
+
+    default_scope { kept }
 
     # If the given address book is a main contact for the project, prefix it with character `c`
     def external_id_with_contact

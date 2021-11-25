@@ -2,6 +2,8 @@
 
 module Projects
   class Building < ApplicationRecord
+    include Discard::Model
+
     belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
     belongs_to :project, counter_cache: true
 
@@ -16,6 +18,8 @@ module Projects
     validates :name, :address, presence: true
     validates :external_id, uniqueness: true, allow_nil: true
     validates :move_in_ends_on, succeeding_date: { preceding_date_key: :move_in_starts_on }, allow_nil: true
+
+    default_scope { kept }
 
     after_destroy :update_project!
     after_save :update_project!
