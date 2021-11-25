@@ -12,7 +12,6 @@ RSpec.describe Address, type: :model do
     subject { create(:address, addressable: user) }
 
     it { is_expected.to validate_presence_of(:street) }
-    it { is_expected.to validate_presence_of(:street_no) }
     it { is_expected.to validate_presence_of(:city) }
     it { is_expected.to validate_presence_of(:zip) }
   end
