@@ -5,6 +5,9 @@ class ProjectMailer < ApplicationMailer
     @errors = errors
     @user = user
 
-    mail(to: email_address_with_name(user.email, user.name))
+    mail(
+      to: email_address_with_name(@user.email, @user.name),
+      subject: I18n.t('mailer.project_import')
+    )
   end
 end

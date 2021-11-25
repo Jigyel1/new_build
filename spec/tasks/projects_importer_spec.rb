@@ -180,7 +180,7 @@ describe ProjectsImporter do
       described_class.call(current_user: super_user, input: file)
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       expect(ActionMailer::Base.deliveries.first).to have_attributes(
-        subject: 'Notify import',
+        subject: t('mailer.project_import'),
         to: [super_user.email]
       )
     end
