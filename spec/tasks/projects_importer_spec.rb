@@ -25,7 +25,7 @@ describe ProjectsImporter do
   let_it_be(:project) { Project.find_by(external_id: '2826123') }
 
   it 'imports valid projects from the sheet' do
-    expect(Project.count).to eq(12) # 12 of the 17 projects are valid.
+    expect(Project.count).to eq(13) # 13 of the 17 projects are valid.
   end
 
   it 'updates project attributes' do

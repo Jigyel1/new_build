@@ -803,7 +803,7 @@ CREATE TABLE public.projects_address_books (
     display_name character varying NOT NULL,
     entry_type character varying NOT NULL,
     main_contact boolean DEFAULT false NOT NULL,
-    name character varying NOT NULL,
+    name character varying,
     additional_name character varying,
     company character varying,
     po_box character varying,
@@ -2137,6 +2137,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210908122833'),
 ('20210911120552'),
 ('20211020080514'),
-('20211020111623');
+('20211020111623'),
+('20211125062330');
 
 

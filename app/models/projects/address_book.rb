@@ -12,8 +12,9 @@ module Projects
     enum type: { investor: 'Investor', architect: 'Architect', others: 'Others' }
     enum entry_type: { manual: 'Manual', info_manager: 'Info Manager' }
 
-    validates :type, :name, :display_name, presence: true
+    validates :type, :display_name, presence: true
     validates :type, uniqueness: { unless: :others?, scope: :project_id }
+    validates_with AnyPresenceValidator, fields: %i[name company]
 
     delegate :name, to: :project, prefix: true
 
