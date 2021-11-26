@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Use this validator to validate that at least one of the fields is present for a given
+# model.
 class AnyPresenceValidator < ActiveModel::Validator
   def validate(record)
     return if options[:fields].any? { |field| record.send(field).present? }

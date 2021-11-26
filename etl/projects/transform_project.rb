@@ -29,14 +29,14 @@ module Projects
 
     private
 
+    # If a project is archived, soft delete the project. Create a new project with details from the row
+    # and proceed with the etl pipeline to update its associations.
     def discard_archived!(project)
-      if project.archived?
-        project.discard!
-        project.update_columns(external_id: "#{project.external_id}_discarded", status: :technical_analysis)
-        initialize_project(project.external_id)
-      else
-        project
-      end
+      return project unless project.archived?
+
+      project.discard!
+      project.update_columns(external_id: "#{project.external_id}_discarded", status: :technical_analysis)
+      initialize_project(project.external_id)
     end
 
     def initialize_project(external_id)
