@@ -175,6 +175,7 @@ describe ProjectsImporter do
     it 'discards the archived project' do
       expect { Project.find(project_b.id) }.to raise_error(ActiveRecord::RecordNotFound)
       expect(Project.unscoped.find(project_b.id).discarded?).to be(true)
+      expect(project_b.reload.status).to eq('archived') # status is not changed.
     end
 
     it 'creates a new project and associations' do
@@ -185,7 +186,8 @@ describe ProjectsImporter do
         buildings_count: 2,
         apartments_count: 4,
         coordinate_east: 2_658_154.126,
-        coordinate_north: 1_258_903.675
+        coordinate_north: 1_258_903.675,
+        status: 'technical_analysis'
       )
 
       expect(new_project.address).to have_attributes(
