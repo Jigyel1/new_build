@@ -35,7 +35,7 @@ module Projects
       return project unless project.archived?
 
       project.discard!
-      project.update_columns(external_id: "#{project.external_id}_#{Time.current.to_i}")
+      project.update_column(:external_id, "#{project.external_id}_#{Time.current.to_i}")
 
       initialize_project(project.external_id).tap { |proj| proj.status = :technical_analysis }
     end
