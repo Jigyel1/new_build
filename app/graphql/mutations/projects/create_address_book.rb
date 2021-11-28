@@ -15,7 +15,7 @@ module Mutations
 
         argument :project_id, ID, required: true
         argument :type, String, required: true
-        argument :name, String, required: true
+        argument :name, String, required: false
         argument :phone, String, required: true
 
         argument :address, CreateAddressBookAddressAttributes, as: :address_attributes, required: false

@@ -55,6 +55,8 @@ en:
       invalid_min: System tried updating min building for Footprint with index "%{index}" to %{new_max} which is
         not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.
 
+  any_presence: At least one of these fields - %{fields} must be present
+
   projects:
     file:
       invalid_attachable_type: Attachable type is invalid. %{valid_types} are only supported.

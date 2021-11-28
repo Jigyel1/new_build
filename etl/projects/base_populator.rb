@@ -28,14 +28,28 @@ module Projects
       attributes.keys.zip(row.values_at(*attributes.values)).to_h
     end
 
+    # split the array between the last item and the rest.
+    # if <tt>attributes[:street]</tt> ends with a number, save the number as street_no
+    # and the prefix as the street. Otherwise, take the whole string as the street.
+    #
+    # eg. for
+    #   attributes[:street] = { "street"=>"Chemin du Taxroz 3A et 30" }
+    #   street => "Chemin du Taxroz 3A et" and street_no => 30.
+    #
+    #   attributes[:street] = { "street"=>"Chemin du Taxroz 3A et 3B" }
+    #   street => "Chemin du Taxroz 3A et 3B" and street_no => nil
+    #
+    #   attributes[:street] = { "street" => "45" }
+    #   street => "45" and street_no => nil
     def assign_address_attributes(attributes, addressable)
-      # split the array between the last item and the rest.
-      # eg. for street { "street"=>"Chemin du Taxroz 3A et 3B" }
-      # street => ["Chemin", "du", "Taxroz", "3A", "et"] and street_no => 3B.
-      # Then convert the street to a string with a join.
       *street, street_no = attributes[:street].try(:split, ' ')
+
       addressable.build_address(
-        attributes.merge(street: street.join(' '), street_no: street_no)
+        if street && street_no.try(:match?, /\d+/)
+          attributes.merge(street: street.join(' '), street_no: street_no)
+        else
+          attributes
+        end
       )
     end
   end

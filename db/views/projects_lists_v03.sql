@@ -36,4 +36,6 @@ FROM projects
     LEFT JOIN projects_address_books ON projects_address_books.project_id = projects.id AND projects_address_books.type = 'Investor'
     LEFT JOIN admin_toolkit_kam_regions ON admin_toolkit_kam_regions.id = projects.kam_region_id
 
+WHERE projects.discarded_at IS NULL
+
 ORDER BY projects.created_at DESC NULLS LAST
