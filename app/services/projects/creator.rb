@@ -20,7 +20,7 @@ module Projects
         build_associations
         project.save!
 
-        AssigneeMailer.notify_on_assigned(project.assignee_id, project.id).deliver_later
+        ProjectMailer.notify_on_assigned(project.assignee_id, project.id).deliver_later
       end
     end
 

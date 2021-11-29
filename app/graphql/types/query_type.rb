@@ -33,6 +33,8 @@ module Types
       A list of valid permissions for different resources with respect for individual roles`
     DESC
 
+    field :addresses, resolver: Resolvers::AddressResolver
+
     field :activities, resolver: Resolvers::ActivitiesResolver
     field :activity_actions, resolver: Resolvers::ActivityActionsResolver
 

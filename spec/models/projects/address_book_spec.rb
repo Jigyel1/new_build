@@ -10,9 +10,20 @@ RSpec.describe Projects::AddressBook, type: :model do
   end
 
   describe 'validations' do
+    subject(:address_book) { build(:address_book, :others, project: create(:project), name: nil) }
+
     it { is_expected.to validate_presence_of(:type) }
-    it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:display_name) }
+
+    it 'checks for presence of name or company' do
+      expect(address_book).to be_invalid
+
+      words_connector = { two_words_connector: ' or ', last_word_connector: ', or ' }
+      expect(address_book.errors.full_messages).to include(
+        t('any_presence',
+          fields: %i[name company].to_sentence(**words_connector))
+      )
+    end
   end
 
   describe 'helpers' do

@@ -7,7 +7,7 @@ module Projects
 
       with_tracking do
         project.update!(incharge_id: nil)
-        InchargeMailer.notify_on_incharge_unassigned(incharge, current_user.id, project.id).deliver_later
+        ProjectMailer.notify_on_incharge_unassigned(incharge, current_user.id, project.id).deliver_later
       end
     end
 

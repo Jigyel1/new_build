@@ -4,7 +4,7 @@ require 'csv'
 
 module Projects
   class BuildingExporter < BaseService
-    include BuildingExportHelper
+    include BuildingExporterHelper
     attr_accessor :id
 
     def call # rubocop:disable Metrics/AbcSize
