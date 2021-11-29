@@ -32,8 +32,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: "Construction d'une habitation de quatre logements",
       address: address_b,
       assignee: kam,
-      buildings: build_list(:building, 15, apartments_count: 6),
-      move_in_starts_on: Date.current + 2.weeks
+      buildings: build_list(:building, 15, apartments_count: 6)
     )
   end
 
@@ -47,8 +46,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: 'Neubau Einfamilienhaus mit Pavillon',
       address: address_c,
       assignee: team_expert,
-      buildings: build_list(:building, 25, apartments_count: 8),
-      move_in_starts_on: Date.current
+      buildings: build_list(:building, 25, apartments_count: 8)
     )
   end
 

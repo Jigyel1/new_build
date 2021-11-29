@@ -9,7 +9,7 @@ module Projects
         project.update!(attributes)
 
         if project.assignee_id_previously_changed?
-          AssigneeMailer.notify_on_unassigned(project.assignee_id, current_user.id, project.id).deliver_later
+          ProjectMailer.notify_on_unassigned(project.assignee_id, current_user.id, project.id).deliver_later
         end
       end
     end

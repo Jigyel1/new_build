@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TaskMailer < ApplicationMailer
-  def notify_task_created(user_id, task)
+  def notify_created(user_id, task)
     notify(user_id, task, :assignee_assigned)
   end
 
