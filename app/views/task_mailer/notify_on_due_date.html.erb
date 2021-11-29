@@ -1,5 +1,4 @@
-<div class="email-content px-32 pt-32">
-  <table class="full--width">
+<table class="full--width">
   <tr>
     <td>
       <div class="logo mb-32">
@@ -13,20 +12,28 @@
     </td>
   </tr>
   <tr>
-    <td><p class="color--primary mb-16 font--bold titleCase">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p></td>
+    <td><p class="color--primary mb-16 font--bold text-capitalize">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p></td>
   </tr>
   <tr>
     <td>
-      <p class="m-0">The due date for the following task(s) are about to end, on <%= Date.current.strftime('%d.%m.%Y') %>
+      <p class="my-0">The due date for the following task(s) are about to end, on <%= Date.current.strftime('%d.%m.%Y') %>
       </p>
     </td>
   </tr>
   <tr>
     <td>
-      <p class="m-0"><%= render('task_mailer/content', tasks: @tasks) %></p>
+      <p class="my-0"><%= render('task_mailer/content', tasks: @tasks) %></p>
     </td>
   </tr>
+    <tr>
+      <td>
+        <div class="mt-32">
+          <button type="button" class="button button__primary">
+            <a href="<%= root_url %>" class="white-text">
+              Go To New Build Tool
+            </a>
+          </button>
+        </div>
+      </td>
+    </tr>
 </table>
-<%= render('shared/disclaimer', user: @user) %>
-</div>
-<%= render('shared/footer') %>

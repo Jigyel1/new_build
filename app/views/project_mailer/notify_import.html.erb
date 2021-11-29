@@ -1,4 +1,3 @@
-<div class="email-content px-32 pt-32">
   <table class="full--width">
     <tr>
       <td>
@@ -9,15 +8,15 @@
     </tr>
     <tr>
       <td>
-        <h1 class="m-0">New Build - Project Creation Failed</h1>
+        <h1 class="my-0">New Build - Project Creation Failed</h1>
       </td>
     </tr>
     <tr>
-      <td><p class="color--primary mb-16 font--bold titleCase">Hello Admin,</p></td>
+      <td><p class="color--primary mb-16 font--bold text-capitalize">Hello Admin,</p></td>
     </tr>
     <tr>
       <td>
-        <p class="m-0">
+        <p class="my-0">
           The project creation for the following project IDs was not possible due to some error in the portal. Please try to create the projects again.
         </p>
       </td>
@@ -31,7 +30,16 @@
         </ul>
       </td>
     </tr>
+      <tr>
+        <td>
+          <div class="mt-32">
+            <button type="button" class="button button__primary">
+              <a href="<%= root_url %>" class="white-text">
+                Go To New Build Tool
+              </a>
+            </button>
+          </div>
+        </td>
+      </tr>
   </table>
-<%= render('shared/disclaimer', user: @user) %>
-</div>
-<%= render('shared/footer') %>
+

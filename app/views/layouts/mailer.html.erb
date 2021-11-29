@@ -10,7 +10,11 @@
 
 <body>
   <div class="email-container pt-24">
+    <div class="email-content px-32 pt-32">
       <%= yield %>
+    </div>
+    <%= render('shared/disclaimer') %>
   </div>
+  <%= render('shared/footer') %>
 </body>
 </html>

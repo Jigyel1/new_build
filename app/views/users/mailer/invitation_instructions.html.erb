@@ -1,5 +1,4 @@
-<div class="email-content px-32 pt-32">
-  <table class="full--width">
+<table class="full--width">
   <tr>
     <td>
       <div class="upc-logo mb-32">
@@ -9,7 +8,7 @@
   </tr>
   <tr>
     <td>
-      <h2 class="m-0" titleCase><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></h2>
+      <h2 class="my-0 text-capitalize"><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></h2>
     </td>
   </tr>
   <tr>
@@ -17,7 +16,7 @@
   </tr>
   <tr>
     <td>
-      <p class="m-0"><%= t('devise.mailer.invitation_instructions.description') %></p>
+      <p class="my-0"><%= t('devise.mailer.invitation_instructions.description') %></p>
     </td>
   </tr>
   <tr>
@@ -33,7 +32,7 @@
   </tr>
   <tr>
     <td>
-      <p class="mt-0">
+      <p class="mt-0 color--black-38">
         <% if @resource.invitation_due_at %>
           <%= t(
                 "devise.mailer.invitation_instructions.accept_until",
@@ -47,11 +46,8 @@
   </tr>
   <tr>
     <td>
-      <p class="m-0">If you are having trouble visiting the page from this button, please copy paste the link
+      <p class="my-0">If you are having trouble visiting the page from this button, please copy paste the link
         below in your browser: <a href="https://www.w3.org/Provider/Style">https://www.w3.org/Provider/Style</a></p>
     </td>
   </tr>
 </table>
-<%= render('shared/disclaimer', user: @user) %>
-</div>
-<%= render('shared/invitation_footer') %>

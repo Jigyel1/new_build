@@ -1,6 +1,8 @@
 @import 'variable';
+@import 'utilities';
 body {
   background: $mercury;
+  color: rgba($black, 0.6);
 }
 .email-container {
   width: 800px;

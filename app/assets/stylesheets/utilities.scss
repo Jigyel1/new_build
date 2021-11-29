@@ -33,7 +33,7 @@ a {
 .line-height--22 {
   line-height: 22px;
 }
-.titleCase {
+.text-capitalize {
   text-transform: capitalize;
 }
 
@@ -42,4 +42,17 @@ a {
 }
 .full--width {
   width: 100%;
+}
+/* color */
+
+.color--black-38 {
+  color: rgba($black, 0.38);
+}
+
+.color--black-87 {
+  color: rgba($black, 0.87);
+}
+
+.color--black-60 {
+  color: rgba($black, 0.6);
 }
