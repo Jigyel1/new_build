@@ -38,4 +38,4 @@ FROM projects
 
 WHERE projects.discarded_at IS NULL
 
-ORDER BY projects.created_at DESC NULLS LAST
+ORDER BY projects.move_in_starts_on ASC NULLS LAST
