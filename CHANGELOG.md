@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Features
 - Single building details download
-- Email trigger for assigning or unassigning assignee and technical incharge of the project
+- Email trigger for assigning or un-assigning the assignee and the technical incharge of the project
 - Email trigger for person assigned to project task
 
 ### Fixes
