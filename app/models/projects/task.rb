@@ -15,8 +15,8 @@ module Projects
     default_scope { order(updated_at: :desc) }
 
     enum status: {
-      to_do: 'To-Do',
-      in_progress: 'In Progress',
+      todo: 'To-Do',
+      in_progress: 'In progress',
       completed: 'Completed',
       archived: 'Archived'
     }

@@ -2,15 +2,13 @@
 
 module Projects
   class Updater < BaseService
+    set_callback :call, :after, :notify_unassigned_assignee
+
     def call
-      authorize! project, to: :update?
+      super do
+        authorize! project, to: :update?
 
-      with_tracking do
-        project.update!(attributes)
-
-        if project.assignee_id_previously_changed?
-          ProjectMailer.notify_on_unassigned(project.assignee_id, current_user.id, project.id).deliver_later
-        end
+        with_tracking { project.update!(attributes) }
       end
     end
 
@@ -27,6 +25,12 @@ module Projects
         trackable: project,
         parameters: { status: Project.statuses[project.status], project_name: project.name }
       }
+    end
+
+    def notify_unassigned_assignee
+      return unless project.assignee_id_previously_changed?
+
+      ProjectMailer.notify_on_unassigned(project.assignee_id, current_user.id, project.id).deliver_later
     end
   end
 end

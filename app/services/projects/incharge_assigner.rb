@@ -2,12 +2,12 @@
 
 module Projects
   class InchargeAssigner < BaseService
+    set_callback :call, :after, :notify_incharge
     def call
-      authorize! project, to: :update?
+      super do
+        authorize! project, to: :update?
 
-      with_tracking do
-        project.update!(incharge_id: attributes[:incharge_id])
-        ProjectMailer.notify_on_incharge_assigned(project.incharge_id, project.id).deliver_later
+        with_tracking { project.update!(incharge_id: attributes[:incharge_id]) }
       end
     end
 
@@ -27,6 +27,10 @@ module Projects
           project_name: project.name
         }
       }
+    end
+
+    def notify_incharge
+      ProjectMailer.notify_on_incharge_assigned(project.incharge_id, project.id).deliver_later
     end
   end
 end
