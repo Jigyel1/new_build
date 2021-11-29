@@ -5,6 +5,8 @@ module Projects
     attr_reader :project
     attr_accessor :buildings_count, :apartments_count
 
+    set_callback :call, :after, :notify_assignee
+
     def initialize(params = {})
       @buildings_count = params[:attributes].delete(:buildings_count)
       @apartments_count = params[:attributes].delete(:apartments_count)
@@ -13,14 +15,14 @@ module Projects
     end
 
     def call
-      authorize! Project, to: :create?
+      super do
+        authorize! Project, to: :create?
 
-      with_tracking do
-        @project = ::Project.new(formatted_attributes)
-        build_associations
-        project.save!
-
-        ProjectMailer.notify_on_assigned(project.assignee_id, project.id).deliver_later
+        with_tracking do
+          @project = ::Project.new(formatted_attributes)
+          build_associations
+          project.save!
+        end
       end
     end
 
@@ -48,6 +50,10 @@ module Projects
         trackable: project,
         parameters: { entry_type: project.entry_type, project_name: project.name }
       }
+    end
+
+    def notify_assignee
+      ProjectMailer.notify_on_assigned(project.assignee_id, project.id).deliver_later
     end
   end
 end

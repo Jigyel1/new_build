@@ -11,15 +11,5 @@ module Projects
 
       sole unless undesired
     end
-
-    private
-
-    def competitions
-      penetration.competitions
-    end
-
-    def penetration
-      @_penetration ||= AdminToolkit::Penetration.find_by(zip: project.zip)
-    end
   end
 end
