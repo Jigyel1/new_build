@@ -6,7 +6,7 @@ class Address < ApplicationRecord
   belongs_to :addressable, polymorphic: true
 
   validates(
-    :street, :street_no, :city, :zip,
+    :street, :city, :zip,
     presence: true,
     unless: ->(record) { [Projects::AddressBook, Projects::Building].any? { |klass| record.addressable.is_a?(klass) } }
   )

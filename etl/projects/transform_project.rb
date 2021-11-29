@@ -17,7 +17,9 @@ module Projects
       # the integers in excel are reflected here as floats. Hence the conversion.
       to_int(row)
 
-      project = Project.find_or_initialize_by(external_id: row[ProjectsImporter::EXTERNAL_ID])
+      project = initialize_project(row[ProjectsImporter::EXTERNAL_ID])
+
+      project = discard_archived!(project)
       return if persisted?(project)
 
       project.define_singleton_method(:row) { row }
@@ -26,6 +28,21 @@ module Projects
     end
 
     private
+
+    # If a project is archived, soft delete the project. Create a new project with details from the row
+    # and proceed with the etl pipeline to update its associations.
+    def discard_archived!(project)
+      return project unless project.archived?
+
+      project.discard!
+      project.update_column(:external_id, "#{project.external_id}_#{Time.current.to_i}")
+
+      initialize_project(project.external_id).tap { |proj| proj.status = :technical_analysis }
+    end
+
+    def initialize_project(external_id)
+      Project.find_or_initialize_by(external_id: external_id)
+    end
 
     def persisted?(project)
       return unless project.persisted?

@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.3.0] - 2021-11-30
+
+### Features
+- API for fetching addresses
+- `customer_request` filter on projects
+- Soft delete for projects, buildings and address books
+
+### Fixes
+- Either `name` or `company` should be mandatory for address books.
+- Fix street parsing in project populator.
+- Archived projects to be updated with the row data and status updated to `technical_analysis` on import.
+
 ## [0.2.1] - 2021-11-15
 
 ### Features
