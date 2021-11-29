@@ -41,7 +41,7 @@ module Hooks
     end
 
     def set_competition
-      self.competition ||= ::Projects::CompetitionSetter.new(project: self).call
+      self.competition = ::Projects::CompetitionSetter.new(project: self).call
     end
   end
 end
