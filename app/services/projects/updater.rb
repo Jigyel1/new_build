@@ -5,11 +5,9 @@ module Projects
     set_callback :call, :after, :notify_unassigned_assignee
 
     def call
-      super do
-        authorize! project, to: :update?
+      authorize! project, to: :update?
 
-        with_tracking { project.update!(attributes) }
-      end
+      super { with_tracking { project.update!(attributes) } }
     end
 
     def project

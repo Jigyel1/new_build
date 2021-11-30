@@ -3,12 +3,11 @@
 module Projects
   class InchargeAssigner < BaseService
     set_callback :call, :after, :notify_incharge
-    def call
-      super do
-        authorize! project, to: :update?
 
-        with_tracking { project.update!(incharge_id: attributes[:incharge_id]) }
-      end
+    def call
+      authorize! project, to: :update?
+
+      super { with_tracking { project.update!(incharge_id: attributes[:incharge_id]) } }
     end
 
     def project

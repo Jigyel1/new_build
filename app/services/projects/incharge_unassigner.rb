@@ -7,9 +7,7 @@ module Projects
     def call
       authorize! project, to: :unassign_incharge?
 
-      super do
-        with_tracking { project.update!(incharge_id: nil) }
-      end
+      super { with_tracking { project.update!(incharge_id: nil) } }
     end
 
     def project
