@@ -3,6 +3,7 @@
 module Projects
   class InchargeAssigner < BaseService
     set_callback :call, :after, :notify_incharge
+
     def call
       super do
         authorize! project, to: :update?
