@@ -31,7 +31,7 @@ class ProjectMailer < ApplicationMailer
 
     mail(
       to: email_address_with_name(@user.email, @user.name),
-      subject: I18n.t("mailer.#{subject}")
+      subject: I18n.t("mailer.project.#{subject}")
     )
   end
 end
