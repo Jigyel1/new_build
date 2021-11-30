@@ -30,7 +30,7 @@ ADD . /new-build
 RUN mv /new-build/Gemfile.prod  /new-build/Gemfile && \
     mkdir -p /new-build/tmp/pids && \
     rm -rf /tmp/* /var/tmp/* && \
-    bundle exec rails assets:precompile
+    RAILS_ENV=production bundle exec rails assets:precompile
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN  chmod +x /usr/local/bin/entrypoint.sh
