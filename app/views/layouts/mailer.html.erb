@@ -4,29 +4,17 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <style>
+      /* Email styles need to be inline */
   </style>
 </head>
 
 <body>
-<div class="email-container">
-  <div class="email-content p-24">
-    <%= yield %>
-
-    <div class=" mt-32 py-16">
-      <p class="text-align--center font-size-14 mb-0">
-        This message was sent to <a href=""> (user's email address)</a>. If you have questions or if you are not the
-        intended recipient for this email, please ignore it or contact us.</p>
-      <p class="text-align--center font-size-14">We’d be happy to assist you!</p>
-    </div>
+  <div class="email-container pt-24">
+    <div class="email-content px-32 pt-32">
+      <%= yield %>
+    <%= render('shared/disclaimer', user: @user) %>
   </div>
-  <div class="text-align--center">
-    <p><a href="" class="color--primary">Contact Us</a></p>
+  <%= render('shared/footer') %>
   </div>
-  <div class="footer text-align--center">
-    <p class="m-0 font-size-14">UPC Business</p>
-    <p class="m-0 font-size-14">UPC Switzerland LLC, Richtiplatz 5, PO Box, 8304 Wallisellen</p>
-    <p class="m-0 font-size-14 color--primary">upc.ch/business</p>
-  </div>
-</div>
 </body>
 </html>

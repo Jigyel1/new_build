@@ -1,10 +1,45 @@
-<h1 class="font-size--50">Project Import Status</h1>
-<p class="color--primary"><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @user.lastname) %></p>
+  <table class="full--width">
+    <tr>
+      <td>
+        <div class="logo mb-32">
+          <%= image_tag(attachments['logo.png'].url) %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h1 class="my-0">New Build - Project Creation Failed</h1>
+      </td>
+    </tr>
+    <tr>
+      <td><p class="color--primary mb-16 font--bold text--capitalize">Hello Admin,</p></td>
+    </tr>
+    <tr>
+      <td>
+        <p class="my-0">
+          The project creation for the following project IDs was not possible due to some error in the portal. Please try to create the projects again.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <ul>
+          <% @errors.each do |error|%>
+            <li class="line-height--22"><%= error %></li>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
+      <tr>
+        <td>
+          <div class="mt-32">
+            <button type="button" class="button button__primary">
+              <a href="<%= root_url %>" class="color--white">
+                Go To New Build Tool
+              </a>
+            </button>
+          </div>
+        </td>
+      </tr>
+  </table>
 
-<p class="line-height--22">
-  Please find the report of the project import below:
-</p>
-
-<% @errors.each do |error| %>
-  <div><%= error %></div>
-<% end %>

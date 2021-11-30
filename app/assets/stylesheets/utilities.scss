@@ -5,15 +5,6 @@ a {
   text-decoration: none;
 }
 
-/* Font size */
-@include fontSize($font-size);
-
-/* Padding  */
-@include padding($values, $directions);
-
-/* Margin */
-@include margin($values, $directions);
-
 /* Colors */
 .color--primary {
   color: $primary;
@@ -42,10 +33,28 @@ a {
 .line-height--22 {
   line-height: 22px;
 }
-.titleCase {
+.text--capitalize {
   text-transform: capitalize;
 }
 
-.white-text {
-  color: white;
+.color--white {
+  color: $white;
+}
+.full--width {
+  width: 100%;
+}
+/* color */
+
+.color {
+  &--black-38 {
+    color: rgba($black, 0.38);
+  }
+
+  &--black-87 {
+    color: rgba($black, 0.87);
+  }
+
+  &--black-60 {
+    color: rgba($black, 0.6);
+  }
 }

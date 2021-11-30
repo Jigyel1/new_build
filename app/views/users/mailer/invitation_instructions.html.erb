@@ -1,29 +1,29 @@
-<table class="sf-full-width p-32">
+<table class="full--width">
   <tr>
     <td>
-      <div class="logo mb-32">
+      <div class="upc-logo mb-32">
         <%= image_tag(attachments['logo.png'].url) %>
       </div>
     </td>
   </tr>
   <tr>
     <td>
-      <h1 class="m-0">New Build Invitation</h1>
+      <h2 class="my-0 text--capitalize"><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></h2>
     </td>
   </tr>
   <tr>
-    <td><p class="color--primary mb-16 font--bold titleCase"><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></p></td>
+    <td><p class="color--primary mb-16 font--bold">Hello Mr. Finch</p></td>
   </tr>
   <tr>
     <td>
-      <p class="m-0"><%= t('devise.mailer.invitation_instructions.description') %></p>
+      <p class="my-0"><%= t('devise.mailer.invitation_instructions.description') %></p>
     </td>
   </tr>
   <tr>
     <td>
-      <div class="text-align--center my-32">
+      <div class="my-32">
         <button type="button" class="button button__primary">
-          <a href="<%= root_url %>" class="white-text">
+          <a href="<%= root_url %>" class="color--white">
             <%= t('devise.mailer.invitation_instructions.button_text') %>
           </a>
         </button>
@@ -32,7 +32,7 @@
   </tr>
   <tr>
     <td>
-      <p class="mt-0">
+      <p class="mt-0 color--black-38">
         <% if @resource.invitation_due_at %>
           <%= t(
                 "devise.mailer.invitation_instructions.accept_until",
@@ -46,8 +46,8 @@
   </tr>
   <tr>
     <td>
-      <p class="m-0">If you are having trouble visiting the page from this button, please copy paste the link
-        below in your browser: <a href="">https://www.w3.org/Provider/Style</a></p>
+      <p class="my-0">If you are having trouble visiting the page from this button, please copy paste the link
+        below in your browser: <a href="https://www.w3.org/Provider/Style">https://www.w3.org/Provider/Style</a></p>
     </td>
   </tr>
 </table>
