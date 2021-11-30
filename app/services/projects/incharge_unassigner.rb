@@ -2,6 +2,7 @@
 
 module Projects
   class InchargeUnassigner < BaseService
+
     set_callback :call, :after, :notify_unassigned_incharge
 
     def call
