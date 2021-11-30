@@ -5,11 +5,9 @@ module Projects
     set_callback :call, :after, :notify_incharge
 
     def call
-      super do
-        authorize! project, to: :update?
+      authorize! project, to: :update?
 
-        with_tracking { project.update!(incharge_id: attributes[:incharge_id]) }
-      end
+      super { with_tracking { project.update!(incharge_id: attributes[:incharge_id]) } }
     end
 
     def project
