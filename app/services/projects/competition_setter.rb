@@ -5,9 +5,7 @@ module Projects
     attr_accessor :project
 
     def call
-      sole, undesired = AdminToolkit::Competition.joins(:penetrations).where(
-        penetrations: { zip: project.zip }
-      )
+      sole, undesired = AdminToolkit::Competition.joins(:penetrations).where(penetrations: { zip: project.zip })
 
       sole unless undesired
     end
