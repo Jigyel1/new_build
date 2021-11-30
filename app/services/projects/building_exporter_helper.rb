@@ -13,11 +13,11 @@ module Projects
     end
 
     def project
-      @project ||= building.project
+      @_project ||= building.project
     end
 
     def address
-      @address ||= building.address
+      @_address ||= building.address
     end
   end
 end
