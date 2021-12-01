@@ -1,11 +1,12 @@
 @import 'variable';
 @import 'utilities';
 body {
-  background: $mercury;
+  background: $mercury !important;
   color: rgba($black, 0.6);
+  font-size: 14px;
 }
 .email-container {
-  width: 800px;
+  width: 600px;
   margin: 0 auto;
   .email-content {
     background-color: $white;
@@ -18,6 +19,6 @@ body {
 
   img {
     width: auto;
-    height: 70px;
+    height: 80px;
   }
 }

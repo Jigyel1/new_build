@@ -1,7 +1,7 @@
 <table class="full--width">
   <tr>
     <td>
-      <div class="upc-logo mb-32">
+      <div class="logo mb-32">
         <%= image_tag(attachments['logo.png'].url) %>
       </div>
     </td>
@@ -12,7 +12,7 @@
     </td>
   </tr>
   <tr>
-    <td><p class="color--primary mb-16 font--bold">Hello Mr. Finch</p></td>
+    <td><p class="color--primary mb-16 font--bold font-size-16">Hello Mr. Finch</p></td>
   </tr>
   <tr>
     <td>
@@ -23,7 +23,7 @@
     <td>
       <div class="my-32">
         <button type="button" class="button button__primary">
-          <a href="<%= root_url %>" class="color--white">
+          <a href="<%= root_url %>" class="color--white font-size-12">
             <%= t('devise.mailer.invitation_instructions.button_text') %>
           </a>
         </button>
@@ -47,7 +47,7 @@
   <tr>
     <td>
       <p class="my-0">If you are having trouble visiting the page from this button, please copy paste the link
-        below in your browser: <a href="https://www.w3.org/Provider/Style">https://www.w3.org/Provider/Style</a></p>
+        below in your browser: <a href="https://www.w3.org/Provider/Style" class="color--primary">https://www.w3.org/Provider/Style</a></p>
     </td>
   </tr>
 </table>
