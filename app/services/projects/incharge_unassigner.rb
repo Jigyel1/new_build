@@ -2,7 +2,7 @@
 
 module Projects
   class InchargeUnassigner < BaseService
-    set_callback :call, :after, :notify_unassigned_incharge
+    set_callback :call, :before, :notify_unassigned_incharge
 
     def call
       authorize! project, to: :unassign_incharge?
@@ -26,11 +26,7 @@ module Projects
     end
 
     def notify_unassigned_incharge
-      ProjectMailer.notify_on_incharge_unassigned(incharge_id, current_user.id, project.id).deliver_later
-    end
-
-    def incharge_id
-      @_incharge_id ||= project.previous_changes.dig('incharge_id', 0)
+      ProjectMailer.notify_on_incharge_unassigned(project.incharge.id, project.id, current_user.id).deliver
     end
   end
 end

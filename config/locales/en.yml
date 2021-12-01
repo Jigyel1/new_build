@@ -95,10 +95,10 @@ en:
     task:
       notify_before_due_date: New Build - Tasks Due Tomorrow
       notify_on_due_date: New Build - Tasks Due Today
-      assignee_assigned: New Build - Task Assignee
+      task_created: New Build - Task Assignee
     project:
       assignee_assigned: New Build - Project Assignee
-      assignee_unassigned: New Build - Project Assignee
+      assignee_unassigned: New Build - Unassigned from Project
       incharge_assigned: New Build - Technical Incharge
       incharge_unassigned: New Build - Unassigned from Technical Incharge
       project_import: New Build - Project Creation Failed

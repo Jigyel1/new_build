@@ -53,7 +53,7 @@ module Projects
     end
 
     def notify_assignee
-      ProjectMailer.notify_on_assigned(project.assignee_id, project.id).deliver_later
+      ProjectMailer.notify_on_assigned(project.assignee_id, project.id).deliver
     end
   end
 end

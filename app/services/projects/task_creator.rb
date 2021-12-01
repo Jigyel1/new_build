@@ -52,7 +52,7 @@ module Projects
     end
 
     def notify_created
-      TaskMailer.notify_created(task.assignee_id, task.id).deliver_later
+      TaskMailer.notify_created(task.assignee_id, task.id).deliver
     end
   end
 end
