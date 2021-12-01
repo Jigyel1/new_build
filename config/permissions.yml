@@ -40,6 +40,8 @@ administrator:
     - archive
 
 team_expert:
+  user:
+    - read
   project:
     - read
     - create
@@ -47,11 +49,15 @@ team_expert:
     - technical_analysis
 
 team_standard:
+  user:
+    - read
   project:
     - read
     - create
     - update
 management:
+  user:
+    - read
   project:
     - read
     - create
@@ -62,6 +68,8 @@ management:
     - gt_10_000
 
 presales:
+  user:
+    - read
   project:
     - read
     - create
@@ -81,6 +89,8 @@ manager_presales:
     - complex
 
 manager_nbo_kam:
+  user:
+    - read
   project:
     - read
     - create
@@ -89,11 +99,15 @@ manager_nbo_kam:
     - ready_for_offer
 
 kam:
+  user:
+    - read
   project:
     - read
     - create
     - update
 
 manager_commercialization:
+  user:
+    - read
   project:
     - read
