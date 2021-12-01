@@ -8,7 +8,7 @@ module Hooks
 
     included do
       before_save :set_kam_region
-      before_create :set_external_urls
+      before_create :set_external_urls, :set_competition
       after_save :update_projects_list, :update_users_list
       after_create :create_default_label_group, :update_status
       after_destroy :update_projects_list, :update_users_list
@@ -38,6 +38,10 @@ module Hooks
     def set_external_urls
       self.gis_url = "#{Rails.application.config.gis_url}#{external_id}"
       self.info_manager_url = "#{Rails.application.config.info_manager_url}#{external_id}"
+    end
+
+    def set_competition
+      self.competition ||= ::Projects::CompetitionSetter.new(project: self).call
     end
   end
 end

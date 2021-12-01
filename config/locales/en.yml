@@ -90,7 +90,15 @@ en:
       delete this user.
     kam_with_investors: User is a KAM for investors with ids - %{references}. You need to reassign another KAM if you want
       delete this user.
+
   mailer:
     task:
       notify_before_due_date: New Build - Tasks Due Tomorrow
       notify_on_due_date: New Build - Tasks Due Today
+      task_created: New Build - Task Assignee
+    project:
+      assignee_assigned: New Build - Project Assignee
+      assignee_unassigned: New Build - Unassigned from Project
+      incharge_assigned: New Build - Technical Incharge
+      incharge_unassigned: New Build - Unassigned from Technical Incharge
+      project_import: New Build - Project Creation Failed

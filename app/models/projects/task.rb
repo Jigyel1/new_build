@@ -16,7 +16,7 @@ module Projects
 
     enum status: {
       todo: 'To-Do',
-      in_progress: 'In Progress',
+      in_progress: 'In progress',
       completed: 'Completed',
       archived: 'Archived'
     }

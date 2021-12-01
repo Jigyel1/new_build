@@ -6,6 +6,7 @@ module Projects
     attr_reader :task
 
     set_callback :call, :before, :extract_param!
+    set_callback :call, :after, :notify_created
 
     def call
       authorize! project, to: :update?
@@ -48,6 +49,10 @@ module Projects
         trackable: task,
         parameters: { title: task.title }
       }
+    end
+
+    def notify_created
+      TaskMailer.notify_created(task.assignee_id, task.id).deliver
     end
   end
 end

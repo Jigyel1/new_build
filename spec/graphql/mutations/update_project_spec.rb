@@ -43,7 +43,7 @@ RSpec.describe Mutations::UpdateProject do
       it 'forbids action' do
         response, errors = formatted_response(
           query(params),
-          current_user: create(:user, :presales),
+          current_user: create(:user, :manager_commercialization),
           key: :updateProject
         )
         expect(response.project).to be_nil

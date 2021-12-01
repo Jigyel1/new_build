@@ -20,7 +20,7 @@ RSpec.describe Projects::Task, type: :model do
     it do
       expect(subject).to define_enum_for(:status).with_values( # rubocop:disable RSpec/NamedSubject
         todo: 'To-Do',
-        in_progress: 'In Progress',
+        in_progress: 'In progress',
         completed: 'Completed',
         archived: 'Archived'
       ).backed_by_column_of_type(:string)

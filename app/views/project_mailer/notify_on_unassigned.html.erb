@@ -8,7 +8,7 @@
   </tr>
   <tr>
     <td>
-      <h2 class="helo">New Build - Tasks Today</h2>
+      <h2 class="my-0">New Build - Unassigned from Project</h2>
     </td>
   </tr>
   <tr>
@@ -16,13 +16,8 @@
   </tr>
   <tr>
     <td>
-      <p class="my-0">The due date for the following task(s) are about to end, on <%= Date.current.strftime('%d.%m.%Y') %>
+      <p class="my-0">You have been unassigned as the Assigned Person for "<%= @project.name %>" project by <%= @current_user.name %>.
       </p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p class="my-0"><%= render('task_mailer/content', tasks: @tasks) %></p>
     </td>
   </tr>
     <tr>

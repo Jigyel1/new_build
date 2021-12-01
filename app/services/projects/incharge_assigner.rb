@@ -2,10 +2,13 @@
 
 module Projects
   class InchargeAssigner < BaseService
+    set_callback :call, :after, :notify_incharge
+    set_callback :call, :after, :notify_incharge_unassigned
+
     def call
       authorize! project, to: :update?
 
-      with_tracking { project.update!(incharge_id: attributes[:incharge_id]) }
+      super { with_tracking { project.update!(incharge_id: attributes[:incharge_id]) } }
     end
 
     def project
@@ -24,6 +27,21 @@ module Projects
           project_name: project.name
         }
       }
+    end
+
+    def notify_incharge
+      ProjectMailer.notify_on_incharge_assigned(project.incharge_id, project.id).deliver_later
+    end
+
+    def notify_incharge_unassigned
+      return unless incharge_changed?
+
+      ProjectMailer
+        .notify_on_incharge_unassigned(project.incharge_id_previously_was, project.id, current_user.id).deliver
+    end
+
+    def incharge_changed?
+      project.incharge_id_previously_changed? && project.incharge_id_previously_was.present?
     end
   end
 end

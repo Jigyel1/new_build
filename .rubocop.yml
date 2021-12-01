@@ -85,3 +85,7 @@ Naming/VariableNumber:
 
 Lint/ElseLayout:
   Enabled: false
+
+# FIXME: To be fixed in the upcoming PR.
+Style/OpenStructUse:
+  Enabled: false

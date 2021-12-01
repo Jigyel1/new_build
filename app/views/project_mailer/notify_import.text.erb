@@ -1,14 +1,12 @@
 <%= image_tag(attachments['logo.png'].url) %>
 
-Project Import Status
-<%= t("devise.mailer.invitation_instructions.hello_user", lastname: @user.lastname) %>
+New Build - Project Creation Failed
+Hello Admin,
 
-Please find the report of the project import below:
+The project creation for the following project IDs was not possible due to some error in the portal. Please try to create the projects again.
 
 <% @errors.each do |error| %>
   <%= error %>
 <% end %>
 
-©<%= Date.current.year %> UPC. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis odio proin sagittis
-pha tra dui vitae.
 

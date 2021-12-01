@@ -39,7 +39,7 @@ class ProjectsImporter < EtlBase
         destination Projects::Destination, errors
 
         post_process do
-          ProjectMailer.notify_import(current_user, errors).deliver_later if errors.present?
+          ProjectMailer.notify_import(current_user.id, errors).deliver_later if errors.present?
         end
       end
     end

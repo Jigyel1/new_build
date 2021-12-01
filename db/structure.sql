@@ -940,7 +940,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
      LEFT JOIN public.projects_address_books ON (((projects_address_books.project_id = projects.id) AND ((projects_address_books.type)::text = 'Investor'::text))))
      LEFT JOIN public.admin_toolkit_kam_regions ON ((admin_toolkit_kam_regions.id = projects.kam_region_id)))
   WHERE (projects.discarded_at IS NULL)
-  ORDER BY projects.created_at DESC NULLS LAST
+  ORDER BY projects.move_in_starts_on
   WITH NO DATA;
 
 
@@ -993,7 +993,8 @@ CREATE TABLE public.roles (
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    users_count integer DEFAULT 0 NOT NULL
+    users_count integer DEFAULT 0 NOT NULL,
+    description character varying
 );
 
 
@@ -2163,6 +2164,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210911120552'),
 ('20211020080514'),
 ('20211020111623'),
+('20211124085124'),
 ('20211125062330'),
 ('20211125102510'),
 ('20211125113806'),
