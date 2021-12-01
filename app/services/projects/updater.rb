@@ -26,9 +26,13 @@ module Projects
     end
 
     def notify_unassigned_assignee
-      return if project.assignee_id_previously_changed?
+      return unless assignee_changed?
 
       ProjectMailer.notify_on_unassigned(project.assignee_id, current_user.id, project.id).deliver
+    end
+
+    def assignee_changed?
+      project.assignee_id_previously_changed? && project.assignee_id_previously_was.present?
     end
   end
 end
