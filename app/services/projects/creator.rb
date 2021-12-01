@@ -53,7 +53,9 @@ module Projects
     end
 
     def notify_assignee
-      ProjectMailer.notify_on_assigned(project.assignee_id, project.id).deliver
+      return if project.assignee_id.blank?
+
+      ProjectMailer.notify_on_assigned(project.assignee.id, project.id).deliver_later
     end
   end
 end
