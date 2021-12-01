@@ -34,7 +34,7 @@ module Projects
     end
 
     def notify_incharge_unassigned
-      return unless project.incharge_id_previously_changed?
+      return if project.incharge_id_previously_changed?
 
       ProjectMailer.notify_on_incharge_unassigned(project.incharge.id, project.id, current_user.id).deliver
     end
