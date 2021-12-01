@@ -2,6 +2,7 @@
 
 module Projects
   class Updater < BaseService
+    set_callback :call, :after, :notify_assignee
     set_callback :call, :after, :notify_unassigned_assignee
 
     def call
@@ -23,6 +24,10 @@ module Projects
         trackable: project,
         parameters: { status: Project.statuses[project.status], project_name: project.name }
       }
+    end
+
+    def notify_assignee
+      ProjectMailer.notify_on_assigned(project.assignee_id, project.id).deliver
     end
 
     def notify_unassigned_assignee
