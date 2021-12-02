@@ -1,4 +1,4 @@
-<%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %>
+Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %>
 
 <%= t('devise.mailer.invitation_instructions.description') %>
 

@@ -8,11 +8,13 @@
   </tr>
   <tr>
     <td>
-      <h2 class="my-0 text--capitalize"><%= t("devise.mailer.invitation_instructions.hello_user", lastname: @resource.lastname) %></h2>
+        <h2 class="my-0">New Build Invitation</h2>
     </td>
   </tr>
   <tr>
-    <td><p class="color--primary mb-16 font--bold font-size-16">Hello Mr. Finch</p></td>
+    <td>
+        <p class="color--primary mb-16 font--bold text--capitalize  font-size-16">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p>
+    </td>
   </tr>
   <tr>
     <td>
