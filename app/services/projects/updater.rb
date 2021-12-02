@@ -27,14 +27,14 @@ module Projects
     end
 
     def notify_assignee
-      ProjectMailer.notify_on_assigned(project.assignee_id, project.id).deliver
+      ProjectMailer.notify_on_assigned(project.assignee_id, project.id).deliver_later
     end
 
     def notify_unassigned_assignee
       return unless assignee_changed?
 
       ProjectMailer
-        .notify_on_unassigned(project.assignee_id_previously_was, current_user.id, project.id).deliver
+        .notify_on_unassigned(project.assignee_id_previously_was, current_user.id, project.id).deliver_later
     end
 
     def assignee_changed?

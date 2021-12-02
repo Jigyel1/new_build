@@ -37,7 +37,7 @@ module Projects
       return unless incharge_changed?
 
       ProjectMailer
-        .notify_on_incharge_unassigned(project.incharge_id_previously_was, project.id, current_user.id).deliver
+        .notify_on_incharge_unassigned(project.incharge_id_previously_was, project.id, current_user.id).deliver_later
     end
 
     def incharge_changed?
