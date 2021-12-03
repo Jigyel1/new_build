@@ -5,7 +5,7 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <style>
       body {
-        background-color: #e5e5e5;
+        background-color: $mercury;
         font-family: 'Bloom Speak OT Bold',sans-serif;
         font-size: 14px;
         color: rgba($black, 0.6);
@@ -13,12 +13,12 @@
   </style>
 </head>
 
-<body>
+<body style="background-color: #E5E5E5; font-family: 'Bloom Speak OT Bold',sans-serif;">
   <div class="email-container py-24">
     <div class="email-content px-32 pt-32">
       <%= yield %>
-    <%= render('shared/disclaimer', user: @user) %>
-  </div>
+      <%= render('shared/disclaimer', user: @user) %>
+    </div>
   <%= render('shared/footer') %>
   </div>
 </body>
