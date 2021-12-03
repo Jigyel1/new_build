@@ -1,6 +1,11 @@
 @import 'variable';
 @import 'utilities';
 
+.email-wrapper {
+  width: 100%;
+  font-family: 'Bloom Speak OT Bold',sans-serif !important;
+  background-color: $mercury !important;
+}
 .email-container {
   width: 600px;
   margin: 0 auto;
