@@ -17,6 +17,7 @@ Rails.application.configure do
   config.azure_secret = ENV['AZURE_SECRET']
 
   config.gis_url = ENV['GIS_URL']
+  config.gis_manual_url = ENV['GIS_MANUAL_URL']
   config.info_manager_url = ENV['INFO_MANAGER_URL']
 
   config.mail_sender = ENV['MAIL_SENDER']
