@@ -4,11 +4,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <style>
-      /* Email styles need to be inline */
+      body {
+        background-color: #e5e5e5;
+        font-family: 'Bloom Speak OT Bold',sans-serif;
+        font-size: 14px;
+        color: rgba($black, 0.6);
+      }
   </style>
 </head>
 
-<body class="email-wrapper bg--mercury font--bold">
+<body>
   <div class="email-container py-24">
     <div class="email-content px-32 pt-32">
       <%= yield %>
