@@ -11,7 +11,7 @@
   margin: 0 auto;
   .email-content {
     background-color: $white;
-    border-radius: $radius;
+    border-radius: $radius $radius 0 0;
   }
 }
 
@@ -22,4 +22,8 @@
     width: auto;
     height: 80px;
   }
+}
+.email-footer {
+  background-color: $catskill-white;
+  border-radius: 0 0 $radius $radius;
 }
