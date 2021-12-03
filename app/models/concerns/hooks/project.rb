@@ -36,8 +36,12 @@ module Hooks
     end
 
     def set_external_urls
-      self.gis_url = "#{Rails.application.config.gis_url}#{external_id}"
-      self.info_manager_url = "#{Rails.application.config.info_manager_url}#{external_id}"
+      if manual?
+        self.gis_url = Rails.application.config.gis_url.to_s
+      else
+        self.gis_url = "#{Rails.application.config.gis_url}#{external_id}"
+        self.info_manager_url = "#{Rails.application.config.info_manager_url}#{external_id}"
+      end
     end
 
     def set_competition
