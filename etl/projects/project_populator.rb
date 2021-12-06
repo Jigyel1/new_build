@@ -28,8 +28,12 @@ module Projects
 
     def assign_project_attributes
       attributes = row_mappings(:project)
-      project.assign_attributes(attributes_hash(attributes))
-      project.entry_type = :info_manager
+      project.assign_attributes(
+        attributes_hash(attributes).merge(
+          entry_type: :info_manager,
+          customer_request: false
+        )
+      )
     end
 
     def assign_address_attributes

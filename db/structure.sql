@@ -764,7 +764,7 @@ CREATE TABLE public.projects (
     incharge_id uuid,
     os_id character varying,
     analysis text,
-    customer_request boolean,
+    customer_request boolean DEFAULT true,
     verdicts jsonb DEFAULT '{}'::jsonb,
     draft_version jsonb DEFAULT '{}'::jsonb,
     system_sorted_category boolean DEFAULT true,
@@ -2173,6 +2173,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211125113858'),
 ('20211125115233'),
 ('20211202075403'),
-('20211202080557');
+('20211202080557'),
+('20211206065430');
 
 

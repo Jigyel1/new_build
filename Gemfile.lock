@@ -281,6 +281,8 @@ GEM
     multipart-post (2.1.1)
     niceql (0.4.1)
     nio4r (2.5.8)
+    nokogiri (1.12.5-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.7)
@@ -555,6 +557,7 @@ GEM
     zeitwerk (2.5.1)
 
 PLATFORMS
+  arm64-darwin-20
   x86_64-linux
 
 DEPENDENCIES
@@ -633,4 +636,4 @@ RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.2.22
+   2.2.31

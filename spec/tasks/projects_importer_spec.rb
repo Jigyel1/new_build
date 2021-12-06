@@ -40,7 +40,9 @@ describe ProjectsImporter do
       coordinate_north: 1_236_913.869,
       category: 'standard',
       gis_url: "#{Rails.application.config.gis_url}#{project.external_id}",
-      info_manager_url: "#{Rails.application.config.info_manager_url}#{project.external_id}"
+      info_manager_url: "#{Rails.application.config.info_manager_url}#{project.external_id}",
+      entry_type: 'info_manager',
+      customer_request: false
     )
 
     expect(project.kam_region.name).to eq('Ost ZH')
