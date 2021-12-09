@@ -4,7 +4,32 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.3.1] - 2021-11-29
+
+### Features
+- Single building details download
+- Email trigger for assigning or un-assigning the assignee and the technical incharge of the project
+- Email trigger for person assigned to project task
+
+### Fixes
+- Activity log text improvements
+- Project with earliest date to be listed at top in project listing
+- Manager Commercialization role permission update
+
+## [0.3.0] - 2021-11-30
+
+### Features
+- API for fetching addresses
+- `customer_request` filter on projects
+- Soft delete for projects, buildings and address books
+
+### Fixes
+- Either `name` or `company` should be mandatory for address books.
+- Fix street parsing in project populator.
+- Archived projects to be updated with the row data and status updated to `technical_analysis` on import.
+
 ## [0.2.1] - 2021-11-15
+
 ### Features
 - Support for address book deletion
 - Auto assign `current_user` as the project incharge if not specified.

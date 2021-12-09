@@ -2,21 +2,16 @@
 
 module Projects
   class InchargeUnassigner < BaseService
+    set_callback :call, :before, :notify_unassigned_incharge
+
     def call
       authorize! project, to: :unassign_incharge?
 
-      with_tracking do
-        project.update!(incharge_id: nil)
-        InchargeMailer.notify_on_incharge_unassigned(incharge, current_user.id, project.id).deliver_later
-      end
+      super { with_tracking { project.update!(incharge_id: nil) } }
     end
 
     def project
-      @project ||= Project.find(attributes[:id])
-    end
-
-    def incharge
-      @incharge ||= project.previous_changes.dig('incharge_id', 0)
+      @_project ||= Project.find(attributes[:id])
     end
 
     private
@@ -28,6 +23,10 @@ module Projects
         trackable: project,
         parameters: { project_name: project.name }
       }
+    end
+
+    def notify_unassigned_incharge
+      ProjectMailer.notify_on_incharge_unassigned(project.incharge.id, project.id, current_user.id).deliver
     end
   end
 end

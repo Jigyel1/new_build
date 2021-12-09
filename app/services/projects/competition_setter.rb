@@ -5,17 +5,9 @@ module Projects
     attr_accessor :project
 
     def call
-      competitions.first if penetration.present? && competitions.count == 1
-    end
+      sole, undesired = AdminToolkit::Competition.joins(:penetrations).where(penetrations: { zip: project.zip })
 
-    private
-
-    def competitions
-      @_competitions ||= penetration.competitions
-    end
-
-    def penetration
-      @_penetration ||= AdminToolkit::Penetration.find_by(zip: project.zip)
+      sole unless undesired
     end
   end
 end

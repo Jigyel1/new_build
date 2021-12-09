@@ -19,8 +19,8 @@ RSpec.describe Projects::Task, type: :model do
   describe 'enums' do
     it do
       expect(subject).to define_enum_for(:status).with_values( # rubocop:disable RSpec/NamedSubject
-        to_do: 'To-Do',
-        in_progress: 'In Progress',
+        todo: 'To-Do',
+        in_progress: 'In progress',
         completed: 'Completed',
         archived: 'Archived'
       ).backed_by_column_of_type(:string)
@@ -33,7 +33,7 @@ RSpec.describe Projects::Task, type: :model do
 
     it 'updates counter caches' do
       create(:task, :completed, owner: super_user, assignee: super_user, taskable: project)
-      create(:task, :to_do, owner: super_user, assignee: super_user, taskable: project)
+      create(:task, :todo, owner: super_user, assignee: super_user, taskable: project)
       create(:task, :in_progress, owner: super_user, assignee: super_user, taskable: project)
       create(:task, :archived, owner: super_user, assignee: super_user, taskable: project)
 
@@ -43,7 +43,7 @@ RSpec.describe Projects::Task, type: :model do
 
     it 'updates previous state before save' do
       task = create(:task, :in_progress, taskable: project, owner: super_user, assignee: super_user)
-      expect(task.previous_status).to eq('to_do')
+      expect(task.previous_status).to eq('todo')
 
       task.update!(status: :archived)
       expect(task.previous_status).to eq('in_progress')

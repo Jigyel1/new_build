@@ -1,0 +1,34 @@
+<table class="full--width">
+  <tr>
+    <td>
+      <div class="logo mb-32">
+        <%= image_tag(attachments['logo.png'].url) %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h1 class="my-0">New Build - Technical Incharge</h1>
+    </td>
+  </tr>
+  <tr>
+    <td><p class="color--primary mb-16 font--bold text--capitalize font-size-16">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p></td>
+  </tr>
+  <tr>
+    <td>
+      <p class="my-0">You have been assigned as the Technical Incharge for "<%= @project.name %>" project.
+      </p>
+    </td>
+  </tr>
+  <tr>
+      <td>
+        <div class="mt-32">
+          <button type="button" class="button button__primary">
+            <a href="<%= root_url %>" class="color--white font-size-12">
+              Go To New Build Tool
+            </a>
+          </button>
+        </div>
+      </td>
+    </tr>
+</table>

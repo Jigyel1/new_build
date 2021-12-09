@@ -112,6 +112,19 @@ RSpec.describe Project, type: :model do
         expect(project).to have_attributes(status: 'archived', previous_status: 'open')
       end
     end
+
+    context 'when discarding projects' do
+      subject(:project) { create(:project, address_books: [address_book], buildings: [building]) }
+
+      let!(:building) { build(:building) }
+      let!(:address_book) { build(:address_book) }
+
+      it 'discards buildings and address books' do
+        project.discard!
+        expect(address_book.reload.discarded?).to be(true)
+        expect(building.reload.discarded?).to be(true)
+      end
+    end
   end
 
   describe 'enums' do

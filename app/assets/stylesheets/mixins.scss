@@ -1,51 +1,29 @@
-@mixin padding($values, $directions) {
-  @each $value in $values {
-    @each $dir in $directions {
-      .p#{str-slice($dir, 0, 1)}-#{$value} {
-        padding-#{$dir}: #{$value}px;
+@mixin boxModel($values, $className, $direction) {
+  @each $size in $values {
+    #{'.'+$className +'-'+ $size} {
+      @each $property in $direction {
+        #{$property}: #{$size}px !important;
       }
     }
-    .p-#{$value} {
-      padding: #{$value}px;
-    }
+  }
+}
 
-    .px-#{$value} {
-      padding-right: #{$value}px;
-      padding-left: #{$value}px;
-    }
-    .py-#{$value} {
-      padding-top: #{$value}px;
-      padding-bottom: #{$value}px;
+@mixin size($amount, $className) {
+  @each $size in $amount {
+    #{'.'+$className+ '-' + $size } {
+      font-size: #{$size}px !important;
     }
   }
 }
 
-@mixin margin($values, $directions) {
-  @each $value in $values {
-    @each $dir in $directions {
-      .m#{str-slice($dir, 0, 1)}-#{$value} {
-        padding-#{$dir}: #{$value}px;
-      }
-    }
-    .m-#{$value} {
-      padding: #{$value}px;
-    }
-
-    .mx-#{$value} {
-      padding-right: #{$value}px;
-      padding-left: #{$value}px;
-    }
-    .my-#{$value} {
-      padding-top: #{$value}px;
-      padding-bottom: #{$value}px;
-    }
-  }
-}
-
-@mixin fontSize($font-size) {
-  @each $size in $font-size {
-    .font-size--#{$size} {
-      font-size: #{$size}px;
-    }
-  }
-}
+@include boxModel((0, 4, 8, 16, 24, 32), 'm', 'margin');
+@include boxModel((0, 4, 8, 16, 24, 32), 'p', 'padding');
+@include boxModel((0, 4, 8, 16, 24, 32), 'my', ('margin-top', 'margin-bottom'));
+@include boxModel((0, 4, 8, 16, 24, 32), 'mt', 'margin-top');
+@include boxModel((0, 4, 8, 16, 24, 32), 'mb', 'margin-bottom');
+@include boxModel((0, 4, 8, 16, 24, 32), 'pb', 'padding-bottom');
+@include boxModel((0, 4, 8, 16, 24, 32), 'pt', 'padding-top');
+@include boxModel((0, 4, 8, 16, 24, 32), 'px', ('padding-right', 'padding-left'));
+@include boxModel((0, 4, 8, 16, 24, 32), 'py', ('padding-top', 'padding-bottom'));
+@include size((12, 14, 16, 36,), 'font-size');
+@include boxModel((2, 4, 8), 'br', 'border-radius');

@@ -13,7 +13,7 @@ module Mutations
       include Concerns::AddressBook
 
       argument :type, String, required: true
-      argument :name, String, required: true
+      argument :name, String, required: false
       argument :address, CreateProjectAddressAttributes, as: :address_attributes, required: false
     end
 

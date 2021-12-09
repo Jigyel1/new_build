@@ -9,6 +9,7 @@ describe ProjectsImporter do
 
   # This project will be skipped on import but available in the errors as a skipped project.
   let_it_be(:project) { create(:project, external_id: '3068125') }
+  let_it_be(:project_b) { create(:project, :archived, external_id: '3010295', address_books: [build(:address_book)]) }
   let_it_be(:penetration) { create(:admin_toolkit_penetration, kam_region: kam_region, zip: '8914') }
 
   let_it_be(:footprint_type) { create(:admin_toolkit_footprint_type, provider: :neither) }
@@ -25,7 +26,7 @@ describe ProjectsImporter do
   let_it_be(:project) { Project.find_by(external_id: '2826123') }
 
   it 'imports valid projects from the sheet' do
-    expect(Project.count).to eq(12) # 12 of the 17 projects are valid.
+    expect(Project.count).to eq(14) # 14 of the 17 projects are valid.
   end
 
   it 'updates project attributes' do
@@ -168,6 +169,47 @@ describe ProjectsImporter do
     )
   end
 
+  context 'for archived projects' do
+    let_it_be(:new_project) { Project.find_by!(external_id: '3010295') }
+
+    it 'discards the archived project' do
+      expect { Project.find(project_b.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect(Project.unscoped.find(project_b.id).discarded?).to be(true)
+      expect(project_b.reload.status).to eq('archived') # status is not changed.
+    end
+
+    it 'creates a new project and associations' do
+      expect(new_project).to have_attributes(
+        name: 'Neubau von Einfamilienhäusern mit Einliegerwohnungen',
+        lot_number: 'Parz. 1339',
+        description: 'Neubau von Einfamilienhäusern mit Einliegerwohnungen (neue Eingabe)',
+        buildings_count: 2,
+        apartments_count: 4,
+        coordinate_east: 2_658_154.126,
+        coordinate_north: 1_258_903.675,
+        status: 'technical_analysis'
+      )
+
+      expect(new_project.address).to have_attributes(
+        street: 'Florasteig',
+        street_no: '4',
+        zip: '5210',
+        city: 'Windisch'
+      )
+
+      address_book = new_project.address_books.find_by!(type: :investor)
+      expect(address_book).to have_attributes(
+        main_contact: true,
+        external_id: '36360995',
+        name: 'Mathivathanan',
+        additional_name: 'Mathivathanan',
+        language: 'de',
+        phone: '056 610 65 46',
+        province: 'AG'
+      )
+    end
+  end
+
   context 'when address book is the main contact' do
     it 'updates the address book appropriately' do
       address_book = Project.find_by!(external_id: '3039521').address_books.find_by!(type: :investor)
@@ -180,7 +222,7 @@ describe ProjectsImporter do
       described_class.call(current_user: super_user, input: file)
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       expect(ActionMailer::Base.deliveries.first).to have_attributes(
-        subject: t('mailer.project_import'),
+        subject: t('mailer.project.project_import'),
         to: [super_user.email]
       )
     end

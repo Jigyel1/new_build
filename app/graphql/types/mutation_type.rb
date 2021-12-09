@@ -74,7 +74,7 @@ module Types
     field :update_building, mutation: Mutations::Projects::UpdateBuilding
     field :import_buildings, mutation: Mutations::Projects::ImportBuildings
     field :delete_building, mutation: Mutations::Projects::DeleteBuilding
-    field :export_building, mutation: Mutations::Projects::BuildingExport
+    field :export_building, mutation: Mutations::Projects::ExportBuilding
 
     field :create_task, mutation: Mutations::Projects::CreateTask
     field :delete_task, mutation: Mutations::Projects::DeleteTask

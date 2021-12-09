@@ -14,6 +14,7 @@ SELECT projects.id                                              AS id,
        projects.internal_id                                     AS internal_id,
        projects.draft_version                                   AS draft_version,
        projects.assignee_type                                   AS assignee_type,
+       projects.customer_request                                AS customer_request,
        cardinality(projects.label_list)                         AS labels,
 
        CONCAT(
@@ -35,4 +36,4 @@ FROM projects
     LEFT JOIN projects_address_books ON projects_address_books.project_id = projects.id AND projects_address_books.type = 'Investor'
     LEFT JOIN admin_toolkit_kam_regions ON admin_toolkit_kam_regions.id = projects.kam_region_id
 
-ORDER BY projects.created_at DESC NULLS LAST
+ORDER BY projects.move_in_starts_on ASC NULLS LAST

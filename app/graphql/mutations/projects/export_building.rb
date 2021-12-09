@@ -2,7 +2,7 @@
 
 module Mutations
   module Projects
-    class BuildingExport < BaseMutation
+    class ExportBuilding < BaseMutation
       argument :id, ID, required: true
       field :url, String, null: true
 
