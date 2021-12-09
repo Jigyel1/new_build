@@ -38,7 +38,7 @@ end
   ['suraj.sunar@selise.ch', :super_user],
   ['jigyel.dorji@selise.ch', :super_user],
   ['arijit.saha@selise.ch', :super_user],
-  ['jigyel.dorji@selise.ch', :super_user],
+  ['ugyen.choden@selise.ch', :super_user],
   ['lhatul.wangmo@selise.ch', :super_user],
   ['sujata.pradhan@selise.ch', :administrator],
   ['chimi.wangchuk@selise.ch', :administrator],
