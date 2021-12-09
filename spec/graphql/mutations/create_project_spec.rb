@@ -49,8 +49,9 @@ RSpec.describe Mutations::CreateProject do
 
         project = Project.find(response.project.id)
         expect(project).to have_attributes(
-          gis_url: "#{Rails.application.config.gis_url}#{project.external_id}",
-          info_manager_url: "#{Rails.application.config.info_manager_url}#{project.external_id}"
+          entry_type: 'manual',
+          gis_url: Rails.application.config.gis_url_static,
+          info_manager_url: nil
         )
       end
 
@@ -207,7 +208,7 @@ RSpec.describe Mutations::CreateProject do
         )
         {
           project {
-            id status category internalId moveInStartsOn assigneeType 
+            id status category internalId moveInStartsOn assigneeType
             apartmentsCount buildingsCount customerRequest
             assignee { id name }
             addressBooks { id type name company language email website phone mobile
