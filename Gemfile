@@ -36,6 +36,7 @@ group :development, :test do
   gem 'awesome_print'
   gem 'bullet'
   gem 'bundler-audit'
+  gem 'bundler-leak'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'benchmark-ips'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -50,7 +51,6 @@ group :development, :test do
   gem 'rspec-benchmark'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rswag-specs'
-  gem 'rubocop-graphql'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rake'
@@ -102,7 +102,6 @@ gem 'scenic'
 gem 'search_object'
 gem 'search_object_graphql'
 gem 'sidekiq'
-gem 'sidekiq-statistic'
 gem 'strong_migrations'
 gem 'xsv'
 
