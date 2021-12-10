@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   mount Telco::Uam::Engine, at: '/'
+  mount PgHero::Engine, at: 'pghero' unless Rails.env.production?
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     ActiveSupport::SecurityUtils.secure_compare(

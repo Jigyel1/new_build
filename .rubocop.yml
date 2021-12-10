@@ -5,6 +5,7 @@ require:
   - rubocop-rspec
   - rubocop-rails
   - rubocop-rake
+  - rubocop-graphql
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3

@@ -1309,13 +1309,6 @@ ALTER TABLE ONLY public.telco_uam_users
 
 
 --
--- Name: by_penetration_competition; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX by_penetration_competition ON public.admin_toolkit_penetration_competitions USING btree (penetration_id, competition_id);
-
-
---
 -- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: -
 --
 

@@ -309,6 +309,8 @@ GEM
       ast (~> 2.4.1)
     path_expander (1.1.0)
     pg (1.2.3)
+    pghero (2.8.1)
+      activerecord (>= 5)
     premailer (1.15.0)
       addressable
       css_parser (>= 1.6.0)
@@ -436,6 +438,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.13.0)
       parser (>= 3.0.1.1)
+    rubocop-graphql (0.11.2)
+      rubocop (>= 0.87, < 2)
     rubocop-performance (1.12.0)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
@@ -593,6 +597,7 @@ DEPENDENCIES
   multi_json
   niceql
   pg (~> 1.1)
+  pghero
   premailer-rails
   pry
   puma
@@ -608,6 +613,7 @@ DEPENDENCIES
   rswag-api
   rswag-specs
   rswag-ui
+  rubocop-graphql
   rubocop-performance
   rubocop-rails
   rubocop-rake
