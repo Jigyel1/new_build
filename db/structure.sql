@@ -659,7 +659,17 @@ CREATE TABLE public.admin_toolkit_project_costs (
     socket_installation_rate numeric(15,2),
     index integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    cpe_hfc numeric,
+    cpe_ftth numeric,
+    olt_cost_per_customer numeric,
+    old_cost_per_unit numeric,
+    patching_cost numeric,
+    mrc_standard numeric,
+    mrc_high_tiers numeric,
+    high_tiers_product_share double precision,
+    hfc_payback integer,
+    ftth_payback integer
 );
 
 
@@ -2167,6 +2177,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211125115233'),
 ('20211202075403'),
 ('20211202080557'),
-('20211206065430');
+('20211206065430'),
+('20211213113309');
 
 
