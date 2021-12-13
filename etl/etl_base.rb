@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class EtlBase
+  include EtlHelper
+
   def self.call(input:, current_user: nil)
     new.call(input: input, current_user: current_user)
   end

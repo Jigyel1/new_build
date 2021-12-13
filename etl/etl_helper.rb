@@ -9,4 +9,10 @@ module EtlHelper
       row[index] = row[index].to_i
     end
   end
+
+  def file_path(input)
+    return input.tempfile.path if input.is_a?(ApolloUploadServer::Wrappers::UploadedFile)
+
+    input.to_s
+  end
 end

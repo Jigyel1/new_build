@@ -2,7 +2,17 @@
 
 require 'rails_helper'
 
-describe Mutations::ImportProjects, type: :request do
+describe Mutations::AdminToolkit::ImportPenetrations, type: :request do
+  before_all do
+    ['FTTH SC & EVU', 'FTTH SC', 'FTTH EVU', 'G.fast', 'VDSL', 'FTTH Swisscom', 'FTTH SFN', 'f.fast'].each do |name|
+      create(:admin_toolkit_competition, name: name)
+    end
+
+    Rails.application.config.kam_regions.each do |name|
+      create(:kam_region, name: name)
+    end
+  end
+
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
 
   let(:params) do
@@ -12,7 +22,7 @@ describe Mutations::ImportProjects, type: :request do
         variables: { file: nil }
       }.to_json,
       map: { file: ['variables.file'] }.to_json,
-      file: fixture_file_upload(Rails.root.join('spec/files/projects.xlsx'))
+      file: fixture_file_upload(Rails.root.join('spec/files/penetrations.xlsx'))
     }
   end
 
@@ -20,11 +30,11 @@ describe Mutations::ImportProjects, type: :request do
     before { sign_in(super_user) }
 
     # Here we will just test that the API is exposed and doesn't throw any error on execution.
-    # Details of the Projects import will be tested in `spec/tasks/projects_importer_spec.rb`
+    # Details of the Penetrations import will be tested in `spec/tasks/penetrations_importer_spec.rb`
     it 'executes successfully' do
       post api_v1_graphql_path, params: params
       expect(status).to eq(200)
-      expect(json.data.importProjects.status).to be(true)
+      expect(json.data.importPenetrations.status).to be(true)
     end
   end
 
@@ -41,7 +51,7 @@ describe Mutations::ImportProjects, type: :request do
   def query
     <<~QUERY
       mutation($file: Upload!) {
-        importProjects( input: { file: $file } ){
+        importPenetrations( input: { file: $file } ){
           status
         }
       }
