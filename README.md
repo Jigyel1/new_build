@@ -195,32 +195,9 @@ USERS_PER_ROLE
 GIS_URL 
 > https://webgis.upc.ch/web_office/synserver?project=AccessPlanningSales&language=DE&client=corejs&query=bauprojekte&keyname=PROJ_EXTERN_ID&keyvalue=
 
+GIS_URL_STATIC
+> https://webgis.upc.ch/web_office/synserver?project=AccessPlanningSales&language=DE
+
 INFO_MANAGER_URL 
 > https://infomanager.bauinfocenter.ch/go/projectext/
 
-```ruby
-# A project will be assigned to NBO/KAM in the following different ways:
-# 1) If a project has more than 50 homes then such types of projects will be assigned to KAM.
-# This assignment will be done based on the settings of "KAM Regions" in the Penetration tab from the Admin toolkit.
-#
-# 2) If a project has a specific landlord, then such projects will be assigned to certain KAMs who are assigned
-# those landlords. This assignment will be done based on the settings in the "Assign KAM" tab from the Admin toolkit.
-#
-# 3) If a project is newly uploaded/created into the New Build portal but if no above criteria
-# are there for that project then it will be assigned to the NBO(any user with that role) and has
-# clicked on that project will be automatically assigned.
-#
-# If a project is assigned to a KAM (scenarios 1 and 2), then the system generated label "KAM Project" will be added
-# to the project. If it is assigned to the NBO team (scenario 3), then the system generated label "NBO Project" will
-# be added to the project.
-
-
-# Project Type
-# What are Customer Requests, Proactive and Reactive Projects?
-# Customer request - Those type of projects where a Customer applied themselves to Sunrise UPC to get a service from them
-# Reactive - If a project is not a good deal, the NBO team/KAM team will send it to the Sales team.
-# Such projects will be considered a “Reactive project” until the customer gets back to Sunrise UPC for further inquiry.
-#
-# Proactive - If a project is a very good deal then Sunrise UPC will give that customer’s project high
-# priority and become a “proactive project”.
-```

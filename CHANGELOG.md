@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+
+## [0.3.2] - 2021-12-15
+
+### Features
+- New gems in dev/test environment
+    - `bundler-leak` - find out leaky gem dependencies.
+    - `pghero` - a performance dashboard for postgres
+
+### Fixes
+- Removing `sidekiq-statistic` until the memory leakage issue is resolved. 
+    - https://github.com/davydovanton/sidekiq-statistic/issues/117
+- Using static gis url for manually created projects.
+    - Add `ENV[GIS_URL_STATIC]` with value of `https://webgis.upc.ch/web_office/synserver?project=AccessPlanningSales&language=DE` 
+
+
 ## [0.3.1] - 2021-11-29
 
 ### Features
