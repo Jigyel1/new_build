@@ -5,7 +5,7 @@ module Projects
     attr_accessor :file
 
     def call
-      authorize! Project, to: :update?
+      authorize! Project, to: :import?, with: ProjectPolicy
 
       with_tracking { ::BuildingsImporter.call(current_user: current_user, input: file) }
     end
