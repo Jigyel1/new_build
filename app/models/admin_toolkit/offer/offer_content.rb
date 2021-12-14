@@ -2,7 +2,7 @@
 
 module AdminToolkit
   module Offer
-    class Position < ApplicationRecord
+    class OfferContent < ApplicationRecord
     end
   end
 end
