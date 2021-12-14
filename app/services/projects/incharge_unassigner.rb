@@ -26,7 +26,7 @@ module Projects
     end
 
     def notify_unassigned_incharge
-      ProjectMailer.notify_on_incharge_unassigned(project.incharge.id, project.id, current_user.id).deliver
+      ProjectMailer.notify_on_incharge_unassigned(project.incharge.id, project.id, current_user.id).deliver_later
     end
   end
 end

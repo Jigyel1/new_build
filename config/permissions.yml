@@ -12,6 +12,7 @@ super_user:
     - read
     - create
     - update
+    - import
     - delete
 
     - technical_analysis
@@ -34,6 +35,7 @@ administrator:
     - read
     - create
     - update
+    - import
 
     - technical_analysis
     - complex
@@ -62,6 +64,7 @@ management:
     - read
     - create
     - update
+    - import
 
     - technical_analysis
     - ready_for_offer
