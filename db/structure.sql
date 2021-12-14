@@ -858,6 +858,21 @@ CREATE TABLE public.projects_buildings (
 
 
 --
+-- Name: projects_connection_costs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects_connection_costs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    connection_type character varying NOT NULL,
+    standard_cost boolean NOT NULL,
+    value character varying,
+    project_id uuid NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: projects_installation_details; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1254,6 +1269,14 @@ ALTER TABLE ONLY public.projects_address_books
 
 ALTER TABLE ONLY public.projects_buildings
     ADD CONSTRAINT projects_buildings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: projects_connection_costs projects_connection_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_connection_costs
+    ADD CONSTRAINT projects_connection_costs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1678,6 +1701,13 @@ CREATE INDEX index_projects_buildings_on_project_id ON public.projects_buildings
 
 
 --
+-- Name: index_projects_connection_costs_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_connection_costs_on_project_id ON public.projects_connection_costs USING btree (project_id);
+
+
+--
 -- Name: index_projects_installation_details_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1961,6 +1991,14 @@ ALTER TABLE ONLY public.projects
 
 
 --
+-- Name: projects_connection_costs fk_rails_602bcfc988; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_connection_costs
+    ADD CONSTRAINT fk_rails_602bcfc988 FOREIGN KEY (project_id) REFERENCES public.projects(id);
+
+
+--
 -- Name: projects_tasks fk_rails_60d576e258; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2181,6 +2219,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211202080557'),
 ('20211206065430'),
 ('20211213113309'),
-('20211214061605');
+('20211214061605'),
+('20211214115619');
 
 
