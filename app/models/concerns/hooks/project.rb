@@ -37,7 +37,7 @@ module Hooks
 
     def set_external_urls
       if manual?
-        self.gis_url = Rails.application.config.gis_manual_url
+        self.gis_url = Rails.application.config.gis_url_static
       else
         self.gis_url = "#{Rails.application.config.gis_url}#{external_id}"
         self.info_manager_url = "#{Rails.application.config.info_manager_url}#{external_id}"

@@ -125,6 +125,18 @@ RSpec.describe Project, type: :model do
         expect(building.reload.discarded?).to be(true)
       end
     end
+
+    context 'for imported projects' do
+      subject(:project) { create(:project, :from_info_manager) }
+
+      it "updates gis and infomanager url wrt project's exernal id" do
+        expect(project).to have_attributes(
+          entry_type: 'info_manager',
+          gis_url: "#{Rails.application.config.gis_url}#{project.external_id}",
+          info_manager_url: "#{Rails.application.config.info_manager_url}#{project.external_id}"
+        )
+      end
+    end
   end
 
   describe 'enums' do
