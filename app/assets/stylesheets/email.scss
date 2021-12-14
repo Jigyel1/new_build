@@ -1,16 +1,17 @@
 @import 'variable';
 @import 'utilities';
-body {
-  background: $mercury !important;
-  color: rgba($black, 0.6);
-  font-size: 14px;
+
+.email-wrapper {
+  width: 100%;
+  font-family: 'Bloom Speak OT Bold',sans-serif !important;
+  background-color: $mercury !important;
 }
 .email-container {
   width: 600px;
   margin: 0 auto;
   .email-content {
     background-color: $white;
-    border-radius: $radius;
+    border-radius: $radius $radius 0 0;
   }
 }
 
@@ -21,4 +22,8 @@ body {
     width: auto;
     height: 80px;
   }
+}
+.email-footer {
+  background-color: $catskill-white;
+  border-radius: 0 0 $radius $radius;
 }

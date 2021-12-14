@@ -48,8 +48,7 @@ RSpec.describe Mutations::CreateProject do
 
         project = Project.find(response.project.id)
         expect(project).to have_attributes(
-          gis_url: "#{Rails.application.config.gis_url}#{project.external_id}",
-          info_manager_url: "#{Rails.application.config.info_manager_url}#{project.external_id}"
+          gis_url: "#{Rails.application.config.gis_manual_url}",
         )
       end
 
