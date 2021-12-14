@@ -218,7 +218,7 @@ RSpec.describe Resolvers::ProjectsResolver do
           current_user: super_user
         )
         expect(errors).to be_nil
-        expect(projects.pluck(:id)).to match_array([project_a.id])
+        expect(projects.pluck(:id)).to match_array([project_a.id, project_c.id])
       end
     end
 

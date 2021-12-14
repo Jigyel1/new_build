@@ -764,7 +764,7 @@ CREATE TABLE public.projects (
     incharge_id uuid,
     os_id character varying,
     analysis text,
-    customer_request boolean,
+    customer_request boolean DEFAULT true,
     verdicts jsonb DEFAULT '{}'::jsonb,
     draft_version jsonb DEFAULT '{}'::jsonb,
     system_sorted_category boolean DEFAULT true,
@@ -1306,13 +1306,6 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.telco_uam_users
     ADD CONSTRAINT telco_uam_users_pkey PRIMARY KEY (id);
-
-
---
--- Name: by_penetration_competition; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX by_penetration_competition ON public.admin_toolkit_penetration_competitions USING btree (penetration_id, competition_id);
 
 
 --
@@ -2173,6 +2166,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211125113858'),
 ('20211125115233'),
 ('20211202075403'),
-('20211202080557');
+('20211202080557'),
+('20211206065430');
 
 
