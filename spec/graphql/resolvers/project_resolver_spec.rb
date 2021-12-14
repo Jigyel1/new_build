@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Resolvers::ProjectResolver do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:address) { build(:address) }
-  let_it_be(:project) { create(:project, :with_access_tech_cost, :with_installation_detail, address: address) }
+  let_it_be(:project) { create(:project, :with_connection_cost, :with_installation_detail, address: address) }
   let_it_be(:label_group) { create(:admin_toolkit_label_group, :open, label_list: 'Assign KAM, Offer Needed') }
 
   let_it_be(:projects_label_group) do
@@ -50,11 +50,10 @@ RSpec.describe Resolvers::ProjectResolver do
           zip: address.zip
         )
 
-        expect(data.project.accessTechCost).to have_attributes(
-          hfcOnPremiseCost: 9.99,
-          hfcOffPremiseCost: 9.99,
-          lwlOnPremiseCost: 9.99,
-          lwlOffPremiseCost: 9.99
+        expect(data.project.connectionCost).to have_attributes(
+          connectionType: 'HFC',
+          standardCost: false,
+          value: 194.77
         )
       end
 
@@ -151,7 +150,7 @@ RSpec.describe Resolvers::ProjectResolver do
             currentLabelGroup { systemGenerated labelList }
             address { street city zip }
             installationDetail { sockets builder }
-            accessTechCost { hfcOnPremiseCost hfcOffPremiseCost lwlOnPremiseCost  lwlOffPremiseCost comment explanation }
+            connectionCost { connectionType standardCost value }
           }
         }
     GQL

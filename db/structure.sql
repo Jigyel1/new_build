@@ -788,24 +788,6 @@ CREATE TABLE public.projects (
 
 
 --
--- Name: projects_access_tech_costs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.projects_access_tech_costs (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    hfc_on_premise_cost numeric(15,2) NOT NULL,
-    hfc_off_premise_cost numeric(15,2) NOT NULL,
-    lwl_on_premise_cost numeric(15,2) NOT NULL,
-    lwl_off_premise_cost numeric(15,2) NOT NULL,
-    comment text,
-    explanation text,
-    project_id uuid NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
 -- Name: projects_address_books; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1248,14 +1230,6 @@ ALTER TABLE ONLY public.profiles
 
 
 --
--- Name: projects_access_tech_costs projects_access_tech_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.projects_access_tech_costs
-    ADD CONSTRAINT projects_access_tech_costs_pkey PRIMARY KEY (id);
-
-
---
 -- Name: projects_address_books projects_address_books_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1628,13 +1602,6 @@ CREATE INDEX index_profiles_on_firstname_and_lastname ON public.profiles USING b
 --
 
 CREATE INDEX index_profiles_on_user_id ON public.profiles USING btree (user_id);
-
-
---
--- Name: index_projects_access_tech_costs_on_project_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_projects_access_tech_costs_on_project_id ON public.projects_access_tech_costs USING btree (project_id);
 
 
 --
@@ -2071,14 +2038,6 @@ ALTER TABLE ONLY public.projects_tasks
 
 
 --
--- Name: projects_access_tech_costs fk_rails_b5194394d8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.projects_access_tech_costs
-    ADD CONSTRAINT fk_rails_b5194394d8 FOREIGN KEY (project_id) REFERENCES public.projects(id);
-
-
---
 -- Name: projects fk_rails_bb113a6e04; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2220,6 +2179,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211206065430'),
 ('20211213113309'),
 ('20211214061605'),
-('20211214115619');
+('20211214115619'),
+('20211214120927');
 
 

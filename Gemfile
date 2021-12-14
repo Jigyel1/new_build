@@ -44,6 +44,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'niceql' # Don't use in production!
+  gem 'parallel_tests'
   gem 'pghero'
   gem 'pry'
   gem 'rails_best_practices'

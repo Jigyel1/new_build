@@ -11,7 +11,8 @@ module Projects
       end
 
       def call
-        validate_access_technology!
+        # FIXME: Add validations wrt connection cost
+        # validate_access_technology!
         validate_in_house_installation!
         calculate_pct!
       end

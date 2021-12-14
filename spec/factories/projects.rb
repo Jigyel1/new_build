@@ -26,8 +26,8 @@ FactoryBot.define do
       entry_type { :info_manager }
     end
 
-    trait :with_access_tech_cost do
-      access_tech_cost { build(:access_tech_cost) }
+    trait :with_connection_cost do
+      connection_cost { build(:connection_cost) }
     end
 
     trait :with_installation_detail do

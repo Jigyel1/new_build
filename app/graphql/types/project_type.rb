@@ -27,7 +27,7 @@ module Types
     field :building_type, String, null: true
     field :cable_installations, [String], null: true
 
-    field :access_tech_cost, Types::Projects::AccessTechCostType, null: true
+    field :connection_cost, Types::Projects::ConnectionCostType, null: true
     field :installation_detail, Types::Projects::InstallationDetailType, null: true
     field :access_technology, String, null: true
     field :analysis, String, null: true

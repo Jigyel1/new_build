@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :projects_connection_cost, class: 'Projects::ConnectionCost' do
-    connection_type { 'MyString' }
+  factory :connection_cost, class: 'Projects::ConnectionCost' do
+    connection_type { 'HFC' }
     standard_cost { false }
-    value { 'MyString' }
+    value { 194.77 }
   end
 end

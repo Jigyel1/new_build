@@ -15,7 +15,7 @@ module Associations
       belongs_to :competition, class_name: 'AdminToolkit::Competition', optional: true
 
       has_one :address, as: :addressable, dependent: :destroy
-      has_one :access_tech_cost, dependent: :destroy, class_name: 'Projects::AccessTechCost'
+      has_one :connection_cost, dependent: :destroy, class_name: 'Projects::ConnectionCost'
       has_one :installation_detail, dependent: :destroy, class_name: 'Projects::InstallationDetail'
       has_one :pct_cost, dependent: :destroy, class_name: 'Projects::PctCost'
 
@@ -36,7 +36,7 @@ module Associations
       accepts_nested_attributes_for(
         :address,
         :address_books,
-        :access_tech_cost,
+        :connection_cost,
         :installation_detail,
         allow_destroy: true
       )
