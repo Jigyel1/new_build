@@ -53,6 +53,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be_nil
+        expect(response.project).to have_attributes(cableInstallations: %w[FTTH Coax])
         expect(response.project.status).to eq('technical_analysis_completed')
         expect(response.project.verdicts).to have_attributes(
           technical_analysis_completed: 'This projects looks feasible with the current resources.'
@@ -310,6 +311,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               constructionType: "b2b_new"
               customerRequest: false
               priority: "proactive"
+              cableInstallations: "FTTH, Coax"
               verdicts: { technical_analysis_completed: "This projects looks feasible with the current resources." }
               #{access_tech_cost(args[:set_access_tech_cost])}
               #{installation_detail(args[:set_installation_detail])}
@@ -317,7 +319,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
             }
           }
         )
-        { project { id status verdicts } }
+        { project { id status verdicts cableInstallations } }
       }
     GQL
   end

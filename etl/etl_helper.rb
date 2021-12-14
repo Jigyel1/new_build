@@ -11,8 +11,11 @@ module EtlHelper
   end
 
   def file_path(input)
-    return input.tempfile.path if input.is_a?(ApolloUploadServer::Wrappers::UploadedFile)
-
-    input.to_s
+    case input
+    when ApolloUploadServer::Wrappers::UploadedFile, Rack::Test::UploadedFile
+      input.tempfile.path
+    when File then input
+    else input.to_s
+    end
   end
 end

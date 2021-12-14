@@ -781,7 +781,8 @@ CREATE TABLE public.projects (
     gis_url character varying,
     info_manager_url character varying,
     previous_status character varying,
-    discarded_at timestamp without time zone
+    discarded_at timestamp without time zone,
+    cable_installations text[] DEFAULT '{}'::text[]
 );
 
 
@@ -2178,6 +2179,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211202075403'),
 ('20211202080557'),
 ('20211206065430'),
-('20211213113309');
+('20211213113309'),
+('20211214061605');
 
 

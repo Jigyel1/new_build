@@ -13,6 +13,7 @@ class Project < ApplicationRecord
 
   validates :move_in_starts_on, succeeding_date: { preceding_date_key: :construction_starts_on }, allow_nil: true
   validates :move_in_ends_on, succeeding_date: { preceding_date_key: :move_in_starts_on }, allow_nil: true
+  validates :cable_installations, inclusion: { in: %w[FTTH Coax Copper(DSL)] }
 
   delegate :zip, to: :address
   delegate :project_cost, to: :pct_cost, allow_nil: true
@@ -24,5 +25,11 @@ class Project < ApplicationRecord
   # This ID should start from the number '2' and in the format: eg: '2826123'
   def project_nr
     "2#{super}"
+  end
+
+  def cable_installations=(value)
+    return unless value
+
+    super(value.split(',').map(&:squish).compact_blank)
   end
 end

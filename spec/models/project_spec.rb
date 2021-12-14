@@ -102,6 +102,12 @@ RSpec.describe Project, type: :model do
                                move_in_starts_on: Date.current.tomorrow)).to be_valid
       end
     end
+
+    context 'with invalid cable installation type' do
+      it 'invalidates record' do
+        expect(build(:project, cable_installations: 'invalid')).not_to be_valid
+      end
+    end
   end
 
   describe 'hooks' do

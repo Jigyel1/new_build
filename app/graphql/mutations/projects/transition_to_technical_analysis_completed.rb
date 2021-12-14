@@ -38,6 +38,9 @@ module Mutations
         argument :priority, String, required: true
         argument :analysis, String, required: false
         argument :verdicts, GraphQL::Types::JSON, required: false
+        argument :cable_installations, String, required: false, description: <<~DESC
+          Send supported options as a comma separated string. eg. "FTTH, Coax"
+        DESC
 
         argument :standard_cost_applicable, Boolean, required: true, description: <<~DESC
           When true, `access_tech_cost` should not be sent. When false, `access_tech_cost` is needed.
