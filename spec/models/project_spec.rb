@@ -202,5 +202,20 @@ RSpec.describe Project, type: :model do
         archived: 'Archived'
       ).backed_by_column_of_type(:string)
     end
+
+    it do
+      expect(subject).to define_enum_for(:building_type).with_values( # rubocop:disable RSpec/NamedSubject
+        efh: 'EFH',
+        mfh: 'MFH',
+        refh: 'Non-Residential REFH',
+        stepped_building: 'Stepped Building',
+        restaurant: 'Restaurant',
+        school: 'School',
+        hospital: 'Hospital',
+        nursing: 'Nursing',
+        retirement_homes: 'Retirement Homes',
+        others: 'Others'
+      ).backed_by_column_of_type(:string)
+    end
   end
 end

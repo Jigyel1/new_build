@@ -20,6 +20,7 @@ RSpec.describe Mutations::UpdateProject do
           internalId: 'e922833',
           status: 'technical_analysis',
           assigneeType: 'nbo',
+          buildingType: 'stepped_building',
           gisUrl: 'https://web.upc.ch/web_office/server?project=Access&client=corejs&keyname=PROJ_EXTERN_ID&keyvalue=3045071',
           infoManagerUrl: 'https://infomanager.bauinfocenter.ch/go/projectext/3045071'
         )
@@ -75,6 +76,7 @@ RSpec.describe Mutations::UpdateProject do
               assigneeId: "#{args[:assignee_id]}"
               status: "#{args[:status]}"
               lotNumber: "EA0988833"
+              buildingType: "stepped_building"
               gisUrl: "https://web.upc.ch/web_office/server?project=Access&client=corejs&keyname=PROJ_EXTERN_ID&keyvalue=3045071"
               infoManagerUrl: "https://infomanager.bauinfocenter.ch/go/projectext/3045071"
               #{address}
@@ -83,8 +85,12 @@ RSpec.describe Mutations::UpdateProject do
         )
         {
           project {
-            id status internalId moveInStartsOn gisUrl infoManagerUrl assigneeType assignee { id name }
-            addressBooks { id type name company language email website phone mobile address { id street city zip} }
+            id status internalId moveInStartsOn gisUrl infoManagerUrl assigneeType buildingType
+            assignee { id name }
+            addressBooks {
+              id type name company language email website phone mobile
+              address { id street city zip }
+            }
           }
         }
       }

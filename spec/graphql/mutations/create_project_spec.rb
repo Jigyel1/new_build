@@ -41,7 +41,8 @@ RSpec.describe Mutations::CreateProject do
           apartmentsCount: 10,
           buildingsCount: 3,
           category: 'standard',
-          customerRequest: true
+          customerRequest: true,
+          buildingType: 'efh'
         )
 
         expect(response.project.kamRegion).to have_attributes(id: kam_region.id, name: kam_region.name)
@@ -200,6 +201,7 @@ RSpec.describe Mutations::CreateProject do
               constructionStartsOn: "#{Date.current - 3.years}"
               lotNumber: "EA0988833"
               buildingsCount: 3
+              buildingType: "efh"
               apartmentsCount: #{apartments}
               #{address}
               #{address_books}
@@ -209,7 +211,7 @@ RSpec.describe Mutations::CreateProject do
         {
           project {
             id status category internalId moveInStartsOn assigneeType
-            apartmentsCount buildingsCount customerRequest
+            apartmentsCount buildingsCount customerRequest buildingType
             assignee { id name }
             addressBooks { id type name company language email website phone mobile
             address { id street city zip} }

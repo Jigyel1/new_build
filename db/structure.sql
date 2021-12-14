@@ -782,6 +782,7 @@ CREATE TABLE public.projects (
     info_manager_url character varying,
     previous_status character varying,
     discarded_at timestamp without time zone,
+    building_type character varying,
     cable_installations text[] DEFAULT '{}'::text[]
 );
 

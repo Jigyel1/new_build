@@ -36,6 +36,19 @@ module Enumable
         b2b_reconstruction: 'B2B (Reconstruction)',
         overbuild: 'Overbuild'
       }
+
+      enum building_type: {
+        efh: 'EFH',
+        mfh: 'MFH',
+        refh: 'Non-Residential REFH',
+        stepped_building: 'Stepped Building',
+        restaurant: 'Restaurant',
+        school: 'School',
+        hospital: 'Hospital',
+        nursing: 'Nursing',
+        retirement_homes: 'Retirement Homes',
+        others: 'Others'
+      }
     end
   end
 end
