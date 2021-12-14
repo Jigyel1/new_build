@@ -7,6 +7,10 @@ class ProjectPolicy < ApplicationPolicy
     record.complex? ? complex? : true
   end
 
+  def import?
+    user.admin? || user.super_user? || user.management?
+  end
+
   def ready_for_offer?
     return unless super
 
