@@ -308,7 +308,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               accessTechnology: "#{access_technology}"
               inHouseInstallation: #{in_house_installation}
               competitionId: "#{competition.id}"
-              constructionType: "b2b_new"
+              constructionType: "new_construction"
               customerRequest: false
               priority: "proactive"
               cableInstallations: "FTTH, Coax"

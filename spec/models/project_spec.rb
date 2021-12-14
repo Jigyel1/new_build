@@ -183,8 +183,8 @@ RSpec.describe Project, type: :model do
       expect(subject).to define_enum_for(:construction_type).with_values( # rubocop:disable RSpec/NamedSubject
         reconstruction: 'Reconstruction',
         new_construction: 'New Construction',
-        b2b_new: 'B2B (New)',
-        b2b_reconstruction: 'B2B (Reconstruction)',
+        transformation: 'Transformation',
+        pre_invest: 'Pre Invest',
         overbuild: 'Overbuild'
       ).backed_by_column_of_type(:string)
     end

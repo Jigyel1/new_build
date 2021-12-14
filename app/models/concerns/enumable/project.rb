@@ -32,8 +32,8 @@ module Enumable
       enum construction_type: {
         reconstruction: 'Reconstruction',
         new_construction: 'New Construction',
-        b2b_new: 'B2B (New)',
-        b2b_reconstruction: 'B2B (Reconstruction)',
+        transformation: 'Transformation',
+        pre_invest: 'Pre Invest',
         overbuild: 'Overbuild'
       }
 
