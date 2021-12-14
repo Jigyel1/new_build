@@ -7,12 +7,6 @@ class ProjectPolicy < ApplicationPolicy
     record.complex? ? complex? : true
   end
 
-  %i[import].each do |method|
-    define_method "#{method}?" do
-      super(method)
-    end
-  end
-
   def ready_for_offer?
     return unless super
 
