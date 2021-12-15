@@ -20,6 +20,7 @@ module Mutations
       argument :coordinate_east, Float, required: false
       argument :coordinate_north, Float, required: false
 
+      argument :construction_type, String, required: false
       argument :building_type, String, required: false
       argument :lot_number, String, required: false
       argument :construction_starts_on, String, required: false
