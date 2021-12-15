@@ -577,6 +577,20 @@ CREATE TABLE public.admin_toolkit_label_groups (
 
 
 --
+-- Name: admin_toolkit_offer_additional_costs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_offer_additional_costs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name jsonb DEFAULT '{}'::jsonb,
+    value numeric NOT NULL,
+    type character varying DEFAULT '0'::character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: admin_toolkit_offer_contents; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1187,6 +1201,14 @@ ALTER TABLE ONLY public.admin_toolkit_kam_regions
 
 ALTER TABLE ONLY public.admin_toolkit_label_groups
     ADD CONSTRAINT admin_toolkit_label_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_offer_additional_costs admin_toolkit_offer_additional_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_offer_additional_costs
+    ADD CONSTRAINT admin_toolkit_offer_additional_costs_pkey PRIMARY KEY (id);
 
 
 --
@@ -2242,6 +2264,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211206065430'),
 ('20211215051430'),
 ('20211215052925'),
-('20211215052949');
+('20211215052949'),
+('20211215121358');
 
 

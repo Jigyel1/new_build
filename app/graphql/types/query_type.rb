@@ -79,6 +79,7 @@ module Types
     field(:admin_toolkit_offer_prices, resolver: Resolvers::AdminToolkit::OfferPricesResolver)
     field(:admin_toolkit_offer_marketings, resolver: Resolvers::AdminToolkit::OfferMarketingsResolver)
     field(:admin_toolkit_offer_contents, resolver: Resolvers::AdminToolkit::OfferContentsResolver)
+    field(:admin_toolkit_offer_additional_costs, resolver: Resolvers::AdminToolkit::OfferAdditionalCostsResolver)
 
     field(
       :projects,

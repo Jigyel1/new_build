@@ -53,6 +53,10 @@ module Types
     field :update_offer_marketing, mutation: Mutations::AdminToolkit::UpdateOfferMarketing
     field :delete_offer_marketing, mutation: Mutations::AdminToolkit::DeleteOfferMarketing
 
+    field :create_offer_additional_cost, mutation: Mutations::AdminToolkit::CreateOfferAdditionalCost
+    field :update_offer_additional_cost, mutation: Mutations::AdminToolkit::CreateOfferAdditionalCost
+    field :delete_offer_additional_cost, mutation: Mutations::AdminToolkit::CreateOfferAdditionalCost
+
     field :create_project, mutation: Mutations::CreateProject
     field :update_project, mutation: Mutations::UpdateProject
     field :import_projects, mutation: Mutations::ImportProjects
