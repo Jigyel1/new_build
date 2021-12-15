@@ -8,14 +8,14 @@ module Mutations
         argument :min_apartments, Integer, required: false
         argument :max_apartments, Integer, required: false
         argument :name, GraphQL::Types::JSON, required: false
-        argument :value, BigDecimal, required: false
+        argument :value, Float, required: false
       end
 
       argument :attributes, UpdateOfferPriceAttributes, required: true
-      field :offer_content, Types::AdminToolkit::OfferPriceType, null: true
+      field :offer_price, Types::AdminToolkit::OfferPriceType, null: true
 
       def resolve(attributes:)
-        # super(::AdminToolkit::OfferContentUpdater, :offer_content, attributes: attributes.to_h)
+        super(::AdminToolkit::OfferPriceUpdater, :offer_price, attributes: attributes.to_h)
       end
     end
   end

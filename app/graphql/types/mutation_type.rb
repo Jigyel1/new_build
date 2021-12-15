@@ -47,6 +47,8 @@ module Types
     field :update_offer_content, mutation: Mutations::AdminToolkit::UpdateOfferContent
     field :delete_offer_content, mutation: Mutations::AdminToolkit::DeleteOfferContent
 
+    field :update_offer_price, mutation: Mutations::AdminToolkit::UpdateOfferPrice
+
     field :create_project, mutation: Mutations::CreateProject
     field :update_project, mutation: Mutations::UpdateProject
     field :import_projects, mutation: Mutations::ImportProjects

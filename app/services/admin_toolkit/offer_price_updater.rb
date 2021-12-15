@@ -2,9 +2,10 @@
 
 module AdminToolkit
   class OfferPriceUpdater < BaseService
+    include OfferPriceFinder
 
     def call
-      ::AdminToolkit::OfferPrice.find(attributes[:id]).update!(attributes)
+      offer_price.update!(attributes)
     end
 
     # TODO: Implement activity log for this service in next PR
@@ -14,7 +15,7 @@ module AdminToolkit
       {
         action: :offer_price_updated,
         owner: current_user,
-        trackable: offer_content,
+        trackable: offer_price,
         parameters: attributes
       }
     end
