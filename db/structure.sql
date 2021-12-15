@@ -577,6 +577,47 @@ CREATE TABLE public.admin_toolkit_label_groups (
 
 
 --
+-- Name: admin_toolkit_offer_contents; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_offer_contents (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    title jsonb DEFAULT '{}'::jsonb,
+    content jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_offer_marketings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_offer_marketings (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    activity_name jsonb DEFAULT '{}'::jsonb,
+    value numeric NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_toolkit_offer_prices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_offer_prices (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    min_apartments integer NOT NULL,
+    max_apartments integer NOT NULL,
+    name jsonb DEFAULT '{}'::jsonb,
+    value numeric NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: admin_toolkit_pct_costs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1149,6 +1190,30 @@ ALTER TABLE ONLY public.admin_toolkit_label_groups
 
 
 --
+-- Name: admin_toolkit_offer_contents admin_toolkit_offer_contents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_offer_contents
+    ADD CONSTRAINT admin_toolkit_offer_contents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_offer_marketings admin_toolkit_offer_marketings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_offer_marketings
+    ADD CONSTRAINT admin_toolkit_offer_marketings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_offer_prices admin_toolkit_offer_prices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_offer_prices
+    ADD CONSTRAINT admin_toolkit_offer_prices_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: admin_toolkit_pct_costs admin_toolkit_pct_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1306,6 +1371,13 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.telco_uam_users
     ADD CONSTRAINT telco_uam_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: by_penetration_competition; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX by_penetration_competition ON public.admin_toolkit_penetration_competitions USING btree (penetration_id, competition_id);
 
 
 --
@@ -2167,6 +2239,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211125115233'),
 ('20211202075403'),
 ('20211202080557'),
-('20211206065430');
+('20211206065430'),
+('20211215051430'),
+('20211215052925'),
+('20211215052949');
 
 
