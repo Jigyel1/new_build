@@ -26,8 +26,8 @@ FactoryBot.define do
       entry_type { :info_manager }
     end
 
-    trait :with_connection_cost do
-      connection_cost { build(:connection_cost) }
+    trait :with_hfc_connection_cost do
+      connection_costs { [build(:connection_cost)] }
     end
 
     trait :with_installation_detail do

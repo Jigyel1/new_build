@@ -11,8 +11,6 @@ module Projects
       end
 
       def call
-        # FIXME: Add validations wrt connection cost
-        # validate_access_technology!
         validate_in_house_installation!
         calculate_pct!
       end
@@ -30,13 +28,6 @@ module Projects
         project.pct_cost = pct_calculator.pct_cost
       rescue RuntimeError => e
         raise(t('projects.transition.error_in_pct_calculation', error: e.message))
-      end
-
-      def validate_access_technology!
-        return unless attributes.standard_cost_applicable
-
-        attributes.access_technology == 'ftth' && raise(t('projects.transition.ftth_not_supported'))
-        attributes.access_tech_cost_attributes && raise(t('projects.transition.access_tech_cost_not_supported'))
       end
 
       def validate_in_house_installation!

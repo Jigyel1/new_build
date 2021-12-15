@@ -10,11 +10,11 @@ RSpec.describe Project, type: :model do
     it { is_expected.to belong_to(:competition).optional(true) }
 
     it { is_expected.to have_one(:address).dependent(:destroy) }
-    it { is_expected.to have_one(:connection_cost).dependent(:destroy) }
     it { is_expected.to have_one(:installation_detail).dependent(:destroy) }
     it { is_expected.to have_one(:pct_cost).dependent(:destroy) }
     it { is_expected.to have_one(:default_label_group).dependent(:destroy) }
 
+    it { is_expected.to have_many(:connection_costs).dependent(:destroy) }
     it { is_expected.to have_many(:address_books).dependent(:destroy) }
     it { is_expected.to have_many(:buildings).dependent(:destroy) }
     it { is_expected.to have_many(:tasks).dependent(:destroy) }
@@ -22,7 +22,7 @@ RSpec.describe Project, type: :model do
 
     it { is_expected.to accept_nested_attributes_for(:address) }
     it { is_expected.to accept_nested_attributes_for(:address_books) }
-    it { is_expected.to accept_nested_attributes_for(:connection_cost) }
+    it { is_expected.to accept_nested_attributes_for(:connection_costs) }
     it { is_expected.to accept_nested_attributes_for(:installation_detail) }
   end
 

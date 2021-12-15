@@ -27,14 +27,13 @@ module Types
     field :building_type, String, null: true
     field :cable_installations, [String], null: true
 
-    field :connection_cost, Types::Projects::ConnectionCostType, null: true
+    field :connection_costs, [Types::Projects::ConnectionCostType], null: true
     field :installation_detail, Types::Projects::InstallationDetailType, null: true
     field :access_technology, String, null: true
     field :analysis, String, null: true
     field :competition, Types::AdminToolkit::CompetitionType, null: true
     field :customer_request, Boolean, null: true
     field :in_house_installation, Boolean, null: true
-    field :standard_cost_applicable, Boolean, null: true
     field :system_sorted_category, Boolean, null: true
 
     field(

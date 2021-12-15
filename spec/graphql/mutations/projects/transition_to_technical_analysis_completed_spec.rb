@@ -94,32 +94,100 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       end
     end
 
-    # FIXME: Spec update after adding connection cost and removing access tech cost
-    # context 'when standard cost is applicable' do
-    #   it 'throws error when preferred access technology is set to FTTH' do
-    #     response, errors = formatted_response(
-    #       query(standard_cost_applicable: true, access_technology: :ftth),
-    #       current_user: super_user,
-    #       key: :transitionToTechnicalAnalysisCompleted
-    #     )
-    #
-    #     expect(response.project).to be_nil
-    #     expect(errors).to eq([t('projects.transition.ftth_not_supported')])
-    #     expect(project.reload.status).to eq('technical_analysis')
-    #   end
-    #
-    #   it 'throws error when access technology cost is set' do
-    #     response, errors = formatted_response(
-    #       query(standard_cost_applicable: true, set_access_tech_cost: true),
-    #       current_user: super_user,
-    #       key: :transitionToTechnicalAnalysisCompleted
-    #     )
-    #
-    #     expect(response.project).to be_nil
-    #     expect(errors).to eq([t('projects.transition.access_tech_cost_not_supported')])
-    #     expect(project.reload.status).to eq('technical_analysis')
-    #   end
-    # end
+    context 'when standard cost is selected' do
+      it 'auto sets the cost from the admin toolkit' do
+        response, errors = formatted_response(
+          query(
+            {},
+            '
+                  {
+                    connectionType: "hfc",
+                    standardCost: true
+                  }
+                '
+          ),
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
+
+        expect(errors).to be_nil
+        connection_cost = response.project.connectionCosts.find { _1['connectionType'] == 'hfc' }
+        expect(connection_cost['cost']).to eq(AdminToolkit::ProjectCost.instance.standard)
+      end
+
+      it 'throws error if cost is set' do
+        response, errors = formatted_response(
+          query(
+            {},
+            '
+                  {
+                    connectionType: "hfc",
+                    standardCost: true,
+                    cost: 1198.88
+                  }
+                '
+          ),
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
+
+        expect(response.project).to be_nil
+        expect(errors).to eq([t('projects.transition.cost_present')])
+        expect(project.reload.status).to eq('technical_analysis')
+      end
+    end
+
+    context 'when both connection types are too expensive' do
+      before { project.update_column(:category, :complex) }
+
+      it 'marks the project irrelevant and archives it' do
+        response, errors = formatted_response(
+          query(
+            { set_pct_cost: true },
+            '
+                  {
+                    connectionType: "hfc",
+                    standardCost: true,
+                    tooExpensive: true
+                  },
+                  {
+                    connectionType: "ftth",
+                    standardCost: true,
+                    tooExpensive: true
+                  }
+                '
+          ),
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
+
+        expect(response.project).to be_nil
+        expect(errors).to eq([t('projects.transition.archiving_expensive_project')])
+        expect(project.reload).to have_attributes(status: 'archived', category: 'irrelevant')
+      end
+    end
+
+    context 'for HFC only projects' do
+      it 'throws error when FTTH connection type is selected' do
+        response, errors = formatted_response(
+          query(
+            {},
+            '
+                  {
+                    connectionType: "ftth",
+                    standardCost: true
+                  }
+                '
+          ),
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
+
+        expect(response.project).to be_nil
+        expect(errors).to eq([t('projects.transition.ftth_not_supported')])
+        expect(project.reload.status).to eq('technical_analysis')
+      end
+    end
 
     context 'when in house installation is selected' do
       it 'throws error if in house details are not set' do
@@ -281,22 +349,14 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     'installationDetail: { sockets: 13 builder: "ll" }'
   end
 
-  def access_tech_cost(set_access_tech_cost)
-    return unless set_access_tech_cost
+  def connection_costs(params)
+    return if params.blank?
 
-    <<~ACCESS_TECH_COST
-      accessTechCost: {
-        hfcOnPremiseCost: 119
-        hfcOffPremiseCost: 1198
-        lwlOnPremiseCost: 98
-        lwlOffPremiseCost: 999
-      }
-    ACCESS_TECH_COST
+    "connectionCosts: [#{params}]"
   end
 
-  def query(args = {})
+  def query(args = {}, connection_costs_params = {})
     access_technology = args[:access_technology] || :hfc
-    standard_cost_applicable = args[:standard_cost_applicable] || false
     in_house_installation = args[:in_house_installation] || false
 
     <<~GQL
@@ -305,7 +365,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           input: {
             attributes: {
               id: "#{project.id}"
-              standardCostApplicable: #{standard_cost_applicable}
               accessTechnology: "#{access_technology}"
               inHouseInstallation: #{in_house_installation}
               competitionId: "#{competition.id}"
@@ -314,13 +373,18 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               priority: "proactive"
               cableInstallations: "FTTH, Coax"
               verdicts: { technical_analysis_completed: "This projects looks feasible with the current resources." }
-              #{access_tech_cost(args[:set_access_tech_cost])}
+              #{connection_costs(connection_costs_params)}
               #{installation_detail(args[:set_installation_detail])}
               #{pct_cost(args[:set_pct_cost])}
             }
           }
         )
-        { project { id status verdicts cableInstallations } }
+        {#{' '}
+          project {
+            id status verdicts cableInstallations
+            connectionCosts { standardCost cost connectionType tooExpensive }
+          }
+        }
       }
     GQL
   end

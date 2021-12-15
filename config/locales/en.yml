@@ -67,8 +67,9 @@ en:
       not_archived: You can only unarchive archived tasks.
     transition:
       event_not_allowed: Event not allowed.
-      ftth_not_supported: FTTH is not a valid option if standard cost is applicable.
-      access_tech_cost_not_supported: Access Tech Cost should not be passed if standard cost is not available.
+      ftth_not_supported: FTTH is not a valid option for HFC only projects.
+      cost_present: For connection costs with standard cost set, cost should not be present.
+      archiving_expensive_project: Project connection costs are too expensive. Archiving this project.
       missing_inhouse_installation_details: In House Installation details not set
       inhouse_installation_details_not_supported: In House Installation not required. You should not be sending the installation details.
       project_connection_cost_missing: is necessary for complex projects.

@@ -16,14 +16,13 @@ module Mutations
         argument :builder, String, required: true
       end
 
-      class AccessTechCostAttributes < Types::BaseInputObject
-        argument :hfc_on_premise_cost, Float, required: true
-        argument :hfc_off_premise_cost, Float, required: true
-        argument :lwl_on_premise_cost, Float, required: true
-        argument :lwl_off_premise_cost, Float, required: true
-
-        argument :comment, String, required: false
-        argument :explanation, String, required: false
+      class ConnectionCostsAttributes < Types::BaseInputObject
+        argument :connection_type, String, required: true
+        argument :standard_cost, Boolean, required: true
+        argument :cost, Float, required: false, description: <<~DESC
+          Required unless it's a standard cost. For standard cost, value is fetched from the admin toolkit.
+        DESC
+        argument :too_expensive, Boolean, required: false
       end
 
       class TransitionToTechnicalAnalysisCompletedAttributes < Types::BaseInputObject
@@ -42,9 +41,12 @@ module Mutations
           Send supported options as a comma separated string. eg. "FTTH, Coax"
         DESC
 
-        # FIXME: Update description
-        argument :standard_cost_applicable, Boolean, required: true, description: <<~DESC
-        DESC
+        argument(
+          :connection_costs,
+          [ConnectionCostsAttributes],
+          required: false,
+          as: :connection_costs_attributes
+        )
 
         argument :in_house_installation, Boolean, required: true
         argument(

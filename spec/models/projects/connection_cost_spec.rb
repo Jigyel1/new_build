@@ -9,6 +9,6 @@ RSpec.describe Projects::ConnectionCost, type: :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:connection_type) }
-    it { is_expected.to validate_presence_of(:value) }
+    it { is_expected.to validate_presence_of(:cost) }
   end
 end

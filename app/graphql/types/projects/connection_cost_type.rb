@@ -6,7 +6,8 @@ module Types
       field :id, ID, null: true
       field :connection_type, String, null: true
       field :standard_cost, Boolean, null: true
-      field :value, Float, null: true
+      field :cost, Float, null: true
+      field :too_expensive, Boolean, null: true
     end
   end
 end

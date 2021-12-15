@@ -15,6 +15,11 @@ module Projects
         # excluding the <tt>pct_cost_attributes</tt>
         project.assign_attributes(attributes.except(:pct_cost_attributes))
 
+        Transitions::ConnectionCostValidator.new(
+          project: project,
+          attributes: attributes[:connection_costs_attributes]
+        ).call
+
         Transitions::TacValidator.new(
           project: project,
           attributes: attributes

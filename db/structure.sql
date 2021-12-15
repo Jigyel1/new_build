@@ -765,7 +765,6 @@ CREATE TABLE public.projects (
     files_count integer DEFAULT 0 NOT NULL,
     tasks_count integer DEFAULT 0 NOT NULL,
     completed_tasks_count integer DEFAULT 0 NOT NULL,
-    standard_cost_applicable boolean,
     access_technology character varying,
     in_house_installation boolean,
     created_at timestamp(6) without time zone NOT NULL,
@@ -847,7 +846,8 @@ CREATE TABLE public.projects_connection_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     connection_type character varying NOT NULL,
     standard_cost boolean NOT NULL,
-    value character varying,
+    cost numeric(15,2) NOT NULL,
+    too_expensive boolean DEFAULT false NOT NULL,
     project_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -2180,6 +2180,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211213113309'),
 ('20211214061605'),
 ('20211214115619'),
-('20211214120927');
+('20211214120927'),
+('20211215033130');
 
 
