@@ -43,6 +43,10 @@ module Types
     field :update_kam_investor, mutation: Mutations::AdminToolkit::UpdateKamInvestor
     field :delete_kam_investor, mutation: Mutations::AdminToolkit::DeleteKamInvestor
 
+    field :create_offer_content, mutation: Mutations::AdminToolkit::CreateOfferContent
+    field :update_offer_content, mutation: Mutations::AdminToolkit::UpdateOfferContent
+    field :delete_offer_content, mutation: Mutations::AdminToolkit::DeleteOfferContent
+
     field :create_project, mutation: Mutations::CreateProject
     field :update_project, mutation: Mutations::UpdateProject
     field :import_projects, mutation: Mutations::ImportProjects
