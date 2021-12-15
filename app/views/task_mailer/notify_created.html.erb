@@ -8,15 +8,15 @@
   </tr>
   <tr>
     <td>
-      <h2 class="helo">New Build - Task Assignee</h2>
+      <h2 class="my-0">New Build - Task Assignee</h2>
     </td>
   </tr>
   <tr>
-    <td><p class="color--primary mb-16 font--bold text--capitalize  font-size-16">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p></td>
+    <td><p class="color--black-87 mb-16 font--bold text--capitalize  font-size-16">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p></td>
   </tr>
   <tr>
     <td>
-      <p class="my-0">You have been assigned the task <%=@task.title %> for <%= @task.taskable.name %> project by <%= @task.owner.name %>
+      <p class="my-0">You have been assigned the task <%=@task.title %> for <%= @task.taskable.name %> project by <span class="text--capitalize"><%= @task.owner.name %></span>
       </p>
     </td>
   </tr>
