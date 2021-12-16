@@ -15,7 +15,7 @@ RSpec.describe Resolvers::AdminToolkit::OfferAdditionalCostsResolver do
       it 'returns all offer additional costs' do
         response = execute(query, current_user: super_user)
         expect(response[:errors]).to be_nil
-        expect(response.dig('data','adminToolkitOfferAdditionalCosts').count).to eq(4)
+        expect(response.dig('data', 'adminToolkitOfferAdditionalCosts').count).to eq(4)
       end
     end
 

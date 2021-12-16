@@ -10,7 +10,6 @@ RSpec.describe Resolvers::AdminToolkit::OfferMarketingsResolver do
   let_it_be(:offer_marketing_c) { create(:admin_toolkit_offer_marketing) }
   let_it_be(:offer_marketing_d) { create(:admin_toolkit_offer_marketing) }
 
-
   describe '.resolve' do
     context 'with permissions' do
       it 'returns all offer marketings' do
