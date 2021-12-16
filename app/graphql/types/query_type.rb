@@ -76,10 +76,17 @@ module Types
           connection: true,
           preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
-    field(:admin_toolkit_offer_prices, resolver: Resolvers::AdminToolkit::OfferPricesResolver)
-    field(:admin_toolkit_offer_marketings, resolver: Resolvers::AdminToolkit::OfferMarketingsResolver)
-    field(:admin_toolkit_offer_contents, resolver: Resolvers::AdminToolkit::OfferContentsResolver)
-    field(:admin_toolkit_offer_additional_costs, resolver: Resolvers::AdminToolkit::OfferAdditionalCostsResolver)
+    field(:admin_toolkit_offer_prices, resolver: Resolvers::AdminToolkit::OfferPricesResolver,
+                                       preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(:admin_toolkit_offer_marketings, resolver: Resolvers::AdminToolkit::OfferMarketingsResolver,
+                                           preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(:admin_toolkit_offer_contents, resolver: Resolvers::AdminToolkit::OfferContentsResolver,
+                                         preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
+    field(:admin_toolkit_offer_additional_costs, resolver: Resolvers::AdminToolkit::OfferAdditionalCostsResolver,
+                                                 preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
     field(
       :projects,
