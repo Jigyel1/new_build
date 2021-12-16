@@ -53,9 +53,9 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
             }
           }
         )
-        {#{' '}
-          projectCost {#{' '}
-            id arpu standard socketInstallationRate mrcStandard#{' '}
+        {
+          projectCost {
+            id arpu standard socketInstallationRate mrcStandard
             mrcHighTiers highTiersProductShare hfcPayback
           }
         }

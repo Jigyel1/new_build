@@ -8,6 +8,7 @@ module Mutations
         argument :arpu, Float, required: false
         argument :socket_installation_rate, Float, required: false
 
+        # TODO: Descriptions to be added to these fields after getting some context from BA.
         argument :cpe_hfc, Float, required: false
         argument :cpe_ftth, Float, required: false
         argument :olt_cost_per_customer, Float, required: false

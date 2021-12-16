@@ -5,7 +5,7 @@ module AdminToolkit
     attr_accessor :file
 
     def call
-      authorize! Project, to: :update?
+      authorize! Project, to: :import?
 
       ::PenetrationsImporter.call(current_user: current_user, input: file)
     end

@@ -14,7 +14,7 @@ module Projects
       def call
         validate_cost!
         validate_by_project_category!
-        archive_expensive_connection_costs!
+        archive_expensive_projects!
       end
 
       private
@@ -33,7 +33,7 @@ module Projects
         raise(t('projects.transition.ftth_not_supported'))
       end
 
-      def archive_expensive_connection_costs!
+      def archive_expensive_projects!
         return unless project.connection_costs.size > 1 && project.connection_costs.all?(&:too_expensive)
 
         project.update!(category: :irrelevant, status: :archived)

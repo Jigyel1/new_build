@@ -13,7 +13,7 @@ describe Mutations::AdminToolkit::ImportPenetrations, type: :request do
     end
   end
 
-  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
+  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :import }) }
 
   let(:params) do
     {

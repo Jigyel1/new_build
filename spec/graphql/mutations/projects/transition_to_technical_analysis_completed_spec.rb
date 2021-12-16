@@ -100,11 +100,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           query(
             {},
             '
-                  {
-                    connectionType: "hfc",
-                    standardCost: true
-                  }
-                '
+              {
+                connectionType: "hfc",
+                standardCost: true
+              }
+            '
           ),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
@@ -120,12 +120,12 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           query(
             {},
             '
-                  {
-                    connectionType: "hfc",
-                    standardCost: true,
-                    cost: 1198.88
-                  }
-                '
+              {
+                connectionType: "hfc",
+                standardCost: true,
+                cost: 1198.88
+              }
+            '
           ),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
@@ -145,17 +145,17 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           query(
             { set_pct_cost: true },
             '
-                  {
-                    connectionType: "hfc",
-                    standardCost: true,
-                    tooExpensive: true
-                  },
-                  {
-                    connectionType: "ftth",
-                    standardCost: true,
-                    tooExpensive: true
-                  }
-                '
+              {
+                connectionType: "hfc",
+                standardCost: true,
+                tooExpensive: true
+              },
+              {
+                connectionType: "ftth",
+                standardCost: true,
+                tooExpensive: true
+              }
+            '
           ),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
@@ -173,11 +173,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           query(
             {},
             '
-                  {
-                    connectionType: "ftth",
-                    standardCost: true
-                  }
-                '
+              {
+                connectionType: "ftth",
+                standardCost: true
+              }
+            '
           ),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
