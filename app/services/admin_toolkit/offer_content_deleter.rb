@@ -5,6 +5,8 @@ module AdminToolkit
     include OfferContentFinder
 
     def call
+      authorize! offer_content, to: :destroy?, with: AdminToolkitPolicy
+
       offer_content.destroy!
     end
 

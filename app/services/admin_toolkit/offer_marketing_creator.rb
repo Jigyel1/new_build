@@ -5,6 +5,8 @@ module AdminToolkit
     attr_reader :offer_marketing
 
     def call
+      authorize! ::AdminToolkit::OfferMarketing, to: :create?, with: AdminToolkitPolicy
+
       @offer_marketing = ::AdminToolkit::OfferMarketing.create!(attributes)
     end
 

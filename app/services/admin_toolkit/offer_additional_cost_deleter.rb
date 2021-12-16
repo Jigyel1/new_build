@@ -5,6 +5,8 @@ module AdminToolkit
     include OfferAdditionalCostFinder
 
     def call
+      authorize! offer_additional_cost, to: :destroy?, with: AdminToolkitPolicy
+
       offer_additional_cost.destroy!
     end
 

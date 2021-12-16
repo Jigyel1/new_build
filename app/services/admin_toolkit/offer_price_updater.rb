@@ -5,6 +5,8 @@ module AdminToolkit
     include OfferPriceFinder
 
     def call
+      authorize! offer_price, to: :update?, with: AdminToolkitPolicy
+
       offer_price.update!(attributes)
     end
 

@@ -5,6 +5,8 @@ module AdminToolkit
     include OfferAdditionalCostFinder
 
     def call
+      authorize! offer_additional_cost, to: :update?, with: AdminToolkitPolicy
+
       offer_additional_cost.update!(attributes)
     end
 

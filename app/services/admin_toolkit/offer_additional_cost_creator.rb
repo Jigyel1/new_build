@@ -5,6 +5,8 @@ module AdminToolkit
     attr_reader :offer_additional_cost
 
     def call
+      authorize! ::AdminToolkit::OfferAdditionalCost, to: :create?, with: AdminToolkitPolicy
+
       @offer_additional_cost = ::AdminToolkit::OfferAdditionalCost.create!(attributes)
     end
 

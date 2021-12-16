@@ -5,6 +5,8 @@ module AdminToolkit
     attr_reader :offer_content
 
     def call
+      authorize! ::AdminToolkit::OfferContent, to: :create?, with: AdminToolkitPolicy
+
       @offer_content = ::AdminToolkit::OfferContent.create!(attributes)
     end
 

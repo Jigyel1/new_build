@@ -5,6 +5,8 @@ module AdminToolkit
     include OfferContentFinder
 
     def call
+      authorize! offer_content, to: :update?, with: AdminToolkitPolicy
+
       offer_content.update!(attributes)
     end
 

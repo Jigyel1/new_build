@@ -5,6 +5,8 @@ module AdminToolkit
     include OfferMarketingFinder
 
     def call
+      authorize! offer_marketing, to: :destroy?, with: AdminToolkitPolicy
+
       offer_marketing.destroy!
     end
 
