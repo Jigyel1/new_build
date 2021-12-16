@@ -11,6 +11,7 @@ module Types
     field :project_nr, String, null: true
     field :status, String, null: true
     field :priority, String, null: true
+    field :priority_tac, String, null: true
     field :category, String, null: true
     field :construction_type, String, null: true
     field :assignee_type, String, null: true
@@ -30,6 +31,7 @@ module Types
     field :connection_costs, [Types::Projects::ConnectionCostType], null: true
     field :installation_detail, Types::Projects::InstallationDetailType, null: true
     field :access_technology, String, null: true
+    field :access_technology_tac, String, null: true
     field :analysis, String, null: true
     field :competition, Types::AdminToolkit::CompetitionType, null: true
     field :customer_request, Boolean, null: true

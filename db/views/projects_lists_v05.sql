@@ -4,7 +4,7 @@ SELECT projects.id                                              AS id,
        projects.status                                          AS status,
        projects.category                                        AS category,
        projects.name                                            AS name,
-       projects.priority                                        AS priority,
+       coalesce(projects.priority_tac, projects.priority)         AS priority,
        projects.construction_type                               AS construction_type,
        projects.apartments_count                                AS apartments_count,
        projects.move_in_starts_on                               AS move_in_starts_on,
@@ -26,7 +26,11 @@ SELECT projects.id                                              AS id,
          addresses.city
        )                                                        AS address,
 
-       CONCAT(profiles.firstname, ' ', profiles.lastname)       AS assignee,
+       coalesce(
+         NULLIF(CONCAT(profiles.firstname, ' ', profiles.lastname), ' '),
+         projects.assignee_type
+       )                                                        AS assignee,
+
        projects.assignee_id                                     AS assignee_id,
        projects_address_books.name                              AS investor,
        admin_toolkit_kam_regions.name                           AS kam_region

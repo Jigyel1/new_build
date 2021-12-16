@@ -45,5 +45,12 @@ FactoryBot.define do
         end
       end
     end
+
+    Project.priority_tacs.each_key do |name|
+      name_with_suffix = "#{name}_tac"
+      trait name_with_suffix do
+        priority_tac { name }
+      end
+    end
   end
 end

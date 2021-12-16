@@ -6,6 +6,7 @@ class Project < ApplicationRecord
   include Discard::Model
   include Hooks::Project
   include Enumable::Project
+  include Enumable::ProjectsList
   include Trackable
 
   validates :address, presence: true

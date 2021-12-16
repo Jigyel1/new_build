@@ -54,12 +54,6 @@ RSpec.describe ProjectsList, type: :model do
 
   describe 'enums' do
     it do
-      expect(subject).to define_enum_for(:priority).with_values( # rubocop:disable RSpec/NamedSubject
-        proactive: 'Proactive', reactive: 'Reactive'
-      ).backed_by_column_of_type(:string)
-    end
-
-    it do
       expect(subject).to define_enum_for(:category).with_values( # rubocop:disable RSpec/NamedSubject
         standard: 'Standard',
         complex: 'Complex',
@@ -90,6 +84,28 @@ RSpec.describe ProjectsList, type: :model do
         commercialization: 'Commercialization',
         archived: 'Archived'
       ).backed_by_column_of_type(:string)
+    end
+  end
+
+  describe 'priority' do
+    context 'when priority tac is not set' do
+      subject(:project_list) { described_class.find(project.id) }
+
+      let!(:project) { create(:project, :proactive) }
+
+      it 'returns projects priority' do
+        expect(project_list.priority).to eq('Proactive')
+      end
+    end
+
+    context 'when priority tac is set' do
+      subject(:project_list) { described_class.find(project.id) }
+
+      let!(:project) { create(:project, :proactive, :reactive_tac) }
+
+      it 'returns priority tac for priority' do
+        expect(project_list.priority).to eq('Reactive')
+      end
     end
   end
 end

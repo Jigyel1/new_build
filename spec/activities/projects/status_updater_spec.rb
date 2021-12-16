@@ -29,7 +29,7 @@ describe Projects::StatusUpdater do
   let_it_be(:address) { build(:address, zip: zip) }
   let_it_be(:project) { create(:project, :open, address: address, incharge: super_user) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
-  let_it_be(:params) { { id: project.id } }
+  let_it_be(:params) { { id: project.id, priority_tac: :proactive } }
 
   describe '.activities' do
     context 'when it transitions to technical analysis' do

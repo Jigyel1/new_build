@@ -782,7 +782,9 @@ CREATE TABLE public.projects (
     previous_status character varying,
     discarded_at timestamp without time zone,
     building_type character varying,
-    cable_installations text[] DEFAULT '{}'::text[]
+    cable_installations text[] DEFAULT '{}'::text[],
+    priority_tac character varying,
+    access_technology_tac character varying
 );
 
 
@@ -925,7 +927,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.status,
     projects.category,
     projects.name,
-    projects.priority,
+    COALESCE(projects.priority_tac, projects.priority) AS priority,
     projects.construction_type,
     projects.apartments_count,
     projects.move_in_starts_on,
@@ -940,7 +942,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     addresses.city,
     addresses.zip,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
-    concat(profiles.firstname, ' ', profiles.lastname) AS assignee,
+    COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
     projects.assignee_id,
     projects_address_books.name AS investor,
     admin_toolkit_kam_regions.name AS kam_region
@@ -2175,10 +2177,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211125113858'),
 ('20211125115233'),
 ('20211202075403'),
-('20211202080557'),
 ('20211206065430'),
 ('20211213113309'),
 ('20211214061605'),
+('20211214080557'),
 ('20211214115619'),
 ('20211214120927'),
 ('20211215033130');

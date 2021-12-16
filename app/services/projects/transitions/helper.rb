@@ -13,8 +13,8 @@ module Projects
         project.update_column(:draft_version, {})
       end
 
-      def project_priority
-        @_project_priority ||= begin
+      def pct_value
+        @_pct_value ||= begin
           months = project.pct_cost.payback_period
           cost = project.pct_cost.project_cost
 
@@ -26,7 +26,7 @@ module Projects
       end
 
       def prio_one?
-        project_priority.try(:prio_one?)
+        pct_value.try(:prio_one?)
       end
 
       # Special check for <tt>Prio 1</tt> projects - those that can be transitioned from <tt>technical_analysis</tt>
@@ -60,6 +60,12 @@ module Projects
         project.verdicts[aasm.from_state] = verdict if verdict.present?
 
         project.save!
+      end
+
+      def update_tac_attributes
+        project.update_columns(
+          attributes.slice(:priority_tac, :access_technology_tac)
+        )
       end
 
       def record_activity(&block)

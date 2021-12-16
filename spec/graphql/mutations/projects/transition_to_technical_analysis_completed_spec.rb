@@ -379,7 +379,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
             }
           }
         )
-        {#{' '}
+        {
           project {
             id status verdicts cableInstallations
             connectionCosts { standardCost cost connectionType tooExpensive }
