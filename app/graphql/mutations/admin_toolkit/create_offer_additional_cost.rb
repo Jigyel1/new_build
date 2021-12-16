@@ -6,7 +6,7 @@ module Mutations
       class CreateOfferAdditionalCostAttributes < Types::BaseInputObject
         argument :name, GraphQL::Types::JSON, required: false
         argument :value, Float, required: false
-        argument :type, String, required: false
+        argument :additional_cost_type, String, required: false
       end
 
       argument :attributes, CreateOfferAdditionalCostAttributes, required: true

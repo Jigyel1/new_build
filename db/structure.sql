@@ -584,7 +584,7 @@ CREATE TABLE public.admin_toolkit_offer_additional_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     name jsonb DEFAULT '{}'::jsonb,
     value numeric NOT NULL,
-    type character varying DEFAULT '0'::character varying,
+    additional_cost_type character varying DEFAULT 'discount'::character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
