@@ -19,9 +19,9 @@
   <div class="email-container py-24">
     <div class="email-content px-32 pt-32">
       <%= yield %>
-      <%= render('shared/disclaimer', user: @user) %>
+      <%= render('shared/disclaimer', recipient: @user) %>
     </div>
-  <%= render('shared/footer') %>
+    <%= render('shared/footer') %>
   </div>
   </div>
 </body>

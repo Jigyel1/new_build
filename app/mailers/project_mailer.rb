@@ -1,37 +1,35 @@
 # frozen_string_literal: true
 
 class ProjectMailer < ApplicationMailer
-  def notify_on_assigned(user_id, project_id)
-    notify(user_id, project_id, nil, nil, :assignee_assigned)
+  def notify_assigned(assignee_type, assignee_id, project_id)
+    @user = User.find(assignee_id)
+    @project = Project.find(project_id)
+
+    notify(@user, "notify_#{assignee_type}_assigned")
   end
 
-  def notify_on_unassigned(user_id, current_user_id, project_id)
-    notify(user_id, project_id, current_user_id, nil, :assignee_unassigned)
-  end
+  def notify_unassigned(assignee_type, assignee_id, assigner_id, project_id)
+    @user = User.find(assignee_id)
+    @assigner = User.find(assigner_id)
+    @project = Project.find(project_id)
 
-  def notify_on_incharge_assigned(user_id, project_id)
-    notify(user_id, project_id, nil, nil, :incharge_assigned)
-  end
-
-  def notify_on_incharge_unassigned(user_id, project_id, current_user_id)
-    notify(user_id, project_id, current_user_id, nil, :incharge_unassigned)
+    notify(@user, "notify_#{assignee_type}_unassigned")
   end
 
   def notify_import(user_id, errors)
-    notify(user_id, nil, nil, errors, :project_import)
+    @user = User.find(user_id)
+    @errors = errors
+
+    notify(@user, :notify_import)
   end
 
   private
 
-  def notify(user_id, project_id, current_user_id, errors, subject)
-    @user = User.find(user_id)
-    @current_user = User.find(current_user_id) if current_user_id.present?
-    @project = Project.find(project_id) if project_id.present?
-    @errors = errors if errors.present?
-
+  def notify(user, subject)
     mail(
-      to: email_address_with_name(@user.email, @user.name),
-      subject: I18n.t("mailer.project.#{subject}")
+      to: email_address_with_name(user.email, user.name),
+      subject: I18n.t("mailer.project.#{subject}"),
+      template_name: subject
     )
   end
 end

@@ -3,7 +3,6 @@
 module Projects
   class Updater < BaseService
     set_callback :call, :after, :notify_assignee
-    set_callback :call, :after, :notify_unassigned_assignee
 
     def call
       authorize! project, to: :update?
@@ -27,18 +26,18 @@ module Projects
     end
 
     def notify_assignee
-      ProjectMailer.notify_on_assigned(project.assignee_id, project.id).deliver_later
-    end
+      previous_assignee_id, assignee_id = project.saved_change_to_assignee_id
 
-    def notify_unassigned_assignee
-      return unless assignee_changed?
+      if previous_assignee_id
+        ProjectMailer.notify_unassigned(
+          :assignee,
+          previous_assignee_id,
+          current_user.id,
+          project.id
+        ).deliver_later
+      end
 
-      ProjectMailer
-        .notify_on_unassigned(project.assignee_id_previously_was, current_user.id, project.id).deliver_later
-    end
-
-    def assignee_changed?
-      project.assignee_id_previously_changed? && project.assignee_id_previously_was.present?
+      ProjectMailer.notify_assigned(:assignee, assignee_id, project.id).deliver_later if assignee_id
     end
   end
 end

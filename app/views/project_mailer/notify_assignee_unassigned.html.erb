@@ -12,11 +12,17 @@
     </td>
   </tr>
   <tr>
-    <td><p class="color--black-87 mb-16 font--bold text--capitalize  font-size-16">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p></td>
+    <td>
+      <p class="color--black-87 mb-16 font--bold text--capitalize  font-size-16">
+        Hello <%= @user.salutation %>. <%= @user.lastname.capitalize! %>
+      </p>
+    </td>
   </tr>
   <tr>
     <td>
-      <p class="my-0">You have been unassigned as the Assigned Person for "<%= @project.name %>" project by <span class="text--capitalize"><%= @current_user.name %></span>.
+      <p class="my-0">
+        You have been unassigned as the Assigned Person for "<%= @project.name %>" project by 
+        <span class="text--capitalize"><%= @assigner.name %></span>.
       </p>
     </td>
   </tr>

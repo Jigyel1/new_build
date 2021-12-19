@@ -98,8 +98,8 @@ en:
       notify_on_due_date: New Build - Tasks Due Today
       task_created: New Build - Task Assignee
     project:
-      assignee_assigned: New Build - Project Assignee
-      assignee_unassigned: New Build - Unassigned from Project
-      incharge_assigned: New Build - Technical Incharge
-      incharge_unassigned: New Build - Unassigned from Technical Incharge
-      project_import: New Build - Project Creation Failed
+      notify_assignee_assigned: New Build - Project Assignee
+      notify_assignee_unassigned: New Build - Unassigned from Project
+      notify_incharge_assigned: New Build - Technical Incharge
+      notify_incharge_unassigned: New Build - Unassigned from Technical Incharge
+      notify_import: New Build - Project Creation Failed
