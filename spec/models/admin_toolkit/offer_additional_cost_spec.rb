@@ -10,6 +10,11 @@ RSpec.describe AdminToolkit::OfferAdditionalCost, type: :model do
   end
 
   describe 'Enum' do
-    it { is_expected.to define_enum_for(:additional_cost_type).with_values(%w[discount addition]) }
+    it do
+      expect(subject).to define_enum_for(:additional_cost_type).with_values( # rubocop:disable RSpec/NamedSubject
+        discount: 'Discount',
+        addition: 'Addition'
+      ).backed_by_column_of_type(:string)
+    end
   end
 end
