@@ -30,7 +30,7 @@ module AdminToolkit
       target_offer_price = AdminToolkit::OfferPrice.find_by(index: offer_price.index + 1)
       return unless target_offer_price
 
-      target_offer_price.update(min_apartments: max_apartments + 1)
+      target_offer_price.min_apartments + 1
     rescue ActiveRecord::RecordInvalid
       raise I18n.t(
         'admin_toolkit.offer_price.invalid_min',
