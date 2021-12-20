@@ -10,7 +10,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateOfferPrice do
 
   describe '.resolve' do
     context 'with valid params' do
-      it 'updates the offer_content record' do
+      it 'updates the offer_price record' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateOfferPrice)
         expect(errors).to be_nil
         expect(response.offerPrice.id).to eq(offer_price.id)

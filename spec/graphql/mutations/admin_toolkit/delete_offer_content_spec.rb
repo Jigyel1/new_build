@@ -9,7 +9,7 @@ RSpec.describe Mutations::AdminToolkit::DeleteOfferContent do
 
   describe '.resolve' do
     context 'with permissions' do
-      it 'deletes the kam investor' do
+      it 'deletes the offer content' do
         response, errors = formatted_response(query, current_user: super_user, key: :deleteOfferContent)
         expect(errors).to be_nil
         expect(response.status).to be(true)
