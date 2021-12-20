@@ -11,6 +11,7 @@ class AddNewFieldsToAdminToolkitProjectCosts < ActiveRecord::Migration[6.1]
         t.decimal :patching_cost
         t.decimal :mrc_standard
         t.decimal :mrc_high_tiers
+        t.decimal :ftth_cost
         t.float :high_tiers_product_share
         t.integer :hfc_payback
         t.integer :ftth_payback

@@ -12,5 +12,6 @@ FactoryBot.define do
     mrc_high_tiers { 37.0 }
     high_tiers_product_share { 20 }
     hfc_payback { 36 }
+    ftth_cost { 1190 }
   end
 end

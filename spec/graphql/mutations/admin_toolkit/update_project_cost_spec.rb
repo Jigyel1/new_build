@@ -23,7 +23,8 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
           mrcStandard: 20.0,
           mrcHighTiers: 37.0,
           highTiersProductShare: 20,
-          hfcPayback: 36
+          hfcPayback: 36,
+          ftthCost: 1198.55
         )
       end
     end
@@ -50,13 +51,14 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
               mrcHighTiers: 37.0
               highTiersProductShare: 20
               hfcPayback: 36
+              ftthCost: 1198.55
             }
           }
         )
         {
           projectCost {
             id arpu standard socketInstallationRate mrcStandard
-            mrcHighTiers highTiersProductShare hfcPayback
+            mrcHighTiers highTiersProductShare hfcPayback ftthCost
           }
         }
       }

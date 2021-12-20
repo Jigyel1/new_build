@@ -15,6 +15,8 @@ module Types
       field :patching_cost, Float, null: true
       field :mrc_standard, Float, null: true
       field :mrc_high_tiers, Float, null: true
+      field :ftth_cost, Float, null: true
+
       field :high_tiers_product_share, Float, null: true
       field :hfc_payback, Int, null: true
       field :ftth_payback, Int, null: true

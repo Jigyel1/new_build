@@ -17,6 +17,7 @@ module Mutations
         argument :mrc_standard, Float, required: false
         argument :mrc_high_tiers, Float, required: false
         argument :high_tiers_product_share, Float, required: false
+        argument :ftth_cost, Float, required: false
         argument :hfc_payback, Int, required: false
         argument :ftth_payback, Int, required: false
       end

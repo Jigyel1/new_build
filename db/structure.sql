@@ -667,6 +667,7 @@ CREATE TABLE public.admin_toolkit_project_costs (
     patching_cost numeric,
     mrc_standard numeric,
     mrc_high_tiers numeric,
+    ftth_cost numeric,
     high_tiers_product_share double precision,
     hfc_payback integer,
     ftth_payback integer
