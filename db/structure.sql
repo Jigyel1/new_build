@@ -627,7 +627,8 @@ CREATE TABLE public.admin_toolkit_offer_prices (
     name jsonb DEFAULT '{}'::jsonb,
     value numeric NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    index character varying
 );
 
 
@@ -1396,13 +1397,6 @@ ALTER TABLE ONLY public.telco_uam_users
 
 
 --
--- Name: by_penetration_competition; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX by_penetration_competition ON public.admin_toolkit_penetration_competitions USING btree (penetration_id, competition_id);
-
-
---
 -- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1575,6 +1569,13 @@ CREATE INDEX index_admin_toolkit_label_groups_on_label_list ON public.admin_tool
 --
 
 CREATE UNIQUE INDEX index_admin_toolkit_label_groups_on_name ON public.admin_toolkit_label_groups USING btree (name);
+
+
+--
+-- Name: index_admin_toolkit_offer_prices_on_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_admin_toolkit_offer_prices_on_index ON public.admin_toolkit_offer_prices USING btree (index);
 
 
 --
@@ -2265,6 +2266,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211215051430'),
 ('20211215052925'),
 ('20211215052949'),
-('20211215121358');
+('20211215121358'),
+('20211220070041');
 
 

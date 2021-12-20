@@ -6,7 +6,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateOfferPrice do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:offer_price) { create(:admin_toolkit_offer_price) }
-  let_it_be(:params) { { id: offer_price.id, max_apartments: 12 } }
+  let_it_be(:params) { { id: offer_price.id, max_apartments: 15 } }
 
   describe '.resolve' do
     context 'with valid params' do
