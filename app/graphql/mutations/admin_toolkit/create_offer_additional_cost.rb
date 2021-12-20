@@ -4,9 +4,9 @@ module Mutations
   module AdminToolkit
     class CreateOfferAdditionalCost < BaseMutation
       class CreateOfferAdditionalCostAttributes < Types::BaseInputObject
-        argument :name, GraphQL::Types::JSON, required: false
-        argument :value, Float, required: false
-        argument :additional_cost_type, String, required: false
+        argument :name, GraphQL::Types::JSON, required: true
+        argument :value, Float, required: true
+        argument :additional_cost_type, String, required: true
       end
 
       argument :attributes, CreateOfferAdditionalCostAttributes, required: true

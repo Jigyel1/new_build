@@ -4,8 +4,8 @@ module Mutations
   module AdminToolkit
     class CreateOfferMarketing < BaseMutation
       class CreateOfferMarketingAttributes < Types::BaseInputObject
-        argument :activity_name, GraphQL::Types::JSON, required: false
-        argument :value, Float, required: false
+        argument :activity_name, GraphQL::Types::JSON, required: true
+        argument :value, Float, required: true
       end
 
       argument :attributes, CreateOfferMarketingAttributes, required: true

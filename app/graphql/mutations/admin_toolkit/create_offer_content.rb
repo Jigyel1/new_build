@@ -4,8 +4,8 @@ module Mutations
   module AdminToolkit
     class CreateOfferContent < BaseMutation
       class CreateOfferContentAttributes < Types::BaseInputObject
-        argument :title, GraphQL::Types::JSON, required: false
-        argument :content, GraphQL::Types::JSON, required: false
+        argument :title, GraphQL::Types::JSON, required: true
+        argument :content, GraphQL::Types::JSON, required: true
       end
 
       argument :attributes, CreateOfferContentAttributes, required: true

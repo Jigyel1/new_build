@@ -7,8 +7,8 @@ module Mutations
       field :status, Boolean, null: true
 
       def resolve(id:)
-        ::AdminToolkit::OfferContentDeleter.new(current_user: current_user, attributes: { id: id }).call
-        { status: true }
+        resolver = ::AdminToolkit::OfferContentDeleter.new(current_user: current_user, attributes: { id: id })
+        { status: resolver.call }
       end
     end
   end
