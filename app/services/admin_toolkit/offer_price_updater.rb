@@ -24,13 +24,17 @@ module AdminToolkit
       }
     end
 
-    def propagate_changes!
+    # Increments the min_apartment of the adjacent(but with higher index) record to record's max_apartment + 1
+    # eg. Say Price A has a min_apartments 10, max 1000 and Price B has min_apartment 1001, max_apartment 3000
+    #    And an update is triggered for Price A with max_apartment of 1501. This method should
+    #   update Price's min_apartment to 1502.
+    def propagate_changes! # rubocop:disable Metrics/AbcSize
       return unless offer_price.max_apartments_changed?
 
-      target_offer_price = AdminToolkit::OfferPrice.find_by(index: offer_price.index + 1)
+      target_offer_price = AdminToolkit::OfferPrice.find_by(index: offer_price.index.to_i + 1)
       return unless target_offer_price
 
-      target_offer_price.min_apartments + 1
+      target_offer_price.update!(min_apartments: offer_price.max_apartments + 1)
     rescue ActiveRecord::RecordInvalid
       raise I18n.t(
         'admin_toolkit.offer_price.invalid_min',
