@@ -49,8 +49,8 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
     <<~GQL
       query {
         adminToolkitProjectCost {
-          id arpu standard socketInstallationRate cpeHfc cpeFtth oltCostPerCustomer 
-          ftthPayback oldCostPerUnit patchingCost mrcStandard mrcHighTiers 
+          id arpu standard socketInstallationRate cpeHfc cpeFtth oltCostPerCustomer
+          ftthPayback oldCostPerUnit patchingCost mrcStandard mrcHighTiers
           highTiersProductShare hfcPayback ftthCost
         }
       }

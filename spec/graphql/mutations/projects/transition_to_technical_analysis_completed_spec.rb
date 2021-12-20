@@ -94,49 +94,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       end
     end
 
-    context 'when standard cost is selected' do
-      it 'auto sets the cost from the admin toolkit' do
-        response, errors = formatted_response(
-          query(
-            {},
-            '
-              {
-                connectionType: "hfc",
-                standardCost: true
-              }
-            '
-          ),
-          current_user: super_user,
-          key: :transitionToTechnicalAnalysisCompleted
-        )
-
-        expect(errors).to be_nil
-        connection_cost = response.project.connectionCosts.find { _1['connectionType'] == 'hfc' }
-        expect(connection_cost['cost']).to eq(AdminToolkit::ProjectCost.instance.standard)
-      end
-
-      it 'throws error if cost is set' do
-        response, errors = formatted_response(
-          query(
-            {},
-            '
-              {
-                connectionType: "hfc",
-                standardCost: true,
-                cost: 1198.88
-              }
-            '
-          ),
-          current_user: super_user,
-          key: :transitionToTechnicalAnalysisCompleted
-        )
-
-        expect(response.project).to be_nil
-        expect(errors).to eq([t('projects.transition.cost_present')])
-        expect(project.reload.status).to eq('technical_analysis')
-      end
-    end
-
     context 'when both connection types are too expensive' do
       before { project.update_column(:category, :complex) }
 
@@ -147,13 +104,11 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
             '
               {
                 connectionType: "hfc",
-                standardCost: true,
-                tooExpensive: true
+                costType: "too_expensive"
               },
               {
                 connectionType: "ftth",
-                standardCost: true,
-                tooExpensive: true
+                costType: "too_expensive"
               }
             '
           ),
@@ -175,7 +130,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
             '
               {
                 connectionType: "ftth",
-                standardCost: true
+                costType: "standard"
               }
             '
           ),
@@ -382,7 +337,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         {
           project {
             id status verdicts cableInstallations
-            connectionCosts { standardCost cost connectionType tooExpensive }
+            connectionCosts { costType connectionType }
           }
         }
       }

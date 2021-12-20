@@ -2,8 +2,7 @@
 
 FactoryBot.define do
   factory :connection_cost, class: 'Projects::ConnectionCost' do
-    connection_type { 'HFC' }
-    standard_cost { false }
-    cost { 194.77 }
+    connection_type { :hfc }
+    cost_type { :standard }
   end
 end

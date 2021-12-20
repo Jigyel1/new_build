@@ -848,9 +848,7 @@ CREATE TABLE public.projects_buildings (
 CREATE TABLE public.projects_connection_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     connection_type character varying NOT NULL,
-    standard_cost boolean NOT NULL,
-    cost numeric(15,2) NOT NULL,
-    too_expensive boolean DEFAULT false NOT NULL,
+    cost_type character varying NOT NULL,
     project_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL

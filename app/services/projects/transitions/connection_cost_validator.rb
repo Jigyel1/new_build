@@ -34,7 +34,7 @@ module Projects
       end
 
       def archive_expensive_projects!
-        return unless project.connection_costs.size > 1 && project.connection_costs.all?(&:too_expensive)
+        return unless project.connection_costs.size > 1 && project.connection_costs.all?(&:too_expensive?)
 
         project.update!(category: :irrelevant, status: :archived)
         raise(t('projects.transition.archiving_expensive_project'))

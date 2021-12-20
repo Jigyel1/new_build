@@ -18,11 +18,7 @@ module Mutations
 
       class ConnectionCostsAttributes < Types::BaseInputObject
         argument :connection_type, String, required: true
-        argument :standard_cost, Boolean, required: true
-        argument :cost, Float, required: false, description: <<~DESC
-          Required unless it's a standard cost. For standard cost, value is fetched from the admin toolkit.
-        DESC
-        argument :too_expensive, Boolean, required: false
+        argument :cost_type, String, required: true
       end
 
       class TransitionToTechnicalAnalysisCompletedAttributes < Types::BaseInputObject

@@ -52,8 +52,7 @@ RSpec.describe Resolvers::ProjectResolver do
 
         expect(OpenStruct.new(data.project.connectionCosts.first)).to have_attributes(
           connectionType: 'hfc',
-          standardCost: false,
-          cost: 194.77
+          costType: 'standard'
         )
       end
 
@@ -149,7 +148,7 @@ RSpec.describe Resolvers::ProjectResolver do
             currentLabelGroup { systemGenerated labelList }
             address { street city zip }
             installationDetail { sockets builder }
-            connectionCosts { connectionType standardCost cost }
+            connectionCosts { connectionType costType }
           }
         }
     GQL
