@@ -5,6 +5,6 @@ class AddIndexToAdminToolkitOfferPrice < ActiveRecord::Migration[6.1]
 
   def change
     add_column :admin_toolkit_offer_prices, :index, :string
-    add_index :admin_toolkit_offer_prices, :index, unique: true, algorithm: :concurrently
+    add_index :admin_toolkit_offer_prices, :index, algorithm: :concurrently
   end
 end

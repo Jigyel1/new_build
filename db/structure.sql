@@ -1575,7 +1575,7 @@ CREATE UNIQUE INDEX index_admin_toolkit_label_groups_on_name ON public.admin_too
 -- Name: index_admin_toolkit_offer_prices_on_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_admin_toolkit_offer_prices_on_index ON public.admin_toolkit_offer_prices USING btree (index);
+CREATE INDEX index_admin_toolkit_offer_prices_on_index ON public.admin_toolkit_offer_prices USING btree (index);
 
 
 --
