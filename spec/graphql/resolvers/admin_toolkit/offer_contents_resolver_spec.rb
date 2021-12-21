@@ -13,17 +13,17 @@ RSpec.describe Resolvers::AdminToolkit::OfferContentsResolver do
   describe '.resolve' do
     context 'with permissions' do
       it 'returns all offer contents' do
-        response = execute(query, current_user: super_user)
-        expect(response[:errors]).to be_nil
-        expect(response.dig('data', 'adminToolkitOfferContents').count).to eq(4)
+        response, errors = formatted_response(query, current_user: super_user)
+        expect(errors).to be_nil
+        expect(response.adminToolkitOfferContents.count).to eq(4)
       end
     end
 
     context 'without permissions' do
       it 'forbids the action' do
-        response = execute(query, current_user: kam)
-        expect(response[:errors]).to eq(['Not Authorized'])
-        expect(response[:data]).to be_nil
+        response, errors = formatted_response(query, current_user: kam)
+        expect(errors).to eq(['Not Authorized'])
+        expect(response.adminToolkitOfferContents).to be_nil
       end
     end
   end
