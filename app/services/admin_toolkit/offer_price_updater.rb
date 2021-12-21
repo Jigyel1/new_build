@@ -31,7 +31,7 @@ module AdminToolkit
     def propagate_changes! # rubocop:disable Metrics/AbcSize
       return unless offer_price.max_apartments_changed?
 
-      target_offer_price = AdminToolkit::OfferPrice.find_by(index: offer_price.index.to_i + 1)
+      target_offer_price = AdminToolkit::OfferPrice.find_by(index: offer_price.index + 1)
       return unless target_offer_price
 
       target_offer_price.update!(min_apartments: offer_price.max_apartments + 1)

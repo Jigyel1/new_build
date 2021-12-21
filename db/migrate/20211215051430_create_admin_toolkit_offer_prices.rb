@@ -7,6 +7,7 @@ class CreateAdminToolkitOfferPrices < ActiveRecord::Migration[6.1]
       t.integer :max_apartments, null: false
       t.jsonb :name, default: {}
       t.decimal :value, null: false
+      t.integer :index, null: false, index: { unique: true }
       t.timestamps
     end
   end

@@ -626,9 +626,9 @@ CREATE TABLE public.admin_toolkit_offer_prices (
     max_apartments integer NOT NULL,
     name jsonb DEFAULT '{}'::jsonb,
     value numeric NOT NULL,
+    index integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    index character varying
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -1575,7 +1575,7 @@ CREATE UNIQUE INDEX index_admin_toolkit_label_groups_on_name ON public.admin_too
 -- Name: index_admin_toolkit_offer_prices_on_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_toolkit_offer_prices_on_index ON public.admin_toolkit_offer_prices USING btree (index);
+CREATE UNIQUE INDEX index_admin_toolkit_offer_prices_on_index ON public.admin_toolkit_offer_prices USING btree (index);
 
 
 --
@@ -2266,7 +2266,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211215051430'),
 ('20211215052925'),
 ('20211215052949'),
-('20211215121358'),
-('20211220070041');
+('20211215121358');
 
 
