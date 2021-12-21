@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [0.4.0] - 2021-12-16
 
-## Features
+### Features
   - AdminToolkit for Ready for Offer Module:
       - Positions: It contains the additional cost i.e. discounts and additions which will be used in standard cost calculation in contract summary of the project.
       - Marketings: It has the type of marketing activities with relevant costs, which will be used in the later phase of the contract cost calculations in later stage of the project.
