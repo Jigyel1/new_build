@@ -7,10 +7,12 @@ class AddNewFieldsToAdminToolkitProjectCosts < ActiveRecord::Migration[6.1]
         t.decimal :cpe_hfc
         t.decimal :cpe_ftth
         t.decimal :olt_cost_per_customer
-        t.decimal :old_cost_per_unit
+        t.decimal :olt_cost_per_unit
         t.decimal :patching_cost
         t.decimal :mrc_standard
         t.decimal :mrc_high_tiers
+        t.decimal :iru_sfn
+        t.decimal :mrc_sfn
         t.decimal :ftth_cost
         t.float :high_tiers_product_share
         t.integer :hfc_payback

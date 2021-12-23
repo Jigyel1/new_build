@@ -44,11 +44,22 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   describe '.resolve' do
     context 'with permissions' do
       before_all { project.update_column(:category, :complex) }
-      let_it_be(:params) { { set_pct_cost: true } }
+      let_it_be(:params) do
+        '{
+            connectionType: "hfc",
+            costType: "standard"
+          },
+          {
+            connectionType: "ftth",
+            costType: "non_standard",
+            projectConnectionCost: 11000
+          }
+        '
+      end
 
       it 'updates project status' do
         response, errors = formatted_response(
-          query(params),
+          query({}, params),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -60,6 +71,8 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         )
 
         expect(project.default_label_group.reload.label_list).to include('Prio 2')
+
+        # Test PCT costs are are properly saved.
       end
     end
 
@@ -69,7 +82,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'forbids action' do
         response, errors = formatted_response(
-          query(set_pct_cost: true),
+          query({ set_pct_cost: true }, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: admin,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -84,7 +100,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'forbids action' do
         response, errors = formatted_response(
-          query,
+          query({}, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: admin,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -147,7 +166,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     context 'when in house installation is selected' do
       it 'throws error if in house details are not set' do
         response, errors = formatted_response(
-          query(in_house_installation: true),
+          query({ in_house_installation: true }, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -161,7 +183,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     context 'when in house installation is not selected' do
       it 'throws error if in house details are set' do
         response, errors = formatted_response(
-          query(set_installation_detail: true),
+          query({ set_installation_detail: true }, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -180,7 +205,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'updates the project to ready for offer state' do
         response, errors = formatted_response(
-          query,
+          query({}, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -197,7 +225,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'updates the project to technical analysis completed' do
         response, errors = formatted_response(
-          query,
+          query({}, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -213,7 +244,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'transitions the project to commercialization state' do
         response, errors = formatted_response(
-          query,
+          query({}, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -227,7 +261,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'responds with error' do
         response, errors = formatted_response(
-          query,
+          query({}, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -246,7 +283,10 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'responds with error' do
         response, errors = formatted_response(
-          query,
+          query({}, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -261,41 +301,44 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     end
 
     context 'when payback period is system generated' do
-      let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
+      let!(:connection_cost) { create(:connection_cost, project: project) }
+      let!(:project_pct_cost) { create(:projects_pct_cost, connection_cost: connection_cost, payback_period: 498) }
 
       it 'recalculates payback period' do
         _response, errors = formatted_response(
-          query,
+          query({}, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be(nil)
-        expect(project.reload.pct_cost.payback_period).to be(17)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(17)
       end
     end
 
     context 'when payback period is manually set' do
+      let!(:connection_cost) { create(:connection_cost, project: project) }
+
       before do
         pct_value.pct_month.update_column(:max, 498)
-        create(:projects_pct_cost, :manually_set_payback_period, project: project, payback_period: 498)
+        create(:projects_pct_cost, :manually_set_payback_period, connection_cost: connection_cost, payback_period: 498)
       end
 
       it 'does not recalculate the payback period' do
         _response, errors = formatted_response(
-          query,
+          query({}, '{
+            connectionType: "hfc",
+            costType: "standard"
+          }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be(nil)
-        expect(project.reload.pct_cost.payback_period).to be(498)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(498)
       end
     end
-  end
-
-  def pct_cost(set_pct_cost)
-    return unless set_pct_cost
-
-    'pctCost: { projectConnectionCost: 99998.56 }'
   end
 
   def installation_detail(set_installation_detail)
@@ -330,7 +373,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               verdicts: { technical_analysis_completed: "This projects looks feasible with the current resources." }
               #{connection_costs(connection_costs_params)}
               #{installation_detail(args[:set_installation_detail])}
-              #{pct_cost(args[:set_pct_cost])}
             }
           }
         )

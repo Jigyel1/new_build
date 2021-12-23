@@ -33,4 +33,19 @@ class Project < ApplicationRecord
 
     super(value.split(',').map(&:squish).compact_blank)
   end
+
+  def pct_cost
+    @pct_cost ||= begin
+      connection_type = if hfc_tac?
+                          :hfc
+                        elsif ftth_tac?
+                          :ftth
+                        elsif hfc?
+                          :hfc
+                        elsif ftth?
+                          :ftth
+                        end
+      connection_costs.find_by(connection_type: connection_type).try(:pct_cost)
+    end
+  end
 end

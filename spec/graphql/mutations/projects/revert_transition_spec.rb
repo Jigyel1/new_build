@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Mutations::Projects::RevertTransition do
   let_it_be(:incharge) { create(:user, :super_user) }
-  let_it_be(:project) { create(:project, incharge: incharge) }
+  let_it_be(:project) { create(:project, :hfc, incharge: incharge) }
   let_it_be(:pct_value) do
     create(
       :admin_toolkit_pct_value,
@@ -66,11 +66,12 @@ describe Mutations::Projects::RevertTransition do
     context 'for projects with status - ready for offer' do
       before_all { project.update_column(:status, :ready_for_offer) }
       let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :ready_for_offer }) }
+      let_it_be(:connection_cost) { create(:connection_cost, project: project) }
 
       context 'with permissions' do # prio 1 projects
         before do
           pct_value.update_column(:status, :prio_one)
-          create(:projects_pct_cost, project: project, payback_period: 15)
+          create(:projects_pct_cost, connection_cost: connection_cost, payback_period: 15)
         end
 
         it 'reverts to technical analysis' do
@@ -81,7 +82,9 @@ describe Mutations::Projects::RevertTransition do
       end
 
       context 'for prio 2 projects' do
-        let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
+        let_it_be(:project_pct_cost) do
+          create(:projects_pct_cost, connection_cost: connection_cost, payback_period: 498)
+        end
 
         it 'reverts to technical analysis completed' do
           response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
@@ -93,7 +96,9 @@ describe Mutations::Projects::RevertTransition do
       context 'for on hold projects' do
         before { pct_value.update_column(:status, :on_hold) }
 
-        let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
+        let_it_be(:project_pct_cost) do
+          create(:projects_pct_cost, connection_cost: connection_cost, payback_period: 498)
+        end
 
         it 'reverts to technical analysis completed' do
           response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)

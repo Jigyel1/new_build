@@ -11,7 +11,6 @@ RSpec.describe Project, type: :model do
 
     it { is_expected.to have_one(:address).dependent(:destroy) }
     it { is_expected.to have_one(:installation_detail).dependent(:destroy) }
-    it { is_expected.to have_one(:pct_cost).dependent(:destroy) }
     it { is_expected.to have_one(:default_label_group).dependent(:destroy) }
 
     it { is_expected.to have_many(:connection_costs).dependent(:destroy) }

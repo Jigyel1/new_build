@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Mutations::Projects::TransitionToReadyForOffer do
   let_it_be(:management) { create(:user, :management, with_permissions: { project: %i[ready_for_offer gt_10_000] }) }
-  let_it_be(:project) { create(:project, :technical_analysis_completed) }
+  let_it_be(:project) { create(:project, :technical_analysis_completed, :hfc) }
 
   before do
     allow_any_instance_of(Projects::StateMachine).to receive(:pct_value).and_return( # rubocop:disable RSpec/AnyInstance
@@ -40,7 +40,10 @@ describe Mutations::Projects::TransitionToReadyForOffer do
     end
 
     context 'when the project cost exceeds 10K CHF' do
-      let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, project_cost: 10_000.29) }
+      let_it_be(:connection_cost) { create(:connection_cost, project: project) }
+      let_it_be(:project_pct_cost) do
+        create(:projects_pct_cost, connection_cost: connection_cost, project_cost: 10_000.29)
+      end
 
       context 'with permissions' do
         it 'allows action' do

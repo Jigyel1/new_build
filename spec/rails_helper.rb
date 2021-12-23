@@ -58,7 +58,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.example_status_persistence_file_path = Rails.root.join('spec/failed_specs.txt')
   config.infer_spec_type_from_file_location!
-  config.order = :random
+  # config.order = :random
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!

@@ -16,7 +16,6 @@ module Associations
 
       has_one :address, as: :addressable, dependent: :destroy
       has_one :installation_detail, dependent: :destroy, class_name: 'Projects::InstallationDetail'
-      has_one :pct_cost, dependent: :destroy, class_name: 'Projects::PctCost'
 
       has_one(
         :default_label_group,
@@ -25,6 +24,7 @@ module Associations
         dependent: :destroy
       )
 
+      has_many :pct_costs, dependent: :destroy, class_name: 'Projects::PctCost'
       has_many :connection_costs, dependent: :destroy, class_name: 'Projects::ConnectionCost'
       has_many :address_books, class_name: 'Projects::AddressBook', dependent: :destroy
       has_many :buildings, class_name: 'Projects::Building', dependent: :destroy

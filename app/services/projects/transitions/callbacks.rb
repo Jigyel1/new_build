@@ -11,18 +11,18 @@ module Projects
       def before_technical_analysis_completed
         extract_verdict
 
-        # Project does not accept nested attribute for PCT Cost. So build the project
+        # Project does not accept nested attribute for Connection Costs. So build the project
         # excluding the <tt>pct_cost_attributes</tt>
-        project.assign_attributes(attributes.except(:pct_cost_attributes))
-
-        Transitions::ConnectionCostValidator.new(
-          project: project,
-          attributes: attributes[:connection_costs_attributes]
-        ).call
+        project.assign_attributes(attributes.except(:connection_costs_attributes))
 
         Transitions::TacValidator.new(
           project: project,
           attributes: attributes
+        ).call
+
+        Transitions::ConnectionCostValidator.new(
+          project: project,
+          attributes: attributes[:connection_costs_attributes]
         ).call
 
         true

@@ -50,7 +50,7 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
       query {
         adminToolkitProjectCost {
           id arpu standard socketInstallationRate cpeHfc cpeFtth oltCostPerCustomer
-          ftthPayback oldCostPerUnit patchingCost mrcStandard mrcHighTiers
+          ftthPayback oltCostPerUnit patchingCost mrcStandard mrcHighTiers
           highTiersProductShare hfcPayback ftthCost
         }
       }

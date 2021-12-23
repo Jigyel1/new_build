@@ -11,7 +11,7 @@ module Types
       field :cpe_hfc, Float, null: true
       field :cpe_ftth, Float, null: true
       field :olt_cost_per_customer, Float, null: true
-      field :old_cost_per_unit, Float, null: true
+      field :olt_cost_per_unit, Float, null: true
       field :patching_cost, Float, null: true
       field :mrc_standard, Float, null: true
       field :mrc_high_tiers, Float, null: true

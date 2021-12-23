@@ -490,7 +490,8 @@ CREATE TABLE public.admin_toolkit_competitions (
     description text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    sfn boolean DEFAULT false
+    sfn boolean DEFAULT false,
+    code character varying
 );
 
 
@@ -663,10 +664,12 @@ CREATE TABLE public.admin_toolkit_project_costs (
     cpe_hfc numeric,
     cpe_ftth numeric,
     olt_cost_per_customer numeric,
-    old_cost_per_unit numeric,
+    olt_cost_per_unit numeric,
     patching_cost numeric,
     mrc_standard numeric,
     mrc_high_tiers numeric,
+    iru_sfn numeric,
+    mrc_sfn numeric,
     ftth_cost numeric,
     high_tiers_product_share double precision,
     hfc_payback integer,
@@ -964,15 +967,17 @@ CREATE TABLE public.projects_pct_costs (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     project_cost numeric(15,2),
     socket_installation_cost numeric(15,2) DEFAULT 0.0,
-    project_connection_cost numeric(15,2),
-    arpu numeric(15,2),
     lease_cost numeric(15,2),
-    penetration_rate double precision,
     payback_period integer DEFAULT 0 NOT NULL,
     system_generated_payback_period boolean DEFAULT true NOT NULL,
-    project_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    penetration_rate double precision,
+    arpu numeric,
+    project_connection_cost numeric,
+    build_cost numeric(15,2),
+    roi numeric(15,2),
+    connection_cost_id uuid
 );
 
 
@@ -1760,10 +1765,10 @@ CREATE INDEX index_projects_on_status ON public.projects USING btree (status);
 
 
 --
--- Name: index_projects_pct_costs_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_projects_pct_costs_on_connection_cost_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_projects_pct_costs_on_project_id ON public.projects_pct_costs USING btree (project_id);
+CREATE INDEX index_projects_pct_costs_on_connection_cost_id ON public.projects_pct_costs USING btree (connection_cost_id);
 
 
 --
@@ -1999,6 +2004,14 @@ ALTER TABLE ONLY public.admin_toolkit_kam_regions
 
 
 --
+-- Name: projects_pct_costs fk_rails_7ba6849ad5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects_pct_costs
+    ADD CONSTRAINT fk_rails_7ba6849ad5 FOREIGN KEY (connection_cost_id) REFERENCES public.projects_connection_costs(id);
+
+
+--
 -- Name: activities fk_rails_8c2b010743; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2020,14 +2033,6 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.projects
     ADD CONSTRAINT fk_rails_99fc2a1a9e FOREIGN KEY (kam_region_id) REFERENCES public.admin_toolkit_kam_regions(id);
-
-
---
--- Name: projects_pct_costs fk_rails_a512ef8753; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.projects_pct_costs
-    ADD CONSTRAINT fk_rails_a512ef8753 FOREIGN KEY (project_id) REFERENCES public.projects(id);
 
 
 --
@@ -2182,6 +2187,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211214080557'),
 ('20211214115619'),
 ('20211214120927'),
-('20211215033130');
+('20211215033130'),
+('20211220101735'),
+('20211220120052');
 
 

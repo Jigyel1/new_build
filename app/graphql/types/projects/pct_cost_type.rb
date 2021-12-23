@@ -11,9 +11,9 @@ module Types
       field :id, ID, null: true
       field :project_cost, Float, null: true
       field :socket_installation_cost, Float, null: true
-      field :arpu, Float, null: true
       field :lease_cost, Float, null: true
-      field :project_connection_cost, Float, null: true
+      field :build_cost, Float, null: true
+      field :roi, Float, null: true
 
       field :payback_period, Int, null: true, description: 'In months'
       field :system_generated_payback_period, Boolean, null: true

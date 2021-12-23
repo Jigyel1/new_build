@@ -11,5 +11,13 @@ module AdminToolkit
     has_many :penetrations, through: :penetration_competitions, dependent: :restrict_with_error
 
     default_scope { order(created_at: :desc) }
+
+    before_commit :set_code, on: :create
+
+    private
+
+    def set_code
+      self.code ||= name.parameterize.underscore
+    end
   end
 end

@@ -3,22 +3,18 @@
 module Mutations
   module Projects
     class TransitionToTechnicalAnalysisCompleted < BaseMutation
-      class PctCostAttributes < Types::BaseInputObject
-        argument :project_connection_cost, Float, required: false, description: <<~DESC
-          Required only for complex projects.
-          Irrelevant for standard projects.
-          Optional for irrelevant and marketing only projects.
-        DESC
-      end
-
       class InstallationDetailAttributes < Types::BaseInputObject
         argument :sockets, Int, required: true
         argument :builder, String, required: true
       end
 
       class ConnectionCostsAttributes < Types::BaseInputObject
-        argument :connection_type, String, required: true
-        argument :cost_type, String, required: true
+        argument :connection_cost_id, ID, required: false
+        argument :connection_type, String, required: false
+        argument :cost_type, String, required: false
+        argument :project_connection_cost, Float, required: false, description: <<~DESC
+          Required if the connection type selected is non standard.
+        DESC
       end
 
       class TransitionToTechnicalAnalysisCompletedAttributes < Types::BaseInputObject
@@ -40,7 +36,7 @@ module Mutations
         argument(
           :connection_costs,
           [ConnectionCostsAttributes],
-          required: false,
+          required: true,
           as: :connection_costs_attributes
         )
 
@@ -51,8 +47,6 @@ module Mutations
           required: false,
           as: :installation_detail_attributes
         )
-
-        argument :pct_cost, PctCostAttributes, required: false, as: :pct_cost_attributes
       end
 
       argument :attributes, TransitionToTechnicalAnalysisCompletedAttributes, required: true

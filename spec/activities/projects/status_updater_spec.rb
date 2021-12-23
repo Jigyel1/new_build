@@ -76,7 +76,10 @@ describe Projects::StatusUpdater do
       end
 
       before do
-        project.update_column(:status, :technical_analysis)
+        project.update_columns(status: :technical_analysis, access_technology_tac: :hfc)
+        connection_cost = create(:connection_cost, project: project)
+        params[:connection_costs_attributes] = [{ connection_cost_id: connection_cost.id }]
+
         described_class.new(current_user: super_user, attributes: params, event: :technical_analysis_completed).call
       end
 
@@ -110,10 +113,11 @@ describe Projects::StatusUpdater do
 
     context 'when it transitions to ready for offer' do
       before do
-        project.update_column(:status, :technical_analysis_completed)
+        project.update_columns(status: :technical_analysis_completed, access_technology: :hfc)
         pct_value.pct_month.update_column(:max, 498)
-        create(:projects_pct_cost, :manually_set_payback_period, project: project, payback_period: 498)
+        connection_cost = create(:connection_cost, project: project)
 
+        create(:projects_pct_cost, :manually_set_payback_period, connection_cost: connection_cost, payback_period: 498)
         described_class.new(current_user: super_user, attributes: params, event: :offer_ready).call
       end
 

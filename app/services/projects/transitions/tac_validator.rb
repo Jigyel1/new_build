@@ -18,14 +18,19 @@ module Projects
       private
 
       def calculate_pct!
-        pct_calculator = ::Projects::PctCostCalculator.new(
-          project_id: project.id,
-          competition_id: project.competition_id,
-          project_connection_cost: project_connection_cost,
-          sockets: project.installation_detail.try(:sockets)
-        )
-        pct_calculator.call
-        project.pct_cost = pct_calculator.pct_cost
+        attributes.connection_costs_attributes.each do |attr|
+          pct_calculator = ::Projects::PctCostCalculator.new(
+            project_id: project.id,
+            competition_id: project.competition_id,
+            project_connection_cost: attr[:project_connection_cost],
+            sockets: project.installation_detail.try(:sockets),
+            connection_type: attr[:connection_type],
+            cost_type: attr[:cost_type],
+            connection_cost_id: attr[:connection_cost_id]
+          )
+
+          pct_calculator.call
+        end
       rescue RuntimeError => e
         raise(t('projects.transition.error_in_pct_calculation', error: e.message))
       end
@@ -44,10 +49,6 @@ module Projects
 
       def installation_details?
         @_installation_details ||= attributes.installation_detail_attributes.present?
-      end
-
-      def project_connection_cost
-        @_project_connection_cost ||= attributes.pct_cost_attributes.try(:[], :project_connection_cost)
       end
     end
   end

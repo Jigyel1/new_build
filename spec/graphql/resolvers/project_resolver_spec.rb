@@ -5,7 +5,9 @@ require 'rails_helper'
 RSpec.describe Resolvers::ProjectResolver do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:address) { build(:address) }
-  let_it_be(:project) { create(:project, :with_hfc_connection_cost, :with_installation_detail, address: address) }
+  let_it_be(:project) do
+    create(:project, :hfc_tac, :with_hfc_connection_cost, :with_installation_detail, address: address)
+  end
   let_it_be(:label_group) { create(:admin_toolkit_label_group, :open, label_list: 'Assign KAM, Offer Needed') }
 
   let_it_be(:projects_label_group) do
@@ -81,7 +83,7 @@ RSpec.describe Resolvers::ProjectResolver do
           pct_cost: create(:admin_toolkit_pct_cost, min: 1187, max: 100_000)
         )
 
-        create(:projects_pct_cost, project: project, payback_period: 15)
+        create(:projects_pct_cost, connection_cost: project.connection_costs.first, payback_period: 15)
       end
 
       it 'returns project states without technical analysis completed state' do
