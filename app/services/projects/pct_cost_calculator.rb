@@ -5,8 +5,11 @@ module Projects
     include ActiveModel::Validations
 
     CONNECTION_TYPES = { hfc: 'Hfc', ftth: 'Ftth' }.with_indifferent_access.freeze
-    CALCULATORS = { dsl: 'SwisscomDslCalculator', ftth: 'SwisscomFtthCalculator',
-                    sfn: 'SfnBig4Calculator' }.with_indifferent_access.freeze
+    CALCULATORS = {
+      dsl: 'SwisscomDslCalculator',
+      ftth: 'SwisscomFtthCalculator',
+      sfn: 'SfnBig4Calculator'
+    }.with_indifferent_access.freeze
 
     attr_accessor(:connection_cost_id, :competition_id, :apartments_count, :cost_type, :connection_type,
                   :sockets, :project_connection_cost, :system_generated_payback_period, :project_id)
@@ -77,16 +80,16 @@ module Projects
 
     def lease_cost
       @_lease_cost ||= "Projects::LeaseCosts::#{CONNECTION_TYPES[connection_type]}::#{CALCULATORS[competition.code]}"
-                       .constantize
-                       .new(project: project)
-                       .call
+                         .constantize
+                         .new(project: project)
+                         .call
     end
 
     def build_cost
       @_build_cost ||= "Projects::BuildCosts::#{CONNECTION_TYPES[connection_type]}Calculator"
-                       .constantize
-                       .new(project: project, project_cost: project_cost)
-                       .call
+                         .constantize
+                         .new(project: project, project_cost: project_cost)
+                         .call
     end
 
     def project_cost
@@ -122,13 +125,14 @@ module Projects
       @_project ||= Project.find(project_id)
     end
 
-    # expose connection cost update api if connection type & cost may need to change.
     def connection_cost
       @_connection_cost ||= if connection_cost_id
                               project.connection_costs.find_by(id: connection_cost_id)
                             else
-                              project.connection_costs.find_or_create_by!(connection_type: connection_type,
-                                                                          cost_type: cost_type)
+                              project.connection_costs.find_or_create_by!(
+                                connection_type: connection_type,
+                                cost_type: cost_type
+                              )
                             end
     end
 

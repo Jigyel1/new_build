@@ -2,7 +2,7 @@
 
 module Projects
   class PaybackPeriodUpdater < BaseService
-    delegate :name, to: :project, prefix: true
+    delegate :project, to: :connection_cost
 
     def call
       authorize! project, to: :configure_technical_analysis?
@@ -13,10 +13,6 @@ module Projects
           system_generated_payback_period: false
         )
       end
-    end
-
-    def project
-      @_project ||= connection_cost.project
     end
 
     private
@@ -34,7 +30,7 @@ module Projects
         action: :payback_period_updated,
         owner: current_user,
         trackable: pct_cost,
-        parameters: { project_name: project_name }
+        parameters: { project_name: project.name }
       }
     end
   end

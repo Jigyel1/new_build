@@ -29,7 +29,7 @@ module Projects
     def call
       yield if block_given?
     rescue TypeError
-      raise TypeError, 'Please check if any of the necessary field is not set in the AdminToolkit#ProjectCost'
+      raise TypeError, I18n.t('admin_toolkit.project_cost.null_fields')
     end
 
     def admin_toolkit_project_cost
@@ -47,7 +47,7 @@ module Projects
     def penetration_rate
       @_penetration_rate ||= AdminToolkit::Penetration.find_by!(zip: zip).rate
     rescue ActiveRecord::RecordNotFound
-      raise "Penetration rate not available for the project's zip."
+      raise I18n.t('admin_toolkit.penetration.zip_missing')
     end
   end
 end

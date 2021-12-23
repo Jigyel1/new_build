@@ -12,6 +12,7 @@ module AdminToolkit
 
     private
 
+    # TODO: to be included
     def activity_params
       {
         action: :penetrations_imported,

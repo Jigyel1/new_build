@@ -24,7 +24,6 @@ module Associations
         dependent: :destroy
       )
 
-      has_many :pct_costs, dependent: :destroy, class_name: 'Projects::PctCost'
       has_many :connection_costs, dependent: :destroy, class_name: 'Projects::ConnectionCost'
       has_many :address_books, class_name: 'Projects::AddressBook', dependent: :destroy
       has_many :buildings, class_name: 'Projects::Building', dependent: :destroy

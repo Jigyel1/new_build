@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# “Admin toolkit HFC Payback” x “number of customers” #units x #penetration@zipcode x 20CHF (MRC standard) x 12 months
-#
 module Projects
   module LeaseCosts
     module Hfc

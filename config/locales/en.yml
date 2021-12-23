@@ -51,6 +51,10 @@ en:
     pct_month:
       invalid_min: System tried updating min month for PCT with index "%{index}" to CHF %{new_max} which is
         not valid as it is less than its max month (CHF %{old_max}). Please send a value less than %{old_max}.
+    penetration:
+      zip_missing: Penetration rate not available for the project's zip.
+    project_cost:
+      null_fields: Please check if fields required for calculation are set in the AdminToolkit#ProjectCost
     footprint_apartment:
       invalid_min: System tried updating min building for Footprint with index "%{index}" to %{new_max} which is
         not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.

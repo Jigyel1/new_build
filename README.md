@@ -200,3 +200,8 @@ GIS_URL_STATIC
 
 INFO_MANAGER_URL 
 > https://infomanager.bauinfocenter.ch/go/projectext/
+
+
+Fix before PR
+- models/project.rb#pct_cost
+- model specs are pending. @jigyel please add.

@@ -5,6 +5,9 @@ module AdminToolkit
     include Singleton
     public_class_method :allocate
 
+    MONTHS_IN_A_YEAR = 12.0
+    PERCENTAGE_DIVISOR = 100.0
+
     validates :index, presence: true, uniqueness: true, inclusion: { in: [0] }
 
     alias_attribute :standard_connection_cost, :standard
@@ -15,15 +18,15 @@ module AdminToolkit
     end
 
     def ftth_payback_in_years
-      ftth_payback / 12.0
+      ftth_payback / MONTHS_IN_A_YEAR
     end
 
     def hfc_payback_in_years
-      hfc_payback / 12.0
+      hfc_payback / MONTHS_IN_A_YEAR
     end
 
     def high_tiers_product_share_percentage
-      high_tiers_product_share / 100.0
+      high_tiers_product_share / PERCENTAGE_DIVISOR
     end
   end
 end
