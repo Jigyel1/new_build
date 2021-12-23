@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.0] - 2021-12-16
+
+### Features
+  - AdminToolkit for Ready for Offer Module:
+      - Positions: It contains the additional cost i.e. discounts and additions which will be used in standard cost calculation in contract summary of the project.
+      - Marketings: It has the type of marketing activities with relevant costs, which will be used in the later phase of the contract cost calculations in later stage of the project.
+      - Prices: The cost per apartments with the range of apartments are stored in this section which will be used in the standard cost calculations.
+      - Offer Content: It has the title and contents of the contract with different language support.
 
 ## [0.3.2] - 2021-12-15
 
