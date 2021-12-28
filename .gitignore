@@ -99,3 +99,6 @@ Thumbs.db
 
 code_excerpts.md
 db_dump
+
+# Ignore vendor
+/vendor/
