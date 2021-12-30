@@ -2,7 +2,6 @@
 
 module Projects
   module PctCostHelper
-    MONTHS_IN_A_YEAR = 12
     delegate(
       :ftth_payback_in_years,
       :hfc_payback_in_years,

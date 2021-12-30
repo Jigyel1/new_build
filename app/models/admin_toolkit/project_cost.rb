@@ -5,9 +5,6 @@ module AdminToolkit
     include Singleton
     public_class_method :allocate
 
-    MONTHS_IN_A_YEAR = 12.0
-    PERCENTAGE_DIVISOR = 100.0
-
     validates :index, presence: true, uniqueness: true, inclusion: { in: [0] }
 
     alias_attribute :standard_connection_cost, :standard

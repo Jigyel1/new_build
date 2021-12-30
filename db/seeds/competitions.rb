@@ -2,6 +2,7 @@
 
 HEADERS = %w[code sfn factor lease_rate description].freeze
 
+# TODO: Add proper descriptions. BA yet to provide those. @jigyel - Please follow up on this.
 [
   ['SFN/Big4', :sfn, false, 1.5, 75, 'The best situation'],
   ['Swisscom FTTH', :ftth, true, 1.7, 75, 'The best situation - reloaded'],

@@ -31,7 +31,7 @@ module Projects
       states = states.reject { |state| state == :archived }
       current = states.index(aasm.current_state)
 
-      states.each_with_index.map { |state, index| [state, index <= current] }.to_h
+      states.each_with_index.to_h { |state, index| [state, index <= current] }
     end
 
     def project
