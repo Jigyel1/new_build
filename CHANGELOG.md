@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+
+## [1.0.0] - 2021-12-30
+
+### Features
+- Projects can now support multiple connections based on the connection types.
+- Support for parallel testing.
+- API for importing penetrations.
+
+### Fixes
+- Updated logic for calculation PCT cost for projects based on the connection types and sunrise access options.
+
+
 ## [0.4.0] - 2021-12-16
 
 ### Features
