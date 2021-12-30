@@ -8,7 +8,8 @@ module Projects
     CALCULATORS = {
       dsl: 'SwisscomDslCalculator',
       ftth: 'SwisscomFtthCalculator',
-      sfn: 'SfnBig4Calculator'
+      sfn: 'SfnBig4Calculator',
+      unknown: 'SfnBig4Calculator'
     }.with_indifferent_access.freeze
 
     attr_accessor(:connection_cost_id, :competition_id, :apartments_count, :cost_type, :connection_type,
@@ -80,16 +81,16 @@ module Projects
 
     def lease_cost
       @_lease_cost ||= "Projects::LeaseCosts::#{CONNECTION_TYPES[connection_type]}::#{CALCULATORS[competition.code]}"
-                         .constantize
-                         .new(project: project)
-                         .call
+                       .constantize
+                       .new(project: project)
+                       .call
     end
 
     def build_cost
       @_build_cost ||= "Projects::BuildCosts::#{CONNECTION_TYPES[connection_type]}Calculator"
-                         .constantize
-                         .new(project: project, project_cost: project_cost)
-                         .call
+                       .constantize
+                       .new(project: project, project_cost: project_cost)
+                       .call
     end
 
     def project_cost

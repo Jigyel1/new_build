@@ -35,17 +35,8 @@ class Project < ApplicationRecord
   end
 
   def pct_cost
-    @pct_cost ||= begin
-      connection_type = if hfc_tac?
-                          :hfc
-                        elsif ftth_tac?
-                          :ftth
-                        elsif hfc?
-                          :hfc
-                        elsif ftth?
-                          :ftth
-                        end
-      connection_costs.find_by(connection_type: connection_type).try(:pct_cost)
-    end
+    @pct_cost ||= connection_costs
+                  .find_by(connection_type: access_technology_tac || access_technology)
+                  .try(:pct_cost)
   end
 end

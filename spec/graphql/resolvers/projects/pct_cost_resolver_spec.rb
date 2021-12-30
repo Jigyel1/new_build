@@ -26,7 +26,8 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
 
   describe '.resolve' do
     context 'with valid params' do # wrt a non standard connection.
-      let!(:connection_cost) { create(:connection_cost, :non_standard, project: project) }
+      before { create(:connection_cost, :non_standard, project: project) }
+
       let!(:params) { { project_cost: 5000, set_project_cost: true, sockets: 4, cost_type: :non_standard } }
 
       it 'returns properly calculated PCT Cost for the project' do
@@ -52,9 +53,10 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
     end
 
     context 'when penetration is missing for the zip' do
-      let!(:connection_cost) { create(:connection_cost, project: project) }
-
-      before { penetration.update_column(:zip, '1103') }
+      before do
+        create(:connection_cost, project: project)
+        penetration.update_column(:zip, '1103')
+      end
 
       it 'throws error' do
         data, errors = formatted_response(query, current_user: super_user)
@@ -66,7 +68,8 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
     end
 
     context 'for standard projects' do
-      let!(:connection_cost) { create(:connection_cost, project: project) }
+      before { create(:connection_cost, project: project) }
+
       let!(:params) { { project_cost: 999_876, set_project_cost: true } }
 
       it 'throws error if project connection cost is sent in the request' do
@@ -75,10 +78,25 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
         expect(errors).to eq(["Project connection cost #{t('projects.transition.project_connection_cost_irrelevant')}"])
       end
     end
+
+    context 'with :unknown as the sunrise access option' do
+      let!(:unknown_competition) { create(:admin_toolkit_competition, name: :unknown, code: :unknown) }
+      let!(:params) { { project_cost: 5000, set_competition: true, competition_id: unknown_competition.id } }
+
+      it 'uses sfn big 4 calculator to calculate the lease cost' do
+        data, errors = formatted_response(query(params), current_user: super_user)
+        expect(errors).to be_nil
+        expect(data.projectPctCost.leaseCost).to eq(252.5)
+      end
+    end
   end
 
   def project_connection_cost(args = {})
     "projectConnectionCost: #{args[:project_cost]}" if args[:set_project_cost]
+  end
+
+  def project_competition(args = {})
+    "competitionId: \"#{args[:competition_id]}\"" if args[:set_competition]
   end
 
   def query(args = {})
@@ -94,6 +112,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
             connectionType: "#{connection_type}"
             costType: "#{cost_type}"
             sockets: #{sockets}
+            #{project_competition(args)}
             #{project_connection_cost(args)}
           }
         )

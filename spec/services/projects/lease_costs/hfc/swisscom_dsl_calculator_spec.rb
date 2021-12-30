@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Projects::LeaseCosts::Hfc::SfnBig4Calculator do
+describe Projects::LeaseCosts::Hfc::SwisscomDslCalculator do
   before_all { create(:admin_toolkit_penetration, zip: '8002', rate: 0.3507, kam_region: create(:kam_region)) }
 
   let_it_be(:project_cost) { create(:admin_toolkit_project_cost) }
@@ -16,7 +16,7 @@ describe Projects::LeaseCosts::Hfc::SfnBig4Calculator do
   end
 
   describe '#call' do
-    it 'returns ftth lease cost for the connection' do
+    it 'returns hfc lease cost for the connection' do
       expect(calculator.call).to eq(252.504)
     end
   end

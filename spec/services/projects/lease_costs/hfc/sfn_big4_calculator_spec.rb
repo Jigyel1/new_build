@@ -16,7 +16,7 @@ describe Projects::LeaseCosts::Hfc::SfnBig4Calculator do
   end
 
   describe '#call' do
-    it 'returns ftth lease cost for the connection' do
+    it 'returns hfc lease cost for the connection' do
       expect(calculator.call).to eq(252.504)
     end
   end

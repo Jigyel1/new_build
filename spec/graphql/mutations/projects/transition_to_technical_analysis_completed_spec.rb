@@ -71,8 +71,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         )
 
         expect(project.default_label_group.reload.label_list).to include('Prio 2')
-
-        # Test PCT costs are are properly saved.
+        expect(project.connection_costs.pluck(:connection_type)).to match_array(%w[hfc ftth])
       end
     end
 
@@ -302,7 +301,8 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
     context 'when payback period is system generated' do
       let!(:connection_cost) { create(:connection_cost, project: project) }
-      let!(:project_pct_cost) { create(:projects_pct_cost, connection_cost: connection_cost, payback_period: 498) }
+
+      before { create(:projects_pct_cost, connection_cost: connection_cost, payback_period: 498) }
 
       it 'recalculates payback period' do
         _response, errors = formatted_response(

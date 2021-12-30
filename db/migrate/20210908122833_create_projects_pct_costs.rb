@@ -3,9 +3,8 @@
 class CreateProjectsPctCosts < ActiveRecord::Migration[6.1]
   def change
     create_table :projects_pct_costs, id: :uuid do |t|
-      t.decimal :project_cost, precision: 15, scale: 2 # connection cost
+      t.decimal :project_cost, precision: 15, scale: 2
       t.decimal :socket_installation_cost, precision: 15, scale: 2, default: 0
-
       t.decimal :project_connection_cost, precision: 15, scale: 2
       t.decimal :arpu, precision: 15, scale: 2
       t.decimal :lease_cost, precision: 15, scale: 2

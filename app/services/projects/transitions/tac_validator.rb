@@ -17,7 +17,7 @@ module Projects
 
       private
 
-      def calculate_pct!
+      def calculate_pct! # rubocop:disable Metrics::AbcSize, Metrics/SeliseMethodLength
         attributes.connection_costs_attributes.each do |attr|
           pct_calculator = ::Projects::PctCostCalculator.new(
             project_id: project.id,
