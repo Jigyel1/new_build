@@ -47,7 +47,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
               arpu: #{args[:arpu]}
               standard: #{args[:standard]}
               socketInstallationRate: 75.456
-              mrcStandard: 20.0#{' '}
+              mrcStandard: 20.0
               mrcHighTiers: 37.0
               highTiersProductShare: 20
               hfcPayback: 36

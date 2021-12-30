@@ -41,25 +41,30 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   let_it_be(:project) { create(:project, :technical_analysis, address: address, incharge: super_user) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
 
+  let_it_be(:connection_cost_str) { '{ connectionType: "hfc", costType: "standard"}' }
+
   describe '.resolve' do
     context 'with permissions' do
       before_all { project.update_column(:category, :complex) }
       let_it_be(:params) do
-        '{
-            connectionType: "hfc",
-            costType: "standard"
-          },
-          {
-            connectionType: "ftth",
-            costType: "non_standard",
-            projectConnectionCost: 11000
-          }
-        '
+        {
+          connection_costs: '
+            {
+              connectionType: "hfc",
+              costType: "standard"
+            },
+            {
+              connectionType: "ftth",
+              costType: "non_standard",
+              projectConnectionCost: 11000
+            }
+          '
+        }
       end
 
       it 'updates project status' do
         response, errors = formatted_response(
-          query({}, params),
+          query(params),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -81,10 +86,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'forbids action' do
         response, errors = formatted_response(
-          query({ set_pct_cost: true }, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(set_pct_cost: true, connection_costs: connection_cost_str),
           current_user: admin,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -99,10 +101,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'forbids action' do
         response, errors = formatted_response(
-          query({}, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(connection_costs: connection_cost_str),
           current_user: admin,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -118,8 +117,8 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       it 'marks the project irrelevant and archives it' do
         response, errors = formatted_response(
           query(
-            { set_pct_cost: true },
-            '
+            set_pct_cost: true,
+            connection_costs: '
               {
                 connectionType: "hfc",
                 costType: "too_expensive"
@@ -143,15 +142,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     context 'for HFC only projects' do
       it 'throws error when FTTH connection type is selected' do
         response, errors = formatted_response(
-          query(
-            {},
-            '
-              {
-                connectionType: "ftth",
-                costType: "standard"
-              }
-            '
-          ),
+          query(connection_costs: '{ connectionType: "ftth", costType: "standard" }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -165,10 +156,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     context 'when in house installation is selected' do
       it 'throws error if in house details are not set' do
         response, errors = formatted_response(
-          query({ in_house_installation: true }, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(in_house_installation: true, connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -182,10 +170,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     context 'when in house installation is not selected' do
       it 'throws error if in house details are set' do
         response, errors = formatted_response(
-          query({ set_installation_detail: true }, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(set_installation_detail: true, connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -204,10 +189,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'updates the project to ready for offer state' do
         response, errors = formatted_response(
-          query({}, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -224,10 +206,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'updates the project to technical analysis completed' do
         response, errors = formatted_response(
-          query({}, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -243,10 +222,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'transitions the project to commercialization state' do
         response, errors = formatted_response(
-          query({}, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -260,10 +236,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'responds with error' do
         response, errors = formatted_response(
-          query({}, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -282,10 +255,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'responds with error' do
         response, errors = formatted_response(
-          query({}, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -306,10 +276,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'recalculates payback period' do
         _response, errors = formatted_response(
-          query({}, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -328,10 +295,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'does not recalculate the payback period' do
         _response, errors = formatted_response(
-          query({}, '{
-            connectionType: "hfc",
-            costType: "standard"
-          }'),
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -347,13 +311,13 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     'installationDetail: { sockets: 13 builder: "ll" }'
   end
 
-  def connection_costs(params)
-    return if params.blank?
+  def connection_costs(args)
+    return unless args[:connection_costs]
 
-    "connectionCosts: [#{params}]"
+    "connectionCosts: [#{args[:connection_costs]}]"
   end
 
-  def query(args = {}, connection_costs_params = {})
+  def query(args = {})
     access_technology = args[:access_technology] || :hfc
     in_house_installation = args[:in_house_installation] || false
 
@@ -371,7 +335,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               priority: "proactive"
               cableInstallations: "FTTH, Coax"
               verdicts: { technical_analysis_completed: "This projects looks feasible with the current resources." }
-              #{connection_costs(connection_costs_params)}
+              #{connection_costs(args)}
               #{installation_detail(args[:set_installation_detail])}
             }
           }
