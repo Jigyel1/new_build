@@ -12,7 +12,7 @@ module Mutations
         argument :cpe_hfc, Float, required: false
         argument :cpe_ftth, Float, required: false
         argument :olt_cost_per_customer, Float, required: false
-        argument :old_cost_per_unit, Float, required: false
+        argument :olt_cost_per_unit, Float, required: false
         argument :patching_cost, Float, required: false
         argument :mrc_standard, Float, required: false
         argument :mrc_high_tiers, Float, required: false
