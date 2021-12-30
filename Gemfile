@@ -48,7 +48,7 @@ group :development, :test do
   gem 'pghero'
   gem 'pry'
   gem 'rails_best_practices'
-  gem 'rdoc'
+  gem 'rdoc', '6.3.3'
   gem 'rspec-benchmark'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rswag-specs'
