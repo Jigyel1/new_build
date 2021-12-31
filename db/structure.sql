@@ -448,7 +448,7 @@ ALTER SEQUENCE public.active_storage_variant_records_id_seq OWNED BY public.acti
 --
 
 CREATE TABLE public.activities (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     owner_id uuid NOT NULL,
     trackable_type character varying,
     trackable_id uuid,
@@ -465,7 +465,7 @@ CREATE TABLE public.activities (
 --
 
 CREATE TABLE public.addresses (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     street character varying DEFAULT ''::character varying,
     street_no character varying DEFAULT ''::character varying,
     city character varying DEFAULT ''::character varying,
@@ -483,7 +483,7 @@ CREATE TABLE public.addresses (
 --
 
 CREATE TABLE public.admin_toolkit_competitions (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     name character varying NOT NULL,
     factor double precision NOT NULL,
     lease_rate numeric NOT NULL,
@@ -491,7 +491,8 @@ CREATE TABLE public.admin_toolkit_competitions (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     sfn boolean DEFAULT false,
-    code character varying
+    code character varying,
+    calculation_type character varying DEFAULT 'dsl'::character varying
 );
 
 
@@ -500,7 +501,7 @@ CREATE TABLE public.admin_toolkit_competitions (
 --
 
 CREATE TABLE public.admin_toolkit_footprint_apartments (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     min integer NOT NULL,
     max integer NOT NULL,
     index integer NOT NULL,
@@ -514,7 +515,7 @@ CREATE TABLE public.admin_toolkit_footprint_apartments (
 --
 
 CREATE TABLE public.admin_toolkit_footprint_types (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     provider character varying NOT NULL,
     index integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -527,7 +528,7 @@ CREATE TABLE public.admin_toolkit_footprint_types (
 --
 
 CREATE TABLE public.admin_toolkit_footprint_values (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     category character varying NOT NULL,
     footprint_apartment_id uuid NOT NULL,
     footprint_type_id uuid NOT NULL,
@@ -541,7 +542,7 @@ CREATE TABLE public.admin_toolkit_footprint_values (
 --
 
 CREATE TABLE public.admin_toolkit_kam_investors (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     kam_id uuid NOT NULL,
     investor_id character varying NOT NULL,
     investor_description text,
@@ -555,7 +556,7 @@ CREATE TABLE public.admin_toolkit_kam_investors (
 --
 
 CREATE TABLE public.admin_toolkit_kam_regions (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     kam_id uuid,
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -568,7 +569,7 @@ CREATE TABLE public.admin_toolkit_kam_regions (
 --
 
 CREATE TABLE public.admin_toolkit_label_groups (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     name character varying NOT NULL,
     code character varying NOT NULL,
     label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
@@ -582,7 +583,7 @@ CREATE TABLE public.admin_toolkit_label_groups (
 --
 
 CREATE TABLE public.admin_toolkit_offer_additional_costs (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     name jsonb DEFAULT '{}'::jsonb,
     value numeric NOT NULL,
     additional_cost_type character varying DEFAULT 'discount'::character varying,
@@ -596,7 +597,7 @@ CREATE TABLE public.admin_toolkit_offer_additional_costs (
 --
 
 CREATE TABLE public.admin_toolkit_offer_contents (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     title jsonb DEFAULT '{}'::jsonb,
     content jsonb DEFAULT '{}'::jsonb,
     created_at timestamp(6) without time zone NOT NULL,
@@ -609,7 +610,7 @@ CREATE TABLE public.admin_toolkit_offer_contents (
 --
 
 CREATE TABLE public.admin_toolkit_offer_marketings (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     activity_name jsonb DEFAULT '{}'::jsonb,
     value numeric NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -622,7 +623,7 @@ CREATE TABLE public.admin_toolkit_offer_marketings (
 --
 
 CREATE TABLE public.admin_toolkit_offer_prices (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     min_apartments integer NOT NULL,
     max_apartments integer NOT NULL,
     name jsonb DEFAULT '{}'::jsonb,
@@ -638,7 +639,7 @@ CREATE TABLE public.admin_toolkit_offer_prices (
 --
 
 CREATE TABLE public.admin_toolkit_pct_costs (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     index integer NOT NULL,
     min integer NOT NULL,
     max integer NOT NULL,
@@ -652,7 +653,7 @@ CREATE TABLE public.admin_toolkit_pct_costs (
 --
 
 CREATE TABLE public.admin_toolkit_pct_months (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     index integer NOT NULL,
     min integer NOT NULL,
     max integer NOT NULL,
@@ -666,7 +667,7 @@ CREATE TABLE public.admin_toolkit_pct_months (
 --
 
 CREATE TABLE public.admin_toolkit_pct_values (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     status character varying NOT NULL,
     pct_month_id uuid NOT NULL,
     pct_cost_id uuid NOT NULL,
@@ -680,7 +681,7 @@ CREATE TABLE public.admin_toolkit_pct_values (
 --
 
 CREATE TABLE public.admin_toolkit_penetration_competitions (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     penetration_id uuid NOT NULL,
     competition_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -693,7 +694,7 @@ CREATE TABLE public.admin_toolkit_penetration_competitions (
 --
 
 CREATE TABLE public.admin_toolkit_penetrations (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     zip character varying NOT NULL,
     city character varying NOT NULL,
     rate double precision NOT NULL,
@@ -710,7 +711,7 @@ CREATE TABLE public.admin_toolkit_penetrations (
 --
 
 CREATE TABLE public.admin_toolkit_project_costs (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     standard numeric(15,2),
     arpu numeric(15,2),
     socket_installation_rate numeric(15,2),
@@ -750,7 +751,7 @@ CREATE TABLE public.ar_internal_metadata (
 --
 
 CREATE TABLE public.permissions (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     resource character varying NOT NULL,
     actions jsonb DEFAULT '{}'::jsonb NOT NULL,
     accessor_type character varying,
@@ -765,7 +766,7 @@ CREATE TABLE public.permissions (
 --
 
 CREATE TABLE public.profiles (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     user_id uuid NOT NULL,
     salutation character varying NOT NULL,
     firstname character varying DEFAULT ''::character varying NOT NULL,
@@ -796,7 +797,7 @@ CREATE SEQUENCE public.projects_project_nr_seq
 --
 
 CREATE TABLE public.projects (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     name character varying,
     external_id character varying,
     internal_id character varying,
@@ -853,7 +854,7 @@ CREATE TABLE public.projects (
 --
 
 CREATE TABLE public.projects_address_books (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     external_id character varying,
     type character varying NOT NULL,
     display_name character varying NOT NULL,
@@ -882,7 +883,7 @@ CREATE TABLE public.projects_address_books (
 --
 
 CREATE TABLE public.projects_buildings (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     name character varying NOT NULL,
     external_id character varying,
     assignee_id uuid,
@@ -905,7 +906,7 @@ CREATE TABLE public.projects_buildings (
 --
 
 CREATE TABLE public.projects_connection_costs (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     connection_type character varying NOT NULL,
     cost_type character varying NOT NULL,
     project_id uuid NOT NULL,
@@ -919,7 +920,7 @@ CREATE TABLE public.projects_connection_costs (
 --
 
 CREATE TABLE public.projects_installation_details (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     project_id uuid NOT NULL,
     sockets integer,
     builder character varying,
@@ -933,7 +934,7 @@ CREATE TABLE public.projects_installation_details (
 --
 
 CREATE TABLE public.projects_label_groups (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     system_generated boolean DEFAULT false,
     label_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     project_id uuid NOT NULL,
@@ -948,7 +949,7 @@ CREATE TABLE public.projects_label_groups (
 --
 
 CREATE TABLE public.telco_uam_users (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
     reset_password_token character varying,
@@ -1020,7 +1021,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
 --
 
 CREATE TABLE public.projects_pct_costs (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     project_cost numeric(15,2),
     socket_installation_cost numeric(15,2) DEFAULT 0.0,
     project_connection_cost numeric(15,2),
@@ -1042,7 +1043,7 @@ CREATE TABLE public.projects_pct_costs (
 --
 
 CREATE TABLE public.projects_tasks (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     taskable_type character varying NOT NULL,
     taskable_id uuid NOT NULL,
     title character varying NOT NULL,
@@ -1062,7 +1063,7 @@ CREATE TABLE public.projects_tasks (
 --
 
 CREATE TABLE public.roles (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -2281,6 +2282,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211215052949'),
 ('20211215121358'),
 ('20211220101735'),
-('20211220120052');
+('20211220120052'),
+('20211231081347');
 
 

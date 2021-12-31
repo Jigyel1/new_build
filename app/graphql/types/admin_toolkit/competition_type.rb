@@ -9,6 +9,7 @@ module Types
       field :factor, Float, null: true
       field :lease_rate, String, null: true
       field :description, String, null: true
+      field :calculation_type, String, null: true
     end
   end
 end
