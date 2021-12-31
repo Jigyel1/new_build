@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [1.1.0] - 2021-12-31
 
 ### Features
-- Introduced "calculate pct as" column in competition table consisting of the following types of PCT calculations which was missed out.
+- Introduced "calculate pct as" column in competition table consisting of the following types of PCT calculations.
   - Swisscom DSL
   - SFN/Big4
   - Swisscom FTTH
