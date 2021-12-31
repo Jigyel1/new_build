@@ -24,9 +24,6 @@ rescue NoMethodError
   puts "No policy configuration for #{role.name}"
 end
 
-# The maximum signed integer, with 4 bytes
-MAX_SIGNED = (2**31) - 1
-
 def create_record(attributes)
   record = yield if block_given?
   return if record.persisted?
@@ -57,7 +54,7 @@ end
   role.update(description: description)
 end
 
-%w[pcts footprints label_groups competitions kam_regions offer_prices].each do |file|
+%w[pcts footprints label_groups competitions kam_regions offer_prices project_costs].each do |file|
   puts "Loading #{file.camelize}"
   load(Rails.root.join("db/seeds/#{file}.rb"))
 end

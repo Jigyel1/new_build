@@ -7,6 +7,19 @@ module Mutations
         argument :standard, Float, required: false
         argument :arpu, Float, required: false
         argument :socket_installation_rate, Float, required: false
+
+        # TODO: Descriptions to be added to these fields after getting some context from BA.
+        argument :cpe_hfc, Float, required: false
+        argument :cpe_ftth, Float, required: false
+        argument :olt_cost_per_customer, Float, required: false
+        argument :olt_cost_per_unit, Float, required: false
+        argument :patching_cost, Float, required: false
+        argument :mrc_standard, Float, required: false
+        argument :mrc_high_tiers, Float, required: false
+        argument :high_tiers_product_share, Float, required: false
+        argument :ftth_cost, Float, required: false
+        argument :hfc_payback, Int, required: false
+        argument :ftth_payback, Int, required: false
       end
 
       argument :attributes, UpdateProjectCostAttributes, required: true

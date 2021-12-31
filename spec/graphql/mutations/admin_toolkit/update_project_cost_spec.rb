@@ -9,13 +9,22 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
   describe '.resolve' do
     context 'for admins' do
       it 'updates the label list' do
-        response, errors = formatted_response(query(params), current_user: create(:user, :super_user),
-                                                             key: :updateProjectCost)
+        response, errors = formatted_response(
+          query(params),
+          current_user: create(:user, :super_user),
+          key: :updateProjectCost
+        )
+
         expect(errors).to be_nil
         expect(response.projectCost).to have_attributes(
           arpu: 50.0,
           standard: 10_500.0,
-          socketInstallationRate: 75.46
+          socketInstallationRate: 75.46,
+          mrcStandard: 20.0,
+          mrcHighTiers: 37.0,
+          highTiersProductShare: 20,
+          hfcPayback: 36,
+          ftthCost: 1198.55
         )
       end
     end
@@ -38,10 +47,20 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
               arpu: #{args[:arpu]}
               standard: #{args[:standard]}
               socketInstallationRate: 75.456
+              mrcStandard: 20.0
+              mrcHighTiers: 37.0
+              highTiersProductShare: 20
+              hfcPayback: 36
+              ftthCost: 1198.55
             }
           }
         )
-        { projectCost { id arpu standard socketInstallationRate } }
+        {
+          projectCost {
+            id arpu standard socketInstallationRate mrcStandard
+            mrcHighTiers highTiersProductShare hfcPayback ftthCost
+          }
+        }
       }
     GQL
   end

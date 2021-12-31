@@ -12,7 +12,7 @@ class BuildingsImporter < EtlBase
   # @param input [File] the file upload
   #
   def call(current_user:, input:)
-    sheet = Xsv::Workbook.open(input.tempfile.path).sheets[SHEET_INDEX]
+    sheet = Xsv::Workbook.open(file_path(input)).sheets[SHEET_INDEX]
     sheet.row_skip = SKIP_ROWS
 
     import(current_user, sheet)

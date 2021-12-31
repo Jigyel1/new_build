@@ -2,7 +2,7 @@
 
 module Projects
   class PctCost < ApplicationRecord
-    belongs_to :project
+    belongs_to :connection_cost, class_name: 'Projects::ConnectionCost'
 
     delegate :name, to: :project, prefix: true
   end

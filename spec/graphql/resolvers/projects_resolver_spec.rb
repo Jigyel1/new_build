@@ -50,7 +50,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     create(
       :project,
       :reactive,
-      :b2b_new,
+      :new_construction,
       :technical_analysis_completed,
       name: 'Neubau Einfamilienhaus mit Pavillon',
       address: address_c,

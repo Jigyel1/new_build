@@ -31,7 +31,7 @@ module Projects
       states = states.reject { |state| state == :archived }
       current = states.index(aasm.current_state)
 
-      states.each_with_index.map { |state, index| [state, index <= current] }.to_h
+      states.each_with_index.to_h { |state, index| [state, index <= current] }
     end
 
     def project
@@ -58,9 +58,9 @@ module Projects
       end
 
       event :technical_analysis_completed, if: %i[authorized? before_technical_analysis_completed] do
-        transitions from: :technical_analysis, to: :commercialization, if: :marketing_only?
         transitions from: :technical_analysis, to: :technical_analysis_completed, unless: %i[marketing_only? prio_one?]
         transitions from: :technical_analysis, to: :ready_for_offer, if: :prio_one?, unless: :marketing_only?
+        transitions from: :technical_analysis, to: :commercialization, if: :marketing_only?
       end
 
       event :offer_ready, if: :authorized?, after: :extract_verdict do

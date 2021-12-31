@@ -3,10 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::Projects::PctCostResolver do
-  let_it_be(:project_cost) { create(:admin_toolkit_project_cost) }
+  before_all { create(:admin_toolkit_project_cost) }
+
   let_it_be(:zip) { '1101' }
   let_it_be(:kam_region) { create(:kam_region) }
-  let_it_be(:penetration) { create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region, rate: 4.56) }
+  let_it_be(:penetration) { create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region, rate: 0.3507) }
   let_it_be(:competition) { create(:admin_toolkit_competition, lease_rate: 8.5) }
   let_it_be(:penetration_competition) do
     create(:penetration_competition, penetration: penetration, competition: competition)
@@ -19,47 +20,43 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
       :project,
       assignee: super_user,
       address: address,
-      buildings: build_list(:building, 3, apartments_count: 3)
+      apartments_count: 1
     )
   end
 
   describe '.resolve' do
-    context 'with valid params' do # wrt a complex project.
-      let!(:params) { { project_connection_cost: 999_876, set_project_connection_cost: true, sockets: 20 } }
+    context 'with valid params' do # wrt a non standard connection.
+      before { create(:connection_cost, :non_standard, project: project) }
 
-      before { project.update_column(:category, :complex) }
+      let!(:params) { { project_cost: 5000, set_project_cost: true, sockets: 4, cost_type: :non_standard } }
 
       it 'returns properly calculated PCT Cost for the project' do
         data, errors = formatted_response(query(params), current_user: super_user)
         expect(errors).to be_nil
         expect(data.projectPctCost).to have_attributes(
-          projectCost: 1_016_175.0,
-          socketInstallationCost: 16_299.0,
-          leaseCost: 20_930.4,
-          arpu: 45.66,
-          penetrationRate: 456,
-          paybackPeriod: 602,
-          paybackPeriodFormatted: '50 years and 2 months',
+          projectCost: 6200,
+          socketInstallationCost: 1200,
+          leaseCost: 252.5,
+          paybackPeriod: 430,
+          paybackPeriodFormatted: '35 years and 10 months',
           systemGeneratedPaybackPeriod: true,
-          projectConnectionCost: 999_876
+          buildCost: 6252.61,
+          roi: 74.29
         )
       end
 
       it 'throws error if project connection cost is not set' do
-        data, errors = formatted_response(query, current_user: super_user)
+        data, errors = formatted_response(query(cost_type: :non_standard), current_user: super_user)
         expect(data.project).to be_nil
         expect(errors).to eq(["Project connection cost #{t('projects.transition.project_connection_cost_missing')}"])
-      end
-
-      it 'returns lease cost if lease_cost_only flag is set' do
-        data, errors = formatted_response(query(lease_cost_only: true), current_user: super_user)
-        expect(errors).to be_nil
-        expect(data.projectPctCost.leaseCost).to eq(20_930.4)
       end
     end
 
     context 'when penetration is missing for the zip' do
-      before { penetration.update_column(:zip, '1103') }
+      before do
+        create(:connection_cost, project: project)
+        penetration.update_column(:zip, '1103')
+      end
 
       it 'throws error' do
         data, errors = formatted_response(query, current_user: super_user)
@@ -70,57 +67,10 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
       end
     end
 
-    context 'when competition is set' do
-      let!(:params) { { competition_id: competition.id } }
-
-      it 'calculates the lease price wrt the lease rate for that competition' do
-        data, errors = formatted_response(query(params), current_user: super_user)
-        expect(errors).to be_nil
-        expect(data.projectPctCost.leaseCost).to eq(20_930.4)
-      end
-    end
-
-    context 'when competition is not set' do
-      let!(:penetration_b) { create(:admin_toolkit_penetration, zip: '1102', kam_region: kam_region) }
-
-      let_it_be(:competition_b) { create(:admin_toolkit_competition, name: 'FTTH SFN', lease_rate: 9.5) }
-      let_it_be(:competition_c) { create(:admin_toolkit_competition, name: 'FTTH', lease_rate: 10.5) }
-
-      before do
-        create(:penetration_competition, penetration: penetration, competition: competition_b)
-        create(:penetration_competition, penetration: penetration_b, competition: competition_c)
-      end
-
-      it 'picks the highest lease rate from the admin toolkit for the projects competition' do
-        data, errors = formatted_response(query, current_user: super_user)
-        expect(errors).to be_nil
-        expect(data.projectPctCost.leaseCost).to eq(23_392.8)
-      end
-    end
-
-    context 'for irrelevant projects' do
-      before { project.update_column(:category, :irrelevant) }
-
-      it 'sets the project connection cost as 0 if not set' do # without throwing error
-        data, errors = formatted_response(query, current_user: super_user)
-        expect(errors).to be_nil
-        expect(data.projectPctCost.projectCost).to eq(0.0)
-      end
-    end
-
-    context 'for marketing only projects' do
-      before { project.update_column(:category, :marketing_only) }
-
-      it 'sets the project connection cost as 0 if not set' do # without throwing error
-        data, errors = formatted_response(query, current_user: super_user)
-        expect(errors).to be_nil
-        expect(data.projectPctCost.projectCost).to eq(0.0)
-        expect(data.projectPctCost.projectConnectionCost).to eq(0.0)
-      end
-    end
-
     context 'for standard projects' do
-      let!(:params) { { project_connection_cost: 999_876, set_project_connection_cost: true } }
+      before { create(:connection_cost, project: project) }
+
+      let!(:params) { { project_cost: 999_876, set_project_cost: true } }
 
       it 'throws error if project connection cost is sent in the request' do
         data, errors = formatted_response(query(params), current_user: super_user)
@@ -128,30 +78,47 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
         expect(errors).to eq(["Project connection cost #{t('projects.transition.project_connection_cost_irrelevant')}"])
       end
     end
+
+    context 'with :unknown as the sunrise access option' do
+      let!(:unknown_competition) { create(:admin_toolkit_competition, name: :unknown, code: :unknown) }
+      let!(:params) { { project_cost: 5000, set_competition: true, competition_id: unknown_competition.id } }
+
+      it 'uses sfn big 4 calculator to calculate the lease cost' do
+        data, errors = formatted_response(query(params), current_user: super_user)
+        expect(errors).to be_nil
+        expect(data.projectPctCost.leaseCost).to eq(252.5)
+      end
+    end
   end
 
   def project_connection_cost(args = {})
-    "projectConnectionCost: #{args[:project_connection_cost]}" if args[:set_project_connection_cost]
+    "projectConnectionCost: #{args[:project_cost]}" if args[:set_project_cost]
+  end
+
+  def project_competition(args = {})
+    "competitionId: \"#{args[:competition_id]}\"" if args[:set_competition]
   end
 
   def query(args = {})
-    lease_cost_only = args[:lease_cost_only] || false
     sockets = args[:sockets] || 0
+    connection_type = args[:connection_type] || :hfc
+    cost_type = args[:cost_type] || :standard
 
     <<~GQL
       query {
         projectPctCost(
           attributes: {
             projectId: "#{project.id}"
-            competitionId: "#{args[:competition_id]}"
-            leaseCostOnly: #{lease_cost_only}
+            connectionType: "#{connection_type}"
+            costType: "#{cost_type}"
             sockets: #{sockets}
+            #{project_competition(args)}
             #{project_connection_cost(args)}
           }
         )
         {
-          id projectCost socketInstallationCost arpu leaseCost penetrationRate
-          paybackPeriod paybackPeriodFormatted systemGeneratedPaybackPeriod projectConnectionCost
+          id projectCost socketInstallationCost leaseCost buildCost roi
+          paybackPeriod paybackPeriodFormatted systemGeneratedPaybackPeriod
         }
       }
     GQL

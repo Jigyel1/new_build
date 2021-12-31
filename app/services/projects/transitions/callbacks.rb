@@ -11,13 +11,18 @@ module Projects
       def before_technical_analysis_completed
         extract_verdict
 
-        # Project does not accept nested attribute for PCT Cost. So build the project
+        # Project does not accept nested attribute for Connection Costs. So build the project
         # excluding the <tt>pct_cost_attributes</tt>
-        project.assign_attributes(attributes.except(:pct_cost_attributes))
+        project.assign_attributes(attributes.except(:connection_costs_attributes))
 
         Transitions::TacValidator.new(
           project: project,
           attributes: attributes
+        ).call
+
+        Transitions::ConnectionCostValidator.new(
+          project: project,
+          attributes: attributes[:connection_costs_attributes]
         ).call
 
         true
@@ -27,7 +32,8 @@ module Projects
         update_label unless marketing_only?
       end
 
-      def after_ready_for_offer
+      def after_offer_ready
+        update_tac_attributes
         update_label
       end
 
@@ -48,7 +54,7 @@ module Projects
       def update_label # rubocop:disable Metrics/AbcSize
         default_label_group.label_list.delete_if { |label| AdminToolkit::PctValue.statuses.value?(label) }
 
-        default_label_group.label_list << AdminToolkit::PctValue.statuses[project_priority.status]
+        default_label_group.label_list << AdminToolkit::PctValue.statuses[pct_value.status]
         default_label_group.save!
       rescue StandardError => e
         raise(t('projects.transition.error_while_adding_label', error: e.message))

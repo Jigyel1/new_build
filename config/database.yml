@@ -8,7 +8,7 @@ development:
   database: new_build_development
 test:
   <<: *default
-  database: new_build_test
+  database: new_build_test_<%= ENV['TEST_ENV_NUMBER'] %>
   host: localhost
 
 production:

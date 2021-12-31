@@ -200,4 +200,3 @@ GIS_URL_STATIC
 
 INFO_MANAGER_URL 
 > https://infomanager.bauinfocenter.ch/go/projectext/
-

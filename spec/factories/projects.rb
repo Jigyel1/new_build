@@ -26,8 +26,8 @@ FactoryBot.define do
       entry_type { :info_manager }
     end
 
-    trait :with_access_tech_cost do
-      access_tech_cost { build(:access_tech_cost) }
+    trait :with_hfc_connection_cost do
+      connection_costs { [build(:connection_cost)] }
     end
 
     trait :with_installation_detail do
@@ -41,6 +41,15 @@ FactoryBot.define do
     %w[categories priorities construction_types statuses].each do |key|
       Project.send(key).each_key do |name|
         trait name do
+          send(key.singularize) { name }
+        end
+      end
+    end
+
+    %w[priority_tacs access_technology_tacs].each do |key|
+      Project.send(key).each_key do |name|
+        name_with_suffix = "#{name}_tac"
+        trait name_with_suffix do
           send(key.singularize) { name }
         end
       end

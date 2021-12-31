@@ -6,6 +6,8 @@ module Mutations
       class TransitionToReadyForOfferAttributes < Types::BaseInputObject
         argument :id, ID, required: true
         argument :verdicts, GraphQL::Types::JSON, required: false
+        argument :priority_tac, String, required: true
+        argument :access_technology_tac, String, required: true
       end
 
       argument :attributes, TransitionToReadyForOfferAttributes, required: true

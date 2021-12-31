@@ -20,7 +20,7 @@ describe Mutations::ImportProjects, type: :request do
     before { sign_in(super_user) }
 
     # Here we will just test that the API is exposed and doesn't throw any error on execution.
-    # Details of the Projects import will be tested in `spec/tasks/import_projects_spec.rb`
+    # Details of the Projects import will be tested in `spec/tasks/projects_importer_spec.rb`
     it 'executes successfully' do
       post api_v1_graphql_path, params: params
       expect(status).to eq(200)

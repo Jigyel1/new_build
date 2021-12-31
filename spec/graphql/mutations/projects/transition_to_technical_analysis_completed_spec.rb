@@ -41,10 +41,26 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   let_it_be(:project) { create(:project, :technical_analysis, address: address, incharge: super_user) }
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
 
+  let_it_be(:connection_cost_str) { '{ connectionType: "hfc", costType: "standard"}' }
+
   describe '.resolve' do
     context 'with permissions' do
       before_all { project.update_column(:category, :complex) }
-      let_it_be(:params) { { set_pct_cost: true } }
+      let_it_be(:params) do
+        {
+          connection_costs: '
+            {
+              connectionType: "hfc",
+              costType: "standard"
+            },
+            {
+              connectionType: "ftth",
+              costType: "non_standard",
+              projectConnectionCost: 11000
+            }
+          '
+        }
+      end
 
       it 'updates project status' do
         response, errors = formatted_response(
@@ -53,12 +69,14 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be_nil
+        expect(response.project).to have_attributes(cableInstallations: %w[FTTH Coax])
         expect(response.project.status).to eq('technical_analysis_completed')
         expect(response.project.verdicts).to have_attributes(
           technical_analysis_completed: 'This projects looks feasible with the current resources.'
         )
 
         expect(project.default_label_group.reload.label_list).to include('Prio 2')
+        expect(project.connection_costs.pluck(:connection_type)).to match_array(%w[hfc ftth])
       end
     end
 
@@ -68,7 +86,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'forbids action' do
         response, errors = formatted_response(
-          query(set_pct_cost: true),
+          query(set_pct_cost: true, connection_costs: connection_cost_str),
           current_user: admin,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -83,7 +101,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'forbids action' do
         response, errors = formatted_response(
-          query,
+          query(connection_costs: connection_cost_str),
           current_user: admin,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -93,10 +111,38 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       end
     end
 
-    context 'when standard cost is applicable' do
-      it 'throws error when preferred access technology is set to FTTH' do
+    context 'when both connection types are too expensive' do
+      before { project.update_column(:category, :complex) }
+
+      it 'marks the project irrelevant and archives it' do
         response, errors = formatted_response(
-          query(standard_cost_applicable: true, access_technology: :ftth),
+          query(
+            set_pct_cost: true,
+            connection_costs: '
+              {
+                connectionType: "hfc",
+                costType: "too_expensive"
+              },
+              {
+                connectionType: "ftth",
+                costType: "too_expensive"
+              }
+            '
+          ),
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
+
+        expect(response.project).to be_nil
+        expect(errors).to eq([t('projects.transition.archiving_expensive_project')])
+        expect(project.reload).to have_attributes(status: 'archived', category: 'irrelevant')
+      end
+    end
+
+    context 'for HFC only projects' do
+      it 'throws error when FTTH connection type is selected' do
+        response, errors = formatted_response(
+          query(connection_costs: '{ connectionType: "ftth", costType: "standard" }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -105,24 +151,12 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         expect(errors).to eq([t('projects.transition.ftth_not_supported')])
         expect(project.reload.status).to eq('technical_analysis')
       end
-
-      it 'throws error when access technology cost is set' do
-        response, errors = formatted_response(
-          query(standard_cost_applicable: true, set_access_tech_cost: true),
-          current_user: super_user,
-          key: :transitionToTechnicalAnalysisCompleted
-        )
-
-        expect(response.project).to be_nil
-        expect(errors).to eq([t('projects.transition.access_tech_cost_not_supported')])
-        expect(project.reload.status).to eq('technical_analysis')
-      end
     end
 
     context 'when in house installation is selected' do
       it 'throws error if in house details are not set' do
         response, errors = formatted_response(
-          query(in_house_installation: true),
+          query(in_house_installation: true, connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -136,7 +170,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     context 'when in house installation is not selected' do
       it 'throws error if in house details are set' do
         response, errors = formatted_response(
-          query(set_installation_detail: true),
+          query(set_installation_detail: true, connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -155,7 +189,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'updates the project to ready for offer state' do
         response, errors = formatted_response(
-          query,
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -172,7 +206,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'updates the project to technical analysis completed' do
         response, errors = formatted_response(
-          query,
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -188,7 +222,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'transitions the project to commercialization state' do
         response, errors = formatted_response(
-          query,
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -202,7 +236,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'responds with error' do
         response, errors = formatted_response(
-          query,
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -221,7 +255,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       it 'responds with error' do
         response, errors = formatted_response(
-          query,
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
@@ -236,41 +270,39 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     end
 
     context 'when payback period is system generated' do
-      let_it_be(:project_pct_cost) { create(:projects_pct_cost, project: project, payback_period: 498) }
+      let!(:connection_cost) { create(:connection_cost, project: project) }
+
+      before { create(:projects_pct_cost, connection_cost: connection_cost, payback_period: 498) }
 
       it 'recalculates payback period' do
         _response, errors = formatted_response(
-          query,
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be(nil)
-        expect(project.reload.pct_cost.payback_period).to be(17)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(17)
       end
     end
 
     context 'when payback period is manually set' do
+      let!(:connection_cost) { create(:connection_cost, project: project) }
+
       before do
         pct_value.pct_month.update_column(:max, 498)
-        create(:projects_pct_cost, :manually_set_payback_period, project: project, payback_period: 498)
+        create(:projects_pct_cost, :manually_set_payback_period, connection_cost: connection_cost, payback_period: 498)
       end
 
       it 'does not recalculate the payback period' do
         _response, errors = formatted_response(
-          query,
+          query(connection_costs: connection_cost_str),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be(nil)
-        expect(project.reload.pct_cost.payback_period).to be(498)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(498)
       end
     end
-  end
-
-  def pct_cost(set_pct_cost)
-    return unless set_pct_cost
-
-    'pctCost: { projectConnectionCost: 99998.56 }'
   end
 
   def installation_detail(set_installation_detail)
@@ -279,22 +311,14 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     'installationDetail: { sockets: 13 builder: "ll" }'
   end
 
-  def access_tech_cost(set_access_tech_cost)
-    return unless set_access_tech_cost
+  def connection_costs(args)
+    return unless args[:connection_costs]
 
-    <<~ACCESS_TECH_COST
-      accessTechCost: {
-        hfcOnPremiseCost: 119
-        hfcOffPremiseCost: 1198
-        lwlOnPremiseCost: 98
-        lwlOffPremiseCost: 999
-      }
-    ACCESS_TECH_COST
+    "connectionCosts: [#{args[:connection_costs]}]"
   end
 
   def query(args = {})
     access_technology = args[:access_technology] || :hfc
-    standard_cost_applicable = args[:standard_cost_applicable] || false
     in_house_installation = args[:in_house_installation] || false
 
     <<~GQL
@@ -303,21 +327,25 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           input: {
             attributes: {
               id: "#{project.id}"
-              standardCostApplicable: #{standard_cost_applicable}
               accessTechnology: "#{access_technology}"
               inHouseInstallation: #{in_house_installation}
               competitionId: "#{competition.id}"
-              constructionType: "b2b_new"
+              constructionType: "new_construction"
               customerRequest: false
               priority: "proactive"
+              cableInstallations: "FTTH, Coax"
               verdicts: { technical_analysis_completed: "This projects looks feasible with the current resources." }
-              #{access_tech_cost(args[:set_access_tech_cost])}
+              #{connection_costs(args)}
               #{installation_detail(args[:set_installation_detail])}
-              #{pct_cost(args[:set_pct_cost])}
             }
           }
         )
-        { project { id status verdicts } }
+        {
+          project {
+            id status verdicts cableInstallations
+            connectionCosts { costType connectionType }
+          }
+        }
       }
     GQL
   end

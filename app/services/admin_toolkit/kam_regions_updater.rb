@@ -20,7 +20,7 @@ module AdminToolkit
     def validate!
       # Reject blank/nil kam_ids as FE may send those to un assign a KAM.
       # You don't query DB with nil kam id.
-      kam_ids = attributes.pluck(:kam_id).reject(&:blank?)
+      kam_ids = attributes.pluck(:kam_id).compact_blank
       return if kam_ids.all? { |kam_id| User.find(kam_id).kam? }
 
       raise t('admin_toolkit.invalid_kam')

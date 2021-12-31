@@ -51,15 +51,18 @@ en:
     pct_month:
       invalid_min: System tried updating min month for PCT with index "%{index}" to CHF %{new_max} which is
         not valid as it is less than its max month (CHF %{old_max}). Please send a value less than %{old_max}.
+    penetration:
+      zip_missing: Penetration rate not available for the project's zip.
+    project_cost:
+      null_fields: Please check if fields required for calculation are set in the AdminToolkit#ProjectCost
     footprint_apartment:
       invalid_min: System tried updating min building for Footprint with index "%{index}" to %{new_max} which is
         not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.
-    offer_price:
-      invalid_min: System tried updating min appartment for Offer Price with index "%{index}" to %{new_max} which is
-        not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.
 
   any_presence: At least one of these fields - %{fields} must be present
-
+  offer_price:
+    invalid_min: System tried updating min appartment for Offer Price with index "%{index}" to %{new_max} which is
+      not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.
   projects:
     file:
       invalid_attachable_type: Attachable type is invalid. %{valid_types} are only supported.
@@ -70,11 +73,12 @@ en:
       not_archived: You can only unarchive archived tasks.
     transition:
       event_not_allowed: Event not allowed.
-      ftth_not_supported: FTTH is not a valid option if standard cost is applicable.
-      access_tech_cost_not_supported: Access Tech Cost should not be passed if standard cost is not available.
+      ftth_not_supported: FTTH is not a valid option for HFC only projects.
+      cost_present: For connection costs with standard cost set, cost should not be present.
+      archiving_expensive_project: Project connection costs are too expensive. Archiving this project.
       missing_inhouse_installation_details: In House Installation details not set
       inhouse_installation_details_not_supported: In House Installation not required. You should not be sending the installation details.
-      project_connection_cost_missing: is necessary for complex projects.
+      project_connection_cost_missing: is necessary for non standard connections.
       project_connection_cost_irrelevant: should be fetched from the AdminToolkit and not sent as a user input.
       socket_installation_cost_missing: Socket Installation cost is not set in the Costs of the Admin Toolkit. You will need this
         to calculate the overall socket installation cost of the project.
@@ -100,8 +104,8 @@ en:
       notify_on_due_date: New Build - Tasks Due Today
       task_created: New Build - Task Assignee
     project:
-      assignee_assigned: New Build - Project Assignee
-      assignee_unassigned: New Build - Unassigned from Project
-      incharge_assigned: New Build - Technical Incharge
-      incharge_unassigned: New Build - Unassigned from Technical Incharge
-      project_import: New Build - Project Creation Failed
+      notify_assignee_assigned: New Build - Project Assignee
+      notify_assignee_unassigned: New Build - Unassigned from Project
+      notify_incharge_assigned: New Build - Technical Incharge
+      notify_incharge_unassigned: New Build - Unassigned from Technical Incharge
+      notify_import: New Build - Project Creation Failed

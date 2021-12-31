@@ -10,11 +10,10 @@ RSpec.describe Project, type: :model do
     it { is_expected.to belong_to(:competition).optional(true) }
 
     it { is_expected.to have_one(:address).dependent(:destroy) }
-    it { is_expected.to have_one(:access_tech_cost).dependent(:destroy) }
     it { is_expected.to have_one(:installation_detail).dependent(:destroy) }
-    it { is_expected.to have_one(:pct_cost).dependent(:destroy) }
     it { is_expected.to have_one(:default_label_group).dependent(:destroy) }
 
+    it { is_expected.to have_many(:connection_costs).dependent(:destroy) }
     it { is_expected.to have_many(:address_books).dependent(:destroy) }
     it { is_expected.to have_many(:buildings).dependent(:destroy) }
     it { is_expected.to have_many(:tasks).dependent(:destroy) }
@@ -22,7 +21,7 @@ RSpec.describe Project, type: :model do
 
     it { is_expected.to accept_nested_attributes_for(:address) }
     it { is_expected.to accept_nested_attributes_for(:address_books) }
-    it { is_expected.to accept_nested_attributes_for(:access_tech_cost) }
+    it { is_expected.to accept_nested_attributes_for(:connection_costs) }
     it { is_expected.to accept_nested_attributes_for(:installation_detail) }
   end
 
@@ -102,6 +101,12 @@ RSpec.describe Project, type: :model do
                                move_in_starts_on: Date.current.tomorrow)).to be_valid
       end
     end
+
+    context 'with invalid cable installation type' do
+      it 'invalidates record' do
+        expect(build(:project, cable_installations: 'invalid')).not_to be_valid
+      end
+    end
   end
 
   describe 'hooks' do
@@ -177,8 +182,8 @@ RSpec.describe Project, type: :model do
       expect(subject).to define_enum_for(:construction_type).with_values( # rubocop:disable RSpec/NamedSubject
         reconstruction: 'Reconstruction',
         new_construction: 'New Construction',
-        b2b_new: 'B2B (New)',
-        b2b_reconstruction: 'B2B (Reconstruction)',
+        transformation: 'Transformation',
+        pre_invest: 'Pre Invest',
         overbuild: 'Overbuild'
       ).backed_by_column_of_type(:string)
     end
@@ -194,6 +199,21 @@ RSpec.describe Project, type: :model do
         under_construction: 'Under Construction',
         commercialization: 'Commercialization',
         archived: 'Archived'
+      ).backed_by_column_of_type(:string)
+    end
+
+    it do
+      expect(subject).to define_enum_for(:building_type).with_values( # rubocop:disable RSpec/NamedSubject
+        efh: 'EFH',
+        mfh: 'MFH',
+        refh: 'Non-Residential REFH',
+        stepped_building: 'Stepped Building',
+        restaurant: 'Restaurant',
+        school: 'School',
+        hospital: 'Hospital',
+        nursing: 'Nursing',
+        retirement_homes: 'Retirement Homes',
+        others: 'Others'
       ).backed_by_column_of_type(:string)
     end
   end

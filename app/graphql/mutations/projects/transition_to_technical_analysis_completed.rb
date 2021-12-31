@@ -3,27 +3,18 @@
 module Mutations
   module Projects
     class TransitionToTechnicalAnalysisCompleted < BaseMutation
-      class PctCostAttributes < Types::BaseInputObject
-        argument :project_connection_cost, Float, required: false, description: <<~DESC
-          Required only for complex projects.
-          Irrelevant for standard projects.
-          Optional for irrelevant and marketing only projects.
-        DESC
-      end
-
       class InstallationDetailAttributes < Types::BaseInputObject
         argument :sockets, Int, required: true
         argument :builder, String, required: true
       end
 
-      class AccessTechCostAttributes < Types::BaseInputObject
-        argument :hfc_on_premise_cost, Float, required: true
-        argument :hfc_off_premise_cost, Float, required: true
-        argument :lwl_on_premise_cost, Float, required: true
-        argument :lwl_off_premise_cost, Float, required: true
-
-        argument :comment, String, required: false
-        argument :explanation, String, required: false
+      class ConnectionCostsAttributes < Types::BaseInputObject
+        argument :connection_cost_id, ID, required: false
+        argument :connection_type, String, required: false
+        argument :cost_type, String, required: false
+        argument :project_connection_cost, Float, required: false, description: <<~DESC
+          Required if the connection type selected is non standard.
+        DESC
       end
 
       class TransitionToTechnicalAnalysisCompletedAttributes < Types::BaseInputObject
@@ -38,15 +29,15 @@ module Mutations
         argument :priority, String, required: true
         argument :analysis, String, required: false
         argument :verdicts, GraphQL::Types::JSON, required: false
-
-        argument :standard_cost_applicable, Boolean, required: true, description: <<~DESC
-          When true, `access_tech_cost` should not be sent. When false, `access_tech_cost` is needed.
+        argument :cable_installations, String, required: false, description: <<~DESC
+          Send supported options as a comma separated string. eg. "FTTH, Coax"
         DESC
+
         argument(
-          :access_tech_cost,
-          AccessTechCostAttributes,
-          required: false,
-          as: :access_tech_cost_attributes
+          :connection_costs,
+          [ConnectionCostsAttributes],
+          required: true,
+          as: :connection_costs_attributes
         )
 
         argument :in_house_installation, Boolean, required: true
@@ -56,8 +47,6 @@ module Mutations
           required: false,
           as: :installation_detail_attributes
         )
-
-        argument :pct_cost, PctCostAttributes, required: false, as: :pct_cost_attributes
       end
 
       argument :attributes, TransitionToTechnicalAnalysisCompletedAttributes, required: true
