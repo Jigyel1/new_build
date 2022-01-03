@@ -88,6 +88,9 @@ module Types
     field(:admin_toolkit_offer_additional_costs, resolver: Resolvers::AdminToolkit::OfferAdditionalCostsResolver,
                                                  preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
 
+    field(:admin_toolkit_cost_threshold, resolver: Resolvers::AdminToolkit::CostThresholdResolver,
+                                         preauthorize: { with: ::AdminToolkitPolicy, to: :index? })
+
     field(
       :projects,
       resolver: Resolvers::ProjectsResolver,
