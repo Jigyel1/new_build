@@ -10,7 +10,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Introduced "Cost Threshold" in the AdminToolkit, where we can set the margin of the cost,
   So that in the TAC only certain users can move the project from one state to another.
 
-
 ## [1.1.0] - 2021-12-31
 
 ### Features
