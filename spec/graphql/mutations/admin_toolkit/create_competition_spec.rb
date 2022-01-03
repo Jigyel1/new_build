@@ -17,7 +17,8 @@ RSpec.describe Mutations::AdminToolkit::CreateCompetition do
           sfn: true,
           leaseRate: '119.9834',
           name: 'FTTH SC & EVU',
-          description: 'Very high competition (fiber areas such as Zurich, Bern, Lucerne, etc.)'
+          description: 'Very high competition (fiber areas such as Zurich, Bern, Lucerne, etc.)',
+          calculationType: 'dsl'
         )
       end
     end
@@ -55,10 +56,11 @@ RSpec.describe Mutations::AdminToolkit::CreateCompetition do
               leaseRate: "119.9834"
               name: "FTTH SC & EVU"
               description: "Very high competition (fiber areas such as Zurich, Bern, Lucerne, etc.)"
+              calculationType: "Swisscom DSL"
             }
           }
         )
-        { competition { id sfn factor leaseRate name description } }
+        { competition { id sfn factor leaseRate name description calculationType} }
       }
     GQL
   end

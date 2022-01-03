@@ -14,6 +14,18 @@ RSpec.describe AdminToolkit::Competition, type: :model do
     end
   end
 
+  describe 'Enum' do
+    subject(:competition) { described_class.new }
+
+    it do
+      expect(competition).to define_enum_for(:calculation_type).with_values(
+        dsl: 'Swisscom DSL',
+        ftth: 'Swisscom FTTH',
+        sfn: 'SFN/Big4'
+      ).backed_by_column_of_type(:string)
+    end
+  end
+
   describe 'associations' do
     it { is_expected.to have_many(:projects).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:penetration_competitions) }

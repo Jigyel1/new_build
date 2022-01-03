@@ -10,6 +10,12 @@ module AdminToolkit
     has_many :penetration_competitions, class_name: 'AdminToolkit::PenetrationCompetition' # rubocop:disable Rails/HasManyOrHasOneDependent
     has_many :penetrations, through: :penetration_competitions, dependent: :restrict_with_error
 
+    enum calculation_type: {
+      dsl: 'Swisscom DSL',
+      ftth: 'Swisscom FTTH',
+      sfn: 'SFN/Big4'
+    }
+
     default_scope { order(created_at: :desc) }
 
     before_commit :set_code, on: :create
