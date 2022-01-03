@@ -7,7 +7,7 @@ RSpec.describe Resolvers::AdminToolkit::CostThresholdResolver do
 
   describe '.resolve' do
     context 'for admins' do
-      let_it_be(:super_user) { create(:user, :super_user) }
+      let(:super_user) { create(:user, :super_user) }
 
       it 'returns cost threshold value' do
         response, errors = formatted_response(query, current_user: super_user)
@@ -17,7 +17,7 @@ RSpec.describe Resolvers::AdminToolkit::CostThresholdResolver do
     end
 
     context 'for non admins' do
-      let_it_be(:kam) { create(:user, :kam) }
+      let(:kam) { create(:user, :kam) }
 
       it 'forbids action' do
         response, errors = formatted_response(query, current_user: kam)
