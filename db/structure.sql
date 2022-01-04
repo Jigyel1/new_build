@@ -497,6 +497,19 @@ CREATE TABLE public.admin_toolkit_competitions (
 
 
 --
+-- Name: admin_toolkit_cost_thresholds; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_toolkit_cost_thresholds (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    not_exceeding numeric,
+    exceeding numeric,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: admin_toolkit_footprint_apartments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1170,6 +1183,14 @@ ALTER TABLE ONLY public.addresses
 
 ALTER TABLE ONLY public.admin_toolkit_competitions
     ADD CONSTRAINT admin_toolkit_competitions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_toolkit_cost_thresholds admin_toolkit_cost_thresholds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_toolkit_cost_thresholds
+    ADD CONSTRAINT admin_toolkit_cost_thresholds_pkey PRIMARY KEY (id);
 
 
 --
@@ -2283,6 +2304,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211215121358'),
 ('20211220101735'),
 ('20211220120052'),
-('20211231081347');
+('20211231081347'),
+('20220103082627');
 
 

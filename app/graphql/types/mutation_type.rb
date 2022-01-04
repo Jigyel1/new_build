@@ -58,6 +58,8 @@ module Types
     field :update_offer_additional_cost, mutation: Mutations::AdminToolkit::UpdateOfferAdditionalCost
     field :delete_offer_additional_cost, mutation: Mutations::AdminToolkit::DeleteOfferAdditionalCost
 
+    field :update_cost_threshold, mutation: Mutations::AdminToolkit::UpdateCostThreshold
+
     field :create_project, mutation: Mutations::CreateProject
     field :update_project, mutation: Mutations::UpdateProject
     field :import_projects, mutation: Mutations::ImportProjects

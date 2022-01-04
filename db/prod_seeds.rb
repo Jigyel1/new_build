@@ -54,6 +54,9 @@ end
   role.update(description: description)
 end
 
+# Default cost threshold, i.e, to be used moving in project state from TAC
+AdminToolkit::CostThreshold.create!(not_exceeding: 5000, exceeding: 5000)
+
 %w[pcts footprints label_groups competitions kam_regions offer_prices project_costs].each do |file|
   puts "Loading #{file.camelize}"
   load(Rails.root.join("db/seeds/#{file}.rb"))
