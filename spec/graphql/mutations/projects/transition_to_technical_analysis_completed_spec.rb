@@ -268,43 +268,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         )
       end
     end
-
-    # context 'when payback period is system generated' do
-    #   let!(:connection_cost) { create(:connection_cost, project: project) }
-    #
-    #   before { create(:projects_pct_cost, connection_cost: connection_cost, payback_period: 498) }
-    #
-    #   it 'recalculates payback period' do
-    #     _response, errors = formatted_response(
-    #       query(connection_costs: connection_cost_str),
-    #       current_user: super_user,
-    #       key: :transitionToTechnicalAnalysisCompleted
-    #     )
-    #     binding.pry
-    #     expect(errors).to be(nil)
-    #     expect(connection_cost.project.reload.pct_cost.payback_period).to be(17)
-    #   end
-    # end
-    #
-    # context 'when payback period is manually set' do
-    #   let!(:connection_cost) { create(:connection_cost, project: project) }
-    #
-    #   before do
-    #     pct_value.pct_month.update_column(:max, 498)
-    #     create(:projects_pct_cost, :manually_set_payback_period, connection_cost: connection_cost, payback_period: 498)
-    #   end
-    #
-    #   it 'does not recalculate the payback period' do
-    #     _response, errors = formatted_response(
-    #       query(connection_costs: connection_cost_str),
-    #       current_user: super_user,
-    #       key: :transitionToTechnicalAnalysisCompleted
-    #     )
-    #     expect(errors).to be(nil)
-    #     binding.pry
-    #     expect(connection_cost.project.reload.pct_cost.payback_period).to be(17)
-    #   end
-    # end
   end
 
   def installation_detail(set_installation_detail)
@@ -334,6 +297,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               competitionId: "#{competition.id}"
               constructionType: "new_construction"
               customerRequest: false
+              buildingType: "efh"
               priority: "proactive"
               cableInstallations: "FTTH, Coax"
               verdicts: { technical_analysis_completed: "This projects looks feasible with the current resources." }

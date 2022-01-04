@@ -8,6 +8,7 @@ FactoryBot.define do
     assignee { nil }
     priority { :proactive }
     construction_type { :reconstruction }
+    building_type { :efh }
     additional_details { {} }
 
     transient do
