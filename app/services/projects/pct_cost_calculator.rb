@@ -134,20 +134,11 @@ module Projects
       @_connection_cost ||= if connection_cost_id
                               project.connection_costs.find_by(id: connection_cost_id)
                             else
-                              project_connection_type.present? if delete(project_connection_type)
-                              create_connection_cost(connection_type, cost_type)
+                              connection_cost = project.connection_costs.find_by!(connection_type: connection_type)
+                              project_connection_type.present? if connection_cost.update(cost_type: cost_type)
+
+                              connection_cost
                             end
-    end
-
-    def delete(connection_type)
-      connection_type.destroy_all
-    end
-
-    def create_connection_cost(connection_type, cost_type)
-      project.connection_costs.find_or_create_by!(
-        connection_type: connection_type,
-        cost_type: cost_type
-      )
     end
 
     def penetration
