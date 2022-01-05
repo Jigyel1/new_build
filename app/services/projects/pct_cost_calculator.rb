@@ -126,10 +126,6 @@ module Projects
       @_project ||= Project.find(project_id)
     end
 
-    def project_connection_type
-      @_project_connection_type = project.connection_costs.try(connection_type)
-    end
-
     def connection_cost
       @_connection_cost ||= if connection_cost_id
                               project.connection_costs.find_by(id: connection_cost_id)
