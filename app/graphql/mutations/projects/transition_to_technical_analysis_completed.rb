@@ -25,6 +25,7 @@ module Mutations
         argument :competition_id, String, required: true
         argument :construction_type, String, required: true
         argument :customer_request, Boolean, required: true
+        argument :building_type, String, required: true
 
         argument :priority, String, required: true
         argument :analysis, String, required: false

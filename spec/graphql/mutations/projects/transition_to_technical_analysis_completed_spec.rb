@@ -332,6 +332,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               competitionId: "#{competition.id}"
               constructionType: "new_construction"
               customerRequest: false
+              buildingType: "efh"
               priority: "proactive"
               cableInstallations: "FTTH, Coax"
               verdicts: { technical_analysis_completed: "This projects looks feasible with the current resources." }
