@@ -12,3 +12,6 @@ en:
           labels_not_unique: Labels are not unique
         projects/label_group:
           labels_not_unique: Labels are not unique
+
+    admin_toolkit/penetration:
+      exists: Duplication of Penetration Zip => %{zip}. It will not be imported.
