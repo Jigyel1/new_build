@@ -380,6 +380,9 @@ GEM
     redis (4.5.1)
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
+    redis-session-store (0.11.4)
+      actionpack (>= 3, < 8)
+      redis (>= 3, < 5)
     reek (6.0.6)
       kwalify (~> 0.7.0)
       parser (~> 3.0.0)
@@ -606,6 +609,7 @@ DEPENDENCIES
   rdoc (= 6.3.3)
   recursive-open-struct
   redis-namespace
+  redis-session-store
   rollbar
   rspec-benchmark
   rspec-rails (~> 5.0.0)

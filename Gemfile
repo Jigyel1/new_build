@@ -91,6 +91,7 @@ gem 'premailer-rails'
 gem 'rack-cors'
 gem 'recursive-open-struct'
 gem 'redis-namespace'
+gem 'redis-session-store'
 gem 'rollbar'
 gem 'sass-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
