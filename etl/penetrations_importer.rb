@@ -15,7 +15,8 @@ class PenetrationsImporter < EtlBase
   def call(current_user:, input:)
     sheet = Xsv::Workbook.open(file_path(input)).sheets[ProjectsImporter::SHEET_INDEX]
     sheet.row_skip = ProjectsImporter::SKIP_ROWS
-    @duplicate_zip, @sheets = [], []
+    @duplicate_zip = []
+    @sheets = []
 
     register_duplicate_entry(sheet)
     import(current_user, sheets, duplicate_zip)
