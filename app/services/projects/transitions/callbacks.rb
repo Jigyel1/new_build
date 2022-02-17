@@ -8,7 +8,7 @@ module Projects
         send(callback) if respond_to?(callback)
       end
 
-      def before_technical_analysis_completed
+      def before_technical_analysis_completed # rubocop:disable Metrics/SeliseMethodLength
         extract_verdict
 
         # Project does not accept nested attribute for Connection Costs. So build the project
@@ -25,10 +25,14 @@ module Projects
           attributes: attributes[:connection_costs_attributes]
         ).call
 
+        update_label
+        update_exceeding_cost
         true
       end
 
       def after_technical_analysis_completed
+        calculate_pct!
+        update_exceeding_cost
         update_label unless marketing_only?
       end
 
@@ -38,6 +42,23 @@ module Projects
       end
 
       private
+
+      def calculate_pct! # rubocop:disable Metrics::AbcSize, Metrics/SeliseMethodLength
+        return if project.in_house_installation?
+
+        project.connection_costs.find_each do |connection_cost|
+          project_connection_cost = connection_cost.standard? ? nil : connection_cost.pct_cost.project_connection_cost
+          ::Projects::PctCostCalculator.new(
+            project_id: project.id,
+            competition_id: project.reload.competition_id,
+            project_connection_cost: project_connection_cost,
+            sockets: 0,
+            connection_type: connection_cost.connection_type,
+            cost_type: connection_cost.cost_type,
+            connection_cost_id: connection_cost.id
+          ).call
+        end
+      end
 
       delegate :default_label_group, to: :project
 
@@ -58,6 +79,10 @@ module Projects
         default_label_group.save!
       rescue StandardError => e
         raise(t('projects.transition.error_while_adding_label', error: e.message))
+      end
+
+      def update_exceeding_cost
+        project.update!(exceeding_cost: ::AdminToolkit::CostThreshold.first.exceeding)
       end
     end
   end

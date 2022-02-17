@@ -6,10 +6,10 @@ module Types
       field :id, ID, null: true
       field :name, String, null: true
       field :sfn, Boolean, null: true
+      field :code, String, null: true
       field :factor, Float, null: true
       field :lease_rate, String, null: true
       field :description, String, null: true
-      field :calculation_type, String, null: true
     end
   end
 end

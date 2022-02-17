@@ -5,7 +5,7 @@ module Mutations
     class UpdatePaybackPeriod < BaseMutation
       class UpdatePaybackPeriodAttributes < Types::BaseInputObject
         argument :connection_cost_id, ID, required: true
-        argument :months, Int, required: true
+        argument :months, Int, required: false
       end
 
       argument :attributes, UpdatePaybackPeriodAttributes, required: true

@@ -2,7 +2,7 @@
 
 AdminToolkit::ProjectCost.instance.update!(
   standard: 5000,
-  arpu: 1.5,
+  ftth_cost: 10_000,
   socket_installation_rate: 60,
 
   cpe_hfc: 150,

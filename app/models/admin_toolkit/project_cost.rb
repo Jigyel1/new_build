@@ -8,7 +8,7 @@ module AdminToolkit
     validates :index, presence: true, uniqueness: true, inclusion: { in: [0] }
 
     alias_attribute :standard_connection_cost, :standard
-    alias_attribute :hfc_cost, :standard
+    alias_attribute :ftth_standard, :ftth_cost
 
     def self.instance
       find_or_create_by!(index: 0)

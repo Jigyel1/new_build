@@ -51,7 +51,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateCompetition do
             }
           }
         )
-        { competition { id factor leaseRate name description calculationType} }
+        { competition { id factor leaseRate name description } }
       }
     GQL
   end

@@ -5,6 +5,7 @@ require 'rails_helper'
 describe Mutations::Projects::RevertTransition do
   let_it_be(:incharge) { create(:user, :super_user) }
   let_it_be(:project) { create(:project, :hfc, incharge: incharge) }
+  let_it_be(:cost_threshold) { create(:admin_toolkit_cost_threshold) }
   let_it_be(:pct_value) do
     create(
       :admin_toolkit_pct_value,

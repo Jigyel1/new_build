@@ -35,8 +35,6 @@ class Project < ApplicationRecord
   end
 
   def pct_cost
-    @pct_cost ||= connection_costs
-                  .find_by(connection_type: access_technology_tac || access_technology)
-                  .try(:pct_cost)
+    @pct_cost ||= Projects::PctFinder.new(project: self, type: 'pct_cost').call
   end
 end

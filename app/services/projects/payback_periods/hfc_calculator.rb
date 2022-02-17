@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module Projects
-  module BuildCosts
+  module PaybackPeriods
     class HfcCalculator < BaseService
       include PctCostHelper
-      attr_accessor :project_cost
+      attr_accessor :build_cost, :lease_cost
 
       def call
-        super { project_cost + (customers_count * cpe_hfc) }
+        super { hfc_payback * (build_cost / lease_cost) }
       end
     end
   end

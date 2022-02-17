@@ -5,6 +5,8 @@ module Projects
     delegate(
       :ftth_payback_in_years,
       :hfc_payback_in_years,
+      :ftth_payback,
+      :hfc_payback,
       :ftth_cost,
       :hfc_cost,
       :mrc_sfn,
