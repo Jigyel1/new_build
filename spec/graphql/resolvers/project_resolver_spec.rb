@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Resolvers::ProjectResolver do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :read }) }
   let_it_be(:address) { build(:address) }
+  let_it_be(:cost_threshold) { create(:admin_toolkit_cost_threshold) }
   let_it_be(:project) do
     create(:project, :hfc_tac, :with_hfc_connection_cost, :with_installation_detail, address: address)
   end
@@ -16,6 +17,15 @@ RSpec.describe Resolvers::ProjectResolver do
       label_group: label_group,
       project: project,
       label_list: 'Prio 1, Prio 2'
+    )
+  end
+
+  let_it_be(:pct_value) do
+    create(
+      :admin_toolkit_pct_value,
+      :prio_one,
+      pct_month: create(:admin_toolkit_pct_month, min: 44, max: 100),
+      pct_cost: create(:admin_toolkit_pct_cost, min: 1187, max: 200_000)
     )
   end
 
@@ -76,22 +86,16 @@ RSpec.describe Resolvers::ProjectResolver do
 
     context 'for prio 1 projects' do
       before do
-        create(
-          :admin_toolkit_pct_value,
-          :prio_one,
-          pct_month: create(:admin_toolkit_pct_month, min: 10, max: 17),
-          pct_cost: create(:admin_toolkit_pct_cost, min: 1187, max: 100_000)
-        )
-
-        create(:projects_pct_cost, connection_cost: project.connection_costs.first, payback_period: 15)
+        create(:projects_pct_cost, connection_cost: project.connection_costs.first, payback_period: 46)
       end
 
-      it 'returns project states without technical analysis completed state' do
+      it 'returns project states' do
         data, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(data.project.states.to_h).to eq(
           open: true,
           technical_analysis: false,
+          technical_analysis_completed: false,
           ready_for_offer: false,
           commercialization: false
         )
@@ -151,6 +155,7 @@ RSpec.describe Resolvers::ProjectResolver do
             address { street city zip }
             installationDetail { sockets builder }
             connectionCosts { connectionType costType }
+            exceedingCost
           }
         }
     GQL

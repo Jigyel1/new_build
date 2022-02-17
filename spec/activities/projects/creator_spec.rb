@@ -16,7 +16,7 @@ describe Projects::Creator do
         city: Faker::Address.city.to_s
       },
       address_books_attributes: [{
-        type: 'Investor',
+        type: 'Building Owner',
         name: 'Philips',
         additional_name: 'Jordan',
         company: 'Charlotte Hornets',

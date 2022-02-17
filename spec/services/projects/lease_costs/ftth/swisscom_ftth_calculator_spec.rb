@@ -17,7 +17,7 @@ describe Projects::LeaseCosts::Ftth::SwisscomFtthCalculator do
 
   describe '#call' do
     it 'returns ftth lease cost for the connection' do
-      expect(calculator.call).to eq(959.5152)
+      expect(calculator.call.to_f).to eq(11_514.1824)
     end
   end
 end

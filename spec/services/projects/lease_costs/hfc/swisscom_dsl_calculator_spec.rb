@@ -17,7 +17,7 @@ describe Projects::LeaseCosts::Hfc::SwisscomDslCalculator do
 
   describe '#call' do
     it 'returns hfc lease cost for the connection' do
-      expect(calculator.call).to eq(252.504)
+      expect(calculator.call.to_f).to eq(3030.048)
     end
   end
 end

@@ -4,17 +4,19 @@ module Projects
   module Transitions
     class ConnectionCostValidator < BaseService
       attr_accessor :project
-      attr_reader :connection_costs
+      attr_reader :connection_costs, :hfc_connection_cost, :project_connection_costs
 
       def initialize(args = {})
         super
         @connection_costs = args[:attributes]
+        @hfc_connection_cost ||= project.connection_costs.hfc
+        @project_connection_costs ||= project.connection_costs
       end
 
       def call
         validate_cost!
-        validate_by_project_category!
         archive_if_expensive!
+        archive_hfc_only_if_expensive!
       end
 
       private
@@ -27,19 +29,23 @@ module Projects
         raise(t('projects.transition.cost_present'))
       end
 
-      def validate_by_project_category!
-        return unless project.standard? && project.connection_costs.any?(&:ftth?)
-
-        raise(t('projects.transition.ftth_not_supported'))
-      end
-
       # Currently only if both connections are <tt>too_expensive</tt> we archive the project.
       # But if the only connection is <tt>too_expensive</tt> we don't archive the project. They may
       # want the latter to change eventually.
       def archive_if_expensive!
-        return unless project.connection_costs.size > 1 && project.connection_costs.all?(&:too_expensive?)
+        return unless project_connection_costs.size > 1 && project_connection_costs.all?(&:too_expensive?)
 
-        project.update!(category: :irrelevant, status: :archived)
+        archive_project
+      end
+
+      def archive_hfc_only_if_expensive!
+        return unless project.standard? && hfc_connection_cost.exists?(cost_type: 'too_expensive')
+
+        archive_project
+      end
+
+      def archive_project
+        project.update!(status: :archived)
         raise(t('projects.transition.archiving_expensive_project'))
       end
     end

@@ -5,7 +5,6 @@ module Mutations
     class UpdateProjectCost < BaseMutation
       class UpdateProjectCostAttributes < Types::BaseInputObject
         argument :standard, Float, required: false
-        argument :arpu, Float, required: false
         argument :socket_installation_rate, Float, required: false
 
         # TODO: Descriptions to be added to these fields after getting some context from BA.
@@ -20,6 +19,10 @@ module Mutations
         argument :ftth_cost, Float, required: false
         argument :hfc_payback, Int, required: false
         argument :ftth_payback, Int, required: false
+        argument :hfc_payback, Int, required: false
+        argument :ftth_payback, Int, required: false
+        argument :iru_sfn, Float, required: false
+        argument :mrc_sfn, Float, required: false
       end
 
       argument :attributes, UpdateProjectCostAttributes, required: true

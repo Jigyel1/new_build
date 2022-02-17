@@ -7,9 +7,7 @@ module Projects
       attr_accessor :project_cost
 
       def call
-        super do
-          project_cost + (customers_count * cpe_hfc)
-        end
+        super { project_cost + (customers_count * cpe_hfc) }
       end
     end
   end

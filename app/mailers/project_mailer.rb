@@ -31,6 +31,13 @@ class ProjectMailer < ApplicationMailer
     notify(@user, :notify_import)
   end
 
+  def notify_building_import(user_id, errors)
+    @user = User.find(user_id)
+    @errors = errors
+
+    notify(@user, :notify_building_import)
+  end
+
   private
 
   def notify(user, subject)

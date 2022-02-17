@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :admin_toolkit_penetration, class: 'AdminToolkit::Penetration' do
     zip { Faker::Address.zip }
     city { Faker::Address.city }
-    rate { 10.5692 }
+    rate { 0.5692 }
     type { :top_city }
     hfc_footprint { false }
 

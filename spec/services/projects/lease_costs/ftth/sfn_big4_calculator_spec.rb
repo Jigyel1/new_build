@@ -17,7 +17,7 @@ describe Projects::LeaseCosts::Ftth::SfnBig4Calculator do
 
   describe '#call' do
     it 'returns ftth lease cost for the connection' do
-      expect(calculator.call).to eq(1483.4445)
+      expect(calculator.call.to_f).to eq(6789.201300000001)
     end
   end
 end
