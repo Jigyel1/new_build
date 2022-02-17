@@ -109,5 +109,6 @@ en:
       notify_incharge_assigned: New Build - Technical Incharge
       notify_incharge_unassigned: New Build - Unassigned from Technical Incharge
       notify_import: New Build - Project Creation Failed
+      notify_building_import: New Build - Building Creation Failed
     penetration:
       notify_import: New Build - Penetration Creation Failed
