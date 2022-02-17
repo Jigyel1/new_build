@@ -1,0 +1,12 @@
+<%= image_tag(attachments['logo.png'].url) %>
+
+New Build - Building Creation Failed
+Hello Admin,
+
+The building creation for the following building IDs was not possible due to some error in the portal. Please try to create the projects again.
+
+<% @errors.each do |error| %>
+  <%= error %>
+<% end %>
+
+
