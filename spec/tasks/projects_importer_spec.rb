@@ -202,7 +202,7 @@ describe ProjectsImporter do
       address_book = new_project.address_books.find_by!(type: :investor)
       expect(address_book).to have_attributes(
         main_contact: true,
-        external_id: '36360995',
+        external_id: '0',
         name: 'Mathivathanan',
         additional_name: 'Mathivathanan',
         language: 'de',
@@ -215,7 +215,7 @@ describe ProjectsImporter do
   context 'when address book is the main contact' do
     it 'updates the address book appropriately' do
       address_book = Project.find_by!(external_id: '3039521').address_books.find_by!(type: :investor)
-      expect(address_book).to have_attributes(external_id: '3654317', main_contact: true)
+      expect(address_book).to have_attributes(external_id: '0', main_contact: true)
     end
   end
 

@@ -7,6 +7,7 @@ project:
   move_in_ends_on: 74
   coordinate_east: 92
   coordinate_north: 93
+  apartments_count: 76
 
 project_address:
   street: 64

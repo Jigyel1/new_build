@@ -13,7 +13,7 @@ module Resolvers
     option(:construction_types, type: [String]) { |scope, value| scope.where(construction_type: value) }
     option(:internal_ids, type: [String]) { |scope, value| scope.where(internal_id: value) }
     option(:customer_requests, type: [Boolean]) { |scope, value| scope.where(customer_request: value) }
-    option(:lot_numbers, type: [String]) { |scope, value| scope.where(lot_number: value) }
+    option(:lot_numbers, type: String) { |scope, value| scope.where(lot_number: matching_lot(scope, value)) }
     option(:cities, type: [String]) { |scope, value| scope.where(city: value) }
     option(:zips, type: [String]) { |scope, value| scope.where(zip: value) }
     option(:kam_regions, type: [String]) { |scope, value| scope.where(kam_region: value) }
@@ -52,6 +52,13 @@ module Resolvers
     def apply_range_filter(scope, attribute, value)
       min, max = value.sort
       scope.where("#{attribute}": min..max)
+    end
+
+    # TODO: Convert this to where clause.
+    def matching_lot(scope, value)
+      scope.each do |project|
+        return project[:lot_number] if project[:lot_number].gsub(/[^0-9]/, '') == value.gsub(/[^0-9]/, '')
+      end
     end
   end
 end

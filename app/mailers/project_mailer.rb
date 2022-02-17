@@ -1,11 +1,19 @@
 # frozen_string_literal: true
 
 class ProjectMailer < ApplicationMailer
-  def notify_assigned(assignee_type, assignee_id, project_id)
+  def notify_assigned(assignee_type, assignee_id, project_id, current_user_id)
     @user = User.find(assignee_id)
+    @current_user = User.find(current_user_id)
     @project = Project.find(project_id)
 
     notify(@user, "notify_#{assignee_type}_assigned")
+  end
+
+  def notify_project_assigned(assignee_id, project_name)
+    @user = User.find(assignee_id)
+    @project_name = project_name
+
+    notify(@user, 'notify_project_assigned')
   end
 
   def notify_unassigned(assignee_type, assignee_id, assigner_id, project_id)

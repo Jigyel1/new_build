@@ -233,7 +233,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     end
 
     context 'with lot number filter' do
-      let!(:lot_numbers) { ['Parz. 277, 1617'] }
+      let!(:lot_numbers) { '2771617' }
 
       it 'returns projects matching the given lot numbers' do
         projects, errors = paginated_collection(:projects, query(lotNumbers: lot_numbers), current_user: super_user)
