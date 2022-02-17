@@ -30,10 +30,10 @@ describe Mutations::Projects::RevertTransition do
       end
 
       context 'without permissions' do
-        let(:super_user) { create(:user, :super_user) }
+        let(:kam) { create(:user, :kam) }
 
         it 'forbids action' do
-          response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
+          response, errors = formatted_response(query, current_user: kam, key: :revertProjectTransition)
           expect(response.project).to be_nil
           expect(errors).to eq(['Not Authorized'])
           expect(project.reload.status).to eq('technical_analysis')
@@ -53,10 +53,10 @@ describe Mutations::Projects::RevertTransition do
       end
 
       context 'without permissions' do
-        let(:super_user) { create(:user, :super_user) }
+        let(:kam) { create(:user, :kam) }
 
         it 'forbids action' do
-          response, errors = formatted_response(query, current_user: super_user, key: :revertProjectTransition)
+          response, errors = formatted_response(query, current_user: kam, key: :revertProjectTransition)
           expect(response.project).to be_nil
           expect(errors).to eq(['Not Authorized'])
           expect(project.reload.status).to eq('technical_analysis_completed')
@@ -71,7 +71,7 @@ describe Mutations::Projects::RevertTransition do
 
       context 'with permissions' do # prio 1 projects
         before do
-          pct_value.update_column(:status, :prio_one)
+          project.default_label_group.update(label_list: 'Prio 1')
           create(:projects_pct_cost, connection_cost: connection_cost, payback_period: 15)
         end
 

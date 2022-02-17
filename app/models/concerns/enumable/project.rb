@@ -13,6 +13,7 @@ module Enumable
 
       enum building_type: {
         efh: 'EFH',
+        defh: 'DEFH',
         mfh: 'MFH',
         refh: 'Non-Residential REFH',
         stepped_building: 'Stepped Building',
