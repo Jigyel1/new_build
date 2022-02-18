@@ -608,7 +608,7 @@ DEPENDENCIES
   pry
   puma (>= 5.6.2)
   rack-cors
-  rails (~> 6.1.4.2)
+  rails (~> 6.1.4.6)
   rails_best_practices
   rdoc (= 6.3.3)
   recursive-open-struct
@@ -643,7 +643,7 @@ DEPENDENCIES
   xsv
 
 RUBY VERSION
-   ruby 3.0.2p107
+   ruby 3.0.3p157
 
 BUNDLED WITH
-   2.2.22
+   2.2.32
