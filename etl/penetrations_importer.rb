@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class PenetrationsImporter < EtlBase
-  attr_accessor :duplicate_zip, :sheets
-
   SHEET_INDEX = 0
   SKIP_ROWS = 1
   ZIP = 0
