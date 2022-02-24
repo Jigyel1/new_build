@@ -16,12 +16,12 @@ class ProjectsImporter < EtlBase
     sheet = Xsv::Workbook.open(file_path(input)).sheets[SHEET_INDEX]
     sheet.row_skip = SKIP_ROWS
 
-    import(current_user, sheet, nil)
+    import(current_user, sheet)
   end
 
   private
 
-  def import(current_user, sheet, _nil) # rubocop:disable Metrics/SeliseMethodLength
+  def import(current_user, sheet) # rubocop:disable Metrics/SeliseMethodLength
     super do
       Kiba.parse do
         # TODO: pre_process to confirm excel format and raise if not valid!
