@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Features
 - PLZ file import error email trigger.
 - Building file import email trigger.
+
 ## [1.2.1] - 2022-01-04
 
 ### Fixes
