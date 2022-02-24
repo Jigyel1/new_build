@@ -5,9 +5,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.2'
 
-gem 'rails', '~> 6.1.4.2'
+gem 'rails', '~> 6.1.4.6'
 gem 'pg', '~> 1.1'
-gem 'puma'
+gem 'puma', '>= 5.6.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'aasm'
@@ -31,6 +31,7 @@ gem 'logidze', '~> 1.1'
 gem 'lograge'
 gem 'premailer-rails'
 gem 'recursive-open-struct'
+gem 'redis-session-store'
 gem 'rollbar'
 gem 'sass-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
@@ -38,7 +39,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'scenic'
 gem 'search_object'
 gem 'search_object_graphql'
-gem 'sidekiq'
+gem 'sidekiq', '>= 6.4.0'
 gem 'strong_migrations'
 gem 'xsv'
 

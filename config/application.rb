@@ -56,14 +56,6 @@ module NewBuild
     config.active_record.schema_format = :sql
     config.logidze.ignore_log_data_by_default = true
 
-    config.middleware.use ActionDispatch::Cookies
-    config.middleware.use(
-      ActionDispatch::Session::CookieStore,
-      key: '_new_build_session',
-      expire_after: 30.days,
-      serializer: :json
-    )
-
     # https://andycroll.com/ruby/opt-out-of-google-floc-tracking-in-rails
     config.action_dispatch.default_headers['Permissions-Policy'] = 'interest-cohort=()'
   end
