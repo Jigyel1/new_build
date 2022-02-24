@@ -3,11 +3,31 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
+
+## [2.0.2] - 2022-02-25
+
+### Features
+- Access Technology logic implementation in TA state.
+- Payback Period calculators.
+- Introduced third_party access technology.
+- Permissions update with cost threshold.
+- Introduced building type for project.
+- Introduced new attributes in AdminToolkit::Competition
+- Cost Threshold permission application on project level.
+
+### Fixes
+- Project Label update fixes.
+- Pct calculation, payback period, build cost and lease cost fixies.
+- Revert project state issue fixes.
+- Archiving issues fixes.
+
+
 ## [2.0.1] - 2022-02-17
 
 ### Features
 - PLZ file import error email trigger.
 - Building file import email trigger.
+
 ## [1.2.1] - 2022-01-04
 
 ### Fixes
