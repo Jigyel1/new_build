@@ -89,8 +89,8 @@ GEM
     ast (2.4.2)
     awesome_print (1.9.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.554.0)
-    aws-sdk-core (3.126.1)
+    aws-partitions (1.555.0)
+    aws-sdk-core (3.126.2)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -111,7 +111,7 @@ GEM
     backport (1.2.0)
     bcrypt (3.1.16)
     benchmark (0.2.0)
-    benchmark-ips (2.9.3)
+    benchmark-ips (2.10.0)
     benchmark-malloc (0.2.0)
     benchmark-perf (0.6.0)
     benchmark-trend (0.4.0)
@@ -195,7 +195,7 @@ GEM
       railties (>= 5.0.0)
     faker (2.19.0)
       i18n (>= 1.6, < 2)
-    faraday (1.9.3)
+    faraday (1.10.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -282,7 +282,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.15.0)
-    msgpack (1.4.4)
+    msgpack (1.4.5)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -336,7 +336,7 @@ GEM
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-protection (2.1.0)
+    rack-protection (2.2.0)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -384,6 +384,9 @@ GEM
     redis (4.6.0)
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
+    redis-session-store (0.11.4)
+      actionpack (>= 3, < 8)
+      redis (>= 3, < 5)
     reek (6.1.0)
       kwalify (~> 0.7.0)
       parser (~> 3.1.0)
@@ -603,13 +606,14 @@ DEPENDENCIES
   pghero
   premailer-rails
   pry
-  puma
+  puma (>= 5.6.2)
   rack-cors
-  rails (~> 6.1.4.2)
+  rails (~> 6.1.4.6)
   rails_best_practices
   rdoc (= 6.3.3)
   recursive-open-struct
   redis-namespace
+  redis-session-store
   rollbar
   rspec-benchmark
   rspec-rails (~> 5.0.0)
@@ -639,7 +643,7 @@ DEPENDENCIES
   xsv
 
 RUBY VERSION
-   ruby 3.0.2p107
+   ruby 3.0.3p157
 
 BUNDLED WITH
-   2.2.22
+   2.2.32
