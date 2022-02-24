@@ -21,7 +21,7 @@ class PenetrationsImporter < EtlBase
 
   private
 
-  def import(current_user, sheet) # rubocop:disable Metrics/SeliseMethodLength
+  def import(current_user, sheet)
     super do
       Kiba.parse do
         errors = []

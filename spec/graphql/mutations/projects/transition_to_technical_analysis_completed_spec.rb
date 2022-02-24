@@ -10,7 +10,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   let_it_be(:label_group_b) { create(:admin_toolkit_label_group, :ready_for_offer) }
 
   let_it_be(:competition) { create(:admin_toolkit_competition) }
-  let_it_be(:penetration) { create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region, rate: 4.56) }
+  let_it_be(:penetration) { create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region, rate: 0.56) }
   let_it_be(:penetration_competition) do
     create(:penetration_competition, penetration: penetration, competition: competition)
   end
@@ -19,7 +19,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     create(
       :admin_toolkit_pct_value,
       :prio_two,
-      pct_month: create(:admin_toolkit_pct_month, min: 10, max: 17),
+      pct_month: create(:admin_toolkit_pct_month, min: 0, max: 428),
       pct_cost: create(:admin_toolkit_pct_cost, min: 1187, max: 100_000)
     )
   end
@@ -281,7 +281,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be(nil)
-        expect(connection_cost.reload.pct_cost.payback_period).to be(17)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(144)
       end
     end
 
