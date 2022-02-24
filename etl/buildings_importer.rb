@@ -15,12 +15,12 @@ class BuildingsImporter < EtlBase
     sheet = Xsv::Workbook.open(file_path(input)).sheets[SHEET_INDEX]
     sheet.row_skip = SKIP_ROWS
 
-    import(current_user, sheet, nil)
+    import(current_user, sheet)
   end
 
   private
 
-  def import(current_user, sheet, _nil)
+  def import(current_user, sheet)
     super do
       Kiba.parse do
         source Buildings::Source, sheet: sheet

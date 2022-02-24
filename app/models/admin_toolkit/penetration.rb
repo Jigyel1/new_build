@@ -12,7 +12,7 @@ module AdminToolkit
 
     validates :city, :zip, :rate, :type, presence: true
     validates :hfc_footprint, inclusion: { in: [true, false] }
-    validates :rate, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
+    validates :rate, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 1 }, allow_nil: true
     validates :zip, uniqueness: { case_sensitive: false }
 
     enum type: {

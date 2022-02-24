@@ -15,7 +15,7 @@ definitions:
   steps:
     - step: &app_build
         name: NEW BUILD
-        image: ruby:3.0.2
+        image: ruby:3.0.3
         caches:
           - bundler
 
