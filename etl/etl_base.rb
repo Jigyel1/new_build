@@ -9,7 +9,7 @@ class EtlBase
 
   private
 
-  def import(_current_user, _sheet, _duplicate)
+  def import(_current_user, _sheet)
     Kiba.run(yield)
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe AdminToolkit::Penetration, type: :model do
     it do
       expect(penetration).to validate_numericality_of(:rate)
         .is_greater_than_or_equal_to(0)
-        .is_less_than_or_equal_to(100)
+        .is_less_than_or_equal_to(1)
     end
   end
 end
