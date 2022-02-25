@@ -13,6 +13,8 @@ module Projects
     def call
       @kam = by_kam_investor
       @kam ||= by_kam_region if kam_region_lookup
+
+      notify_assignee(kam) if kam.present?
     end
 
     private
@@ -44,6 +46,13 @@ module Projects
     APARTMENTS_COUNT_NOT_REQUIRING_KAM = 50
     def kam_region_lookup
       apartments_count && apartments_count > APARTMENTS_COUNT_NOT_REQUIRING_KAM
+    end
+
+    def notify_assignee(user)
+      return if user.nil?
+
+      project.assignee = user
+      ProjectMailer.notify_project_assigned(project.assignee_id, project.name).deliver_later
     end
   end
 end

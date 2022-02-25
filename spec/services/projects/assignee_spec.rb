@@ -22,6 +22,17 @@ describe ::Projects::Assignee do
       expect(assignee.kam).to have_attributes(id: super_user.id, email: super_user.email)
       expect(assignee.assignee_type).to eq(:kam)
     end
+
+    it 'sends the email to the assigned kam' do
+      perform_enqueued_jobs do
+        assignee.call
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+        expect(ActionMailer::Base.deliveries.first).to have_attributes(
+          subject: t('mailer.project.notify_project_assigned'),
+          to: [super_user.email]
+        )
+      end
+    end
   end
 
   context 'with kam region' do # without landlord
@@ -36,6 +47,17 @@ describe ::Projects::Assignee do
         assignee.call
         expect(assignee.kam).to have_attributes(id: super_user.id, email: super_user.email)
         expect(assignee.assignee_type).to eq(:kam)
+      end
+
+      it 'sends the email to the assigned kam' do
+        perform_enqueued_jobs do
+          assignee.call
+          expect(ActionMailer::Base.deliveries.count).to eq(1)
+          expect(ActionMailer::Base.deliveries.first).to have_attributes(
+            subject: t('mailer.project.notify_project_assigned'),
+            to: [super_user.email]
+          )
+        end
       end
     end
 

@@ -15,13 +15,7 @@ module Projects
     private
 
     def assign_kam
-      project_assignee = Projects::Assignee.new(project: project)
-      project_assignee.call
-      project.assignee = project_assignee.kam
-
-      return if project_assignee.kam.blank?
-
-      ProjectMailer.notify_project_assigned(project.assignee_id, project.name).deliver_later
+      Projects::Assignee.new(project: project).call
     end
 
     def assign_address_attributes
