@@ -2,9 +2,13 @@
 
 module Penetrations
   class Source < EtlSource
-    def each(&block)
+    def each(&block) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       sheets = []
-      @sheet.to_a.group_by { |i| i[0] }.reject { |_key, value| sheets << value[0] if value.count == 1 }
+      penetration = AdminToolkit::Penetration
+      @sheet.to_a.group_by { |zip| zip[0] }.reject do |zip, row|
+        sheets << row[0] if row.count == 1
+        penetration.find_by(zip: zip).destroy if row.count == 1 && penetration.find_by(zip: zip).present?
+      end
 
       super { sheets.select { |row| row[PenetrationsImporter::ZIP].presence }.each(&block) }
     end
