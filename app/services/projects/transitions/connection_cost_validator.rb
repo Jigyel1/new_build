@@ -9,8 +9,8 @@ module Projects
       def initialize(args = {})
         super
         @connection_costs = args[:attributes]
-        @hfc_connection_cost ||= project.connection_costs.hfc
-        @project_connection_costs ||= project.connection_costs
+        @hfc_connection_cost = project.connection_costs.hfc
+        @project_connection_costs = project.connection_costs
       end
 
       def call
