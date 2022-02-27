@@ -87,6 +87,26 @@ describe PenetrationsImporter do
     end
   end
 
+  context 'for duplicate zips i.e 1147' do
+    it 'wont be imported' do
+      penetration = AdminToolkit::Penetration.find_by(zip: '1147')
+      expect(penetration).to be_nil
+    end
+  end
+
+  context 'when the record is already present in database' do
+    it 'updates the latest one from the sheet for zip 1000' do
+      penetration = AdminToolkit::Penetration.find_by(zip: '1000')
+      expect(penetration).to have_attributes(
+        city: 'Lausanne',
+        rate: 0.00813609467455621,
+        kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West Bern-Seeland').id,
+        hfc_footprint: false,
+        type: 'top_city'
+      )
+    end
+  end
+
   context 'when there is errors present while importing penetration' do
     it 'triggers email with penetrations that were not imported with well formatted reasons' do
       perform_enqueued_jobs do

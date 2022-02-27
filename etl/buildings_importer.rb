@@ -35,10 +35,6 @@ class BuildingsImporter < EtlBase
         # Delete surplus buildings from the portal if excel has fewer buildings
         # or create new buildings in the portal if excel has extra buildings.
         transform Buildings::TransformSurplus, errors: errors
-
-        post_process do
-          ProjectMailer.notify_building_import(current_user.id, errors).deliver_later if errors.present?
-        end
       end
     end
   end
