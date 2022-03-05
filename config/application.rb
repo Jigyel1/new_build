@@ -43,6 +43,7 @@ module NewBuild
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('permissions/*')
     config.eager_load_paths << Rails.root.join('etl')
+    config.autoloader = :classic
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
