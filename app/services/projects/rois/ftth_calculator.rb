@@ -8,7 +8,7 @@ module Projects
 
       def call
         super do
-          ftth_payback_in_years * build_cost / lease_cost
+          ftth_payback * build_cost / lease_cost
         end
       end
     end

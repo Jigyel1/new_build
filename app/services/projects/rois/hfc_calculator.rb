@@ -8,7 +8,7 @@ module Projects
 
       def call
         super do
-          hfc_payback_in_years * build_cost / lease_cost
+          hfc_payback * build_cost / lease_cost
         end
       end
     end
