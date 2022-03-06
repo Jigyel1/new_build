@@ -14,14 +14,6 @@ module AdminToolkit
       find_or_create_by!(index: 0)
     end
 
-    def ftth_payback_in_years
-      ftth_payback / MONTHS_IN_A_YEAR
-    end
-
-    def hfc_payback_in_years
-      hfc_payback / MONTHS_IN_A_YEAR
-    end
-
     def high_tiers_product_share_percentage
       high_tiers_product_share / PERCENTAGE_DIVISOR
     end
