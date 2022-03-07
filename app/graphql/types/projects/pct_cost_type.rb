@@ -22,26 +22,14 @@ module Types
       field :payback_period_formatted, String, null: true
 
       def payback_period_formatted
-        years = object.payback_period.to_i
-        months = (object.payback_period - object.payback_period.to_i).truncate(1).to_s[2].to_i
+        years = object.payback_period.round(2)
 
-        to_text(years, months)
+        I18n.t('projects.payback_period.years', years: years)
       end
 
       field :penetration_rate, Float, null: true
       def penetration_rate
         object.penetration_rate.try(:rounded)
-      end
-
-      private
-
-      def to_text(years, months)
-        years, months = years, months
-
-        text_array = []
-        text_array << pluralize(years, 'year') if years
-        text_array << pluralize(months, 'month') if months
-        text_array.join(' and ')
       end
     end
   end
