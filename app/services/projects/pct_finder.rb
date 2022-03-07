@@ -15,8 +15,8 @@ module Projects
     def pct_value # rubocop:disable Metrics/AbcSize
       unless project.standard?
         return specify_pct_value if cost_type.valid_combination?
-        return admin_toolkit_pct((ftth_pct_cost.payback_period / 12), ftth_pct_cost.build_cost) if hfc_too_expensive
-        return admin_toolkit_pct((hfc_pct_cost.payback_period / 12), hfc_pct_cost.build_cost) if ftth_too_expensive
+        return admin_toolkit_pct(ftth_pct_cost.payback_period, ftth_pct_cost.build_cost) if hfc_too_expensive
+        return admin_toolkit_pct(hfc_pct_cost.payback_period, hfc_pct_cost.build_cost) if ftth_too_expensive
       end
 
       admin_toolkit_pct((hfc_pct_cost.payback_period / 12), hfc_pct_cost.build_cost) if project.standard?
