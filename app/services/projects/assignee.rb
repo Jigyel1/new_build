@@ -49,9 +49,8 @@ module Projects
     end
 
     def notify_assignee(user)
-      return if user.nil?
-
       project.assignee = user
+
       ProjectMailer.notify_project_assigned(project.assignee_id, project.name).deliver_later
     end
   end
