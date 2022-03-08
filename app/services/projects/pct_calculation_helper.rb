@@ -3,7 +3,7 @@
 module Projects
   module PctCalculationHelper
     def pct_calculator
-      @pct_calculator ||= Projects::PctCalculator.new(pct_calculation_attributes)
+      @pct_calculator ||= Projects::PctCalculator.new(attributes: pct_calculation_attributes)
     end
 
     def pct_cost
