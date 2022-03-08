@@ -1,4 +1,4 @@
-Hello <%= @user.profile.salutation %>. <%= @user.lastname.try(:capitalize) %>
+Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %>
 
 <%= t('devise.mailer.invitation_instructions.description') %>
 
