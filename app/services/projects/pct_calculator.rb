@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Projects
-  class PctCalculator
+  class PctCalculator < BaseService
     CONNECTION_TYPES = HashWithIndifferentAccess.new({ hfc: 'Hfc', ftth: 'Ftth' })
     CALCULATORS = HashWithIndifferentAccess.new({
                                                   dsl: 'SwisscomDslCalculator',
@@ -13,7 +13,7 @@ module Projects
     HFC_NON_STANDARD = %w[hfc non_standard].freeze
     FTTH_STANDARD = %w[ftth standard].freeze
 
-    attr_reader(
+    attr_accessor(
       :apartments_count,
       :socket_installation_rate,
       :competition,
@@ -28,18 +28,8 @@ module Projects
       :project_connection_cost
     )
 
-    def initialize(attribute)
-      @project = attribute[:project]
-      @pct_cost = attribute[:pct_cost]
-      @standard_connection_cost = attribute[:standard_connection_cost]
-      @sockets = attribute[:sockets]
-      @apartments_count = attribute[:apartments_count]
-      @socket_installation_rate = attribute[:socket_installation_rate]
-      @cost_type = attribute[:cost_type]
-      @connection_type = attribute[:connection_type]
-      @competition = attribute[:competition]
-      @ftth_standard = attribute[:ftth_standard]
-      @project_connection_cost = attribute[:project_connection_cost]
+    def initialize(attributes:)
+      assign_attributes(attributes)
     end
 
     def roi
@@ -88,19 +78,29 @@ module Projects
     end
 
     def project_cost(type)
-      return standard_connection_cost + socket_installation_cost if type == HFC_STANDARD
-      return project_connection_cost + socket_installation_cost if type == HFC_NON_STANDARD
-      return ftth_standard + socket_installation_cost if type == FTTH_STANDARD
-
-      project_connection_cost + socket_installation_cost
+      case type
+      when HFC_STANDARD
+        standard_connection_cost + socket_installation_cost
+      when HFC_NON_STANDARD
+        project_connection_cost + socket_installation_cost
+      when FTTH_STANDARD
+        ftth_standard + socket_installation_cost
+      else
+        project_connection_cost + socket_installation_cost
+      end
     end
 
     def proj_connection_cost(type)
-      return standard_connection_cost if type == HFC_STANDARD
-      return project_connection_cost if type == HFC_NON_STANDARD
-      return ftth_standard if type == FTTH_STANDARD
-
-      project_connection_cost
+      case type
+      when HFC_STANDARD
+        standard_connection_cost
+      when HFC_NON_STANDARD
+        project_connection_cost
+      when FTTH_STANDARD
+        ftth_standard
+      else
+        project_connection_cost
+      end
     end
   end
 end
