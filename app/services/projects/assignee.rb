@@ -14,10 +14,10 @@ module Projects
       @kam = by_kam_investor
       @kam ||= by_kam_region if kam_region_lookup
 
-      if kam.present?
-        project.assignee = kam
-        notify_assignee
-      end
+      return if kam.blank?
+
+      project.assignee = kam
+      notify_assignee
     end
 
     private
