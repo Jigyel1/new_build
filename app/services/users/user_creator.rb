@@ -6,7 +6,7 @@ module Users
 
     # `email` lookup if the user is logging in for the first time.
     # `uid` lookup will be relevant if user has updated his email in azure.
-    def call # rubocop:disable  Metrics/AbcSize
+    def call
       @user = User.find_by(email: auth.dig(:info, :email).try(:downcase)) || User.find_by(uid: auth[:uid])
       user.present? ? update : add_error
       user
