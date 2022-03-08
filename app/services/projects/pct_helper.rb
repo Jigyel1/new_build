@@ -19,7 +19,7 @@ module Projects
         )
     end
 
-    def specify_pct_value # rubocop:disable Metrics/AbcSize
+    def specify_pct_value
       return admin_toolkit_pct(hfc_pct_cost.payback_period, hfc_pct_cost.build_cost) if access_tech('hfc')
       return admin_toolkit_pct(ftth_pct_cost.payback_period, ftth_pct_cost.build_cost) if access_tech('ftth')
 

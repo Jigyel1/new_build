@@ -37,11 +37,11 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
           projectCost: 6200.0,
           socketInstallationCost: 1200.0,
           leaseCost: 3030.05,
-          paybackPeriod: 74,
-          paybackPeriodFormatted: '6 years and 2 months',
+          paybackPeriod: 74.2871994107024,
+          paybackPeriodFormatted: '74.29 years',
           systemGeneratedPaybackPeriod: true,
           buildCost: 6252.61,
-          roi: 6.19
+          roi: 74.29
         )
       end
 

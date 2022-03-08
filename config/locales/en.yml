@@ -65,7 +65,7 @@ en:
       not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.
   projects:
     payback_period:
-      years: %{years} years
+      years: "%{years} years"
     file:
       invalid_attachable_type: Attachable type is invalid. %{valid_types} are only supported.
     label_group:
