@@ -64,6 +64,8 @@ en:
     invalid_min: System tried updating min appartment for Offer Price with index "%{index}" to %{new_max} which is
       not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.
   projects:
+    payback_period:
+      years: "%{years} years"
     file:
       invalid_attachable_type: Attachable type is invalid. %{valid_types} are only supported.
     label_group:
@@ -113,3 +115,4 @@ en:
 
     penetration:
       notify_import: New Build - Penetration Creation Failed
+
