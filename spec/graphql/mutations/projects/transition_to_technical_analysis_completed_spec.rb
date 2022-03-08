@@ -299,7 +299,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
-        expect(errors).to be(nil)
+        expect(errors).to be_nil
         expect(connection_cost.reload.pct_cost.payback_period).to be(498)
       end
     end
