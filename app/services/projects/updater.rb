@@ -37,7 +37,7 @@ module Projects
         ).deliver_later
       end
 
-      return unless assignee_id != current_user.id
+      return if assignee_id.nil? || assignee_id == current_user.id
 
       ProjectMailer.notify_assigned(:assignee, assignee_id, project.id, current_user.id).deliver_later if assignee_id
     end
