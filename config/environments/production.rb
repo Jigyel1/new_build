@@ -33,7 +33,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :amazon
+  config.active_storage.service = :azure
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -119,10 +119,10 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: Rails.application.credentials.smtp[:address],
+    address: ENV['SMTP_ADDRESS'],
     port: 587,
-    user_name: Rails.application.credentials.smtp[:username],
-    password: Rails.application.credentials.smtp[:password],
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD'],
     authentication: 'plain',
     enable_starttls_auto: true
   }
@@ -140,4 +140,15 @@ Rails.application.configure do
       url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1')
     }
   )
+
+  config.credentials.content_path = if ENV.fetch('PRODUCTION_SERVER', '').to_b
+                                      'config/credentials/production.yml.enc'
+                                    else
+                                      'config/credentials/staging.yml.enc'
+                                    end
+  config.credentials.key_path = if ENV.fetch('PRODUCTION_SERVER', '').to_b
+                                  'config/credentials/production.key'
+                                else
+                                  'config/credentials/staging.key'
+                                end
 end
