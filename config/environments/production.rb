@@ -141,14 +141,12 @@ Rails.application.configure do
     }
   )
 
-  config.credentials.content_path = if ENV.fetch('PRODUCTION_SERVER',
-                                                 '').to_b
+  config.credentials.content_path = if ENV.fetch('PRODUCTION_SERVER', '').to_b
                                       'config/credentials/production.yml.enc'
                                     else
                                       'config/credentials/staging.yml.enc'
                                     end
-  config.credentials.key_path = if ENV.fetch('PRODUCTION_SERVER',
-                                             '').to_b
+  config.credentials.key_path = if ENV.fetch('PRODUCTION_SERVER', '').to_b
                                   'config/credentials/production.key'
                                 else
                                   'config/credentials/staging.key'

@@ -43,7 +43,7 @@ definitions:
         script:
           - BITBUCKET_TAG=${BITBUCKET_TAG#*/}
           - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
-          - docker build --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+          - docker build --build-arg RAILS_MASTER_KEY=$RAILS_STAGING_MASTER_KEY
             --build-arg GEM_USERNAME=$GEM_USERNAME
             --build-arg GEM_PASSWORD=$GEM_PASSWORD
             --build-arg ALLOWED_DOMAINS=$ALLOWED_DOMAINS
