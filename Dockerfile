@@ -1,4 +1,4 @@
-FROM ruby:3.0.2-alpine3.14
+FROM ruby:3.0.3-alpine3.14
 
 RUN apk --update add --virtual build-dependencies make g++ && \
     apk update && apk add build-base && \

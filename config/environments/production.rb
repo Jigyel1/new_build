@@ -127,6 +127,20 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
+  config.session_store(
+    :redis_session_store,
+    key: 'new_build_session',
+    serializer: :json,
+    on_redis_down: ->(error, _env, _sid) { Rollbar.error(error) },
+    on_session_load_error: ->(error, _sid) { Rollbar.error(error) },
+    redis: {
+      expire_after: 30.days,
+      ttl: 30.days,
+      key_prefix: 'new_build:session:',
+      url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1')
+    }
+  )
+
   config.credentials.content_path = if ENV.fetch('PRODUCTION_SERVER',
                                                  '').to_b
                                       'config/credentials/production.yml.enc'

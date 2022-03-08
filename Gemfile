@@ -9,11 +9,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.4.2'
+gem 'rails', '~> 6.1.4.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
-gem 'puma'
+gem 'puma', '>= 5.6.2'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
@@ -91,6 +91,7 @@ gem 'premailer-rails'
 gem 'rack-cors'
 gem 'recursive-open-struct'
 gem 'redis-namespace'
+gem 'redis-session-store'
 gem 'rollbar'
 gem 'sass-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
