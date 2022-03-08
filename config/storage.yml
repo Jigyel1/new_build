@@ -6,10 +6,8 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-amazon:
-  service: S3
-  access_key_id: <%= Rails.application.credentials.dig(:digital_ocean, :access_key_id) %>
-  secret_access_key: <%= Rails.application.credentials.dig(:digital_ocean, :secret_access_key) %>
-  bucket: <%= Rails.application.credentials.dig(:digital_ocean, :bucket) %>
-  endpoint: <%= Rails.application.credentials.dig(:digital_ocean, :endpoint) %>
-  region: <%= Rails.application.credentials.dig(:digital_ocean, :region) %>
+azure:
+  service: AzureStorage
+  storage_account_name: <%= Rails.application.credentials.dig(:azure, :account_name) %>
+  storage_access_key: <%= Rails.application.credentials.dig(:azure, :access_key) %>
+  container: <%= Rails.application.credentials.dig(:azure, :container) %>
