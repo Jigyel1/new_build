@@ -53,7 +53,7 @@ module Projects
     end
 
     def notify_assignee
-      return unless project.assignee_id && current_user.id == project.assignee_id
+      return unless project.assignee_id && (current_user.id == project.assignee_id)
 
       ProjectMailer.notify_assigned(:assignee, project.assignee_id, project.id, current_user.id).deliver_later
     end
