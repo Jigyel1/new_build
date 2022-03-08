@@ -18,6 +18,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Revert project state issue fixes.
 - Archiving issues fixes.
 
+## [2.1.0] - 2022-03-09
+
+### Feature
+- Introduced third_party access technology.
+- Introduced building type for project.
+- Introduced new attributes in AdminToolkit::Competition
+
+### Fixes
+- Project Label update fixes.
+
 ## [2.0.1] - 2022-02-17
 
 ### Features
