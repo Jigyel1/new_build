@@ -4,7 +4,7 @@ module Penetrations
   class Source < EtlSource
     def each(&block)
       sheets = []
-      @sheet.to_a.group_by { |zip| zip[0] }.each_pair do |value|
+      @sheet.to_a.group_by { |zip| zip[0] }.each_value do |value|
         sheets << value[0] if value.count == 1
       end
 

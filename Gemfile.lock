@@ -89,8 +89,8 @@ GEM
     ast (2.4.2)
     awesome_print (1.9.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.558.0)
-    aws-sdk-core (3.126.2)
+    aws-partitions (1.563.0)
+    aws-sdk-core (3.128.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -193,8 +193,8 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faker (2.19.0)
-      i18n (>= 1.6, < 2)
+    faker (2.20.0)
+      i18n (>= 1.8.11, < 2)
     faraday (2.2.0)
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
@@ -428,9 +428,6 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.16.0)
       parser (>= 3.1.1.0)
-    rubocop-performance (1.13.2)
-    rubocop-ast (1.16.0)
-      parser (>= 3.1.1.0)
     rubocop-performance (1.13.3)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
@@ -589,9 +586,9 @@ DEPENDENCIES
   pghero
   premailer-rails
   pry
-  puma
+  puma (>= 5.6.2)
   rack-cors
-  rails (~> 6.1.4.2)
+  rails (~> 6.1.4.6)
   rails_best_practices
   rdoc (= 6.3.3)
   recursive-open-struct
