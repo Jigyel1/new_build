@@ -7,7 +7,7 @@ module Projects
         include PctCostHelper
 
         def call
-          hfc_payback_in_years * customers_count * mrc_standard * MONTHS_IN_A_YEAR
+          hfc_payback * customers_count * mrc_standard * MONTHS_IN_A_YEAR
         end
       end
     end

@@ -3,8 +3,15 @@
 require 'rails_helper'
 
 describe Mutations::Projects::TransitionToReadyForOffer do
-  let_it_be(:management) { create(:user, :management, with_permissions: { project: %i[ready_for_offer gt_10_000] }) }
-  let_it_be(:project) { create(:project, :technical_analysis_completed, :hfc) }
+  let_it_be(:management) do
+    create(:user, :management, with_permissions: { project: %i[ready_for_offer build_cost_exceeding] })
+  end
+  let_it_be(:project) { create(:project, :technical_analysis_completed, :ftth) }
+  let_it_be(:connection_cost) { create(:connection_cost, project: project) }
+  let_it_be(:project_pct_cost) do
+    create(:projects_pct_cost, connection_cost: connection_cost, build_cost: 3000.123)
+  end
+  let_it_be(:cost_threshold) { create(:admin_toolkit_cost_threshold) }
 
   before do
     allow_any_instance_of(Projects::StateMachine).to receive(:pct_value).and_return( # rubocop:disable RSpec/AnyInstance
@@ -42,7 +49,7 @@ describe Mutations::Projects::TransitionToReadyForOffer do
     context 'when the project cost exceeds 10K CHF' do
       let_it_be(:connection_cost) { create(:connection_cost, project: project) }
       let_it_be(:project_pct_cost) do
-        create(:projects_pct_cost, connection_cost: connection_cost, project_cost: 10_000.29)
+        create(:projects_pct_cost, connection_cost: connection_cost, build_cost: 10_023.123)
       end
 
       context 'with permissions' do
@@ -58,7 +65,7 @@ describe Mutations::Projects::TransitionToReadyForOffer do
       end
 
       context 'without permissions' do
-        let_it_be(:manager) { create(:user, :manager_nbo_kam, with_permissions: { project: %i[ready_for_offer] }) }
+        let_it_be(:manager) { create(:user, :kam) }
 
         it 'forbids action' do
           response, errors = formatted_response(

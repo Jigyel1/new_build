@@ -5,7 +5,6 @@ module Types
     class ProjectCostType < BaseObject
       field :id, ID, null: true
       field :standard, Float, null: true
-      field :arpu, Float, null: true
       field :socket_installation_rate, Float, null: true
 
       field :cpe_hfc, Float, null: true
@@ -20,6 +19,8 @@ module Types
       field :high_tiers_product_share, Float, null: true
       field :hfc_payback, Int, null: true
       field :ftth_payback, Int, null: true
+      field :iru_sfn, Float, null: true
+      field :mrc_sfn, Float, null: true
     end
   end
 end

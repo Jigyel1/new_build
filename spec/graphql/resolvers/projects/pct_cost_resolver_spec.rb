@@ -34,11 +34,11 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
         data, errors = formatted_response(query(params), current_user: super_user)
         expect(errors).to be_nil
         expect(data.projectPctCost).to have_attributes(
-          projectCost: 6200,
-          socketInstallationCost: 1200,
-          leaseCost: 252.5,
-          paybackPeriod: 430.0,
-          paybackPeriodFormatted: '430.0 years',
+          projectCost: 6200.0,
+          socketInstallationCost: 1200.0,
+          leaseCost: 3030.05,
+          paybackPeriod: 74.2871994107024,
+          paybackPeriodFormatted: '74.29 years',
           systemGeneratedPaybackPeriod: true,
           buildCost: 6252.61,
           roi: 74.29
@@ -86,7 +86,7 @@ RSpec.describe Resolvers::Projects::PctCostResolver do
       it 'uses sfn big 4 calculator to calculate the lease cost' do
         data, errors = formatted_response(query(params), current_user: super_user)
         expect(errors).to be_nil
-        expect(data.projectPctCost.leaseCost).to eq(252.5)
+        expect(data.projectPctCost.leaseCost).to eq(3030.05)
       end
     end
   end
