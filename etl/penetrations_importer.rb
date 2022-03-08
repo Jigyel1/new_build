@@ -19,12 +19,17 @@ class PenetrationsImporter < EtlBase
 
   private
 
-  def import(_current_user, sheet)
+  def import(current_user, sheet)
     super do
       Kiba.parse do
+        errors = []
         source Penetrations::Source, sheet: sheet
         transform Penetrations::Transform
-        destination Penetrations::Destination
+        destination Penetrations::Destination, errors
+
+        post_process do
+          PenetrationMailer.notify_import(current_user.id, errors).deliver_later if errors.present?
+        end
       end
     end
   end

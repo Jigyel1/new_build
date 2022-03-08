@@ -2,7 +2,7 @@
 
 class BuildingsImporter < EtlBase
   SHEET_INDEX = 0
-  SKIP_ROWS = 7
+  SKIP_ROWS = 1
 
   ATTRIBUTE_MAPPINGS = FileParser.parse { 'etl/buildings/attribute_mappings.yml' }.freeze
 

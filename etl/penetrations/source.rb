@@ -3,11 +3,12 @@
 module Penetrations
   class Source < EtlSource
     def each(&block)
-      super do
-        @sheet.to_a
-              .select { |row| row[PenetrationsImporter::ZIP].presence }
-              .each(&block)
+      sheets = []
+      @sheet.to_a.group_by { |zip| zip[0] }.each_value do |value|
+        sheets << value[0] if value.count == 1
       end
+
+      super { sheets.select { |row| row[PenetrationsImporter::ZIP].presence }.each(&block) }
     end
   end
 end

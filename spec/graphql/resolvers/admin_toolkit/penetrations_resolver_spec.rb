@@ -26,7 +26,7 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
       :hfc_footprint, :land,
       city: 'Le Grand-Saconnex',
       kam_region: kam_region,
-      rate: 66.8136666674556213,
+      rate: 0.8136666674556213,
       penetration_competitions: [build(:penetration_competition, competition: competition)]
     )
   end
@@ -91,7 +91,7 @@ RSpec.describe Resolvers::AdminToolkit::PenetrationsResolver do
           :adminToolkitPenetrations, query(query: '66'), current_user: super_user
         )
         expect(errors).to be_nil
-        expect(penetrations.pluck(:id)).to match_array([penetration.id, penetration_b.id])
+        expect(penetrations.pluck(:id)).to eq([penetration.id])
       end
     end
 

@@ -18,10 +18,11 @@ module Penetrations
       penetration = AdminToolkit::Penetration.find_or_initialize_by(zip: row[PenetrationsImporter::ZIP])
       competition = ::AdminToolkit::Competition.find_by!(name: row.delete_at(COMPETITION))
 
-      penetration.assign_attributes(HEADERS.zip(row).to_h)
+      penetration.update(HEADERS.zip(row).to_h)
 
       penetration.kam_region = ::AdminToolkit::KamRegion.find_by!(name: row[KAM_REGION])
       penetration.penetration_competitions.find_or_initialize_by(competition: competition)
+      penetration
     rescue ActiveRecord::RecordNotFound => e
       $stdout.write("#{e} for penetration with zip #{penetration.zip}\n")
       raise

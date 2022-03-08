@@ -364,6 +364,9 @@ GEM
     redis (4.6.0)
     redis-namespace (1.8.2)
       redis (>= 3.0.4)
+    redis-session-store (0.11.4)
+      actionpack (>= 3, < 8)
+      redis (>= 3, < 5)
     reek (6.1.0)
       kwalify (~> 0.7.0)
       parser (~> 3.1.0)
@@ -583,13 +586,14 @@ DEPENDENCIES
   pghero
   premailer-rails
   pry
-  puma
+  puma (>= 5.6.2)
   rack-cors
-  rails (~> 6.1.4.2)
+  rails (~> 6.1.4.6)
   rails_best_practices
   rdoc (= 6.3.3)
   recursive-open-struct
   redis-namespace
+  redis-session-store
   rollbar
   rspec-benchmark
   rspec-rails (~> 5.0.0)

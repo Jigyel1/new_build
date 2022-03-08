@@ -12,8 +12,8 @@ describe Projects::StatusUpdater do
     create(
       :admin_toolkit_pct_value,
       :prio_two,
-      pct_month: create(:admin_toolkit_pct_month, min: 10, max: 17),
-      pct_cost: create(:admin_toolkit_pct_cost, min: 1187, max: 100_000)
+      pct_month: create(:admin_toolkit_pct_month, min: 0, max: 428),
+      pct_cost: create(:admin_toolkit_pct_cost, min: 200, max: 100_000)
     )
   end
 
@@ -70,7 +70,7 @@ describe Projects::StatusUpdater do
       let_it_be(:penetration_competition) do
         create(
           :penetration_competition,
-          penetration: create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region, rate: 4.56),
+          penetration: create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region, rate: 0.56),
           competition: create(:admin_toolkit_competition)
         )
       end
