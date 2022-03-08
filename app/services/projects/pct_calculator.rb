@@ -78,29 +78,19 @@ module Projects
     end
 
     def project_cost(type)
-      case type
-      when HFC_STANDARD
-        standard_connection_cost + socket_installation_cost
-      when HFC_NON_STANDARD
-        project_connection_cost + socket_installation_cost
-      when FTTH_STANDARD
-        ftth_standard + socket_installation_cost
-      else
-        project_connection_cost + socket_installation_cost
-      end
+      return standard_connection_cost + socket_installation_cost if type == HFC_STANDARD
+      return project_connection_cost + socket_installation_cost if type == HFC_NON_STANDARD
+      return ftth_standard + socket_installation_cost if type == FTTH_STANDARD
+
+      project_connection_cost + socket_installation_cost
     end
 
     def proj_connection_cost(type)
-      case type
-      when HFC_STANDARD
-        standard_connection_cost
-      when HFC_NON_STANDARD
-        project_connection_cost
-      when FTTH_STANDARD
-        ftth_standard
-      else
-        project_connection_cost
-      end
+      return standard_connection_cost if type == HFC_STANDARD
+      return project_connection_cost if type == HFC_NON_STANDARD
+      return ftth_standard if type == FTTH_STANDARD
+
+      project_connection_cost
     end
   end
 end
