@@ -12,7 +12,7 @@ class PenetrationsImporter < EtlBase
   #
   def call(current_user:, input:)
     sheet = Xsv::Workbook.open(file_path(input)).sheets[ProjectsImporter::SHEET_INDEX]
-    sheet.row_skip = ProjectsImporter::SKIP_ROWS
+    sheet.row_skip = SKIP_ROWS
 
     import(current_user, sheet)
   end
