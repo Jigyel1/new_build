@@ -502,7 +502,6 @@ CREATE TABLE public.admin_toolkit_competitions (
 
 CREATE TABLE public.admin_toolkit_cost_thresholds (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    not_exceeding numeric,
     exceeding numeric,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -859,8 +858,7 @@ CREATE TABLE public.projects (
     cable_installations text[] DEFAULT '{}'::text[],
     priority_tac character varying,
     access_technology_tac character varying,
-    exceeding_cost numeric,
-    site_address jsonb
+    exceeding_cost numeric
 );
 
 
@@ -2309,7 +2307,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211231081347'),
 ('20220103082627'),
 ('20220213091922'),
-('20220228080720'),
 ('20220306212410');
 
 

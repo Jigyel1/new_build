@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Projects
-  class PctCalculator
+  class PctCalculator < BaseService
     CONNECTION_TYPES = HashWithIndifferentAccess.new({ hfc: 'Hfc', ftth: 'Ftth' })
     CALCULATORS = HashWithIndifferentAccess.new({
                                                   dsl: 'SwisscomDslCalculator',
@@ -13,7 +13,7 @@ module Projects
     HFC_NON_STANDARD = %w[hfc non_standard].freeze
     FTTH_STANDARD = %w[ftth standard].freeze
 
-    attr_reader(
+    attr_accessor(
       :apartments_count,
       :socket_installation_rate,
       :competition,
@@ -28,18 +28,9 @@ module Projects
       :project_connection_cost
     )
 
-    def initialize(attribute)
-      @project = attribute[:project]
-      @pct_cost = attribute[:pct_cost]
-      @standard_connection_cost = attribute[:standard_connection_cost]
-      @sockets = attribute[:sockets]
-      @apartments_count = attribute[:apartments_count]
-      @socket_installation_rate = attribute[:socket_installation_rate]
-      @cost_type = attribute[:cost_type]
-      @connection_type = attribute[:connection_type]
-      @competition = attribute[:competition]
-      @ftth_standard = attribute[:ftth_standard]
-      @project_connection_cost = attribute[:project_connection_cost]
+    def initialize(attributes:)
+      super
+      assign_attributes(attributes)
     end
 
     def roi
