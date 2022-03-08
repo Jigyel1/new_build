@@ -269,7 +269,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be(nil)
-        expect(connection_cost.reload.pct_cost.payback_period).to be(25)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(25.42336309523809)
       end
     end
 
@@ -288,7 +288,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be(nil)
-        expect(connection_cost.reload.pct_cost.payback_period).to be(498)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(498.0)
       end
     end
   end

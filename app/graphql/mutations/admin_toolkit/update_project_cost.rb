@@ -19,8 +19,6 @@ module Mutations
         argument :ftth_cost, Float, required: false
         argument :hfc_payback, Int, required: false
         argument :ftth_payback, Int, required: false
-        argument :hfc_payback, Int, required: false
-        argument :ftth_payback, Int, required: false
         argument :iru_sfn, Float, required: false
         argument :mrc_sfn, Float, required: false
       end
