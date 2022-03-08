@@ -40,7 +40,9 @@ module Projects
         ).deliver_later
       end
 
-      ProjectMailer.notify_assigned(:incharge, incharge_id, project.id).deliver_later if incharge_id
+      return if incharge_id == current_user.id
+
+      ProjectMailer.notify_assigned(:incharge, incharge_id, project.id, current_user.id).deliver_later if incharge_id
     end
   end
 end
