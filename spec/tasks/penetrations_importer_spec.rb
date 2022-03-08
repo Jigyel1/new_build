@@ -87,8 +87,8 @@ describe PenetrationsImporter do
     end
   end
 
-  context 'for duplicate zips i.e 1147' do
-    it 'wont be imported' do
+  context 'when zip is duplicate' do
+    it 'does not import' do
       penetration = AdminToolkit::Penetration.find_by(zip: '1147')
       expect(penetration).to be_nil
     end
