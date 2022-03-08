@@ -6,9 +6,11 @@ module Users
 
     # `email` lookup if the user is logging in for the first time.
     # `uid` lookup will be relevant if user has updated his email in azure.
-    def call
-      @user = User.find_by(email: auth.dig(:info, :email)) || User.find_by(uid: auth[:uid])
+    def call # rubocop:disable  Metrics/AbcSize
+      Rails.logger.info(log_values)
+      @user = User.find_by(email: auth.dig(:info, :email).try(:downcase)) || User.find_by(uid: auth[:uid])
       user.present? ? update : add_error
+      Rails.logger.info(user.errors.full_messages)
       user
     end
 
@@ -27,6 +29,17 @@ module Users
     def add_error
       @user = User.new(email: auth.dig(:info, :email))
       user.errors.add(:base, I18n.t('devise.sign_in.not_found'))
+    end
+
+    def log_values
+      {
+        email: auth.dig(:info, :email),
+        info: auth[:info],
+        provider: auth[:provider],
+        provider_s: auth['provider'],
+        uid: auth[:uid],
+        uid_s: auth['uid']
+      }
     end
   end
 end

@@ -2,7 +2,7 @@ FROM ruby:3.0.2-alpine3.14
 
 RUN apk --update add --virtual build-dependencies make g++ && \
     apk update && apk add build-base && \
-    apk add nodejs postgresql-dev tzdata && \
+    apk add nodejs postgresql-dev tzdata libxrender && \
     mkdir /new-build
 
 WORKDIR /new-build
@@ -26,6 +26,14 @@ RUN gem install bundler -v 2.2.18 && \
     find /usr/local/bundle/gems/ -name "*.o" -delete
 
 ADD . /new-build
+
+RUN apk add --no-cache \
+        wkhtmltopdf \
+        xvfb \
+        ttf-dejavu ttf-droid ttf-freefont ttf-liberation
+
+RUN ln -s /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
+RUN chmod +x /usr/local/bin/wkhtmltopdf
 
 RUN mv /new-build/Gemfile.prod  /new-build/Gemfile && \
     mkdir -p /new-build/tmp/pids && \
