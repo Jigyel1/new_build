@@ -46,9 +46,16 @@ end
   ['nahian.kabir@selise.ch', :administrator],
 
   # For QA test
-  ['sujata.pradhan+admin@selise.ch', :kam],
-  ['sujata.pradhan+cm@selise.ch', :presales],
-  ['sujata.pradhan+kam@selise.ch', :management],
+  ['sujata.pradhan+admin@selise.ch', :administrator],
+  ['s.p+cm@selise.ch', :manager_commercialization],
+  ['s.p+kam@selise.ch', :kam],
+  ['s.p+management@selise.ch', :management],
+  ['s.p+mnk@selise.ch', :manager_nbo_kam],
+  ['s.p+mp@selise.ch', :manager_presales],
+  ['s.p+nboteamexpert@selise.ch', :team_expert],
+  ['s.p+nboteamstd@selise.ch', :team_standard],
+  ['s.p+presalesengg@selise.ch', :presales],
+  ['s.p+superuser@selise.ch', :super_user],
 
   # External Users
   ['stefan.fitsch@upc.ch', :super_user],

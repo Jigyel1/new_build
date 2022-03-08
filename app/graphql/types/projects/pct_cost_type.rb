@@ -14,31 +14,22 @@ module Types
       field :lease_cost, Float, null: true
       field :build_cost, Float, null: true
       field :roi, Float, null: true
+      field :project_connection_cost, Float, null: true
 
-      field :payback_period, Int, null: true, description: 'In months'
+      field :payback_period, Float, null: true, description: 'In Years'
       field :system_generated_payback_period, Boolean, null: true
 
       field :payback_period_formatted, String, null: true
 
       def payback_period_formatted
-        seconds = ActiveSupport::Duration::SECONDS_PER_MONTH * object.payback_period
-        to_text(ActiveSupport::Duration.build(seconds).parts)
+        years = object.payback_period.round(2)
+
+        I18n.t('projects.payback_period.years', years: years)
       end
 
       field :penetration_rate, Float, null: true
       def penetration_rate
         object.penetration_rate.try(:rounded)
-      end
-
-      private
-
-      def to_text(parts)
-        years, months = parts.values_at(:years, :months)
-
-        text_array = []
-        text_array << pluralize(years, 'year') if years
-        text_array << pluralize(months, 'month') if months
-        text_array.join(' and ')
       end
     end
   end

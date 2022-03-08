@@ -135,7 +135,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
         expect(response.project).to be_nil
         expect(errors).to eq([t('projects.transition.archiving_expensive_project')])
-        expect(project.reload).to have_attributes(status: 'archived', category: 'irrelevant')
+        expect(project.reload).to have_attributes(status: 'archived', category: 'complex')
       end
     end
 
@@ -281,7 +281,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be_nil
-        expect(connection_cost.reload.pct_cost.payback_period).to be(144)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(144.0)
       end
     end
 
@@ -300,7 +300,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be_nil
-        expect(connection_cost.reload.pct_cost.payback_period).to be(498)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(498.0)
       end
     end
   end

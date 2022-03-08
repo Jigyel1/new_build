@@ -19,12 +19,12 @@ RSpec.describe Mutations::AdminToolkit::UpdateCostThreshold do
     end
 
     context 'with invalid params' do
-      let(:params) { { id: cost_threshold.id, exceeding: 2000 } }
+      let(:params) { { id: cost_threshold.id, exceeding: -2000 } }
 
       it 'throws an validation error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateCostThreshold)
         expect(response.costThreshold).to be_nil
-        expect(errors).to eq(['Exceeding must be greater than or equal to 5000.0'])
+        expect(errors).to eq(['Exceeding must be greater than or equal to 0'])
       end
     end
 
@@ -47,7 +47,6 @@ RSpec.describe Mutations::AdminToolkit::UpdateCostThreshold do
           costThreshold {
             exceeding
             id
-            notExceeding
           }
         }
       }

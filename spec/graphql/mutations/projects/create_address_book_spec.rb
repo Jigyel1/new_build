@@ -16,7 +16,7 @@ RSpec.describe Mutations::Projects::CreateAddressBook do
         expect(errors).to be_nil
         expect(response.addressBook).to have_attributes(
           name: 'Philips',
-          displayName: 'Investor',
+          displayName: 'Building Owner',
           type: 'investor',
           company: 'Charlotte Hornets',
           phone: '099292922',

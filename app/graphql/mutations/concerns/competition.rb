@@ -7,11 +7,11 @@ module Mutations
 
       included do
         argument :name, String, required: false
+        argument :code, String, required: false
         argument :sfn, GraphQL::Types::Boolean, required: false
         argument :factor, Float, required: false
         argument :lease_rate, String, required: false
         argument :description, String, required: false
-        argument :calculation_type, String, required: false
       end
     end
   end

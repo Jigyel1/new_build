@@ -370,7 +370,7 @@ ActiveRecord::Schema.define(version: 2021_09_11_120552) do
     t.decimal "arpu", precision: 15, scale: 2
     t.decimal "lease_cost", precision: 15, scale: 2
     t.float "penetration_rate"
-    t.integer "payback_period", default: 0, null: false
+    t.integer "payback_periods", default: 0, null: false
     t.boolean "system_generated_payback_period", default: true, null: false
     t.uuid "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
