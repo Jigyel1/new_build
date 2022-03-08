@@ -29,6 +29,7 @@ module Projects
     )
 
     def initialize(attributes:)
+      super
       assign_attributes(attributes)
     end
 
