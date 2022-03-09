@@ -33,7 +33,7 @@ module Projects
     end
 
     def project
-      @project ||= Project.find(id)
+      @_project ||= Project.find(id)
     end
   end
 end
