@@ -6,6 +6,6 @@ class UpdateProjectsPctCosts < ActiveRecord::Migration[6.1]
   end
 
   def down
-    change_column :customers, :phone, :integer
+    change_column :projects_pct_costs, :payback_period, :integer
   end
 end
