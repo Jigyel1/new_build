@@ -2,7 +2,7 @@
 
 module Projects
   class PctFinder < BaseService
-    attr_accessor :project, :type
+    attr_accessor :type, :id
 
     include PctHelper
 
@@ -19,7 +19,7 @@ module Projects
         return admin_toolkit_pct(hfc_pct_cost.payback_period, hfc_pct_cost.build_cost) if ftth_too_expensive
       end
 
-      admin_toolkit_pct((hfc_pct_cost.payback_period / 12), hfc_pct_cost.build_cost) if project.standard?
+      admin_toolkit_pct(hfc_pct_cost.payback_period, hfc_pct_cost.build_cost) if project.standard?
     end
 
     def pct_cost
@@ -30,6 +30,10 @@ module Projects
       end
 
       hfc_pct_cost if project.standard?
+    end
+
+    def project
+      @_project ||= Project.find(id)
     end
   end
 end
