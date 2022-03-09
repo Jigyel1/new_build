@@ -82,11 +82,7 @@ module Projects
     end
 
     def project_cost(type)
-      return standard_connection_cost + socket_installation_cost if type == HFC_STANDARD
-      return project_connection_cost + socket_installation_cost if type == HFC_NON_STANDARD
-      return ftth_standard + socket_installation_cost if type == FTTH_STANDARD
-
-      project_connection_cost + socket_installation_cost
+      socket_installation_cost + proj_connection_cost(type)
     end
 
     def proj_connection_cost(type)
