@@ -55,7 +55,8 @@ end
 end
 
 # Default cost threshold, i.e, to be used moving in project state from TAC
-AdminToolkit::CostThreshold.destroy_all && AdminToolkit::CostThreshold.create!(exceeding: 5000)
+AdminToolkit::CostThreshold.destroy_all
+AdminToolkit::CostThreshold.create!(exceeding: 5000)
 
 %w[pcts footprints label_groups competitions kam_regions offer_prices project_costs].each do |file|
   puts "Loading #{file.camelize}"
