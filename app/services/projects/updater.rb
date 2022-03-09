@@ -28,18 +28,19 @@ module Projects
     def notify_assignee
       previous_assignee_id, assignee_id = project.saved_change_to_assignee_id
 
-      if previous_assignee_id
-        ProjectMailer.notify_unassigned(
-          :assignee,
-          previous_assignee_id,
-          current_user.id,
-          project.id
-        ).deliver_later
+      unless previous_assignee_id.nil? || previous_assignee_id == current_user.id
+        notify_unassigned(previous_assignee_id)
       end
 
-      return if assignee_id == current_user.id
+      notify_assigned(assignee_id) unless assignee_id.nil? || assignee_id == current_user.id
+    end
 
-      ProjectMailer.notify_assigned(:assignee, assignee_id, project.id, current_user.id).deliver_later if assignee_id
+    def notify_assigned(assignee_id)
+      ProjectMailer.notify_assigned(:assignee, assignee_id, project.id, current_user.id).deliver_later
+    end
+
+    def notify_unassigned(assignee_id)
+      ProjectMailer.notify_unassigned(:assignee, assignee_id, project.id, current_user.id).deliver_later
     end
   end
 end
