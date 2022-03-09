@@ -3,12 +3,15 @@
 module Projects
   class PctCalculator < BaseService
     CONNECTION_TYPES = HashWithIndifferentAccess.new({ hfc: 'Hfc', ftth: 'Ftth' })
-    CALCULATORS = HashWithIndifferentAccess.new({
-                                                  dsl: 'SwisscomDslCalculator',
-                                                  ftth: 'SwisscomFtthCalculator',
-                                                  sfn: 'SfnBig4Calculator',
-                                                  unknown: 'SfnBig4Calculator'
-                                                })
+    CALCULATORS = HashWithIndifferentAccess.new(
+      {
+        dsl: 'SwisscomDslCalculator',
+        ftth: 'SwisscomFtthCalculator',
+        sfn: 'SfnBig4Calculator',
+        unknown: 'SfnBig4Calculator'
+      }
+    )
+
     HFC_STANDARD = %w[hfc standard].freeze
     HFC_NON_STANDARD = %w[hfc non_standard].freeze
     FTTH_STANDARD = %w[ftth standard].freeze
@@ -79,11 +82,7 @@ module Projects
     end
 
     def project_cost(type)
-      return standard_connection_cost + socket_installation_cost if type == HFC_STANDARD
-      return project_connection_cost + socket_installation_cost if type == HFC_NON_STANDARD
-      return ftth_standard + socket_installation_cost if type == FTTH_STANDARD
-
-      project_connection_cost + socket_installation_cost
+      socket_installation_cost + proj_connection_cost(type)
     end
 
     def proj_connection_cost(type)
