@@ -195,6 +195,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
+
         expect(errors).to be_nil
         expect(response.project.status).to eq('ready_for_offer')
 
@@ -216,6 +217,21 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         expect(response.project.status).to eq('technical_analysis_completed')
 
         expect(project.default_label_group.reload.label_list).to include('On Hold')
+      end
+    end
+
+    context 'for marketing_only projects' do
+      before { project.update_column(:category, :marketing_only) }
+
+      it 'transitions the project to commercialization state' do
+        response, errors = formatted_response(
+          query(connection_costs: connection_cost_str),
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
+
+        expect(errors).to be_nil
+        expect(response.project.status).to eq('commercialization')
       end
     end
 

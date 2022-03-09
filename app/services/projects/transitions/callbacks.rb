@@ -25,7 +25,7 @@ module Projects
           attributes: attributes[:connection_costs_attributes]
         ).call
 
-        update_label
+        update_label unless marketing_only?
         update_exceeding_cost
         true
       end
