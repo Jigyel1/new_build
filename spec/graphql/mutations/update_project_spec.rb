@@ -6,13 +6,12 @@ RSpec.describe Mutations::UpdateProject do
   using TimeFormatter
 
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
-  let_it_be(:super_user_b) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:project) { create(:project) }
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) { { status: 'Technical Analysis' } }
+      let!(:params) { { status: 'Technical Analysis', assignee_id: kam.id } }
 
       it 'updates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
@@ -52,25 +51,38 @@ RSpec.describe Mutations::UpdateProject do
       end
     end
 
-    context 'when the person is assigned or unassigned from project' do
-      before { project.update(assignee: kam) }
+    context 'when the project assignee is changed' do
+      context 'when current user is assigned to project' do
+        let!(:project) { create(:project, assignee: kam) }
+        let!(:params) { { status: 'Technical Analysis', assignee_id: super_user.id } }
 
-      let!(:params) { { status: 'Technical Analysis', assignee_id: super_user.id } }
+        it 'sends unassigned email to previous assignee' do
+          perform_enqueued_jobs do
+            _response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
+            expect(errors).to be_nil
+            expect(ActionMailer::Base.deliveries.count).to eq(1)
+            expect(ActionMailer::Base.deliveries.first).to have_attributes(
+             subject: t('mailer.project.notify_assignee_unassigned'),
+             to: [kam.email]
+            )
+          end
+        end
+      end
 
-      it 'sends the email to assigned person and unassigned provided not a current user' do
-        perform_enqueued_jobs do
-          _response, errors = formatted_response(query(params), current_user: super_user_b, key: :updateProject)
-          expect(errors).to be_nil
+      context 'when current user is previous project assignee' do
+        let!(:project) { create(:project, assignee: super_user) }
+        let!(:params) { { status: 'Technical Analysis', assignee_id: kam.id } }
 
-          expect(ActionMailer::Base.deliveries.count).to eq(2)
-          expect(ActionMailer::Base.deliveries.first).to have_attributes(
-            subject: t('mailer.project.notify_assignee_unassigned'),
-            to: [kam.email]
-          )
-          expect(ActionMailer::Base.deliveries.second).to have_attributes(
-            subject: t('mailer.project.notify_assignee_assigned'),
-            to: [super_user.email]
-          )
+        it 'sends assigned email to new assignee' do
+          perform_enqueued_jobs do
+            _response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
+            expect(errors).to be_nil
+            expect(ActionMailer::Base.deliveries.count).to eq(1)
+            expect(ActionMailer::Base.deliveries.first).to have_attributes(
+             subject: t('mailer.project.notify_assignee_assigned'),
+             to: [kam.email]
+            )
+          end
         end
       end
     end
