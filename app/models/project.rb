@@ -35,6 +35,6 @@ class Project < ApplicationRecord
   end
 
   def pct_cost
-    @pct_cost ||= Projects::PctFinder.new(project: self, type: 'pct_cost').call
+    @pct_cost ||= Projects::PctFinder.new(id: id, type: 'pct_cost').call
   end
 end

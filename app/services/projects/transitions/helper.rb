@@ -14,7 +14,7 @@ module Projects
       end
 
       def pct_value
-        @_pct_value ||= Projects::PctFinder.new(project: project, type: 'pct_value').call
+        @_pct_value ||= Projects::PctFinder.new(id: project.id, type: 'pct_value').call
       end
 
       def prio_one?

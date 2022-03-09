@@ -3,12 +3,15 @@
 module Projects
   class PctCalculator < BaseService
     CONNECTION_TYPES = HashWithIndifferentAccess.new({ hfc: 'Hfc', ftth: 'Ftth' })
-    CALCULATORS = HashWithIndifferentAccess.new({
-                                                  dsl: 'SwisscomDslCalculator',
-                                                  ftth: 'SwisscomFtthCalculator',
-                                                  sfn: 'SfnBig4Calculator',
-                                                  unknown: 'SfnBig4Calculator'
-                                                })
+    CALCULATORS = HashWithIndifferentAccess.new(
+      {
+        dsl: 'SwisscomDslCalculator',
+        ftth: 'SwisscomFtthCalculator',
+        sfn: 'SfnBig4Calculator',
+        unknown: 'SfnBig4Calculator'
+      }
+    )
+
     HFC_STANDARD = %w[hfc standard].freeze
     HFC_NON_STANDARD = %w[hfc non_standard].freeze
     FTTH_STANDARD = %w[ftth standard].freeze
