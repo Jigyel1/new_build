@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
-  let_it_be(:project_cost) { create(:admin_toolkit_project_cost, arpu: 50, standard: 10_500) }
+  let_it_be(:project_cost) { create(:admin_toolkit_project_cost, standard: 10_500) }
 
   describe '.resolve' do
     context 'for admins' do
@@ -13,7 +13,6 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
         response, errors = formatted_response(query, current_user: super_user)
         expect(errors).to be_nil
         expect(response.adminToolkitProjectCost).to have_attributes(
-          arpu: 50.0,
           standard: 10_500.0,
           mrcStandard: 20,
           mrcHighTiers: 37,
@@ -40,7 +39,7 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
       it 'returns the project cost' do
         response, errors = formatted_response(query, current_user: kam)
         expect(errors).to be_nil
-        expect(response.adminToolkitProjectCost).to have_attributes(arpu: 50.0, standard: 10_500.0)
+        expect(response.adminToolkitProjectCost).to have_attributes(standard: 10_500.0)
       end
     end
   end
@@ -49,7 +48,7 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
     <<~GQL
       query {
         adminToolkitProjectCost {
-          id arpu standard socketInstallationRate cpeHfc cpeFtth oltCostPerCustomer
+          id standard socketInstallationRate cpeHfc cpeFtth oltCostPerCustomer
           ftthPayback oltCostPerUnit patchingCost mrcStandard mrcHighTiers
           highTiersProductShare hfcPayback ftthCost
         }

@@ -17,7 +17,6 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
 
         expect(errors).to be_nil
         expect(response.projectCost).to have_attributes(
-          arpu: 50.0,
           standard: 10_500.0,
           socketInstallationRate: 75.46,
           mrcStandard: 20.0,
@@ -44,7 +43,6 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
         updateProjectCost(
           input: {
             attributes: {
-              arpu: #{args[:arpu]}
               standard: #{args[:standard]}
               socketInstallationRate: 75.456
               mrcStandard: 20.0
@@ -57,7 +55,7 @@ RSpec.describe Mutations::AdminToolkit::UpdateProjectCost do
         )
         {
           projectCost {
-            id arpu standard socketInstallationRate mrcStandard
+            id standard socketInstallationRate mrcStandard
             mrcHighTiers highTiersProductShare hfcPayback ftthCost
           }
         }

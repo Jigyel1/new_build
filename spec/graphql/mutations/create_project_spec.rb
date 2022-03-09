@@ -155,7 +155,7 @@ RSpec.describe Mutations::CreateProject do
     <<~ADDRESS_BOOKS
       addressBooks: [
         {
-          type: "Investor"
+          type: "Building Owner"
           name: "Philips"
           additionalName: "Jordan"
           company: "Charlotte Hornets"

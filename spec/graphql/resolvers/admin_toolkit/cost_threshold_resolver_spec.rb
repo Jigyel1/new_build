@@ -29,7 +29,7 @@ RSpec.describe Resolvers::AdminToolkit::CostThresholdResolver do
 
   def query
     <<~GQL
-      query { adminToolkitCostThreshold { exceeding id notExceeding } }
+      query { adminToolkitCostThreshold { exceeding id } }
     GQL
   end
 end

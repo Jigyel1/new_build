@@ -5,8 +5,7 @@ module Mutations
     class UpdateCostThreshold < BaseMutation
       class UpdateCostThresholdAttributes < Types::BaseInputObject
         argument :id, ID, required: true
-        argument :not_exceeding, Float, required: false
-        argument :exceeding, Float, required: false
+        argument :exceeding, Float, required: true
       end
 
       argument :attributes, UpdateCostThresholdAttributes, required: true

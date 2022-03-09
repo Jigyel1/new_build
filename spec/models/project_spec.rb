@@ -165,7 +165,7 @@ RSpec.describe Project, type: :model do
 
     it do
       expect(subject).to define_enum_for(:access_technology).with_values( # rubocop:disable RSpec/NamedSubject
-        ftth: 'FTTH', hfc: 'HFC', lease: 'Lease'
+        ftth: 'FTTH', hfc: 'HFC', third_party: 'Third Party'
       ).backed_by_column_of_type(:string)
     end
 
@@ -205,6 +205,7 @@ RSpec.describe Project, type: :model do
     it do
       expect(subject).to define_enum_for(:building_type).with_values( # rubocop:disable RSpec/NamedSubject
         efh: 'EFH',
+        defh: 'DEFH',
         mfh: 'MFH',
         refh: 'Non-Residential REFH',
         stepped_building: 'Stepped Building',
