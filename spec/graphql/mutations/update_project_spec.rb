@@ -6,12 +6,13 @@ RSpec.describe Mutations::UpdateProject do
   using TimeFormatter
 
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
+  let_it_be(:super_user_b) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:project) { create(:project) }
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) { { status: 'Technical Analysis', assignee_id: kam.id } }
+      let!(:params) { { status: 'Technical Analysis' } }
 
       it 'updates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
@@ -24,7 +25,6 @@ RSpec.describe Mutations::UpdateProject do
           gisUrl: 'https://web.upc.ch/web_office/server?project=Access&client=corejs&keyname=PROJ_EXTERN_ID&keyvalue=3045071',
           infoManagerUrl: 'https://infomanager.bauinfocenter.ch/go/projectext/3045071'
         )
-        expect(response.project.assignee).to have_attributes(id: kam.id, name: kam.name)
       end
     end
 
@@ -49,6 +49,29 @@ RSpec.describe Mutations::UpdateProject do
         )
         expect(response.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
+      end
+    end
+
+    context 'when the person is assigned or unassigned from project' do
+      before { project.update(assignee: kam) }
+
+      let!(:params) { { status: 'Technical Analysis', assignee_id: super_user.id } }
+
+      it 'sends the email to assigned person and unassigned provided not a current user' do
+        perform_enqueued_jobs do
+          _response, errors = formatted_response(query(params), current_user: super_user_b, key: :updateProject)
+          expect(errors).to be_nil
+
+          expect(ActionMailer::Base.deliveries.count).to eq(2)
+          expect(ActionMailer::Base.deliveries.first).to have_attributes(
+            subject: t('mailer.project.notify_assignee_unassigned'),
+            to: [kam.email]
+          )
+          expect(ActionMailer::Base.deliveries.second).to have_attributes(
+            subject: t('mailer.project.notify_assignee_assigned'),
+            to: [super_user.email]
+          )
+        end
       end
     end
   end
