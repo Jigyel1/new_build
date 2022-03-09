@@ -12,7 +12,7 @@ describe Projects::StatusUpdater do
     create(
       :admin_toolkit_pct_value,
       :prio_two,
-      pct_month: create(:admin_toolkit_pct_month, min: 0, max: 12),
+      pct_month: create(:admin_toolkit_pct_month, min: 0, max: 448),
       pct_cost: create(:admin_toolkit_pct_cost, min: 100, max: 200_000)
     )
   end
