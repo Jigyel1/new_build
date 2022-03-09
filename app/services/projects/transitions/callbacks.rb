@@ -8,7 +8,7 @@ module Projects
         send(callback) if respond_to?(callback)
       end
 
-      def before_technical_analysis_completed # rubocop:disable Metrics/SeliseMethodLength
+      def before_technical_analysis_completed # rubocop:disable Metrics/SeliseMethodLength, Metrics/AbcSize
         extract_verdict
 
         # Project does not accept nested attribute for Connection Costs. So build the project
