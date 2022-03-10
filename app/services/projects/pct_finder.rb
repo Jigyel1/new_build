@@ -2,7 +2,7 @@
 
 module Projects
   class PctFinder < BaseService
-    attr_accessor :type, :id
+    attr_accessor :project, :type
 
     include PctHelper
 
@@ -30,10 +30,6 @@ module Projects
       end
 
       hfc_pct_cost if project.standard?
-    end
-
-    def project
-      @project ||= Project.find(id)
     end
   end
 end
