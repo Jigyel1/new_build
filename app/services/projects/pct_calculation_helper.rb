@@ -81,7 +81,7 @@ module Projects
     end
 
     def standard_cost
-      return project.buildings_count * standard_connection_cost if project.standard? && cost_type == 'standard'
+      return project.buildings_count * standard_connection_cost if cost_type == 'standard'
 
       standard_connection_cost
     end
