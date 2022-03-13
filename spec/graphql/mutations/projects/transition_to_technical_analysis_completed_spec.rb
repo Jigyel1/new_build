@@ -61,8 +61,6 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
   describe '.resolve' do
     context 'with permissions' do
-      before_all { project.update_column(:category, :complex) }
-
       it 'updates project status' do
         response, errors = formatted_response(
           query(params),
