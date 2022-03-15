@@ -12,14 +12,14 @@ module Projects
     end
 
     def valid_combination?
-      both_standard? || both_non_standard? || (contradiction(hfc) && contradiction(ftth))
+      both_standard? || both_non_standard? || (contradiction?(hfc) && contradiction?(ftth))
     end
 
     def both_standard?
       hfc == standard && ftth == standard
     end
 
-    def contradiction(cost_type)
+    def contradiction?(cost_type)
       cost_type == standard || cost_type == non_standard
     end
 

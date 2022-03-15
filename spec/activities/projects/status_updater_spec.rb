@@ -18,7 +18,6 @@ describe Projects::StatusUpdater do
   end
 
   let_it_be(:administrator) { create(:user, :administrator) }
-
   let_it_be(:super_user) do
     create(
       :user,

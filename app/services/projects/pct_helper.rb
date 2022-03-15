@@ -73,11 +73,11 @@ module Projects
       Projects::PctConditionChecker.new(ftth_cost_type, hfc_cost_type, 'standard', 'non_standard')
     end
 
-    def hfc_too_expensive
+    def hfc_too_expensive?
       (hfc_cost_type == 'too_expensive' && ftth_cost_type == 'standard') || ftth_cost_type == 'non_standard'
     end
 
-    def ftth_too_expensive
+    def ftth_too_expensive?
       (ftth_cost_type == 'too_expensive' && hfc_cost_type == 'standard') || hfc_cost_type == 'non_standard'
     end
 
