@@ -16,17 +16,8 @@ module Projects
       raise(errors.full_messages.to_sentence) if invalid?
     end
 
-    def calculate_pct_cost # rubocop:disable Metrics/AbcSize
-      pct_cost.assign_attributes(
-        project_connection_cost: pct_calculator.proj_connection_cost([connection_type, cost_type]),
-        socket_installation_cost: pct_calculator.socket_installation_cost,
-        payback_period: pct_calculator.payback_period,
-        penetration_rate: penetration_rate,
-        lease_cost: pct_calculator.lease_cost,
-        build_cost: pct_calculator.build_cost,
-        project_cost: pct_calculator.project_cost([connection_type, cost_type]),
-        roi: pct_calculator.roi
-      )
+    def calculate_pct_cost
+      pct_cost.assign_attributes(calculation_attributes)
     end
 
     def project
@@ -77,6 +68,19 @@ module Projects
         competition: competition,
         ftth_standard: ftth_standard,
         project_connection_cost: project_connection_cost
+      }
+    end
+
+    def calculation_attributes  # rubocop:disable Metrics/AbcSize
+      {
+        project_connection_cost: pct_calculator.proj_connection_cost([connection_type, cost_type]),
+        socket_installation_cost: pct_calculator.socket_installation_cost,
+        payback_period: pct_calculator.payback_period,
+        penetration_rate: penetration_rate,
+        lease_cost: pct_calculator.lease_cost,
+        build_cost: pct_calculator.build_cost,
+        project_cost: pct_calculator.project_cost([connection_type, cost_type]),
+        roi: pct_calculator.roi
       }
     end
 
