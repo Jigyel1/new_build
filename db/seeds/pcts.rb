@@ -2,22 +2,22 @@
 
 [
   { index: 0, min: 0, max: 2500 },
-  { index: 1, min: 2501, max: 5000 },
-  { index: 2, min: 5001, max: 10_000 },
-  { index: 3, min: 10_001, max: 20_000 },
-  { index: 4, min: 20_001, max: 30_000 },
-  { index: 5, min: 30_001, max: MAX_SIGNED }
+  { index: 1, min: 2500, max: 5000 },
+  { index: 2, min: 5000, max: 10_000 },
+  { index: 3, min: 10_000, max: 20_000 },
+  { index: 4, min: 20_000, max: 30_000 },
+  { index: 5, min: 30_000, max: MAX_SIGNED }
 ].each do |attributes|
   index = attributes.delete(:index)
   create_record(attributes) { AdminToolkit::PctCost.find_or_initialize_by(index: index) }
 end
 
 [
-  { index: 0, min: 0, max: 11 },
-  { index: 1, min: 12, max: 17 },
-  { index: 2, min: 18, max: 23 },
-  { index: 3, min: 24, max: 35 },
-  { index: 4, min: 36, max: MAX_SIGNED }
+  { index: 0, min: 0, max: 5 },
+  { index: 1, min: 5, max: 17 },
+  { index: 2, min: 17, max: 23 },
+  { index: 3, min: 23, max: 25 },
+  { index: 4, min: 25, max: MAX_SIGNED }
 ].each do |attributes|
   index = attributes.delete(:index)
   create_record(attributes) { AdminToolkit::PctMonth.find_or_initialize_by(index: index) }

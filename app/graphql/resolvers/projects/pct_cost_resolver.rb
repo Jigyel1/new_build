@@ -25,11 +25,16 @@ module Resolvers
       argument :attributes, ProjectsPctCostAttributes, required: true
 
       def resolve(attributes:)
+        destroy_existing_cost(attributes)
         resolver = ::Projects::PctCostCalculator.new(
           attributes.to_h.merge(system_generated_payback_period: true)
         )
         resolver.call
         resolver.pct_cost
+      end
+
+      def destroy_existing_cost(attr)
+        ::Projects::ConnectionCost.find_by(project_id: attr[:project_id]).try(:destroy)
       end
     end
   end

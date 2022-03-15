@@ -9,12 +9,12 @@ module Projects
         .joins(:pct_cost, :pct_month)
         .where(
           Arel.sql(
-            'admin_toolkit_pct_months.min <= :value AND admin_toolkit_pct_months.max >= :value'
+            'admin_toolkit_pct_months.min <= :value AND admin_toolkit_pct_months.max > :value'
           ), value: year
         )
         .find_by(
           Arel.sql(
-            'admin_toolkit_pct_costs.min <= :value AND admin_toolkit_pct_costs.max >= :value'
+            'admin_toolkit_pct_costs.min <= :value AND admin_toolkit_pct_costs.max > :value'
           ), value: cost
         )
     end

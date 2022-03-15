@@ -20,6 +20,7 @@ module Projects
     validates_presence_of :penetration, message: I18n.t('projects.transition.penetration_missing')
     validates :competition, presence: true
     validates :socket_installation_rate, :ftth_standard, :standard_connection_cost, presence: true
+    validates :apartments_count, presence: true, numericality: { greater_than: 0 }
 
     attr_accessor(
       :connection_cost_id,

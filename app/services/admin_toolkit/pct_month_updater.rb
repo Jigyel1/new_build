@@ -18,24 +18,17 @@ module AdminToolkit
 
     private
 
-    # Increments the min of the adjacent(but with higher index) record to record's max + 1
-    # eg. Say FootprintMonth(FPM) A has a min 0, max 12 and FPM B has min 13, max 18
-    #    And an update is triggered for FPM A with max of 14. This method should
+    # We take the min of the adjacent(but with higher index) record to record's max
+    # eg. Say FootprintMonth(FPM) A has a min 0, max 12 and FPM B has min 12, max 18
+    #    And an update is triggered for FPM A with max of 15. This method should
     #   update FPM's min to 15.
-    def propagate_changes! # rubocop:disable Metrics/AbcSize
+    def propagate_changes!
       return unless pct_month.max_changed?
 
       target_pct_month = AdminToolkit::PctMonth.find_by(index: pct_month.index + 1)
       return unless target_pct_month
 
-      target_pct_month.update!(min: pct_month.max + 1)
-    rescue ActiveRecord::RecordInvalid
-      raise I18n.t(
-        'admin_toolkit.pct_month.invalid_min',
-        index: target_pct_month.index,
-        new_max: pct_month.max + 1,
-        old_max: target_pct_month.max
-      )
+      target_pct_month.update!(min: pct_month.max)
     end
 
     def activity_params
