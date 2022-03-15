@@ -16,7 +16,7 @@ class Project < ApplicationRecord
   validates :move_in_ends_on, succeeding_date: { preceding_date_key: :move_in_starts_on }, allow_nil: true
   validates :cable_installations, inclusion: { in: %w[FTTH Coax Copper(DSL)] }
 
-  delegate :zip, to: :address
+  delegate :zip, to: :address, allow_nil: true
   delegate :project_cost, to: :pct_cost, allow_nil: true
   delegate :email, to: :incharge, prefix: true, allow_nil: true
 
