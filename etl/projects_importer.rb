@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProjectsImporter < EtlBase
+  include Projects::ProjectErrorHelper
+
   SHEET_INDEX = 0
   SKIP_ROWS = 1
   EXTERNAL_ID = 0
@@ -17,6 +19,7 @@ class ProjectsImporter < EtlBase
     sheet.row_skip = SKIP_ROWS
 
     import(current_user, sheet)
+    building_count_error(current_user)
   end
 
   private
