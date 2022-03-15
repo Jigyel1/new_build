@@ -1,0 +1,25 @@
+@import 'variable';
+@import 'utilities';
+
+body {
+  font-family: var(--heavy-font--family) !important;
+}
+.building__table{
+  border-collapse: collapse;
+  tr{
+   border-bottom: 1px solid rgba($black, 0.25) !important;
+  }
+}
+.no-break:before {
+  clear: both;
+}
+.no-break {
+  page-break-inside: avoid;
+}
+.address__list {
+  display: inline-block;
+  margin-bottom: 3%;
+  width: 294px;
+  height: 350px;
+  vertical-align: top;
+}

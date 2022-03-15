@@ -1,0 +1,28 @@
+<% if project.standard? %>
+  <div class="border--black-16 br-8 p-16 mb-32">
+    <%= render('pdf/hfc_calculation', project: project, hfc: hfc, hfc_payback: hfc_payback) %>
+  </div>
+<% else %>
+  <% if project.connection_costs.hfc[0]&.cost_type == 'too_expensive' %>
+    <div class="border--black-16 br-8 p-16 mb-32">
+      <%= render('pdf/ftth_calculation', project: project, ftth: ftth, ftth_payback: ftth_payback) %>
+    </div>
+  <% elsif project.connection_costs.ftth[0]&.cost_type == 'too_expensive' %>
+    <div class="border--black-16 br-8 p-16 mb-32">
+      <%= render('pdf/hfc_calculation', project: project, hfc: hfc, hfc_payback: hfc_payback) %>
+    </div>
+  <% else %>
+    <div class="flex--row mb-24">
+      <div class="width--48">
+        <div class="border--black-16 br-8 p-16 mb-32">
+          <%= render('pdf/hfc_calculation', project: project, hfc: hfc, hfc_payback: hfc_payback) %>
+        </div>
+      </div>
+      <div class="ml-12 width--50">
+        <div class="border--black-16 br-8 p-16 mb-32">
+          <%= render('pdf/ftth_calculation', project: project, ftth: ftth, ftth_payback: ftth_payback) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

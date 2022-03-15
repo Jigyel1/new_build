@@ -93,6 +93,8 @@ module Types
     field :delete_building, mutation: Mutations::Projects::DeleteBuilding
     field :export_building, mutation: Mutations::Projects::ExportBuilding
 
+    field :contract_summary_pdf_generator, mutation: Mutations::Projects::ContractSummaryPdfGenerator
+
     field :create_task, mutation: Mutations::Projects::CreateTask
     field :delete_task, mutation: Mutations::Projects::DeleteTask
     field :update_task, mutation: Mutations::Projects::UpdateTask

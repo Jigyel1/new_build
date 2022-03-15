@@ -1,0 +1,87 @@
+<div class="contract-pdf">
+  <%= render('pdf/contract_summary', project: project) %>
+  <%= render('pdf/address_book', project: project) %>
+
+  <div class="flex--row mb-32">
+    <div class="font-size-16 width--40">
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.customer_planned_inhouse_title') %></p>
+      <p class="color--black-87"> <%= project.cable_installations %></p>
+    </div>
+    <div class="font-size-16 width--40">
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.building_type') %></p>
+      <p class="color--black-87"><%= project.building_type.try(:titleize) %></p>
+    </div>
+  </div>
+
+  <p class="color--black-87 font-size-18 mb-24 mt-48"><%= I18n.t('pdf.project.info') %></p>
+
+  <div class="flex--row mb-24">
+    <div class="font-size-16 width--40">
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.category.title') %></p>
+      <p class="color--black-87 text--capitalize"><%= project.project_category %></p>
+    </div>
+    <div class="font-size-16 width--40">
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.construction_type.title') %></p>
+      <p class="color--black-87 text--capitalize"><%= project.construction_type %></p>
+    </div>
+    <div class="font-size-16 width--40">
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.request.title') %></p>
+      <p class="color--black-87"><%= project.customer_request %></p>
+    </div>
+  </div>
+
+  <div class="flex--row mb-24">
+    <div class="font-size-16 width--40">
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.access_tech.title') %></p>
+      <p class="color--black-87"><%= project.access_tech %></p>
+    </div>
+    <div class="font-size-16 width--40">
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.priority.title') %></p>
+      <p class="color--black-87 text--capitalize"><%= project.priority_check %></p>
+    </div>
+    <div class="font-size-16 width--40">
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.sunrise_access_option')%></p>
+      <p class="color--black-87 text--capitalize"><%= project.competition.try(:name) %></p>
+    </div>
+  </div>
+
+  <div class="flex--row mb-24">
+    <div class="font-size-16 width--40">
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.buildings_count_title') %></p>
+      <p class="color--black-87"><%= project.buildings_count %></p>
+    </div>
+    <div class="font-size-16 width--40">
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.apartments_count_title') %></p>
+      <p class="color--black-87"><%= project.apartments_count %></p>
+    </div>
+  </div>
+  <div class="mb-32">
+    <p class="font-size-18 color--black-60 font--heavy mb-8"><%= I18n.t('pdf.project.analysis_title') %></p>
+    <p class="font-size-16 color--black-87 line-height--24"><%= analysis %></p>
+  </div>
+
+  <%= render('pdf/buildings', project: project) %>
+
+  <div class="no-break">
+    <%= render(
+          'pdf/pct_calculation',
+          project: project,
+          ftth: ftth_pct_cost,
+          hfc: hfc_pct_cost,
+          hfc_payback: hfc_payback,
+          ftth_payback: ftth_payback
+        ) %>
+  </div>
+
+  <% if project.verdicts.present? %>
+    <div class="mt-24">
+      <p class="font-size-18 color--black-60 font--heavy mb-8"><%= I18n.t('pdf.project.verdict_title') %></p>
+      <p class="font-size-16 color--black-87 line-height--24"> <%= project.verdicts['technical_analysis_completed'] %>
+    </div>
+  <% end %>
+
+  <div class="mt-24 font-size-16 ">
+    <p class="mb-8"><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.gis') %>:</span> <a class="color--primary" href="<%= project.gis_url %>" target="_blank" rel="noopener noreferrer"><%= project.gis_url %></a></p>
+    <p><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.info_manager') %>:</span> <a class="color--primary"  href="<%= project.gis_url %>" target="_blank" rel="noopener noreferrer"><%= project.info_manager_url %></a></p>
+  </div>
+</div>
