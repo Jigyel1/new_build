@@ -91,7 +91,7 @@ module Projects
     # end
 
     def destroy_existing_pct
-      ::Projects::ConnectionCost.find_by(project_id: project.id).try(:destroy)
+      ::Projects::ConnectionCost.find_by(project_id: project.id).pct_cost.try(:destroy)
     end
   end
 end
