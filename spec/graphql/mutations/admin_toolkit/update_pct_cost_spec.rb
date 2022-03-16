@@ -41,13 +41,13 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctCost)
         expect(response.pctCost).to be_nil
         expect(errors).to match_array(
-        [
-           t('admin_toolkit.pct_cost.invalid_min',
-            index: pct_cost_b.index,
-            new_max: 5900,
-            old_max: 5000)
-            ]
-          )
+          [
+            t('admin_toolkit.pct_cost.invalid_min',
+              index: pct_cost_b.index,
+              new_max: 5900,
+              old_max: 5000)
+          ]
+        )
       end
     end
   end

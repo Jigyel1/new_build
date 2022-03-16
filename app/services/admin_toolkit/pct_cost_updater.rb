@@ -22,7 +22,7 @@ module AdminToolkit
     # eg. Say FootprintCost(FPC) A has a min 10, max 1000 and FPC B has min 1000, max 3000
     #    And an update is triggered for FPC A with max of 1501. This method should
     #   update FPC's min to 1501.
-    def propagate_changes! # rubocop:disable Metrics/AbcSize
+    def propagate_changes!
       return unless pct_cost.max_changed?
 
       target_pct_cost = AdminToolkit::PctCost.find_by(index: pct_cost.index + 1)
