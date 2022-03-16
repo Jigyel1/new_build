@@ -10,6 +10,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
   let_it_be(:label_group_b) { create(:admin_toolkit_label_group, :ready_for_offer) }
 
   let_it_be(:competition) { create(:admin_toolkit_competition) }
+  let_it_be(:cost_threshold) { create(:admin_toolkit_cost_threshold) }
   let_it_be(:penetration) { create(:admin_toolkit_penetration, zip: zip, kam_region: kam_region, rate: 0.56) }
   let_it_be(:penetration_competition) do
     create(:penetration_competition, penetration: penetration, competition: competition)
@@ -19,8 +20,8 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     create(
       :admin_toolkit_pct_value,
       :prio_two,
-      pct_month: create(:admin_toolkit_pct_month, min: 0, max: 428),
-      pct_cost: create(:admin_toolkit_pct_cost, min: 1187, max: 100_000)
+      pct_month: create(:admin_toolkit_pct_month, min: 1, max: 55),
+      pct_cost: create(:admin_toolkit_pct_cost, min: 1187, max: 200_000)
     )
   end
 
@@ -43,31 +44,30 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
   let_it_be(:connection_cost_str) { '{ connectionType: "hfc", costType: "standard"}' }
 
-  describe '.resolve' do
-    context 'with permissions' do
-      before_all { project.update_column(:category, :complex) }
-      let_it_be(:params) do
-        {
-          connection_costs: '
+  let_it_be(:params) do
+    {
+      connection_costs: '
             {
               connectionType: "hfc",
               costType: "standard"
             },
             {
               connectionType: "ftth",
-              costType: "non_standard",
-              projectConnectionCost: 11000
+              costType: "standard",
             }
           '
-        }
-      end
+    }
+  end
 
+  describe '.resolve' do
+    context 'with permissions' do
       it 'updates project status' do
         response, errors = formatted_response(
           query(params),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
+
         expect(errors).to be_nil
         expect(response.project).to have_attributes(cableInstallations: %w[FTTH Coax])
         expect(response.project.status).to eq('technical_analysis_completed')
@@ -135,21 +135,21 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
         expect(response.project).to be_nil
         expect(errors).to eq([t('projects.transition.archiving_expensive_project')])
-        expect(project.reload).to have_attributes(status: 'archived', category: 'complex')
+        expect(project.reload).to have_attributes(status: 'archived')
       end
     end
 
     context 'for HFC only projects' do
-      it 'throws error when FTTH connection type is selected' do
+      it 'when cost type for HFC only project is too_expensive, it archives the project' do
         response, errors = formatted_response(
-          query(connection_costs: '{ connectionType: "ftth", costType: "standard" }'),
+          query(connection_costs: '{ connectionType: "hfc", costType: "too_expensive" }'),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
 
         expect(response.project).to be_nil
-        expect(errors).to eq([t('projects.transition.ftth_not_supported')])
-        expect(project.reload.status).to eq('technical_analysis')
+        expect(errors).to eq([t('projects.transition.archiving_expensive_project')])
+        expect(project.reload.status).to eq('archived')
       end
     end
 
@@ -193,6 +193,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
+
         expect(errors).to be_nil
         expect(response.project.status).to eq('ready_for_offer')
 
@@ -226,6 +227,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
         )
+
         expect(errors).to be_nil
         expect(response.project.status).to eq('commercialization')
       end
@@ -251,7 +253,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
     end
 
     context 'when PCT Value for priority lookup is missing' do
-      before { pct_value.pct_month.update_column(:max, 13) }
+      before { pct_value.pct_month.update_column(:max, 1) }
 
       it 'responds with error' do
         response, errors = formatted_response(
@@ -281,7 +283,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be_nil
-        expect(connection_cost.reload.pct_cost.payback_period).to be(144.0)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(25.42336309523809)
       end
     end
 

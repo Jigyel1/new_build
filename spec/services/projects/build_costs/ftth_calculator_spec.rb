@@ -19,7 +19,7 @@ describe Projects::BuildCosts::FtthCalculator do
 
   describe '#call' do
     it 'returns ftth build cost for the connection' do
-      expect(calculator.call).to eq(11_400.3507)
+      expect(calculator.call).to eq(11_302.605)
     end
   end
 end

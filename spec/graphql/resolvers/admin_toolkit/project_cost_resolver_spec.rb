@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
-  let_it_be(:project_cost) { create(:admin_toolkit_project_cost, standard: 10_500) }
+  let_it_be(:project_cost) { create(:admin_toolkit_project_cost, arpu: 50, standard: 10_500) }
 
   describe '.resolve' do
     context 'for admins' do
@@ -50,7 +50,7 @@ RSpec.describe Resolvers::AdminToolkit::ProjectCostResolver do
         adminToolkitProjectCost {
           id standard socketInstallationRate cpeHfc cpeFtth oltCostPerCustomer
           ftthPayback oltCostPerUnit patchingCost mrcStandard mrcHighTiers
-          highTiersProductShare hfcPayback ftthCost
+          highTiersProductShare hfcPayback ftthCost iruSfn mrcSfn
         }
       }
     GQL

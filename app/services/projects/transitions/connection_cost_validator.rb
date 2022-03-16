@@ -15,7 +15,6 @@ module Projects
 
       def call
         validate_cost!
-        validate_by_project_category!
         archive_if_expensive!
         archive_hfc_only_if_expensive!
       end
@@ -28,12 +27,6 @@ module Projects
         end
 
         raise(t('projects.transition.cost_present'))
-      end
-
-      def validate_by_project_category!
-        return unless project.standard? && project.connection_costs.any?(&:ftth?)
-
-        raise(t('projects.transition.ftth_not_supported'))
       end
 
       # Currently only if both connections are <tt>too_expensive</tt> we archive the project.

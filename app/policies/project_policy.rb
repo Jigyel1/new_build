@@ -10,7 +10,7 @@ class ProjectPolicy < ApplicationPolicy
   def ready_for_offer?
     return unless super
 
-    record.project_cost && record.project_cost > 10_000 ? gt_10_000? : true
+    record.pct_cost.project_connection_cost > AdminToolkit::CostThreshold.first.exceeding ? build_cost_exceeding? : true
   end
 
   def archived?

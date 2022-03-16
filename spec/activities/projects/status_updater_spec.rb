@@ -12,8 +12,8 @@ describe Projects::StatusUpdater do
     create(
       :admin_toolkit_pct_value,
       :prio_two,
-      pct_month: create(:admin_toolkit_pct_month, min: 0, max: 428),
-      pct_cost: create(:admin_toolkit_pct_cost, min: 200, max: 100_000)
+      pct_month: create(:admin_toolkit_pct_month, min: 0, max: 448),
+      pct_cost: create(:admin_toolkit_pct_cost, min: 100, max: 200_000)
     )
   end
 
@@ -28,7 +28,13 @@ describe Projects::StatusUpdater do
 
   let_it_be(:address) { build(:address, zip: zip) }
   let_it_be(:project) { create(:project, :open, address: address, incharge: super_user) }
+  let_it_be(:connection_cost) { create(:connection_cost, project: project) }
+  let_it_be(:project_pct_cost) do
+    create(:projects_pct_cost, connection_cost: connection_cost, build_cost: 3000.123)
+  end
+
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
+  let_it_be(:cost_threshold) { create(:admin_toolkit_cost_threshold) }
   let_it_be(:params) { { id: project.id, priority_tac: :proactive } }
 
   describe '.activities' do
@@ -77,8 +83,7 @@ describe Projects::StatusUpdater do
 
       before do
         project.update_columns(status: :technical_analysis, access_technology_tac: :hfc)
-        connection_cost = create(:connection_cost, project: project)
-        params[:connection_costs_attributes] = [{ connection_cost_id: connection_cost.id }]
+        params[:connection_costs_attributes] = [{ connection_type: 'hfc', cost_type: 'standard' }]
 
         described_class.new(current_user: super_user, attributes: params, event: :technical_analysis_completed).call
       end
@@ -114,10 +119,9 @@ describe Projects::StatusUpdater do
     context 'when it transitions to ready for offer' do
       before do
         project.update_columns(status: :technical_analysis_completed, access_technology: :hfc)
-        pct_value.pct_month.update_column(:max, 498)
         connection_cost = create(:connection_cost, project: project)
 
-        create(:projects_pct_cost, :manually_set_payback_period, connection_cost: connection_cost, payback_period: 498)
+        create(:projects_pct_cost, :manually_set_payback_period, connection_cost: connection_cost, payback_period: 44)
         described_class.new(current_user: super_user, attributes: params, event: :offer_ready).call
       end
 

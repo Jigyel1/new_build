@@ -14,19 +14,11 @@ module Projects
       end
 
       def pct_value
-        @_pct_value ||= begin
-          months = project.pct_cost.payback_period
-          cost = project.pct_cost.project_cost
-
-          AdminToolkit::PctValue
-            .joins(:pct_cost, :pct_month)
-            .where('admin_toolkit_pct_months.min <= :value AND admin_toolkit_pct_months.max >= :value', value: months)
-            .find_by('admin_toolkit_pct_costs.min <= :value AND admin_toolkit_pct_costs.max >= :value', value: cost)
-        end
+        @_pct_value ||= Projects::PctFinder.new(project: project, type: 'pct_value').call
       end
 
       def prio_one?
-        pct_value.try(:prio_one?)
+        default_label_group.label_list.any?('Prio 1')
       end
 
       # Special check for <tt>Prio 1</tt> projects - those that can be transitioned from <tt>technical_analysis</tt>
@@ -52,7 +44,7 @@ module Projects
       end
 
       def revert?
-        authorize! project, to: "#{aasm.from_state}?"
+        user.admin? ? true : (authorize! project, to: "#{aasm.from_state}?")
       end
 
       def extract_verdict
