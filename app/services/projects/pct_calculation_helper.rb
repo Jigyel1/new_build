@@ -90,7 +90,7 @@ module Projects
     #   standard_connection_cost
     # end
 
-    def destroy_existing_pct
+    def refresh_attributes
       project.reload
     end
   end
