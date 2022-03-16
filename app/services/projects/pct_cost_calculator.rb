@@ -5,6 +5,8 @@ module Projects
     include ActiveModel::Validations
     include PctCalculationHelper
 
+    set_callback :call, :before, :destroy_existing_pct
+
     validates(
       :project_connection_cost,
       presence: {
