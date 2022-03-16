@@ -19,7 +19,7 @@ module Projects
         )
     end
 
-    def specify_pct_value
+    def specify_pct_value # rubocop:disable Metrics/AbcSize
       return admin_toolkit_pct(hfc_pct_cost.payback_period, hfc_pct_cost.build_cost) if project.hfc?
       return admin_toolkit_pct(ftth_pct_cost.payback_period, ftth_pct_cost.build_cost) if project.ftth?
 
@@ -79,6 +79,10 @@ module Projects
 
     def ftth_too_expensive?
       (ftth_cost_type == 'too_expensive' && hfc_cost_type == 'standard') || hfc_cost_type == 'non_standard'
+    end
+
+    def access_tech(type)
+      project.try("#{type}?")
     end
   end
 end
