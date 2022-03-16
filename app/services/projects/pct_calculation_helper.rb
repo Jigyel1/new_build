@@ -71,7 +71,7 @@ module Projects
       }
     end
 
-    def calculation_attributes # rubocop:disable Metrics/AbcSize
+    def calculation_attributes  # rubocop:disable Metrics/AbcSize
       {
         project_connection_cost: pct_calculator.proj_connection_cost([connection_type, cost_type]),
         socket_installation_cost: pct_calculator.socket_installation_cost,
@@ -90,8 +90,8 @@ module Projects
     #   standard_connection_cost
     # end
 
-    def refresh_attributes
-      project.reload
+    def destroy_existing_pct
+      ::Projects::ConnectionCost.find_by(project_id: project.id).try(:destroy)
     end
   end
 end
