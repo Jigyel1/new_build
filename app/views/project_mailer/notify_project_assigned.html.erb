@@ -1,3 +1,4 @@
+<!--FIXME: Logo & footer and anything common - extract out in a partial. @jigyel #DRY! -->
 <table class="full--width">
   <tr>
     <td>
@@ -8,15 +9,20 @@
   </tr>
   <tr>
     <td>
-      <h1 class="my-0">New Build - Unassigned from Technical Incharge</h1>
+      <h2 class="my-0">New Build - Project Assignee</h2>
     </td>
   </tr>
   <tr>
-    <td><p class="color--black-87 mb-16 font--bold text--capitalize  font-size-16">Hello <%= @user.profile.salutation %>. <%= @user.lastname.capitalize! %></p></td>
+    <td>
+      <p class="color--black-87 mb-16 font--bold text--capitalize font-size-16">
+        Hello <%= @user.salutation %>. <%= @user.lastname.capitalize! %>
+      </p>
+    </td>
   </tr>
   <tr>
     <td>
-      <p class="my-0">You have been unassigned as the Technical Incharge for "<%= @project.name %>" project by <span class="text--capitalize"><%= @assigner.name %></span>.
+      <p class="my-0">
+        You have been assigned as the Assigned Person for "<%= @project_name%>" project.
       </p>
     </td>
   </tr>

@@ -135,6 +135,9 @@ en:
       address_book_created:
         owner: "For project %{project_name}', a new role type '%{address_book_type}' has been added by you"
         others: "For project '%{project_name}', a new role type '%{address_book_type}' has been added by %{owner_email}"
+      address_book_deleted:
+        owner: "For project '%{project_name}', Address book information for role type '%{address_book_type}' has been deleted by you"
+        others: "For project '%{project_name}', Address book information for role type '%{address_book_type}' has been deleted by %{owner_email}"
       address_book_updated:
         owner: "For project '%{project_name}', Address book information for role type '%{address_book_type}' has been updated by you"
         others: "For project '%{project_name}', Address book information for role type '%{address_book_type}' has been updated by %{owner_email}"

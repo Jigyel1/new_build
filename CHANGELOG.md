@@ -28,6 +28,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Fixes
 - Project Label update fixes.
 
+## [2.0.3] - 2022-02-25
+
+### Fixes
+- If a project has more than 50 homes then such types of projects will be assigned to KAM. This assignment will be done based on the settings of “KAM Regions” in the Penetration tab from the Admin toolkit.
+- If a project has a specific landlord, then such projects will be assigned to certain KAMs who are assigned to those landlords. This assignment will be done based on the settings in the “Assign KAM” tab from the Admin toolkit.
+- If a project is newly uploaded/created into the New Build portal but if no above criteria are there for that project then it will be assigned to the NBO team (expert or standard) and any other person who clicks on that project will be automatically assigned.
+- Project lot number fix
+- Translation added fro address book deleter activity log.
+
+## [2.0.2] - 2022-02-25
+
+### Features
+- Access Technology logic implementation in TA state.
+- Payback Period calculators.
+- Introduced third_party access technology.
+- Permissions update with cost threshold.
+- Introduced building type for project.
+- Introduced new attributes in AdminToolkit::Competition
+- Cost Threshold permission application on project level.
+
+### Fixes
+- Project Label update fixes.
+- Pct calculation, payback period, build cost and lease cost fixies.
+- Revert project state issue fixes.
+- Archiving issues fixes.
+
+
 ## [2.0.1] - 2022-02-17
 
 ### Features

@@ -41,7 +41,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       address: address_b,
       assignee: kam,
       buildings: build_list(:building, 15, apartments_count: 6),
-      lot_number: 'Parz. 1372, 120'
+      lot_number: 'Parz. 120'
     )
   end
 
@@ -233,12 +233,12 @@ RSpec.describe Resolvers::ProjectsResolver do
     end
 
     context 'with lot number filter' do
-      let!(:lot_numbers) { ['Parz. 277, 1617'] }
+      let!(:lot_numbers) { '120' }
 
       it 'returns projects matching the given lot numbers' do
         projects, errors = paginated_collection(:projects, query(lotNumbers: lot_numbers), current_user: super_user)
         expect(errors).to be_nil
-        expect(projects.pluck(:id)).to match_array([project_a.id])
+        expect(projects.pluck(:id)).to match_array([project_b.id])
       end
     end
   end

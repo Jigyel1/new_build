@@ -7,7 +7,7 @@ RSpec.describe Mutations::UpdateProject do
 
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:project) { create(:project) }
+  let_it_be(:project) { create(:project, assignee: kam) }
 
   describe '.resolve' do
     context 'with valid params' do
@@ -49,6 +49,42 @@ RSpec.describe Mutations::UpdateProject do
         )
         expect(response.project).to be_nil
         expect(errors).to eq(['Not Authorized'])
+      end
+    end
+
+    context 'when the project assignee is changed' do
+      context 'when current user is assigned to project' do
+        let!(:params) { { status: 'Technical Analysis', assignee_id: super_user.id } }
+
+        it 'sends unassigned email to previous assignee' do
+          perform_enqueued_jobs do
+            _response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
+            expect(errors).to be_nil
+            expect(ActionMailer::Base.deliveries.count).to eq(1)
+            expect(ActionMailer::Base.deliveries.first).to have_attributes(
+              subject: t('mailer.project.notify_assignee_unassigned'),
+              to: [kam.email]
+            )
+          end
+        end
+      end
+
+      context 'when current user is previous project assignee' do
+        before { project.update(assignee: super_user) }
+
+        let!(:params) { { status: 'Technical Analysis', assignee_id: kam.id } }
+
+        it 'sends assigned email to new assignee' do
+          perform_enqueued_jobs do
+            _response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
+            expect(errors).to be_nil
+            expect(ActionMailer::Base.deliveries.count).to eq(1)
+            expect(ActionMailer::Base.deliveries.first).to have_attributes(
+              subject: t('mailer.project.notify_assignee_assigned'),
+              to: [kam.email]
+            )
+          end
+        end
       end
     end
   end

@@ -31,16 +31,19 @@ module Projects
     def notify_incharge
       previous_incharge_id, incharge_id = project.saved_change_to_incharge_id
 
-      if previous_incharge_id
-        ProjectMailer.notify_unassigned(
-          :incharge,
-          previous_incharge_id,
-          current_user.id,
-          project.id
-        ).deliver_later
+      if previous_incharge_id.present? && previous_incharge_id != current_user.id
+        notify_unassigned(previous_incharge_id)
       end
 
-      ProjectMailer.notify_assigned(:incharge, incharge_id, project.id).deliver_later if incharge_id
+      notify_assigned(incharge_id) if incharge_id.present? && incharge_id != current_user.id
+    end
+
+    def notify_assigned(incharge_id)
+      ProjectMailer.notify_assigned(:incharge, incharge_id, project.id, current_user.id).deliver_later
+    end
+
+    def notify_unassigned(incharge_id)
+      ProjectMailer.notify_unassigned(:incharge, incharge_id, current_user.id, project.id).deliver_later
     end
   end
 end
