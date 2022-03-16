@@ -83,11 +83,5 @@ module Projects
         roi: pct_calculator.roi
       }
     end
-
-    # def standard_cost
-    #   return project.buildings_count * standard_connection_cost if cost_type == 'standard'
-    #
-    #   standard_connection_cost
-    # end
   end
 end
