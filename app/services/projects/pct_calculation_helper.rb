@@ -71,7 +71,7 @@ module Projects
       }
     end
 
-    def calculation_attributes  # rubocop:disable Metrics/AbcSize
+    def calculation_attributes # rubocop:disable Metrics/AbcSize
       {
         project_connection_cost: pct_calculator.proj_connection_cost([connection_type, cost_type]),
         socket_installation_cost: pct_calculator.socket_installation_cost,
