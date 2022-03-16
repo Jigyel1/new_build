@@ -5,8 +5,6 @@ module Projects
     include ActiveModel::Validations
     include PctCalculationHelper
 
-    set_callback :call, :after, :destroy_existing_pct
-
     validates(
       :project_connection_cost,
       presence: {
@@ -58,9 +56,11 @@ module Projects
       super do
         return if connection_cost.too_expensive?
 
-        calculate_pct_cost
-        system_generated_payback_period && (pct_cost.system_generated_payback_period = system_generated_payback_period)
-        pct_cost.save!
+        2.times do
+          calculate_pct_cost
+          system_generated_payback_period && (pct_cost.system_generated_payback_period = system_generated_payback_period)
+          pct_cost.save!
+        end
       end
     end
   end
