@@ -24,6 +24,7 @@ RSpec.describe Mutations::UpdateProject do
           gisUrl: 'https://web.upc.ch/web_office/server?project=Access&client=corejs&keyname=PROJ_EXTERN_ID&keyvalue=3045071',
           infoManagerUrl: 'https://infomanager.bauinfocenter.ch/go/projectext/3045071'
         )
+        expect(response.project.assignee).to have_attributes(id: kam.id, name: kam.name)
       end
     end
 
