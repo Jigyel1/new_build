@@ -20,15 +20,15 @@ module Projects
     end
 
     def specify_pct_value
-      return admin_toolkit_pct(hfc_pct_cost.payback_period, hfc_pct_cost.build_cost) if access_tech('hfc')
-      return admin_toolkit_pct(ftth_pct_cost.payback_period, ftth_pct_cost.build_cost) if access_tech('ftth')
+      return admin_toolkit_pct(hfc_pct_cost.payback_period, hfc_pct_cost.build_cost) if project.hfc?
+      return admin_toolkit_pct(ftth_pct_cost.payback_period, ftth_pct_cost.build_cost) if project.ftth?
 
       admin_toolkit_pct(lease_period, max_build_cost)
     end
 
     def specify_pct_cost
-      return hfc_pct_cost if access_tech('hfc')
-      return ftth_pct_cost if access_tech('ftth')
+      return hfc_pct_cost if project.hfc?
+      return ftth_pct_cost if project.ftth?
 
       max_pct_build
     end
@@ -79,10 +79,6 @@ module Projects
 
     def ftth_too_expensive?
       (ftth_cost_type == 'too_expensive' && hfc_cost_type == 'standard') || hfc_cost_type == 'non_standard'
-    end
-
-    def access_tech(type)
-      project.try("#{type}?")
     end
   end
 end
