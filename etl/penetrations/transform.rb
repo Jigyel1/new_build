@@ -16,7 +16,7 @@ module Penetrations
       format_each(row)
 
       penetration = AdminToolkit::Penetration.find_or_initialize_by(zip: row[PenetrationsImporter::ZIP])
-      competition = ::AdminToolkit::Competition.find_by!(name: row.delete_at(COMPETITION))
+      competition = ::AdminToolkit::Competition.find_by(name: row.delete_at(COMPETITION))
 
       penetration.update(HEADERS.zip(row).to_h)
 
