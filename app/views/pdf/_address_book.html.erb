@@ -1,0 +1,22 @@
+<p class="color--black-87 font-size-18 mb-32 mt-48"><%= I18n.t('pdf.project.address_book') %></p>
+
+<div class="flex--row text-align--left font-size-16 mb-40">
+  <% project.address_books.each do |address_book| %>
+    <div class="address__list br-8 border--all px-8 pt-8 pb-16 color--black-60 mr-12">
+      <p class="color--primary"><%= address_book.display_name %></p>
+      <p><%= address_book.additional_name %></p>
+      <p><%= address_book.name %></p>
+      <p><%= address_book.company %></p>
+      <p><%= project.formatted_address(address_book.address) %>e</p>
+      <p><%= address_book.phone %></p>
+      <p class="text--underline"><%= address_book.email %></p>
+      <span class="border--black-16 p-8 br-8 mb-12">
+        <svg class="ver-middle" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23.39 23.39" width="22" height="22">
+          <path d="M12,23.69A11.69,11.69,0,1,1,23.69,12,11.7,11.7,0,0,1,12,23.69ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Z" transform="translate(-0.31 -0.31)" style="fill:#757576"/>
+          <path d="M13.08,5.64V7.78H10.92V5.64Zm0,3.43v9.29H10.92V9.07Z" transform="translate(-0.31 -0.31)" style="fill:#757576"/>
+        </svg>
+        <span class="ver-middle"><%= address_book.entry_type.try(:titleize) %></span>
+      </span>
+    </div>
+  <% end %>
+</div>

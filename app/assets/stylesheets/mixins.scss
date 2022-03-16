@@ -2,7 +2,7 @@
   @each $size in $values {
     #{'.'+$className +'-'+ $size} {
       @each $property in $direction {
-        #{$property}: #{$size}px !important;
+        #{$property}: #{$size}pt !important;
       }
     }
   }
@@ -11,19 +11,32 @@
 @mixin size($amount, $className) {
   @each $size in $amount {
     #{'.'+$className+ '-' + $size } {
-      font-size: #{$size}px !important;
+      font-size: #{$size}pt !important;
+    }
+  }
+}
+
+@mixin valign() {
+  $alignment: middle, bottom, super, sub, text-top, text-bottom, top;
+
+  @each $valign in $alignment {
+    .ver-#{$valign} {
+      vertical-align: $valign !important;
     }
   }
 }
 
 @include boxModel((0, 4, 8, 16, 24, 32), 'm', 'margin');
-@include boxModel((0, 4, 8, 16, 24, 32), 'p', 'padding');
-@include boxModel((0, 4, 8, 16, 24, 32), 'my', ('margin-top', 'margin-bottom'));
-@include boxModel((0, 4, 8, 16, 24, 32), 'mt', 'margin-top');
-@include boxModel((0, 4, 8, 16, 24, 32), 'mb', 'margin-bottom');
+@include boxModel((0, 4, 8, 12, 16, 24, 32), 'p', 'padding');
+@include boxModel((0, 4, 8, 12, 16, 24, 32), 'my', ('margin-top', 'margin-bottom'));
+@include boxModel((0, 4, 8, 16, 24, 32, 48), 'mt', 'margin-top');
+@include boxModel((0, 4, 8, 12, 16, 24, 32), 'ml', 'margin-left');
+@include boxModel((0, 4, 8, 12, 16, 24, 32), 'mr', 'margin-right');
+@include boxModel((0, 4, 8, 16, 24, 32, 40), 'mb', 'margin-bottom');
 @include boxModel((0, 4, 8, 16, 24, 32), 'pb', 'padding-bottom');
 @include boxModel((0, 4, 8, 16, 24, 32), 'pt', 'padding-top');
 @include boxModel((0, 4, 8, 16, 24, 32), 'px', ('padding-right', 'padding-left'));
 @include boxModel((0, 4, 8, 16, 24, 32), 'py', ('padding-top', 'padding-bottom'));
-@include size((12, 14, 16, 36,), 'font-size');
+@include size((12, 14, 16, 18, 36,), 'font-size');
 @include boxModel((2, 4, 8), 'br', 'border-radius');
+@include valign;

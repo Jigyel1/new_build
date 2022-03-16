@@ -30,6 +30,7 @@ module Associations
       has_one_attached :activity_download
       has_one_attached :projects_download
       has_one_attached :building_download
+      has_one_attached :contract_pdf_download
 
       accepts_nested_attributes_for :profile, :address, allow_destroy: true
 

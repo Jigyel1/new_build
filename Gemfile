@@ -80,6 +80,7 @@ gem 'apollo_upload_server', '2.0.5'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
+gem 'draper'
 gem 'faraday'
 gem 'graphql', '1.12.10'
 gem 'graphql-batch'
@@ -104,6 +105,8 @@ gem 'search_object'
 gem 'search_object_graphql'
 gem 'sidekiq'
 gem 'strong_migrations'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 gem 'xsv'
 
 source 'https://gems.selise.tech' do

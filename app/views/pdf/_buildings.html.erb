@@ -1,0 +1,20 @@
+<p class="color--black-87 font-size-18 mb-24 mt-48">Building Information</p>
+
+<table class="building__table full--width mb-32">
+  <tr class="font-size-16 color--black-60 text-align--left">
+    <th class="p-12 text-align--center"><%= I18n.t('pdf.project.building_no') %></th>
+    <th class="p-12"><%= I18n.t('pdf.project.building_name') %></th>
+    <th class="p-12 text-align--center"><%= I18n.t('pdf.project.apartment') %></th>
+    <th class="p-12"><%= I18n.t('pdf.project.building_address') %></th>
+    <th class="p-12"><%= I18n.t('pdf.project.start_date') %></th>
+  </tr>
+  <% project.buildings.each do |building| %>
+    <tr class="font-size-14">
+      <td class="text-align--center p-12"><%= building.external_id %></td>
+      <td class="p-12"><%= building.name %></td>
+      <td class="text-align--center p-12"><%= building.apartments_count %></td>
+      <td class="p-12"><%= project.formatted_address(building.address) %></td>
+      <td class="p-12"><%= building.move_in_starts_on %></td>
+    </tr>
+  <% end %>
+</table>

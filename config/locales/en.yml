@@ -116,3 +116,66 @@ en:
     penetration:
       notify_import: New Build - Penetration Creation Failed
 
+  pdf:
+    project:
+      id: Project ID
+      title: Contract summary for %{project_name} Project
+      info: Project Information
+      nr: 'SELISE:'
+      os: 'OS:'
+      internal: 'Internal:'
+      external: 'External:'
+      address: Address
+      lot: Project Lot Number
+      status: Status
+      kam: Assigned KAM
+      move_in: Move In
+      construction: Construction Starts from
+      buildings_count_title: No. of buildings
+      apartments_count_title: No. of Apartments
+      analysis_title: Analysis
+      customer_planned_inhouse_title: Customer Planned Inhouse
+      priority:
+        title: Project Priority
+      category:
+        hfc_only: HFC Only
+        ftth_project: To be analysed by FTTH
+        title: Project Category
+      access_tech:
+        title: Preferred Access Technology
+        third_party: Third Party
+        hfc: HFC
+        ftth: FTTH
+      construction_type:
+        title: Construction Type
+      builder:
+        title: In-house installation by
+        sockets_count: No. of sockets per apartment
+        ll: Land Lord
+        sunrise_upc: Sunrise UPC
+      request:
+        title: Customer Request
+        true: 'Yes'
+        false: 'No'
+      verdict_title: Verdict
+      gis: GIS
+      info_manager: Infomanager
+      hfc_or_ftth:
+        hfc_title: PCT Calculations (HFC only)
+        ftth_title: PCT Calculations (FTTH only)
+        connection_cost: Connection Cost
+        build_cost: Build Cost
+        hfc_lease_cost: Lease Costs (3 years)
+        ftth_lease_cost: Lease Costs (20 years)
+        socket_installation: Socket Installation Cost (CHF 6 /socket)
+        payback: 'Estimated payback period:'
+      system_generated: This value is system generated.
+      building_no: Building No.
+      building_name: Name of the Building
+      apartment: Apartments
+      building_address: Address of the Building
+      start_date: Move-in Date
+      end_date: End Date
+      address_book: Address Book
+      building_type: Building Type
+      sunrise_access_option: Sunrise Access Option
