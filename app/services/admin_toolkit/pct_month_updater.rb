@@ -29,6 +29,13 @@ module AdminToolkit
       return unless target_pct_month
 
       target_pct_month.update!(min: pct_month.max)
+    rescue ActiveRecord::RecordInvalid
+      raise I18n.t(
+        'admin_toolkit.pct_month.invalid_min',
+        index: target_pct_month.index,
+        new_max: pct_month.max,
+        old_max: target_pct_month.max
+      )
     end
 
     def activity_params

@@ -33,6 +33,23 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctMonth do
         expect(errors).to match_array(['Max must be greater than or equal to 1'])
       end
     end
+
+    context 'when max exceeds or is equal to the PCT month max of the adjacent table' do
+      let!(:params) { { id: pct_month.id, max: 19 } }
+
+      it 'responds with error' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctMonth)
+        expect(response.pctMonth).to be_nil
+        expect(errors).to match_array(
+          [
+            t('admin_toolkit.pct_month.invalid_min',
+              index: pct_month_b.index,
+              new_max: 19,
+              old_max: 18)
+          ]
+        )
+      end
+    end
   end
 
   def query(args = {})

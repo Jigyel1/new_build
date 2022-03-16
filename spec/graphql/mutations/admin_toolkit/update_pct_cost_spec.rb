@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
   let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:pct_cost) { create(:admin_toolkit_pct_cost) }
-  let_it_be(:pct_cost_b) { create(:admin_toolkit_pct_cost, index: 1, min: 2501, max: 5000) }
+  let_it_be(:pct_cost_b) { create(:admin_toolkit_pct_cost, index: 1, min: 2500, max: 5000) }
 
   describe '.resolve' do
     context 'with valid params' do
@@ -31,6 +31,23 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctCost do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctCost)
         expect(response.pctCost).to be_nil
         expect(errors).to match_array(['Max must be greater than or equal to 1'])
+      end
+    end
+
+    context 'when max exceeds or is equal to the PCT cost max of the adjacent table' do
+      let!(:params) { { id: pct_cost.id, max: 5900 } }
+
+      it 'responds with error' do
+        response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctCost)
+        expect(response.pctCost).to be_nil
+        expect(errors).to match_array(
+        [
+           t('admin_toolkit.pct_cost.invalid_min',
+            index: pct_cost_b.index,
+            new_max: 5900,
+            old_max: 5000)
+            ]
+          )
       end
     end
   end
