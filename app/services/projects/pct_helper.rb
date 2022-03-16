@@ -80,9 +80,5 @@ module Projects
     def ftth_too_expensive?
       (ftth_cost_type == 'too_expensive' && hfc_cost_type == 'standard') || hfc_cost_type == 'non_standard'
     end
-
-    def access_tech(type)
-      project.try("#{type}?")
-    end
   end
 end
