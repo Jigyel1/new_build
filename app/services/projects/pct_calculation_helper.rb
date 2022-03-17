@@ -7,7 +7,7 @@ module Projects
     end
 
     def pct_cost
-      @_pct_cost ||= connection_cost.pct_cost
+      @_pct_cost ||= connection_cost.build_pct_cost
     end
 
     private
