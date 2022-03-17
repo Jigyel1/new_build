@@ -25,12 +25,12 @@ module Resolvers
       argument :attributes, ProjectsPctCostAttributes, required: true
 
       def resolve(attributes:)
-        ::Projects::ExistingPctDestroyer.new(attributes: attributes.to_h).call
-
         resolver = ::Projects::PctCostCalculator.new(
           attributes.to_h.merge(system_generated_payback_period: true)
         )
         resolver.call
+
+        ::Projects::ExistingPctUpdater.new(attributes: resolver.pct_cost.as_json).call
         resolver.pct_cost
       end
     end
