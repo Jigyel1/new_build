@@ -68,7 +68,8 @@ module Projects
     # Values are always Rounded down (13.6 becomes 1 year 1 month)
     def payback_period
       @_payback_period ||= if pct_cost.system_generated_payback_period?
-                             calculate_payback_period
+                             pct_cost.update!(payback_period: calculate_payback_period)
+                             pct_cost.payback_period
                            else
                              pct_cost.try(:payback_period)
                            end
