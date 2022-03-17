@@ -89,5 +89,6 @@ module Types
 
     field :gis_url, String, null: true
     field :info_manager_url, String, null: true
+    field :confirmation_status, String, null: true
   end
 end
