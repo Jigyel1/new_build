@@ -6,12 +6,14 @@ RSpec.describe Mutations::Projects::AssignIncharge do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:super_user_b) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:project) { create(:project) }
+  let_it_be(:project) { create(:project, incharge: kam) }
 
   describe '.resolve' do
     context 'with permissions' do
+      let!(:params) { { incharge_id: kam.id } }
+
       it "updates project's incharge" do
-        response, errors = formatted_response(query, current_user: super_user, key: :assignProjectIncharge)
+        response, errors = formatted_response(query(params), current_user: super_user, key: :assignProjectIncharge)
         expect(errors).to be_nil
         expect(response.project.incharge).to have_attributes(id: kam.id, email: kam.email, name: kam.name)
       end
@@ -25,26 +27,47 @@ RSpec.describe Mutations::Projects::AssignIncharge do
       end
     end
 
-    context 'when the incharge is assigned or unassigned from project' do
-      it 'sends the email to assigned person and unassigned provided not a current user' do
-        perform_enqueued_jobs do
-          _response, errors = formatted_response(query, current_user: super_user_b, key: :updateProject)
-          expect(errors).to be_nil
+    context 'when the project assignee is changed' do
+      context 'when current user is assigned to project' do
+        let!(:params) { { incharge_id: super_user.id } }
 
-          expect(ActionMailer::Base.deliveries.count).to eq(1)
-          expect(ActionMailer::Base.deliveries.first).to have_attributes(
-            subject: t('mailer.project.notify_incharge_assigned'),
-            to: [kam.email]
-          )
+        it 'sends unassigned email to previous assignee' do
+          perform_enqueued_jobs do
+            _response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
+            expect(errors).to be_nil
+            expect(ActionMailer::Base.deliveries.count).to eq(1)
+            expect(ActionMailer::Base.deliveries.first).to have_attributes(
+              subject: t('mailer.project.notify_incharge_unassigned'),
+              to: [kam.email]
+            )
+          end
+        end
+      end
+
+      context 'when current user is previous project assignee' do
+        before { project.update(incharge: super_user) }
+
+        let!(:params) { { incharge_id: kam.id } }
+
+        it 'sends assigned email to new assignee' do
+          perform_enqueued_jobs do
+            _response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
+            expect(errors).to be_nil
+            expect(ActionMailer::Base.deliveries.count).to eq(1)
+            expect(ActionMailer::Base.deliveries.first).to have_attributes(
+              subject: t('mailer.project.notify_incharge_assigned'),
+              to: [kam.email]
+            )
+          end
         end
       end
     end
   end
 
-  def query
+  def query(args = {})
     <<~GQL
       mutation {
-        assignProjectIncharge( input: { attributes: { projectId: "#{project.id}" inchargeId: "#{kam.id}" } } )
+        assignProjectIncharge( input: { attributes: { projectId: "#{project.id}" inchargeId: "#{args[:incharge_id]}" } } )
         { project { incharge { id name email } } }
       }
     GQL

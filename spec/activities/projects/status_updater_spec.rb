@@ -29,7 +29,6 @@ describe Projects::StatusUpdater do
   let_it_be(:address) { build(:address, zip: zip) }
   let_it_be(:project) { create(:project, :open, address: address, incharge: super_user) }
   let_it_be(:connection_cost) { create(:connection_cost, project: project) }
-
   let_it_be(:project_pct_cost) do
     create(:projects_pct_cost, connection_cost: connection_cost, build_cost: 3000.123)
   end
