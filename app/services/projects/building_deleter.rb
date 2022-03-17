@@ -3,11 +3,23 @@
 module Projects
   class BuildingDeleter < BaseService
     include BuildingHelper
+    include ProjectUpdaterHelper
+
+    attr_accessor :project
 
     def call
-      authorize! building.project, to: :update?
+      authorize! project, to: :update?
 
-      with_tracking { building.destroy! }
+      with_tracking do
+        building.destroy!
+        update_project_date(project.buildings, project)
+      end
+    end
+
+    private
+
+    def project
+      @_project ||= building.project
     end
 
     def activity_params
