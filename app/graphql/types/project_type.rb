@@ -38,6 +38,7 @@ module Types
     field :system_sorted_category, Boolean, null: true
     field :site_address, GraphQL::Types::JSON, null: true
     field :exceeding_cost, Float, null: true
+    field :file_upload, Boolean, null: true
 
     field(
       :move_in_starts_on,
