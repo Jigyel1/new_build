@@ -17,7 +17,7 @@ module Projects
     end
 
     def calculate_pct_cost
-      pct_cost.update!(calculation_attributes)
+      pct_cost.assign_attributes(calculation_attributes)
     end
 
     def project
