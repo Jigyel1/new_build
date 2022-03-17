@@ -7,9 +7,9 @@ module Projects
     end
 
     def pct_cost
-      @_pct_cost ||= if connection_cost.pct_cost.present?
+      @_pct_cost ||= if project.ready_for_offer?
                        connection_cost.pct_cost
-                     else
+                     elsif project.technical_analysis?
                        connection_cost.build_pct_cost
                      end
     end
