@@ -7,11 +7,7 @@ module Projects
     end
 
     def pct_cost
-      @_pct_cost ||= if project.ready_for_offer?
-                       connection_cost.pct_cost
-                     elsif project.technical_analysis?
-                       connection_cost.build_pct_cost
-                     end
+      @_pct_cost ||= connection_cost.build_pct_cost || connection_cost.pct_cost
     end
 
     private
