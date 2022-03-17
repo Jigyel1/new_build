@@ -7,7 +7,11 @@ module Projects
     end
 
     def pct_cost
-      @_pct_cost ||= connection_cost.build_pct_cost
+      @_pct_cost ||= if connection_cost.pct_cost.present?
+                       connection_cost.pct_cost
+                     else
+                       connection_cost.build_pct_cost
+                     end
     end
 
     private
