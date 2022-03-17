@@ -65,12 +65,21 @@ module Projects
 
     # The output is in Months
     # The value is displayed in Years and Months
-    # Values are always Rounded down (13.6 becomes 1 year 1 month)
+    # Values are always Rounded down (pct_cost.system_generated_payback_period?13.6 becomes 1 year 1 month)
     def payback_period
-      @_payback_period ||= "Projects::PaybackPeriods::#{CONNECTION_TYPES[connection_type]}Calculator"
-                              .constantize
-                              .new(project: project, build_cost: build_cost, lease_cost: lease_cost)
-                              .call
+      binding.pry
+      @_payback_period ||= if pct_cost.system_generated_payback_period?
+                             calculate_payback_period
+                           else
+                             calculate_payback_period
+                           end
+    end
+
+    def calculate_payback_period
+      "Projects::PaybackPeriods::#{CONNECTION_TYPES[connection_type]}Calculator"
+        .constantize
+        .new(project: project, build_cost: build_cost, lease_cost: lease_cost)
+        .call
     end
 
     def project_cost(type)
