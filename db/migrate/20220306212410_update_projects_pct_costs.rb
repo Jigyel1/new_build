@@ -2,7 +2,9 @@
 
 class UpdateProjectsPctCosts < ActiveRecord::Migration[6.1]
   def up
-    change_column :projects_pct_costs, :payback_period, :float
+    safety_assured do
+      change_column :projects_pct_costs, :payback_period, :float
+    end
   end
 
   def down

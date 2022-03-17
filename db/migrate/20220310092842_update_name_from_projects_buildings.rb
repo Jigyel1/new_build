@@ -2,7 +2,9 @@
 
 class UpdateNameFromProjectsBuildings < ActiveRecord::Migration[6.1]
   def up
-    change_column :projects_buildings, :name, :string, null: true
+    safety_assured do
+      change_column :projects_buildings, :name, :string, null: true
+    end
   end
 
   def down
