@@ -857,7 +857,8 @@ CREATE TABLE public.projects (
     cable_installations text[] DEFAULT '{}'::text[],
     priority_tac character varying,
     access_technology_tac character varying,
-    exceeding_cost numeric
+    exceeding_cost numeric,
+    confirmation_status character varying
 );
 
 
@@ -2305,6 +2306,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211220120052'),
 ('20220103082627'),
 ('20220213091922'),
-('20220306212410');
+('20220306212410'),
+('20220318172640');
 
 

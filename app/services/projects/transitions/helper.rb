@@ -37,6 +37,10 @@ module Projects
         aasm.from_state == :technical_analysis && aasm.to_state == :ready_for_offer
       end
 
+      def confirmation?
+        authorize! project, to: "#{aasm.from_state}?"
+      end
+
       def unarchive?
         authorize! project, to: :unarchive?
 

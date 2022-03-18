@@ -10,7 +10,7 @@ module Enumable
       enum priority_tac: { proactive: 'Proactive', reactive: 'Reactive' }, _suffix: :tac
       enum access_technology: { ftth: 'FTTH', hfc: 'HFC', third_party: 'Third Party' }
       enum access_technology_tac: { ftth: 'FTTH', hfc: 'HFC', third_party: 'Third Party' }, _suffix: :tac
-      enum confirmation_status: { new: 'New', negotiation: 'Negotiation', offered: 'Offered', signed: 'Signed' }
+      enum confirmation_status: { new_offer: 'New', negotiation: 'Negotiation', offered: 'Offered', signed: 'Signed' }
 
       enum building_type: {
         efh: 'EFH',

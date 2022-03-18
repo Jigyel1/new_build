@@ -17,6 +17,7 @@ super_user:
 
     - technical_analysis
     - ready_for_offer
+    - confirmation
     - archive
     - complex
     - build_cost_exceeding

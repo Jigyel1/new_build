@@ -12,7 +12,7 @@ module Mutations
       field :project, Types::ProjectType, null: true
 
       def resolve(attributes:)
-        super(::Projects::CategoryUpdater, :project, attributes: attributes)
+        super(::Projects::ConfirmationUpdater, :project, attributes: attributes)
       end
     end
   end
