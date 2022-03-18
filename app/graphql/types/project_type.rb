@@ -20,6 +20,7 @@ module Types
     field :verdicts, GraphQL::Types::JSON, null: true
 
     field :assignee, Types::UserType, null: true
+    field :kam_assignee, Types::UserType, null: true
     field :incharge, Types::UserType, null: true
     field :address, Types::AddressType, null: true
     field :kam_region, AdminToolkit::KamRegionType, null: true

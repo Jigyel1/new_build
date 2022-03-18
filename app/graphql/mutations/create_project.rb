@@ -28,6 +28,7 @@ module Mutations
       argument :coordinate_north, Float, required: false
 
       argument :assignee_id, ID, required: false
+      argument :kam_assignee_id, ID, required: false
       argument :lot_number, String, required: false
       argument :buildings_count, Int, required: true
       argument :apartments_count, Int, required: true

@@ -1,5 +1,10 @@
 class AddNewFieldToProjects < ActiveRecord::Migration[6.1]
   def change
-    add_column :projects, :confirmation_status, :string
+    safety_assured do
+      change_table :projects, bulk: true do |t|
+        t.references :kam_assignee, foreign_key: { to_table: :telco_uam_users }, type: :uuid
+        t.string :confirmation_status
+      end
+    end
   end
 end

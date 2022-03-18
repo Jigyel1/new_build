@@ -16,6 +16,7 @@ module Mutations
       argument :description, String, required: false
       argument :additional_info, String, required: false
       argument :assignee_id, ID, required: false
+      argument :kam_assignee_id, ID, required: false
 
       argument :coordinate_east, Float, required: false
       argument :coordinate_north, Float, required: false

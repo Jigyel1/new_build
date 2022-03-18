@@ -8,6 +8,9 @@ module Associations
       # `assignee` would be the owner of the project.
       belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
 
+      # `kam_assignee` would be the kam assigned to the project.
+      belongs_to :kam_assignee, class_name: 'Telco::Uam::User', optional: true
+
       # `incharge` will mainly be responsible for the updating the project status.
       belongs_to :incharge, class_name: 'Telco::Uam::User', optional: true
 

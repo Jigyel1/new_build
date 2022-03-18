@@ -858,6 +858,7 @@ CREATE TABLE public.projects (
     priority_tac character varying,
     access_technology_tac character varying,
     exceeding_cost numeric,
+    kam_assignee_id uuid,
     confirmation_status character varying
 );
 
@@ -1861,6 +1862,13 @@ CREATE INDEX index_projects_on_incharge_id ON public.projects USING btree (incha
 
 
 --
+-- Name: index_projects_on_kam_assignee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_kam_assignee_id ON public.projects USING btree (kam_assignee_id);
+
+
+--
 -- Name: index_projects_on_kam_region_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2135,6 +2143,14 @@ ALTER TABLE ONLY public.activities
 
 ALTER TABLE ONLY public.active_storage_variant_records
     ADD CONSTRAINT fk_rails_993965df05 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: projects fk_rails_993c2a6f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_993c2a6f6a FOREIGN KEY (kam_assignee_id) REFERENCES public.telco_uam_users(id);
 
 
 --
