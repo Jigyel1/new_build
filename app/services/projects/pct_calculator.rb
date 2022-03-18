@@ -77,7 +77,7 @@ module Projects
     def calculate_payback_period
       "Projects::PaybackPeriods::#{CONNECTION_TYPES[connection_type]}Calculator"
         .constantize
-        .new(project: project, build_cost: build_cost, lease_cost: lease_cost)
+        .new(build_cost: build_cost, lease_cost: lease_cost)
         .call
     end
 

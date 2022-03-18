@@ -18,22 +18,22 @@ module AdminToolkit
 
     private
 
-    # Increments the min of the adjacent(but with higher index) record to record's max + 1
-    # eg. Say FootprintCost(FPC) A has a min 10, max 1000 and FPC B has min 1001, max 3000
+    # Take the min of the adjacent(but with higher index) record to record's max
+    # eg. Say FootprintCost(FPC) A has a min 10, max 1000 and FPC B has min 1000, max 3000
     #    And an update is triggered for FPC A with max of 1501. This method should
-    #   update FPC's min to 1502.
-    def propagate_changes! # rubocop:disable Metrics/AbcSize
+    #   update FPC's min to 1501.
+    def propagate_changes!
       return unless pct_cost.max_changed?
 
       target_pct_cost = AdminToolkit::PctCost.find_by(index: pct_cost.index + 1)
       return unless target_pct_cost
 
-      target_pct_cost.update!(min: pct_cost.max + 1)
+      target_pct_cost.update!(min: pct_cost.max)
     rescue ActiveRecord::RecordInvalid
       raise I18n.t(
         'admin_toolkit.pct_cost.invalid_min',
         index: target_pct_cost.index,
-        new_max: pct_cost.max + 1,
+        new_max: pct_cost.max,
         old_max: target_pct_cost.max
       )
     end
