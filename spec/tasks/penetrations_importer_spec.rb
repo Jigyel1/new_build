@@ -131,7 +131,9 @@ describe PenetrationsImporter do
         type: 'land'
       )
     end
+  end
 
+  context 'when null whitespaces are not removed' do
     it 'doesnt import the file if whitespaces are not removed' do
       kam_region = AdminToolkit::KamRegion.find_by(name: 'Ticino ')
       competition = AdminToolkit::Competition.find_by(name: ' FTTH Swisscom ')
