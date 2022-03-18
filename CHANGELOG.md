@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [1.3.2] - 2022-03-18
 
-### FIxes
+### Fixes
 - Plz spacing error fix.
 - Typo mistake fix
 
