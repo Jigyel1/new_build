@@ -8,8 +8,6 @@ module Penetrations
         sheets << format(value[0]) if value.count == 1
       end
 
-      binding.pry
-
       super { sheets.select { |row| row[PenetrationsImporter::ZIP].presence }.each(&block) }
     end
 
