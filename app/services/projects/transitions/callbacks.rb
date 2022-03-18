@@ -47,7 +47,12 @@ module Projects
         return if project.in_house_installation?
 
         project.connection_costs.find_each do |connection_cost|
-          project_connection_cost = connection_cost.standard? ? nil : connection_cost.pct_cost.project_connection_cost
+          project_connection_cost = if connection_cost.standard?
+                                      nil
+                                    else
+                                      connection_cost.pct_cost.try(:project_connection_cost)
+                                    end
+
           ::Projects::PctCostCalculator.new(
             project_id: project.id,
             competition_id: project.reload.competition_id,

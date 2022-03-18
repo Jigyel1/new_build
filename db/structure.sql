@@ -491,8 +491,7 @@ CREATE TABLE public.admin_toolkit_competitions (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     sfn boolean DEFAULT false,
-    code character varying,
-    calculation_type character varying DEFAULT 'dsl'::character varying
+    code character varying
 );
 
 
@@ -1041,13 +1040,13 @@ CREATE TABLE public.projects_pct_costs (
     arpu numeric(15,2),
     lease_cost numeric(15,2),
     penetration_rate double precision,
+    payback_period double precision DEFAULT 0 NOT NULL,
     system_generated_payback_period boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     build_cost numeric(15,2),
     roi numeric(15,2),
-    connection_cost_id uuid,
-    payback_period double precision
+    connection_cost_id uuid
 );
 
 
@@ -2304,7 +2303,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211215121358'),
 ('20211220101735'),
 ('20211220120052'),
-('20211231081347'),
 ('20220103082627'),
 ('20220213091922'),
 ('20220306212410');

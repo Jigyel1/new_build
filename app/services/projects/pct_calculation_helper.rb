@@ -59,7 +59,7 @@ module Projects
       {
         project: project,
         pct_cost: pct_cost,
-        standard_connection_cost: standard_cost,
+        standard_connection_cost: standard_connection_cost,
         sockets: sockets,
         apartments_count: apartments_count,
         socket_installation_rate: socket_installation_rate,
@@ -71,7 +71,7 @@ module Projects
       }
     end
 
-    def calculation_attributes  # rubocop:disable Metrics/AbcSize
+    def calculation_attributes # rubocop:disable Metrics/AbcSize
       {
         project_connection_cost: pct_calculator.proj_connection_cost([connection_type, cost_type]),
         socket_installation_cost: pct_calculator.socket_installation_cost,
@@ -82,12 +82,6 @@ module Projects
         project_cost: pct_calculator.project_cost([connection_type, cost_type]),
         roi: pct_calculator.roi
       }
-    end
-
-    def standard_cost
-      return project.buildings_count * standard_connection_cost if cost_type == 'standard'
-
-      standard_connection_cost
     end
   end
 end
