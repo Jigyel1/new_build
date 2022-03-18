@@ -26,6 +26,7 @@ module Types
     field :kam_region, AdminToolkit::KamRegionType, null: true
     field :address_books, [Types::Projects::AddressBookType], null: true
     field :building_type, String, null: true
+    field :description_on_other, String, null: true
     field :cable_installations, [String], null: true
 
     field :connection_costs, [Types::Projects::ConnectionCostType], null: true

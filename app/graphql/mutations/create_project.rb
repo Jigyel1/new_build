@@ -34,6 +34,7 @@ module Mutations
       argument :apartments_count, Int, required: true
 
       argument :building_type, String, required: false
+      argument :description_on_other, String, required: false
       argument :construction_type, String, required: false
       argument :move_in_starts_on, GraphQL::Types::ISO8601DateTime, required: false
       argument :move_in_ends_on, GraphQL::Types::ISO8601DateTime, required: false

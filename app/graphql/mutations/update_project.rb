@@ -23,6 +23,7 @@ module Mutations
 
       argument :construction_type, String, required: false
       argument :building_type, String, required: false
+      argument :description_on_other, String, required: false
       argument :lot_number, String, required: false
       argument :construction_starts_on, String, required: false
       argument :gis_url, String, required: false

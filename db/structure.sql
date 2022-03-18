@@ -859,7 +859,8 @@ CREATE TABLE public.projects (
     access_technology_tac character varying,
     exceeding_cost numeric,
     kam_assignee_id uuid,
-    confirmation_status character varying
+    confirmation_status character varying,
+    description_on_other character varying
 );
 
 
