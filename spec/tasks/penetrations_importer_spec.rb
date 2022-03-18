@@ -119,4 +119,23 @@ describe PenetrationsImporter do
       end
     end
   end
+
+  context 'when record has null value, leading and trailing whitespaces' do
+    it 'removes the null and whitespaces and imports successfully' do
+      penetration = AdminToolkit::Penetration.find_by(zip: '1136')
+      expect(penetration).to have_attributes(
+        city: 'Bussy-Chardonney',
+        rate: 0.410112359550562,
+        kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'Ticino').id,
+        hfc_footprint: true,
+        type: 'land'
+      )
+    end
+    it 'doesnt import the file if whitespaces are not removed' do
+      kam_region = AdminToolkit::KamRegion.find_by(name: 'Ticino ')
+      competition = AdminToolkit::Competition.find_by(name: ' FTTH Swisscom ')
+      expect(kam_region).to be_nil
+      expect(competition).to be_nil
+    end
+  end
 end
