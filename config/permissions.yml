@@ -17,7 +17,8 @@ super_user:
 
     - technical_analysis
     - ready_for_offer
-    - confirmation
+    - offer_confirmation
+    - confirm
     - archive
     - complex
     - build_cost_exceeding
@@ -49,6 +50,7 @@ team_expert:
     - read
     - create
     - update
+    - confirm
     - technical_analysis
     - archive
 
@@ -59,6 +61,7 @@ team_standard:
     - read
     - create
     - update
+    - confirm
     - archive
 management:
   user:
@@ -71,6 +74,8 @@ management:
 
     - technical_analysis
     - ready_for_offer
+    - confirm
+    - offer_confirmation
     - build_cost_exceeding
     - archive
 
@@ -94,6 +99,7 @@ manager_presales:
     - update
     - technical_analysis
     - ready_for_offer
+    - offer_confirmation
     - complex
     - archive
 
@@ -106,6 +112,8 @@ manager_nbo_kam:
     - update
     - technical_analysis
     - ready_for_offer
+    - confirm
+    - offer_confirmation
     - archive
 
 kam:
@@ -115,6 +123,7 @@ kam:
     - read
     - create
     - update
+    - confirm
     - archive
 
 manager_commercialization:

@@ -68,7 +68,7 @@ module Projects
         transitions from: :technical_analysis_completed, to: :ready_for_offer
       end
 
-      event :offer_confirmation, if: :confirmation? do
+      event :offer_confirmation, if: :authorized? do
         transitions from: :ready_for_offer, to: :offer_confirmation
       end
 
