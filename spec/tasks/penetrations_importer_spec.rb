@@ -132,13 +132,4 @@ describe PenetrationsImporter do
       )
     end
   end
-
-  context 'when null whitespaces are not removed' do
-    it 'doesnt import the file if whitespaces are not removed' do
-      kam_region = AdminToolkit::KamRegion.find_by(name: 'Ticino ')
-      competition = AdminToolkit::Competition.find_by(name: ' FTTH Swisscom ')
-      expect(kam_region).to be_nil
-      expect(competition).to be_nil
-    end
-  end
 end
