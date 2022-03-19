@@ -17,6 +17,7 @@ module Resolvers
     option(:cities, type: [String]) { |scope, value| scope.where(city: value) }
     option(:zips, type: [String]) { |scope, value| scope.where(zip: value) }
     option(:kam_regions, type: [String]) { |scope, value| scope.where(kam_region: value) }
+    option(:name, type: String) { |scope, value| scope.order(name: value) }
 
     option :buildings_count, type: [Int], with: :apply_buildings_filter, description: <<~DESC
       Send min and max values in the array. eg. [2, 10]. Only the first two values will be picked.
