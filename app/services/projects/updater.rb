@@ -7,7 +7,12 @@ module Projects
     def call
       authorize! project, to: :update?
 
-      super { with_tracking { project.update!(attributes) } }
+      super do
+        with_tracking do
+          update_assignee
+          project.update!(attributes)
+        end
+      end
     end
 
     def project
@@ -15,6 +20,11 @@ module Projects
     end
 
     private
+
+    def update_assignee
+      project.update!(assignee_id: nil) if attributes[:assignee_id].blank? && project.assignee.present?
+      project.update!(kam_assignee_id: nil) if attributes[:kam_assignee_id].blank? && project.kam_assignee.present?
+    end
 
     def activity_params
       {
