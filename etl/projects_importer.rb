@@ -18,8 +18,8 @@ class ProjectsImporter < EtlBase
     sheet = Xsv::Workbook.open(file_path(input)).sheets[SHEET_INDEX]
     sheet.row_skip = SKIP_ROWS
 
+    building_count_error(current_user, sheet)
     import(current_user, sheet)
-    building_count_error(current_user)
   end
 
   private

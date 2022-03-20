@@ -2,8 +2,6 @@
 
 module Projects
   class Creator < BaseService
-    include Projects::ProjectErrorHelper
-
     attr_reader :project
     attr_accessor :buildings_count, :apartments_count
 
@@ -43,10 +41,6 @@ module Projects
     end
 
     def build_associations
-      buildings_count.nil? ? building_count_error(current_user) : create_associations
-    end
-
-    def create_associations
       BuildingManualBuilder
         .new(project: project, buildings_count: buildings_count)
         .call

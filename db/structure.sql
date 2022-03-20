@@ -491,8 +491,7 @@ CREATE TABLE public.admin_toolkit_competitions (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     sfn boolean DEFAULT false,
-    code character varying,
-    calculation_type character varying DEFAULT 'dsl'::character varying
+    code character varying
 );
 
 
@@ -858,7 +857,12 @@ CREATE TABLE public.projects (
     cable_installations text[] DEFAULT '{}'::text[],
     priority_tac character varying,
     access_technology_tac character varying,
-    exceeding_cost numeric
+    exceeding_cost numeric,
+    kam_assignee_id uuid,
+    confirmation_status character varying,
+    description_on_other character varying,
+    site_address jsonb,
+    file_upload boolean
 );
 
 
@@ -897,7 +901,7 @@ CREATE TABLE public.projects_address_books (
 
 CREATE TABLE public.projects_buildings (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    name character varying NOT NULL,
+    name character varying,
     external_id character varying,
     assignee_id uuid,
     project_id uuid NOT NULL,
@@ -1041,13 +1045,13 @@ CREATE TABLE public.projects_pct_costs (
     arpu numeric(15,2),
     lease_cost numeric(15,2),
     penetration_rate double precision,
+    payback_period double precision DEFAULT 0 NOT NULL,
     system_generated_payback_period boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     build_cost numeric(15,2),
     roi numeric(15,2),
-    connection_cost_id uuid,
-    payback_period double precision
+    connection_cost_id uuid
 );
 
 
@@ -1861,6 +1865,13 @@ CREATE INDEX index_projects_on_incharge_id ON public.projects USING btree (incha
 
 
 --
+-- Name: index_projects_on_kam_assignee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_kam_assignee_id ON public.projects USING btree (kam_assignee_id);
+
+
+--
 -- Name: index_projects_on_kam_region_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2138,6 +2149,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 
 --
+-- Name: projects fk_rails_993c2a6f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_993c2a6f6a FOREIGN KEY (kam_assignee_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- Name: projects fk_rails_99fc2a1a9e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2304,9 +2323,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211215121358'),
 ('20211220101735'),
 ('20211220120052'),
-('20211231081347'),
 ('20220103082627'),
 ('20220213091922'),
-('20220306212410');
+('20220228080720'),
+('20220306212410'),
+('20220310092842'),
+('20220315102300'),
+('20220318172640');
 
 
