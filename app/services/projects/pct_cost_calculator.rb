@@ -56,8 +56,8 @@ module Projects
       super do
         return if connection_cost.too_expensive?
 
-        calculate_pct_cost
         system_generated_payback_period && (pct_cost.system_generated_payback_period = system_generated_payback_period)
+        calculate_pct_cost
         pct_cost.save!
       end
     end

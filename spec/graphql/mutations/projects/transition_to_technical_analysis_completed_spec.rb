@@ -292,7 +292,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
 
       before do
         pct_value.pct_month.update_column(:max, 498)
-        create(:projects_pct_cost, :manually_set_payback_period, connection_cost: connection_cost, payback_period: 498)
+        create(:projects_pct_cost, :manually_set_payback_period, connection_cost: connection_cost, payback_period: 497)
       end
 
       it 'does not recalculate the payback period' do
@@ -302,7 +302,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
           key: :transitionToTechnicalAnalysisCompleted
         )
         expect(errors).to be_nil
-        expect(connection_cost.reload.pct_cost.payback_period).to be(498.0)
+        expect(connection_cost.reload.pct_cost.payback_period).to be(497.0)
       end
     end
   end

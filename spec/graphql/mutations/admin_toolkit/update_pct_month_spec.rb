@@ -20,7 +20,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctMonth do
       it 'propagates update to the next PCT month table' do
         _, errors = formatted_response(query(params), current_user: super_user, key: :updatePctMonth)
         expect(errors).to be_nil
-        expect(pct_month_b.reload).to have_attributes(min: 17)
+        expect(pct_month_b.reload).to have_attributes(min: 16)
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePctMonth do
     end
 
     context 'when max exceeds or is equal to the PCT month max of the adjacent table' do
-      let!(:params) { { id: pct_month.id, max: 18 } }
+      let!(:params) { { id: pct_month.id, max: 19 } }
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePctMonth)
