@@ -15,7 +15,6 @@ module Projects
     delegate :name, to: :project, prefix: true
     delegate :buildings, to: :project
 
-    validates :name, :address, presence: true
     validates :external_id, uniqueness: true, allow_nil: true
     validates :move_in_ends_on, succeeding_date: { preceding_date_key: :move_in_starts_on }, allow_nil: true
 

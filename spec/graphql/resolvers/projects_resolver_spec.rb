@@ -117,6 +117,16 @@ RSpec.describe Resolvers::ProjectsResolver do
       end
     end
 
+    context 'with labels filter' do
+      let(:labels) { ['Assign KAM'] }
+
+      it 'returns projects matching given priorities' do
+        projects, errors = paginated_collection(:projects, query(label_list: labels), current_user: super_user)
+        expect(errors).to be_nil
+        expect(projects.pluck(:id)).to eq([project_c.id])
+      end
+    end
+
     context 'with construction types filter' do
       let(:construction_types) { ['Reconstruction'] }
 

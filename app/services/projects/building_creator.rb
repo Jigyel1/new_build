@@ -2,12 +2,17 @@
 
 module Projects
   class BuildingCreator < BaseService
+    include ProjectUpdaterHelper
+
     attr_reader :building
 
     def call
       authorize! project, to: :update?
 
-      with_tracking { @building = project.buildings.create!(attributes) }
+      with_tracking do
+        @building = project.buildings.create!(attributes)
+        update_project_date(project.buildings, project)
+      end
     end
 
     private

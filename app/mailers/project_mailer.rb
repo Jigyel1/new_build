@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class ProjectMailer < ApplicationMailer
+  def notify_building_count_error(external_ids, user_id)
+    @external_ids = external_ids
+    @user = User.find(user_id)
+
+    notify(@user, 'notify_building_count_error')
+  end
+
   def notify_assigned(assignee_type, assignee_id, project_id, current_user_id)
     @user = User.find(assignee_id)
     @current_user = User.find(current_user_id)

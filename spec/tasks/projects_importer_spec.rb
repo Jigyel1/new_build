@@ -222,9 +222,13 @@ describe ProjectsImporter do
   it 'sends email with projects that were not imported with well formatted reasons' do
     perform_enqueued_jobs do
       described_class.call(current_user: super_user, input: file)
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      expect(ActionMailer::Base.deliveries.count).to eq(2)
       expect(ActionMailer::Base.deliveries.first).to have_attributes(
         subject: t('mailer.project.notify_import'),
+        to: [super_user.email]
+      )
+      expect(ActionMailer::Base.deliveries.second).to have_attributes(
+        subject: t('mailer.project.notify_building_count_error'),
         to: [super_user.email]
       )
     end
