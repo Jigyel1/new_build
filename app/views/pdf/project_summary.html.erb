@@ -80,8 +80,14 @@
     </div>
   <% end %>
 
-  <div class="mt-24 font-size-16 ">
-    <p class="mb-8"><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.gis') %>:</span> <a class="color--primary" href="<%= project.gis_url %>" target="_blank" rel="noopener noreferrer"><%= project.gis_url %></a></p>
-    <p><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.info_manager') %>:</span> <a class="color--primary"  href="<%= project.gis_url %>" target="_blank" rel="noopener noreferrer"><%= project.info_manager_url %></a></p>
-  </div>
+  <% if project.gis_url.present? && project.info_manager.present? %>
+    <div class="mt-24 font-size-16 ">
+      <p class="mb-8"><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.gis') %>:</span> <a class="color--primary" href="<%= project.gis_url %>" target="_blank" rel="noopener noreferrer"><%= project.gis_url %></a></p>
+      <p><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.info_manager') %>:</span> <a class="color--primary"  href="<%= project.info_manager_url %>" target="_blank" rel="noopener noreferrer"><%= project.info_manager_url %></a></p>
+    </div>
+  <% else %>
+    <div class="mt-24 font-size-16 ">
+      <p class="mb-8"><span class="font--heavy color--black-60"><%= I18n.t("pdf.project.#{project.url_link}") %>:</span> <a class="color--primary" href="<%= project.url_link %>" target="_blank" rel="noopener noreferrer"><%= project.url_link %></a></p>
+    </div>
+  <% end %>
 </div>

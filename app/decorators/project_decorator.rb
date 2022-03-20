@@ -44,7 +44,10 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def move_in_date_formatter
-    "#{project.move_in_starts_on} - #{project.move_in_ends_on}"
+    move_in = project.move_in_starts_on&.strftime('%d.%m.%Y')
+    move_out = project.move_in_ends_on&.strftime('%d.%m.%Y')
+
+    "#{ move_in } - #{ move_out }"
   end
 
   def priority_check
@@ -59,5 +62,9 @@ class ProjectDecorator < ApplicationDecorator
     else
       project.building_type.try(:titleize)
     end
+  end
+
+  def url_link
+    project.gis_url || project.info_manager
   end
 end

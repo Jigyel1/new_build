@@ -41,6 +41,6 @@
   </div>
   <div class="width--40">
       <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.construction') %></p>
-      <p class="color--black-87"><%= project.construction_starts_on %></p>
+      <p class="color--black-87"><%= project.construction_starts_on&.strftime('%d.%m.%Y')%></p>
   </div>
 </div>
