@@ -9,7 +9,7 @@
     </div>
     <div class="font-size-16 width--40">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.building_type') %></p>
-      <p class="color--black-87"><%= project.building_type.try(:titleize) %></p>
+      <p class="color--black-87"><%= project.building_type_formatter %></p>
     </div>
   </div>
 
