@@ -121,6 +121,7 @@ en:
       id: Project ID
       title: Contract summary for %{project_name} Project
       info: Project Information
+      refh: Non-Residential REFH
       nr: 'SELISE:'
       os: 'OS:'
       internal: 'Internal:'
