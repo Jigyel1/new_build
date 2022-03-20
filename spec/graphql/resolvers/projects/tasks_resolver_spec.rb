@@ -99,12 +99,6 @@ RSpec.describe Resolvers::Projects::TasksResolver do
       end
     end
 
-    context 'with taskable type filter' do
-      it 'returns tasks assigned to the assigner' do
-        tasks, errors = paginated_collection(:tasks, query(user_id: super_user.id), current_user: super_user)
-      end
-    end
-
     context 'with status filter' do
       let!(:params) { { statuses: %w[todo completed], taskable: [building.id, 'Projects::Building'] } }
 

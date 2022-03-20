@@ -9,16 +9,13 @@ module Resolvers
 
       type Types::Projects::TaskConnectionType, null: false
 
-      option :taskable, type: [String], with: :apply_taskable_filter, required: false, description: <<~DESC
+      option :taskable, type: [String], with: :apply_taskable_filter, required: true, description: <<~DESC
         Takes in two arguments. First, the taskable id(project or the building id).
         Second, the taskable type(when project then `Project`, when building then `Projects::Building`).
         Note that this option is mandatory!
       DESC
 
-      option(:user_id, type: String) { |scope, value| find_created_or_assigned(scope, value)}
-      option(:assignee_id, type: String) { |scope, value| scope.where(assignee_id: value) }
-      option(:owner_id, type: String) { |scope, value| scope.where(owner_id: value) }
-      option(:taskable_type, type: String) { |scope, value| scope.where(taskable_type: value) }
+      option(:assignee_ids, type: [String]) { |scope, value| scope.where(assignee_id: value) }
       option(:statuses, type: [String]) { |scope, value| scope.where(status: value) }
       option :query, type: String, with: :apply_search
 
@@ -30,10 +27,6 @@ module Resolvers
         end
 
         scope.where(taskable_id: taskable_id, taskable_type: taskable_type)
-      end
-
-      def find_created_or_assigned(scope, value)
-        scope.where("assignee_id = ? or owner_id = ?", value, value)
       end
 
       def apply_search(scope, value)
