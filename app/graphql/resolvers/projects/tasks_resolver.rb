@@ -15,8 +15,9 @@ module Resolvers
         Note that this option is mandatory!
       DESC
 
+      option(:user_id, type: String) { |scope, value| find_created_or_assigned(scope, value)}
       option(:assignee_id, type: String) { |scope, value| scope.where(assignee_id: value) }
-      option(:owner_id, type: String) { |scope, value| scope.where(owner_id: value) }
+      option(:owner_id, type: String) { |scope, value| binding.pry; scope.where(owner_id: value) }
       option(:taskable_type, type: String) { |scope, value| scope.where(taskable_type: value) }
       option(:statuses, type: [String]) { |scope, value| scope.where(status: value) }
       option :query, type: String, with: :apply_search
@@ -29,6 +30,10 @@ module Resolvers
         end
 
         scope.where(taskable_id: taskable_id, taskable_type: taskable_type)
+      end
+
+      def find_created_or_assigned(scope, value)
+        scope.where("assignee_id = ? or owner_id = ?", value, value)
       end
 
       def apply_search(scope, value)
