@@ -112,6 +112,7 @@ en:
       notify_incharge_unassigned: New Build - Unassigned from Technical Incharge
       notify_import: New Build - Project Creation Failed
       notify_project_assigned: New Build - Project Assignee
+      notify_building_count_error: New Build - Empty Building/Apartment
 
     penetration:
       notify_import: New Build - Penetration Creation Failed

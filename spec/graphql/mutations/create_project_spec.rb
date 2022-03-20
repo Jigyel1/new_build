@@ -151,6 +151,19 @@ RSpec.describe Mutations::CreateProject do
     ADDRESS
   end
 
+  def site_address
+    <<~SITE_ADDRESS
+      move_in_starts_on: "12/12/2021"
+      apartments_count: 10
+      address: {
+        street: "#{Faker::Address.street_name}",
+        streetNo: "#{Faker::Address.building_number}"
+        city: "#{Faker::Address.city}"
+        zip: "8008"
+      }
+    SITE_ADDRESS
+  end
+
   def address_books
     <<~ADDRESS_BOOKS
       addressBooks: [
@@ -184,7 +197,6 @@ RSpec.describe Mutations::CreateProject do
 
   def query(args = {})
     apartments = args[:apartments] || 10
-    move_in_starts_on = args[:move_in_starts_on] || Date.current
     assignee_id = args[:assignee_id] || kam.id
 
     <<~GQL
@@ -196,14 +208,11 @@ RSpec.describe Mutations::CreateProject do
               assigneeId: "#{assignee_id}"
               internalId: "e922833"
               status: "#{args[:status]}"
-              moveInStartsOn: "#{move_in_starts_on}"
-              moveInEndsOn: "#{Date.current + 3.months}"
               constructionStartsOn: "#{Date.current - 3.years}"
               lotNumber: "EA0988833"
               buildingsCount: 3
               buildingType: "efh"
-              apartmentsCount: #{apartments}
-              #{address}
+              #{site_address}
               #{address_books}
             }
           }
