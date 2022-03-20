@@ -1017,7 +1017,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     cardinality(projects.label_list) AS labels,
     addresses.city,
     addresses.zip,
-    projects.label_list AS label_lists,
+    projects.label_list,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
     projects.assignee_id,
