@@ -26,9 +26,5 @@ module Types
     field :kam_region, String, null: true
 
     field :draft_version, GraphQL::Types::JSON, null: true
-
-    def label_list
-      binding.pry
-    end
   end
 end
