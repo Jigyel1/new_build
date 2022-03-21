@@ -40,7 +40,7 @@
       <p class="color--black-87 text--capitalize"><%= project.priority_check %></p>
     </div>
     <div class="font-size-16 width--40">
-      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.sunrise_access_option')%></p>
+      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.sunrise_access_option') %></p>
       <p class="color--black-87 text--capitalize"><%= project.competition.try(:name) %></p>
     </div>
   </div>
@@ -54,10 +54,12 @@
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.apartments_count_title') %></p>
       <p class="color--black-87"><%= project.apartments_count %></p>
     </div>
-    <div class="font-size-16 width--40">
-      <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.file_upload') %></p>
-      <p class="color--black-87"><%= project.file_upload %></p>
-    </div>
+    <% if project.file_upload == false %>
+      <div class="font-size-16 width--40">
+        <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.file_upload') %></p>
+        <p class="color--black-87"><%= I18n.t('pdf.project.false') %></p>
+      </div>
+    <% end %>
   </div>
   <div class="mb-32">
     <p class="font-size-18 color--black-60 font--heavy mb-8"><%= I18n.t('pdf.project.analysis_title') %></p>
@@ -86,12 +88,18 @@
 
   <% if project.gis_url.present? && project.info_manager_url.present? %>
     <div class="mt-24 font-size-16 ">
-      <p class="mb-8"><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.gis') %>:</span> <a class="color--primary" href="<%= project.gis_url %>" target="_blank" rel="noopener noreferrer"><%= project.gis_url %></a></p>
-      <p><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.info_manager') %>:</span> <a class="color--primary"  href="<%= project.info_manager_url %>" target="_blank" rel="noopener noreferrer"><%= project.info_manager_url %></a></p>
+      <p class="mb-8"><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.gis') %>:</span>
+        <a class="color--primary" href="<%= project.gis_url %>" target="_blank" rel="noopener noreferrer"><%= project.gis_url %></a>
+      </p>
+      <p><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.info_manager') %>:</span>
+        <a class="color--primary" href="<%= project.info_manager_url %>" target="_blank" rel="noopener noreferrer"><%= project.info_manager_url %></a>
+      </p>
     </div>
   <% else %>
     <div class="mt-24 font-size-16 ">
-      <p class="mb-8"><span class="font--heavy color--black-60"><%= project.url_type %>:</span> <a class="color--primary" href="<%= project.url_link %>" target="_blank" rel="noopener noreferrer"><%= project.url_link %></a></p>
+      <p class="mb-8"><span class="font--heavy color--black-60"><%= project.url_type %>:</span>
+        <a class="color--primary" href="<%= project.url_link %>" target="_blank" rel="noopener noreferrer"><%= project.url_link %></a>
+      </p>
     </div>
   <% end %>
 </div>
