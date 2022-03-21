@@ -50,4 +50,18 @@ class ProjectDecorator < ApplicationDecorator
   def priority_check
     project.priority_tac.presence || project.priority
   end
+
+  def building_type_formatter
+    if  project.efh? || project.defh? || project.mfh?
+      project.building_type.try(:upcase)
+    elsif project.refh?
+      I18n.t("pdf.project.refh")
+    else
+      project.building_type.try(:titleize)
+    end
+  end
+
+  def url_link
+    project.gis_url || project.info_manager
+  end
 end
