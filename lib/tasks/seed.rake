@@ -12,7 +12,8 @@ namespace :seed do
       { index: 5, min: 30_000, max: MAX_SIGNED }
     ].each do |attributes|
       index = attributes.delete(:index)
-      AdminToolkit::PctCost.find_or_initialize_by(index: index)
+      pct_cost = AdminToolkit::PctCost.find_or_initialize_by(index: index)
+      pct_cost.update!(attributes)
     end
 
     [
@@ -23,7 +24,8 @@ namespace :seed do
       { index: 4, min: 25, max: MAX_SIGNED }
     ].each do |attributes|
       index = attributes.delete(:index)
-      AdminToolkit::PctMonth.find_or_initialize_by(index: index)
+      pct_month = AdminToolkit::PctMonth.find_or_initialize_by(index: index)
+      pct_month.update!(attributes)
     end
   end
 end
