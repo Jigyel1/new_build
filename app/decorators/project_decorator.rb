@@ -56,6 +56,6 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def url_type
-    project.info_manager_url.present? ? I18n.t("pdf.project.info_manager") : I18n.t("pdf.project.gis")
+    project.info_manager_url.present? ? I18n.t('pdf.project.info_manager') : I18n.t('pdf.project.gis')
   end
 end

@@ -8,7 +8,10 @@ RSpec.describe Mutations::ExportProjects do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:team_expert) { create(:user, :team_expert) }
-  before_all { create_projects }
+  before_all do
+    create_projects
+    Project.update_all(move_in_starts_on: 1.year.from_now.to_date, move_in_ends_on: 2.years.from_now.to_date)
+  end
 
   describe '.resolve' do
     context 'with valid params' do
@@ -28,8 +31,8 @@ RSpec.describe Mutations::ExportProjects do
           ProjectApartments: '',
           ProjectReference: 'Mapp. 1168',
           ProjectDescription: 'Costruzione abitazione unifamiliare',
-          ProjectStart: '',
-          ProjectEnd: '',
+          ProjectStart: 1.year.from_now.to_date.to_s,
+          ProjectEnd: 2.year.from_now.to_date.to_s,
           ProjectPurpose: '',
           ProjectMaincategory: '',
           ProjectStreet: 'Herzog Passage 911',
