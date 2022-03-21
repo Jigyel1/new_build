@@ -162,6 +162,7 @@ en:
       verdict_title: Verdict
       gis: GIS
       info_manager: Infomanager
+      false: No documentation available
       hfc_or_ftth:
         hfc_title: PCT Calculations (HFC only)
         ftth_title: PCT Calculations (FTTH only)

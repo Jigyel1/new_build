@@ -54,8 +54,4 @@ class ProjectDecorator < ApplicationDecorator
   def url_link
     project.gis_url || project.info_manager_url
   end
-
-  def url_type
-    project.info_manager_url.present? ? I18n.t("pdf.project.info_manager") : I18n.t("pdf.project.gis")
-  end
 end
