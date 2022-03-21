@@ -52,6 +52,6 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def url_link
-    project.gis_url || project.info_manager
+    project.gis_url || project.info_manager_url
   end
 end
