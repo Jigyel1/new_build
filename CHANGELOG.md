@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Features
 - Email trigger for building count error.
 - File upload attribute added.
-- Address site address for project.
+- Project site address for project.
 - HFC new logic update for standard cost.
 
 ### Fixes
