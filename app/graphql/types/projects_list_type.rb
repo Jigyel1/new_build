@@ -16,7 +16,6 @@ module Types
     field :buildings_count, Int, null: true
     field :apartments_count, Int, null: true
     field :labels, Int, null: true
-    field :label_list, [String], null: true
     field :lot_number, String, null: true
     field :customer_request, Boolean, null: true
 

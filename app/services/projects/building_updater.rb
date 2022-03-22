@@ -5,8 +5,6 @@ module Projects
     include BuildingHelper
     include ProjectUpdaterHelper
 
-    attr_accessor :project
-
     def call
       authorize! project, to: :update?
 
@@ -17,10 +15,6 @@ module Projects
     end
 
     private
-
-    def project
-      @_project ||= building.project
-    end
 
     def activity_params
       {

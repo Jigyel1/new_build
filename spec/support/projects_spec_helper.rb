@@ -39,8 +39,6 @@ module ProjectsSpecHelper # rubocop:disable Metrics/ModuleLength
       label_list: 'Assign KAM, Offer Needed',
       lot_number: 'Kat. 2024',
       description: 'Neubau Einfamilienhaus mit Garage',
-      move_in_starts_on: 1.year.from_now.to_date,
-      move_in_ends_on: 2.years.from_now.to_date,
       site_area: 1020,
       base_area: 170,
       purpose: 'Vermietung / Verkauf',

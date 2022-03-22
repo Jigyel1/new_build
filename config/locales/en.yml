@@ -134,6 +134,7 @@ en:
       construction: Construction Starts from
       buildings_count_title: No. of buildings
       apartments_count_title: No. of Apartments
+      file_upload: File Upload
       analysis_title: Analysis
       customer_planned_inhouse_title: Customer Planned Inhouse
       priority:
@@ -161,6 +162,7 @@ en:
       verdict_title: Verdict
       gis: GIS
       info_manager: Infomanager
+      false: No documentation available
       hfc_or_ftth:
         hfc_title: PCT Calculations (HFC only)
         ftth_title: PCT Calculations (FTTH only)

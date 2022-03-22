@@ -17,8 +17,7 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
         expect(response.building).to have_attributes(
           externalId: '100202',
           name: "Construction d'une habitation de quatre logements",
-          moveInStartsOn: (Date.current + 1.month).to_s,
-          moveInEndsOn: (Date.current + 3.months).to_s
+          moveInStartsOn: (Date.current + 1.month).to_s
         )
 
         expect(response.building.address).to have_attributes(
@@ -35,7 +34,7 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
         expect(errors).to be_nil
         expect(project.reload).to have_attributes(
           move_in_starts_on: Date.current + 1.month,
-          move_in_ends_on: Date.current + 3.months
+          move_in_ends_on: Date.current + 1.month
         )
       end
 
@@ -47,12 +46,12 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
     end
 
     context 'with invalid params' do
-      let!(:params) { { name: '' } }
+      let!(:params) { { apartments_count: - 1 } }
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateBuilding)
         expect(response.building).to be_nil
-        expect(errors).to eq(["Name #{t('errors.messages.blank')}"])
+        expect(errors).to eq(['Apartments count must be greater than 0'])
       end
     end
 
@@ -80,6 +79,7 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
   end
 
   def query(args = {})
+    apartments = args[:apartments_count] || 55
     <<~GQL
       mutation {
         updateBuilding(
@@ -88,17 +88,16 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
               id: "#{building.id}"
               name: "#{args[:name]}"
               assigneeId: "#{super_user.id}"
-              apartmentsCount: 55
+              apartmentsCount: #{apartments}
               externalId: "100202"
               moveInStartsOn: "#{Date.current + 1.month}"
-              moveInEndsOn: "#{Date.current + 3.months}"
               #{address}
             }
           }
         )
         {
           building {
-            id name externalId apartmentsCount moveInStartsOn moveInEndsOn
+            id name externalId apartmentsCount moveInStartsOn
             address { id streetNo street city zip}
             assignee { id name }
           }

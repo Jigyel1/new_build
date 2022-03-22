@@ -16,6 +16,7 @@ module Projects
     delegate :buildings, to: :project
 
     validates :external_id, uniqueness: true, allow_nil: true
+    validates :apartments_count, numericality: { greater_than: 0 }, presence: true
     validates :move_in_ends_on, succeeding_date: { preceding_date_key: :move_in_starts_on }, allow_nil: true
 
     default_scope { kept }

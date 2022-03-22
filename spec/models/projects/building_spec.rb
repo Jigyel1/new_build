@@ -12,9 +12,6 @@ RSpec.describe Projects::Building, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:address) }
-
     it do
       building = create(:building, name: 'Burj Khalifa', project: create(:project))
       expect(building).to validate_uniqueness_of(:external_id)

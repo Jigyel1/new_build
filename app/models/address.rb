@@ -3,7 +3,7 @@
 class Address < ApplicationRecord
   has_logidze
 
-  belongs_to :addressable, polymorphic: true, optional: true
+  belongs_to :addressable, polymorphic: true
 
   validates(
     :street, :city, :zip,

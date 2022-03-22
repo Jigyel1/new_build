@@ -26,7 +26,7 @@ describe ProjectsImporter do
   let_it_be(:project) { Project.find_by(external_id: '2826123') }
 
   it 'imports valid projects from the sheet' do
-    expect(Project.count).to eq(14) # 14 of the 17 projects are valid.
+    expect(Project.count).to eq(13) # 13 of the 17 projects are valid.
   end
 
   it 'updates project attributes' do
@@ -185,8 +185,8 @@ describe ProjectsImporter do
         name: 'Neubau von Einfamilienhäusern mit Einliegerwohnungen',
         lot_number: 'Parz. 1339',
         description: 'Neubau von Einfamilienhäusern mit Einliegerwohnungen (neue Eingabe)',
-        buildings_count: 2,
-        apartments_count: 4,
+        buildings_count: 0,
+        apartments_count: 0,
         coordinate_east: 2_658_154.126,
         coordinate_north: 1_258_903.675,
         status: 'technical_analysis'
@@ -223,11 +223,12 @@ describe ProjectsImporter do
     perform_enqueued_jobs do
       described_class.call(current_user: super_user, input: file)
       expect(ActionMailer::Base.deliveries.count).to eq(2)
-      expect(ActionMailer::Base.deliveries.first).to have_attributes(
+
+      expect(ActionMailer::Base.deliveries.second).to have_attributes(
         subject: t('mailer.project.notify_import'),
         to: [super_user.email]
       )
-      expect(ActionMailer::Base.deliveries.second).to have_attributes(
+      expect(ActionMailer::Base.deliveries.first).to have_attributes(
         subject: t('mailer.project.notify_building_count_error'),
         to: [super_user.email]
       )
