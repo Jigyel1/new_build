@@ -30,7 +30,7 @@ RSpec.describe Resolvers::AdminToolkit::OfferPricesResolver do
 
   def query
     <<~GQL
-      query{ adminToolkitOfferPrices{ id maxApartments minApartments name value } }
+      query{ adminToolkitOfferPrices{ id maxApartments minApartments name value index } }
     GQL
   end
 end

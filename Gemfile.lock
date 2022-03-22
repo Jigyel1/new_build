@@ -1,10 +1,6 @@
 GEM
   remote: https://gems.selise.tech/
   specs:
-    activemodel-serializers-xml (1.0.2)
-      activemodel (> 5.x)
-      activesupport (> 5.x)
-      builder (~> 3.1)
     telco-uam (0.1.8)
       devise (~> 4.8.0)
       devise-async (~> 1.0.0)
@@ -298,6 +294,8 @@ GEM
       connection_pool (~> 2.2)
     niceql (0.5.1)
     nio4r (2.5.8)
+    nokogiri (1.13.3-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.3-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.9)
@@ -579,6 +577,7 @@ GEM
     zeitwerk (2.5.4)
 
 PLATFORMS
+  x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES

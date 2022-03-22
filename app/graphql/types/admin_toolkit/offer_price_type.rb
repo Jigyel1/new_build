@@ -8,6 +8,7 @@ module Types
       field :max_apartments, Integer, null: true
       field :name, GraphQL::Types::JSON, null: true
       field :value, Float, null: true
+      field :index, Integer, null: true
     end
   end
 end
