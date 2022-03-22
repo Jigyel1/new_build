@@ -59,11 +59,6 @@ en:
       invalid_min: System tried updating min building for Footprint with index "%{index}" to %{new_max} which is
         not valid as it is less than its max (%{old_max}). Please send a value less than %{old_max}.
 
-  external:
-    gis_url_static: https://webgis.upc.ch/web_office/synserver?project=AccessPlanningSales&language=DE
-    infomanager_url: https://infomanager.bauinfocenter.ch/go/projectext/
-    gis_url: https://webgis.upc.ch/web_office/synserver?project=AccessPlanningSales&language=DE&client=corejs&query=bauprojekte&keyname=PROJ_EXTERN_ID&keyvalue=
-
   any_presence: At least one of these fields - %{fields} must be present
   offer_price:
     invalid_min: System tried updating min appartment for Offer Price with index "%{index}" to %{new_max} which is
