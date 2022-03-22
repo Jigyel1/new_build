@@ -90,12 +90,21 @@ RSpec.describe Resolvers::Projects::TasksResolver do
     context 'with owner filter' do
       it 'returns tasks assigned to the assigner' do
         tasks, errors = paginated_collection(:tasks, query(owner_id: super_user.id), current_user: super_user)
+        expect(errors).to be_nil
       end
     end
 
     context 'with taskable type filter' do
       it 'returns tasks assigned to the assigner' do
         tasks, errors = paginated_collection(:tasks, query(taskable_type: "Project"), current_user: super_user)
+        expect(errors).to be_nil
+      end
+    end
+
+    context 'with user id filter' do
+      it 'returns tasks assigned to the assigner' do
+        tasks, errors = paginated_collection(:tasks, query(taskable_type: "Project"), current_user: super_user)
+        expect(errors).to be_nil
       end
     end
 
