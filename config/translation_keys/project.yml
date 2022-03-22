@@ -25,6 +25,7 @@ project:
       - project_name
       - status
     offer_confirmation:
+      - previous_status
       - project_name
       - status
     offer_ready:
@@ -72,6 +73,7 @@ project:
       - project_name
       - status
     offer_confirmation:
+      - previous_status
       - owner_email
       - project_name
       - status
