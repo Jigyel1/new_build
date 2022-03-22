@@ -47,6 +47,10 @@ module Resolvers
         iLIKE ?", "%#{value.squish}%"
         )
       end
+
+      def find_created_or_assigned(scope, value)
+        scope.where("assignee_id = ? or owner_id = ?", value, value)
+      end
     end
   end
 end
