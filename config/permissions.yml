@@ -50,8 +50,8 @@ team_expert:
     - read
     - create
     - update
-    - confirm
     - technical_analysis
+    - offer_confirmation
     - archive
 
 team_standard:
@@ -62,6 +62,7 @@ team_standard:
     - create
     - update
     - confirm
+    - offer_confirmation
     - archive
 management:
   user:
@@ -87,6 +88,7 @@ presales:
     - create
     - update
     - technical_analysis
+    - offer_confirmation
     - complex
     - archive
 
@@ -112,7 +114,6 @@ manager_nbo_kam:
     - update
     - technical_analysis
     - ready_for_offer
-    - confirm
     - offer_confirmation
     - archive
 
@@ -124,6 +125,7 @@ kam:
     - create
     - update
     - confirm
+    - offer_confirmation
     - archive
 
 manager_commercialization:
