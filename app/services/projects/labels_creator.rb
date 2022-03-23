@@ -2,10 +2,13 @@
 
 module Projects
   class LabelsCreator < BaseService
+    include ProjectLabelHelper
+
     def call
       authorize! project, to: :update?
 
       with_tracking do
+        added_project_label
         label_group.label_list = attributes[:label_list]
         label_group.save!
       end

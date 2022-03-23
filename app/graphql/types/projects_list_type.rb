@@ -26,9 +26,5 @@ module Types
 
     field :draft_version, GraphQL::Types::JSON, null: true
     field :label_list, [String], null: true
-
-    def label_list
-      ::Projects::LabelGroup.where(system_generated: false).find_by(project_id: object.id)
-    end
   end
 end
