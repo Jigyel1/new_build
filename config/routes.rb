@@ -43,8 +43,8 @@ Rails.application.routes.draw do
     )
 
     as :user do
-      post "/sign_in" => "devise/sessions#new", :as => :new_user_session
-      delete "/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
+      post "users/sign_in" => "devise/sessions#new", :as => :new_user_session
+      delete "users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
     end
   end
 
