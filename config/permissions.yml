@@ -46,6 +46,8 @@ administrator:
 team_expert:
   user:
     - read
+  role:
+    - read
   project:
     - read
     - create
@@ -67,6 +69,8 @@ team_standard:
 management:
   user:
     - read
+  role:
+    - read
   project:
     - read
     - create
@@ -83,6 +87,8 @@ management:
 presales:
   user:
     - read
+  role:
+    - read
   project:
     - read
     - create
@@ -94,6 +100,8 @@ presales:
 
 manager_presales:
   user:
+    - read
+  role:
     - read
   project:
     - read
@@ -108,6 +116,8 @@ manager_presales:
 manager_nbo_kam:
   user:
     - read
+  role:
+    - read
   project:
     - read
     - create
@@ -119,6 +129,8 @@ manager_nbo_kam:
 
 kam:
   user:
+    - read
+  role:
     - read
   project:
     - read
