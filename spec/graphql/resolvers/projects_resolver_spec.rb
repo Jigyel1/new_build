@@ -170,6 +170,15 @@ RSpec.describe Resolvers::ProjectsResolver do
       end
     end
 
+    context 'with label filter' do
+      let(:labels) { ['LA TAC 01'] }
+
+      it 'returns projects with apartments in the given range' do
+        projects, errors = paginated_collection(:projects, query(label_list: labels),
+                                                current_user: super_user)
+      end
+    end
+
     context 'with search queries' do
       it 'returns projects matching given query' do
         projects, errors = paginated_collection(:projects, query(query: 'Neubau'), current_user: super_user)
@@ -246,7 +255,7 @@ RSpec.describe Resolvers::ProjectsResolver do
   def query(args = {})
     response = <<~RESPONSE
       id externalId projectNr name status category priority constructionType labels apartmentsCount
-      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
+      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion labelList
     RESPONSE
 
     connection_query(

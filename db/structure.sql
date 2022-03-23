@@ -860,7 +860,8 @@ CREATE TABLE public.projects (
     exceeding_cost numeric,
     kam_assignee_id uuid,
     confirmation_status character varying,
-    description_on_other character varying
+    description_on_other character varying,
+    prio_status character varying
 );
 
 
@@ -2324,6 +2325,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220103082627'),
 ('20220213091922'),
 ('20220306212410'),
-('20220318172640');
+('20220318172640'),
+('20220322150514');
 
 
