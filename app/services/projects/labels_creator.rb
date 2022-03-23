@@ -2,18 +2,12 @@
 
 module Projects
   class LabelsCreator < BaseService
-    include ProjectLabelHelper
-
-    set_callback :call, :after, :added_project_label
-
     def call
       authorize! project, to: :update?
 
       with_tracking do
-        super do
-          label_group.label_list = attributes[:label_list]
-          label_group.save!
-        end
+        label_group.label_list = attributes[:label_list]
+        label_group.save!
       end
     end
 

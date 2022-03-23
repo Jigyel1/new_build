@@ -2,9 +2,7 @@
 
 module Projects
   class LabelsUpdater < BaseService
-    include ProjectLabelHelper
-
-    set_callback :call, :after, :added_project_label
+    set_callback :call, :before, :validate!
 
     def label_group
       @label_group ||= ::Projects::LabelGroup.find(attributes[:id])
