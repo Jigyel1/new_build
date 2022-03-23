@@ -8,8 +8,7 @@ module Projects
       labels = Projects::LabelGroup.where(system_generated: false)&.find_by(project_id: project.id)
       return if labels.nil?
 
-      project.added_labels = labels.label_list
-      project.save!
+      project.update!(added_labels: labels.label_list.join(", "))
     end
   end
 end
