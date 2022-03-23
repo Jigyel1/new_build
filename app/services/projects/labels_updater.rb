@@ -4,7 +4,7 @@ module Projects
   class LabelsUpdater < BaseService
     include ProjectLabelHelper
 
-    set_callback :call, :before, :validate!
+    set_callback :call, :after, :added_project_label
 
     def label_group
       @label_group ||= ::Projects::LabelGroup.find(attributes[:id])
@@ -15,7 +15,6 @@ module Projects
 
       with_tracking do
         super do
-          added_project_label
           label_group.label_list = attributes[:label_list]
           label_group.save!
         end

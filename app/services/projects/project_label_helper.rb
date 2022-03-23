@@ -5,10 +5,11 @@ module Projects
     private
 
     def added_project_label
-      return unless Projects::LabelGroup.where(system_generated: false).present?
-      
-      labels = Projects::LabelGroup.where(system_generated: false).find_by(project_id: project.id)
-      project.update!(added_labels: labels.try(:label_list))
+      labels = Projects::LabelGroup.where(system_generated: false)&.find_by(project_id: project.id)
+      return if labels.nil?
+
+      project.added_labels = labels.label_list
+      project.save!
     end
   end
 end
