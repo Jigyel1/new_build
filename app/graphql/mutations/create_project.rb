@@ -18,9 +18,9 @@ module Mutations
     end
 
     class CreateSiteAddressAttributes < Types::BaseInputObject
-      argument :apartments_count, Int, required: false
+      argument :apartments_count, Int, required: true
       argument :name, String, required: false
-      argument :move_in_starts_on, GraphQL::Types::ISO8601DateTime, required: false
+      argument :move_in_starts_on, GraphQL::Types::ISO8601DateTime, required: true
       argument :address, CreateProjectAddressAttributes, required: false
     end
 
