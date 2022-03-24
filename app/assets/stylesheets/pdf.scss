@@ -19,7 +19,10 @@ body {
 .address__list {
   display: inline-block;
   margin-bottom: 3%;
-  width: 294px;
-  height: 350px;
+  width: 295px;
+  height: 355px;
   vertical-align: top;
+  &:nth-child(3) {
+    margin-right: 0;
+  }
 }
