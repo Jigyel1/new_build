@@ -26,8 +26,8 @@ module Projects
     private
 
     def update_project!
-      dates = buildings.group_by(&:move_in_starts_on).keys.compact.minmax
-      start_date, end_date = dates
+      start_date = buildings.minimum(:move_in_starts_on)
+      end_date = buildings.maximum(:move_in_starts_on)
 
       project.update!(
         move_in_starts_on: start_date,
