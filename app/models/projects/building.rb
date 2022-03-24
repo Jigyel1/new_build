@@ -17,7 +17,6 @@ module Projects
 
     validates :external_id, uniqueness: true, allow_nil: true
     validates :apartments_count, numericality: { greater_than: 0 }, presence: true
-    validates :move_in_ends_on, succeeding_date: { preceding_date_key: :move_in_starts_on }, allow_nil: true
 
     default_scope { kept }
 
@@ -31,7 +30,7 @@ module Projects
     # of it's buildings.
     def update_project!
       move_in_starts_on = buildings.minimum(:move_in_starts_on) || project.move_in_starts_on
-      move_in_ends_on = buildings.maximum(:move_in_ends_on) || project.move_in_ends_on
+      move_in_ends_on = project.move_in_ends_on
 
       # need to trigger callback to update <tt>apartments_count</tt> in project listing
       project.update!(

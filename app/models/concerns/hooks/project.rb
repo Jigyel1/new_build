@@ -52,8 +52,7 @@ module Hooks
       return if buildings.blank?
 
       dates = buildings.group_by(&:move_in_starts_on).keys.compact.minmax
-      self.move_in_starts_on = dates[0]
-      self.move_in_ends_on = (dates[1].presence || dates[0])
+      self.move_in_starts_on, self.move_in_ends_on = dates
     end
   end
 end

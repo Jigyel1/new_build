@@ -76,13 +76,13 @@ module Types
     def move_in_starts_on
       return if object.move_in_starts_on.nil?
 
-      object.move_in_starts_on.strftime('%d.%m.%Y').to_s
+      object.move_in_starts_on.date_str
     end
 
     def move_in_ends_on
       return if object.move_in_ends_on.nil?
 
-      object.move_in_ends_on.strftime('%d.%m.%Y').to_s
+      object.move_in_ends_on.date_str
     end
 
     field :states, GraphQL::Types::JSON, null: true, description: <<~DESC

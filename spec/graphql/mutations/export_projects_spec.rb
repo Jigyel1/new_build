@@ -8,6 +8,7 @@ RSpec.describe Mutations::ExportProjects do
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:team_expert) { create(:user, :team_expert) }
+
   before_all do
     create_projects
     Project.update_all(move_in_starts_on: 1.year.from_now.to_date, move_in_ends_on: 2.years.from_now.to_date)
