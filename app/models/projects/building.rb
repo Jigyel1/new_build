@@ -25,18 +25,14 @@ module Projects
 
     private
 
-    # Project's <tt>move_in_starts_on</tt> should be the earliest of the <tt>move_in_starts_on</tt> of
-    # it's buildings and <tt>move_in_ends_on</tt> should be the latest of the <tt>move_in_ends_on</tt>
-    # of it's buildings.
     def update_project!
-      move_in_starts_on = buildings.minimum(:move_in_starts_on) || project.move_in_starts_on
-      move_in_ends_on = project.move_in_ends_on
+      start_date = buildings.minimum(:move_in_starts_on)
+      end_date = buildings.maximum(:move_in_starts_on)
 
-      # need to trigger callback to update <tt>apartments_count</tt> in project listing
       project.update!(
-        apartments_count: buildings.sum(:apartments_count),
-        move_in_starts_on: move_in_starts_on,
-        move_in_ends_on: move_in_ends_on
+        move_in_starts_on: start_date,
+        move_in_ends_on: end_date,
+        apartments_count: buildings.sum(:apartments_count)
       )
     end
   end
