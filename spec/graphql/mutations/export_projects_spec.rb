@@ -11,7 +11,7 @@ RSpec.describe Mutations::ExportProjects do
 
   before_all do
     create_projects
-    Project.update_all(move_in_starts_on: 1.year.from_now.to_date, move_in_ends_on: 2.years.from_now.to_date)
+    Project.update_all(move_in_starts_on: 1.year.from_now, move_in_ends_on: 2.years.from_now)
   end
 
   describe '.resolve' do
