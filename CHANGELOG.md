@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.1] - 2022-03-24
+
+### Fixes
+- User sign out and sign in enable in prod && preprod.
+
 ## [1.4.0] - 2022-03-23
 
 ### Features
