@@ -2,8 +2,6 @@
 
 module Types
   class ProjectType < BaseObject
-    include TimeFormatter
-
     field :id, ID, null: false
     field :name, String, null: true
     field :external_id, String, null: true
