@@ -86,7 +86,7 @@
     </div>
   <% end %>
 
-  <% if project.gis_url.present? && project.info_manager_url.present? %>
+  <% if project.url_present? %>
     <div class="mt-24 font-size-16 ">
       <p class="mb-8"><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.gis') %>:</span>
         <a class="color--primary" href="<%= project.gis_url %>" target="_blank" rel="noopener noreferrer"><%= project.gis_url %></a>

@@ -8,7 +8,6 @@ module Types
       field :external_id, String, null: true
       field :apartments_count, Int, null: true
       field :move_in_starts_on, String, null: true
-      field :move_in_ends_on, String, null: true
 
       field :assignee, Types::UserType, null: true
       field :address, Types::AddressType, null: true
