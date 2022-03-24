@@ -3,15 +3,11 @@
 module Projects
   class BuildingUpdater < BaseService
     include BuildingHelper
-    include ProjectUpdaterHelper
 
     def call
       authorize! project, to: :update?
 
-      with_tracking do
-        building.update!(attributes)
-        update_project_date(project.buildings, project)
-      end
+      with_tracking { building.update!(attributes) }
     end
 
     private
