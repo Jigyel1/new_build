@@ -3,6 +3,7 @@
 module Pdf
   class PdfGenerator
     include Pdf::Helpers
+    include ApplicationHelper
 
     attr_accessor :project
 
