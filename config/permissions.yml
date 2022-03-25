@@ -14,6 +14,7 @@ super_user:
     - update
     - import
     - delete
+    - confirm
 
     - technical_analysis
     - ready_for_offer
@@ -61,8 +62,8 @@ team_standard:
     - read
     - create
     - update
-    - offer_confirmation
     - archive
+    - confirm
 management:
   user:
     - read
@@ -73,6 +74,7 @@ management:
     - create
     - update
     - import
+    - confirm
 
     - technical_analysis
     - ready_for_offer
@@ -104,6 +106,7 @@ manager_presales:
     - update
     - technical_analysis
     - ready_for_offer
+    - offer_confirmation
     - complex
     - archive
 
@@ -118,6 +121,7 @@ manager_nbo_kam:
     - update
     - technical_analysis
     - ready_for_offer
+    - offer_confirmation
     - archive
 
 kam:
@@ -129,8 +133,10 @@ kam:
     - read
     - create
     - update
-    - offer_confirmation
     - archive
+    - ready_for_offer
+    - offer_confirmation
+    - confirm
 
 manager_commercialization:
   user:
