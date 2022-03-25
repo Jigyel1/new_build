@@ -255,7 +255,7 @@ RSpec.describe Resolvers::ProjectsResolver do
   def query(args = {})
     response = <<~RESPONSE
       id externalId projectNr name status category priority constructionType labels apartmentsCount
-      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion labelList
+      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
     RESPONSE
 
     connection_query(
