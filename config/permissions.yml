@@ -53,6 +53,8 @@ team_expert:
     - create
     - update
     - technical_analysis
+    - ready_for_offer
+    - offer_confirmation
     - archive
 
 team_standard:
@@ -64,6 +66,8 @@ team_standard:
     - update
     - archive
     - confirm
+    - ready_for_offer
+    - offer_confirmation
 management:
   user:
     - read
@@ -94,7 +98,8 @@ presales:
     - technical_analysis
     - complex
     - archive
-
+    - ready_for_offer
+    - offer_confirmation
 manager_presales:
   user:
     - read
