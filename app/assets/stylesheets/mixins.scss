@@ -34,7 +34,7 @@
 @include boxModel((0, 4, 8, 12, 16, 24, 32), 'mr', 'margin-right');
 @include boxModel((0, 4, 8, 16, 24, 32, 40), 'mb', 'margin-bottom');
 @include boxModel((0, 4, 8, 16, 24, 32), 'pb', 'padding-bottom');
-@include boxModel((0, 4, 8, 16, 24, 32), 'pt', 'padding-top');
+@include boxModel((0, 2, 4, 8, 16, 24, 32), 'pt', 'padding-top');
 @include boxModel((0, 4, 8, 16, 24, 32), 'px', ('padding-right', 'padding-left'));
 @include boxModel((0, 4, 8, 16, 24, 32), 'py', ('padding-top', 'padding-bottom'));
 @include size((12, 14, 16, 18, 36,), 'font-size');
