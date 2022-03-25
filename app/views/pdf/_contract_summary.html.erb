@@ -43,4 +43,8 @@
       <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.construction') %></p>
       <p class="color--black-87"><%= project.construction_starts_on %></p>
   </div>
+  <div class="width--40">
+    <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.kam') %></p>
+    <p class="color--black-87"><%= project.kam_assignee.try(:name) %></p>
+  </div>
 </div>
