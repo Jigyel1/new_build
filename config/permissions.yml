@@ -52,7 +52,6 @@ team_expert:
     - create
     - update
     - technical_analysis
-    - offer_confirmation
     - archive
 
 team_standard:
@@ -91,7 +90,6 @@ presales:
     - create
     - update
     - technical_analysis
-    - offer_confirmation
     - complex
     - archive
 
@@ -106,7 +104,6 @@ manager_presales:
     - update
     - technical_analysis
     - ready_for_offer
-    - offer_confirmation
     - complex
     - archive
 
@@ -121,7 +118,6 @@ manager_nbo_kam:
     - update
     - technical_analysis
     - ready_for_offer
-    - offer_confirmation
     - archive
 
 kam:
