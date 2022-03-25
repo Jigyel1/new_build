@@ -858,6 +858,8 @@ CREATE TABLE public.projects (
     priority_tac character varying,
     access_technology_tac character varying,
     exceeding_cost numeric,
+    site_address jsonb,
+    file_upload boolean DEFAULT false,
     kam_assignee_id uuid,
     confirmation_status character varying,
     description_on_other character varying,
@@ -900,13 +902,12 @@ CREATE TABLE public.projects_address_books (
 
 CREATE TABLE public.projects_buildings (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    name character varying NOT NULL,
+    name character varying,
     external_id character varying,
     assignee_id uuid,
     project_id uuid NOT NULL,
     apartments_count integer DEFAULT 0 NOT NULL,
     move_in_starts_on date,
-    move_in_ends_on date,
     additional_details jsonb DEFAULT '{}'::jsonb,
     files_count integer DEFAULT 0 NOT NULL,
     tasks_count integer DEFAULT 0 NOT NULL,
@@ -1864,6 +1865,13 @@ CREATE INDEX index_projects_on_incharge_id ON public.projects USING btree (incha
 
 
 --
+-- Name: index_projects_on_kam_assignee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_kam_assignee_id ON public.projects USING btree (kam_assignee_id);
+
+
+--
 -- Name: index_projects_on_kam_region_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2141,6 +2149,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 
 --
+-- Name: projects fk_rails_993c2a6f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_993c2a6f6a FOREIGN KEY (kam_assignee_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- Name: projects fk_rails_99fc2a1a9e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2309,6 +2325,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211220120052'),
 ('20220103082627'),
 ('20220213091922'),
-('20220306212410');
+('20220228080720'),
+('20220306212410'),
+('20220315102300'),
+('20220318172640'),
+('20220322150514'),
+('20220324063336');
 
 
