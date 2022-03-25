@@ -27,6 +27,8 @@ module Types
     field :draft_version, GraphQL::Types::JSON, null: true
 
     def kam_assignee
+      return if object.kam_assignee.nil?
+
       ::User.find(object.kam_assignee).name
     end
   end
