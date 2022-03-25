@@ -3,7 +3,7 @@
 module Projects
   class ConfirmationUpdater < BaseService
     def call
-      authorize! project, to: :confirm?
+      authorize! project, to: :offer_confirmation?
 
       project.update!(confirmation_status: attributes[:confirmation_status])
     end

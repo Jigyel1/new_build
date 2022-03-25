@@ -18,7 +18,6 @@ super_user:
     - technical_analysis
     - ready_for_offer
     - offer_confirmation
-    - confirm
     - archive
     - complex
     - build_cost_exceeding
@@ -63,7 +62,6 @@ team_standard:
     - read
     - create
     - update
-    - confirm
     - offer_confirmation
     - archive
 management:
@@ -79,7 +77,6 @@ management:
 
     - technical_analysis
     - ready_for_offer
-    - confirm
     - offer_confirmation
     - build_cost_exceeding
     - archive
@@ -136,7 +133,6 @@ kam:
     - read
     - create
     - update
-    - confirm
     - offer_confirmation
     - archive
 
