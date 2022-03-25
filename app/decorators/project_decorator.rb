@@ -62,4 +62,16 @@ class ProjectDecorator < ApplicationDecorator
       project.building_type.try(:titleize)
     end
   end
+
+  def url_link
+    project.gis_url || project.info_manager_url
+  end
+
+  def url_type
+    project.info_manager_url.present? ? I18n.t('pdf.project.info_manager') : I18n.t('pdf.project.gis')
+  end
+
+  def url_present?
+    project.gis_url.present? && project.info_manager_url.present?
+  end
 end

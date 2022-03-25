@@ -20,6 +20,7 @@ module Projects
 
         with_tracking do
           @project = ::Project.new(formatted_attributes)
+          update_apartment
           build_associations
           project.save!
         end
@@ -33,9 +34,15 @@ module Projects
       attributes
     end
 
+    def update_apartment
+      return if project.site_address.blank?
+
+      project.apartments_count = project.site_address.inject(0) { |sum, index| sum + index['apartments_count'] }
+    end
+
     def build_associations
-      BuildingsBuilder
-        .new(project: project, buildings_count: buildings_count, apartments_count: apartments_count)
+      BuildingManualBuilder
+        .new(project: project, buildings_count: buildings_count)
         .call
       project.assignee_type = :nbo if project.assignee.try(:nbo_team?)
 

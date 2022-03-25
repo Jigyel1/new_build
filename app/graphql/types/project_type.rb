@@ -39,7 +39,9 @@ module Types
     field :customer_request, Boolean, null: true
     field :in_house_installation, Boolean, null: true
     field :system_sorted_category, Boolean, null: true
+    field :site_address, GraphQL::Types::JSON, null: true
     field :exceeding_cost, Float, null: true
+    field :file_upload, Boolean, null: true
 
     field(
       :move_in_starts_on,
@@ -52,7 +54,7 @@ module Types
       :move_in_ends_on,
       String,
       null: true,
-      description: 'Till when the tenant can move in.'
+      description: 'From when the tenant can move in.'
     )
 
     field :construction_starts_on, String, null: true
@@ -70,10 +72,20 @@ module Types
 
     field :default_label_group, Types::Projects::LabelGroupType, null: true
 
-    %i[move_in_starts_on move_in_ends_on construction_starts_on].each do |method_name|
-      define_method method_name do
-        in_time_zone(method_name)
-      end
+    def construction_starts_on
+      in_time_zone(:construction_starts_on)
+    end
+
+    def move_in_starts_on
+      return if object.move_in_starts_on.nil?
+
+      object.move_in_starts_on.strftime('%d.%m.%Y').to_s
+    end
+
+    def move_in_ends_on
+      return if object.move_in_ends_on.nil?
+
+      object.move_in_ends_on.strftime('%d.%m.%Y').to_s
     end
 
     field :states, GraphQL::Types::JSON, null: true, description: <<~DESC

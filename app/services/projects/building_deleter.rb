@@ -5,10 +5,12 @@ module Projects
     include BuildingHelper
 
     def call
-      authorize! building.project, to: :update?
+      authorize! project, to: :update?
 
       with_tracking { building.destroy! }
     end
+
+    private
 
     def activity_params
       {

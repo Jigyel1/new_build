@@ -16,8 +16,7 @@ RSpec.describe Mutations::Projects::CreateBuilding do
         expect(errors).to be_nil
         expect(response.building).to have_attributes(
           name: "Construction d'une habitation de quatre logements",
-          moveInStartsOn: (Date.current + 3.months).to_s,
-          moveInEndsOn: (Date.current + 9.months).to_s
+          moveInStartsOn: (Date.current + 3.months).to_s
         )
 
         expect(response.building.address).to have_attributes(
@@ -32,12 +31,12 @@ RSpec.describe Mutations::Projects::CreateBuilding do
     end
 
     context 'with invalid params' do
-      let!(:params) { { name: '' } }
+      let!(:params) { { apartments_count: - 1 } }
 
       it 'responds with error' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createBuilding)
         expect(response.building).to be_nil
-        expect(errors).to eq(["Name #{t('errors.messages.blank')}"])
+        expect(errors).to eq(['Apartments count must be greater than 0'])
       end
     end
 
@@ -64,6 +63,7 @@ RSpec.describe Mutations::Projects::CreateBuilding do
   end
 
   def query(args = {})
+    apartments = args[:apartments_count] || 42
     <<~GQL
       mutation {
         createBuilding(
@@ -73,15 +73,14 @@ RSpec.describe Mutations::Projects::CreateBuilding do
               name: "#{args[:name]}"
               assigneeId: "#{super_user.id}"
               moveInStartsOn: "#{Date.current + 3.months}"
-              moveInEndsOn: "#{Date.current + 9.months}"
-              apartmentsCount: 42
+              apartmentsCount: #{apartments}
               #{address}
             }
           }
         )
         {
           building {
-            id name apartmentsCount moveInStartsOn moveInEndsOn
+            id name apartmentsCount moveInStartsOn
             address { id streetNo street city zip}
             assignee { id name }
           }

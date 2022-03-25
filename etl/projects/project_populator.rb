@@ -42,6 +42,8 @@ module Projects
     end
 
     def assign_buildings
+      return if row[BUILDINGS_COUNT_COL].nil?
+
       Projects::BuildingsBuilder.new(
         project: project,
         buildings_count: row[BUILDINGS_COUNT_COL],

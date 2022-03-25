@@ -334,6 +334,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
               competitionId: "#{competition.id}"
               constructionType: "new_construction"
               customerRequest: false
+              fileUpload: false
               buildingType: "efh"
               priority: "proactive"
               cableInstallations: "FTTH, Coax"

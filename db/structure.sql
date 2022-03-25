@@ -1864,13 +1864,6 @@ CREATE INDEX index_projects_on_incharge_id ON public.projects USING btree (incha
 
 
 --
--- Name: index_projects_on_kam_assignee_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_projects_on_kam_assignee_id ON public.projects USING btree (kam_assignee_id);
-
-
---
 -- Name: index_projects_on_kam_region_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2148,14 +2141,6 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 
 --
--- Name: projects fk_rails_993c2a6f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.projects
-    ADD CONSTRAINT fk_rails_993c2a6f6a FOREIGN KEY (kam_assignee_id) REFERENCES public.telco_uam_users(id);
-
-
---
 -- Name: projects fk_rails_99fc2a1a9e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2324,8 +2309,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211220120052'),
 ('20220103082627'),
 ('20220213091922'),
-('20220306212410'),
-('20220318172640'),
-('20220322150514');
+('20220306212410');
 
 

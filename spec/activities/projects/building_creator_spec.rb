@@ -8,6 +8,7 @@ describe Projects::BuildingCreator do
   let_it_be(:params) do
     {
       project_id: project.id,
+      apartments_count: 12,
       name: "Construction d'une habitation de quatre logements",
       address_attributes: {
         zip: '123',

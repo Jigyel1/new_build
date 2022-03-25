@@ -16,7 +16,7 @@ RSpec.describe Mutations::Projects::UpdatePaybackPeriod do
 
         connection_costs = response.project.connectionCosts
         expect(OpenStruct.new(connection_costs.first[:pctCost])).to have_attributes(
-          paybackPeriod: 450,
+          paybackPeriod: 450.75,
           systemGeneratedPaybackPeriod: false
         )
       end
@@ -35,7 +35,7 @@ RSpec.describe Mutations::Projects::UpdatePaybackPeriod do
         response, errors = formatted_response(query, current_user: super_user, key: :updatePaybackPeriod)
         expect(errors).to be_nil
         connection_costs = response.project.connectionCosts
-        expect(OpenStruct.new(connection_costs.first[:pctCost])).to have_attributes(paybackPeriod: 450)
+        expect(OpenStruct.new(connection_costs.first[:pctCost])).to have_attributes(paybackPeriod: 450.75)
       end
     end
   end
@@ -43,7 +43,7 @@ RSpec.describe Mutations::Projects::UpdatePaybackPeriod do
   def query
     <<~GQL
       mutation {
-        updatePaybackPeriod( input: { attributes: { connectionCostId: "#{connection_cost.id}" months: 450 } } )
+        updatePaybackPeriod( input: { attributes: { connectionCostId: "#{connection_cost.id}" months: 450.75 } } )
         { project { connectionCosts { pctCost { paybackPeriod systemGeneratedPaybackPeriod } } } }
       }
     GQL
