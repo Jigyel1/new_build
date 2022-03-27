@@ -13,6 +13,7 @@ module Resolvers
       option(:street, type: String, required: false) do |scope, value|
         scope.joins(:address).where('street iLIKE?', value)
       end
+
       option(:street_no, type: String, required: false) do |scope, value|
         scope.joins(:address).where('street_no iLIKE?', value)
       end

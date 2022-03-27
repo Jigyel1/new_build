@@ -1,0 +1,6 @@
+<% unless project.file_upload? %>
+  <div class="font-size-16 width--40">
+    <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.file_upload') %></p>
+    <p class="color--black-87"><%= I18n.t('pdf.project.false') %></p>
+  </div>
+<% end %>
