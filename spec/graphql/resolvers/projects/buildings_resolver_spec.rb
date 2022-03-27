@@ -11,7 +11,7 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
       :project,
       name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
       address: address,
-      buildings: build_list(:building, 5, apartments_count: 3),
+      buildings: build_list(:building, 2, apartments_count: 3),
       label_list: 'Assign KAM, Offer Needed'
     )
   end
@@ -37,6 +37,38 @@ RSpec.describe Resolvers::Projects::BuildingsResolver do
         )
         expect(errors).to be_nil
         expect(buildings.pluck(:id)).to eq([building_a.id])
+      end
+    end
+
+    context 'with zip filter' do
+      it 'returns buildings matching given zip' do
+        buildings, errors = paginated_collection(:buildings, query(zip: 'MyString'), current_user: super_user)
+        expect(errors).to be_nil
+        expect(buildings.pluck(:id)).to match_array(project.reload.buildings.pluck(:id))
+      end
+    end
+
+    context 'with city filter' do
+      it 'returns buildings matching given zip' do
+        buildings, errors = paginated_collection(:buildings, query(city: 'MyString'), current_user: super_user)
+        expect(errors).to be_nil
+        expect(buildings.pluck(:id)).to match_array(project.reload.buildings.pluck(:id))
+      end
+    end
+
+    context 'with street filter' do
+      it 'returns buildings matching given zip' do
+        buildings, errors = paginated_collection(:buildings, query(street: 'MyString'), current_user: super_user)
+        expect(errors).to be_nil
+        expect(buildings.pluck(:id)).to match_array(project.reload.buildings.pluck(:id))
+      end
+    end
+
+    context 'with street_no filter' do
+      it 'returns buildings matching given zip' do
+        buildings, errors = paginated_collection(:buildings, query(street_no: 'MyString'), current_user: super_user)
+        expect(errors).to be_nil
+        expect(buildings.pluck(:id)).to match_array(project.reload.buildings.pluck(:id))
       end
     end
   end
