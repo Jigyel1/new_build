@@ -22,7 +22,7 @@ describe Projects::StatusUpdater do
     create(
       :user,
       :super_user,
-      with_permissions: { project: %i[archive complex technical_analysis ready_for_offer] }
+      with_permissions: { project: %i[archive complex technical_analysis ready_for_offer offer_confirmation] }
     )
   end
 
@@ -36,6 +36,7 @@ describe Projects::StatusUpdater do
   let_it_be(:building) { create(:building, apartments_count: 30, project: project) }
   let_it_be(:cost_threshold) { create(:admin_toolkit_cost_threshold) }
   let_it_be(:params) { { id: project.id, priority_tac: :proactive } }
+  let_it_be(:params_b) { { id: project.id } }
 
   describe '.activities' do
     context 'when it transitions to technical analysis' do
@@ -155,6 +156,42 @@ describe Projects::StatusUpdater do
       end
     end
 
+    context 'when it transitions to offer confirmation' do
+      before do
+        project.update_columns(status: :ready_for_offer)
+        described_class.new(current_user: super_user, attributes: params_b, event: :offer_confirmation).call
+      end
+
+      context 'as an owner' do
+        it 'returns activities in first person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.size).to eq(1)
+          expect(activities.dig(0, :displayText)).to eq(
+                                                       t('activities.project.offer_confirmation.owner',
+                                                         project_name: project.name,
+                                                         previous_status: project.status.split('_').join(' '),
+                                                         status: 'offer confirmation')
+                                                     )
+        end
+      end
+
+      context 'as an general user' do
+        it 'returns activities in third person' do
+          activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
+          expect(errors).to be_nil
+          expect(activities.size).to eq(1)
+          expect(activities.dig(0, :displayText)).to eq(
+                                                       t('activities.project.offer_confirmation.others',
+                                                         project_name: project.name,
+                                                         previous_status: project.status.split('_').join(' '),
+                                                         status: 'offer confirmation',
+                                                         owner_email: super_user.email)
+                                                     )
+        end
+      end
+    end
+
     context 'with archiving the project' do
       before do
         project.update_column(:status, :technical_analysis_completed)
@@ -222,6 +259,7 @@ describe Projects::StatusUpdater do
         end
       end
     end
+
 
     context 'when reverting project transition' do
       before do
