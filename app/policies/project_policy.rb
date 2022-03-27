@@ -18,10 +18,6 @@ class ProjectPolicy < ApplicationPolicy
   end
   alias unarchive? archived?
 
-  def confirmation?
-    confirmation?
-  end
-
   # <tt>marketing_only</tt> projects can directly transition to commercialization without the need
   # for authorization
   def commercialization?

@@ -184,5 +184,14 @@ RSpec.describe Project, type: :model do
         others: 'Others'
       ).backed_by_column_of_type(:string)
     end
+
+    it do
+      expect(subject).to define_enum_for(:confirmation_status).with_values(
+        new_offer: 'New',
+        negotiation: 'Negotiation',
+        offered: 'Offered',
+        signed: 'Signed'
+      ).backed_by_column_of_type(:string)
+    end
   end
 end

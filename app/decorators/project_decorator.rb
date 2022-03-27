@@ -52,12 +52,14 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def building_type_formatter
-    if  project.efh? || project.defh? || project.mfh?
-      project.building_type.try(:upcase)
-    elsif project.refh?
+    case project.building_type
+    when "refh"
       I18n.t("pdf.project.refh")
-    elsif project.others?
+    when "others"
       "#{project.building_type.try(:titleize)} - #{project.description_on_other.try(:titleize)}"
+    when "efh", "defh", "mfh"
+      binding.pry
+      project.building_type.try(:upcase)
     else
       project.building_type.try(:titleize)
     end
