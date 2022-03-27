@@ -186,7 +186,7 @@ RSpec.describe Project, type: :model do
     end
 
     it do
-      expect(subject).to define_enum_for(:confirmation_status).with_values(
+      expect(subject).to define_enum_for(:confirmation_status).with_values( # rubocop:disable RSpec/NamedSubject
         new_offer: 'New',
         negotiation: 'Negotiation',
         offered: 'Offered',

@@ -170,15 +170,6 @@ RSpec.describe Resolvers::ProjectsResolver do
       end
     end
 
-    context 'with name filter ascending' do
-      let(:name) { 'asc' }
-
-      it 'returns projects with apartments in the given range' do
-        projects, errors = paginated_collection(:projects, query(name: name),
-                                                current_user: super_user)
-      end
-    end
-
     context 'with search queries' do
       it 'returns projects matching given query' do
         projects, errors = paginated_collection(:projects, query(query: 'Neubau'), current_user: super_user)

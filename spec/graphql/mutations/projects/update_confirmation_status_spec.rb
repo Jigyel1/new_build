@@ -12,7 +12,7 @@ RSpec.describe Mutations::Projects::UpdateConfirmationStatus do
       it "updates project's category" do
         response, errors = formatted_response(query, current_user: super_user, key: :updateConfirmationStatus)
         expect(errors).to be_nil
-        expect(response.project.confirmationStatus).to eq("new_offer")
+        expect(response.project.confirmationStatus).to eq('new_offer')
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Mutations::Projects::UpdateConfirmationStatus do
       mutation {
         updateConfirmationStatus(
           input: { attributes: { projectId: "#{project.id}", confirmationStatus: "new_offer" } }
-        ) { project { id confirmationStatus } } 
+        ) { project { id confirmationStatus } }#{' '}
        }
     GQL
   end

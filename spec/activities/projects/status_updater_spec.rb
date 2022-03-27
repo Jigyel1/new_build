@@ -168,11 +168,11 @@ describe Projects::StatusUpdater do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-                                                       t('activities.project.offer_confirmation.owner',
-                                                         project_name: project.name,
-                                                         previous_status: project.status.split('_').join(' '),
-                                                         status: 'offer confirmation')
-                                                     )
+            t('activities.project.offer_confirmation.owner',
+              project_name: project.name,
+              previous_status: project.status.split('_').join(' '),
+              status: 'offer confirmation')
+          )
         end
       end
 
@@ -182,12 +182,12 @@ describe Projects::StatusUpdater do
           expect(errors).to be_nil
           expect(activities.size).to eq(1)
           expect(activities.dig(0, :displayText)).to eq(
-                                                       t('activities.project.offer_confirmation.others',
-                                                         project_name: project.name,
-                                                         previous_status: project.status.split('_').join(' '),
-                                                         status: 'offer confirmation',
-                                                         owner_email: super_user.email)
-                                                     )
+            t('activities.project.offer_confirmation.others',
+              project_name: project.name,
+              previous_status: project.status.split('_').join(' '),
+              status: 'offer confirmation',
+              owner_email: super_user.email)
+          )
         end
       end
     end
@@ -259,7 +259,6 @@ describe Projects::StatusUpdater do
         end
       end
     end
-
 
     context 'when reverting project transition' do
       before do
