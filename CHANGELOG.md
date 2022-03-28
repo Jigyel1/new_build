@@ -4,6 +4,46 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.5.0] - 2022-03-29
+
+### Features
+- New offer confirmation state introduced.
+- Assigned kam field added in projects.
+- Added confirmation status for the project in RFO state.
+- Updated permissions.
+
+### Fixes
+- Pdf building type display fix.
+
+## [1.4.0] - 2022-03-23
+
+### Features
+- Email trigger for building count error.
+- File upload attribute added.
+- Project site address for project.
+- HFC new logic update for standard cost.
+
+### Fixes
+- PDF gis url mapping fix.
+- Project structure update with new building flow.
+- Remove move_in_end_date from building.
+
+## [1.3.2] - 2022-03-21
+
+## Fixes
+- Pct range rake task added.
+
+### Tasks
+```ruby
+rake seed:pct
+```
+
+## [1.3.2] - 2022-03-18
+
+### Fixes
+- Plz spacing error fix.
+- Typo mistake fix
+
 ## [1.3.1] - 2022-03-16
 
 ### Fixes

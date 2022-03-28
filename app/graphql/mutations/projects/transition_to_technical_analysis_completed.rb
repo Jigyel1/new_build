@@ -26,6 +26,8 @@ module Mutations
         argument :construction_type, String, required: true
         argument :customer_request, Boolean, required: true
         argument :building_type, String, required: true
+        argument :file_upload, Boolean, required: true
+        argument :description_on_other, String, required: false
 
         argument :priority, String, required: true
         argument :analysis, String, required: false

@@ -13,7 +13,6 @@ class Project < ApplicationRecord
   validates :external_id, uniqueness: true, allow_nil: true
 
   validates :move_in_starts_on, succeeding_date: { preceding_date_key: :construction_starts_on }, allow_nil: true
-  validates :move_in_ends_on, succeeding_date: { preceding_date_key: :move_in_starts_on }, allow_nil: true
   validates :cable_installations, inclusion: { in: %w[FTTH Coax Copper(DSL)] }
 
   delegate :zip, to: :address

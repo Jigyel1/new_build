@@ -78,6 +78,7 @@ RSpec.describe ProjectsList, type: :model do
         technical_analysis: 'Technical Analysis',
         technical_analysis_completed: 'Technical Analysis Completed',
         ready_for_offer: 'Ready for Offer',
+        offer_confirmation: 'Offer Confirmation',
         contract: 'Contract',
         contract_accepted: 'Contract Accepted',
         under_construction: 'Under Construction',

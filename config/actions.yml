@@ -60,6 +60,7 @@ project:
   - archive
   - unarchive
   - revert
+  - offer_confirmation
 
 projects/address_book:
   - address_book_created

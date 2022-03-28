@@ -40,7 +40,8 @@ module Projects
 
     aasm whiny_transitions: true, column: :status, enum: true do
       state :open, initial: true
-      state :technical_analysis, :technical_analysis_completed, :ready_for_offer, :commercialization, :archived
+      state :technical_analysis, :technical_analysis_completed, :ready_for_offer, :commercialization, :archived,
+            :offer_confirmation
 
       after_all_transitions :update_project_state, :record_activity
       after_all_events :after_transition_callback, :reset_draft_version
@@ -50,6 +51,7 @@ module Projects
         transitions from: :technical_analysis_completed, to: :technical_analysis
         transitions from: :ready_for_offer, to: :technical_analysis, if: :prio_one?
         transitions from: :ready_for_offer, to: :technical_analysis_completed, unless: :prio_one?
+        transitions from: :offer_confirmation, to: :ready_for_offer
         transitions from: :commercialization, to: :technical_analysis, if: :marketing_only?
       end
 
@@ -65,6 +67,10 @@ module Projects
 
       event :offer_ready, if: :authorized?, after: :extract_verdict do
         transitions from: :technical_analysis_completed, to: :ready_for_offer
+      end
+
+      event :offer_confirmation, if: :authorized? do
+        transitions from: :ready_for_offer, to: :offer_confirmation
       end
 
       event :archive, if: :authorized?, after: :extract_verdict do

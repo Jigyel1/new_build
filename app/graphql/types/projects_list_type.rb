@@ -22,8 +22,14 @@ module Types
     field :address, String, null: true
     field :investor, String, null: true
     field :assignee, String, null: true
+    field :kam_assignee, String, null: true
     field :kam_region, String, null: true
-
     field :draft_version, GraphQL::Types::JSON, null: true
+
+    def kam_assignee
+      return if object.kam_assignee.nil?
+
+      ::User.find(object.kam_assignee).name
+    end
   end
 end

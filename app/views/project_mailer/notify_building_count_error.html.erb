@@ -1,0 +1,43 @@
+<table class="full--width">
+  <tr>
+    <td>
+      <%= render('project_mailer/shared/header') %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h1 class="my-0">New Build - Empty Building/Apartment</h1>
+    </td>
+  </tr>
+  <tr>
+    <td><p class="mb-16 font--bold text--capitalize  font-size-16 color--black-87">Hello Admin,</p></td>
+  </tr>
+  <tr>
+    <td>
+      <p class="my-0">
+        All the following project IDs have empty buildings/apartments. Please look into the IDs and manually enter the data for the project(s).
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <% @external_ids.each do |external_id|%>
+          <li class="line-height--22"><%= external_id %></li>
+        <% end %>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="mt-32">
+        <button type="button" class="button button__primary">
+          <a href="<%= root_url %>" class="color--white font-size-12">
+            Go To New Build Tool
+          </a>
+        </button>
+      </div>
+    </td>
+  </tr>
+</table>
+

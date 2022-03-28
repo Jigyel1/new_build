@@ -27,7 +27,7 @@ RSpec.describe Mutations::CreateProject do
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) { { status: 'Technical Analysis', move_in_starts_on: Date.current } }
+      let!(:params) { { assignee_id: kam.id } }
 
       it 'creates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
@@ -35,13 +35,10 @@ RSpec.describe Mutations::CreateProject do
 
         expect(response.project).to have_attributes(
           internalId: 'e922833',
-          moveInStartsOn: Date.current.date_str,
-          status: 'technical_analysis',
+          status: 'open',
           assigneeType: 'nbo',
-          apartmentsCount: 10,
-          buildingsCount: 3,
+          buildingsCount: 1,
           category: 'standard',
-          customerRequest: true,
           buildingType: 'efh'
         )
 
@@ -54,10 +51,11 @@ RSpec.describe Mutations::CreateProject do
           gis_url: Rails.application.config.gis_url_static,
           info_manager_url: nil
         )
+        expect(project.site_address.size).to eq(project.buildings_count)
       end
 
       it 'creates the associated address books' do
-        response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
+        response, errors = formatted_response(query, current_user: super_user, key: :createProject)
         expect(errors).to be_nil
         address_books = response.project.addressBooks
 
@@ -84,17 +82,17 @@ RSpec.describe Mutations::CreateProject do
         )
       end
 
-      it 'creates associated apartments and buildings' do
-        response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
+      it 'creates associated buildings from site address' do
+        response, errors = formatted_response(query, current_user: super_user, key: :createProject)
         expect(errors).to be_nil
 
         buildings = Project.find(response.project.id).buildings
-        expect(buildings.count).to eq(3)
-        expect(buildings.pluck(:apartments_count)).to match_array([3, 3, 4])
+        expect(buildings.count).to eq(1)
+        expect(buildings.pluck(:apartments_count)).to match_array([10])
       end
 
       it 'creates a label group for the project itself' do
-        response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
+        response, errors = formatted_response(query, current_user: super_user, key: :createProject)
         expect(errors).to be_nil
 
         project = Project.find(response.project.id)
@@ -108,7 +106,7 @@ RSpec.describe Mutations::CreateProject do
 
     context 'when assignee is not a KAM' do
       let!(:team_expert) { create(:user, :team_expert) }
-      let!(:params) { { assignee_id: team_expert.id, status: 'Technical Analysis' } }
+      let!(:params) { { assignee_id: team_expert.id } }
 
       it 'sets the assignee type as NBO project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
@@ -151,6 +149,17 @@ RSpec.describe Mutations::CreateProject do
     ADDRESS
   end
 
+  def site_address
+    <<~SITE_ADDRESS
+      siteAddress: {
+        name: "Building A"
+        moveInStartsOn: "2021-12-12"
+        apartmentsCount: 10
+        #{address}
+      }
+    SITE_ADDRESS
+  end
+
   def address_books
     <<~ADDRESS_BOOKS
       addressBooks: [
@@ -183,39 +192,37 @@ RSpec.describe Mutations::CreateProject do
   end
 
   def query(args = {})
-    apartments = args[:apartments] || 10
-    move_in_starts_on = args[:move_in_starts_on] || Date.current
-    assignee_id = args[:assignee_id] || kam.id
-
+    status = args[:status] || 'open'
     <<~GQL
       mutation {
         createProject(
           input: {
             attributes: {
               name: "West ZentralSchweiz + Solothurn Offnet"
-              assigneeId: "#{assignee_id}"
+              assigneeId: "#{args[:assignee_id]}"
               internalId: "e922833"
-              status: "#{args[:status]}"
-              moveInStartsOn: "#{move_in_starts_on}"
-              moveInEndsOn: "#{Date.current + 3.months}"
+              status: "#{status}"
               constructionStartsOn: "#{Date.current - 3.years}"
               lotNumber: "EA0988833"
-              buildingsCount: 3
+              buildingsCount: 1
               buildingType: "efh"
-              apartmentsCount: #{apartments}
               #{address}
               #{address_books}
+              #{site_address}
             }
           }
         )
         {
           project {
-            id status category internalId moveInStartsOn assigneeType
-            apartmentsCount buildingsCount customerRequest buildingType
+            id status category internalId assigneeType lotNumber
+            buildingsCount buildingType
+            address { city id street streetNo zip }
+            addressBooks { id type name company language email website phone mobile address {#{' '}
+              city id street streetNo zip } }
             assignee { id name }
-            addressBooks { id type name company language email website phone mobile
-            address { id street city zip} }
+            buildingType
             kamRegion { id name }
+            siteAddress
           }
         }
       }

@@ -122,6 +122,9 @@ en:
       revert:
         owner: "Project '%{project_name}' reverted from  %{previous_status} to %{status} by you "
         others: "Project '%{project_name}' reverted from  %{previous_status} to %{status} by %{owner_email}"
+      offer_confirmation:
+        owner: "Project '%{project_name}' moved from  %{previous_status} to %{status} by you"
+        others: "Project '%{project_name}' was moved from %{previous_status} to %{status} by %{owner_email}"
       incharge_assigned:
         owner: "Assigned '%{incharge_email}' as Technical Incharge for project '%{project_name}' by you"
         others: "Assigned '%{incharge_email}' as Technical Incharge for project '%{project_name}' by %{owner_email}"

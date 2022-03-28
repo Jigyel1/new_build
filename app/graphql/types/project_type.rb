@@ -10,6 +10,7 @@ module Types
 
     field :project_nr, String, null: true
     field :status, String, null: true
+    field :prio_status, String, null: true
     field :priority, String, null: true
     field :priority_tac, String, null: true
     field :category, String, null: true
@@ -20,11 +21,13 @@ module Types
     field :verdicts, GraphQL::Types::JSON, null: true
 
     field :assignee, Types::UserType, null: true
+    field :kam_assignee, Types::UserType, null: true
     field :incharge, Types::UserType, null: true
     field :address, Types::AddressType, null: true
     field :kam_region, AdminToolkit::KamRegionType, null: true
     field :address_books, [Types::Projects::AddressBookType], null: true
     field :building_type, String, null: true
+    field :description_on_other, String, null: true
     field :cable_installations, [String], null: true
 
     field :connection_costs, [Types::Projects::ConnectionCostType], null: true
@@ -36,7 +39,9 @@ module Types
     field :customer_request, Boolean, null: true
     field :in_house_installation, Boolean, null: true
     field :system_sorted_category, Boolean, null: true
+    field :site_address, GraphQL::Types::JSON, null: true
     field :exceeding_cost, Float, null: true
+    field :file_upload, Boolean, null: true
 
     field(
       :move_in_starts_on,
@@ -49,7 +54,7 @@ module Types
       :move_in_ends_on,
       String,
       null: true,
-      description: 'Till when the tenant can move in.'
+      description: 'From when the tenant can move in.'
     )
 
     field :construction_starts_on, String, null: true
@@ -67,10 +72,20 @@ module Types
 
     field :default_label_group, Types::Projects::LabelGroupType, null: true
 
-    %i[move_in_starts_on move_in_ends_on construction_starts_on].each do |method_name|
-      define_method method_name do
-        in_time_zone(method_name)
-      end
+    def construction_starts_on
+      in_time_zone(:construction_starts_on)
+    end
+
+    def move_in_starts_on
+      return if object.move_in_starts_on.nil?
+
+      object.move_in_starts_on.strftime('%d.%m.%Y').to_s
+    end
+
+    def move_in_ends_on
+      return if object.move_in_ends_on.nil?
+
+      object.move_in_ends_on.strftime('%d.%m.%Y').to_s
     end
 
     field :states, GraphQL::Types::JSON, null: true, description: <<~DESC
@@ -89,5 +104,6 @@ module Types
 
     field :gis_url, String, null: true
     field :info_manager_url, String, null: true
+    field :confirmation_status, String, null: true
   end
 end
