@@ -120,7 +120,8 @@ RSpec.describe Mutations::Projects::CreateTask do
               copyToAllBuildings: #{copy_task}
             }
           }
-        ){ task { id title status description dueDate buildingId projectId#{' '}
+        )
+        { task { id title status description dueDate buildingId projectId
                 projectName owner { id email } assignee { id email } } }
       }
     GQL
