@@ -1,3 +1,3 @@
 Hello <%= @user.salutation %>. <%= @user.lastname %>
 
-You have been assigned as the Assigned Person for "<%= @project_name %>" project.
+You have been assigned as the Assigned Person for "<%= @project_name %>", "<%= @project.decorate.formatted_address(@project.address) %>", project.

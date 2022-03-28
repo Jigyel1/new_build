@@ -22,7 +22,7 @@
   <tr>
     <td>
       <p class="my-0">
-        You have been assigned as the Assigned Person for "<%= @project.name%>" project by <%= @current_user.name %>.
+        You have been assigned as the Assigned Person for "<%= @project.name%>", "<%= @project.decorate.formatted_address(@project.address) %>", project by <%= @current_user.name %>.
       </p>
     </td>
   </tr>
