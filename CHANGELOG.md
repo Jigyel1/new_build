@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Feature
 - Added assignee_id, owner_id, user_id and taskable_type filters to `Projects::Task`.
+- Added additional fields in Task, i.e. building_id, project_id and project_name for FE routing purpose.
 
 ## [1.4.0] - 2022-03-23
 
