@@ -15,7 +15,7 @@ module Resolvers
         Note that this option is mandatory!
       DESC
 
-      option(:user_id, type: String) { |scope, value| find_created_or_assigned(scope, value)}
+      option(:user_id, type: String) { |scope, value| find_created_or_assigned(scope, value) }
       option(:assignee_id, type: String) { |scope, value| scope.where(assignee_id: value) }
       option(:owner_id, type: String) { |scope, value| scope.where(owner_id: value) }
       option(:taskable_type, type: String) { |scope, value| scope.where(taskable_type: value) }
@@ -49,7 +49,7 @@ module Resolvers
       end
 
       def find_created_or_assigned(scope, value)
-        scope.where("assignee_id = ? or owner_id = ?", value, value)
+        scope.where('assignee_id = ? or owner_id = ?', value, value)
       end
     end
   end

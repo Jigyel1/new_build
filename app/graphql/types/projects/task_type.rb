@@ -11,7 +11,6 @@ module Types
       field :project_id, String, null: true
       field :project_name, String, null: true
 
-
       field :assignee, Types::UserType, null: true
       field :owner, Types::UserType, null: true
 
