@@ -3,7 +3,6 @@
 module AdminToolkit
   class Penetration < ApplicationRecord
     self.inheritance_column = nil
-    before_save :remove_existing
 
     belongs_to :kam_region, class_name: 'AdminToolkit::KamRegion'
     has_many :penetration_competitions, class_name: 'AdminToolkit::PenetrationCompetition', dependent: :destroy
@@ -24,11 +23,5 @@ module AdminToolkit
     }
 
     default_scope { order(:zip) }
-
-    def remove_existing
-      return unless AdminToolkit::Penetration.find_by(zip: self.zip).present?
-
-      AdminToolkit::Penetration.find_by(zip: self.zip).destroy!
-    end
   end
 end
