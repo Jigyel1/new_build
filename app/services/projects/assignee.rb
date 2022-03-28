@@ -13,7 +13,7 @@ module Projects
     def call
       @kam = by_kam_investor
       @kam ||= by_kam_region if kam_region_lookup
-      binding.pry
+
       return if kam.blank?
 
       project.assignee = kam

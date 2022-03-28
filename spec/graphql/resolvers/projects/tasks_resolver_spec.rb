@@ -74,7 +74,6 @@ RSpec.describe Resolvers::Projects::TasksResolver do
     context 'without filters' do
       it 'returns all tasks' do
         tasks, errors = paginated_collection(:tasks, query, current_user: super_user)
-        binding.pry
         expect(errors).to be_nil
         expect(tasks.pluck(:id)).to eq(project.tasks.pluck(:id))
       end
@@ -92,7 +91,6 @@ RSpec.describe Resolvers::Projects::TasksResolver do
       it 'returns tasks assigned to the assigner' do
         tasks, errors = paginated_collection(:tasks, query(owner_id: super_user.id), current_user: super_user)
         expect(errors).to be_nil
-        binding.pry
         expect(tasks.pluck(:id)).to eq([task_d.id, task_b.id, task_a.id])
       end
     end
