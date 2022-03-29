@@ -9,7 +9,7 @@ module Projects
 
       super do
         with_tracking do
-          update_assignee
+          update_project_assignees
           project.update!(attributes)
         end
       end
@@ -21,7 +21,7 @@ module Projects
 
     private
 
-    def update_assignee
+    def update_project_assignees
       project.update!(assignee_id: nil) if attributes[:assignee_id].blank? && project.assignee.present?
       project.update!(kam_assignee_id: nil) if attributes[:kam_assignee_id].blank? && project.kam_assignee.present?
     end
