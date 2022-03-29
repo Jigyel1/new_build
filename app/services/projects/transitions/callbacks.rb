@@ -81,7 +81,7 @@ module Projects
         default_label_group.label_list.delete_if { |label| AdminToolkit::PctValue.statuses.value?(label) }
 
         default_label_group.label_list << AdminToolkit::PctValue.statuses[pct_value.status]
-        project.update!(prio_status: status)
+        project.update!(prio_status: AdminToolkit::PctValue.statuses[pct_value.status])
         default_label_group.save!
       rescue StandardError => e
         raise(t('projects.transition.error_while_adding_label', error: e.message))
