@@ -44,7 +44,7 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def move_in_date_formatter
-    "#{project.move_in_starts_on} - #{project.move_in_ends_on}"
+    "#{project.move_in_starts_on&.strftime('%d.%m.%Y')} - #{project.move_in_ends_on&.strftime('%d.%m.%Y')}"
   end
 
   def priority_check
