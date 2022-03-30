@@ -9,7 +9,6 @@ module Projects
 
       super do
         with_tracking do
-          update_project_assignees
           project.update!(attributes)
         end
       end
@@ -20,10 +19,6 @@ module Projects
     end
 
     private
-
-    def update_project_assignees
-      project.update!(assignee_id: attributes[:assignee_id], kam_assignee_id: attributes[:kam_assignee_id])
-    end
 
     def activity_params
       {
