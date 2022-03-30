@@ -6,7 +6,8 @@ module Hooks
 
     included do
       after_save :update_counter_caches
-      before_create :assign_project_id, :assign_building_id, :assign_project_name, :assign_host_url
+      before_create :assign_project_id, :assign_building_id, :assign_project_name,
+                    :assign_host_url, :assign_building_name
     end
 
     def assign_building_id
@@ -23,6 +24,10 @@ module Hooks
                           else
                             ::Project.find(taskable_id).name
                           end
+    end
+
+    def assign_building_name
+      self.building_name = ::Projects::Building.find(taskable_id).name if building?
     end
 
     def assign_host_url

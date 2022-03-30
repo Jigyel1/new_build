@@ -121,7 +121,7 @@ RSpec.describe Mutations::Projects::CreateTask do
             }
           }
         )
-        { task { id title status description dueDate buildingId projectId hostUrl
+        { task { id title status description dueDate buildingId projectId hostUrl buildingName
                 projectName owner { id email } assignee { id email } } }
       }
     GQL
