@@ -6,7 +6,7 @@ module Hooks
 
     included do
       after_save :update_counter_caches
-      after_create :assign_project_id, :assign_building_id, :assign_project_name
+      before_create :assign_project_id, :assign_building_id, :assign_project_name
     end
 
     def assign_building_id
