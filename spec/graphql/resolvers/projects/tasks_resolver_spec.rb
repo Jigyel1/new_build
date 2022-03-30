@@ -75,7 +75,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
       it 'returns all tasks' do
         tasks, errors = paginated_collection(:tasks, query, current_user: super_user)
         expect(errors).to be_nil
-        expect(tasks.pluck(:id)).to eq(project.tasks.pluck(:id))
+        expect(tasks.pluck(:id)).to match_array(project.tasks.pluck(:id))
       end
     end
 
@@ -83,7 +83,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
       it 'returns tasks assigned to the assigner' do
         tasks, errors = paginated_collection(:tasks, query(assignee_id: super_user.id), current_user: super_user)
         expect(errors).to be_nil
-        expect(tasks.pluck(:id)).to eq([task_b.id, task_a.id])
+        expect(tasks.pluck(:id)).to match_array([task_b.id, task_a.id])
       end
     end
 
@@ -91,7 +91,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
       it 'returns tasks assigned to the assigner' do
         tasks, errors = paginated_collection(:tasks, query(owner_id: super_user.id), current_user: super_user)
         expect(errors).to be_nil
-        expect(tasks.pluck(:id)).to eq([task_d.id, task_b.id, task_a.id])
+        expect(tasks.pluck(:id)).to match_array([task_d.id, task_b.id, task_a.id])
       end
     end
 
@@ -117,7 +117,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
       it 'returns tasks with the given statuses' do
         tasks, errors = paginated_collection(:tasks, query(params), current_user: super_user)
         expect(errors).to be_nil
-        expect(tasks.pluck(:id)).to eq([task_e.id, task_c.id])
+        expect(tasks.pluck(:id)).to match_array([task_e.id, task_c.id])
       end
     end
 
@@ -129,7 +129,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
           current_user: super_user
         )
         expect(errors).to be_nil
-        expect(tasks.pluck(:id)).to eq([task_e.id, task_c.id])
+        expect(tasks.pluck(:id)).to match_array([task_e.id, task_c.id])
       end
     end
 
@@ -137,7 +137,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
       it 'returns tasks matching the query' do
         tasks, errors = paginated_collection(:tasks, query(query: 'panelling'), current_user: super_user)
         expect(errors).to be_nil
-        expect(tasks.pluck(:id)).to eq([task_d.id, task_b.id, task_a.id])
+        expect(tasks.pluck(:id)).to match_array([task_d.id, task_b.id, task_a.id])
       end
     end
 
@@ -146,7 +146,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
         it 'returns the first N tasks' do
           tasks, errors = paginated_collection(:tasks, query(first: 2), current_user: super_user)
           expect(errors).to be_nil
-          expect(tasks.pluck(:id)).to eq([task_d.id, task_b.id])
+          expect(tasks.pluck(:id)).to match_array([task_d.id, task_b.id])
         end
       end
 
@@ -154,7 +154,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
         it 'returns tasks after skipping N records' do
           tasks, errors = paginated_collection(:tasks, query(skip: 2), current_user: super_user)
           expect(errors).to be_nil
-          expect(tasks.pluck(:id)).to eq([task_a.id])
+          expect(tasks.pluck(:id)).to match_array([task_a.id])
         end
       end
 
@@ -162,7 +162,7 @@ RSpec.describe Resolvers::Projects::TasksResolver do
         it 'returns first N tasks after skipping M records' do
           tasks, errors = paginated_collection(:tasks, query(first: 2, skip: 1), current_user: super_user)
           expect(errors).to be_nil
-          expect(tasks.pluck(:id)).to eq([task_b.id, task_a.id])
+          expect(tasks.pluck(:id)).to match_array([task_b.id, task_a.id])
         end
       end
     end
