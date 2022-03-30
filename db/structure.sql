@@ -1070,7 +1070,8 @@ CREATE TABLE public.projects_tasks (
     updated_at timestamp(6) without time zone NOT NULL,
     project_id character varying,
     building_id character varying,
-    project_name character varying
+    project_name character varying,
+    domain_url character varying
 );
 
 

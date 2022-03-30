@@ -6,7 +6,7 @@ module Hooks
 
     included do
       after_save :update_counter_caches
-      before_create :assign_project_id, :assign_building_id, :assign_project_name
+      before_create :assign_project_id, :assign_building_id, :assign_project_name, :assign_domain_url
     end
 
     def assign_building_id
@@ -23,6 +23,10 @@ module Hooks
                           else
                             ::Project.find(taskable_id).name
                           end
+    end
+
+    def assign_domain_url
+      self.domain_url = Rails.application.config.domain_url
     end
 
     private

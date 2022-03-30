@@ -7,6 +7,7 @@ class UpdateProjectsTasks < ActiveRecord::Migration[6.1]
         t.string :project_id, null: true
         t.string :building_id, null: true
         t.string :project_name, null: true
+        t.string :domain_url, null: true
       end
     end
   end
