@@ -1071,7 +1071,7 @@ CREATE TABLE public.projects_tasks (
     project_id character varying,
     building_id character varying,
     project_name character varying,
-    domain_url character varying
+    host_url character varying
 );
 
 
