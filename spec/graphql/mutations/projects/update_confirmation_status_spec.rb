@@ -34,7 +34,7 @@ RSpec.describe Mutations::Projects::UpdateConfirmationStatus do
       mutation {
         updateConfirmationStatus(
           input: { attributes: { projectId: "#{project.id}", confirmationStatus: "new_offer" } }
-        ) { project { id confirmationStatus } }#{' '}
+        ) { project { id confirmationStatus } }
        }
     GQL
   end

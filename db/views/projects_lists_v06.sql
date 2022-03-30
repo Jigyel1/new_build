@@ -20,7 +20,6 @@ SELECT projects.id                                              AS id,
        addresses.zip                                            AS zip,
        projects.kam_assignee_id                                 AS kam_assignee,
 
-
        CONCAT(
          addresses.street, ' ',
          addresses.street_no, ', ',

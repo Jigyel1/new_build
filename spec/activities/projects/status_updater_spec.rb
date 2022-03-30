@@ -57,7 +57,7 @@ describe Projects::StatusUpdater do
         end
       end
 
-      context 'as an general user' do
+      context 'as a general user' do
         it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
@@ -102,7 +102,7 @@ describe Projects::StatusUpdater do
         end
       end
 
-      context 'as an general user' do
+      context 'as a general user' do
         it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
@@ -140,7 +140,7 @@ describe Projects::StatusUpdater do
         end
       end
 
-      context 'as an general user' do
+      context 'as a general user' do
         it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
@@ -176,7 +176,7 @@ describe Projects::StatusUpdater do
         end
       end
 
-      context 'as an general user' do
+      context 'as a general user' do
         it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
@@ -211,7 +211,7 @@ describe Projects::StatusUpdater do
         end
       end
 
-      context 'as an general user' do
+      context 'as a general user' do
         it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
@@ -245,7 +245,7 @@ describe Projects::StatusUpdater do
         end
       end
 
-      context 'as an general user' do
+      context 'as a general user' do
         it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
@@ -280,7 +280,7 @@ describe Projects::StatusUpdater do
         end
       end
 
-      context 'as an general user' do
+      context 'as a general user' do
         it 'returns activities in third person' do
           activities, errors = paginated_collection(:activities, activities_query, current_user: administrator)
           expect(errors).to be_nil
