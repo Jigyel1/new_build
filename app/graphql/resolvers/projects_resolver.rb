@@ -65,7 +65,7 @@ module Resolvers
     end
 
     def sort_labels(scope, value)
-      scope.where('label_list IN (?)', value)
+      scope.where('label_list@> ARRAY[?]::varchar[]', value)
     end
   end
 end
