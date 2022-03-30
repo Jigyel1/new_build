@@ -65,7 +65,7 @@ module Resolvers
     end
 
     def sort_labels(scope, value)
-      scope.where.overlaps(label_list: value)
+      scope.where(scope.arel_table[:label_list].overlap(value))
     end
   end
 end
