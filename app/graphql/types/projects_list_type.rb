@@ -24,6 +24,7 @@ module Types
     field :assignee, String, null: true
     field :kam_assignee, String, null: true
     field :kam_region, String, null: true
+    field :label_list, [String], null: true
     field :draft_version, GraphQL::Types::JSON, null: true
 
     def kam_assignee

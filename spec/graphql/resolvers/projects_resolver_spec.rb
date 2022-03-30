@@ -21,7 +21,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       :project,
       :customer_request,
       internal_id: '312590',
-      name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
+      name: '1_Neubau Mehrfamilienhaus mit Coiffeuersalon',
       address: address_a,
       buildings: build_list(:building, 5, apartments_count: 3),
       label_list: 'Assign KAM, Offer Needed',
@@ -167,6 +167,16 @@ RSpec.describe Resolvers::ProjectsResolver do
                                                 current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_b.id])
+      end
+    end
+
+    context 'with apartments filter' do
+      let(:name) { 'asc' }
+
+      it 'returns projects with apartments in the given range' do
+        projects, errors = paginated_collection(:projects, query(name: name),
+                                                current_user: super_user)
+        expect(errors).to be_nil
       end
     end
 
