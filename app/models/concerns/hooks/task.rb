@@ -8,6 +8,7 @@ module Hooks
       after_save :update_counter_caches
       before_create :assign_project_id, :assign_building_id, :assign_project_name,
                     :assign_host_url, :assign_building_name
+      after_destroy :update_counter_caches
     end
 
     def assign_building_id
