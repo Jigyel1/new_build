@@ -180,6 +180,16 @@ RSpec.describe Resolvers::ProjectsResolver do
       end
     end
 
+    context 'with labels filter' do
+      let(:label) { 'asc' }
+
+      it 'returns projects with apartments in the given range' do
+        projects, errors = paginated_collection(:projects, query(label_list: label),
+                                                current_user: super_user)
+        expect(errors).to be_nil
+      end
+    end
+
     context 'with search queries' do
       it 'returns projects matching given query' do
         projects, errors = paginated_collection(:projects, query(query: 'Neubau'), current_user: super_user)

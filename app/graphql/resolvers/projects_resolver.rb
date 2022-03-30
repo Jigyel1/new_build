@@ -18,7 +18,7 @@ module Resolvers
     option(:zips, type: [String]) { |scope, value| scope.where(zip: value) }
     option(:kam_regions, type: [String]) { |scope, value| scope.where(kam_region: value) }
     option(:name, type: String) { |scope, value| sort_name(scope, value) }
-    # option(:label_list, type: [String]) { |scope, value| binding.pry; }
+    option(:label_list, type: [String]) { |scope, value| sort_labels(scope, value) }
 
     option :buildings_count, type: [Int], with: :apply_buildings_filter, description: <<~DESC
       Send min and max values in the array. eg. [2, 10]. Only the first two values will be picked.
@@ -62,6 +62,10 @@ module Resolvers
       else
         scope.order(Arel.sql("SUBSTRING(LOWER(name), '^[0-9]+')::FLOAT, SUBSTRING(LOWER(name), '^[A-Za-z].*')"))
       end
+    end
+
+    def sort_labels(scope, value)
+      scope.where('label_list IN (?)', value)
     end
   end
 end
