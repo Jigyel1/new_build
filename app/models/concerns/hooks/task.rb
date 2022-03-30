@@ -6,18 +6,18 @@ module Hooks
 
     included do
       after_save :update_counter_caches
-      after_create :save_project_id, :save_building_id, :save_project_name
+      after_create :assign_project_id, :assign_building_id, :assign_project_name
     end
 
-    def save_building_id
+    def assign_building_id
       self.building_id = taskable_id if building?
     end
 
-    def save_project_id
+    def assign_project_id
       self.project_id = building? ? ::Projects::Building.find(taskable_id).project.id : taskable_id
     end
 
-    def save_project_name
+    def assign_project_name
       self.project_name = if building?
                             ::Projects::Building.find(taskable_id).project.name
                           else
@@ -33,8 +33,8 @@ module Hooks
 
     def update_counter_caches
       taskable.update_columns(
-        completed_tasks_count: taskable.tasks.completed.count,
-        tasks_count: taskable.tasks.where.not(status: :archived).count
+        completed_tasks_count: taskable.tasks.completed.size,
+        tasks_count: taskable.tasks.where.not(status: :archived).size
       )
     end
   end

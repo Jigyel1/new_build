@@ -16,6 +16,7 @@ RSpec.describe Mutations::Projects::CreateTask do
 
       it 'creates the address book' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createTask)
+        binding.pry
         expect(errors).to be_nil
         task = response.task
 
