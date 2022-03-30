@@ -9,7 +9,7 @@ module Projects
     def building_count_error(current_user, sheet)
       @external_ids = []
       sheet.to_a.group_by { |project| project[0] }.each_value do |value|
-        @external_ids << value[0][0] if (value[0][75]).nil? || (value[0][75]) == 0
+        @external_ids << value[0][0] if (value[0][75]).nil? || (value[0][75]).zero?
       end
 
       notify_user(current_user)
