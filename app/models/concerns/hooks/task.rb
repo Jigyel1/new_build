@@ -14,11 +14,7 @@ module Hooks
     end
 
     def save_project_id
-      self.project_id = if building?
-                          ::Projects::Building.find(taskable_id).project.id
-                        else
-                          taskable_id
-                        end
+      self.project_id = building? ? ::Projects::Building.find(taskable_id).project.id : taskable_id
     end
 
     def save_project_name
