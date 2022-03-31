@@ -32,7 +32,7 @@ module Penetrations
 
     def build_competition(penetration, competitions)
       admintoolkit_penetration = AdminToolkit::Penetration.find_by(zip: penetration.zip)
-      admintoolkit_penetration.competitions.delete_all if admintoolkit_penetration.present?
+      admintoolkit_penetration.competitions.delete_all if admintoolkit_penetration.competitions.present?
 
       competitions.each do |name|
         competition = ::AdminToolkit::Competition.find_by(name: name.strip)
