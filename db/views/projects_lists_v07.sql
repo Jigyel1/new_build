@@ -20,6 +20,7 @@ SELECT projects.id                                              AS id,
        addresses.zip                                            AS zip,
        projects.kam_assignee_id                                 AS kam_assignee,
        projects.manually_created_labels                         AS label_list,
+       projects.confirmation_status                             AS confirmation_status,
 
 
        CONCAT(
