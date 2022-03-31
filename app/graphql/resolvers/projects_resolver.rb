@@ -18,8 +18,8 @@ module Resolvers
     option(:zips, type: [String]) { |scope, value| scope.where(zip: value) }
     option(:kam_regions, type: [String]) { |scope, value| scope.where(kam_region: value) }
     option(:name, type: String) { |scope, value| sort_name(scope, value) }
-    option(:label_list, type: [String]) { |scope, value| scope.where(scope.arel_table[:label_list].overlaps(value))}
-    option(:confirmation_status, type: String) { |scope, value| scope.where(confirmation_status: value)}
+    option(:label_list, type: [String]) { |scope, value| scope.where(scope.arel_table[:label_list].overlaps(value)) }
+    option(:confirmation_status, type: String) { |scope, value| scope.where(confirmation_status: value) }
 
     option :buildings_count, type: [Int], with: :apply_buildings_filter, description: <<~DESC
       Send min and max values in the array. eg. [2, 10]. Only the first two values will be picked.
