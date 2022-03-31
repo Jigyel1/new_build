@@ -131,6 +131,7 @@ en:
       lot: Project Lot Number
       status: Status
       kam: Assigned KAM
+      assigned: Assigned Person
       move_in: Move In
       construction: Construction Starts from
       buildings_count_title: No. of buildings

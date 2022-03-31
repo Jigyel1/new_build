@@ -18,8 +18,7 @@ SELECT projects.id                                              AS id,
        cardinality(projects.label_list)                         AS labels,
        addresses.city                                           AS city,
        addresses.zip                                            AS zip,
-       projects.kam_assignee_id                                 AS kam_assignee,
-
+       projects.kam_assignee_name                               AS kam_assignee,
 
        CONCAT(
          addresses.street, ' ',

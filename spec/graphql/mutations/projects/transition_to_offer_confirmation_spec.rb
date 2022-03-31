@@ -6,6 +6,7 @@ describe Mutations::Projects::TransitionToOfferConfirmation do
   let_it_be(:super_user) do
     create(:user, :super_user, with_permissions: { project: %i[offer_confirmation] })
   end
+
   let_it_be(:project) { create(:project, :ready_for_offer, :ftth) }
 
   describe '.resolve' do

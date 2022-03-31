@@ -29,7 +29,7 @@
     <p class="color--black-87"><%= project.status.try(:titleize) %></p>
   </div>
   <div class="width--40">
-    <p class="font-size-18 mb-8">Assigned Person</p>
+    <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.kam') %></p>
     <p class="color--black-87 text--capitalize"><%= project.assignee.try(:name) %></p>
   </div>
 </div>
@@ -44,7 +44,7 @@
       <p class="color--black-87"><%= project.construction_starts_on %></p>
   </div>
   <div class="width--40">
-    <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.kam') %></p>
+    <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.assigned') %></p>
     <p class="color--black-87"><%= project.kam_assignee.try(:name) %></p>
   </div>
 </div>

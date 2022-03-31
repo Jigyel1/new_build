@@ -1019,7 +1019,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     cardinality(projects.label_list) AS labels,
     addresses.city,
     addresses.zip,
-    projects.kam_assignee_id AS kam_assignee,
+    projects.kam_assignee_name AS kam_assignee,
     projects.manually_created_labels AS label_list,
     projects.confirmation_status,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,

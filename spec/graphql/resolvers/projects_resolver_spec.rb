@@ -40,6 +40,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: "Construction d'une habitation de quatre logements",
       address: address_b,
       assignee: kam,
+      kam_assignee: kam,
       buildings: build_list(:building, 15, apartments_count: 6),
       lot_number: 'Parz. 120'
     )
@@ -276,7 +277,7 @@ RSpec.describe Resolvers::ProjectsResolver do
   def query(args = {})
     response = <<~RESPONSE
       id externalId projectNr name status category priority constructionType labels apartmentsCount
-      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion confirmationStatus
+      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion KamAssignee confirmationStatus
     RESPONSE
 
     connection_query(
