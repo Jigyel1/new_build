@@ -32,7 +32,7 @@ module Penetrations
 
     def build_competition(penetration, competitions)
       competitions.each do |name|
-        competition = ::AdminToolkit::Competition.find_by(name: name)
+        competition = ::AdminToolkit::Competition.find_by(name: name.split)
         penetration.penetration_competitions.find_or_initialize_by(competition: competition)
       end
     end
