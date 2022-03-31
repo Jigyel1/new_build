@@ -37,6 +37,7 @@ module Penetrations
 
         if admin_toolkit_penetration.present?
           admin_toolkit_penetration.competitions.delete_all
+          penetration.penetration_competitions.find_or_initialize_by(competition: competition)
         end
 
         penetration.penetration_competitions.find_or_initialize_by(competition: competition)
