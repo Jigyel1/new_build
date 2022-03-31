@@ -33,13 +33,6 @@ module Penetrations
     def build_competition(penetration, competitions)
       competitions.each do |name|
         competition = ::AdminToolkit::Competition.find_by(name: name)
-        admin_toolkit_penetration = ::AdminToolkit::Penetration.find_by(zip: penetration.zip)
-
-        if admin_toolkit_penetration.present?
-          admin_toolkit_penetration.competitions.delete_all
-          penetration.penetration_competitions.find_or_initialize_by(competition: competition)
-        end
-
         penetration.penetration_competitions.find_or_initialize_by(competition: competition)
       end
     end
