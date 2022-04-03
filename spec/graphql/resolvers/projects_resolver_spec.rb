@@ -23,6 +23,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       internal_id: '312590',
       name: '1_Neubau Mehrfamilienhaus mit Coiffeuersalon',
       address: address_a,
+      kam_assignee: kam,
       buildings: build_list(:building, 5, apartments_count: 3),
       label_list: 'Assign KAM, Offer Needed',
       lot_number: 'Parz. 277, 1617'
@@ -55,6 +56,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       :technical_analysis_completed,
       name: 'Neubau Einfamilienhaus mit Pavillon',
       address: address_c,
+      kam_assignee: kam,
       assignee: team_expert,
       buildings: build_list(:building, 25, apartments_count: 8)
     )
@@ -276,8 +278,8 @@ RSpec.describe Resolvers::ProjectsResolver do
 
   def query(args = {})
     response = <<~RESPONSE
-      id externalId projectNr name status category priority constructionType labels apartmentsCount
-      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion KamAssignee confirmationStatus
+      id externalId projectNr name status category priority constructionType apartmentsCount
+      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion kamAssignee confirmationStatus
     RESPONSE
 
     connection_query(

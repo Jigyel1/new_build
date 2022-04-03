@@ -865,7 +865,7 @@ CREATE TABLE public.projects (
     description_on_other character varying,
     prio_status character varying,
     kam_assignee_name character varying,
-    manually_created_labels character varying[] DEFAULT '{}'::character varying[]
+    manually_created_labels text[] DEFAULT '{}'::text[]
 );
 
 
@@ -1016,7 +1016,6 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.draft_version,
     projects.assignee_type,
     projects.customer_request,
-    cardinality(projects.label_list) AS labels,
     addresses.city,
     addresses.zip,
     projects.kam_assignee_name AS kam_assignee,
@@ -2336,7 +2335,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220318172640'),
 ('20220322150514'),
 ('20220324063336'),
-('20220325092640'),
 ('20220330093727'),
 ('20220330101028'),
 ('20220330193957'),
