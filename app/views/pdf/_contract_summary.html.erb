@@ -1,49 +1,49 @@
 <h1 class="mb-24 font--heavy color--primary"><%= I18n.t('pdf.project.title', project_name: project.name) %></h1>
 <div class="flex--row color--black-60 font-size-16 mb-24">
-  <div class="width--60">
+  <div class="width--66">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.id') %></p>
     <div class="flex--row">
-      <div class="width--30">
+      <div class="width--33">
         <p><%= I18n.t('pdf.project.nr') %> <span class="color--black-87"><%= project.project_nr %></span></p>
         <p>ext. sys ID: <span class="color--black-87"><%= project.os_id %></span></p>
       </div>
-      <div class="width--30">
+      <div class="width--33">
         <p><%= I18n.t('pdf.project.external') %> <span class="color--black-87"><%= project.external_id %></span></p>
         <p><%= I18n.t('pdf.project.internal') %> <span class="color--black-87"><%= project.internal_id %></span></p>
       </div>
     </div>
   </div>
-  <div class="width--40">
+  <div class="width--43">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.address') %></p>
     <p class="color--black-87"><%= project.formatted_address(project.address) %></p>
   </div>
 </div>
 
 <div class="flex--row color--black-60 font-size-16 mb-24">
-  <div class="width--30">
+  <div class="width--33">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.lot') %></p>
     <p class="color--black-87"><%= project.lot_number %></p>
   </div>
-  <div class="width--30">
+  <div class="width--33">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.status') %></p>
     <p class="color--black-87"><%= project.status.try(:titleize) %></p>
   </div>
-  <div class="width--40">
+  <div class="width--33">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.kam') %></p>
     <p class="color--black-87 text--capitalize"><%= project.assignee.try(:name) %></p>
   </div>
 </div>
 
 <div class="flex--row color--black-60 font-size-16 mb-24">
-  <div class="width--30">
+  <div class="width--33">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.move_in') %></p>
     <p class="color--black-87"><%= project.move_in_date_formatter %></p>
   </div>
-  <div class="width--30">
+  <div class="width--33">
       <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.construction') %></p>
       <p class="color--black-87"><%= project.construction_starts_on %></p>
   </div>
-  <div class="width--40">
+  <div class="width--33">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.assigned') %></p>
     <p class="color--black-87"><%= project.kam_assignee.try(:name) %></p>
   </div>
