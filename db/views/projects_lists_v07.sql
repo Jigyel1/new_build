@@ -18,7 +18,7 @@ SELECT projects.id                                              AS id,
        addresses.city                                           AS city,
        addresses.zip                                            AS zip,
        projects.kam_assignee_name                               AS kam_assignee,
-       projects.manually_created_labels                         AS label_list,
+       projects.label_list                                      AS label_list,
        projects.confirmation_status                             AS confirmation_status,
 
 
