@@ -857,7 +857,9 @@ CREATE TABLE public.projects (
     cable_installations text[] DEFAULT '{}'::text[],
     priority_tac character varying,
     access_technology_tac character varying,
-    exceeding_cost numeric
+    exceeding_cost numeric,
+    site_address jsonb,
+    file_upload boolean
 );
 
 
@@ -896,13 +898,12 @@ CREATE TABLE public.projects_address_books (
 
 CREATE TABLE public.projects_buildings (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    name character varying NOT NULL,
+    name character varying,
     external_id character varying,
     assignee_id uuid,
     project_id uuid NOT NULL,
     apartments_count integer DEFAULT 0 NOT NULL,
     move_in_starts_on date,
-    move_in_ends_on date,
     additional_details jsonb DEFAULT '{}'::jsonb,
     files_count integer DEFAULT 0 NOT NULL,
     tasks_count integer DEFAULT 0 NOT NULL,
@@ -2305,6 +2306,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211220120052'),
 ('20220103082627'),
 ('20220213091922'),
-('20220306212410');
+('20220228080720'),
+('20220306212410'),
+('20220310092842'),
+('20220315102300'),
+('20220324063336');
 
 

@@ -1,0 +1,6 @@
+<% if project.verdicts.present? %>
+  <div class="mt-24">
+    <p class="font-size-18 color--black-60 font--heavy mb-8"><%= I18n.t('pdf.project.verdict_title') %></p>
+    <p class="font-size-16 color--black-87 line-height--24"> <%= project.verdicts['technical_analysis_completed'] %>
+  </div>
+<% end %>

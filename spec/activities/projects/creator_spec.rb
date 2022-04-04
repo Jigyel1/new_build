@@ -7,8 +7,20 @@ describe Projects::Creator do
   let_it_be(:params) do
     {
       name: 'tashi dorji',
-      buildings_count: 12,
-      apartments_count: 12,
+      buildings_count: 1,
+      site_address: [
+        {
+          name: 'Building A',
+          move_in_starts_on: Date.current,
+          apartments_count: 12,
+          address: {
+            zip: '123',
+            street: Faker::Address.street_name.to_s,
+            street_no: Faker::Address.building_number.to_s,
+            city: Faker::Address.city.to_s
+          }
+        }
+      ],
       address_attributes: {
         zip: '123',
         street: Faker::Address.street_name.to_s,

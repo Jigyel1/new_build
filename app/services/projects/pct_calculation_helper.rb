@@ -59,7 +59,7 @@ module Projects
       {
         project: project,
         pct_cost: pct_cost,
-        standard_connection_cost: standard_connection_cost,
+        standard_connection_cost: standard_cost,
         sockets: sockets,
         apartments_count: apartments_count,
         socket_installation_rate: socket_installation_rate,
@@ -82,6 +82,12 @@ module Projects
         project_cost: pct_calculator.project_cost([connection_type, cost_type]),
         roi: pct_calculator.roi
       }
+    end
+
+    def standard_cost
+      return project.buildings_count * standard_connection_cost if cost_type == 'standard'
+
+      standard_connection_cost
     end
   end
 end
