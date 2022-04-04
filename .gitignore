@@ -25,6 +25,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials/production.key
+/config/credentials/staging.key
 
 # Ignore app specific files that need not be shared.
 .gitattributes

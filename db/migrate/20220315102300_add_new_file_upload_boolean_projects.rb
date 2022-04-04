@@ -2,6 +2,8 @@
 
 class AddNewFileUploadBooleanProjects < ActiveRecord::Migration[6.1]
   def change
-    add_column :projects, :file_upload, :boolean, default: false
+    safety_assured do
+      add_column :projects, :file_upload, :boolean
+    end
   end
 end
