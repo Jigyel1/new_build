@@ -6,29 +6,18 @@ module Hooks
 
     included do
       after_save :update_counter_caches
-      before_create :assign_project_id, :assign_building_id, :assign_project_name,
-                    :assign_host_url, :assign_building_name
+      before_create :assign_project_building_name, :assign_ids, :assign_host_url
       after_destroy :update_counter_caches
     end
 
-    def assign_building_id
+    def assign_project_building_name
+      self.project_name = building? ? project_building.name : project.name
+      self.building_name = project_building.name if building?
+    end
+
+    def assign_ids
       self.building_id = taskable_id if building?
-    end
-
-    def assign_project_id
-      self.project_id = building? ? ::Projects::Building.find(taskable_id).project.id : taskable_id
-    end
-
-    def assign_project_name
-      self.project_name = if building?
-                            ::Projects::Building.find(taskable_id).project.name
-                          else
-                            ::Project.find(taskable_id).name
-                          end
-    end
-
-    def assign_building_name
-      self.building_name = ::Projects::Building.find(taskable_id).name if building?
+      self.project_id = building? ? project_building.id : taskable_id
     end
 
     def assign_host_url
@@ -36,6 +25,14 @@ module Hooks
     end
 
     private
+
+    def project
+      ::Project.find(taskable_id)
+    end
+
+    def project_building
+      ::Projects::Building.find(taskable_id).project
+    end
 
     def building?
       taskable_type == 'Projects::Building'
