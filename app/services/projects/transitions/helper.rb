@@ -54,6 +54,11 @@ module Projects
         project.save!
       end
 
+      def set_default_status
+        project.confirmation_status = :new_offer
+        project.save!
+      end
+
       def update_tac_attributes
         project.update_columns(
           attributes.slice(:priority_tac, :access_technology_tac)
