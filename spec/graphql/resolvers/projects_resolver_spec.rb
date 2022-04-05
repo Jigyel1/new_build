@@ -196,6 +196,7 @@ RSpec.describe Resolvers::ProjectsResolver do
 
     context 'with confirmation filter' do
       before { project_a.update(confirmation_status: :new_offer) }
+
       let(:confirmation) { 'New' }
 
       it 'returns projects with apartments in the given range' do
