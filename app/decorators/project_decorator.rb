@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProjectDecorator < ApplicationDecorator
+  using TimeFormatter
+
   def project_category
     project.standard? ? I18n.t('pdf.project.category.hfc_only') : I18n.t('pdf.project.category.ftth_project')
   end
@@ -46,7 +48,11 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def move_in_date_formatter
-    "#{project.move_in_starts_on&.strftime('%d.%m.%Y')} - #{project.move_in_ends_on&.strftime('%d.%m.%Y')}"
+    "#{project.move_in_starts_on&.date_str} - #{project.move_in_ends_on&.date_str}"
+  end
+
+  def date_formatter(date)
+    "#{date&.date_str}"
   end
 
   def priority_check
