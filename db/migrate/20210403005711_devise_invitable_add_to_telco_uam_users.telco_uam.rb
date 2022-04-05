@@ -3,7 +3,7 @@
 # This migration comes from telco_uam (originally 20210316115307)
 
 class DeviseInvitableAddToTelcoUamUsers < ActiveRecord::Migration[6.1]
-  def up # rubocop:disable Metrics/SeliseMethodLength
+  def up # rubocop:disable Metrics/SeliseMethodLength,
     safety_assured do
       change_table :telco_uam_users, bulk: true do |t|
         t.string :invitation_token
@@ -20,7 +20,7 @@ class DeviseInvitableAddToTelcoUamUsers < ActiveRecord::Migration[6.1]
   end
 
   def down
-    change_table :telco_uam_users do |t|
+    change_table :telco_uam_users do |t| # rubocop:disable Rails/BulkChangeTable
       t.remove_references :invited_by, polymorphic: true
       t.remove :invitations_count, :invitation_limit, :invitation_sent_at, :invitation_accepted_at, :invitation_token,
                :invitation_created_at
