@@ -96,6 +96,11 @@ module Projects
       def assign_incharge
         project.incharge || project.update!(incharge: current_user)
       end
+
+      def remove_status
+        project.confirmation_status = nil
+        project.save!
+      end
     end
   end
 end
