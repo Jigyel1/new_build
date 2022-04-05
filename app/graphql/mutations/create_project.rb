@@ -35,10 +35,12 @@ module Mutations
       argument :coordinate_north, Float, required: false
 
       argument :assignee_id, ID, required: false
+      argument :kam_assignee_id, ID, required: false
       argument :lot_number, String, required: false
       argument :buildings_count, Int, required: true
 
       argument :building_type, String, required: false
+      argument :description_on_other, String, required: false
       argument :construction_type, String, required: false
       argument :move_in_starts_on, GraphQL::Types::ISO8601DateTime, required: false
       argument :move_in_ends_on, GraphQL::Types::ISO8601DateTime, required: false
