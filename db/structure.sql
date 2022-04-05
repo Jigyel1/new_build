@@ -859,13 +859,12 @@ CREATE TABLE public.projects (
     access_technology_tac character varying,
     exceeding_cost numeric,
     site_address jsonb,
-    file_upload boolean DEFAULT false,
+    file_upload boolean,
     kam_assignee_id uuid,
     confirmation_status character varying,
     description_on_other character varying,
     prio_status character varying,
-    kam_assignee_name character varying,
-    manually_created_labels text[] DEFAULT '{}'::text[]
+    kam_assignee_name character varying
 );
 
 
@@ -1019,7 +1018,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     addresses.city,
     addresses.zip,
     projects.kam_assignee_name AS kam_assignee,
-    projects.manually_created_labels AS label_list,
+    projects.label_list,
     projects.confirmation_status,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
@@ -2337,7 +2336,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220324063336'),
 ('20220330093727'),
 ('20220330101028'),
-('20220330193957'),
 ('20220330200607');
 
 
