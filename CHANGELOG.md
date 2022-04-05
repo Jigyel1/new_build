@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Fixes
 - Revert issue for confirmation fix.
+- Clearing tac properties while reverting back to TA.
 
 ### Tasks
 ```ruby
