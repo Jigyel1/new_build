@@ -24,14 +24,15 @@ definitions:
           - gem install bundler -v 2.2.33
           - bundle config gems.selise.tech ${GEM_USERNAME}:${GEM_PASSWORD}
           - bundle _2.2.33_ install
-          - bundler leak update
           - RAILS_ENV=test bundle exec rails db:test:prepare; rails assets:precompile
-          - bundle audit; bundle leak
+          - bundle audit
+          - bundle leak update
+          - bundle leak
           - bundle exec rspec --tag ~@ips; rubocop
           - brakeman; rubycritic
           - bundle exec rails_best_practices
 
-        services:
+        services:.33_ install
           - postgres
           - redis
 
