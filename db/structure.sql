@@ -859,7 +859,7 @@ CREATE TABLE public.projects (
     access_technology_tac character varying,
     exceeding_cost numeric,
     site_address jsonb,
-    file_upload boolean DEFAULT false,
+    file_upload boolean,
     kam_assignee_id uuid,
     confirmation_status character varying,
     description_on_other character varying,
@@ -2339,9 +2339,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220318172640'),
 ('20220322150514'),
 ('20220324063336'),
+('20220328093946'),
 ('20220330093727'),
 ('20220330101028'),
-('20220330193957'),
 ('20220330200607');
 
 
