@@ -178,7 +178,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       it 'returns projects with ascending order' do
         projects, errors = paginated_collection(:projects, query(name: name), current_user: super_user)
         expect(errors).to be_nil
-        expect(projects.pluck(:id)).to match_array([project_b.id, project_c.id, project_a.id])
+        expect(projects.pluck(:id)).to eq([project_a.id, project_b.id, project_c.id])
       end
     end
 
