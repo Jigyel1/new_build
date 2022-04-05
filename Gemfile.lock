@@ -536,7 +536,7 @@ GEM
       sprockets (>= 3.0.0)
     strong_migrations (1.0.0)
       activerecord (>= 5.2)
-    test-prof (1.0.7)
+    test-prof (1.0.8)
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
