@@ -59,8 +59,7 @@ module Projects
       end
 
       def set_default_status
-        project.confirmation_status = :new_offer
-        project.save!
+        project.update!(confirmation_status: :new_offer)
       end
 
       def update_tac_attributes

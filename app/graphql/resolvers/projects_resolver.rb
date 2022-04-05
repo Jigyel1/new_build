@@ -17,6 +17,8 @@ module Resolvers
     option(:cities, type: [String]) { |scope, value| scope.where(city: value) }
     option(:zips, type: [String]) { |scope, value| scope.where(zip: value) }
     option(:kam_regions, type: [String]) { |scope, value| scope.where(kam_region: value) }
+
+    # TODO: - Give a valid name for this name
     option(:name, type: Boolean) { |scope, value| sort_name(scope, value) }
     option(:label_list, type: [String]) { |scope, value| scope.where(scope.arel_table[:label_list].overlaps(value)) }
     option(:confirmation_status, type: String) { |scope, value| scope.where(confirmation_status: value) }
