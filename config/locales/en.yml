@@ -122,6 +122,7 @@ en:
       id: Project ID
       title: Contract summary for %{project_name} Project
       info: Project Information
+      refh: Non-Residential REFH
       nr: 'SELISE:'
       os: 'OS:'
       internal: 'Internal:'
@@ -130,6 +131,7 @@ en:
       lot: Project Lot Number
       status: Status
       kam: Assigned KAM
+      assigned: Assigned Person
       move_in: Move In
       construction: Construction Starts from
       buildings_count_title: No. of buildings

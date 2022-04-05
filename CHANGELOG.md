@@ -9,6 +9,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Fixes
 - User sign_out and sign_in routes added for prod && preprod.
 
+## [1.6.0] - 2022-04-5
+
+### Features
+- Sorting filter for name, labels and confirmation states.
+
+### Fixes
+- Rake task for GIS URL.
+
+## [1.5.0] - 2022-03-29
+
+### Features
+- New offer confirmation state introduced.
+- Assigned kam field added in projects.
+- Added confirmation status for the project in RFO state.
+- Updated permissions.
+
+### Fixes
+- Pdf building type display fix.
+
 ## [1.4.0] - 2022-03-23
 
 ### Features

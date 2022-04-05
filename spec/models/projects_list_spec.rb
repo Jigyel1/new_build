@@ -39,7 +39,7 @@ RSpec.describe ProjectsList, type: :model do
 
     context 'for manually created projects' do
       it 'returns count of the manually created label as just one' do
-        expect(project_list.labels).to eq(4)
+        expect(project_list.label_list.count).to eq(4)
         expect(project.reload.label_list).to match_array(
           [
             Hooks::Project::MANUALLY_CREATED,
@@ -78,6 +78,7 @@ RSpec.describe ProjectsList, type: :model do
         technical_analysis: 'Technical Analysis',
         technical_analysis_completed: 'Technical Analysis Completed',
         ready_for_offer: 'Ready for Offer',
+        offer_confirmation: 'Offer Confirmation',
         contract: 'Contract',
         contract_accepted: 'Contract Accepted',
         under_construction: 'Under Construction',

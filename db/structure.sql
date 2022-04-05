@@ -859,7 +859,13 @@ CREATE TABLE public.projects (
     access_technology_tac character varying,
     exceeding_cost numeric,
     site_address jsonb,
-    file_upload boolean
+    file_upload boolean,
+    kam_assignee_id uuid,
+    confirmation_status character varying,
+    description_on_other character varying,
+    prio_status character varying,
+    kam_assignee_name character varying,
+    manually_created_labels text[] DEFAULT '{}'::text[]
 );
 
 
@@ -1010,9 +1016,11 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.draft_version,
     projects.assignee_type,
     projects.customer_request,
-    cardinality(projects.label_list) AS labels,
     addresses.city,
     addresses.zip,
+    projects.kam_assignee_name AS kam_assignee,
+    projects.label_list,
+    projects.confirmation_status,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
     projects.assignee_id,
@@ -1861,6 +1869,13 @@ CREATE INDEX index_projects_on_incharge_id ON public.projects USING btree (incha
 
 
 --
+-- Name: index_projects_on_kam_assignee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_kam_assignee_id ON public.projects USING btree (kam_assignee_id);
+
+
+--
 -- Name: index_projects_on_kam_region_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2138,6 +2153,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 
 --
+-- Name: projects fk_rails_993c2a6f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_993c2a6f6a FOREIGN KEY (kam_assignee_id) REFERENCES public.telco_uam_users(id);
+
+
+--
 -- Name: projects fk_rails_99fc2a1a9e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2309,6 +2332,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220228080720'),
 ('20220306212410'),
 ('20220315102300'),
-('20220324063336');
+('20220318172640'),
+('20220322150514'),
+('20220324063336'),
+('20220330093727'),
+('20220330101028'),
+('20220330193957'),
+('20220330200607');
 
 
