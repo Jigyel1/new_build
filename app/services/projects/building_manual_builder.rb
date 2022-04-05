@@ -10,7 +10,7 @@ module Projects
 
     private
 
-    def create_building
+    def create_building # rubocop:disable Metrics/AbcSize
       1.upto(buildings_count) do |index|
         project.buildings.build(
           name: project.site_address[index - 1]['name'],
