@@ -101,7 +101,7 @@ module Projects
       end
 
       def remove_status
-        project.update!(confirmation_status = nil)
+        project.update!(confirmation_status: nil)
       end
     end
   end
