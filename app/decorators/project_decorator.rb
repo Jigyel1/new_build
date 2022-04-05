@@ -51,6 +51,19 @@ class ProjectDecorator < ApplicationDecorator
     project.priority_tac.presence || project.priority
   end
 
+  def building_type_formatter
+    case project.building_type
+    when 'refh'
+      I18n.t('pdf.project.refh')
+    when 'others'
+      "#{project.building_type.try(:titleize)} - #{project.description_on_other.try(:titleize)}"
+    when 'efh', 'defh', 'mfh'
+      project.building_type.try(:upcase)
+    else
+      project.building_type.try(:titleize)
+    end
+  end
+
   def url_link
     project.gis_url || project.info_manager_url
   end

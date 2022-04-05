@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   end
 
   scope 'api/v1', defaults: { format: :json } do
-    skip_routes = %i[sessions passwords registrations] unless Rails.application.config.test_server
+    skip_routes = %i[sessions passwords registrations]
 
     devise_for(
       :users,
@@ -41,6 +41,11 @@ Rails.application.routes.draw do
       },
       skip: skip_routes
     )
+
+    as :user do
+      post 'users/sign_in' => 'devise/sessions#create', :as => :user_session
+      delete 'users/sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session
+    end
   end
 
   mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: 'api/v1/graphql' if Rails.env.development?

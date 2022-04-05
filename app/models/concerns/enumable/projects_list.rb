@@ -16,7 +16,8 @@ module Enumable
         contract_accepted: 'Contract Accepted',
         under_construction: 'Under Construction',
         commercialization: 'Commercialization',
-        archived: 'Archived'
+        archived: 'Archived',
+        offer_confirmation: 'Offer Confirmation'
       }
 
       enum category: {

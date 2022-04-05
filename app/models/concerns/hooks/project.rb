@@ -8,8 +8,8 @@ module Hooks
 
     included do
       before_save :set_kam_region
-      before_create :set_external_urls, :set_competition
-      after_save :update_projects_list, :update_users_list, :update_project_dates
+      before_create :set_external_urls, :set_competition, :assign_kam_assignee_name
+      after_save :update_projects_list, :update_users_list
       after_create :create_default_label_group, :update_status
       after_destroy :update_projects_list, :update_users_list
 
@@ -48,12 +48,8 @@ module Hooks
       self.competition ||= ::Projects::CompetitionSetter.new(project: self).call
     end
 
-    def update_project_dates
-      return if buildings.blank?
-
-      dates = buildings.group_by(&:move_in_starts_on).keys.compact.minmax
-      self.move_in_starts_on = dates[0]
-      self.move_in_ends_on = (dates[1].presence || dates[0])
+    def assign_kam_assignee_name
+      self.kam_assignee_name ||= kam_assignee.try(:name)
     end
   end
 end

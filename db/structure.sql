@@ -858,11 +858,14 @@ CREATE TABLE public.projects (
     priority_tac character varying,
     access_technology_tac character varying,
     exceeding_cost numeric,
+    site_address jsonb,
+    file_upload boolean,
     kam_assignee_id uuid,
     confirmation_status character varying,
     description_on_other character varying,
-    site_address jsonb,
-    file_upload boolean
+    prio_status character varying,
+    kam_assignee_name character varying,
+    manually_created_labels text[] DEFAULT '{}'::text[]
 );
 
 
@@ -907,7 +910,6 @@ CREATE TABLE public.projects_buildings (
     project_id uuid NOT NULL,
     apartments_count integer DEFAULT 0 NOT NULL,
     move_in_starts_on date,
-    move_in_ends_on date,
     additional_details jsonb DEFAULT '{}'::jsonb,
     files_count integer DEFAULT 0 NOT NULL,
     tasks_count integer DEFAULT 0 NOT NULL,
@@ -1014,10 +1016,11 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.draft_version,
     projects.assignee_type,
     projects.customer_request,
-    cardinality(projects.label_list) AS labels,
     addresses.city,
     addresses.zip,
+    projects.kam_assignee_name AS kam_assignee,
     projects.label_list,
+    projects.confirmation_status,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
     projects.assignee_id,
@@ -2328,9 +2331,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220213091922'),
 ('20220228080720'),
 ('20220306212410'),
-('20220310092842'),
 ('20220315102300'),
 ('20220318172640'),
-('20220320151015');
+('20220322150514'),
+('20220324063336'),
+('20220330093727'),
+('20220330101028'),
+('20220330193957'),
+('20220330200607');
 
 

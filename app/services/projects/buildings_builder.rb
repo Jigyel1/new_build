@@ -15,7 +15,6 @@ module Projects
           apartments_count: apartments_count ? grouped_apartments[index - 1].size : 0,
 
           move_in_starts_on: project.move_in_starts_on,
-          move_in_ends_on: project.move_in_ends_on,
           address_attributes: project.address.attributes.except('addressable_type')
         )
       end

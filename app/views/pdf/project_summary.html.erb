@@ -3,63 +3,58 @@
   <%= render('pdf/address_book', project: project) %>
 
   <div class="flex--row mb-32">
-    <div class="font-size-16 width--40">
+    <div class="font-size-16 width--33">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.customer_planned_inhouse_title') %></p>
       <p class="color--black-87"> <%= project.cable_installations %></p>
     </div>
-    <div class="font-size-16 width--40">
+    <div class="font-size-16 width--33">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.building_type') %></p>
-      <p class="color--black-87"><%= project.building_type.try(:titleize) %></p>
+      <p class="color--black-87"><%= project.building_type_formatter %></p>
     </div>
   </div>
 
   <p class="color--black-87 font-size-18 mb-24 mt-48"><%= I18n.t('pdf.project.info') %></p>
 
   <div class="flex--row mb-24">
-    <div class="font-size-16 width--40">
+    <div class="font-size-16 width--33">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.category.title') %></p>
       <p class="color--black-87 text--capitalize"><%= project.project_category %></p>
     </div>
-    <div class="font-size-16 width--40">
+    <div class="font-size-16 width--33">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.construction_type.title') %></p>
       <p class="color--black-87 text--capitalize"><%= project.construction_type %></p>
     </div>
-    <div class="font-size-16 width--40">
+    <div class="font-size-16 width--33">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.request.title') %></p>
       <p class="color--black-87"><%= project.customer_request %></p>
     </div>
   </div>
 
   <div class="flex--row mb-24">
-    <div class="font-size-16 width--40">
+    <div class="font-size-16 width--33">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.access_tech.title') %></p>
       <p class="color--black-87"><%= project.access_tech %></p>
     </div>
-    <div class="font-size-16 width--40">
+    <div class="font-size-16 width--33">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.priority.title') %></p>
       <p class="color--black-87 text--capitalize"><%= project.priority_check %></p>
     </div>
-    <div class="font-size-16 width--40">
+    <div class="font-size-16 width--33">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.sunrise_access_option') %></p>
       <p class="color--black-87 text--capitalize"><%= project.competition.try(:name) %></p>
     </div>
   </div>
 
   <div class="flex--row mb-24">
-    <div class="font-size-16 width--40">
+    <div class="font-size-16 width--33">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.buildings_count_title') %></p>
       <p class="color--black-87"><%= project.buildings_count %></p>
     </div>
-    <div class="font-size-16 width--40">
+    <div class="font-size-16 width--33">
       <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.apartments_count_title') %></p>
       <p class="color--black-87"><%= project.apartments_count %></p>
     </div>
-    <% if project.file_upload == false %>
-      <div class="font-size-16 width--40">
-        <p class="color--black-60 font-size-18 mb-8"><%= I18n.t('pdf.project.file_upload') %></p>
-        <p class="color--black-87"><%= I18n.t('pdf.project.false') %></p>
-      </div>
-    <% end %>
+    <%= render("pdf/file_upload/missing_file_upload", project: project) %>
   </div>
   <div class="mb-32">
     <p class="font-size-18 color--black-60 font--heavy mb-8"><%= I18n.t('pdf.project.analysis_title') %></p>
@@ -79,27 +74,6 @@
         ) %>
   </div>
 
-  <% if project.verdicts.present? %>
-    <div class="mt-24">
-      <p class="font-size-18 color--black-60 font--heavy mb-8"><%= I18n.t('pdf.project.verdict_title') %></p>
-      <p class="font-size-16 color--black-87 line-height--24"> <%= project.verdicts['technical_analysis_completed'] %>
-    </div>
-  <% end %>
-
-  <% if project.url_present? %>
-    <div class="mt-24 font-size-16 ">
-      <p class="mb-8"><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.gis') %>:</span>
-        <a class="color--primary" href="<%= project.gis_url %>" target="_blank" rel="noopener noreferrer"><%= project.gis_url %></a>
-      </p>
-      <p><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.info_manager') %>:</span>
-        <a class="color--primary" href="<%= project.info_manager_url %>" target="_blank" rel="noopener noreferrer"><%= project.info_manager_url %></a>
-      </p>
-    </div>
-  <% else %>
-    <div class="mt-24 font-size-16 ">
-      <p class="mb-8"><span class="font--heavy color--black-60"><%= project.url_type %>:</span>
-        <a class="color--primary" href="<%= project.url_link %>" target="_blank" rel="noopener noreferrer"><%= project.url_link %></a>
-      </p>
-    </div>
-  <% end %>
+  <%= render("pdf/verdict/verdict", project: project) %>
+  <%= render("pdf/url/project_#{project.url_present?}", project: project ) %>
 </div>
