@@ -176,8 +176,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       let(:name) { true }
 
       it 'returns projects with ascending order' do
-        projects, errors = paginated_collection(:projects, query(name: name),
-                                                current_user: super_user)
+        projects, errors = paginated_collection(:projects, query(name: name), current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_b.id, project_c.id, project_a.id])
       end
@@ -187,8 +186,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       let(:label) { ['Manually Created'] }
 
       it 'returns projects with labels' do
-        projects, errors = paginated_collection(:projects, query(label_list: label),
-                                                current_user: super_user)
+        projects, errors = paginated_collection(:projects, query(label_list: label), current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_b.id, project_c.id, project_a.id])
       end
