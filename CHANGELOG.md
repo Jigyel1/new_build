@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Fixes
 - PLZ import multiple competitions fix.
+- PDF building address fix.
 
 ## [1.5.0] - 2022-03-24
 
