@@ -58,7 +58,7 @@ module Resolvers
     end
 
     def sort_name(scope, value)
-      value == true ? scope.order('LOWER(name)') : scope.order('LOWER(name) desc')
+      value ? scope.order('LOWER(name)') : scope.order('LOWER(name) desc')
     end
   end
 end
