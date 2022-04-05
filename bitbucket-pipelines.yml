@@ -21,10 +21,11 @@ definitions:
 
         script:
           - apt-get update && apt-get install -y libpq-dev poppler-utils libdmtx-dev libvips42 postgresql postgresql-contrib
-          - gem install bundler -v 2.2.22
+          - gem install bundler -v 2.2.33
           - bundle config gems.selise.tech ${GEM_USERNAME}:${GEM_PASSWORD}
-          - bundle _2.2.22_ install
+          - bundle _2.2.33_ install
           - RAILS_ENV=test bundle exec rails db:test:prepare; rails assets:precompile
+          - bundler update leak
           - bundle audit; bundle leak
           - bundle exec rspec --tag ~@ips; rubocop
           - brakeman; rubycritic
