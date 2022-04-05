@@ -42,7 +42,7 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def formatted_address(address)
-    return if address.nil?
+    return unless address.present?
 
     "#{address.try(:street)} #{address.try(:street_no)}, #{address.try(:zip)} #{address.try(:city)}"
   end
