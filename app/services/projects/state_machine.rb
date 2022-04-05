@@ -51,7 +51,7 @@ module Projects
         transitions from: :technical_analysis_completed, to: :technical_analysis
         transitions from: :ready_for_offer, to: :technical_analysis, if: :prio_one?
         transitions from: :ready_for_offer, to: :technical_analysis_completed, unless: :prio_one?
-        transitions from: :offer_confirmation, to: :ready_for_offer
+        transitions from: :offer_confirmation, to: :ready_for_offer, after: :remove_status
         transitions from: :commercialization, to: :technical_analysis, if: :marketing_only?
       end
 
