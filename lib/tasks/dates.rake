@@ -6,10 +6,10 @@ namespace :dates do
     Project.where(move_in_ends_on: nil).each do |project|
       next if project.buildings.blank?
 
-      project.update!(
-        move_in_starts_on: project.buildings.minimum(:move_in_starts_on),
-        move_in_ends_on: project.buildings.maximum(:move_in_starts_on)
-      )
+      dates = project.buildings.group_by(&:move_in_starts_on).keys.minmax
+      start_date, end_date = dates
+
+      project.update!(move_in_starts_on: start_date, move_in_ends_on: end_date)
     end
   end
 end
