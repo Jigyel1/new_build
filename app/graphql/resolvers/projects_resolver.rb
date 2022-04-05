@@ -58,7 +58,7 @@ module Resolvers
     end
 
     def sort_name(scope, value)
-      value ==  'asc' ? scope.sort_by(&:name) : scope.sort_by(&:name).reverse
+      value ==  'asc' ? scope.order('LOWER(name)') : scope.order('LOWER(name)').reverse
     end
   end
 end
