@@ -130,7 +130,7 @@ en:
       address: Address
       lot: Project Lot Number
       status: Status
-      kam: Assigned KAM
+      kam: Responsible Sales Person
       assigned: Assigned Person
       move_in: Move In
       construction: Construction Starts from
