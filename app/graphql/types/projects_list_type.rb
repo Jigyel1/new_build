@@ -15,7 +15,6 @@ module Types
     field :move_in_ends_on, String, null: true
     field :buildings_count, Int, null: true
     field :apartments_count, Int, null: true
-    field :labels, Int, null: true
     field :lot_number, String, null: true
     field :customer_request, Boolean, null: true
 
@@ -24,6 +23,8 @@ module Types
     field :assignee, String, null: true
     field :kam_assignee, String, null: true
     field :kam_region, String, null: true
+    field :label_list, [String], null: true
+    field :confirmation_status, String, null: true
     field :draft_version, GraphQL::Types::JSON, null: true
   end
 end

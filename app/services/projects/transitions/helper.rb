@@ -54,9 +54,12 @@ module Projects
         project.save!
       end
 
+      def clear_tac
+        project.update!(verdicts: nil, access_technology_tac: nil, priority_tac: nil)
+      end
+
       def set_default_status
-        project.confirmation_status = :new_offer
-        project.save!
+        project.update!(confirmation_status: :new_offer)
       end
 
       def update_tac_attributes
@@ -95,6 +98,10 @@ module Projects
 
       def assign_incharge
         project.incharge || project.update!(incharge: current_user)
+      end
+
+      def remove_status
+        project.update!(confirmation_status: nil)
       end
     end
   end

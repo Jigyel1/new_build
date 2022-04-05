@@ -23,7 +23,9 @@ module Projects
     private
 
     def update_project
-      project.update(label_list: project.label_groups.pluck(:label_list).flatten.uniq)
+      project.update!(
+        label_list: project.label_groups.pluck(:label_list).flatten.uniq
+      )
     end
   end
 end
