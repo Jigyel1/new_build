@@ -15,7 +15,6 @@ module Types
     field :move_in_ends_on, String, null: true
     field :buildings_count, Int, null: true
     field :apartments_count, Int, null: true
-    field :labels, Int, null: true
     field :lot_number, String, null: true
     field :customer_request, Boolean, null: true
 

@@ -15,11 +15,10 @@ SELECT projects.id                                              AS id,
        projects.draft_version                                   AS draft_version,
        projects.assignee_type                                   AS assignee_type,
        projects.customer_request                                AS customer_request,
-       cardinality(projects.label_list)                         AS labels,
        addresses.city                                           AS city,
        addresses.zip                                            AS zip,
-       projects.kam_assignee_id                                 AS kam_assignee,
-       projects.manually_created_labels                         AS label_list,
+       projects.kam_assignee_name                               AS kam_assignee,
+       projects.label_list                                      AS label_list,
        projects.confirmation_status                             AS confirmation_status,
 
 
