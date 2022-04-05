@@ -26,6 +26,8 @@ definitions:
           - bundle _2.2.33_ install
           - RAILS_ENV=test bundle exec rails db:test:prepare; rails assets:precompile
           - bundle audit
+          - bundler leak update
+          - bundle leak
           - bundle exec rspec --tag ~@ips; rubocop
           - brakeman; rubycritic
           - bundle exec rails_best_practices
