@@ -173,7 +173,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     end
 
     context 'with name filter' do
-      let(:name) { 'asc' }
+      let(:name) { true }
 
       it 'returns projects with ascending order' do
         projects, errors = paginated_collection(:projects, query(name: name),

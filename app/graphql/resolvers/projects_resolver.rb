@@ -17,7 +17,7 @@ module Resolvers
     option(:cities, type: [String]) { |scope, value| scope.where(city: value) }
     option(:zips, type: [String]) { |scope, value| scope.where(zip: value) }
     option(:kam_regions, type: [String]) { |scope, value| scope.where(kam_region: value) }
-    option(:name, type: String) { |scope, value| sort_name(scope, value) }
+    option(:name, type: Boolean) { |scope, value| sort_name(scope, value) }
     option(:label_list, type: [String]) { |scope, value| scope.where(scope.arel_table[:label_list].overlaps(value)) }
     option(:confirmation_status, type: String) { |scope, value| scope.where(confirmation_status: value) }
 
@@ -58,7 +58,7 @@ module Resolvers
     end
 
     def sort_name(scope, value)
-      value ==  'asc' ? scope.order('LOWER(name)') : scope.order('LOWER(name)').reverse
+      value == true ? scope.order('LOWER(name)') : scope.order('LOWER(name)').reverse
     end
   end
 end
