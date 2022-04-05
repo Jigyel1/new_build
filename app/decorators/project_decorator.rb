@@ -42,9 +42,7 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def formatted_address(address)
-    return unless address.present?
-
-    "#{address.try(:street)} #{address.try(:street_no)}, #{address.try(:zip)} #{address.try(:city)}"
+    "#{address.try(:street)} #{address.try(:street_no)} #{address.try(:zip)} #{address.try(:city)}"
   end
 
   def move_in_date_formatter
