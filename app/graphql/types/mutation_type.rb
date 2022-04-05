@@ -65,8 +65,10 @@ module Types
     field :import_projects, mutation: Mutations::ImportProjects
     field :export_projects, mutation: Mutations::ExportProjects
     field :update_project_category, mutation: Mutations::Projects::UpdateCategory
+    field :update_confirmation_status, mutation: Mutations::Projects::UpdateConfirmationStatus
 
     field :revert_project_transition, mutation: Mutations::Projects::RevertTransition
+    field :transition_to_offer_confirmation, mutation: Mutations::Projects::TransitionToOfferConfirmation
 
     field :transition_to_technical_analysis, mutation: Mutations::Projects::TransitionToTechnicalAnalysis
     field(

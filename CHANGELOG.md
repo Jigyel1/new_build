@@ -10,6 +10,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Added assignee_id, owner_id, user_id and taskable_type filters to `Projects::Task`.
 - Added additional fields in Task, i.e. building_id, project_id and project_name for FE routing purpose.
 
+## [1.6.1] - 2022-03-24
+
+### Fixes
+- User sign_out and sign_in routes added for prod && preprod.
+
+## [1.6.0] - 2022-04-5
+
+### Features
+- Sorting filter for name, labels and confirmation states.
+
+### Fixes
+- Revert issue for confirmation fix.
+- Clearing tac properties while reverting back to TA.
+
+### Tasks
+```ruby
+rake gis:populate
+```
+
+## [1.5.0] - 2022-03-29
+
+### Features
+- New offer confirmation state introduced.
+- Assigned kam field added in projects.
+- Added confirmation status for the project in RFO state.
+- Updated permissions.
+
+### Fixes
+- Pdf building type display fix.
+
 ## [1.4.0] - 2022-03-23
 
 ### Features

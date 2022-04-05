@@ -10,16 +10,14 @@ module Projects
 
     private
 
-    def create_building
+    def create_building # rubocop:disable Metrics/AbcSize
       1.upto(buildings_count) do |index|
-        site_address = project.site_address[index - 1]
-
         project.buildings.build(
-          name: site_address['name'],
+          name: project.site_address[index - 1]['name'],
           assignee: project.assignee,
-          apartments_count: site_address['apartments_count'],
-          move_in_starts_on: site_address['move_in_starts_on'],
-          address_attributes: site_address['address']
+          apartments_count: project.site_address[index - 1]['apartments_count'],
+          move_in_starts_on: project.site_address[index - 1]['move_in_starts_on'],
+          address_attributes: project.site_address[index - 1]['address']
         )
       end
     end

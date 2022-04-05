@@ -10,6 +10,7 @@ module Types
 
     field :project_nr, String, null: true
     field :status, String, null: true
+    field :prio_status, String, null: true
     field :priority, String, null: true
     field :priority_tac, String, null: true
     field :category, String, null: true
@@ -20,11 +21,13 @@ module Types
     field :verdicts, GraphQL::Types::JSON, null: true
 
     field :assignee, Types::UserType, null: true
+    field :kam_assignee, Types::UserType, null: true
     field :incharge, Types::UserType, null: true
     field :address, Types::AddressType, null: true
     field :kam_region, AdminToolkit::KamRegionType, null: true
     field :address_books, [Types::Projects::AddressBookType], null: true
     field :building_type, String, null: true
+    field :description_on_other, String, null: true
     field :cable_installations, [String], null: true
 
     field :connection_costs, [Types::Projects::ConnectionCostType], null: true
@@ -101,5 +104,6 @@ module Types
 
     field :gis_url, String, null: true
     field :info_manager_url, String, null: true
+    field :confirmation_status, String, null: true
   end
 end

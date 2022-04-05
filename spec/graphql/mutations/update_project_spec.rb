@@ -7,7 +7,7 @@ RSpec.describe Mutations::UpdateProject do
 
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
-  let_it_be(:project) { create(:project, assignee: kam) }
+  let_it_be(:project) { create(:project, assignee: kam, kam_assignee: kam) }
 
   describe '.resolve' do
     context 'with valid params' do
@@ -86,6 +86,21 @@ RSpec.describe Mutations::UpdateProject do
           end
         end
       end
+
+      context 'when assignee or kam assignee value is given null' do
+        let!(:params) { { status: 'Technical Analysis', assignee_id: '', kam_assignee_id: '' } }
+
+        it 'removes previous existing assignee or kam assignee' do
+          response, errors = formatted_response(
+            query(params),
+            current_user: create(:user, :super_user),
+            key: :updateProject
+          )
+          expect(errors).to be_nil
+          expect(response.assignee).to be_nil
+          expect(response.kam_assignee).to be_nil
+        end
+      end
     end
   end
 
@@ -110,6 +125,7 @@ RSpec.describe Mutations::UpdateProject do
               id: "#{project.id}"
               internalId: "e922833"
               assigneeId: "#{args[:assignee_id]}"
+              kamAssigneeId: "#{args[:kam_assignee_id]}"
               status: "#{args[:status]}"
               lotNumber: "EA0988833"
               buildingType: "stepped_building"
@@ -123,6 +139,7 @@ RSpec.describe Mutations::UpdateProject do
           project {
             id status internalId moveInStartsOn gisUrl infoManagerUrl assigneeType buildingType
             assignee { id name }
+            kamAssignee { id name }
             addressBooks {
               id type name company language email website phone mobile
               address { id street city zip }

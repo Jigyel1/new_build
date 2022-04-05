@@ -7,7 +7,11 @@ module Projects
     def call
       authorize! project, to: :update?
 
-      super { with_tracking { project.update!(attributes) } }
+      super do
+        with_tracking do
+          project.update!(attributes)
+        end
+      end
     end
 
     def project

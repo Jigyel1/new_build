@@ -160,6 +160,7 @@ RSpec.describe Project, type: :model do
         technical_analysis: 'Technical Analysis',
         technical_analysis_completed: 'Technical Analysis Completed',
         ready_for_offer: 'Ready for Offer',
+        offer_confirmation: 'Offer Confirmation',
         contract: 'Contract',
         contract_accepted: 'Contract Accepted',
         under_construction: 'Under Construction',
@@ -181,6 +182,15 @@ RSpec.describe Project, type: :model do
         nursing: 'Nursing',
         retirement_homes: 'Retirement Homes',
         others: 'Others'
+      ).backed_by_column_of_type(:string)
+    end
+
+    it do
+      expect(subject).to define_enum_for(:confirmation_status).with_values( # rubocop:disable RSpec/NamedSubject
+        new_offer: 'New',
+        negotiation: 'Negotiation',
+        offered: 'Offered',
+        signed: 'Signed'
       ).backed_by_column_of_type(:string)
     end
   end

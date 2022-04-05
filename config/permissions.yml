@@ -14,9 +14,11 @@ super_user:
     - update
     - import
     - delete
+    - confirm
 
     - technical_analysis
     - ready_for_offer
+    - offer_confirmation
     - archive
     - complex
     - build_cost_exceeding
@@ -44,11 +46,15 @@ administrator:
 team_expert:
   user:
     - read
+  role:
+    - read
   project:
     - read
     - create
     - update
     - technical_analysis
+    - ready_for_offer
+    - offer_confirmation
     - archive
 
 team_standard:
@@ -59,23 +65,32 @@ team_standard:
     - create
     - update
     - archive
+    - confirm
+    - ready_for_offer
+    - offer_confirmation
 management:
   user:
+    - read
+  role:
     - read
   project:
     - read
     - create
     - update
     - import
+    - confirm
 
     - technical_analysis
     - ready_for_offer
+    - offer_confirmation
     - build_cost_exceeding
     - archive
 
 presales:
   user:
     - read
+  role:
+    - read
   project:
     - read
     - create
@@ -83,9 +98,12 @@ presales:
     - technical_analysis
     - complex
     - archive
-
+    - ready_for_offer
+    - offer_confirmation
 manager_presales:
   user:
+    - read
+  role:
     - read
   project:
     - read
@@ -93,28 +111,37 @@ manager_presales:
     - update
     - technical_analysis
     - ready_for_offer
+    - offer_confirmation
     - complex
     - archive
 
 manager_nbo_kam:
   user:
     - read
+  role:
+    - read
   project:
     - read
     - create
     - update
     - technical_analysis
     - ready_for_offer
+    - offer_confirmation
     - archive
 
 kam:
   user:
+    - read
+  role:
     - read
   project:
     - read
     - create
     - update
     - archive
+    - ready_for_offer
+    - offer_confirmation
+    - confirm
 
 manager_commercialization:
   user:

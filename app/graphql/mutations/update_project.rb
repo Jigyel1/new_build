@@ -16,12 +16,14 @@ module Mutations
       argument :description, String, required: false
       argument :additional_info, String, required: false
       argument :assignee_id, ID, required: false
+      argument :kam_assignee_id, ID, required: false
 
       argument :coordinate_east, Float, required: false
       argument :coordinate_north, Float, required: false
 
       argument :construction_type, String, required: false
       argument :building_type, String, required: false
+      argument :description_on_other, String, required: false
       argument :lot_number, String, required: false
       argument :construction_starts_on, String, required: false
       argument :gis_url, String, required: false

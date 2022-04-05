@@ -21,10 +21,10 @@ RSpec.describe Resolvers::ProjectsResolver do
       :project,
       :customer_request,
       internal_id: '312590',
-      name: 'Neubau Mehrfamilienhaus mit Coiffeuersalon',
+      name: '1_Neubau Mehrfamilienhaus mit Coiffeuersalon',
       address: address_a,
+      kam_assignee: kam,
       buildings: build_list(:building, 5, apartments_count: 3),
-      label_list: 'Assign KAM, Offer Needed',
       lot_number: 'Parz. 277, 1617'
     )
   end
@@ -40,6 +40,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       name: "Construction d'une habitation de quatre logements",
       address: address_b,
       assignee: kam,
+      kam_assignee: kam,
       buildings: build_list(:building, 15, apartments_count: 6),
       lot_number: 'Parz. 120'
     )
@@ -54,6 +55,7 @@ RSpec.describe Resolvers::ProjectsResolver do
       :technical_analysis_completed,
       name: 'Neubau Einfamilienhaus mit Pavillon',
       address: address_c,
+      kam_assignee: kam,
       assignee: team_expert,
       buildings: build_list(:building, 25, apartments_count: 8)
     )
@@ -170,6 +172,39 @@ RSpec.describe Resolvers::ProjectsResolver do
       end
     end
 
+    context 'with name filter' do
+      let(:name) { true }
+
+      it 'returns projects with ascending order' do
+        projects, errors = paginated_collection(:projects, query(name: name), current_user: super_user)
+        expect(errors).to be_nil
+        expect(projects.pluck(:id)).to eq([project_a.id, project_b.id, project_c.id])
+      end
+    end
+
+    context 'with labels filter' do
+      let(:label) { ['Manually Created'] }
+
+      it 'returns projects with labels' do
+        projects, errors = paginated_collection(:projects, query(label_list: label), current_user: super_user)
+        expect(errors).to be_nil
+        expect(projects.pluck(:id)).to match_array([project_b.id, project_c.id, project_a.id])
+      end
+    end
+
+    context 'with confirmation filter' do
+      before { project_a.update(confirmation_status: :new_offer) }
+
+      let(:confirmation) { 'New' }
+
+      it 'returns projects with apartments in the given range' do
+        projects, errors = paginated_collection(:projects, query(confirmation_status: confirmation),
+                                                current_user: super_user)
+        expect(errors).to be_nil
+        expect(projects.pluck(:id)).to match_array([project_a.id])
+      end
+    end
+
     context 'with search queries' do
       it 'returns projects matching given query' do
         projects, errors = paginated_collection(:projects, query(query: 'Neubau'), current_user: super_user)
@@ -245,8 +280,8 @@ RSpec.describe Resolvers::ProjectsResolver do
 
   def query(args = {})
     response = <<~RESPONSE
-      id externalId projectNr name status category priority constructionType labels apartmentsCount
-      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion
+      id externalId projectNr name status category priority constructionType apartmentsCount labelList
+      moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion kamAssignee confirmationStatus
     RESPONSE
 
     connection_query(
