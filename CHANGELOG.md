@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Address added to emails.
 
 ### Fixes
-- Pdf date format
+- Pdf date format fix
 
 ## [1.6.2] - 2022-04-07
 
