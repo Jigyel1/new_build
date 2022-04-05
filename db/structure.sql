@@ -863,7 +863,9 @@ CREATE TABLE public.projects (
     kam_assignee_id uuid,
     confirmation_status character varying,
     description_on_other character varying,
-    prio_status character varying
+    prio_status character varying,
+    kam_assignee_name character varying,
+    manually_created_labels character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -1017,7 +1019,9 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     cardinality(projects.label_list) AS labels,
     addresses.city,
     addresses.zip,
-    projects.kam_assignee_id AS kam_assignee,
+    projects.kam_assignee_name AS kam_assignee,
+    projects.manually_created_labels AS label_list,
+    projects.confirmation_status,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
     projects.assignee_id,
@@ -2332,6 +2336,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220318172640'),
 ('20220322150514'),
 ('20220324063336'),
-('20220325092640');
+('20220325092640'),
+('20220330093727'),
+('20220330101028'),
+('20220330193957'),
+('20220330200607');
 
 

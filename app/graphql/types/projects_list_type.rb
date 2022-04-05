@@ -24,12 +24,8 @@ module Types
     field :assignee, String, null: true
     field :kam_assignee, String, null: true
     field :kam_region, String, null: true
+    field :label_list, [String], null: true
+    field :confirmation_status, String, null: true
     field :draft_version, GraphQL::Types::JSON, null: true
-
-    def kam_assignee
-      return if object.kam_assignee.nil?
-
-      ::User.find(object.kam_assignee).name
-    end
   end
 end
