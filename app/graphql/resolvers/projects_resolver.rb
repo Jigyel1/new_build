@@ -17,7 +17,9 @@ module Resolvers
     option(:cities, type: [String]) { |scope, value| scope.where(city: value) }
     option(:zips, type: [String]) { |scope, value| scope.where(zip: value) }
     option(:kam_regions, type: [String]) { |scope, value| scope.where(kam_region: value) }
-    option(:name, type: String) { |scope, value| sort_name(scope, value) }
+
+    # TODO: - Give a valid name for this name
+    option(:name, type: Boolean) { |scope, value| sort_name(scope, value) }
     option(:label_list, type: [String]) { |scope, value| scope.where(scope.arel_table[:label_list].overlaps(value)) }
     option(:confirmation_status, type: String) { |scope, value| scope.where(confirmation_status: value) }
 
@@ -58,11 +60,7 @@ module Resolvers
     end
 
     def sort_name(scope, value)
-      if value == 'asc'
-        scope.order(Arel.sql("SUBSTRING(LOWER(name), '^[A-Za-z].*'), SUBSTRING(LOWER(name), '^[0-9]+')::FLOAT"))
-      else
-        scope.order(Arel.sql("SUBSTRING(LOWER(name), '^[0-9]+')::FLOAT, SUBSTRING(LOWER(name), '^[A-Za-z].*')"))
-      end
+      value ? scope.order('LOWER(name)') : scope.order('LOWER(name) desc')
     end
   end
 end

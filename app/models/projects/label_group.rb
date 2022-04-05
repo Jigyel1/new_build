@@ -23,9 +23,8 @@ module Projects
     private
 
     def update_project
-      project.update(
-        label_list: project.label_groups.pluck(:label_list).flatten.uniq,
-        manually_created_labels: project.label_groups.where(system_generated: false).pluck(:label_list).flatten
+      project.update!(
+        label_list: project.label_groups.pluck(:label_list).flatten.uniq
       )
     end
   end

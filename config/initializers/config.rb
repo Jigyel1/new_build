@@ -9,6 +9,7 @@ Rails.application.configure do
   config.default_max_page_size = ENV.fetch('MAX_PAGE_SIZE', 100).to_i
   config.users_per_role = ENV.fetch('USERS_PER_ROLE', 10).to_i
   config.allowed_domains = ENV['ALLOWED_DOMAINS'].delete(' ').split(',').freeze
+  config.host_url = ENV['HOST_URL']
 
   config.azure_authorization_endpoint = ENV['AZURE_AUTHORIZATION_ENDPOINT']
   config.azure_callback_uri = ENV['AZURE_CALLBACK_URI']
