@@ -42,14 +42,11 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def formatted_address(address)
-    street = "#{address.try(:street)} #{address.try(:street_no)}"
-    city_zip = "#{address.try(:zip)} #{address.try(:city)}"
-
-    street.blank? && city_zip.blank? ? '' : "#{street}, #{city_zip}"
+    "#{address.try(:street)} #{address.try(:street_no)}, #{address.try(:zip)} #{address.try(:city)}"
   end
 
   def move_in_date_formatter
-    "#{project.move_in_starts_on&.date_str} - #{project.move_in_ends_on&.date_str}"
+    "#{date_formatter(project.move_in_starts_on)} - #{date_formatter(project.move_in_ends_on)}"
   end
 
   def date_formatter(date)
