@@ -10,11 +10,12 @@ body {
    border-bottom: 1px solid rgba($black, 0.25) !important;
   }
 }
-.no-break:before {
-  clear: both;
-}
+
 .no-break {
   page-break-inside: avoid;
+  &:before {
+    clear: both;
+  }
 }
 .address__list {
   display: inline-block;
