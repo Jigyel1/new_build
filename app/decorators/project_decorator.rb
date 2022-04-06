@@ -50,7 +50,7 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def date_formatter(date)
-    "#{date&.date_str}"
+    date&.date_str.to_s
   end
 
   def priority_check

@@ -10,7 +10,6 @@ module Enumable
       enum access_technology: { ftth: 'FTTH', hfc: 'HFC', third_party: 'Third Party' }
       enum access_technology_tac: { ftth: 'FTTH', hfc: 'HFC', third_party: 'Third Party' }, _suffix: :tac
 
-
       enum building_type: {
         efh: 'EFH',
         defh: 'DEFH',
