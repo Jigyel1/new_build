@@ -3,17 +3,17 @@
   <div class="width--80">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.id') %></p>
     <div class="flex--row">
-      <div class="width--40">
+      <div class="width--30">
         <p><%= I18n.t('pdf.project.nr') %> <span class="color--black-87"><%= project.project_nr %></span></p>
         <p>ext. sys ID: <span class="color--black-87"><%= project.os_id %></span></p>
       </div>
-      <div class="width--40">
+      <div class="width--30">
         <p><%= I18n.t('pdf.project.external') %> <span class="color--black-87"><%= project.external_id %></span></p>
         <p><%= I18n.t('pdf.project.internal') %> <span class="color--black-87"><%= project.internal_id %></span></p>
       </div>
     </div>
   </div>
-  <div class="width--40">
+  <div class="width--20">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.address') %></p>
     <p class="color--black-87"><%= project.formatted_address(project.address) %></p>
   </div>
@@ -28,7 +28,7 @@
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.status') %></p>
     <p class="color--black-87"><%= project.status.try(:titleize) %></p>
   </div>
-  <div class="width--40">
+  <div class="width--20">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.kam') %></p>
     <p class="color--black-87 text--capitalize"><%= project.assignee.try(:name) %></p>
   </div>
@@ -43,7 +43,7 @@
       <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.construction') %></p>
       <p class="color--black-87"><%= project.date_formatter(project.construction_starts_on) %></p>
   </div>
-  <div class="width--40">
+  <div class="width--20">
     <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.assigned') %></p>
     <p class="color--black-87"><%= project.kam_assignee.try(:name) %></p>
   </div>
