@@ -25,7 +25,7 @@ module Hooks
     end
 
     def building?
-      taskable_type.is_a?(Projects::Building)
+      taskable_type == 'Projects::Building'
     end
 
     def update_counter_caches
