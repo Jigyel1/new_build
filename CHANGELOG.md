@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.5.0] - 2022-03-24
+## [1.7.0] - 2022-03-24
 
 ### Feature
 - Added assignee_id, owner_id, user_id and taskable_type filters to `Projects::Task`.
