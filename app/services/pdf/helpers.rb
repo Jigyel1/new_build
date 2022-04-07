@@ -61,11 +61,11 @@ module Pdf
     end
 
     def hfc_payback
-      AdminToolkit::ProjectCost.first.hfc_payback
+      AdminToolkit::ProjectCost.first.try(:hfc_payback)
     end
 
     def ftth_payback
-      AdminToolkit::ProjectCost.first.ftth_payback
+      AdminToolkit::ProjectCost.first.try(:ftth_payback)
     end
   end
 end
