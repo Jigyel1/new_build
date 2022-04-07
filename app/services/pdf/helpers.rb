@@ -59,5 +59,13 @@ module Pdf
 
       I18n.t('projects.payback_period.years', years: years)
     end
+
+    def hfc_payback
+      AdminToolkit::ProjectCost.first.hfc_payback
+    end
+
+    def ftth_payback
+      AdminToolkit::ProjectCost.first.ftth_payback
+    end
   end
 end
