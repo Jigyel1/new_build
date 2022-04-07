@@ -18,7 +18,7 @@
     <p class="font-size-14 color--black-87">CHF <%= hfc&.build_cost %></p>
   </div>
   <div class="width--50">
-    <p class="font-size-16 color--black-60 mb-8"><%= I18n.t('pdf.project.hfc_or_ftth.hfc_lease_cost') %></p>
+    <p class="font-size-16 color--black-60 mb-8"><%= I18n.t('pdf.project.hfc_or_ftth.hfc_lease_cost', years: hfc_payback_in_years) %></p>
     <p class="font-size-14 color--black-87">CHF <%= hfc&.lease_cost %></p>
   </div>
 </div>
