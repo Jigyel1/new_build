@@ -42,7 +42,7 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def formatted_address(address)
-    return if address.street.blank?
+    return if address.try(:street).blank?
 
     "#{address.street} #{address.street_no}, #{address.zip} #{address.city}"
   end
