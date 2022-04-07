@@ -15,8 +15,11 @@ describe PenetrationsImporter do
     end
 
     create(:admin_toolkit_penetration, kam_region: AdminToolkit::KamRegion.first, zip: 2000)
-    create(:penetration_competition, penetration: AdminToolkit::Penetration.first,
-                                     competition: AdminToolkit::Competition.first)
+    create(
+      :penetration_competition,
+      penetration: AdminToolkit::Penetration.first,
+      competition: AdminToolkit::Competition.first
+    )
 
     described_class.call(current_user: super_user, input: Rails.root.join('spec/files/penetrations.xlsx'))
   end
