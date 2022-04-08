@@ -131,7 +131,7 @@ RSpec.describe Project, type: :model do
 
     it do
       expect(subject).to define_enum_for(:access_technology).with_values( # rubocop:disable RSpec/NamedSubject
-        ftth: 'FTTH', hfc: 'HFC', third_party: 'Third Party'
+        ftth: 'FTTH', hfc: 'HFC', lease_line: 'Lease Line'
       ).backed_by_column_of_type(:string)
     end
 

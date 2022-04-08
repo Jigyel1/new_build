@@ -147,7 +147,7 @@ en:
         title: Project Category
       access_tech:
         title: Preferred Access Technology
-        third_party: Third Party
+        lease_line: Lease Line
         hfc: HFC
         ftth: FTTH
       construction_type:
