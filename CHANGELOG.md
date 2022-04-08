@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.6.2] - 2022-04-12
+
+### Fixes
+- Renaming third_party access technology to 'Lease Line'.
+- Building invalid for building more than 60 fix.
+
 ## [1.6.1] - 2022-03-24
 
 ### Fixes
