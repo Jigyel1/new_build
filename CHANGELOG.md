@@ -15,7 +15,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 rake verdict:replace_null
 ```
 
-
 ## [1.6.1] - 2022-03-24
 
 ### Fixes
