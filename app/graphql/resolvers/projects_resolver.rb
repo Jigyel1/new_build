@@ -19,9 +19,10 @@ module Resolvers
     option(:kam_regions, type: [String]) { |scope, value| scope.where(kam_region: value) }
 
     # TODO: - Give a valid name for this name
-    option(:name, type: Boolean) { |scope, value| sort_name(scope, value) }
+    option(:name, type: Boolean) { |scope, value| sort_projects(scope, value, 'name') }
     option(:label_list, type: [String]) { |scope, value| scope.where(scope.arel_table[:label_list].overlaps(value)) }
     option(:confirmation_status, type: String) { |scope, value| scope.where(confirmation_status: value) }
+    option(:address, type: Boolean) { |scope, value| sort_projects(scope, value, 'address') }
 
     option :buildings_count, type: [Int], with: :apply_buildings_filter, description: <<~DESC
       Send min and max values in the array. eg. [2, 10]. Only the first two values will be picked.
@@ -59,8 +60,8 @@ module Resolvers
       scope.where("#{attribute}": min..max)
     end
 
-    def sort_name(scope, value)
-      value ? scope.order('LOWER(name)') : scope.order('LOWER(name) desc')
+    def sort_projects(scope, value, type)
+      value ? scope.order("LOWER(#{type})") : scope.order("LOWER(#{type}) desc")
     end
   end
 end

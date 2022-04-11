@@ -31,6 +31,7 @@ module Mutations
 
         argument :priority, String, required: true
         argument :analysis, String, required: false
+        argument :additional_comments, String, required: false
         argument :verdicts, GraphQL::Types::JSON, required: false
         argument :cable_installations, String, required: false, description: <<~DESC
           Send supported options as a comma separated string. eg. "FTTH, Coax"
