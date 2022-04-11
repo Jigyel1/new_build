@@ -3,8 +3,8 @@
 namespace :verdict do
   desc 'Fills the empty null value of verdict with empty object'
   task replace_null: :environment do
-    Projects.where(verdicts: nil).find_each do |project|
-      project.update(verdicts: {})
+    Project.where(verdicts: nil).find_each do |project|
+      project.update!(verdicts: {})
     end
   end
 end
