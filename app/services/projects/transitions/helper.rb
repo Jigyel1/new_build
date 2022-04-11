@@ -48,7 +48,6 @@ module Projects
       end
 
       def extract_verdict
-        binding.pry
         verdict = attributes.dig(:verdicts, aasm.to_state)
         project.verdicts[aasm.from_state] = verdict if verdict.present?
 
