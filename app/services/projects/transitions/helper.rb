@@ -49,7 +49,7 @@ module Projects
 
       def extract_verdict
         verdict = attributes.dig(:verdicts, aasm.to_state)
-        project.update(verdict: verdict)
+        project.update(verdicts: verdict)
       end
 
       def clear_tac
