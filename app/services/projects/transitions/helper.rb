@@ -49,9 +49,7 @@ module Projects
 
       def extract_verdict
         verdict = attributes.dig(:verdicts, aasm.to_state)
-        project.verdicts[aasm.from_state] = verdict if verdict.present?
-        console.log(project.verdicts[aasm.from_state])
-        project.save!
+        project.update(verdict: verdict)
       end
 
       def clear_tac
