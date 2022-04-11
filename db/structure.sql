@@ -1074,12 +1074,7 @@ CREATE TABLE public.projects_tasks (
     assignee_id uuid NOT NULL,
     owner_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    project_id character varying,
-    building_id character varying,
-    project_name character varying,
-    host_url character varying,
-    building_name character varying
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -2339,10 +2334,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220318172640'),
 ('20220322150514'),
 ('20220324063336'),
-('20220328093946'),
 ('20220330093727'),
 ('20220330101028'),
-('20220330200607'),
-('20220411104452');
+('20220330200607');
 
 
