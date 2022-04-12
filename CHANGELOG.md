@@ -8,7 +8,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Fixes
 - Renaming third_party access technology to 'Lease Line'.
-- Building invalid for building more than 60 fix.
 
 ## [1.6.1] - 2022-03-24
 
