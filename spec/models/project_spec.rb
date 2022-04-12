@@ -190,7 +190,8 @@ RSpec.describe Project, type: :model do
         new_offer: 'New',
         negotiation: 'Negotiation',
         offered: 'Offered',
-        signed: 'Signed'
+        signed: 'Signed',
+        internal_clarification: 'Internal Clarification'
       ).backed_by_column_of_type(:string)
     end
   end
