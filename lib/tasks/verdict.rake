@@ -6,5 +6,10 @@ namespace :verdict do
     Project.where(verdicts: nil).find_each do |project|
       project.update!(verdicts: {})
     end
+    warning = <<~WARNING
+      Updated successfully.
+    WARNING
+
+    $stdout.write(warning)
   end
 end
