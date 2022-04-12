@@ -864,8 +864,7 @@ CREATE TABLE public.projects (
     confirmation_status character varying,
     description_on_other character varying,
     prio_status character varying,
-    kam_assignee_name character varying,
-    manually_created_labels text[] DEFAULT '{}'::text[]
+    kam_assignee_name character varying
 );
 
 
@@ -2337,7 +2336,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220324063336'),
 ('20220330093727'),
 ('20220330101028'),
-('20220330193957'),
 ('20220330200607');
 
 
