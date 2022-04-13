@@ -8,7 +8,6 @@ module Projects
       1.upto(buildings_count) do |index|
         project.buildings.build(
           name: "#{project.name} #{index}",
-          assignee: project.assignee,
 
           # index starts with 1 instead of 0, so to pick the proper item from the <tt>grouped_apartments</tt>
           # use <tt>index - 1</tt>
