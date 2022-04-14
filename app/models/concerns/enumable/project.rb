@@ -16,7 +16,8 @@ module Enumable
         negotiation: 'Negotiation',
         offered: 'Offered',
         signed: 'Signed',
-        internal_clarification: 'Internal Clarification'
+        internal_clarification: 'Internal Clarification',
+        customer_not_interested: 'Customer Not Interested'
       }
 
       enum building_type: {

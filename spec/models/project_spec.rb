@@ -191,7 +191,8 @@ RSpec.describe Project, type: :model do
         negotiation: 'Negotiation',
         offered: 'Offered',
         signed: 'Signed',
-        internal_clarification: 'Internal Clarification'
+        internal_clarification: 'Internal Clarification',
+        customer_not_interested: 'Customer Not Interested'
       ).backed_by_column_of_type(:string)
     end
   end
