@@ -34,7 +34,13 @@ module Activities
     end
 
     def apply_search(scope, value)
-      scope.where('action iLIKE :value OR log_data iLIKE :value', value: "%#{value}%")
+      scope.where(
+        'action iLIKE :value OR
+         log_data iLIKE :value OR
+         project_id iLIKE :value OR
+         os_id iLIKE :value',
+        value: "%#{value}%"
+      )
     end
 
     def display_text
