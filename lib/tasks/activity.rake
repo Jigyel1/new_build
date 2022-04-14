@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+ACTIONS = %w[Project Projects::Building].freeze
+
 namespace :activity do
   desc 'Populate activities with project_id and os_id'
   task populate: :environment do
-    Activity.each do |activity|
-      next if %w[building_imported project_imported].include? activity.action
+    Activity.where(project_id: nil, os_id: nil).find_each do |activity|
+      next if ACTIONS.include? activity.action
 
       trackable = activity.trackable
       activity.update(project_id: trackable.project_nr) if activity.trackable_type == 'Project'
