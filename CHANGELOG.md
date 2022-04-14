@@ -11,6 +11,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Added additional comment section to projects in TA state.
 - Projects sorting filter for address.
 
+## [1.6.2] - 2022-04-12
+
+### Fixes
+- Verdict not getting updated.
+- Replaced null value of verdict with empty object '{}'
+
+### Tasks
+```ruby
+rake verdict:replace_null
+```
+
 ## [1.6.1] - 2022-03-24
 
 ### Fixes
