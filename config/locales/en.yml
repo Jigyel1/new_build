@@ -132,6 +132,7 @@ en:
       status: Status
       kam: Responsible Sales Person
       assigned: Assigned Person
+      incharge: Technical Incharge
       move_in: Move In
       construction: Construction Starts from
       buildings_count_title: No. of buildings

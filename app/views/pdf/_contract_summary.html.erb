@@ -51,7 +51,7 @@
 
 <div class="flex--row color--black-60 font-size-16 mb-24">
   <div class="width--33">
-    <p class="font-size-18 mb-8">Technical Incharge</p>
-    <p class="color--black-87">-</p>
+    <p class="font-size-18 mb-8"><%= I18n.t('pdf.project.incharge') %></p>
+    <p class="color--black-87"><%= project.incharge.try(:name) %></p>
   </div>
 </div>
