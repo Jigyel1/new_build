@@ -22,6 +22,11 @@ module AdminToolkit
       med_city: 'Med City'
     }
 
+    enum strategic_partner: {
+      cable_group_ag: 'Cable Group AG',
+      isen_tiefbau: 'Isen Tiefbau'
+    }
+
     default_scope { order(:zip) }
   end
 end

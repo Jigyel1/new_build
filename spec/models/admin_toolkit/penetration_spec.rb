@@ -23,4 +23,22 @@ RSpec.describe AdminToolkit::Penetration, type: :model do
         .is_less_than_or_equal_to(1)
     end
   end
+
+  describe 'enums' do
+    it do
+      expect(subject).to define_enum_for(:type).with_values( # rubocop:disable RSpec/NamedSubject
+        top_city: 'Top City',
+        land: 'Land',
+        agglo: 'Agglo',
+        med_city: 'Med City'
+      ).backed_by_column_of_type(:string)
+    end
+
+    it do
+      expect(subject).to define_enum_for(:strategic_partner).with_values( # rubocop:disable RSpec/NamedSubject
+        cable_group_ag: 'Cable Group AG',
+        isen_tiefbau: 'Isen Tiefbau'
+      ).backed_by_column_of_type(:string)
+    end
+  end
 end

@@ -6,6 +6,7 @@ FactoryBot.define do
     city { Faker::Address.city }
     rate { 0.5692 }
     type { :top_city }
+    strategic_partner { :cable_group_ag }
     hfc_footprint { false }
 
     trait :hfc_footprint do
