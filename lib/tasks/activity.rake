@@ -9,7 +9,7 @@ namespace :activity do
       next if ACTIONS.include?(activity.action)
 
       trackable = activity.trackable
-      activity.update(project_id: trackable.project_nr) if activity.trackable_type == 'Project'
+      activity.update(project_id: trackable.try(:project_nr)) if activity.trackable_type == 'Project'
       activity.update(project_external_id: trackable.external_id) if activity.trackable_type == 'Project'
       activity.update(os_id: trackable.external_id) if activity.trackable_type == 'Projects::Building'
     end
