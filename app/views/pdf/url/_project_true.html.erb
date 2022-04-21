@@ -1,8 +1,8 @@
 <div class="mt-24 font-size-16 ">
   <p class="mb-8"><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.gis') %>:</span>
-    <a class="color--primary" href="#" onclick='window.open("<%= project.gis_url %>");return false;'><%= project.gis_url %></a>
+    <a class="color--primary" href="<%= project.gis_url %>" target="_blank" rel="noopener noreferrer"><%= project.gis_url %></a>
   </p>
   <p><span class="font--heavy color--black-60"><%= I18n.t('pdf.project.info_manager') %>:</span>
-    <a class="color--primary" href="#" onclick='window.open("<%= project.info_manager_url %>");return false;'><%= project.info_manager_url %></a>
+    <a class="color--primary" href="<%= project.info_manager_url %>" target="_blank" rel="noopener noreferrer"><%= project.info_manager_url %></a>
   </p>
 </div>
