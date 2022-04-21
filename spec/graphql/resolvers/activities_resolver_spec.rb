@@ -427,8 +427,8 @@ RSpec.describe Resolvers::ActivitiesResolver do
           )
           expect(activities.pluck('displayText')).to eq(
             [
-             t('activities.project.project_created.owner',
-               project_name: project.name)
+              t('activities.project.project_created.owner',
+                project_name: project.name)
             ]
           )
           expect(errors).to be_nil

@@ -19,11 +19,10 @@ module Projects
         )
     end
 
-    def specify_pct_value # rubocop:disable Metrics/AbcSize
+    def specify_pct_value
       return admin_toolkit_pct(hfc_pct_cost.payback_period, hfc_pct_cost.build_cost) if project.hfc?
-      return admin_toolkit_pct(ftth_pct_cost.payback_period, ftth_pct_cost.build_cost) if project.ftth?
 
-      admin_toolkit_pct(lease_period, max_build_cost)
+      admin_toolkit_pct(ftth_pct_cost.payback_period, ftth_pct_cost.build_cost) if project.ftth?
     end
 
     def specify_pct_cost
