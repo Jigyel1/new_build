@@ -11,7 +11,7 @@ namespace :activity do
       trackable = activity.trackable
       activity.update(project_id: trackable.try(:project_nr)) if activity.trackable_type == 'Project'
       activity.update(project_external_id: trackable.external_id) if activity.trackable_type == 'Project'
-      activity.update(os_id: trackable.external_id) if activity.trackable_type == 'Projects::Building'
+      activity.update(os_id: trackable.try(:external_id)) if activity.trackable_type == 'Projects::Building'
     end
 
     warning = <<~WARNING
