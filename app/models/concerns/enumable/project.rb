@@ -11,14 +11,6 @@ module Enumable
       enum access_technology: { ftth: 'FTTH', hfc: 'HFC', lease_line: 'Lease Line' }
       enum access_technology_tac: { ftth: 'FTTH', hfc: 'HFC', lease_line: 'Lease Line' }, _suffix: :tac
 
-      enum confirmation_status: {
-        new_offer: 'New',
-        negotiation: 'Negotiation',
-        offered: 'Offered',
-        signed: 'Signed',
-        internal_clarification: 'Internal Clarification'
-      }
-
       enum building_type: {
         efh: 'EFH',
         defh: 'DEFH',
