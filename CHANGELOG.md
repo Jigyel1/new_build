@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Features
 - Added new field strategic partners in admintoolkit penetrations.
 
+### Fixes
+- Added move in date in project level.
+
 ## [1.7.1] - 2022-04-26
 
 ### Fixes

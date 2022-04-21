@@ -206,6 +206,7 @@ RSpec.describe Mutations::CreateProject do
               lotNumber: "EA0988833"
               buildingsCount: 1
               buildingType: "efh"
+              moveInStartsOn: "2021-12-12"
               #{address}
               #{address_books}
               #{site_address}
@@ -215,7 +216,7 @@ RSpec.describe Mutations::CreateProject do
         {
           project {
             id status category internalId assigneeType lotNumber
-            buildingsCount buildingType
+            buildingsCount buildingType moveInStartsOn
             address { city id street streetNo zip }
             addressBooks { id type name company language email website phone mobile address {#{' '}
               city id street streetNo zip } }
