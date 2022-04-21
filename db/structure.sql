@@ -716,7 +716,8 @@ CREATE TABLE public.admin_toolkit_penetrations (
     hfc_footprint boolean NOT NULL,
     type character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    strategic_partner character varying
 );
 
 
@@ -2327,6 +2328,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220330200607'),
 ('20220411192300'),
 ('20220413101543'),
-('20220413234310');
+('20220413234310'),
+('20220421174202');
 
 
