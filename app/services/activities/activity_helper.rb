@@ -38,6 +38,7 @@ module Activities
         'action iLIKE :value OR
          log_data iLIKE :value OR
          project_id iLIKE :value OR
+         project_external_id iLIKE :value OR
          os_id iLIKE :value',
         value: "%#{value}%"
       )

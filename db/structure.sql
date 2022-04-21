@@ -458,6 +458,7 @@ CREATE TABLE public.activities (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     project_id character varying,
+    project_external_id character varying,
     os_id character varying
 );
 
