@@ -357,8 +357,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
         end
 
         it 'returns logs matching the project id' do
-          activities, errors = paginated_collection(:activities, query(query: '22'),
-                                                    current_user: super_user)
+          activities, errors = paginated_collection(:activities, query(query: '22'), current_user: super_user)
           expect(errors).to be_nil
           expect(activities.pluck('displayText')).to eq(
             [
