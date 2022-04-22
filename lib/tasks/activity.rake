@@ -9,9 +9,9 @@ namespace :activity do
       next if ACTIONS.include?(activity.action)
 
       trackable = activity.trackable
-      activity.update(project_id: trackable.try(:project_nr)) if activity.trackable_type == 'Project'
-      activity.update(project_external_id: trackable.try(:external_id)) if activity.trackable_type == 'Project'
-      activity.update(os_id: trackable.try(:external_id)) if activity.trackable_type == 'Projects::Building'
+      activity.update(project_id: trackable.try(:project_nr)) if activity.trackable_type.eql?('Project')
+      activity.update(project_external_id: trackable.try(:external_id)) if activity.trackable_type.eql?('Project')
+      activity.update(os_id: trackable.try(:external_id)) if activity.trackable_type.eql?('Projects::Building')
     end
 
     warning = <<~WARNING
