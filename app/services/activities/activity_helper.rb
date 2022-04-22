@@ -35,12 +35,16 @@ module Activities
 
     def apply_search(scope, value)
       scope.where(
-        'action iLIKE :value OR
-         log_data iLIKE :value OR
-         project_id iLIKE :value OR
-         project_external_id iLIKE :value OR
-         os_id iLIKE :value',
-        value: "%#{value}%"
+        "CONCAT_WS(
+          ' ',
+          action,
+          log_data,
+          project_id,
+          project_external_id,
+          os_id
+         )
+         iLike ?",
+        "%#{value}%"
       )
     end
 
