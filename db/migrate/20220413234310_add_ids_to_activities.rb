@@ -3,9 +3,11 @@
 class AddIdsToActivities < ActiveRecord::Migration[6.1]
   def change
     safety_assured do
-      add_column :activities, :project_id, :string, null: true
-      add_column :activities, :project_external_id, :string, null: true
-      add_column :activities, :os_id, :string, null: true
+      change_table :activities, bulk: true do |t|
+        t.string :project_id, null: true
+        t.string :project_external_id, null: true
+        t.string :os_id, null: true
+      end
     end
   end
 end
