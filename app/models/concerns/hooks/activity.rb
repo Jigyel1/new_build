@@ -10,7 +10,7 @@ module Hooks
 
     private
 
-    def update_default_attributes
+    def update_default_attributes # rubocop:disable Metrics/AbcSize
       return if %w[building_imported project_imported].include?(action)
 
       self.project_id = trackable.try(:project_nr) if trackable_type.eql?('Project')
