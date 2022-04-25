@@ -2,7 +2,7 @@
 
 namespace :permission do
   desc 'Updates the permission w.r.t to permission.yml file'
-  task reset_permission: :environment do
+  task update: :environment do
     Role.names.each_key do |name|
       role = Role.find_or_create_by!(name: name)
 
