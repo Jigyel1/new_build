@@ -55,7 +55,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store = :redis_cache_store, { url: ENV['REDIS_HOST'] }
+  config.cache_store = :redis_cache_store, { url: ENV.fetch('REDIS_HOST', nil) }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = :sidekiq
@@ -110,7 +110,7 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  config.action_mailer.default_url_options = { host: ENV['HOST_URL'] }
+  config.action_mailer.default_url_options = { host: ENV.fetch('HOST_URL', nil) }
   config.action_mailer.perform_caching = false
 
   config.sass.preferred_syntax = :sass
@@ -119,10 +119,10 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: ENV['SMTP_ADDRESS'],
+    address: ENV.fetch('SMTP_ADDRESS', nil),
     port: 587,
-    user_name: ENV['SMTP_USERNAME'],
-    password: ENV['SMTP_PASSWORD'],
+    user_name: ENV.fetch('SMTP_USERNAME', nil),
+    password: ENV.fetch('SMTP_PASSWORD', nil),
     authentication: 'plain',
     enable_starttls_auto: true
   }
