@@ -1,10 +1,10 @@
 <p class="font-size-18 color--black-87 mb-24"><%= I18n.t('pdf.project.hfc_or_ftth.hfc_title') %></p>
 <div class="flex--row mb-24">
-  <div class="width--50">
+  <div class="width--40">
     <p class="font-size-16 color--black-60 mb-8"><%= I18n.t('pdf.project.hfc_or_ftth.connection_cost') %></p>
     <p class="font-size-14 color--black-87">CHF <%= hfc&.project_connection_cost %></p>
   </div>
-  <div class="width--50">
+  <div class="width--60">
     <% if project.installation_detail.try(:sockets).present? %>
       <p class="font-size-16 color--black-60 mb-8"><%= I18n.t('pdf.project.hfc_or_ftth.socket_installation') %></p>
       <p class="font-size-14 color--black-87">CHF <%= hfc&.socket_installation_cost %></p>
@@ -13,7 +13,7 @@
 </div>
 
 <div class="flex--row mb-24">
-  <div class="width--50">
+  <div class="width--40">
     <p class="font-size-16 color--black-60 mb-8"><%= I18n.t('pdf.project.hfc_or_ftth.build_cost') %></p>
     <p class="font-size-14 color--black-87">CHF <%= hfc&.build_cost %></p>
   </div>
@@ -24,9 +24,10 @@
 </div>
 
 <div class="flex--row mb-24">
-  <div class="width--50">
+  <div class="width--40">
     <p class="font-size-14 color--black-87"><%= I18n.t('pdf.project.hfc_or_ftth.payback') %> <%= hfc_payback %></p>
   </div>
-
+  <div class="width--60">
   <%= render('pdf/shared/default_icon', system_generated: hfc&.system_generated_payback_period) %>
+  </div>
 </div>
