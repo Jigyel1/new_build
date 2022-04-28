@@ -55,7 +55,7 @@ module Projects
       end
 
       def clear_tac
-        project.update!(verdicts: nil, access_technology_tac: nil, priority_tac: nil)
+        project.update!(verdicts: {}, access_technology_tac: nil, priority_tac: nil)
       end
 
       def set_default_status
