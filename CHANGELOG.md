@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.7.1] - 2022-04-07
+
+### Features
+- Address added to emails.
+
+### Fixes
+- Pdf date format fix
+
+## [1.6.2] - 2022-04-07
+
+### Fixes
+- PLZ import multiple competitions fix.
+- PDF building address fix.
+
 ## [1.7.0] - 2022-03-24
 
 ### Feature

@@ -10,16 +10,17 @@ body {
    border-bottom: 1px solid rgba($black, 0.25) !important;
   }
 }
-.no-break:before {
-  clear: both;
-}
+
 .no-break {
   page-break-inside: avoid;
+  &:before {
+    clear: both;
+  }
 }
 .address__list {
   display: inline-block;
   margin-bottom: 3%;
-  width: 304px;
+  width: 300px;
   height: 374px;
   vertical-align: top;
   &:nth-child(3) {
