@@ -16,6 +16,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Added assignee_id, owner_id, user_id and taskable_type filters to `Projects::Task`.
 - Added additional fields in Task, i.e. building_id, project_id and project_name for FE routing purpose.
 
+## [1.6.3] - 2022-04-25
+
+### Tasks
+```ruby
+rake permission:update
+```
+
+## [1.6.2] - 2022-04-12
+
+### Fixes
+- Verdict not getting updated.
+- Replaced null value of verdict with empty object '{}'
+
+### Tasks
+```ruby
+rake verdict:replace_null
+```
+
 ## [1.6.1] - 2022-03-24
 
 ### Fixes
