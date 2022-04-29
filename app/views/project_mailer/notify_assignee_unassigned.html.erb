@@ -21,7 +21,7 @@
   <tr>
     <td>
       <p class="my-0">
-        You have been unassigned as the Assigned Person for "<%= @project.name %>" project by
+        You have been unassigned as the Assigned Person for "<%= @project.name %>", "<%= @project.decorate.formatted_address(@project.address) %>", project by
         <span class="text--capitalize"><%= @assigner.name %></span>.
       </p>
     </td>
