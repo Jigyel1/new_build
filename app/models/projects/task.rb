@@ -3,6 +3,7 @@
 module Projects
   class Task < ApplicationRecord
     include Trackable
+    include Hooks::Task
 
     # taskable can be a building or a project.
     belongs_to :taskable, polymorphic: true
@@ -20,16 +21,5 @@ module Projects
       completed: 'Completed',
       archived: 'Archived'
     }
-
-    after_save :update_counter_caches
-
-    private
-
-    def update_counter_caches
-      taskable.update_columns(
-        completed_tasks_count: taskable.tasks.completed.count,
-        tasks_count: taskable.tasks.where.not(status: :archived).count
-      )
-    end
   end
 end
