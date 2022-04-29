@@ -12,10 +12,12 @@ module Pdf
       )
     end
 
-    def locals
+    def locals # rubocop:disable Metrics/AbcSize
       {
         project: project.decorate,
         analysis: strip_html_tags(project.analysis),
+        hfc_payback_in_years: hfc_payback,
+        ftth_payback_in_years: ftth_payback,
         hfc_pct_cost: hfc_pct_cost,
         ftth_pct_cost: ftth_pct_cost,
         hfc_payback: hfc_pct_cost.present? ? payback(hfc_pct_cost) : nil,
@@ -56,6 +58,14 @@ module Pdf
       years = cost.payback_period.round(2)
 
       I18n.t('projects.payback_period.years', years: years)
+    end
+
+    def hfc_payback
+      AdminToolkit::ProjectCost.first.try(:hfc_payback)
+    end
+
+    def ftth_payback
+      AdminToolkit::ProjectCost.first.try(:ftth_payback)
     end
   end
 end

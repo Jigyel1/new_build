@@ -14,6 +14,13 @@ describe PenetrationsImporter do
       create(:kam_region, name: name)
     end
 
+    create(:admin_toolkit_penetration, kam_region: AdminToolkit::KamRegion.first, zip: 2000)
+    create(
+      :penetration_competition,
+      penetration: AdminToolkit::Penetration.first,
+      competition: AdminToolkit::Competition.first
+    )
+
     described_class.call(current_user: super_user, input: Rails.root.join('spec/files/penetrations.xlsx'))
   end
 
@@ -130,6 +137,20 @@ describe PenetrationsImporter do
         hfc_footprint: true,
         type: 'land'
       )
+    end
+  end
+
+  context 'when penetration exist in database with multiple competitions in the sheet' do
+    it 'updates the penetration_competitions with latest competition for the penetration' do
+      penetration = AdminToolkit::Penetration.find_by(zip: '2000')
+      expect(penetration).to have_attributes(
+        city: 'Mollens (VD)',
+        rate: 0.1012,
+        kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'Ost Agglomeration Winterthur').id,
+        hfc_footprint: true,
+        type: 'land'
+      )
+      expect(penetration.competitions.count).to eq(2)
     end
   end
 end

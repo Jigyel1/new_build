@@ -4,6 +4,7 @@ class PenetrationsImporter < EtlBase
   SHEET_INDEX = 0
   SKIP_ROWS = 1
   ZIP = 0
+  COMPETITION = 3
 
   # Imports penetration details from the excel.
   #
