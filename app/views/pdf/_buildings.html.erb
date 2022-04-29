@@ -14,7 +14,7 @@
       <td class="p-12"><%= building.name %></td>
       <td class="text-align--center p-12"><%= building.apartments_count %></td>
       <td class="p-12"><%= project.formatted_address(building.address) %></td>
-      <td class="p-12"><%= building.move_in_starts_on %></td>
+      <td class="p-12"><%= project.date_formatter(building.move_in_starts_on) %></td>
     </tr>
   <% end %>
 </table>

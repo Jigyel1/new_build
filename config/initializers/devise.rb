@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Devise.setup do |config|
-  config.mailer_sender = ENV['MAIL_SENDER']
+  config.mailer_sender = ENV.fetch('MAIL_SENDER', nil)
   config.parent_mailer = 'ApplicationMailer'
 
   # The secret key used by Devise. Devise uses this key to generate
@@ -241,9 +241,9 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
 
   config.omniauth :azure_activedirectory_v2, # rubocop:disable Naming/VariableNumber
-                  client_id: ENV['AZURE_CLIENT_ID'],
-                  client_secret: ENV['AZURE_SECRET'],
-                  tenant_id: ENV['AZURE_TENANT_ID']
+                  client_id: ENV.fetch('AZURE_CLIENT_ID', nil),
+                  client_secret: ENV.fetch('AZURE_SECRET', nil),
+                  tenant_id: ENV.fetch('AZURE_TENANT_ID', nil)
 
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.devise_jwt_secret_key

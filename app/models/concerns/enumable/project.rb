@@ -6,7 +6,6 @@ module Enumable
 
     included do
       enum entry_type: { manual: 'Manual', info_manager: 'Info Manager' }
-      enum priority: { proactive: 'Proactive', reactive: 'Reactive' }
       enum priority_tac: { proactive: 'Proactive', reactive: 'Reactive' }, _suffix: :tac
       enum access_technology: { ftth: 'FTTH', hfc: 'HFC', lease_line: 'Lease Line' }
       enum access_technology_tac: { ftth: 'FTTH', hfc: 'HFC', lease_line: 'Lease Line' }, _suffix: :tac

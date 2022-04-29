@@ -16,9 +16,9 @@ class ProjectMailer < ApplicationMailer
     notify(@user, "notify_#{assignee_type}_assigned")
   end
 
-  def notify_project_assigned(assignee_id, project_name)
+  def notify_project_assigned(assignee_id, project_id)
     @user = User.find(assignee_id)
-    @project_name = project_name
+    @project = Project.find(project_id)
 
     notify(@user, 'notify_project_assigned')
   end

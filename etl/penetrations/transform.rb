@@ -16,12 +16,12 @@ module Penetrations
       format_each(row)
 
       penetration = AdminToolkit::Penetration.find_or_initialize_by(zip: row[PenetrationsImporter::ZIP])
-      competition = ::AdminToolkit::Competition.find_by(name: row.delete_at(COMPETITION))
+      competition = row.delete_at(COMPETITION)
 
       penetration.assign_attributes(HEADERS.zip(row).to_h)
 
       penetration.kam_region = ::AdminToolkit::KamRegion.find_by(name: row[KAM_REGION])
-      penetration.penetration_competitions.find_or_initialize_by(competition: competition)
+      build_competition(penetration, competition.split(','))
       penetration
     rescue ActiveRecord::RecordNotFound => e
       $stdout.write("#{e} for penetration with zip #{penetration.zip}\n")
@@ -29,6 +29,16 @@ module Penetrations
     end
 
     private
+
+    def build_competition(penetration, competitions)
+      admintoolkit_penetration = AdminToolkit::Penetration.find_by(zip: penetration.zip)
+      admintoolkit_penetration.competitions.delete_all if admintoolkit_penetration.try(:competitions).present?
+
+      competitions.each do |name|
+        competition = ::AdminToolkit::Competition.find_by(name: name.strip)
+        penetration.penetration_competitions.find_or_initialize_by(competition: competition)
+      end
+    end
 
     def format_each(row)
       row[PenetrationsImporter::ZIP] = row[PenetrationsImporter::ZIP].try(:to_i)

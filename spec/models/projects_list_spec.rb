@@ -95,7 +95,7 @@ RSpec.describe ProjectsList, type: :model do
       let!(:project) { create(:project, :proactive) }
 
       it "returns priority as project's priority" do
-        expect(project_list.priority).to eq('Proactive')
+        expect(project_list.priority).to eq('proactive')
       end
     end
 
@@ -105,7 +105,7 @@ RSpec.describe ProjectsList, type: :model do
       let!(:project) { create(:project, :proactive, :reactive_tac) }
 
       it "returns priority tac as project's priority" do
-        expect(project_list.priority).to eq('Reactive')
+        expect(project_list.priority).to eq('reactive')
       end
     end
   end

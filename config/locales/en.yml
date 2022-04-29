@@ -172,8 +172,8 @@ en:
         ftth_title: PCT Calculations (FTTH only)
         connection_cost: Connection Cost
         build_cost: Build Cost
-        hfc_lease_cost: Lease Costs (3 years)
-        ftth_lease_cost: Lease Costs (20 years)
+        hfc_lease_cost: Lease Costs (%{years} years)
+        ftth_lease_cost: Lease Costs (%{years} years)
         socket_installation: Socket Installation Cost (CHF 6 /socket)
         payback: 'Estimated payback period:'
       system_generated: This value is system generated.

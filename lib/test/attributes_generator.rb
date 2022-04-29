@@ -4,7 +4,7 @@ require 'faker' unless Rails.env.production?
 
 module Test
   class AttributesGenerator
-    def initialize(count = ENV['USERS'])
+    def initialize(count = ENV.fetch('USERS', nil))
       @count = count
     end
 
