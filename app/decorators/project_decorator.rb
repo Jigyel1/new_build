@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProjectDecorator < ApplicationDecorator
+  using TimeFormatter
+
   def project_category
     project.standard? ? I18n.t('pdf.project.category.hfc_only') : I18n.t('pdf.project.category.ftth_project')
   end
@@ -40,11 +42,17 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def formatted_address(address)
-    "#{address.try(:street)} #{address.try(:street_no)}, #{address.try(:zip)} #{address.try(:city)}"
+    return if address.try(:street).blank?
+
+    "#{address.street} #{address.street_no}, #{address.zip} #{address.city}"
   end
 
   def move_in_date_formatter
-    "#{project.move_in_starts_on} - #{project.move_in_ends_on}"
+    "#{date_formatter(project.move_in_starts_on)} - #{date_formatter(project.move_in_ends_on)}"
+  end
+
+  def date_formatter(date)
+    date&.date_str.to_s
   end
 
   def priority_check
