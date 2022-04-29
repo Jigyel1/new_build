@@ -52,6 +52,8 @@ module Projects
     end
 
     def notify_created
+      return if current_user.id == task.assignee_id
+
       TaskMailer.notify_created(task.assignee_id, task.id).deliver_later
     end
   end
