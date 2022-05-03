@@ -23,7 +23,10 @@ RSpec.describe Mutations::Projects::CreateTask do
           title: 'Kitchen Wiring',
           description: '3 Kitchens in the top floor need to be wired before paneling.',
           status: 'todo',
-          dueDate: Date.current.date_str
+          dueDate: Date.current.date_str,
+          projectName: project.name,
+          buildingId: building.id,
+          projectId: project.id
         )
 
         expect(task.owner).to have_attributes(email: super_user.email, id: super_user.id)
@@ -118,7 +121,8 @@ RSpec.describe Mutations::Projects::CreateTask do
             }
           }
         )
-        { task { id title status description dueDate owner { id email } assignee { id email } } }
+        { task { id title status description dueDate buildingId projectId hostUrl buildingName
+                projectName owner { id email } assignee { id email } } }
       }
     GQL
   end

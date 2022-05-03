@@ -6,6 +6,7 @@ module Enumable
 
     included do
       enum assignee_type: { kam: 'KAM Project', nbo: 'NBO Project' }
+      enum priority: { proactive: 'Proactive', reactive: 'Reactive' }
 
       enum status: {
         open: 'Open',
