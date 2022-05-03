@@ -8,7 +8,7 @@ module Hooks
 
     included do
       before_save :set_kam_region
-      before_create :set_external_urls, :set_competition, :assign_kam_assignee_name
+      before_create :set_external_urls, :set_competition, :assign_kam_assignee_name, :set_strategic_partner
       after_save :update_projects_list, :update_users_list
       after_create :create_default_label_group, :update_status
       after_destroy :update_projects_list, :update_users_list
@@ -50,6 +50,10 @@ module Hooks
 
     def assign_kam_assignee_name
       self.kam_assignee_name ||= kam_assignee.try(:name)
+    end
+
+    def set_strategic_partner
+      self.strategic_partner = AdminToolkit::Penetration.find_by(zip: self.zip).strategic_partner
     end
   end
 end
