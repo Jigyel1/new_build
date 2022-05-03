@@ -53,7 +53,7 @@ module Hooks
     end
 
     def set_strategic_partner
-      self.strategic_partner = AdminToolkit::Penetration.find_by(zip: self.zip).strategic_partner
+      self.strategic_partner = AdminToolkit::Penetration.find_by(zip: self.zip).try(:strategic_partner)
     end
   end
 end
