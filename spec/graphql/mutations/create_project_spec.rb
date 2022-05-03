@@ -32,7 +32,6 @@ RSpec.describe Mutations::CreateProject do
 
       it 'creates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
-        binding.pry
         expect(errors).to be_nil
 
         expect(response.project).to have_attributes(
