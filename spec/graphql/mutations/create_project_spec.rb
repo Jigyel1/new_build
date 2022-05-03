@@ -21,6 +21,7 @@ RSpec.describe Mutations::CreateProject do
       :hfc_footprint,
       zip: '8008',
       kam_region: kam_region,
+      strategic_partner: :cable_group_ag,
       penetration_competitions: [build(:penetration_competition, competition: create(:admin_toolkit_competition))]
     )
   end
@@ -31,6 +32,7 @@ RSpec.describe Mutations::CreateProject do
 
       it 'creates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :createProject)
+        binding.pry
         expect(errors).to be_nil
 
         expect(response.project).to have_attributes(
@@ -222,6 +224,7 @@ RSpec.describe Mutations::CreateProject do
               city id street streetNo zip } }
             assignee { id name }
             buildingType
+            strategicPartner
             kamRegion { id name }
             siteAddress
           }
