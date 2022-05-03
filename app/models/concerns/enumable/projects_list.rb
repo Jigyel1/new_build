@@ -6,6 +6,7 @@ module Enumable
 
     included do
       enum assignee_type: { kam: 'KAM Project', nbo: 'NBO Project' }
+      enum confirmation_status: { new_offer: 'New', negotiation: 'Negotiation', offered: 'Offered', signed: 'Signed' }
       enum priority: { proactive: 'Proactive', reactive: 'Reactive' }
 
       enum status: {
@@ -34,15 +35,6 @@ module Enumable
         transformation: 'Transformation',
         pre_invest: 'Pre Invest',
         overbuild: 'Overbuild'
-      }
-
-      enum confirmation_status: {
-        new_offer: 'New',
-        negotiation: 'Negotiation',
-        offered: 'Offered',
-        signed: 'Signed',
-        internal_clarification: 'Internal Clarification',
-        customer_not_interested: 'Customer Not Interested'
       }
     end
   end
