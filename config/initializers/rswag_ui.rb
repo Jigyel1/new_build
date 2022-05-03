@@ -11,5 +11,5 @@ Rswag::Ui.configure do |c|
 
   # Add Basic Auth in case your API is private
   c.basic_auth_enabled = true
-  c.basic_auth_credentials ENV['SWAGGER_USER'], ENV['SWAGGER_PASS']
+  c.basic_auth_credentials ENV.fetch('SWAGGER_USER', nil), ENV.fetch('SWAGGER_PASS', nil)
 end
