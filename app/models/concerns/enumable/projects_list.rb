@@ -35,6 +35,15 @@ module Enumable
         pre_invest: 'Pre Invest',
         overbuild: 'Overbuild'
       }
+
+      enum confirmation_status: {
+        new_offer: 'New',
+        negotiation: 'Negotiation',
+        offered: 'Offered',
+        signed: 'Signed',
+        internal_clarification: 'Internal Clarification',
+        customer_not_interested: 'Customer Not Interested'
+      }
     end
   end
 end
