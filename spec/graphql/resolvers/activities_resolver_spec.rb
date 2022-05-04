@@ -425,6 +425,7 @@ RSpec.describe Resolvers::ActivitiesResolver do
             query(trackable_id: param[:trackable_id], query: param[:name]),
             current_user: super_user
           )
+
           expect(activities.pluck('displayText')).to eq(
             [
               t('activities.project.project_created.owner',
