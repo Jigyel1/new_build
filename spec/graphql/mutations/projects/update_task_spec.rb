@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::Projects::UpdateTask do
-  let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
+  let_it_be(:super_user) { create(:user, :super_user) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:project) { create(:project) }
   let_it_be(:building) { create(:building, project: project) }
-  let_it_be(:task) { create(:task, taskable: building, assignee: kam, owner: super_user) }
+  let_it_be(:task) { create(:task, taskable: building, assignee: super_user, owner: super_user) }
 
   describe '.resolve' do
     context 'with valid params' do

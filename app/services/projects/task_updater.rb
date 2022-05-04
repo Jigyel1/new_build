@@ -6,7 +6,7 @@ module Projects
     delegate :taskable, to: :task
 
     def call
-      authorize! project, to: :update?
+      authorize! project, to: :assignee?
 
       with_tracking { task.update!(attributes) }
     end

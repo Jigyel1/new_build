@@ -32,6 +32,10 @@ class ProjectPolicy < ApplicationPolicy
     update? || incharge?
   end
 
+  def assignee?
+    user == record.assignee
+  end
+
   private
 
   def incharge?
