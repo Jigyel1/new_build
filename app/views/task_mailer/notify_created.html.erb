@@ -16,7 +16,7 @@
   </tr>
   <tr>
     <td>
-      <p class="my-0">You have been assigned the task <%=@task.title %> for <%= @task.taskable.name %> project by <span class="text--capitalize"><%= @task.owner.name %></span>
+      <p class="my-0">You have been assigned the task <%=@task.title %> for <%= @task.taskable.name %> project, "<%= @project.decorate.formatted_address(@project.address) %>" by <span class="text--capitalize"><%= @task.owner.name %></span>
       </p>
     </td>
   </tr>
