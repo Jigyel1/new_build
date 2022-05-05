@@ -40,6 +40,7 @@ module Projects
     end
 
     def notify_assigned(assignee_id)
+      binding.pry
       ProjectMailer.notify_assigned(:assignee, assignee_id, project.id, current_user.id).deliver_later
     end
 
