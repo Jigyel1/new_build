@@ -33,7 +33,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def assignee?
-    user == record.assignee
+    (user == record.assignee) || update?
   end
 
   private
