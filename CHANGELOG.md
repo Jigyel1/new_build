@@ -1,8 +1,15 @@
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
+
+## [1.7.2] - 2022-05-09
+
+### Fixes
+- Email redirection to project link added.
+- Name not displayed in invitation email fix.
 
 ## [1.7.1] - 2022-04-07
 
