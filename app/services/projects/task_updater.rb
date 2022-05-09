@@ -6,15 +6,9 @@ module Projects
     delegate :taskable, to: :task
 
     def call
-      authorize! project, to: :assignee?
+      authorize! project, to: :update?
 
-      with_tracking do
-        if attributes[:status] == task.status
-          task.update!(attributes)
-        else
-          task.update!(status: attributes[:status])
-        end
-      end
+      with_tracking { task.update!(attributes) }
     end
 
     def activity_params
