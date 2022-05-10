@@ -6,11 +6,11 @@ class TaskMailer < ApplicationMailer
   end
 
   def notify_before_due_date(user_id, tasks)
-    notify(user_id, tasks, nil, nil,:notify_before_due_date)
+    notify(user_id, tasks, nil, nil, :notify_before_due_date)
   end
 
   def notify_on_due_date(user_id, tasks)
-    notify(user_id, tasks, nil, nil,:notify_on_due_date)
+    notify(user_id, tasks, nil, nil, :notify_on_due_date)
   end
 
   private
