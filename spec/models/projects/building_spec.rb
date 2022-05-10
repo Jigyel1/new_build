@@ -5,7 +5,6 @@ require 'rails_helper'
 RSpec.describe Projects::Building, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:project).counter_cache(true) }
-    it { is_expected.to belong_to(:assignee).required(false) }
     it { is_expected.to have_one(:address) }
     it { is_expected.to have_many(:tasks).dependent(:destroy) }
     it { is_expected.to accept_nested_attributes_for(:address) }

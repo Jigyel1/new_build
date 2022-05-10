@@ -25,7 +25,6 @@ RSpec.describe Mutations::Projects::CreateBuilding do
           city: 'Port Rosemary',
           zip: '31471'
         )
-        expect(response.building.assignee).to have_attributes(id: super_user.id, name: super_user.name)
         expect(project.reload.apartments_count).to eq(52)
       end
     end
@@ -71,7 +70,6 @@ RSpec.describe Mutations::Projects::CreateBuilding do
             attributes: {
               projectId: "#{project.id}"
               name: "#{args[:name]}"
-              assigneeId: "#{super_user.id}"
               moveInStartsOn: "#{Date.current + 3.months}"
               apartmentsCount: #{apartments}
               #{address}
@@ -82,7 +80,6 @@ RSpec.describe Mutations::Projects::CreateBuilding do
           building {
             id name apartmentsCount moveInStartsOn
             address { id streetNo street city zip}
-            assignee { id name }
           }
         }
       }

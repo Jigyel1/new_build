@@ -3,7 +3,6 @@
 FactoryBot.define do
   factory :building, class: 'Projects::Building' do
     name { Faker::Lorem.word }
-    assignee { nil }
     apartments_count { 1 }
 
     after(:build) do |building|

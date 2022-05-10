@@ -276,11 +276,21 @@ RSpec.describe Resolvers::ProjectsResolver do
         expect(projects.pluck(:id)).to match_array([project_b.id])
       end
     end
+
+    context 'with address filter' do
+      let!(:address) { true }
+
+      it 'returns projects in ascending order with respect to project address' do
+        projects, errors = paginated_collection(:projects, query(address: address), current_user: super_user)
+        expect(errors).to be_nil
+        expect(projects.pluck(:id)).to eq([project_c.id, project_b.id, project_a.id])
+      end
+    end
   end
 
   def query(args = {})
     response = <<~RESPONSE
-      id externalId projectNr name status category priority constructionType apartmentsCount labelList
+      id externalId projectNr name status category priority constructionType apartmentsCount labelList address
       moveInStartsOn moveInEndsOn buildingsCount lotNumber address investor assignee kamRegion kamAssignee confirmationStatus
     RESPONSE
 

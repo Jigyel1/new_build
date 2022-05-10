@@ -42,6 +42,7 @@ module Types
     field :site_address, GraphQL::Types::JSON, null: true
     field :exceeding_cost, Float, null: true
     field :file_upload, Boolean, null: true
+    field :additional_comments, String, null: true
 
     field(
       :move_in_starts_on,

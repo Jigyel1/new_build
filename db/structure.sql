@@ -456,7 +456,10 @@ CREATE TABLE public.activities (
     action character varying NOT NULL,
     log_data text DEFAULT ''::text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    project_id character varying,
+    project_external_id character varying,
+    os_id character varying
 );
 
 
@@ -864,7 +867,8 @@ CREATE TABLE public.projects (
     confirmation_status character varying,
     description_on_other character varying,
     prio_status character varying,
-    kam_assignee_name character varying
+    kam_assignee_name character varying,
+    additional_comments text
 );
 
 
@@ -905,7 +909,6 @@ CREATE TABLE public.projects_buildings (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     name character varying,
     external_id character varying,
-    assignee_id uuid,
     project_id uuid NOT NULL,
     apartments_count integer DEFAULT 0 NOT NULL,
     move_in_starts_on date,
@@ -1768,13 +1771,6 @@ CREATE INDEX index_projects_buildings_on_additional_details ON public.projects_b
 
 
 --
--- Name: index_projects_buildings_on_assignee_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_projects_buildings_on_assignee_id ON public.projects_buildings USING btree (assignee_id);
-
-
---
 -- Name: index_projects_buildings_on_discarded_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2061,14 +2057,6 @@ ALTER TABLE ONLY public.projects_label_groups
 
 
 --
--- Name: projects_buildings fk_rails_34f45f79c2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.projects_buildings
-    ADD CONSTRAINT fk_rails_34f45f79c2 FOREIGN KEY (assignee_id) REFERENCES public.telco_uam_users(id);
-
-
---
 -- Name: projects_address_books fk_rails_39b8a18518; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2342,6 +2330,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220328093946'),
 ('20220330093727'),
 ('20220330101028'),
-('20220330200607');
+('20220330200607'),
+('20220411192300'),
+('20220413101543'),
+('20220413234310');
 
 
