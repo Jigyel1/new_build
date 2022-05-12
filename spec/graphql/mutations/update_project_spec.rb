@@ -15,9 +15,7 @@ RSpec.describe Mutations::UpdateProject do
       let!(:params) { { status: 'Technical Analysis', assignee_id: kam.id, kam_assignee_id: kam_b.id } }
 
       it 'updates the project' do
-        binding.pry
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)
-        binding.pry
         expect(errors).to be_nil
         expect(response.project).to have_attributes(
           internalId: 'e922833',
