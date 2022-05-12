@@ -867,7 +867,6 @@ CREATE TABLE public.projects (
     confirmation_status character varying,
     description_on_other character varying,
     prio_status character varying,
-    kam_assignee_name character varying,
     additional_comments text
 );
 
@@ -1020,17 +1019,19 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.customer_request,
     addresses.city,
     addresses.zip,
-    projects.kam_assignee_name AS kam_assignee,
     projects.label_list,
     projects.confirmation_status,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
+    concat(kam_profile.firstname, ' ', kam_profile.lastname) AS kam_assignee,
     projects.assignee_id,
+    projects.kam_assignee_id,
     projects_address_books.name AS investor,
     admin_toolkit_kam_regions.name AS kam_region
-   FROM (((((public.projects
+   FROM ((((((public.projects
      LEFT JOIN public.telco_uam_users ON ((telco_uam_users.id = projects.assignee_id)))
      LEFT JOIN public.profiles ON ((profiles.user_id = telco_uam_users.id)))
+     LEFT JOIN public.profiles kam_profile ON ((kam_profile.user_id = projects.kam_assignee_id)))
      LEFT JOIN public.addresses ON (((addresses.addressable_id = projects.id) AND ((addresses.addressable_type)::text = 'Project'::text))))
      LEFT JOIN public.projects_address_books ON (((projects_address_books.project_id = projects.id) AND ((projects_address_books.type)::text = 'Investor'::text))))
      LEFT JOIN public.admin_toolkit_kam_regions ON ((admin_toolkit_kam_regions.id = projects.kam_region_id)))
@@ -2333,6 +2334,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220330200607'),
 ('20220411192300'),
 ('20220413101543'),
-('20220413234310');
+('20220413234310'),
+('20220512081353'),
+('20220512102440');
 
 
