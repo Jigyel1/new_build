@@ -12,7 +12,6 @@ module Hooks
       after_save :update_projects_list, :update_users_list
       after_create :create_default_label_group, :update_status
       after_destroy :update_projects_list, :update_users_list
-      after_update :update_projects_list, :update_users_list
 
       after_discard do
         address_books.discard_all

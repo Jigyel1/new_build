@@ -10,7 +10,6 @@ module Projects
       super do
         with_tracking do
           project.update!(attributes)
-          project.update_columns(kam_assignee_name: project.kam_assignee.try(:name))
         end
       end
     end
