@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Fixes
 - Assigned Person issue in project listing fixed.
+- Project and task mailer name not displayed in email fix
 
 ## [1.9.1] - 2022-05-09
 
