@@ -141,7 +141,6 @@ RSpec.describe Mutations::UpdateProject do
             id status internalId moveInStartsOn gisUrl infoManagerUrl assigneeType buildingType
             assignee { id name }
             kamAssignee { id name }
-            kamAssigneeName
             addressBooks {
               id type name company language email website phone mobile
               address { id street city zip }
