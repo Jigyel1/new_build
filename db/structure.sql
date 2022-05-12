@@ -1024,16 +1024,15 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.confirmation_status,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
-    concat(kam_profile.firstname, ' ', kam_profile.lastname) AS kam_assignee,
+    NULLIF(concat(kam_profile.firstname, ' ', kam_profile.lastname), ' '::text) AS kam_assignee,
     projects.assignee_id,
     projects.kam_assignee_id,
     projects_address_books.name AS investor,
     admin_toolkit_kam_regions.name AS kam_region
-   FROM (((((((public.projects
+   FROM ((((((public.projects
      LEFT JOIN public.telco_uam_users ON ((telco_uam_users.id = projects.assignee_id)))
-     LEFT JOIN public.telco_uam_users kam_user ON ((telco_uam_users.id = projects.kam_assignee_id)))
      LEFT JOIN public.profiles ON ((profiles.user_id = telco_uam_users.id)))
-     LEFT JOIN public.profiles kam_profile ON ((kam_profile.user_id = kam_user.id)))
+     LEFT JOIN public.profiles kam_profile ON ((telco_uam_users.id = projects.kam_assignee_id)))
      LEFT JOIN public.addresses ON (((addresses.addressable_id = projects.id) AND ((addresses.addressable_type)::text = 'Project'::text))))
      LEFT JOIN public.projects_address_books ON (((projects_address_books.project_id = projects.id) AND ((projects_address_books.type)::text = 'Investor'::text))))
      LEFT JOIN public.admin_toolkit_kam_regions ON ((admin_toolkit_kam_regions.id = projects.kam_region_id)))
