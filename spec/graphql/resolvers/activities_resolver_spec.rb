@@ -13,6 +13,8 @@ RSpec.describe Resolvers::ActivitiesResolver do
   let_it_be(:management) { create(:user, :management) }
   let_it_be(:kam) { create(:user, :kam) }
   let_it_be(:kam_a) { create(:user, :kam) }
+  let_it_be(:project) { create(:project, assignee: kam, kam_assignee: kam, project_nr: '2222') }
+  let_it_be(:building) { create(:building, project: project, external_id: '112233') }
   before_all { create_activities }
 
   describe '.resolve' do
@@ -335,6 +337,85 @@ RSpec.describe Resolvers::ActivitiesResolver do
             [
               t('activities.telco.status_updated.owner',
                 recipient_email: management.email, status_text: t('activities.deactivated'))
+            ]
+          )
+        end
+      end
+
+      context 'when queried by projects id' do
+        before do
+          create(
+            :activity,
+            owner: super_user,
+            trackable: project,
+            action: :project_created,
+            log_data: {
+              owner_email: super_user.email,
+              parameters: { entry_type: project.entry_type, project_name: project.name }
+            }
+          )
+        end
+
+        it 'returns logs matching the project id' do
+          activities, errors = paginated_collection(:activities, query(query: '22'), current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.pluck('displayText')).to eq(
+            [
+              t('activities.project.project_created.owner',
+                project_name: project.name)
+            ]
+          )
+        end
+      end
+
+      context 'when queried by projects external id' do
+        before do
+          create(
+            :activity,
+            owner: super_user,
+            trackable: project,
+            action: :project_created,
+            log_data: {
+              owner_email: super_user.email,
+              parameters: { entry_type: project.entry_type, project_name: project.name }
+            }
+          )
+        end
+
+        it 'returns logs matching the project external id' do
+          activities, errors = paginated_collection(:activities, query(query: project.external_id),
+                                                    current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.pluck('displayText')).to eq(
+            [
+              t('activities.project.project_created.owner',
+                project_name: project.name)
+            ]
+          )
+        end
+      end
+
+      context 'when queried by building OS id' do
+        before do
+          create(
+            :activity,
+            owner: super_user,
+            trackable: building,
+            action: :building_created,
+            log_data: {
+              owner_email: super_user.email,
+              parameters: { name: building.name, project_name: building.project_name }
+            }
+          )
+        end
+
+        it 'returns logs matching the building os id' do
+          activities, errors = paginated_collection(:activities, query(query: '112233'), current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.pluck('displayText')).to eq(
+            [
+              t('activities.projects.building_created.owner',
+                name: building.name, project_name: project.name)
             ]
           )
         end

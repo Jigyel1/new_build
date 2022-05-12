@@ -456,7 +456,10 @@ CREATE TABLE public.activities (
     action character varying NOT NULL,
     log_data text DEFAULT ''::text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    project_id character varying,
+    project_external_id character varying,
+    os_id character varying
 );
 
 
@@ -2329,6 +2332,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220330101028'),
 ('20220330200607'),
 ('20220411192300'),
-('20220413101543');
+('20220413101543'),
+('20220413234310');
 
 
