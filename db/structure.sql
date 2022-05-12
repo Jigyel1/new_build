@@ -1024,7 +1024,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.confirmation_status,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
-    COALESCE(NULLIF(concat(kam_profile.firstname, ' ', kam_profile.lastname), ' '::text)) AS kam_assignee,
+    concat(kam_profile.firstname, ' ', kam_profile.lastname) AS kam_assignee,
     projects.assignee_id,
     projects.kam_assignee_id,
     projects_address_books.name AS investor,

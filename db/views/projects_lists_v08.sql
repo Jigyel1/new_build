@@ -32,9 +32,8 @@ SELECT projects.id                                              AS id,
          projects.assignee_type
        )                                                        AS assignee,
 
-       coalesce(
-         NULLIF(CONCAT(kam_profile.firstname, ' ', kam_profile.lastname), ' ')
-       )                                                        AS kam_assignee,
+
+       CONCAT(kam_profile.firstname, ' ', kam_profile.lastname) AS kam_assignee,
 
        projects.assignee_id                                     AS assignee_id,
        projects.kam_assignee_id                                 AS kam_assignee_id,
