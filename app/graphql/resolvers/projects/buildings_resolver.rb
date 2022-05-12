@@ -24,10 +24,9 @@ module Resolvers
 
       def apply_search(scope, value)
         scope
-          .left_joins(:address, assignee: :profile)
+          .left_joins(:address)
           .where(
             "CONCAT_WS(' ', name, external_id, move_in_starts_on,
-            profiles.firstname, profiles.lastname,
             addresses.street, addresses.street_no, addresses.city, addresses.zip
             ) iLIKE ?",
             "%#{value.squish}%"

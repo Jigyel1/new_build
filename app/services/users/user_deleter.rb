@@ -3,7 +3,7 @@
 module Users
   class UserDeleter < BaseService
     TIME_FORMAT = '%Y_%m_%d_%H_%M'
-    ASSOCIATIONS = %i[buildings assigned_tasks projects assigned_projects].freeze
+    ASSOCIATIONS = %i[assigned_tasks projects assigned_projects].freeze
 
     include ActivityHelper
     include UserFinder

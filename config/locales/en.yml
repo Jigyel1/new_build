@@ -132,12 +132,14 @@ en:
       status: Status
       kam: Responsible Sales Person
       assigned: Assigned Person
+      incharge: Technical Incharge
       move_in: Move In
       construction: Construction Starts from
       buildings_count_title: No. of buildings
       apartments_count_title: No. of Apartments
       file_upload: File Upload
       analysis_title: Analysis
+      comment: Comment
       customer_planned_inhouse_title: Customer Planned Inhouse
       priority:
         title: Project Priority
@@ -147,7 +149,7 @@ en:
         title: Project Category
       access_tech:
         title: Preferred Access Technology
-        third_party: Third Party
+        lease_line: Lease Line
         hfc: HFC
         ftth: FTTH
       construction_type:

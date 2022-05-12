@@ -56,8 +56,8 @@ RSpec.describe Resolvers::UserResolver do
       let_it_be(:project_a) { create(:project, incharge: super_user, assignee: kam) }
       let_it_be(:project_b) { create(:project, incharge: kam, assignee: kam) }
 
-      let_it_be(:building_a) { create(:building, project: project_a, assignee: kam) }
-      let_it_be(:building_b) { create(:building, project: project_a, assignee: super_user) }
+      let_it_be(:building_a) { create(:building, project: project_a) }
+      let_it_be(:building_b) { create(:building, project: project_a) }
 
       let_it_be(:task_a) { create(:task, taskable: building_a, owner: super_user, assignee: kam) }
       let_it_be(:task_b) { create(:task, taskable: building_a, owner: kam, assignee: super_user) }
@@ -70,7 +70,6 @@ RSpec.describe Resolvers::UserResolver do
         user, errors = formatted_response(query(id: kam.id), current_user: super_user, key: :user)
         expect(errors).to be_nil
         expect(user).to have_attributes(
-          buildingsCount: 1,
           projectsCount: 1,
           assignedProjectsCount: 2,
           assignedTasksCount: 2
@@ -112,7 +111,6 @@ RSpec.describe Resolvers::UserResolver do
           name
           projectsCount
           assignedProjectsCount
-          buildingsCount
           assignedTasksCount
           profile { firstname lastname salutation phone department }
           address { streetNo street city zip }
