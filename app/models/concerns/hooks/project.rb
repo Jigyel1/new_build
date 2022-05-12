@@ -49,7 +49,7 @@ module Hooks
     end
 
     def assign_kam_assignee_name
-      self.kam_assignee_name ||= kam_assignee.try(:name)
+      self.kam_assignee_name = kam_assignee.try(:name)
     end
   end
 end
