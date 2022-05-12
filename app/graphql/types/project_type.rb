@@ -106,5 +106,6 @@ module Types
     field :gis_url, String, null: true
     field :info_manager_url, String, null: true
     field :confirmation_status, String, null: true
+    field :kam_assignee_name, String, null: true
   end
 end
