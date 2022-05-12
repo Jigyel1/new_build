@@ -32,7 +32,8 @@ SELECT projects.id                                              AS id,
          projects.assignee_type
        )                                                        AS assignee,
 
-       NULLIF(CONCAT(kam_profile.firstname, ' ', kam_profile.lastname), ' ') AS kam_assignee,
+
+       CONCAT(kam_profile.firstname, ' ', kam_profile.lastname) AS kam_assignee,
 
        projects.assignee_id                                     AS assignee_id,
        projects.kam_assignee_id                                 AS kam_assignee_id,
@@ -42,7 +43,7 @@ SELECT projects.id                                              AS id,
 FROM projects
     LEFT JOIN telco_uam_users ON telco_uam_users.id = projects.assignee_id
     LEFT JOIN profiles ON profiles.user_id = telco_uam_users.id
-    LEFT JOIN profiles as kam_profile ON telco_uam_users.id = projects.kam_assignee_id
+    LEFT JOIN profiles as kam_profile ON kam_profile.user_id = projects.kam_assignee_id
     LEFT JOIN addresses ON addresses.addressable_id = projects.id AND addresses.addressable_type = 'Project'
     LEFT JOIN projects_address_books ON projects_address_books.project_id = projects.id AND projects_address_books.type = 'Investor'
     LEFT JOIN admin_toolkit_kam_regions ON admin_toolkit_kam_regions.id = projects.kam_region_id
