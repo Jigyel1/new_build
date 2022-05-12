@@ -13,7 +13,6 @@ module Mutations
       class CreateBuildingAttributes < Types::BaseInputObject
         argument :name, String, required: false
         argument :project_id, String, required: true
-        argument :assignee_id, String, required: false
         argument :apartments_count, Int, required: true
 
         argument :external_id, String, required: false

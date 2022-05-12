@@ -14,7 +14,6 @@ module Projects
       1.upto(buildings_count) do |index|
         project.buildings.build(
           name: project.site_address[index - 1]['name'],
-          assignee: project.assignee,
           apartments_count: project.site_address[index - 1]['apartments_count'],
           move_in_starts_on: project.site_address[index - 1]['move_in_starts_on'],
           address_attributes: project.site_address[index - 1]['address']

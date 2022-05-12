@@ -19,8 +19,6 @@ module Associations
 
       has_many :projects, foreign_key: :incharge_id, dependent: :restrict_with_exception
       has_many :assigned_projects, foreign_key: :assignee_id, dependent: :restrict_with_exception, class_name: 'Project'
-      has_many :buildings, foreign_key: :assignee_id, dependent: :restrict_with_exception,
-                           class_name: 'Projects::Building'
 
       has_many :kam_investors, foreign_key: :kam_id, dependent: :restrict_with_exception,
                                class_name: 'AdminToolkit::KamInvestor'

@@ -26,7 +26,6 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
           city: 'Port Rosemary',
           zip: '31471'
         )
-        expect(response.building.assignee).to have_attributes(id: super_user.id, name: super_user.name)
       end
 
       it 'propagates move in date changes to the project' do
@@ -87,7 +86,6 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
             attributes: {
               id: "#{building.id}"
               name: "#{args[:name]}"
-              assigneeId: "#{super_user.id}"
               apartmentsCount: #{apartments}
               externalId: "100202"
               moveInStartsOn: "#{Date.current + 1.month}"
@@ -99,7 +97,6 @@ RSpec.describe Mutations::Projects::UpdateBuilding do
           building {
             id name externalId apartmentsCount moveInStartsOn
             address { id streetNo street city zip}
-            assignee { id name }
           }
         }
       }

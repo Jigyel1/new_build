@@ -23,14 +23,13 @@ module Types
     field :kam_investors, [Types::AdminToolkit::KamInvestorType], null: true
 
     field :projects_count, Integer, null: true
-    field :buildings_count, Integer, null: true
     field :assigned_projects_count, Integer, null: true
     field :assigned_tasks_count, Integer, null: true
 
     # This will be used to render appropriate modals in the browser based
     # on the presence or absence of the given association and will only be
     # triggered when deleting a user.
-    %i[projects buildings assigned_projects assigned_tasks].each do |assoc|
+    %i[projects assigned_projects assigned_tasks].each do |assoc|
       define_method "#{assoc}_count" do
         object.public_send(assoc).count
       end
