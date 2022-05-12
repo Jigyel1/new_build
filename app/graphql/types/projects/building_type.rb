@@ -9,7 +9,6 @@ module Types
       field :apartments_count, Int, null: true
       field :move_in_starts_on, String, null: true
 
-      field :assignee, Types::UserType, null: true
       field :address, Types::AddressType, null: true
       field :project, Types::ProjectType, null: true, description: <<~DESC
         Just request for fields that are absolutely necessary. eg. ProjectId, Name etc.
