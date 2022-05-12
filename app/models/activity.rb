@@ -2,6 +2,7 @@
 
 class Activity < ApplicationRecord
   include Accessors::Activity
+  include Hooks::Activity
 
   # Activity `owner` is the one who creates the activity.
   belongs_to :owner, class_name: 'Telco::Uam::User'

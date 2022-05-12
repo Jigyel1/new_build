@@ -61,8 +61,8 @@
     <p class="font-size-16 color--black-87 line-height--24"><%= analysis %></p>
   </div>
   <div class="mb-32">
-    <p class="font-size-18 color--black-60 font--heavy mb-8">Comment</p>
-    <p class="font-size-16 color--black-87 line-height--24">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim aliquam amet sed tempor vitae justo. Non tellus mauris sed blandit vel pellentesque pellentesque fermentum amet. Leo leo risus dolor neque quam augue sed tempus. Nibh tortor tellus sed at consectetur.</p>
+    <p class="font-size-18 color--black-60 font--heavy mb-8"><%= I18n.t('pdf.project.comment') %></p>
+    <p class="font-size-16 color--black-87 line-height--24"><%= project.additional_comments %></p>
   </div>
   <%= render('pdf/buildings', project: project) %>
 

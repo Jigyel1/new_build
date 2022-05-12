@@ -56,9 +56,8 @@ RSpec.describe Mutations::DeleteUser do
       end
     end
 
-    context 'when user has associated projects, buildings & tasks' do
+    context 'when user has associated projects & tasks' do
       let_it_be(:project_a) { create(:project, assignee: team_standard) }
-      let_it_be(:building_a) { create(:building, project: project_a, assignee: team_standard) }
       let_it_be(:project_b) { create(:project, assignee: team_standard, incharge: team_standard) }
       let_it_be(:project_c) { create(:project, incharge: team_standard) }
 
@@ -87,7 +86,6 @@ RSpec.describe Mutations::DeleteUser do
           expect(errors).to be_nil
 
           expect(project_a.reload.assignee_id).to eq(super_user.id)
-          expect(building_a.reload.assignee_id).to eq(super_user.id)
           expect(project_b.reload).to have_attributes(assignee_id: super_user.id, incharge_id: super_user.id)
           expect(project_c.reload.incharge_id).to eq(super_user.id)
 
