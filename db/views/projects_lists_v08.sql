@@ -32,7 +32,6 @@ SELECT projects.id                                              AS id,
          projects.assignee_type
        )                                                        AS assignee,
 
-
        CONCAT(kam_profile.firstname, ' ', kam_profile.lastname) AS kam_assignee,
 
        projects.assignee_id                                     AS assignee_id,
