@@ -71,7 +71,7 @@ RSpec.describe Resolvers::ProjectsResolver do
         projects, errors = paginated_collection(:projects, query, current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_a.id, project_b.id, project_c.id])
-        expect(projects.first.dig('investor')).to eq(project_a.address_books[0][:name])
+        expect(projects.first['investor']).to eq(project_a.address_books[0][:name])
       end
 
       it 'returns count of each project status' do
