@@ -21,7 +21,7 @@ module Projects
     delegate :name, to: :project, prefix: true
 
     before_validation :set_display_name
-    after_destroy :update_projects_list
+    after_destroy :update_projects_list, :update_users_list
     after_save :update_projects_list, :update_users_list
 
     default_scope { kept }
