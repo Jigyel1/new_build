@@ -7,11 +7,12 @@ RSpec.describe Mutations::UpdateProject do
 
   let_it_be(:super_user) { create(:user, :super_user, with_permissions: { project: :update }) }
   let_it_be(:kam) { create(:user, :kam) }
+  let_it_be(:kam_b) { create(:user, :kam) }
   let_it_be(:project) { create(:project, assignee: kam, kam_assignee: kam) }
 
   describe '.resolve' do
     context 'with valid params' do
-      let!(:params) { { status: 'Technical Analysis', assignee_id: kam.id } }
+      let!(:params) { { status: 'Technical Analysis', assignee_id: kam.id, kam_assignee_id: kam_b.id } }
 
       it 'updates the project' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updateProject)

@@ -341,6 +341,85 @@ RSpec.describe Resolvers::ActivitiesResolver do
           )
         end
       end
+
+      context 'when queried by projects id' do
+        before do
+          create(
+            :activity,
+            owner: super_user,
+            trackable: project,
+            action: :project_created,
+            log_data: {
+              owner_email: super_user.email,
+              parameters: { entry_type: project.entry_type, project_name: project.name }
+            }
+          )
+        end
+
+        it 'returns logs matching the project id' do
+          activities, errors = paginated_collection(:activities, query(query: '22'), current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.pluck('displayText')).to eq(
+            [
+              t('activities.project.project_created.owner',
+                project_name: project.name)
+            ]
+          )
+        end
+      end
+
+      context 'when queried by projects external id' do
+        before do
+          create(
+            :activity,
+            owner: super_user,
+            trackable: project,
+            action: :project_created,
+            log_data: {
+              owner_email: super_user.email,
+              parameters: { entry_type: project.entry_type, project_name: project.name }
+            }
+          )
+        end
+
+        it 'returns logs matching the project external id' do
+          activities, errors = paginated_collection(:activities, query(query: project.external_id),
+                                                    current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.pluck('displayText')).to eq(
+            [
+              t('activities.project.project_created.owner',
+                project_name: project.name)
+            ]
+          )
+        end
+      end
+
+      context 'when queried by building OS id' do
+        before do
+          create(
+            :activity,
+            owner: super_user,
+            trackable: building,
+            action: :building_created,
+            log_data: {
+              owner_email: super_user.email,
+              parameters: { name: building.name, project_name: building.project_name }
+            }
+          )
+        end
+
+        it 'returns logs matching the building os id' do
+          activities, errors = paginated_collection(:activities, query(query: '112233'), current_user: super_user)
+          expect(errors).to be_nil
+          expect(activities.pluck('displayText')).to eq(
+            [
+              t('activities.projects.building_created.owner',
+                name: building.name, project_name: project.name)
+            ]
+          )
+        end
+      end
     end
 
     describe 'performance benchmarks' do

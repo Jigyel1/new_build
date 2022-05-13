@@ -4,7 +4,6 @@ module Projects
   class Building < ApplicationRecord
     include Discard::Model
 
-    belongs_to :assignee, class_name: 'Telco::Uam::User', optional: true
     belongs_to :project, counter_cache: true
 
     has_one :address, as: :addressable, dependent: :destroy

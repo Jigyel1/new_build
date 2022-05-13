@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.9.0] - 2022-04-26
+## [2.1.0] - 2022-04-26
 
 ### Features
 - Added new field strategic partners in admintoolkit penetrations.
@@ -12,15 +12,56 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Fixes
 - Added move in date in project level.
 
-## [1.8.1] - 2022-04-26
+## [2.0.1] - 2022-04-26
 
 ### Fixes
 - Third_party logic update.
 
-## [1.7.0] - 2022-04-26
+## [2.0.0] - 2022-04-26
 
 ### Features
 - Trackable id filter added to activities resolver.
+
+
+## [1.9.2] - 2022-05-12
+
+### Fixes
+- Assigned Person issue in project listing fixed.
+- Project and task mailer name not displayed in email fix
+
+## [1.9.1] - 2022-05-09
+
+### Fixes
+- Email redirection to project link added.
+- Name not displayed in invitation email fix.
+
+## [1.9.0] - 2022-04-16
+
+### Features
+- Search filter support for SELISE_ID and OS_ID added to activities resolver.
+- PDF comment section mapping.
+
+### Tasks
+```ruby
+rake activity:populate
+```
+
+## [1.8.2] - 2022-04-16
+
+### Fixes
+- Removed assignee from building section.
+
+## [1.8.1] - 2022-04-16
+
+### Fixes
+- Renaming third_party access technology to 'Lease Line'.
+
+## [1.8.0] - 2022-04-16
+
+### Features
+- Added new enum to confirmation_status 'Internal Clarification'
+- Added additional comment section to projects in TA state.
+- Projects sorting filter for address.
 
 ## [1.7.1] - 2022-04-07
 
