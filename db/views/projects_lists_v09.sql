@@ -19,6 +19,7 @@ SELECT projects.id                                              AS id,
        addresses.zip                                            AS zip,
        projects.label_list                                      AS label_list,
        projects.confirmation_status                             AS confirmation_status,
+       projects.strategic_partner                               AS strategic_partner,
 
        CONCAT(
          addresses.street, ' ',
