@@ -38,7 +38,7 @@ RSpec.describe Mutations::ExportActivities do
         )
       end
 
-      let(:param) {{ trackable_id: project.id, user_id: super_user.id }}
+      let(:param) { { trackable_id: project.id, user_id: super_user.id } }
 
       it 'exports projects specific to trackable id and user id' do
         response, errors = formatted_response(query(param), current_user: super_user, key: :exportActivities)
