@@ -29,6 +29,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     )
   end
 
+  let_it_be(:address_book_a) { create(:address_book, project: project_a) }
   let_it_be(:address_b) { build(:address, street: 'Keenan Parkway', city: 'Andrealand', zip: '58710') }
   let_it_be(:project_b) do
     create(
@@ -46,6 +47,7 @@ RSpec.describe Resolvers::ProjectsResolver do
     )
   end
 
+  let_it_be(:address_book_b) { create(:address_book, project: project_b) }
   let_it_be(:address_c) { build(:address, street: 'Block Plains', city: 'Anastasiabury', zip: '47736') }
   let_it_be(:project_c) do
     create(
@@ -61,12 +63,15 @@ RSpec.describe Resolvers::ProjectsResolver do
     )
   end
 
+  let_it_be(:address_book_c) { create(:address_book, project: project_c) }
+
   describe '.resolve' do
     context 'without filters' do
       it 'returns all projects' do
         projects, errors = paginated_collection(:projects, query, current_user: super_user)
         expect(errors).to be_nil
         expect(projects.pluck(:id)).to match_array([project_a.id, project_b.id, project_c.id])
+        expect(projects.first['investor']).to eq(project_a.address_books[0][:name])
       end
 
       it 'returns count of each project status' do

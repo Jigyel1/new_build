@@ -19,7 +19,6 @@ SELECT projects.id                                              AS id,
        addresses.zip                                            AS zip,
        projects.label_list                                      AS label_list,
        projects.confirmation_status                             AS confirmation_status,
-       projects.strategic_partner                               AS strategic_partner,
 
        CONCAT(
          addresses.street, ' ',
@@ -45,7 +44,7 @@ FROM projects
     LEFT JOIN profiles ON profiles.user_id = telco_uam_users.id
     LEFT JOIN profiles as kam_profile ON kam_profile.user_id = projects.kam_assignee_id
     LEFT JOIN addresses ON addresses.addressable_id = projects.id AND addresses.addressable_type = 'Project'
-    LEFT JOIN projects_address_books ON projects_address_books.project_id = projects.id AND projects_address_books.type = 'Investor'
+    LEFT JOIN projects_address_books ON projects_address_books.project_id = projects.id AND projects_address_books.type = 'Building Owner'
     LEFT JOIN admin_toolkit_kam_regions ON admin_toolkit_kam_regions.id = projects.kam_region_id
 
 WHERE projects.discarded_at IS NULL

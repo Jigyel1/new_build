@@ -1023,7 +1023,6 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     addresses.zip,
     projects.label_list,
     projects.confirmation_status,
-    projects.strategic_partner,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
     concat(kam_profile.firstname, ' ', kam_profile.lastname) AS kam_assignee,
@@ -1036,7 +1035,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
      LEFT JOIN public.profiles ON ((profiles.user_id = telco_uam_users.id)))
      LEFT JOIN public.profiles kam_profile ON ((kam_profile.user_id = projects.kam_assignee_id)))
      LEFT JOIN public.addresses ON (((addresses.addressable_id = projects.id) AND ((addresses.addressable_type)::text = 'Project'::text))))
-     LEFT JOIN public.projects_address_books ON (((projects_address_books.project_id = projects.id) AND ((projects_address_books.type)::text = 'Investor'::text))))
+     LEFT JOIN public.projects_address_books ON (((projects_address_books.project_id = projects.id) AND ((projects_address_books.type)::text = 'Building Owner'::text))))
      LEFT JOIN public.admin_toolkit_kam_regions ON ((admin_toolkit_kam_regions.id = projects.kam_region_id)))
   WHERE (projects.discarded_at IS NULL)
   ORDER BY projects.move_in_starts_on
@@ -2341,7 +2340,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220421174202'),
 ('20220503111729'),
 ('20220503115152'),
+('20220512081353'),
 ('20220512102440'),
-('20220513055242');
+('20220513055242'),
+('20220513095430');
 
 
