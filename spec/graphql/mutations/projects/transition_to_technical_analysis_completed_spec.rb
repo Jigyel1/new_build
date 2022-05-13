@@ -306,12 +306,12 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       end
     end
 
-    context 'when third party access technology is selected for standard projects' do
+    context 'when lease Line access technology is selected for standard projects' do
       it 'sets the project priority directly to prio 1' do
         response, errors = formatted_response(
           query(
             connection_costs: '{ connectionType: "hfc", costType: "standard" }',
-            access_technology: 'third_party'
+            access_technology: 'lease_line'
           ),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted
@@ -321,7 +321,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
       end
     end
 
-    context 'when third party access technology is selected for complex projects' do
+    context 'when lease line access technology is selected for complex projects' do
       before { project.update_column(:category, :complex) }
 
       it 'sets the project priority directly to prio 1' do
@@ -338,7 +338,7 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
                 costType: "standard"
               }
             ',
-            access_technology: 'third_party'
+            access_technology: 'lease_line'
           ),
           current_user: super_user,
           key: :transitionToTechnicalAnalysisCompleted

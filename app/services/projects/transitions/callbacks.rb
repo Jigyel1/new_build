@@ -88,7 +88,7 @@ module Projects
       end
 
       def pct_status
-        project.third_party? ? 'Prio 1' : AdminToolkit::PctValue.statuses[pct_value.status]
+        project.lease_line? ? 'Prio 1' : AdminToolkit::PctValue.statuses[pct_value.status]
       end
 
       def update_exceeding_cost

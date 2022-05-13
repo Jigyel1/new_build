@@ -37,6 +37,13 @@ module Resolvers
       construction_type, lot_number, address, assignee, investor, kam_region
     DESC
 
+    option(:lot_number, type: Boolean) { |scope, value| sort_projects(scope, value, 'lot_number') }
+    option(:investor, type: Boolean) { |scope, value| sort_projects(scope, value, 'investor') }
+    option(:assignee, type: Boolean) { |scope, value| sort_projects(scope, value, 'assignee') }
+    option(:kam_assignee, type: Boolean) { |scope, value| sort_projects(scope, value, 'kam_assignee') }
+    option(:address, type: Boolean) { |scope, value| sort_projects(scope, value, 'address') }
+    option(:address, type: Boolean) { |scope, value| sort_projects(scope, value, 'address') }
+
     def apply_buildings_filter(scope, value)
       apply_range_filter(scope, :buildings_count, value)
     end
