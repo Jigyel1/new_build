@@ -4,7 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.8.0] - 2022-04-26
+## [1.9.0] - 2022-04-26
+
+### Features
+- Added new field strategic partners in admintoolkit penetrations.
+
+### Fixes
+- Added move in date in project level.
+
+## [1.8.1] - 2022-04-26
+
+### Fixes
+- Third_party logic update.
+
+## [1.7.0] - 2022-04-26
 
 ### Features
 - Trackable id filter added to activities resolver.

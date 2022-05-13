@@ -80,11 +80,15 @@ module Projects
       def update_label # rubocop:disable Metrics/AbcSize
         default_label_group.label_list.delete_if { |label| AdminToolkit::PctValue.statuses.value?(label) }
 
-        default_label_group.label_list << AdminToolkit::PctValue.statuses[pct_value.status]
-        project.update!(prio_status: AdminToolkit::PctValue.statuses[pct_value.status])
+        default_label_group.label_list << pct_status
+        project.update!(prio_status: pct_status)
         default_label_group.save!
       rescue StandardError => e
         raise(t('projects.transition.error_while_adding_label', error: e.message))
+      end
+
+      def pct_status
+        project.third_party? ? 'Prio 1' : AdminToolkit::PctValue.statuses[pct_value.status]
       end
 
       def update_exceeding_cost

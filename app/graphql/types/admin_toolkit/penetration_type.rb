@@ -10,6 +10,7 @@ module Types
       field :kam_region, KamRegionType, null: true
       field :hfc_footprint, Boolean, null: true
       field :type, String, null: true
+      field :strategic_partner, String, null: true
 
       field(
         :penetration_competitions,

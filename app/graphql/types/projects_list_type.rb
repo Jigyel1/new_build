@@ -25,6 +25,7 @@ module Types
     field :kam_region, String, null: true
     field :label_list, [String], null: true
     field :confirmation_status, String, null: true
+    field :strategic_partner, String, null: true
     field :draft_version, GraphQL::Types::JSON, null: true
   end
 end
