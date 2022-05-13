@@ -10,7 +10,7 @@ module Penetrations
     using TextFormatter
 
     # Don't change the order!
-    HEADERS = %i[zip city rate kam_region_id hfc_footprint type].freeze
+    HEADERS = %i[zip city rate kam_region_id hfc_footprint type strategic_partner].freeze
 
     def process(row)
       format_each(row)

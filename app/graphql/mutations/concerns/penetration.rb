@@ -13,6 +13,7 @@ module Mutations
         argument :kam_region_id, GraphQL::Types::ID, required: false
         argument :hfc_footprint, GraphQL::Types::Boolean, required: false
         argument :type, String, required: false
+        argument :strategic_partner, String, required: false
       end
     end
   end

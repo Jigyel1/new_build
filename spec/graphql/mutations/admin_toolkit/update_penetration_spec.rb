@@ -25,7 +25,12 @@ RSpec.describe Mutations::AdminToolkit::UpdatePenetration do
       it 'updates the penetration record' do
         response, errors = formatted_response(query(params), current_user: super_user, key: :updatePenetration)
         expect(errors).to be_nil
-        expect(response.penetration).to have_attributes(zip: '8602', city: 'Wangen-Brüttisellen', rate: 4.5)
+        expect(response.penetration).to have_attributes(
+          zip: '8602',
+          city: 'Wangen-Brüttisellen',
+          rate: 4.5,
+          strategicPartner: 'isen_tiefbau'
+        )
 
         expect(response.penetration.penetrationCompetitions.size).to eq(1)
         competition = response.penetration.penetrationCompetitions.dig(0, :competition)
@@ -83,6 +88,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePenetration do
               zip: "#{args[:zip]}"
               city: "Wangen-Brüttisellen"
               rate: #{args[:rate] || 4.5}
+              strategicPartner: "isen_tiefbau"
               #{penetration_competitions}
             }
           }
@@ -90,7 +96,7 @@ RSpec.describe Mutations::AdminToolkit::UpdatePenetration do
         {
           penetration {
             id zip city rate hfcFootprint type kamRegion { id kam { name } }
-            penetrationCompetitions { id competition { id name } }
+            penetrationCompetitions { id competition { id name } } strategicPartner
           }
         }
       }

@@ -713,7 +713,8 @@ CREATE TABLE public.admin_toolkit_penetrations (
     hfc_footprint boolean NOT NULL,
     type character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    strategic_partner character varying
 );
 
 
@@ -864,7 +865,8 @@ CREATE TABLE public.projects (
     confirmation_status character varying,
     description_on_other character varying,
     prio_status character varying,
-    kam_assignee_name character varying
+    kam_assignee_name character varying,
+    strategic_partner character varying
 );
 
 
@@ -1020,6 +1022,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     projects.kam_assignee_name AS kam_assignee,
     projects.label_list,
     projects.confirmation_status,
+    projects.strategic_partner,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
     projects.assignee_id,
@@ -2342,6 +2345,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220328093946'),
 ('20220330093727'),
 ('20220330101028'),
-('20220330200607');
+('20220330200607'),
+('20220421174202'),
+('20220503111729'),
+('20220503115152');
 
 
