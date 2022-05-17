@@ -8,9 +8,9 @@ module Hooks
 
     included do
       before_save :set_kam_region
-      before_create :set_external_urls, :set_competition
-      after_save :update_projects_list, :update_users_list
-      after_create :create_default_label_group, :update_status, :update_strategic_partner
+      before_create :set_external_urls, :set_competition, :set_strategic_partner
+      after_save :update_projects_list, :update_users_list, :set_strategic_partner
+      after_create :create_default_label_group, :update_status
       after_destroy :update_projects_list, :update_users_list
 
       after_discard do
@@ -48,8 +48,9 @@ module Hooks
       self.competition ||= ::Projects::CompetitionSetter.new(project: self).call
     end
 
-    def update_strategic_partner
-      update(strategic_partner: AdminToolkit::Penetration.find_by(zip: zip).try(:strategic_partner))
+    def set_strategic_partner
+      self.strategic_partner = AdminToolkit::Penetration.find_by(zip: zip).try(:strategic_partner)
+      self.save!
     end
   end
 end
