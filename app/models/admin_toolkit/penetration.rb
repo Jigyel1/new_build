@@ -2,6 +2,8 @@
 
 module AdminToolkit
   class Penetration < ApplicationRecord
+    # include Hooks::Penetration
+
     self.inheritance_column = nil
 
     belongs_to :kam_region, class_name: 'AdminToolkit::KamRegion'
@@ -28,5 +30,15 @@ module AdminToolkit
     }
 
     default_scope { order(:zip) }
+
+    after_save :update_project!
+
+    private
+
+    def update_project!
+      Address.where(zip: zip, addressable_type: "Project").find_each do |address|
+        address.addressable.update(strategic_partner: strategic_partner)
+      end
+    end
   end
 end
