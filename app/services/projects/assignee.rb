@@ -52,6 +52,8 @@ module Projects
     end
 
     def notify_assignee
+      return if current_user.id == project.assignee_id
+
       ProjectMailer.notify_project_assigned(project.assignee_id, project.id).deliver_later
     end
   end
