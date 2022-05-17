@@ -9,11 +9,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Feature
 - Trackable id support added to csv activity exports.
 
-### Tasks
-```ruby
-rake strategic_partner:populate
-```
-
 ## [2.1.0] - 2022-04-26
 
 ### Features
