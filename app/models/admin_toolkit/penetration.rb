@@ -31,7 +31,8 @@ module AdminToolkit
 
     default_scope { order(:zip) }
 
-    after_save :update_project!
+    after_save :update_project!, :update_projects_list
+    after_destroy :update_project!, :update_projects_list
 
     private
 
