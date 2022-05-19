@@ -21,7 +21,7 @@ RSpec.describe Mutations::CreateProject do
       :hfc_footprint,
       zip: '8008',
       kam_region: kam_region,
-      strategic_partner: :cable_group_ag,
+      strategic_partner: :cable_group,
       penetration_competitions: [build(:penetration_competition, competition: create(:admin_toolkit_competition))]
     )
   end

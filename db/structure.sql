@@ -767,8 +767,8 @@ CREATE TABLE public.ar_internal_metadata (
 
 CREATE TABLE public.favourite_filters (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    filterable_type character varying NOT NULL,
-    filterable_id uuid NOT NULL,
+    filterable_type character varying,
+    filterable_id uuid,
     name character varying NOT NULL,
     filter_type character varying DEFAULT 'Private'::character varying NOT NULL,
     filter jsonb DEFAULT '{}'::jsonb NOT NULL,

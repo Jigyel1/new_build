@@ -36,8 +36,11 @@ RSpec.describe AdminToolkit::Penetration, type: :model do
 
     it do
       expect(subject).to define_enum_for(:strategic_partner).with_values( # rubocop:disable RSpec/NamedSubject
-        cable_group_ag: 'Cable Group AG',
-        isen_tiefbau: 'Isen Tiefbau'
+        cable_group: 'Cable Group',
+        isen_tiefbau: 'Isen Tiefbau',
+        cable_zh: 'Cablex ZH',
+        cablex_romandie: 'Cablex Romandie',
+        cablex_ticino: 'Cablex Ticino'
       ).backed_by_column_of_type(:string)
     end
   end
