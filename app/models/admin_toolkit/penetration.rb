@@ -2,8 +2,6 @@
 
 module AdminToolkit
   class Penetration < ApplicationRecord
-    # include Hooks::Penetration
-
     self.inheritance_column = nil
 
     belongs_to :kam_region, class_name: 'AdminToolkit::KamRegion'
