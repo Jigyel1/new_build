@@ -25,7 +25,7 @@ module AdminToolkit
     enum strategic_partner: {
       cable_group: 'Cable Group',
       isen_tiefbau: 'Isen Tiefbau',
-      cable_zh: 'Cablex ZH',
+      cablex_zh: 'Cablex ZH',
       cablex_romandie: 'Cablex Romandie',
       cablex_ticino: 'Cablex Ticino'
     }
