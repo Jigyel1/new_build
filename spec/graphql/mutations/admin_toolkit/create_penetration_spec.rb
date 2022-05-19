@@ -21,7 +21,7 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
           rate: 19.22,
           type: 'land',
           hfcFootprint: false,
-          strategicPartner: 'cable_group_ag'
+          strategicPartner: 'cable_group'
         )
 
         expect(response.penetration.kamRegion.name).to eq(kam_region.name)
@@ -73,7 +73,7 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
               kamRegionId: "#{kam_region.id}"
               type: "Land"
               hfcFootprint: false
-              strategicPartner: "cable_group_ag"
+              strategicPartner: "cable_group"
               #{penetration_competitions}
             }
           }
