@@ -762,23 +762,6 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
--- Name: favourite_filters; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.favourite_filters (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    filterable_type character varying,
-    filterable_id uuid,
-    name character varying NOT NULL,
-    filter_type character varying DEFAULT 'Private'::character varying NOT NULL,
-    filter jsonb DEFAULT '{}'::jsonb NOT NULL,
-    creator_id uuid NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
 -- Name: permissions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1366,14 +1349,6 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
--- Name: favourite_filters favourite_filters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.favourite_filters
-    ADD CONSTRAINT favourite_filters_pkey PRIMARY KEY (id);
-
-
---
 -- Name: permissions permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1713,20 +1688,6 @@ CREATE UNIQUE INDEX index_admin_toolkit_penetrations_on_zip ON public.admin_tool
 --
 
 CREATE UNIQUE INDEX index_admin_toolkit_project_costs_on_index ON public.admin_toolkit_project_costs USING btree (index);
-
-
---
--- Name: index_favourite_filters_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_favourite_filters_on_creator_id ON public.favourite_filters USING btree (creator_id);
-
-
---
--- Name: index_favourite_filters_on_filterable; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_favourite_filters_on_filterable ON public.favourite_filters USING btree (filterable_type, filterable_id);
 
 
 --
@@ -2108,14 +2069,6 @@ ALTER TABLE ONLY public.projects_address_books
 
 
 --
--- Name: favourite_filters fk_rails_4fcaed5afa; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.favourite_filters
-    ADD CONSTRAINT fk_rails_4fcaed5afa FOREIGN KEY (creator_id) REFERENCES public.telco_uam_users(id);
-
-
---
 -- Name: admin_toolkit_pct_values fk_rails_5300556c7f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2388,10 +2341,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220421174202'),
 ('20220503111729'),
 ('20220503115152'),
-('20220512081353'),
 ('20220512102440'),
 ('20220513095430'),
-('20220513104614'),
-('20220516073610');
+('20220513104614');
 
 
