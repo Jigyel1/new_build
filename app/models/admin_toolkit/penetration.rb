@@ -40,7 +40,7 @@ module AdminToolkit
     def update_project!
       Address.where(zip: zip, addressable_type: 'Project').find_each do |address|
         project = address.addressable
-        project.update(strategic_partner: strategic_partner)
+        project.update!(strategic_partner: strategic_partner)
       end
     end
   end
