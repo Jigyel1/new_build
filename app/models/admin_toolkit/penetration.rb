@@ -31,5 +31,17 @@ module AdminToolkit
     }
 
     default_scope { order(:zip) }
+
+    after_destroy :update_project!, :update_projects_list
+    after_save :update_project!, :update_projects_list
+
+    private
+
+    def update_project!
+      Address.where(zip: zip, addressable_type: 'Project').find_each do |address|
+        project = address.addressable
+        project.update!(strategic_partner: strategic_partner)
+      end
+    end
   end
 end

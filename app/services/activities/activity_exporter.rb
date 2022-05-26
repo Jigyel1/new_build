@@ -9,6 +9,7 @@ module Activities
     def call
       scoped_activities
         .then { |scope| apply_filter(:user_filter, scope, :user_ids) }
+        .then { |scope| apply_filter(:trackable_id_filter, scope, :trackable_id) }
         .then { |scope| apply_filter(:action_filter, scope, :actions) }
         .then { |scope| apply_filter(:date_filter, scope, :dates) }
         .then { |scope| apply_filter(:search, scope, :query) }
