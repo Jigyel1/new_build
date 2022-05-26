@@ -32,7 +32,8 @@ describe PenetrationsImporter do
         rate: 0.00813609467455621,
         kam_region_id: AdminToolkit::KamRegion.find_by!(name: 'West Bern-Seeland').id,
         hfc_footprint: false,
-        type: 'top_city'
+        type: 'top_city',
+        strategic_partner: 'cable_group'
       )
       expect(penetration.competitions.take).to eq(AdminToolkit::Competition.find_by(name: 'FTTH Swisscom'))
     end

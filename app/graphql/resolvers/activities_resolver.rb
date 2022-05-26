@@ -15,6 +15,7 @@ module Resolvers
       be returned. Else the logs between the first two dates will be returned. Date format expected -> '2021-05-06'
     DESC
 
+    option :trackable_id, type: String, with: :apply_trackable_id_filter
     option :query, type: String, with: :apply_search
   end
 end

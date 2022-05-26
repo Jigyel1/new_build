@@ -22,6 +22,26 @@ module AdminToolkit
       med_city: 'Med City'
     }
 
+    enum strategic_partner: {
+      cable_group: 'Cable Group',
+      isen_tiefbau: 'Isen Tiefbau',
+      cablex_zh: 'Cablex ZH',
+      cablex_romandie: 'Cablex Romandie',
+      cablex_ticino: 'Cablex Ticino'
+    }
+
     default_scope { order(:zip) }
+
+    after_destroy :update_project!, :update_projects_list
+    after_save :update_project!, :update_projects_list
+
+    private
+
+    def update_project!
+      Address.where(zip: zip, addressable_type: 'Project').find_each do |address|
+        project = address.addressable
+        project.update!(strategic_partner: strategic_partner)
+      end
+    end
   end
 end

@@ -20,7 +20,8 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
           city: 'Wangen-Brüttisellen',
           rate: 19.22,
           type: 'land',
-          hfcFootprint: false
+          hfcFootprint: false,
+          strategicPartner: 'cable_group'
         )
 
         expect(response.penetration.kamRegion.name).to eq(kam_region.name)
@@ -72,6 +73,7 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
               kamRegionId: "#{kam_region.id}"
               type: "Land"
               hfcFootprint: false
+              strategicPartner: "cable_group"
               #{penetration_competitions}
             }
           }
@@ -79,7 +81,7 @@ RSpec.describe Mutations::AdminToolkit::CreatePenetration do
         {
           penetration {
             id zip city rate hfcFootprint type kamRegion { name kam { name }}
-            penetrationCompetitions { id competition { name } }
+            penetrationCompetitions { id competition { name } } strategicPartner
           }
         }
       }

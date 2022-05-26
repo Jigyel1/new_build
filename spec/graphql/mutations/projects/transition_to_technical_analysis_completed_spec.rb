@@ -305,6 +305,48 @@ describe Mutations::Projects::TransitionToTechnicalAnalysisCompleted do
         expect(connection_cost.reload.pct_cost.payback_period).to be(497.0)
       end
     end
+
+    context 'when lease Line access technology is selected for standard projects' do
+      it 'sets the project priority directly to prio 1' do
+        response, errors = formatted_response(
+          query(
+            connection_costs: '{ connectionType: "hfc", costType: "standard" }',
+            access_technology: 'lease_line'
+          ),
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
+        expect(errors).to be_nil
+        expect(response.project.status).to eq('ready_for_offer')
+      end
+    end
+
+    context 'when lease line access technology is selected for complex projects' do
+      before { project.update_column(:category, :complex) }
+
+      it 'sets the project priority directly to prio 1' do
+        response, errors = formatted_response(
+          query(
+            set_pct_cost: true,
+            connection_costs: '
+              {
+                connectionType: "hfc",
+                costType: "standard"
+              },
+              {
+                connectionType: "ftth",
+                costType: "standard"
+              }
+            ',
+            access_technology: 'lease_line'
+          ),
+          current_user: super_user,
+          key: :transitionToTechnicalAnalysisCompleted
+        )
+        expect(errors).to be_nil
+        expect(response.project.status).to eq('ready_for_offer')
+      end
+    end
   end
 
   def installation_detail(set_installation_detail)

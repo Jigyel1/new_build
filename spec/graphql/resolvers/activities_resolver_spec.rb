@@ -481,6 +481,39 @@ RSpec.describe Resolvers::ActivitiesResolver do
           )
         end
       end
+
+      context 'with activities filter with trackable_id' do
+        before do
+          create(
+            :activity,
+            owner: super_user,
+            trackable: project,
+            action: :project_created,
+            log_data: {
+              owner_email: super_user.email,
+              parameters: { entry_type: project.entry_type, project_name: project.name }
+            }
+          )
+        end
+
+        let!(:param) { { trackable_id: project.id, name: project.name } }
+
+        it 'returns activities with matching trackable id' do
+          activities, errors = paginated_collection(
+            :activities,
+            query(trackable_id: param[:trackable_id], query: param[:name]),
+            current_user: super_user
+          )
+
+          expect(activities.pluck('displayText')).to eq(
+            [
+              t('activities.project.project_created.owner',
+                project_name: project.name)
+            ]
+          )
+          expect(errors).to be_nil
+        end
+      end
     end
   end
 

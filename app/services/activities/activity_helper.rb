@@ -23,6 +23,10 @@ module Activities
       scope.where(action: value)
     end
 
+    def apply_trackable_id_filter(scope, value)
+      scope.where(trackable_id: value)
+    end
+
     # @param scope [<Activity>] Filtered activities
     # @param value [Array<Datetime>] StartDate and EndDate in UTC format => ["2021-06-02T18:00:00.000Z"]
     # @return [ActiveRecord::Relation] The activities

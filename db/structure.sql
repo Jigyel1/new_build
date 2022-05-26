@@ -1023,6 +1023,7 @@ CREATE MATERIALIZED VIEW public.projects_lists AS
     addresses.zip,
     projects.label_list,
     projects.confirmation_status,
+    projects.strategic_partner,
     concat(addresses.street, ' ', addresses.street_no, ', ', addresses.zip, ', ', addresses.city) AS address,
     COALESCE(NULLIF(concat(profiles.firstname, ' ', profiles.lastname), ' '::text), (projects.assignee_type)::text) AS assignee,
     concat(kam_profile.firstname, ' ', kam_profile.lastname) AS kam_assignee,
@@ -2340,9 +2341,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220421174202'),
 ('20220503111729'),
 ('20220503115152'),
-('20220512081353'),
 ('20220512102440'),
-('20220513055242'),
-('20220513095430');
+('20220513095430'),
+('20220513104614');
 
 
