@@ -1,0 +1,55 @@
+# Only users with the given domain can be invited & use the portal.
+# For specs to work in bitbucket pipelines, make sure you atleast add selise.ch in ALLOWED_DOMAINS
+# To add additional domains, just append to the string with comma separation
+ALLOWED_DOMAINS=selise.ch
+
+## Email sender
+# preferred - new-build-thor@selise.dev
+# but using `noreply` to avoid emails going to spam
+MAIL_SENDER=noreply@selise.dev
+
+# API docs - /api-docs
+SWAGGER_USER=Thor
+SWAGGER_PASS=Heimdall!
+
+# Number of items returned per page. Defaults to 100
+MAX_PAGE_SIZE=100
+
+# Devise session timeout. Defaults to 30 minutes of inactivity.
+SESSION_TIMEOUT=10080
+
+# Redis
+REDIS_URL='redis://localhost:6379/12'
+REDIS_SECRET='random!'
+
+# Sidekiq UI
+SIDEKIQ_USERNAME=Loki
+SIDEKIQ_PASSWORD=Jotunheim!
+
+# Users you want to show for each role. Only in the listing page. Details will call a
+# different endpoint.
+USERS_PER_ROLE = 10
+
+# This may change based on the server you are setting the token for.
+ROLLBAR_ACCESS_TOKEN=db09bc1cb6e94c9ca35b5c56944d16d0
+
+# Azure OAuth details
+AZURE_AUTHORIZATION_ENDPOINT=https://login.microsoftonline.com/5c6dd6a7-f0c7-4a32-8f7c-9ca7cebf6e87/oauth2/v2.0/authorize
+AZURE_CALLBACK_URI=api/v1/users/auth/azure_activedirectory_v2/callback
+#AZURE_CALLBACK_URI=users/auth/callback
+
+AZURE_CLIENT_ID=1c8e12e3-83a8-41d4-8528-09c6c15a7420
+AZURE_SECRET=.j-wZiVHXTSZekk1T~dS.nk63rL7.8d3cI
+AZURE_TENANT_ID=5c6dd6a7-f0c7-4a32-8f7c-9ca7cebf6e87
+
+SMTP_USERNAME=AKIAVMUAJ6PDJDLMU5AA
+SMTP_PASSWORD=BMFL7KyWxAcJxSWdoWF8fD0ArkqEx5L2cdcD561aI4yG
+SMTP_ADDRESS=email-smtp.eu-west-1.amazonaws.com
+
+
+TEST_SERVER=true
+
+# EXTERNAL SERVICES
+GIS_URL = https://webgis.upc.ch/web_office/synserver?project=AccessPlanningSales&language=DE&client=corejs&query=bauprojekte&keyname=PROJ_EXTERN_ID&keyvalue=
+INFO_MANAGER_URL = https://infomanager.bauinfocenter.ch/go/projectext/
+GIS_URL_STATIC = https://webgis.upc.ch/web_office/synserver?project=AccessPlanningSales&language=DE
